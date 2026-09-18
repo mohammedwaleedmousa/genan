@@ -51,7 +51,7 @@ const BestSellersPage = () => {
                   <span className="font-serif text-[7px] tracking-[0.25em] text-[#B75F66]">{getSiteText(content, "best_sellers_eyebrow", "MOST LOVED")}</span>
                 </div>
                 <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#403131] md:text-[36px]">{getSiteText(content, "best_sellers_title", "الأكثر مبيعاً")}</h1>
-                <p className="mt-1.5 max-w-[275px] text-[8px] leading-5 text-[#9B8984] md:max-w-md md:text-[10px]">القطع التي اختارها عملاء فلامنجو أكثر من غيرها.</p>
+                <p className="mt-1.5 max-w-[275px] text-[8px] leading-5 text-[#9B8984] md:max-w-md md:text-[10px]">القطع التي اختارها عملاء جنان أكثر من غيرها.</p>
               </div>
 
               {!isLoading && total > 0 && (
@@ -85,7 +85,7 @@ const BestSellersPage = () => {
           ) : products.length === 0 ? (
             <div className="flex min-h-[48vh] flex-col items-center justify-center px-5 text-center">
               <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#FAECE9]"><Heart className="h-5 w-5 stroke-[1.4] text-[#C76D73]" /></div>
-              <span className="mt-4 font-serif text-[6px] tracking-[0.22em] text-[#B86168]">FLAMINGO PARK</span>
+              <span className="mt-4 font-serif text-[6px] tracking-[0.22em] text-[#B86168]">GENAN</span>
               <h2 className="mt-2 text-[15px] font-semibold text-[#493837]">{getSiteText(content, "best_sellers_empty", "لا توجد منتجات حالياً")}</h2>
               <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#9D8E89]">ستظهر هنا المنتجات الأكثر طلبًا عند توفرها.</p>
             </div>
@@ -114,10 +114,10 @@ const BestSellersPage = () => {
             <div className="border-t border-[#EADFDA] pt-6 text-center">
               <div className="mb-2 flex items-center justify-center gap-2">
                 <span className="h-px w-5 bg-[#D9B6B2]" />
-                <span className="font-serif text-[6px] tracking-[0.24em] text-[#B86168]">FLAMINGO MOST LOVED</span>
+                <span className="font-serif text-[6px] tracking-[0.24em] text-[#B86168]">GENAN MOST LOVED</span>
                 <span className="h-px w-5 bg-[#D9B6B2]" />
               </div>
-              <p className="text-[9px] text-[#968783]">اختيارات أحبها عملاء فلامنجو واستمرت ضمن الأكثر طلبًا.</p>
+              <p className="text-[9px] text-[#968783]">اختيارات أحبها عملاء جنان واستمرت ضمن الأكثر طلبًا.</p>
             </div>
           </section>
         )}
