@@ -14,7 +14,7 @@ type ChatbotConfig = { enabled: boolean; greeting: string; faqs: Array<{ questio
 const welcomeMessage: Message = {
   id: 1,
   role: "assistant",
-  text: "أهلاً بك. أنا دليل فلامنجو الافتراضي، ويسعدني مساعدتك في اختيار المنتجات ومعرفة الأسعار والتوفر والشحن.",
+  text: "أهلاً بك. أنا دليل جنان الافتراضي، ويسعدني مساعدتك في اختيار المنتجات ومعرفة الأسعار والتوفر والشحن.",
 };
 
 const normalize = (value: string) => value.trim().toLowerCase();
@@ -219,7 +219,7 @@ const CustomerAssistant = ({ initialOpen = false }: { initialOpen?: boolean }) =
       {open && (
         <section className="absolute bottom-16 left-0 flex h-[min(600px,calc(100vh-5.5rem))] w-[min(410px,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-lg border border-border/80 bg-background shadow-[0_24px_70px_-30px_rgba(35,21,26,0.45)]">
           <header className="flex items-center justify-between border-b border-primary/15 bg-[#fff8fa] px-5 py-4">
-            <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-primary text-primary-foreground shadow-sm"><Bot className="h-5 w-5" /></span><div><p className="text-sm font-semibold text-foreground">دليل فلامنجو</p><p className="mt-0.5 flex items-center gap-1 text-[11px] text-muted-foreground"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> مساعد افتراضي متاح الآن</p></div></div>
+            <div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-primary text-primary-foreground shadow-sm"><Bot className="h-5 w-5" /></span><div><p className="text-sm font-semibold text-foreground">دليل جنان</p><p className="mt-0.5 flex items-center gap-1 text-[11px] text-muted-foreground"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> مساعد افتراضي متاح الآن</p></div></div>
             <button type="button" onClick={() => setOpen(false)} className="grid h-8 w-8 place-items-center rounded-md border border-border bg-background text-muted-foreground hover:text-foreground" aria-label="إغلاق المحادثة"><X className="h-4 w-4" /></button>
           </header>
           <div ref={messageListRef} className="flex-1 space-y-4 overflow-y-auto bg-[#fffdfd] p-4">
