@@ -20,7 +20,7 @@ interface TrackingStep {
 
 type NormalizedStatus = "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
 
-const STORE_WHATSAPP = String(import.meta.env.VITE_GENAN_WHATSAPP_NUMBER || "").replace(/\\D/g, "");
+const STORE_WHATSAPP = String(import.meta.env.VITE_GENAN_WHATSAPP_NUMBER || "").replace(/\D/g, "");
 
 const normalizeStatus = (raw: string): NormalizedStatus => {
   const status = String(raw || "").trim().toLowerCase();
