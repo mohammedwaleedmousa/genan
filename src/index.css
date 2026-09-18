@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    /* Luxury Boutique — Soft Pink / gold / Warm Neutral */
-    --background: 30 40% 99%; /* warm white */
-    --foreground: 25 18% 12%; /* deep charcoal */
+    /* Genan — Ivory / Deep Forest / Warm Gold */
+    --background: 42 30% 98%; /* ivory */
+    --foreground: 151 33% 16%; /* deep forest */
 
     --card: 0 0% 100%;
     --card-foreground: 25 18% 12%;
@@ -17,18 +17,18 @@
     --popover-foreground: 25 18% 12%;
 
     /* Primary = soft rose pink */
-    --primary: 346 70% 62%; /* soft rose */
+    --primary: 151 43% 16%; /* deep forest */
     --primary-foreground: 0 0% 100%;
-    --primary-container: 346 80% 96%;
+    --primary-container: 42 34% 93%;
 
-    --secondary: 346 74% 80%; /* soft flamingo pink */
-    --secondary-foreground: 25 25% 12%;
+    --secondary: 39 40% 66%; /* warm gold */
+    --secondary-foreground: 151 43% 16%;
 
-    --muted: 30 25% 96%;
-    --muted-foreground: 25 10% 42%;
+    --muted: 42 22% 94%;
+    --muted-foreground: 148 8% 42%;
 
-    --accent: 346 80% 96%;
-    --accent-foreground: 346 60% 30%;
+    --accent: 42 35% 92%;
+    --accent-foreground: 151 43% 16%;
 
     --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 100%;
@@ -36,50 +36,50 @@
     --success: 145 40% 38%;
     --warning: 38 80% 45%;
 
-    --border: 25 15% 90%;
-    --input: 25 15% 92%;
-    --ring: 346 70% 62%;
+    --border: 42 17% 84%;
+    --input: 42 17% 88%;
+    --ring: 151 43% 22%;
 
     --radius: 1rem;
 
     /* Brand aliases — retinted from gold to soft flamingo pink */
-    --gold: 346 74% 80%;
-    --gold-light: 346 85% 92%;
-    --gold-dark: 346 60% 68%;
-    --rose: 346 70% 62%;
-    --rose-light: 346 80% 92%;
-    --beige: 30 35% 96%;
-    --beige-dark: 30 20% 90%;
-    --cream: 30 40% 99%;
-    --charcoal: 25 18% 12%;
-    --marble: 30 40% 98%;
-    --icon-light: 25 18% 18%;
+    --gold: 39 40% 66%;
+    --gold-light: 41 44% 84%;
+    --gold-dark: 39 39% 48%;
+    --rose: 151 43% 22%;
+    --rose-light: 42 35% 92%;
+    --beige: 42 28% 94%;
+    --beige-dark: 42 16% 86%;
+    --cream: 42 30% 98%;
+    --charcoal: 151 33% 16%;
+    --marble: 42 28% 96%;
+    --icon-light: 151 33% 20%;
 
     /* Gradients — soft flamingo pink */
     --gradient-primary: linear-gradient(
       135deg,
-      hsl(346 85% 88%) 0%,
-      hsl(346 70% 72%) 100%
+      hsl(41 45% 78%) 0%,
+      hsl(151 32% 34%) 100%
     );
     --gradient-gold: linear-gradient(
       135deg,
-      hsl(346 85% 88%) 0%,
-      hsl(346 74% 78%) 100%
+      hsl(41 45% 78%) 0%,
+      hsl(39 40% 66%) 100%
     );
     --gradient-rose: linear-gradient(
       135deg,
-      hsl(346 85% 90%) 0%,
-      hsl(346 70% 72%) 100%
+      hsl(42 42% 86%) 0%,
+      hsl(151 32% 34%) 100%
     );
     --gradient-glow:
       radial-gradient(
         circle at 20% 0%,
-        hsl(346 80% 94% / 0.7),
+        hsl(42 35% 93% / 0.7),
         transparent 55%
       ),
       radial-gradient(
         circle at 80% 100%,
-        hsl(346 80% 92% / 0.55),
+        hsl(41 35% 88% / 0.55),
         transparent 50%
       );
     --gradient-gold-shine: linear-gradient(
@@ -112,7 +112,7 @@
     );
 
     /* Shadows — soft luxury */
-    --shadow-gold: 0 8px 28px -10px hsl(346 74% 78% / 0.28);
+    --shadow-gold: 0 8px 28px -10px hsl(39 40% 66% / 0.28);
     --shadow-rose: 0 12px 40px -12px hsl(346 70% 62% / 0.3);
     --shadow-elegant: 0 18px 50px -18px hsl(25 18% 14% / 0.18);
     --shadow-card: 0 4px 20px -6px hsl(25 18% 14% / 0.08);
@@ -120,12 +120,12 @@
     --shadow-glass: 0 8px 32px -8px hsl(25 18% 14% / 0.1);
 
     /* Unified flamingo button system */
-    --flamingo-btn-start: 346 84% 86%;
-    --flamingo-btn-end: 346 74% 72%;
-    --flamingo-btn-text: 336 42% 22%;
-    --flamingo-btn-border: 346 58% 68%;
-    --flamingo-btn-hover-start: 346 86% 90%;
-    --flamingo-btn-hover-end: 346 76% 76%;
+    --flamingo-btn-start: 151 43% 18%;
+    --flamingo-btn-end: 151 40% 25%;
+    --flamingo-btn-text: 0 0% 100%;
+    --flamingo-btn-border: 151 32% 28%;
+    --flamingo-btn-hover-start: 151 41% 22%;
+    --flamingo-btn-hover-end: 151 38% 30%;
 
     /* Sidebar — dark warm brown */
     --sidebar-background: 0 0% 100%;
@@ -300,7 +300,7 @@
   }
 
   .text-gold-gradient {
-    background: linear-gradient(135deg, hsl(346 74% 60%) 0%, hsl(346 60% 40%) 100%);
+    background: linear-gradient(135deg, hsl(39 40% 52%) 0%, hsl(151 38% 24%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -410,13 +410,13 @@
     left: 100%;
   }
 
-  /* Flamingo wordmark — Dior-style serif */
-  .logo-flamingo {
+  /* Genan wordmark */
+  .logo-flamingo, .logo-genan {
     font-family: "Playfair Display", "Cormorant Garamond", serif;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: hsl(var(--primary));
+    color: #173A2D;
   }
 
   .hide-scrollbar::-webkit-scrollbar {
