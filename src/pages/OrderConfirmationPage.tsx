@@ -11,7 +11,7 @@ import { track } from "@/lib/analytics";
 import { CURRENCY_RATES, convertPrice, hydrateCurrencies } from "@/lib/currency";
 import { handleImageError, optimizeImage } from "@/lib/imageUrl";
 
-const STORE_WHATSAPP = "967778579777";
+const STORE_WHATSAPP = String(import.meta.env.VITE_GENAN_WHATSAPP_NUMBER || "").replace(/\D/g, "");
 
 interface SelectedAccessory {
   name: string;
@@ -157,21 +157,25 @@ const OrderConfirmationPage = () => {
   };
 
   const openWhatsApp = () => {
-    if (!orderData) return;
+    if (!orderData || !STORE_WHATSAPP) return false;
     const whatsappUrl = `https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(createWhatsAppMessage())}`;
     window.location.assign(whatsappUrl);
+    return true;
   };
 
   const handleConfirmOrder = () => {
     if (!orderData || isConfirmed) return;
     setIsConfirmed(true);
-    toast({ title: "تم تأكيد الطلب", description: "سيتم فتح واتساب مباشرة بدون انتظار تحميل ملف." });
-    openWhatsApp();
+    const openedWhatsApp = openWhatsApp();
+    toast({
+      title: "تم تأكيد الطلب",
+      description: openedWhatsApp ? "سيتم فتح واتساب مباشرة." : "تم حفظ الطلب ويمكنك متابعته من رقم الطلب.",
+    });
   };
 
   if (!orderData) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#FFFDFC]" dir="rtl">
+      <div className="flex min-h-screen items-center justify-center bg-[#F8F6F0]" dir="rtl">
         <div className="text-center">
           <span className="mx-auto block h-7 w-7 animate-spin rounded-full border-2 border-[#DDD4C3] border-t-[#173A2D]" />
           <p className="mt-3 text-[8px] text-[#958782]">جاري تحميل تفاصيل الطلب...</p>
@@ -181,7 +185,7 @@ const OrderConfirmationPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFDFC]" dir="rtl">
+    <div className="min-h-screen bg-[#F8F6F0]" dir="rtl">
       <div className="print:hidden">
         <Navbar />
         <CartDrawer />
@@ -227,8 +231,8 @@ const OrderConfirmationPage = () => {
               <div className="min-w-0 text-left">
                 <p className="text-[6px] uppercase tracking-[0.12em] text-[#A79A95]">ORDER NUMBER</p>
                 <div className="mt-1 flex items-center justify-end gap-1.5">
-                  <span dir="ltr" className="font-mono text-[9px] font-semibold text-[#514540]">{orderData.orderNumber}</span>
-                  <button type="button" onClick={handleCopyOrderNumber} aria-label="نسخ رقم الطلب" className="flex h-6 w-6 items-center justify-center rounded-[6px] text-[#A76A6D] active:bg-[#F3F0E6] print:hidden">
+                  <span dir="ltr" className="font-mono text-[9px] font-semibold text-[#30453A]">{orderData.orderNumber}</span>
+                  <button type="button" onClick={handleCopyOrderNumber} aria-label="نسخ رقم الطلب" className="flex h-6 w-6 items-center justify-center rounded-[6px] text-[#9D7B40] active:bg-[#F3F0E6] print:hidden">
                     <Copy className="h-3 w-3" strokeWidth={1.5} />
                   </button>
                 </div>
@@ -238,29 +242,29 @@ const OrderConfirmationPage = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 border-b border-[#E5DED0] bg-[#FFFCFB]">
+            <div className="grid grid-cols-2 border-b border-[#E5DED0] bg-[#F8F6F0]">
               <div className="border-l border-[#E5DED0] px-4 py-3 md:px-6">
                 <div className="flex items-center gap-1.5">
                   <PackageCheck className="h-3 w-3 text-[#9D7B40]" strokeWidth={1.5} />
-                  <span className="text-[6px] text-[#9D8F8A]">حالة الطلب</span>
+                  <span className="text-[6px] text-[#8A938B]">حالة الطلب</span>
                 </div>
                 <p className="mt-1 text-[8px] font-semibold text-[#527258]">تم استلام الطلب</p>
               </div>
               <div className="px-4 py-3 md:px-6">
                 <div className="flex items-center gap-1.5">
                   <Truck className="h-3 w-3 text-[#9D7B40]" strokeWidth={1.5} />
-                  <span className="text-[6px] text-[#9D8F8A]">شركة التوصيل</span>
+                  <span className="text-[6px] text-[#8A938B]">شركة التوصيل</span>
                 </div>
-                <p className="mt-1 truncate text-[8px] font-semibold text-[#514540]">{orderData.deliveryCompany}</p>
+                <p className="mt-1 truncate text-[8px] font-semibold text-[#30453A]">{orderData.deliveryCompany}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 border-b border-[#E5DED0] md:grid-cols-2">
               <div className="px-4 py-4 md:border-l md:border-[#E5DED0] md:px-6">
                 <p className="text-[7px] font-medium text-[#8A938B]">معلومات العميل</p>
-                <p className="mt-2 text-[9px] font-semibold text-[#514540]">{orderData.customerName}</p>
+                <p className="mt-2 text-[9px] font-semibold text-[#30453A]">{orderData.customerName}</p>
                 <div className="mt-1.5 flex items-center gap-1.5">
-                  <Phone className="h-3 w-3 text-[#A76A6D]" strokeWidth={1.4} />
+                  <Phone className="h-3 w-3 text-[#9D7B40]" strokeWidth={1.4} />
                   <span dir="ltr" className="text-[7px] text-[#7E706B]">{orderData.customerPhone}</span>
                 </div>
               </div>
@@ -268,9 +272,9 @@ const OrderConfirmationPage = () => {
               <div className="border-t border-[#E5DED0] px-4 py-4 md:border-t-0 md:px-6">
                 <p className="text-[7px] font-medium text-[#8A938B]">عنوان التوصيل</p>
                 <div className="mt-2 flex items-start gap-1.5">
-                  <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-[#A76A6D]" strokeWidth={1.4} />
+                  <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-[#9D7B40]" strokeWidth={1.4} />
                   <div>
-                    {orderData.customerCity && <p className="text-[8px] font-medium text-[#514540]">{orderData.customerCity}</p>}
+                    {orderData.customerCity && <p className="text-[8px] font-medium text-[#30453A]">{orderData.customerCity}</p>}
                     <p className="text-[8px] leading-5 text-[#4C5E54]">{orderData.customerAddress}</p>
                   </div>
                 </div>
@@ -280,7 +284,7 @@ const OrderConfirmationPage = () => {
 
             <div className="px-4 py-4 md:px-6 md:py-5">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-[9px] font-semibold text-[#514540]">المنتجات</h3>
+                <h3 className="text-[9px] font-semibold text-[#30453A]">المنتجات</h3>
                 <span className="text-[6px] text-[#8A938B]">{orderData.items.length} {orderData.items.length === 1 ? "منتج" : "منتجات"}</span>
               </div>
 
@@ -293,7 +297,7 @@ const OrderConfirmationPage = () => {
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <h4 className="truncate text-[9px] font-semibold text-[#4A3E3A]">{item.product_name}</h4>
+                        <h4 className="truncate text-[9px] font-semibold text-[#30453A]">{item.product_name}</h4>
                         <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[6px] text-[#948681]">
                           <span>الكمية: {item.quantity}</span>
                           {item.selected_size && <><span className="text-[#D2C8C4]">•</span><span>المقاس: {item.selected_size}</span></>}
@@ -326,10 +330,10 @@ const OrderConfirmationPage = () => {
               </div>
             </div>
 
-            <div className="border-t border-[#E5DED0] bg-[#FFFCFB] px-4 py-4 md:px-6 md:py-5">
+            <div className="border-t border-[#E5DED0] bg-[#F8F6F0] px-4 py-4 md:px-6 md:py-5">
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between text-[7px] text-[#746661]"><span>المجموع الفرعي</span><span>{fmt(orderData.subtotal)} {currency}</span></div>
-                <div className="flex items-center justify-between gap-3 text-[7px] text-[#746661]"><span className="truncate">رسوم التوصيل ({orderData.deliveryCompany})</span><span className="shrink-0">{fmt(orderData.deliveryFee)} {currency}</span></div>
+                <div className="flex items-center justify-between text-[7px] text-[#68736B]"><span>المجموع الفرعي</span><span>{fmt(orderData.subtotal)} {currency}</span></div>
+                <div className="flex items-center justify-between gap-3 text-[7px] text-[#68736B]"><span className="truncate">رسوم التوصيل ({orderData.deliveryCompany})</span><span className="shrink-0">{fmt(orderData.deliveryFee)} {currency}</span></div>
                 {Number(orderData.discountAmount || 0) > 0 && (
                   <div className="flex items-center justify-between text-[7px] font-medium text-[#5F8066]">
                     <div className="flex items-center gap-1.5"><span>الخصم</span>{orderData.couponCode && <span className="rounded-[4px] bg-[#EAF4EC] px-1.5 py-0.5 font-mono text-[5px] text-[#58735D]">{orderData.couponCode}</span>}</div>
@@ -359,7 +363,7 @@ const OrderConfirmationPage = () => {
               )}
 
               <div className="mt-4 flex items-end justify-between border-t border-[#E8DFDB] pt-4">
-                <div><p className="text-[8px] font-semibold text-[#514540]">الإجمالي</p><p className="mt-0.5 text-[5px] text-[#A99C97]">الإجمالي النهائي للطلب</p></div>
+                <div><p className="text-[8px] font-semibold text-[#30453A]">الإجمالي</p><p className="mt-0.5 text-[5px] text-[#A99C97]">الإجمالي النهائي للطلب</p></div>
                 <span className="text-[16px] font-bold text-[#9D7B40] md:text-[18px]">{fmt(orderData.total)} {currency}</span>
               </div>
 
