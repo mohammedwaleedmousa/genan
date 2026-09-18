@@ -14,6 +14,7 @@ import ProductReviews from "@/components/ProductReviews";
 import ProductQA from "@/components/ProductQA";
 import AccessoryCard from "@/components/AccessoryCard";
 import ProductDetailSkeleton from "@/components/ProductDetailSkeleton";
+import Logo from "@/components/Logo";
 
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useStore, Product } from "@/store/useStore";
@@ -739,24 +740,8 @@ const ProductDetailPage = () => {
      FEATURES
   ========================================================= */
 
-  const defaultFeatures: ProductFeature[] = [
-    {
-      icon: "truck",
-      title: "توصيل سريع",
-      desc: "2 - 7 أيام",
-    },
-    {
-      icon: "rotate",
-      title: "إرجاع سهل",
-      desc: "حسب السياسة",
-    },
-    {
-      icon: "shield",
-      title: "منتج موثوق",
-      desc: "جودة مضمونة",
-    },
-  ];
-  const features = product.features?.length ? product.features.slice(0, 3) : defaultFeatures;
+  const features: ProductFeature[] = product.features?.length ? product.features.slice(0, 3) : [];
+
 
   const getFeatureIcon = (icon: string) => {
     const icons = {
@@ -786,13 +771,13 @@ const ProductDetailPage = () => {
           MOBILE HEADER
       ===================================================== */}
 
-      <header className="sticky top-0 z-50 flex h-[50px] items-center justify-between border-b border-[#E5DED0] bg-white px-2 md:hidden">
+      <header className="sticky top-0 z-50 flex h-[54px] items-center justify-between border-b border-[#DCD5C6] bg-[#F8F6F0]/96 px-2 backdrop-blur-xl md:hidden">
         <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-10 w-10 items-center justify-center rounded-full text-[#263B31] active:bg-[#F3F0E6]">
           <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
         </button>
 
         <button type="button" onClick={() => navigate("/home")} aria-label="Genan" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <img src="/icons/app-icon-1024.png" alt="Genan" width={38} height={38} className="h-[38px] w-[38px] object-contain" />
+          <Logo size="md" />
         </button>
 
         <div className="flex items-center">
@@ -810,13 +795,13 @@ const ProductDetailPage = () => {
         </div>
       </header>
 
-      <main className="pb-[88px] md:pb-16 md:pt-4">
-        <div className="mx-auto w-full max-w-[1380px] md:px-6">
+      <main className="pb-[88px] md:pb-20">
+        <div className="mx-auto w-full max-w-[1680px] md:px-7 lg:px-10">
           {/* =================================================
               BREADCRUMB
           ================================================= */}
 
-          <nav className="mb-4 hidden items-center gap-2 text-[9px] text-[#A0928D] md:flex" aria-label="مسار التنقل">
+          <nav className="mb-6 hidden items-center gap-2 pt-7 text-[8px] tracking-[0.04em] text-[#879087] md:flex" aria-label="مسار التنقل">
             <button type="button" onClick={() => navigate("/home")} className="transition-colors hover:text-[#9D7B40]">
               الرئيسية
             </button>
@@ -836,20 +821,20 @@ const ProductDetailPage = () => {
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="grid grid-cols-1 bg-white md:overflow-hidden md:rounded-[18px] md:border md:border-[#E2DCCE] lg:grid-cols-[minmax(0,1.08fr)_minmax(390px,0.92fr)]">
+          <div className="grid grid-cols-1 border-y border-[#DCD5C6] bg-[#F8F6F0] lg:grid-cols-[minmax(0,1.14fr)_minmax(420px,0.86fr)]">
             {/* ===============================================
                 GALLERY
             =============================================== */}
 
-            <section className="min-w-0 bg-white lg:border-l lg:border-[#E2DCCE]">
-              <div className="lg:sticky lg:top-[98px]">
+            <section className="min-w-0 bg-[#EEE9DD] lg:border-l lg:border-[#DCD5C6]">
+              <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
                     لا يتم قص المنتج
                     الخلفية تملأ الفراغ الجانبي
                 =========================================== */}
 
-                <div className="relative h-[56svh] min-h-[410px] max-h-[520px] w-full overflow-hidden bg-[#F4F2F0] sm:h-[60svh] sm:min-h-[450px] sm:max-h-[600px] md:h-auto md:min-h-0 md:max-h-none md:aspect-[4/5]">
+                <div className="relative h-[58svh] min-h-[430px] max-h-[620px] w-full overflow-hidden bg-[#E8E3D8] sm:h-[64svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[3/4]">
   {/* MAIN PRODUCT */}
   <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y" }} className="h-full w-full cursor-grab active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
@@ -917,30 +902,30 @@ const ProductDetailPage = () => {
                 DETAILS
             =============================================== */}
 
-            <section className="min-w-0 bg-white lg:px-6 lg:py-6">
+            <section className="min-w-0 bg-[#F8F6F0] lg:px-10 lg:py-10 xl:px-12">
               {/* =============================================
                   TITLE + PRICE
               ============================================= */}
 
-              <div className="border-b border-[#E5DED0] px-3.5 py-4 sm:px-5 lg:px-0 lg:pt-0">
+              <div className="border-b border-[#DCD5C6] px-4 py-6 sm:px-6 lg:px-0 lg:pt-0 lg:pb-8">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     {product.brand && (
-                      <div className="mb-1.5 flex items-center gap-2">
-                        <span className="h-[2px] w-3 rounded-full bg-[#173A2D]" />
-                        <span className="text-[8px] font-semibold tracking-[0.08em] text-[#9D7B40]">{product.brand}</span>
+                      <div className="mb-3 flex items-center gap-3">
+                        <span className="h-px w-9 bg-[#B89453]/65" />
+                        <span className="text-[7px] font-semibold tracking-[0.2em] text-[#9D7B40]">{product.brand}</span>
                       </div>
                     )}
 
-                    <h1 className="text-[16px] font-semibold leading-[1.65] tracking-[-0.025em] text-[#302725] md:text-[20px]">{product.nameAr || product.name}</h1>
+                    <h1 className="text-[26px] font-medium leading-[1.5] tracking-[-0.045em] text-[#173A2D] md:text-[34px]">{product.nameAr || product.name}</h1>
 
                     {effectiveDescription && (
-                      <p className="mt-2 max-w-[620px] whitespace-pre-line text-[10px] leading-[1.9] text-[#796A65] md:text-[11px]">{effectiveDescription}</p>
+                      <p className="mt-4 max-w-[620px] whitespace-pre-line text-[10px] leading-7 text-[#6F786F] md:text-[12px] md:leading-8">{effectiveDescription}</p>
                     )}
                   </div>
 
                   <div className="hidden shrink-0 items-center gap-1 lg:flex">
-                    <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-8 w-8 items-center justify-center rounded-full border border-[#DED8CA] text-[#68736B] hover:bg-[#F5F1E7]">
+                    <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center border border-[#CFC8B9] text-[#667168] transition-colors hover:bg-[#EEE9DD]">
                       <Heart className={`h-3.5 w-3.5 ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : ""}`} strokeWidth={1.5} />
                     </button>
 
@@ -950,27 +935,14 @@ const ProductDetailPage = () => {
                   </div>
                 </div>
 
-                {/* RATING */}
-
-                <div className="mt-2 flex items-center gap-2">
-                  <div className="flex items-center gap-[1px]">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="h-[11px] w-[11px] fill-[#DCA653] text-[#DCA653]" strokeWidth={1} />
-                    ))}
-                  </div>
-
-                  <span className="text-[8px] font-semibold text-[#665853]">4.7</span>
-                  <span className="text-[8px] text-[#909890]">(128 تقييم)</span>
-                </div>
-
                 {/* PRICE */}
 
                 <div className="mt-3 flex flex-wrap items-end gap-2">
-                  <span className="text-[21px] font-bold leading-none text-[#9D7B40] md:text-[24px]">{formatCurrency(totalPrice * quantity)}</span>
+                  <span className="text-[24px] font-semibold leading-none text-[#173A2D] md:text-[30px]">{formatCurrency(totalPrice * quantity)}</span>
 
                   {product.originalPrice && !activeQuality && <span className="text-[9px] text-[#AA9B96] line-through">{formatCurrency(product.originalPrice)}</span>}
 
-                  {!!product.discount && <span className="rounded-full bg-[#FFF0EE] px-2 py-1 text-[7px] font-semibold text-[#B45D63]">خصم {product.discount}%</span>}
+                  {!!product.discount && <span className="bg-[#173A2D] px-2.5 py-1.5 text-[7px] font-semibold text-white">خصم {product.discount}%</span>}
                 </div>
 
                 {/* STOCK */}
@@ -1084,7 +1056,7 @@ const ProductDetailPage = () => {
                   <span className="mt-1 block text-[7px] text-[#8A938B]">حدد العدد المطلوب</span>
                 </div>
 
-                <div className="flex h-9 items-center overflow-hidden rounded-[9px] border border-[#DED8CA]">
+                <div className="flex h-10 items-center overflow-hidden border border-[#CFC8B9]">
                   <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="إنقاص الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F3F0E6]">
                     <Minus className="h-3 w-3" strokeWidth={1.6} />
                   </button>
@@ -1101,7 +1073,7 @@ const ProductDetailPage = () => {
                   FEATURES
               ============================================= */}
 
-              <div className="grid grid-cols-3 border-b border-[#E5DED0] bg-[#FFFBFA]">
+              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#DCD5C6] bg-[#EEE9DD]">
                 {features.map((feature, index) => {
                   const Icon = getFeatureIcon(feature.icon);
 
@@ -1115,7 +1087,7 @@ const ProductDetailPage = () => {
                     </div>
                   );
                 })}
-              </div>
+              </div>}
 
               {/* =============================================
                   ACCESSORIES
@@ -1184,9 +1156,9 @@ const ProductDetailPage = () => {
                   {openSection === "delivery" && (
                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="overflow-hidden">
                       <div className="px-3.5 pb-4 text-[9px] leading-6 text-[#796A65] sm:px-5 lg:px-0">
-                        <p>التوصيل داخل عدن يتم في نفس اليوم حسب توفر المنتج ووقت الطلب.</p>
+                        <p>مدة التوصيل ورسومه تظهر لك بوضوح أثناء إتمام الطلب حسب منطقتك.</p>
 
-                        <p className="mt-1">التوصيل إلى بقية المحافظات يستغرق عادة من 2 إلى 7 أيام حسب المنطقة وإجراءات الشحن.</p>
+                        <p className="mt-1">قد تختلف مدة الوصول حسب المحافظة وشركة التوصيل المختارة.</p>
                       </div>
                     </motion.div>
                   )}
@@ -1246,12 +1218,12 @@ const ProductDetailPage = () => {
 
               <div className="hidden border-t border-[#E5DED0] pt-5 lg:block">
                 <div className="flex gap-2">
-                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[46px] flex-1 items-center justify-center gap-2 rounded-[10px] border border-[#173A2D] bg-white px-5 text-[10px] font-semibold text-[#9D7B40] transition-colors hover:bg-[#F5F1E7] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 border border-[#173A2D] bg-transparent px-5 text-[10px] font-semibold text-[#173A2D] transition-colors hover:bg-[#EEE9DD] disabled:cursor-not-allowed disabled:opacity-40">
                     <ShoppingBag className="h-4 w-4" strokeWidth={1.5} />
                     أضف إلى السلة
                   </button>
 
-                  <button type="button" onClick={handleBuyNow} disabled={!available} className="h-[46px] flex-1 rounded-[10px] bg-[#173A2D] px-5 text-[10px] font-semibold text-white transition-colors hover:bg-[#214C3B] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleBuyNow} disabled={!available} className="h-[48px] flex-1 bg-[#173A2D] px-5 text-[10px] font-semibold text-white transition-colors hover:bg-[#214C3B] disabled:cursor-not-allowed disabled:opacity-40">
                     اشتري الآن
                   </button>
 
@@ -1269,7 +1241,7 @@ const ProductDetailPage = () => {
               STORE + QA + REVIEWS
           ================================================= */}
 
-          <div className="mt-2 bg-white px-3.5 sm:px-5 md:mt-6 md:rounded-[18px] md:border md:border-[#E2DCCE] md:px-6">
+          <div className="mt-2 bg-white px-3.5 sm:px-5 md:mt-6 md:border-y md:border-[#DCD5C6] md:px-6">
             {/* STORE */}
 
             <section className="flex items-center justify-between border-b border-[#E5DED0] py-4">
@@ -1295,7 +1267,7 @@ const ProductDetailPage = () => {
                 </div>
               </div>
 
-              <button type="button" onClick={() => navigate("/products")} className="h-8 rounded-full border border-[#C6B17F] px-3 text-[7px] font-semibold text-[#173A2D] active:bg-[#F5F1E7]">
+              <button type="button" onClick={() => navigate("/products")} className="h-8 border border-[#C6B17F] px-3 text-[7px] font-semibold text-[#173A2D] active:bg-[#F5F1E7]">
                 عرض المتجر
               </button>
             </section>
@@ -1318,7 +1290,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {relatedProducts.length > 0 && (
-            <section className="mt-2 bg-white px-2.5 py-5 md:mt-6 md:rounded-[18px] md:border md:border-[#E2DCCE] md:px-6 md:py-7">
+            <section className="mt-2 bg-white px-2.5 py-5 md:mt-6 md:border-y md:border-[#DCD5C6] md:px-6 md:py-7">
               <div className="mb-4 flex items-end justify-between px-0.5">
                 <div>
                   <div className="mb-1 flex items-center gap-2">
@@ -1347,7 +1319,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {recentItems.filter((item) => item.id !== product.id).length > 0 && (
-            <section className="mt-2 bg-white px-2.5 py-5 md:mt-6 md:rounded-[18px] md:border md:border-[#E2DCCE] md:px-6 md:py-7">
+            <section className="mt-2 bg-white px-2.5 py-5 md:mt-6 md:border-y md:border-[#DCD5C6] md:px-6 md:py-7">
               <div className="mb-4">
                 <div className="mb-1 flex items-center gap-2">
                   <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
@@ -1374,7 +1346,7 @@ const ProductDetailPage = () => {
           MOBILE BUY BAR
       ===================================================== */}
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E2DCCE] bg-white px-2.5 pt-2 shadow-[0_-5px_18px_rgba(50,35,30,0.06)] lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#DCD5C6] bg-[#F8F6F0]/96 px-2.5 pt-2 backdrop-blur-xl lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
         <div className="flex h-[49px] gap-2">
           {WHATSAPP_URL && (
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-full w-[46px] shrink-0 items-center justify-center rounded-[10px] border border-[#DED8CA] bg-white text-[#3F7C58]">
@@ -1382,12 +1354,12 @@ const ProductDetailPage = () => {
             </a>
           )}
 
-          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 rounded-[10px] border border-[#173A2D] bg-white px-2 text-[9px] font-semibold text-[#9D7B40] active:bg-[#F5F1E7] disabled:opacity-40">
+          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 border border-[#173A2D] bg-white px-2 text-[9px] font-semibold text-[#9D7B40] active:bg-[#F5F1E7] disabled:opacity-40">
             <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.6} />
             <span>{available ? "أضف للسلة" : "غير متوفر"}</span>
           </button>
 
-          <button type="button" onClick={handleBuyNow} disabled={!available} className="h-full flex-1 rounded-[10px] bg-[#173A2D] px-2 text-[9px] font-semibold text-white active:bg-[#214C3B] disabled:opacity-40">
+          <button type="button" onClick={handleBuyNow} disabled={!available} className="h-full flex-1 bg-[#173A2D] px-2 text-[9px] font-semibold text-white active:bg-[#214C3B] disabled:opacity-40">
             اشتري الآن
           </button>
         </div>
