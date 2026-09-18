@@ -179,59 +179,112 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
   const shouldPrioritize = index < 2;
 
   return (
-    <Link to={`/product/${product.slug}`} dir="rtl" data-catalog-product-id={product.id} onPointerEnter={() => void prefetchProductDetailPage()} onPointerDown={() => void prefetchProductDetailPage()} onFocus={() => void prefetchProductDetailPage()} onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)} className="block w-full min-w-0">
-      <article className="relative w-full min-w-0 overflow-hidden rounded-[15px] border border-[#E4DED1] bg-white transition-transform duration-150 active:scale-[0.985]">
-        <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#F1EEE5]">
+    <Link
+      to={`/product/${product.slug}`}
+      dir="rtl"
+      data-catalog-product-id={product.id}
+      onPointerEnter={() => void prefetchProductDetailPage()}
+      onPointerDown={() => void prefetchProductDetailPage()}
+      onFocus={() => void prefetchProductDetailPage()}
+      onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)}
+      className="group block w-full min-w-0"
+    >
+      <article className="relative w-full min-w-0">
+        <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE8DE]">
           {!allImagesFailed && optimizedMainImage ? (
             <>
-              {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#E8E4D9]" />}
-              <img key={`${product.id}-${imageIndex}-${mainImage}`} src={optimizedMainImage} srcSet={optimizedMainImageSrcSet} alt={product.nameAr || product.name || "منتج جنان"} loading={shouldEagerLoad ? "eager" : "lazy"} decoding="async" fetchPriority={shouldPrioritize ? "high" : "auto"} onLoad={handleMainImageLoad} onError={handleMainImageError} width={480} height={600} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className={`absolute inset-0 h-full w-full select-none transition-opacity duration-150 ${imageLoaded ? "opacity-100" : "opacity-0"} ${imageFit === "cover" ? "object-cover object-center" : "scale-[1.035] object-contain object-center"}`} />
+              {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#E4DFD3]" />}
+              <img
+                key={`${product.id}-${imageIndex}-${mainImage}`}
+                src={optimizedMainImage}
+                srcSet={optimizedMainImageSrcSet}
+                alt={product.nameAr || product.name || "منتج جنان"}
+                loading={shouldEagerLoad ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={shouldPrioritize ? "high" : "auto"}
+                onLoad={handleMainImageLoad}
+                onError={handleMainImageError}
+                width={480}
+                height={640}
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                className={`absolute inset-0 h-full w-full select-none transition-[opacity,transform] duration-500 group-hover:scale-[1.025] ${imageLoaded ? "opacity-100" : "opacity-0"} ${imageFit === "cover" ? "object-cover object-center" : "scale-[1.02] object-contain object-center"}`}
+              />
             </>
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F1EEE5]">
-              <ImageOff className="h-6 w-6 text-[#9AA39A]" strokeWidth={1.3} />
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#ECE8DE]">
+              <ImageOff className="h-6 w-6 text-[#98A198]" strokeWidth={1.2} />
               <span className="mt-2 text-[8px] text-[#7D867D]">الصورة غير متوفرة</span>
             </div>
           )}
 
-          <button type="button" aria-label={isLiked ? "إزالة من المفضلة" : "إضافة إلى المفضلة"} onClick={handleFavorite} className={`absolute left-2 top-2 z-20 flex h-[31px] w-[31px] items-center justify-center rounded-full border border-white/70 bg-white/95 shadow-[0_2px_8px_rgba(45,35,30,0.07)] transition-transform duration-200 ${heartBeat ? "scale-110" : "scale-100"}`}>
-            <Heart className={`h-[15px] w-[15px] transition-colors ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : "fill-transparent text-[#516258]"}`} strokeWidth={1.6} />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+
+          <button
+            type="button"
+            aria-label={isLiked ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+            onClick={handleFavorite}
+            className={`absolute left-3 top-3 z-20 flex h-9 w-9 items-center justify-center bg-white/88 text-[#173A2D] backdrop-blur-md transition-all hover:bg-white ${heartBeat ? "scale-110" : "scale-100"}`}
+          >
+            <Heart className={`h-[16px] w-[16px] ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : "fill-transparent text-[#173A2D]"}`} strokeWidth={1.35} />
           </button>
 
-          {cardBadge && <span className="absolute right-2 top-2 z-20 flex h-[23px] min-w-[39px] items-center justify-center rounded-[7px] bg-[#173A2D] px-2 text-[8px] font-semibold leading-none text-white">{cardBadge}</span>}
+          {cardBadge && (
+            <span className="absolute right-3 top-3 z-20 bg-[#173A2D] px-2.5 py-1.5 text-[7px] font-semibold tracking-[0.06em] text-white">
+              {cardBadge}
+            </span>
+          )}
+
+          {product.inStock ? (
+            <button
+              type="button"
+              aria-label="إضافة إلى السلة"
+              onClick={handleAdd}
+              className={`absolute bottom-3 left-3 z-20 flex h-10 w-10 items-center justify-center bg-[#F8F6F0] text-[#173A2D] shadow-[0_8px_22px_rgba(23,58,45,.12)] transition-all md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 ${bagPop ? "scale-110" : "scale-100"}`}
+            >
+              <ShoppingBag className="h-[16px] w-[16px]" strokeWidth={1.5} />
+            </button>
+          ) : (
+            <span className="absolute bottom-3 left-3 bg-white/88 px-2 py-1 text-[7px] font-medium text-[#6D786F]">نفدت الكمية</span>
+          )}
 
           {colors.length > 0 && (
-            <div className="absolute bottom-2 right-2 z-20 flex items-center gap-[4px] rounded-full bg-white/90 px-1.5 py-1 shadow-[0_2px_8px_rgba(45,35,30,0.06)]">
+            <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1 bg-white/86 px-2 py-1.5 backdrop-blur-md">
               {colors.slice(0, 4).map((color, colorIndex) => (
-                <span key={`${color.name || "color"}-${colorIndex}`} title={color.name} className={`${colorIndex === 0 ? "h-[13px] w-[13px]" : "h-[11px] w-[11px]"} block shrink-0 rounded-full border border-white shadow-[0_0_0_1px_rgba(50,40,35,0.10)]`} style={color.hex2 ? { background: `linear-gradient(135deg, ${color.hex || "#e2e2e2"} 0%, ${color.hex || "#e2e2e2"} 50%, ${color.hex2} 50%, ${color.hex2} 100%)` } : { backgroundColor: color.hex || "#e2e2e2" }} />
+                <span
+                  key={`${color.name || "color"}-${colorIndex}`}
+                  title={color.name}
+                  className="block h-[9px] w-[9px] shrink-0 rounded-full border border-white shadow-[0_0_0_1px_rgba(25,35,30,.13)]"
+                  style={color.hex2
+                    ? { background: `linear-gradient(135deg, ${color.hex || "#e2e2e2"} 0%, ${color.hex || "#e2e2e2"} 50%, ${color.hex2} 50%, ${color.hex2} 100%)` }
+                    : { backgroundColor: color.hex || "#e2e2e2" }}
+                />
               ))}
-              {colors.length > 4 && <span className="mr-0.5 text-[6px] font-medium text-[#81746F]">+{colors.length - 4}</span>}
+              {colors.length > 4 && <span className="mr-0.5 text-[6px] text-[#6F786F]">+{colors.length - 4}</span>}
             </div>
           )}
         </div>
 
-        <div className="relative h-[86px] bg-white px-[10px] pb-[9px] pt-[8px]">
-          <h3 className="overflow-hidden whitespace-nowrap pl-[36px] text-ellipsis text-[10.5px] font-semibold leading-[17px] text-[#173A2D]">{product.nameAr || product.name}</h3>
-          <p className="mt-[1px] overflow-hidden whitespace-nowrap pl-[36px] text-ellipsis text-[7.5px] leading-[14px] text-[#758078]">
-            {product.brand || "Genan"}
-            {firstColorName && <><span className="mx-[4px] text-[#D1C7C3]">•</span>{firstColorName}</>}
-          </p>
-
-          <div className="absolute bottom-[13px] left-[46px] right-[10px] flex min-w-0 items-center">
-            <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[11px] font-bold leading-none text-[#9D7B40]">{getDisplayedPrice()}</span>
+        <div className="pt-3.5">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <p className="mb-1 text-[7px] font-semibold uppercase tracking-[0.16em] text-[#9D7B40]">
+                {product.brand || "GENAN"}
+              </p>
+              <h3 className="truncate text-[11px] font-medium leading-5 text-[#173A2D] md:text-[12px]">
+                {product.nameAr || product.name}
+              </h3>
+            </div>
+            <span className="shrink-0 text-[11px] font-semibold text-[#173A2D] md:text-[12px]">
+              {getDisplayedPrice()}
+            </span>
           </div>
 
-          {product.inStock ? (
-            <button type="button" aria-label="إضافة إلى السلة" onClick={handleAdd} className={`absolute bottom-[9px] left-[9px] flex h-[33px] w-[33px] items-center justify-center rounded-[9px] border border-[#D7C8A8] bg-[#F5F1E7] text-[#9D7B40] transition-all duration-200 active:bg-[#EAE5D7] ${bagPop ? "scale-110" : "scale-100"}`}>
-              <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.7} />
-            </button>
-          ) : (
-            <span className="absolute bottom-[14px] left-[9px] text-[7px] font-medium text-[#859087]">نفدت الكمية</span>
+          {firstColorName && (
+            <p className="mt-1.5 truncate text-[7px] text-[#7B857D]">{firstColorName}</p>
           )}
         </div>
       </article>
     </Link>
-  );
-};
+  );};
 
 export default memo(ProductCard);
