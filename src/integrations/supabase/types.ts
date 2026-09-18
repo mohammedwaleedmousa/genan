@@ -1405,8 +1405,6 @@ export type Database = {
           country: string | null
           created_at: string
           id: string
-          last_logout_at: string | null
-          last_seen_at: string | null
           name: string
           password_hash: string | null
           phone: string
@@ -1419,8 +1417,6 @@ export type Database = {
           country?: string | null
           created_at?: string
           id?: string
-          last_logout_at?: string | null
-          last_seen_at?: string | null
           name: string
           password_hash?: string | null
           phone: string
@@ -1433,8 +1429,6 @@ export type Database = {
           country?: string | null
           created_at?: string
           id?: string
-          last_logout_at?: string | null
-          last_seen_at?: string | null
           name?: string
           password_hash?: string | null
           phone?: string
@@ -2119,7 +2113,6 @@ export type Database = {
           delivery_company_id: string | null
           delivery_fee: number
           discount_amount: number | null
-          discount_source: string | null
           exchange_rate_snapshot: number | null
           id: string
           invoice_review_note: string | null
@@ -2131,11 +2124,6 @@ export type Database = {
           order_number: string
           owner_user_id: string | null
           payment_method: string
-          referral_code_expires_at: string | null
-          referral_code_issued: string | null
-          sales_agent_code: string | null
-          sales_agent_id: string | null
-          sales_agent_name: string | null
           status: string
           stock_reserved_at: string | null
           subtotal: number
@@ -2161,7 +2149,6 @@ export type Database = {
           delivery_company_id?: string | null
           delivery_fee?: number
           discount_amount?: number | null
-          discount_source?: string | null
           exchange_rate_snapshot?: number | null
           id?: string
           invoice_review_note?: string | null
@@ -2173,11 +2160,6 @@ export type Database = {
           order_number: string
           owner_user_id?: string | null
           payment_method: string
-          referral_code_expires_at?: string | null
-          referral_code_issued?: string | null
-          sales_agent_code?: string | null
-          sales_agent_id?: string | null
-          sales_agent_name?: string | null
           status?: string
           stock_reserved_at?: string | null
           subtotal: number
@@ -2203,7 +2185,6 @@ export type Database = {
           delivery_company_id?: string | null
           delivery_fee?: number
           discount_amount?: number | null
-          discount_source?: string | null
           exchange_rate_snapshot?: number | null
           id?: string
           invoice_review_note?: string | null
@@ -2215,11 +2196,6 @@ export type Database = {
           order_number?: string
           owner_user_id?: string | null
           payment_method?: string
-          referral_code_expires_at?: string | null
-          referral_code_issued?: string | null
-          sales_agent_code?: string | null
-          sales_agent_id?: string | null
-          sales_agent_name?: string | null
           status?: string
           stock_reserved_at?: string | null
           subtotal?: number
@@ -2251,13 +2227,6 @@ export type Database = {
             referencedRelation: "delivery_companies"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "orders_sales_agent_id_fkey"
-            columns: ["sales_agent_id"]
-            isOneToOne: false
-            referencedRelation: "sales_agents"
-            referencedColumns: ["id"]
-          },
         ]
       }
       orders_archive: {
@@ -2280,9 +2249,6 @@ export type Database = {
           order_number: string
           original_order_id: string
           payment_method: string
-          sales_agent_code: string | null
-          sales_agent_id: string | null
-          sales_agent_name: string | null
           status: string
           subtotal: number
           total: number
@@ -2307,9 +2273,6 @@ export type Database = {
           order_number: string
           original_order_id: string
           payment_method: string
-          sales_agent_code?: string | null
-          sales_agent_id?: string | null
-          sales_agent_name?: string | null
           status?: string
           subtotal: number
           total: number
@@ -2334,9 +2297,6 @@ export type Database = {
           order_number?: string
           original_order_id?: string
           payment_method?: string
-          sales_agent_code?: string | null
-          sales_agent_id?: string | null
-          sales_agent_name?: string | null
           status?: string
           subtotal?: number
           total?: number
@@ -2914,39 +2874,6 @@ export type Database = {
         }
         Relationships: []
       }
-      sales_agents: {
-        Row: {
-          code: string
-          created_at: string
-          id: string
-          is_active: boolean
-          is_default_website: boolean
-          name: string
-          platform: string | null
-          updated_at: string
-        }
-        Insert: {
-          code: string
-          created_at?: string
-          id?: string
-          is_active?: boolean
-          is_default_website?: boolean
-          name: string
-          platform?: string | null
-          updated_at?: string
-        }
-        Update: {
-          code?: string
-          created_at?: string
-          id?: string
-          is_active?: boolean
-          is_default_website?: boolean
-          name?: string
-          platform?: string | null
-          updated_at?: string
-        }
-        Relationships: []
-      }
       site_content: {
         Row: {
           content: string
@@ -3135,8 +3062,405 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_apply_product_classification: {
+        Args: { p_patch: Json; p_product_id: string }
+        Returns: Json
+      }
+      admin_catalog_health: {
+        Args: { p_limit?: number }
+        Returns: {
+          id: string
+          is_active: boolean
+          issue_count: number
+          issues: string[]
+          name: string
+          name_ar: string
+          slug: string
+          updated_at: string
+        }[]
+      }
+      admin_catalog_health_summary: { Args: never; Returns: Json }
+      admin_create_product_draft_from_excel: {
+        Args: { p_row: Json }
+        Returns: string
+      }
+      admin_duplicate_product: {
+        Args: { p_product_id: string }
+        Returns: string
+      }
+      admin_quick_update_product: {
+        Args: { p_patch: Json; p_product_id: string }
+        Returns: Json
+      }
+      admin_undo_product_revision: {
+        Args: { p_revision_id: string }
+        Returns: Json
+      }
+      admin_update_inventory_sku_from_excel: {
+        Args: { p_sku_id: string; p_stock_quantity: number }
+        Returns: Json
+      }
+      admin_zero_quality_variant_stock: {
+        Args: { p_variants: Json }
+        Returns: Json
+      }
+      admin_zero_variant_stock: { Args: { p_variants: Json }; Returns: Json }
+      apply_inventory_adjustment: {
+        Args: {
+          p_adjustment_type: string
+          p_inventory_sku_id?: string
+          p_notes?: string
+          p_product_id: string
+          p_quantity: number
+          p_reason: string
+          p_reference?: string
+        }
+        Returns: {
+          adjustment_type: string
+          created_at: string
+          created_by: string | null
+          id: string
+          inventory_sku_id: string | null
+          notes: string | null
+          product_id: string | null
+          product_name: string | null
+          product_quantity_after: number | null
+          product_quantity_before: number | null
+          quantity_after: number
+          quantity_before: number
+          quantity_change: number
+          reason: string
+          reference: string | null
+          total_cost: number | null
+          unit_cost: number | null
+          variant_label: string | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "inventory_adjustments"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      claim_legacy_customer: {
+        Args: { _password: string; _phone: string; _user_id: string }
+        Returns: {
+          avatar_url: string
+          country: string
+          created_at: string
+          id: string
+          name: string
+          phone: string
+          region: string
+          user_id: string
+        }[]
+      }
+      consume_customer_assistant_rate_limit: {
+        Args: {
+          p_client_hash: string
+          p_limit?: number
+          p_window_seconds?: number
+        }
+        Returns: {
+          allowed: boolean
+          retry_after_seconds: number
+        }[]
+      }
+      coupon_usage_summary: {
+        Args: never
+        Returns: {
+          code: string
+          last_used_at: string
+          usage_count: number
+        }[]
+      }
+      create_manual_journal_entry: {
+        Args: {
+          p_currency_code: string
+          p_description: string
+          p_entry_date: string
+          p_lines: Json
+          p_reference: string
+        }
+        Returns: string
+      }
+      create_refund_request: {
+        Args: {
+          p_amount: number
+          p_currency_code: string
+          p_customer_id: string
+          p_customer_name: string
+          p_customer_phone: string
+          p_items: Json
+          p_notes: string
+          p_order_id: string
+          p_order_number: string
+          p_reason: string
+          p_refund_method: string
+          p_refund_type: string
+        }
+        Returns: string
+      }
+      create_secure_order: {
+        Args: {
+          p_country: string
+          p_coupon_code?: string
+          p_currency_code: string
+          p_currency_mode: string
+          p_customer_address: string
+          p_customer_city: string
+          p_customer_id: string
+          p_customer_name: string
+          p_customer_notes: string
+          p_customer_phone: string
+          p_customer_region: string
+          p_delivery_fee: number
+          p_discount_amount?: number
+          p_exchange_rate_snapshot: number
+          p_items: Json
+          p_payment_method: string
+          p_subtotal: number
+          p_total: number
+          p_total_base: number
+        }
+        Returns: Json
+      }
+      create_secure_order_v2: {
+        Args: {
+          p_country: string
+          p_coupon_code?: string
+          p_currency_code: string
+          p_currency_mode: string
+          p_customer_address: string
+          p_customer_city: string
+          p_customer_name: string
+          p_customer_notes: string
+          p_customer_phone: string
+          p_customer_region: string
+          p_delivery_company_id?: string
+          p_items: Json
+          p_payment_method: string
+        }
+        Returns: Json
+      }
+      currency_usage_summary: {
+        Args: never
+        Returns: {
+          code: string
+          country_count: number
+          expense_count: number
+          order_count: number
+          refund_count: number
+          transaction_count: number
+        }[]
+      }
+      current_customer_id: { Args: never; Returns: string }
+      customer_login: {
+        Args: { _password: string; _phone: string }
+        Returns: {
+          avatar_url: string
+          country: string
+          id: string
+          name: string
+          phone: string
+          region: string
+        }[]
+      }
+      customer_register: {
+        Args: {
+          _country: string
+          _name: string
+          _password: string
+          _phone: string
+          _region?: string
+        }
+        Returns: {
+          avatar_url: string
+          country: string
+          id: string
+          name: string
+          phone: string
+          region: string
+        }[]
+      }
+      customer_self: {
+        Args: { _id: string; _phone: string }
+        Returns: {
+          avatar_url: string | null
+          country: string | null
+          created_at: string
+          id: string
+          name: string
+          password_hash: string | null
+          phone: string
+          region: string | null
+          updated_at: string
+          user_id: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "customers"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      customer_update_self: {
+        Args: {
+          _avatar_url: string
+          _id: string
+          _name: string
+          _phone: string
+          _region: string
+        }
+        Returns: {
+          avatar_url: string | null
+          country: string | null
+          created_at: string
+          id: string
+          name: string
+          password_hash: string | null
+          phone: string
+          region: string | null
+          updated_at: string
+          user_id: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "customers"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      delete_coupon_safe: { Args: { p_coupon_id: string }; Returns: undefined }
+      delete_currency_safe: { Args: { p_code: string }; Returns: undefined }
+      delete_product_from_inventory: {
+        Args: { p_product_id: string }
+        Returns: undefined
+      }
+      delete_refund_safe: { Args: { p_refund_id: string }; Returns: undefined }
+      get_inventory_summary: {
+        Args: never
+        Returns: {
+          active_products: number
+          inventory_value: number
+          low_stock: number
+          out_of_stock: number
+          sku_tracked: number
+          total_products: number
+          total_units: number
+        }[]
+      }
+      get_order_by_tracking: {
+        Args: { p_order_number: string; p_phone: string }
+        Returns: {
+          country: string
+          coupon_code: string | null
+          created_at: string
+          currency_code: string | null
+          currency_mode: string
+          customer_address: string
+          customer_city: string | null
+          customer_id: string | null
+          customer_name: string
+          customer_notes: string | null
+          customer_phone: string
+          customer_region: string | null
+          delivery_company_id: string | null
+          delivery_fee: number
+          discount_amount: number | null
+          exchange_rate_snapshot: number | null
+          id: string
+          invoice_review_note: string | null
+          invoice_review_status: string
+          invoice_reviewed_at: string | null
+          invoice_reviewed_by: string | null
+          invoice_url: string | null
+          items: Json
+          order_number: string
+          owner_user_id: string | null
+          payment_method: string
+          status: string
+          stock_reserved_at: string | null
+          subtotal: number
+          total: number
+          total_base: number | null
+          tracking_token: string | null
+          tracking_token_hash: string | null
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "orders"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      get_order_tracking: {
+        Args: { p_order_number: string; p_tracking_token: string }
+        Returns: Json
+      }
+      get_product_review_summary: {
+        Args: { p_product_id: string }
+        Returns: {
+          average_rating: number
+          review_count: number
+        }[]
+      }
+      get_product_size_price_adjustment: {
+        Args: { p_product_id: string; p_size: string }
+        Returns: number
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_current_user_admin: { Args: never; Returns: boolean }
+      mark_stale_customer_carts: { Args: never; Returns: number }
+      rebuild_product_variant_stock: {
+        Args: { p_product_id: string }
+        Returns: undefined
+      }
+      record_purchase_analytics: {
+        Args: {
+          p_device?: string
+          p_order_id: string
+          p_path?: string
+          p_referrer?: string
+          p_session_id?: string
+          p_tracking_token: string
+          p_utm_campaign?: string
+          p_utm_content?: string
+          p_utm_medium?: string
+          p_utm_source?: string
+        }
+        Returns: boolean
+      }
+      replace_product_inventory_skus: {
+        Args: { p_items: Json; p_product_id: string }
+        Returns: number
+      }
+      reverse_journal_entry: {
+        Args: {
+          p_entry_date: string
+          p_reason: string
+          p_transaction_id: string
+        }
+        Returns: string
+      }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      sync_product_inventory_from_skus: {
+        Args: { p_product_id: string }
+        Returns: undefined
+      }
+      update_refund_status: {
+        Args: { p_admin_note?: string; p_refund_id: string; p_status: string }
+        Returns: undefined
+      }
+      validate_customer_coupon: { Args: { p_code: string }; Returns: Json }
     }
     Enums: {
       account_type: "asset" | "liability" | "equity" | "revenue" | "expense"
