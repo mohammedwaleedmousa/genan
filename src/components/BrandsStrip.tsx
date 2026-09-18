@@ -23,7 +23,7 @@ interface BrandViewModel {
   logo_url: string | null;
 }
 
-const BRAND_STRIP_POSITION_KEY = "flamingo-home-brand-strip-position";
+const BRAND_STRIP_POSITION_KEY = "genan-home-brand-strip-position";
 const normalizeBrandName = (value: string) => value.trim().toLocaleLowerCase();
 
 const BrandsStrip = ({ enabled = true }: { enabled?: boolean }) => {
@@ -93,12 +93,12 @@ const BrandsStrip = ({ enabled = true }: { enabled?: boolean }) => {
         <div className="mb-3 flex items-end justify-between md:mb-6">
           <div>
             <div className="mb-1 flex items-center gap-2">
-              <span className="h-[2px] w-4 bg-[#D4777D] md:w-7" />
-              <span className="font-serif text-[6px] tracking-[.2em] text-[#B86168] md:text-[9px]">BRANDS</span>
+              <span className="h-[2px] w-4 bg-[#B89453] md:w-7" />
+              <span className="font-serif text-[6px] tracking-[.2em] text-[#9D7B40] md:text-[9px]">BRANDS</span>
             </div>
             <h2 className="text-[16px] font-semibold md:text-[28px]">أشهر الماركات</h2>
           </div>
-          <Link to="/brands" className="flex items-center gap-2 text-[7px] font-medium text-[#A95B61] md:text-[10px]">
+          <Link to="/brands" className="flex items-center gap-2 text-[7px] font-medium text-[#173A2D] md:text-[10px]">
             جميع الماركات
             <ArrowLeft className="h-4 w-4" />
           </Link>
