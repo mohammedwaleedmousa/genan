@@ -39,13 +39,13 @@ const normalizeStatus = (raw: string): NormalizedStatus => {
 const STATUS_CONFIG: Record<NormalizedStatus, { label: string; className: string; dotClassName: string }> = {
   pending: {
     label: "تم استقبال الطلب",
-    className: "bg-[#FFF5F3] text-[#A95B61]",
-    dotClassName: "bg-[#D4777D]",
+    className: "bg-[#F3F0E6] text-[#173A2D]",
+    dotClassName: "bg-[#173A2D]",
   },
   confirmed: {
     label: "تم تأكيد الطلب",
-    className: "bg-[#FFF5F3] text-[#A95B61]",
-    dotClassName: "bg-[#D4777D]",
+    className: "bg-[#F3F0E6] text-[#173A2D]",
+    dotClassName: "bg-[#173A2D]",
   },
   processing: {
     label: "جاري التجهيز",
@@ -64,7 +64,7 @@ const STATUS_CONFIG: Record<NormalizedStatus, { label: string; className: string
   },
   cancelled: {
     label: "تم الإلغاء",
-    className: "bg-[#FFF0EF] text-[#A95F5F]",
+    className: "bg-[#F0EDE5] text-[#A95F5F]",
     dotClassName: "bg-[#BD6A6A]",
   },
 };
@@ -256,18 +256,18 @@ const MyOrdersPage = () => {
 
           <header className="mb-5 md:mb-6">
             <div className="flex items-center gap-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-              <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">MY ORDERS</span>
+              <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+              <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">MY ORDERS</span>
             </div>
 
             <div className="mt-1.5 flex items-end justify-between gap-3">
               <div>
-                <h1 className="text-[19px] font-semibold tracking-[-0.025em] text-[#403633] md:text-[25px]">طلباتي</h1>
+                <h1 className="text-[19px] font-semibold tracking-[-0.025em] text-[#173A2D] md:text-[25px]">طلباتي</h1>
 
-                <p className="mt-1 text-[8px] text-[#9B8D88]">تابع طلباتك، حالة التوصيل والفواتير.</p>
+                <p className="mt-1 text-[8px] text-[#899289]">تابع طلباتك، حالة التوصيل والفواتير.</p>
               </div>
 
-              <button type="button" onClick={() => navigate("/products")} className="hidden h-9 items-center gap-1.5 rounded-[9px] border border-[#E4DAD6] bg-white px-3 text-[7px] font-medium text-[#746661] active:bg-[#FFF8F6] sm:flex">
+              <button type="button" onClick={() => navigate("/products")} className="hidden h-9 items-center gap-1.5 rounded-[9px] border border-[#DED8CA] bg-white px-3 text-[7px] font-medium text-[#746661] active:bg-[#F6F3EA] sm:flex">
                 متابعة التسوق
                 <ChevronLeft className="h-3 w-3" strokeWidth={1.5} />
               </button>
@@ -280,18 +280,18 @@ const MyOrdersPage = () => {
 
           <section className="mb-4 grid grid-cols-3 overflow-hidden rounded-[14px] border border-[#EAE0DC] bg-white">
             <div className="flex min-h-[72px] flex-col justify-center px-3 py-3 text-center">
-              <span className="text-[18px] font-semibold leading-none text-[#403633] md:text-[22px]">{orders.length}</span>
-              <span className="mt-1.5 text-[6px] text-[#9B8D88]">كل الطلبات</span>
+              <span className="text-[18px] font-semibold leading-none text-[#173A2D] md:text-[22px]">{orders.length}</span>
+              <span className="mt-1.5 text-[6px] text-[#899289]">كل الطلبات</span>
             </div>
 
-            <div className="flex min-h-[72px] flex-col justify-center border-x border-[#EEE5E1] px-3 py-3 text-center">
-              <span className="text-[18px] font-semibold leading-none text-[#B86168] md:text-[22px]">{activeOrdersCount}</span>
-              <span className="mt-1.5 text-[6px] text-[#9B8D88]">طلبات نشطة</span>
+            <div className="flex min-h-[72px] flex-col justify-center border-x border-[#E5DED0] px-3 py-3 text-center">
+              <span className="text-[18px] font-semibold leading-none text-[#9D7B40] md:text-[22px]">{activeOrdersCount}</span>
+              <span className="mt-1.5 text-[6px] text-[#899289]">طلبات نشطة</span>
             </div>
 
             <div className="flex min-h-[72px] min-w-0 flex-col justify-center px-2 py-3 text-center">
-              <span dir="ltr" className="truncate text-[13px] font-semibold leading-none text-[#403633] md:text-[18px]">{totalAmount.toLocaleString("en-US", { maximumFractionDigits: 2 })}</span>
-              <span className="mt-1.5 text-[6px] text-[#9B8D88]">إجمالي المشتريات</span>
+              <span dir="ltr" className="truncate text-[13px] font-semibold leading-none text-[#173A2D] md:text-[18px]">{totalAmount.toLocaleString("en-US", { maximumFractionDigits: 2 })}</span>
+              <span className="mt-1.5 text-[6px] text-[#899289]">إجمالي المشتريات</span>
             </div>
           </section>
 
@@ -300,13 +300,13 @@ const MyOrdersPage = () => {
           ================================================= */}
 
           <section className="overflow-hidden rounded-[15px] border border-[#EAE0DC] bg-white">
-            <div className="flex h-[48px] items-center justify-between border-b border-[#EEE5E1] px-4">
+            <div className="flex h-[48px] items-center justify-between border-b border-[#E5DED0] px-4">
               <div className="flex items-center gap-2">
-                <Receipt className="h-3.5 w-3.5 text-[#C66C72]" strokeWidth={1.5} />
+                <Receipt className="h-3.5 w-3.5 text-[#9D7B40]" strokeWidth={1.5} />
                 <h2 className="text-[9px] font-semibold text-[#493D39]">سجل الطلبات</h2>
               </div>
 
-              {!loading && orders.length > 0 && <span className="text-[6px] text-[#A0938E]">{orders.length} {orders.length === 1 ? "طلب" : "طلبات"}</span>}
+              {!loading && orders.length > 0 && <span className="text-[6px] text-[#8A938B]">{orders.length} {orders.length === 1 ? "طلب" : "طلبات"}</span>}
             </div>
 
             {/* LOADING */}
@@ -332,15 +332,15 @@ const MyOrdersPage = () => {
 
             {!loading && orders.length === 0 && (
               <div className="flex min-h-[230px] flex-col items-center justify-center px-5 text-center">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FAECE9]">
-                  <ShoppingBag className="h-5 w-5 text-[#C66C72]" strokeWidth={1.4} />
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#EAE5D7]">
+                  <ShoppingBag className="h-5 w-5 text-[#9D7B40]" strokeWidth={1.4} />
                 </span>
 
                 <h3 className="mt-3 text-[11px] font-semibold text-[#493D39]">لا توجد طلبات بعد</h3>
 
-                <p className="mt-1.5 max-w-[270px] text-[7px] leading-5 text-[#9B8D88]">عندما تقوم بإتمام أول طلب سيظهر هنا ويمكنك متابعة حالته وفاتورته.</p>
+                <p className="mt-1.5 max-w-[270px] text-[7px] leading-5 text-[#899289]">عندما تقوم بإتمام أول طلب سيظهر هنا ويمكنك متابعة حالته وفاتورته.</p>
 
-                <button type="button" onClick={() => navigate("/products")} className="mt-4 h-[38px] rounded-[9px] bg-[#D4777D] px-5 text-[8px] font-semibold text-white active:bg-[#C96B72]">
+                <button type="button" onClick={() => navigate("/products")} className="mt-4 h-[38px] rounded-[9px] bg-[#173A2D] px-5 text-[8px] font-semibold text-white active:bg-[#214C3B]">
                   تصفح المنتجات
                 </button>
               </div>
@@ -370,27 +370,27 @@ const MyOrdersPage = () => {
                             </span>
                           </div>
 
-                          <div className="mt-2 flex items-center gap-1.5 text-[6px] text-[#9B8D88]">
+                          <div className="mt-2 flex items-center gap-1.5 text-[6px] text-[#899289]">
                             <CalendarDays className="h-3 w-3" strokeWidth={1.4} />
                             <span>{formatDate(order.created_at)}</span>
                           </div>
                         </div>
 
                         <div className="shrink-0 text-left">
-                          <p dir="ltr" className="text-[11px] font-semibold text-[#B86168]">{Number(order.total || 0).toLocaleString("en-US", { maximumFractionDigits: 2 })}</p>
-                          <p className="mt-1 text-[5px] text-[#A0938E]">إجمالي الطلب</p>
+                          <p dir="ltr" className="text-[11px] font-semibold text-[#9D7B40]">{Number(order.total || 0).toLocaleString("en-US", { maximumFractionDigits: 2 })}</p>
+                          <p className="mt-1 text-[5px] text-[#8A938B]">إجمالي الطلب</p>
                         </div>
                       </div>
 
                       {/* ACTIONS */}
 
                       <div className="mt-3 flex gap-2">
-                        <button type="button" onClick={() => trackOrder(order)} disabled={!order.tracking_token} className="flex h-[36px] flex-1 items-center justify-center gap-1.5 rounded-[9px] bg-[#D4777D] px-3 text-[7px] font-semibold text-white active:bg-[#C96B72] disabled:cursor-not-allowed disabled:bg-[#E6D9D6] disabled:text-[#AA9D98]">
+                        <button type="button" onClick={() => trackOrder(order)} disabled={!order.tracking_token} className="flex h-[36px] flex-1 items-center justify-center gap-1.5 rounded-[9px] bg-[#173A2D] px-3 text-[7px] font-semibold text-white active:bg-[#214C3B] disabled:cursor-not-allowed disabled:bg-[#E6D9D6] disabled:text-[#949C94]">
                           <Truck className="h-3.5 w-3.5" strokeWidth={1.5} />
                           تتبع الطلب
                         </button>
 
-                        <button type="button" onClick={() => void openInvoice(order.id)} disabled={!order.invoice_url || Boolean(invoiceLoadingId)} className="flex h-[36px] flex-1 items-center justify-center gap-1.5 rounded-[9px] border border-[#E0D2CE] bg-white px-3 text-[7px] font-semibold text-[#786762] active:bg-[#FFF8F6] disabled:cursor-not-allowed disabled:opacity-40">
+                        <button type="button" onClick={() => void openInvoice(order.id)} disabled={!order.invoice_url || Boolean(invoiceLoadingId)} className="flex h-[36px] flex-1 items-center justify-center gap-1.5 rounded-[9px] border border-[#E0D2CE] bg-white px-3 text-[7px] font-semibold text-[#786762] active:bg-[#F6F3EA] disabled:cursor-not-allowed disabled:opacity-40">
                           {invoiceLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <FileText className="h-3.5 w-3.5" strokeWidth={1.5} />}
                           {invoiceLoading ? "جاري الفتح..." : "عرض الفاتورة"}
                         </button>
@@ -407,7 +407,7 @@ const MyOrdersPage = () => {
           ================================================= */}
 
           {!loading && orders.length > 0 && (
-            <button type="button" onClick={() => navigate("/products")} className="mt-3 flex h-[40px] w-full items-center justify-center gap-1.5 rounded-[10px] border border-[#E5DAD6] bg-white text-[7px] font-medium text-[#756762] sm:hidden">
+            <button type="button" onClick={() => navigate("/products")} className="mt-3 flex h-[40px] w-full items-center justify-center gap-1.5 rounded-[10px] border border-[#DDD7C8] bg-white text-[7px] font-medium text-[#756762] sm:hidden">
               متابعة التسوق
               <ChevronLeft className="h-3 w-3" strokeWidth={1.5} />
             </button>
