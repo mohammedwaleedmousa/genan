@@ -858,14 +858,14 @@ const ProductDetailPage = () => {
 
   {/* DESKTOP PREVIOUS */}
   {displayImages.length > 1 && (
-    <button type="button" onClick={prevImage} aria-label="الصورة السابقة" className="absolute right-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#DED8CA] bg-white/95 text-[#786863] shadow-sm md:flex">
+    <button type="button" onClick={prevImage} aria-label="الصورة السابقة" className="absolute right-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#DED8CA] bg-white/95 text-[#786863] shadow-sm md:flex">
       <ChevronRight className="h-4 w-4" strokeWidth={1.4} />
     </button>
   )}
 
   {/* DESKTOP NEXT */}
   {displayImages.length > 1 && (
-    <button type="button" onClick={nextImage} aria-label="الصورة التالية" className="absolute left-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#DED8CA] bg-white/95 text-[#786863] shadow-sm md:flex">
+    <button type="button" onClick={nextImage} aria-label="الصورة التالية" className="absolute left-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#DED8CA] bg-white/95 text-[#786863] shadow-sm md:flex">
       <ChevronLeft className="h-4 w-4" strokeWidth={1.4} />
     </button>
   )}
@@ -929,7 +929,7 @@ const ProductDetailPage = () => {
                       <Heart className={`h-3.5 w-3.5 ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : ""}`} strokeWidth={1.5} />
                     </button>
 
-                    <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center rounded-full border border-[#DED8CA] text-[#68736B] hover:bg-[#F5F1E7]">
+                    <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#DED8CA] text-[#68736B] hover:bg-[#F5F1E7]">
                       <Share2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                     </button>
                   </div>
@@ -972,11 +972,11 @@ const ProductDetailPage = () => {
                       const active = selectedQualityIdx === index;
 
                       return (
-                        <button type="button" key={variant.id || index} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 rounded-[10px] border p-2 text-right ${active ? "border-[#C6B17F] bg-[#F5F1E7]" : "border-[#E2DCCE] bg-white"}`}>
+                        <button type="button" key={variant.id || index} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-[#C6B17F] bg-[#F5F1E7]" : "border-[#E2DCCE] bg-white"}`}>
                           {variant.images?.[0] ? (
-                            <img src={optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={handleImageError} className="h-10 w-10 shrink-0 rounded-[7px] bg-[#F6F4F2] object-cover object-center" />
+                            <img src={optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={handleImageError} className="h-10 w-10 shrink-0 bg-[#F0ECE2] object-cover object-center" />
                           ) : (
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[7px] bg-[#F8F3F1]">
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#F0ECE2]">
                               <Package className="h-4 w-4 stroke-[1.4] text-[#B96A70]" />
                             </span>
                           )}
@@ -1196,7 +1196,7 @@ const ProductDetailPage = () => {
               {justAdded && (
                 <div className="mx-3.5 mb-4 flex items-center justify-between gap-3 rounded-[10px] border border-[#E8C9C6] bg-[#F3F0E6] px-3 py-2.5 sm:mx-5 lg:mx-0">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#173A2D]">
+                    <span className="flex h-6 w-6 items-center justify-center bg-[#173A2D]">
                       <Check className="h-3 w-3 text-white" strokeWidth={2.2} />
                     </span>
 
@@ -1257,13 +1257,7 @@ const ProductDetailPage = () => {
                     <Shield className="h-3 w-3 text-[#9D7B40]" strokeWidth={1.6} />
                   </div>
 
-                  <div className="mt-1 flex items-center gap-1">
-                    <Star className="h-2.5 w-2.5 fill-[#DCA653] text-[#DCA653]" strokeWidth={1} />
-
-                    <span className="text-[7px] font-semibold text-[#665853]">4.8</span>
-
-                    <span className="text-[7px] text-[#909890]">متجر موثوق</span>
-                  </div>
+                  <p className="mt-1 text-[7px] tracking-[0.12em] text-[#7B857D]">CURATED BY GENAN</p>
                 </div>
               </div>
 
@@ -1294,7 +1288,7 @@ const ProductDetailPage = () => {
               <div className="mb-4 flex items-end justify-between px-0.5">
                 <div>
                   <div className="mb-1 flex items-center gap-2">
-                    <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+                    <span className="h-[2px] w-4 bg-[#173A2D]" />
                     <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">FOR YOU</span>
                   </div>
 
@@ -1322,7 +1316,7 @@ const ProductDetailPage = () => {
             <section className="mt-2 bg-white px-2.5 py-5 md:mt-6 md:border-y md:border-[#DCD5C6] md:px-6 md:py-7">
               <div className="mb-4">
                 <div className="mb-1 flex items-center gap-2">
-                  <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+                  <span className="h-[2px] w-4 bg-[#173A2D]" />
                   <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">RECENTLY VIEWED</span>
                 </div>
 
