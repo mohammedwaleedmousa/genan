@@ -381,7 +381,7 @@ const BrandProductsPage = () => {
 
             <p className="mt-2 text-[12px] text-muted-foreground">قد تكون الماركة غير متاحة أو تم تغيير الرابط.</p>
 
-            <Link to="/brands" className="mt-5 inline-flex h-10 items-center gap-1.5 rounded-[10px] border border-border px-4 text-[11px] font-medium text-[#A95B61]">
+            <Link to="/brands" className="mt-5 inline-flex h-10 items-center gap-1.5 rounded-[10px] border border-border px-4 text-[11px] font-medium text-[#173A2D]">
               <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />
               العودة إلى الماركات
             </Link>
@@ -404,7 +404,7 @@ const BrandProductsPage = () => {
         ===================================================== */}
 
         <section className="mx-auto w-full max-w-[1400px] px-4 md:px-6">
-          <Link to={`/brands/${slug}`} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground transition-colors hover:text-[#A95B61] md:text-[12px]">
+          <Link to={`/brands/${slug}`} className="inline-flex items-center gap-1 text-[11px] text-muted-foreground transition-colors hover:text-[#173A2D] md:text-[12px]">
             <ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />
             العودة إلى {brand?.name || "الماركة"}
           </Link>
@@ -412,8 +412,8 @@ const BrandProductsPage = () => {
           <div className="mt-7 flex items-end justify-between gap-4 border-b border-border/60 pb-7">
             <div>
               <div className="mb-2 flex items-center gap-2">
-                <span className="h-[2px] w-5 rounded-full bg-[#D4777D]" />
-                <span className="font-serif text-[8px] uppercase tracking-[0.22em] text-[#B86168] md:text-[9px]">ALL PRODUCTS</span>
+                <span className="h-[2px] w-5 rounded-full bg-[#173A2D]" />
+                <span className="font-serif text-[8px] uppercase tracking-[0.22em] text-[#9D7B40] md:text-[9px]">ALL PRODUCTS</span>
               </div>
 
               <h1 className="text-[28px] font-semibold tracking-[-0.035em] text-foreground md:text-[36px]">{brand?.name || "المنتجات"}</h1>
@@ -436,7 +436,7 @@ const BrandProductsPage = () => {
 
               <span>فلترة</span>
 
-              {activeFilterCount > 0 && <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#D4777D] px-1 text-[9px] font-semibold text-white">{activeFilterCount}</span>}
+              {activeFilterCount > 0 && <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#173A2D] px-1 text-[9px] font-semibold text-white">{activeFilterCount}</span>}
             </button>
 
             {/* SORT */}
@@ -455,28 +455,28 @@ const BrandProductsPage = () => {
         {activeFilterCount > 0 && (
           <section className="mx-auto mt-2 flex w-full max-w-[1400px] items-center gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-6">
             {selectedSection !== "all" && (
-              <button type="button" onClick={() => setSelectedSection("all")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#FFF8F6] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setSelectedSection("all")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
                 {sections.find((section) => section.id === selectedSection)?.name || "القسم"}
                 <X className="h-3 w-3" />
               </button>
             )}
 
             {minPrice && (
-              <button type="button" onClick={() => setMinPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#FFF8F6] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setMinPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
                 من {minPrice}
                 <X className="h-3 w-3" />
               </button>
             )}
 
             {maxPrice && (
-              <button type="button" onClick={() => setMaxPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#FFF8F6] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setMaxPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
                 إلى {maxPrice}
                 <X className="h-3 w-3" />
               </button>
             )}
 
             {inStockOnly && (
-              <button type="button" onClick={() => setInStockOnly(false)} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#FFF8F6] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setInStockOnly(false)} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
                 متوفر فقط
                 <X className="h-3 w-3" />
               </button>
@@ -512,7 +512,7 @@ const BrandProductsPage = () => {
                 <p className="mt-1.5 text-[10px] text-muted-foreground">جرّب تغيير خيارات الفلترة.</p>
 
                 {activeFilterCount > 0 && (
-                  <button type="button" onClick={resetFilters} className="mt-4 inline-flex h-9 items-center gap-1.5 rounded-[9px] border border-border px-3.5 text-[10px] font-medium text-[#A95B61]">
+                  <button type="button" onClick={resetFilters} className="mt-4 inline-flex h-9 items-center gap-1.5 rounded-[9px] border border-border px-3.5 text-[10px] font-medium text-[#173A2D]">
                     <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.5} />
                     مسح الفلاتر
                   </button>
@@ -558,13 +558,13 @@ const BrandProductsPage = () => {
                 const selected = sort === option.value;
 
                 return (
-                  <button key={option.value} type="button" onClick={() => { setSort(option.value); setSortOpen(false); }} className={`flex w-full items-center justify-between gap-4 px-4 py-3.5 text-right transition-colors ${index !== SORT_OPTIONS.length - 1 ? "border-b border-border/60" : ""} ${selected ? "bg-[#FFF7F5]" : "bg-background active:bg-muted/40"}`}>
+                  <button key={option.value} type="button" onClick={() => { setSort(option.value); setSortOpen(false); }} className={`flex w-full items-center justify-between gap-4 px-4 py-3.5 text-right transition-colors ${index !== SORT_OPTIONS.length - 1 ? "border-b border-border/60" : ""} ${selected ? "bg-[#F5F1E7]" : "bg-background active:bg-muted/40"}`}>
                     <div>
-                      <p className={`text-[13px] font-medium ${selected ? "text-[#A95B61]" : "text-foreground"}`}>{option.label}</p>
+                      <p className={`text-[13px] font-medium ${selected ? "text-[#173A2D]" : "text-foreground"}`}>{option.label}</p>
                       <p className="mt-0.5 text-[9px] text-muted-foreground">{option.description}</p>
                     </div>
 
-                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${selected ? "border-[#D4777D] bg-[#D4777D]" : "border-[#D9D0CC]"}`}>{selected && <Check className="h-3 w-3 text-white" strokeWidth={2} />}</span>
+                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${selected ? "border-[#173A2D] bg-[#173A2D]" : "border-[#D4CCBC]"}`}>{selected && <Check className="h-3 w-3 text-white" strokeWidth={2} />}</span>
                   </button>
                 );
               })}
@@ -613,14 +613,14 @@ const BrandProductsPage = () => {
                   <p className="mt-1 text-[9px] text-muted-foreground">اختر القسم الذي تريد عرضه</p>
 
                   <div className="mt-4 grid grid-cols-2 gap-2">
-                    <button type="button" onClick={() => setDraftSection("all")} className={`flex min-h-[42px] items-center justify-between gap-2 rounded-[10px] border px-3 text-[11px] transition-colors ${draftSection === "all" ? "border-[#D7AAA7] bg-[#FFF7F5] text-[#A95B61]" : "border-border bg-background text-foreground"}`}>
+                    <button type="button" onClick={() => setDraftSection("all")} className={`flex min-h-[42px] items-center justify-between gap-2 rounded-[10px] border px-3 text-[11px] transition-colors ${draftSection === "all" ? "border-[#C6B17F] bg-[#F5F1E7] text-[#173A2D]" : "border-border bg-background text-foreground"}`}>
                       <span>جميع الأقسام</span>
 
                       {draftSection === "all" && <Check className="h-3.5 w-3.5" strokeWidth={1.8} />}
                     </button>
 
                     {sections.map((section) => (
-                      <button key={section.id} type="button" onClick={() => setDraftSection(section.id)} className={`flex min-h-[42px] items-center justify-between gap-2 rounded-[10px] border px-3 text-[11px] transition-colors ${draftSection === section.id ? "border-[#D7AAA7] bg-[#FFF7F5] text-[#A95B61]" : "border-border bg-background text-foreground"}`}>
+                      <button key={section.id} type="button" onClick={() => setDraftSection(section.id)} className={`flex min-h-[42px] items-center justify-between gap-2 rounded-[10px] border px-3 text-[11px] transition-colors ${draftSection === section.id ? "border-[#C6B17F] bg-[#F5F1E7] text-[#173A2D]" : "border-border bg-background text-foreground"}`}>
                         <span className="truncate">{section.name}</span>
 
                         {draftSection === section.id && <Check className="h-3.5 w-3.5 shrink-0" strokeWidth={1.8} />}
@@ -646,13 +646,13 @@ const BrandProductsPage = () => {
                   <label>
                     <span className="mb-1.5 block text-[9px] text-muted-foreground">من</span>
 
-                    <input type="number" inputMode="decimal" min={0} value={draftMinPrice} onChange={(event) => setDraftMinPrice(event.target.value)} placeholder={String(priceRange.min || 0)} className="h-[46px] w-full rounded-[11px] border border-border bg-background px-3 text-[12px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/50 focus:border-[#D7AAA7]" />
+                    <input type="number" inputMode="decimal" min={0} value={draftMinPrice} onChange={(event) => setDraftMinPrice(event.target.value)} placeholder={String(priceRange.min || 0)} className="h-[46px] w-full rounded-[11px] border border-border bg-background px-3 text-[12px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/50 focus:border-[#C6B17F]" />
                   </label>
 
                   <label>
                     <span className="mb-1.5 block text-[9px] text-muted-foreground">إلى</span>
 
-                    <input type="number" inputMode="decimal" min={0} value={draftMaxPrice} onChange={(event) => setDraftMaxPrice(event.target.value)} placeholder={String(priceRange.max || 0)} className="h-[46px] w-full rounded-[11px] border border-border bg-background px-3 text-[12px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/50 focus:border-[#D7AAA7]" />
+                    <input type="number" inputMode="decimal" min={0} value={draftMaxPrice} onChange={(event) => setDraftMaxPrice(event.target.value)} placeholder={String(priceRange.max || 0)} className="h-[46px] w-full rounded-[11px] border border-border bg-background px-3 text-[12px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/50 focus:border-[#C6B17F]" />
                   </label>
                 </div>
               </div>
@@ -667,7 +667,7 @@ const BrandProductsPage = () => {
                     <p className="mt-1 text-[9px] text-muted-foreground">إخفاء المنتجات غير المتوفرة حاليًا</p>
                   </div>
 
-                  <span className={`relative h-[27px] w-[48px] shrink-0 rounded-full transition-colors ${draftInStockOnly ? "bg-[#D4777D]" : "bg-[#DED6D2]"}`}>
+                  <span className={`relative h-[27px] w-[48px] shrink-0 rounded-full transition-colors ${draftInStockOnly ? "bg-[#173A2D]" : "bg-[#D8D1C3]"}`}>
                     <span className={`absolute top-[3px] h-[21px] w-[21px] rounded-full bg-white shadow-[0_1px_4px_rgba(0,0,0,0.16)] transition-all ${draftInStockOnly ? "right-[24px]" : "right-[3px]"}`} />
                   </span>
                 </button>
@@ -682,7 +682,7 @@ const BrandProductsPage = () => {
                 مسح
               </button>
 
-              <button type="button" onClick={applyFilters} className="h-[46px] rounded-[11px] bg-[#D4777D] px-4 text-[12px] font-semibold text-white transition-colors active:bg-[#B86168]">
+              <button type="button" onClick={applyFilters} className="h-[46px] rounded-[11px] bg-[#173A2D] px-4 text-[12px] font-semibold text-white transition-colors active:bg-[#9D7B40]">
                 عرض {draftResultCount} منتج
               </button>
             </div>
