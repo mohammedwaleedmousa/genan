@@ -5,11 +5,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { ADMIN_BASE_PATH, LEGACY_ADMIN_BASE_PATH } from "@/lib/adminRoutes";
 import { useStore } from "@/store/useStore";
 
-const SITE_URL = "https://flamingoparkaden.com";
-const DEFAULT_TITLE = "Flamingo Park | فلامنجو بارك";
-const DEFAULT_DESCRIPTION = "Flamingo Park - متجر إلكتروني فاخر للأزياء والإكسسوارات والماركات العالمية.";
-const DEFAULT_IMAGE = `${SITE_URL}/icons/flamingo.jpeg`;
-const PURCHASE_SESSION_PREFIX = "fl-purchase-tracked:";
+const SITE_URL = typeof window !== "undefined" ? window.location.origin : "";
+const DEFAULT_TITLE = "Genan | جنان";
+const DEFAULT_DESCRIPTION = "Genan - متجر إلكتروني فاخر للأزياء والإكسسوارات والماركات العالمية.";
+const DEFAULT_IMAGE = `${SITE_URL}/`;
+const PURCHASE_SESSION_PREFIX = "genan-purchase-tracked:";
 
 const upsertMeta = (selector: string, attrs: Record<string, string>, content: string) => {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
@@ -32,7 +32,7 @@ const upsertCanonical = (href: string) => {
 };
 
 const upsertJsonLd = (payload: Record<string, unknown> | null) => {
-  const id = "flamingo-route-jsonld";
+  const id = "genan-route-jsonld";
   document.getElementById(id)?.remove();
   if (!payload) return;
 
@@ -231,8 +231,8 @@ const AnalyticsTracker = () => {
         if (data) {
           const name = String(data.name_ar || data.name || "منتج").trim();
           const brand = String(data.brand || "").trim();
-          const title = `${name}${brand ? ` | ${brand}` : ""} | Flamingo Park`;
-          const description = String(data.description_ar || data.description || `تسوق ${name} من Flamingo Park.`).trim().slice(0, 180);
+          const title = `${name}${brand ? ` | ${brand}` : ""} | Genan`;
+          const description = String(data.description_ar || data.description || `تسوق ${name} من Genan.`).trim().slice(0, 180);
           const image = Array.isArray(data.images) && data.images[0] ? String(data.images[0]) : DEFAULT_IMAGE;
           const price = Number(data.price);
           const productViewKey = `product:${data.id}`;
@@ -281,18 +281,18 @@ const AnalyticsTracker = () => {
 
       const pageMeta: Record<string, { title: string; description: string }> = {
         "/home": { title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION },
-        "/products": { title: "جميع المنتجات | Flamingo Park", description: "تصفح أحدث منتجات Flamingo Park من الأزياء والحقائب والأحذية والساعات والإكسسوارات." },
-        "/brands": { title: "الماركات | Flamingo Park", description: "اكتشف الماركات العالمية المتوفرة في Flamingo Park وتسوق المنتجات حسب الماركة." },
-        "/categories": { title: "الأقسام | Flamingo Park", description: "تصفح أقسام Flamingo Park من الحقائب والأحذية والساعات والإكسسوارات والملابس." },
-        "/new-arrivals": { title: "وصل حديثاً | Flamingo Park", description: "اكتشف أحدث المنتجات التي وصلت إلى Flamingo Park." },
-        "/best-sellers": { title: "الأكثر مبيعاً | Flamingo Park", description: "تسوق المنتجات الأكثر مبيعاً واختياراً لدى عملاء Flamingo Park." },
-        "/seasonal-offers": { title: "العروض | Flamingo Park", description: "اكتشف أحدث عروض Flamingo Park والمنتجات المختارة بأسعار مميزة." },
-        "/store-info": { title: "عن المتجر والتواصل | Flamingo Park", description: "تعرف على Flamingo Park ووسائل التواصل وخدمة العملاء ومعلومات الشحن والإرجاع." },
-        "/order-tracking": { title: "تتبع الطلب | Flamingo Park", description: "تابع حالة طلبك في Flamingo Park بأمان باستخدام رقم الطلب ورمز التتبع." },
-        "/shipping-policy": { title: "سياسة الشحن والتوصيل | Flamingo Park", description: "تفاصيل نطاق التوصيل والرسوم والمدة التقديرية وتتبع طلبات Flamingo Park." },
-        "/returns-policy": { title: "سياسة الإرجاع والاستبدال | Flamingo Park", description: "شروط ومدة وإجراءات الإرجاع والاستبدال لدى Flamingo Park." },
-        "/privacy-policy": { title: "سياسة الخصوصية | Flamingo Park", description: "تعرف على كيفية معالجة Flamingo Park لبيانات الطلب والحساب وحمايتها." },
-        "/terms": { title: "الشروط والأحكام | Flamingo Park", description: "شروط استخدام متجر Flamingo Park والطلب والدفع والتوصيل." },
+        "/products": { title: "جميع المنتجات | Genan", description: "تصفح أحدث منتجات Genan من الأزياء والحقائب والأحذية والساعات والإكسسوارات." },
+        "/brands": { title: "الماركات | Genan", description: "اكتشف الماركات العالمية المتوفرة في Genan وتسوق المنتجات حسب الماركة." },
+        "/categories": { title: "الأقسام | Genan", description: "تصفح أقسام Genan من الحقائب والأحذية والساعات والإكسسوارات والملابس." },
+        "/new-arrivals": { title: "وصل حديثاً | Genan", description: "اكتشف أحدث المنتجات التي وصلت إلى Genan." },
+        "/best-sellers": { title: "الأكثر مبيعاً | Genan", description: "تسوق المنتجات الأكثر مبيعاً واختياراً لدى عملاء Genan." },
+        "/seasonal-offers": { title: "العروض | Genan", description: "اكتشف أحدث عروض Genan والمنتجات المختارة بأسعار مميزة." },
+        "/store-info": { title: "عن المتجر والتواصل | Genan", description: "تعرف على Genan ووسائل التواصل وخدمة العملاء ومعلومات الشحن والإرجاع." },
+        "/order-tracking": { title: "تتبع الطلب | Genan", description: "تابع حالة طلبك في Genan بأمان باستخدام رقم الطلب ورمز التتبع." },
+        "/shipping-policy": { title: "سياسة الشحن والتوصيل | Genan", description: "تفاصيل نطاق التوصيل والرسوم والمدة التقديرية وتتبع طلبات Genan." },
+        "/returns-policy": { title: "سياسة الإرجاع والاستبدال | Genan", description: "شروط ومدة وإجراءات الإرجاع والاستبدال لدى Genan." },
+        "/privacy-policy": { title: "سياسة الخصوصية | Genan", description: "تعرف على كيفية معالجة Genan لبيانات الطلب والحساب وحمايتها." },
+        "/terms": { title: "الشروط والأحكام | Genan", description: "شروط استخدام متجر Genan والطلب والدفع والتوصيل." },
       };
 
       const meta = pageMeta[pathname] || { title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION };
