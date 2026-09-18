@@ -16,8 +16,6 @@ type ProductRow = {
   color_variants?: Array<{ images?: string[] | null }> | null;
 };
 
-const SITE_URL = "https://flamingoparkaden.com";
-const FALLBACK_IMAGE = `${SITE_URL}/icons/flamingo.jpeg`;
 
 const getConfig = (env: Env) => {
   const url = env.SUPABASE_URL || env.VITE_SUPABASE_URL || "";
@@ -37,14 +35,14 @@ const firstImage = (product: ProductRow) => {
     }
   }
 
-  return FALLBACK_IMAGE;
+  return "";
 };
 
 const buildDescription = (product: ProductRow) => {
   const raw = String(product.description_ar || product.description || "").trim();
   const price = Number(product.price);
   const priceText = Number.isFinite(price) && price > 0 ? `السعر: ${price.toLocaleString("en-US")} ر.س` : "";
-  const base = raw || `تسوّق ${product.name_ar || product.name || "هذا المنتج"} من Flamingo Park.`;
+  const base = raw || `تسوّق ${product.name_ar || product.name || "هذا المنتج"} من Genan.`;
   return priceText ? `${base} — ${priceText}` : base;
 };
 
@@ -85,11 +83,12 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const product = rows[0];
     if (!product) return response;
 
-    const productName = String(product.name_ar || product.name || "منتج من Flamingo Park").trim();
-    const title = `${productName} | Flamingo Park`;
+    const productName = String(product.name_ar || product.name || "منتج من Genan").trim();
+    const title = `${productName} | Genan`;
     const description = buildDescription(product);
-    const image = firstImage(product);
-    const productUrl = `${SITE_URL}/product/${encodeURIComponent(product.slug || slug)}`;
+    const siteUrl = new URL(context.request.url).origin;
+    const image = firstImage(product) || `${siteUrl}/icons/app-icon-1024.png`;
+    const productUrl = `${siteUrl}/product/${encodeURIComponent(product.slug || slug)}`;
 
     const transformer = new HTMLRewriter()
       .on("title", {
