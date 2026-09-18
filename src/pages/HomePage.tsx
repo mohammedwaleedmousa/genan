@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 import HeroSlider from "@/components/HeroSlider";
 import BrandsStrip from "@/components/BrandsStrip";
-import FlamingoServices from "@/components/FlamingoServices";
+import GenanServices from "@/components/GenanServices";
 import HomeManagedSections from "@/components/HomeManagedSections";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -202,7 +202,7 @@ const HomePage = () => {
     })), [categories]);
 
   const brandsViewport = useNearViewport<HTMLDivElement>("120px");
-  const imageBanner = showHomeSection("services") ? <div className="bg-background"><FlamingoServices /></div> : null;
+  const imageBanner = showHomeSection("services") ? <div className="bg-background"><GenanServices /></div> : null;
   const textBanner = showHomeSection("editorial") ? <EditorialSection banner={editorialBanner} /> : null;
 
   return (
