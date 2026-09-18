@@ -10,8 +10,6 @@ type SitemapRow = {
   updated_at?: string | null;
 };
 
-const SITE_URL = "https://flamingoparkaden.com";
-
 const STATIC_PATHS = [
   "/",
   "/home",
@@ -67,13 +65,14 @@ const fetchRows = async (
   })) satisfies SitemapRow[];
 };
 
-const entry = (path: string, updatedAt?: string | null, priority = "0.7", changefreq = "weekly") => {
+const entry = (siteUrl: string, path: string, updatedAt?: string | null, priority = "0.7", changefreq = "weekly") => {
   const lastmod = updatedAt ? `\n    <lastmod>${xmlEscape(updatedAt.slice(0, 10))}</lastmod>` : "";
-  return `  <url>\n    <loc>${xmlEscape(`${SITE_URL}${path}`)}</loc>${lastmod}\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+  return `  <url>\n    <loc>${xmlEscape(`${siteUrl}${path}`)}</loc>${lastmod}\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
 };
 
-export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
-  const entries = STATIC_PATHS.map((path) => entry(path, null, path === "/" || path === "/home" ? "1.0" : "0.8", path === "/store-info" ? "monthly" : "daily"));
+export const onRequestGet: PagesFunction<Env> = async ({ env, request }) => {
+  const siteUrl = new URL(request.url).origin;
+  const entries = STATIC_PATHS.map((path) => entry(siteUrl, path, null, path === "/" || path === "/home" ? "1.0" : "0.8", path === "/store-info" ? "monthly" : "daily"));
   const config = getConfig(env);
 
   if (config) {
@@ -85,15 +84,15 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
       ]);
 
       for (const row of products) {
-        if (row.slug) entries.push(entry(`/product/${encodeURIComponent(row.slug)}`, row.updated_at, "0.8", "weekly"));
+        if (row.slug) entries.push(entry(siteUrl, `/product/${encodeURIComponent(row.slug)}`, row.updated_at, "0.8", "weekly"));
       }
 
       for (const row of brands) {
-        if (row.slug) entries.push(entry(`/brands/${encodeURIComponent(row.slug)}`, row.updated_at, "0.7", "weekly"));
+        if (row.slug) entries.push(entry(siteUrl, `/brands/${encodeURIComponent(row.slug)}`, row.updated_at, "0.7", "weekly"));
       }
 
       for (const row of categories) {
-        if (row.slug) entries.push(entry(`/products?category=${encodeURIComponent(row.slug)}`, row.updated_at, "0.6", "weekly"));
+        if (row.slug) entries.push(entry(siteUrl, `/products?category=${encodeURIComponent(row.slug)}`, row.updated_at, "0.6", "weekly"));
       }
     } catch (error) {
       console.error("[sitemap] dynamic entries unavailable", error);
