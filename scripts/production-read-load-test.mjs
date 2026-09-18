@@ -1,12 +1,17 @@
-const BASE_URL = process.env.BASE_URL || 'https://flamingoparkaden.com';
-const PRODUCT_SLUG = process.env.PRODUCT_SLUG || '1806-26';
+const BASE_URL = String(process.env.BASE_URL || '').replace(/\\\/$/, '');
+const PRODUCT_SLUG = String(process.env.PRODUCT_SLUG || '').trim();
 
 const stages = [20, 50, 100];
+if (!BASE_URL) {
+  console.error('BASE_URL is required. Refusing to run against an implicit production target.');
+  process.exit(1);
+}
+
 const routes = [
   '/',
   '/products',
   '/search?q=%D8%A7%D8%AF%D9%8A%D8%AF%D8%A7%D8%B3',
-  `/product/${encodeURIComponent(PRODUCT_SLUG)}`,
+  ...(PRODUCT_SLUG ? [`/product/${encodeURIComponent(PRODUCT_SLUG)}`] : []),
 ];
 
 const timeoutMs = 10000;
@@ -28,7 +33,7 @@ async function requestPath(path, index) {
       redirect: 'follow',
       signal: controller.signal,
       headers: {
-        'user-agent': 'FlamingoPark-ReadLoadTest/1.0',
+        'user-agent': 'Genan-ReadLoadTest/1.0',
         'accept': 'text/html,application/xhtml+xml',
         'cache-control': 'no-cache',
         'x-load-test-request': String(index),
