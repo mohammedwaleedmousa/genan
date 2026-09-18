@@ -141,7 +141,7 @@ const BrandSectionPage = () => {
           <div className="text-center">
             <Package className="mx-auto h-6 w-6 text-muted-foreground" />
             <h1 className="mt-3 text-lg font-semibold">القسم غير موجود</h1>
-            <Link to={`/brands/${slug}`} className="mt-4 inline-flex items-center gap-1 text-sm text-[#A95B61]"><ChevronRight className="h-4 w-4" /> العودة إلى الماركة</Link>
+            <Link to={`/brands/${slug}`} className="mt-4 inline-flex items-center gap-1 text-sm text-[#173A2D]"><ChevronRight className="h-4 w-4" /> العودة إلى الماركة</Link>
           </div>
         </main>
         <Footer />
@@ -154,10 +154,10 @@ const BrandSectionPage = () => {
       <Navbar /><CartDrawer />
       <main className="flex-1 pb-14">
         <section className="mx-auto w-full max-w-[1400px] px-4 pb-5 pt-6 md:px-6 md:pb-7 md:pt-8">
-          <Link to={`/brands/${slug}`} className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-[#A95B61] md:text-[11px]"><ChevronRight className="h-3.5 w-3.5" /> {brand.name}</Link>
+          <Link to={`/brands/${slug}`} className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-[#173A2D] md:text-[11px]"><ChevronRight className="h-3.5 w-3.5" /> {brand.name}</Link>
           <div className="mt-4 flex items-end justify-between gap-4">
             <div className="min-w-0">
-              <div className="mb-1.5 flex items-center gap-2"><span className="h-[2px] w-4 rounded-full bg-[#D4777D]" /><span className="font-serif text-[7px] uppercase tracking-[0.2em] text-[#B86168]">COLLECTION</span></div>
+              <div className="mb-1.5 flex items-center gap-2"><span className="h-[2px] w-4 rounded-full bg-[#173A2D]" /><span className="font-serif text-[7px] uppercase tracking-[0.2em] text-[#9D7B40]">COLLECTION</span></div>
               <h1 className="text-[25px] font-semibold tracking-[-0.035em] md:text-[34px]">{section.name}</h1>
               {section.description && <p className="mt-2 max-w-[560px] text-[11px] leading-6 text-muted-foreground">{section.description}</p>}
             </div>
@@ -168,7 +168,7 @@ const BrandSectionPage = () => {
         {products.length > 0 && (
           <section className="border-y border-border/60">
             <div className="mx-auto flex h-[54px] w-full max-w-[1400px] items-center justify-between gap-3 px-4 md:px-6">
-              <button type="button" onClick={() => setInStockOnly((value) => !value)} className={`rounded-full border px-3 py-1.5 text-[10px] ${inStockOnly ? "border-[#D6AAA7] bg-[#FFF7F5] text-[#A95B61]" : "border-border text-muted-foreground"}`}>المتوفر فقط</button>
+              <button type="button" onClick={() => setInStockOnly((value) => !value)} className={`rounded-full border px-3 py-1.5 text-[10px] ${inStockOnly ? "border-[#C6B17F] bg-[#F5F1E7] text-[#173A2D]" : "border-border text-muted-foreground"}`}>المتوفر فقط</button>
               <label className="relative flex items-center">
                 <select value={sort} onChange={(event) => setSort(event.target.value as SortType)} className="appearance-none bg-transparent py-2 pl-6 pr-2 text-[10px] font-medium outline-none">
                   <option value="new">الأحدث</option><option value="asc">السعر: الأقل أولاً</option><option value="desc">السعر: الأعلى أولاً</option><option value="name">الاسم</option>
