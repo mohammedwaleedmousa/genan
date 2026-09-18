@@ -68,7 +68,7 @@ const OrderConfirmationPage = () => {
   const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const flamingoLogo = "/icons/flamingo.jpeg";
+  const flamingoLogo = "/icons/app-icon-1024.png";
 
   const currencyMode = orderData?.currencyMode || "SAR";
   const currencyConfig = CURRENCY_RATES[currencyMode as keyof typeof CURRENCY_RATES];
@@ -153,7 +153,7 @@ const OrderConfirmationPage = () => {
 
     const referralLine = orderData.referralCode ? `\n\nكود هديتك: ${orderData.referralCode}\nخصم 10% لشخص تعرفه - صالح لمدة 48 ساعة` : "";
 
-    return `فاتورة Flamingo Park\nرقم الطلب: ${orderData.orderNumber}\nالعميل: ${orderData.customerName}\nالهاتف: ${orderData.customerPhone}\n\nالمنتجات:\n${items}${remaining}\n\nشركة التوصيل: ${orderData.deliveryCompany}\nطريقة الدفع: ${paymentLabel}${region}\nرسوم التوصيل: ${fmt(orderData.deliveryFee)} ${currency}\nالإجمالي: ${fmt(orderData.total)} ${currency}${referralLine}\n\nتتبع الطلب:\n${absoluteTrackingUrl}`;
+    return `فاتورة Genan\nرقم الطلب: ${orderData.orderNumber}\nالعميل: ${orderData.customerName}\nالهاتف: ${orderData.customerPhone}\n\nالمنتجات:\n${items}${remaining}\n\nشركة التوصيل: ${orderData.deliveryCompany}\nطريقة الدفع: ${paymentLabel}${region}\nرسوم التوصيل: ${fmt(orderData.deliveryFee)} ${currency}\nالإجمالي: ${fmt(orderData.total)} ${currency}${referralLine}\n\nتتبع الطلب:\n${absoluteTrackingUrl}`;
   };
 
   const openWhatsApp = () => {
@@ -220,8 +220,8 @@ const OrderConfirmationPage = () => {
           <div id="invoice" className="overflow-hidden rounded-[16px] border border-[#E9DFDB] bg-white print:rounded-none print:border-0">
             <div className="flex items-start justify-between gap-4 border-b border-[#EEE5E1] px-4 py-4 md:px-6 md:py-5">
               <div className="min-w-0">
-                <img src={flamingoLogo} alt="Flamingo Park" className="h-[48px] w-auto object-contain md:h-[58px]" />
-                <p className="mt-1 text-[7px] text-[#A0938E]">فاتورة طلب Flamingo Park</p>
+                <img src={flamingoLogo} alt="Genan" className="h-[48px] w-auto object-contain md:h-[58px]" />
+                <p className="mt-1 text-[7px] text-[#A0938E]">فاتورة طلب Genan</p>
               </div>
 
               <div className="min-w-0 text-left">
@@ -371,7 +371,7 @@ const OrderConfirmationPage = () => {
 
             <div className="flex items-center justify-between gap-4 border-t border-[#EEE5E1] px-4 py-3 md:px-6">
               <div className="flex items-center gap-1.5"><Check className="h-3 w-3 text-[#6E9274]" strokeWidth={1.7} /><span className="text-[5px] text-[#9B8D88]">تم إنشاء الطلب إلكترونياً</span></div>
-              <span className="text-[5px] tracking-[0.08em] text-[#B5AAA6]">FLAMINGO PARK</span>
+              <span className="text-[5px] tracking-[0.08em] text-[#B5AAA6]">GENAN</span>
             </div>
           </div>
 
