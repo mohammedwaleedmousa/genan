@@ -1,4 +1,4 @@
-const BASE_URL = String(process.env.BASE_URL || '').replace(/\\\/$/, '');
+const BASE_URL = String(process.env.BASE_URL || '').replace(/\/$/, '');
 const PRODUCT_SLUG = String(process.env.PRODUCT_SLUG || '').trim();
 
 const stages = [20, 50, 100];
