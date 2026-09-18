@@ -312,11 +312,11 @@ const ProductDetailPage = () => {
   useEffect(() => {
     if (!product) return;
 
-    const siteUrl = "https://flamingoparkaden.com";
+    const siteUrl = "";
     const productUrl = `${siteUrl}/product/${encodeURIComponent(product.slug)}`;
-    const title = `${product.nameAr || product.name} | Flamingo Park`;
-    const description = product.descriptionAr || product.description || `تسوّق ${product.nameAr || product.name} من Flamingo Park.`;
-    const image = product.images?.[0] || `${siteUrl}/icons/flamingo.jpeg`;
+    const title = `${product.nameAr || product.name} | Genan`;
+    const description = product.descriptionAr || product.description || `تسوّق ${product.nameAr || product.name} من Genan.`;
+    const image = product.images?.[0] || `${siteUrl}/icons/app-icon-1024.png`;
     const previousTitle = document.title;
 
     const setMeta = (selector: string, content: string) => {
@@ -791,8 +791,8 @@ const ProductDetailPage = () => {
           <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
         </button>
 
-        <button type="button" onClick={() => navigate("/home")} aria-label="Flamingo Park" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <img src="/icons/flamingo.jpeg" alt="Flamingo Park" width={38} height={38} className="h-[38px] w-[38px] object-contain" />
+        <button type="button" onClick={() => navigate("/home")} aria-label="Genan" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <img src="/icons/app-icon-1024.png" alt="Genan" width={38} height={38} className="h-[38px] w-[38px] object-contain" />
         </button>
 
         <div className="flex items-center">
@@ -1278,7 +1278,7 @@ const ProductDetailPage = () => {
 
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <p className="truncate text-[10px] font-semibold text-[#403633]">Flamingo Park</p>
+                    <p className="truncate text-[10px] font-semibold text-[#403633]">Genan</p>
 
                     <Shield className="h-3 w-3 text-[#C66C72]" strokeWidth={1.6} />
                   </div>
