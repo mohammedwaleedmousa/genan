@@ -68,7 +68,7 @@ const OrderConfirmationPage = () => {
   const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const flamingoLogo = "/icons/app-icon-1024.png";
+  const genanLogo = "/icons/app-icon-1024.png";
 
   const currencyMode = orderData?.currencyMode || "SAR";
   const currencyConfig = CURRENCY_RATES[currencyMode as keyof typeof CURRENCY_RATES];
@@ -173,7 +173,7 @@ const OrderConfirmationPage = () => {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#FFFDFC]" dir="rtl">
         <div className="text-center">
-          <span className="mx-auto block h-7 w-7 animate-spin rounded-full border-2 border-[#E7D3D0] border-t-[#D4777D]" />
+          <span className="mx-auto block h-7 w-7 animate-spin rounded-full border-2 border-[#DDD4C3] border-t-[#173A2D]" />
           <p className="mt-3 text-[8px] text-[#958782]">جاري تحميل تفاصيل الطلب...</p>
         </div>
       </div>
@@ -201,63 +201,63 @@ const OrderConfirmationPage = () => {
             ) : (
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-                  <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">ORDER RECEIVED</span>
+                  <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+                  <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">ORDER RECEIVED</span>
                 </div>
                 <div className="mt-1.5 flex items-end justify-between gap-4">
                   <div>
-                    <h1 className="text-[19px] font-semibold tracking-[-0.025em] text-[#403633] md:text-[25px]">تفاصيل طلبك</h1>
-                    <p className="mt-1 text-[8px] text-[#9B8D88]">راجع الفاتورة ثم أكّد الطلب. واتساب سيفتح فوراً برسالة فاتورة خفيفة بدون PDF ثقيل.</p>
+                    <h1 className="text-[19px] font-semibold tracking-[-0.025em] text-[#173A2D] md:text-[25px]">تفاصيل طلبك</h1>
+                    <p className="mt-1 text-[8px] text-[#899289]">راجع الفاتورة ثم أكّد الطلب. واتساب سيفتح فوراً برسالة فاتورة خفيفة بدون PDF ثقيل.</p>
                   </div>
-                  <span className="hidden h-9 w-9 items-center justify-center rounded-full bg-[#FAECE9] md:flex">
-                    <ReceiptText className="h-4 w-4 text-[#C66C72]" strokeWidth={1.5} />
+                  <span className="hidden h-9 w-9 items-center justify-center rounded-full bg-[#EAE5D7] md:flex">
+                    <ReceiptText className="h-4 w-4 text-[#9D7B40]" strokeWidth={1.5} />
                   </span>
                 </div>
               </div>
             )}
           </section>
 
-          <div id="invoice" className="overflow-hidden rounded-[16px] border border-[#E9DFDB] bg-white print:rounded-none print:border-0">
-            <div className="flex items-start justify-between gap-4 border-b border-[#EEE5E1] px-4 py-4 md:px-6 md:py-5">
+          <div id="invoice" className="overflow-hidden rounded-[16px] border border-[#E2DCCE] bg-white print:rounded-none print:border-0">
+            <div className="flex items-start justify-between gap-4 border-b border-[#E5DED0] px-4 py-4 md:px-6 md:py-5">
               <div className="min-w-0">
-                <img src={flamingoLogo} alt="Genan" className="h-[48px] w-auto object-contain md:h-[58px]" />
-                <p className="mt-1 text-[7px] text-[#A0938E]">فاتورة طلب Genan</p>
+                <img src={genanLogo} alt="Genan" className="h-[48px] w-auto object-contain md:h-[58px]" />
+                <p className="mt-1 text-[7px] text-[#8A938B]">فاتورة طلب Genan</p>
               </div>
 
               <div className="min-w-0 text-left">
                 <p className="text-[6px] uppercase tracking-[0.12em] text-[#A79A95]">ORDER NUMBER</p>
                 <div className="mt-1 flex items-center justify-end gap-1.5">
                   <span dir="ltr" className="font-mono text-[9px] font-semibold text-[#514540]">{orderData.orderNumber}</span>
-                  <button type="button" onClick={handleCopyOrderNumber} aria-label="نسخ رقم الطلب" className="flex h-6 w-6 items-center justify-center rounded-[6px] text-[#A76A6D] active:bg-[#FFF5F3] print:hidden">
+                  <button type="button" onClick={handleCopyOrderNumber} aria-label="نسخ رقم الطلب" className="flex h-6 w-6 items-center justify-center rounded-[6px] text-[#A76A6D] active:bg-[#F3F0E6] print:hidden">
                     <Copy className="h-3 w-3" strokeWidth={1.5} />
                   </button>
                 </div>
-                <p className="mt-1.5 text-[6px] leading-4 text-[#A0938E]">
+                <p className="mt-1.5 text-[6px] leading-4 text-[#8A938B]">
                   {new Date(orderData.createdAt).toLocaleDateString("ar", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 border-b border-[#EEE5E1] bg-[#FFFCFB]">
-              <div className="border-l border-[#EEE5E1] px-4 py-3 md:px-6">
+            <div className="grid grid-cols-2 border-b border-[#E5DED0] bg-[#FFFCFB]">
+              <div className="border-l border-[#E5DED0] px-4 py-3 md:px-6">
                 <div className="flex items-center gap-1.5">
-                  <PackageCheck className="h-3 w-3 text-[#C66C72]" strokeWidth={1.5} />
+                  <PackageCheck className="h-3 w-3 text-[#9D7B40]" strokeWidth={1.5} />
                   <span className="text-[6px] text-[#9D8F8A]">حالة الطلب</span>
                 </div>
                 <p className="mt-1 text-[8px] font-semibold text-[#527258]">تم استلام الطلب</p>
               </div>
               <div className="px-4 py-3 md:px-6">
                 <div className="flex items-center gap-1.5">
-                  <Truck className="h-3 w-3 text-[#C66C72]" strokeWidth={1.5} />
+                  <Truck className="h-3 w-3 text-[#9D7B40]" strokeWidth={1.5} />
                   <span className="text-[6px] text-[#9D8F8A]">شركة التوصيل</span>
                 </div>
                 <p className="mt-1 truncate text-[8px] font-semibold text-[#514540]">{orderData.deliveryCompany}</p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 border-b border-[#EEE5E1] md:grid-cols-2">
-              <div className="px-4 py-4 md:border-l md:border-[#EEE5E1] md:px-6">
-                <p className="text-[7px] font-medium text-[#A0938E]">معلومات العميل</p>
+            <div className="grid grid-cols-1 border-b border-[#E5DED0] md:grid-cols-2">
+              <div className="px-4 py-4 md:border-l md:border-[#E5DED0] md:px-6">
+                <p className="text-[7px] font-medium text-[#8A938B]">معلومات العميل</p>
                 <p className="mt-2 text-[9px] font-semibold text-[#514540]">{orderData.customerName}</p>
                 <div className="mt-1.5 flex items-center gap-1.5">
                   <Phone className="h-3 w-3 text-[#A76A6D]" strokeWidth={1.4} />
@@ -265,30 +265,30 @@ const OrderConfirmationPage = () => {
                 </div>
               </div>
 
-              <div className="border-t border-[#EEE5E1] px-4 py-4 md:border-t-0 md:px-6">
-                <p className="text-[7px] font-medium text-[#A0938E]">عنوان التوصيل</p>
+              <div className="border-t border-[#E5DED0] px-4 py-4 md:border-t-0 md:px-6">
+                <p className="text-[7px] font-medium text-[#8A938B]">عنوان التوصيل</p>
                 <div className="mt-2 flex items-start gap-1.5">
                   <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-[#A76A6D]" strokeWidth={1.4} />
                   <div>
                     {orderData.customerCity && <p className="text-[8px] font-medium text-[#514540]">{orderData.customerCity}</p>}
-                    <p className="text-[8px] leading-5 text-[#625550]">{orderData.customerAddress}</p>
+                    <p className="text-[8px] leading-5 text-[#4C5E54]">{orderData.customerAddress}</p>
                   </div>
                 </div>
-                {orderData.customerNotes && <p className="mt-2 rounded-[7px] bg-[#F8F5F3] px-2.5 py-2 text-[6px] leading-4 text-[#8C7E79]">ملاحظة: {orderData.customerNotes}</p>}
+                {orderData.customerNotes && <p className="mt-2 rounded-[7px] bg-[#F3F0E8] px-2.5 py-2 text-[6px] leading-4 text-[#8C7E79]">ملاحظة: {orderData.customerNotes}</p>}
               </div>
             </div>
 
             <div className="px-4 py-4 md:px-6 md:py-5">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-[9px] font-semibold text-[#514540]">المنتجات</h3>
-                <span className="text-[6px] text-[#A0938E]">{orderData.items.length} {orderData.items.length === 1 ? "منتج" : "منتجات"}</span>
+                <span className="text-[6px] text-[#8A938B]">{orderData.items.length} {orderData.items.length === 1 ? "منتج" : "منتجات"}</span>
               </div>
 
               <div>
                 {(orderData.items || []).map((item, index) => (
                   <div key={`${item.product_id}-${index}`} className={`py-3 ${index !== orderData.items.length - 1 ? "border-b border-[#F0E8E5]" : ""}`}>
                     <div className="flex items-center gap-3">
-                      <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center overflow-hidden rounded-[9px] border border-[#EEE7E4] bg-[#F7F5F3] p-1 print:h-[52px] print:w-[52px]">
+                      <div className="flex h-[64px] w-[64px] shrink-0 items-center justify-center overflow-hidden rounded-[9px] border border-[#E7E1D5] bg-[#F7F5F3] p-1 print:h-[52px] print:w-[52px]">
                         <img src={optimizeImage(item.product_image || "/placeholder.svg", 180, 72)} alt={item.product_name} loading="lazy" decoding="async" onError={handleImageError} className="h-full w-full object-contain object-center" />
                       </div>
 
@@ -299,23 +299,23 @@ const OrderConfirmationPage = () => {
                           {item.selected_size && <><span className="text-[#D2C8C4]">•</span><span>المقاس: {item.selected_size}</span></>}
                           {item.selected_color && <><span className="text-[#D2C8C4]">•</span><span>اللون: {item.selected_color}</span></>}
                         </div>
-                        <p className="mt-1.5 text-[6px] text-[#A0938E]">{item.quantity} × {fmt(item.price)} {currency}</p>
+                        <p className="mt-1.5 text-[6px] text-[#8A938B]">{item.quantity} × {fmt(item.price)} {currency}</p>
                       </div>
 
-                      <span className="shrink-0 text-[9px] font-semibold text-[#A95B61]">{fmt(item.price * item.quantity)} {currency}</span>
+                      <span className="shrink-0 text-[9px] font-semibold text-[#173A2D]">{fmt(item.price * item.quantity)} {currency}</span>
                     </div>
 
                     {item.selected_accessories && item.selected_accessories.length > 0 && (
-                      <div className="mr-[76px] mt-3 rounded-[9px] bg-[#FAF8F7] px-3 py-2.5 print:mr-[62px]">
-                        <p className="mb-2 text-[6px] font-medium text-[#9B8D88]">الإضافات</p>
+                      <div className="mr-[76px] mt-3 rounded-[9px] bg-[#F5F3ED] px-3 py-2.5 print:mr-[62px]">
+                        <p className="mb-2 text-[6px] font-medium text-[#899289]">الإضافات</p>
                         <div className="space-y-2">
                           {item.selected_accessories.map((accessory, accessoryIndex) => (
                             <div key={`${accessory.name_ar}-${accessoryIndex}`} className="flex items-center justify-between gap-3">
                               <div className="min-w-0">
                                 <p className="truncate text-[6px] font-medium text-[#685A55]">{accessory.name_ar || accessory.name}</p>
-                                <p className="mt-0.5 text-[5px] text-[#A0938E]">الكمية ×{accessory.quantity}</p>
+                                <p className="mt-0.5 text-[5px] text-[#8A938B]">الكمية ×{accessory.quantity}</p>
                               </div>
-                              <span className="shrink-0 text-[6px] font-medium text-[#A95B61]">+{fmt(accessory.price * accessory.quantity)} {currency}</span>
+                              <span className="shrink-0 text-[6px] font-medium text-[#173A2D]">+{fmt(accessory.price * accessory.quantity)} {currency}</span>
                             </div>
                           ))}
                         </div>
@@ -326,7 +326,7 @@ const OrderConfirmationPage = () => {
               </div>
             </div>
 
-            <div className="border-t border-[#EEE5E1] bg-[#FFFCFB] px-4 py-4 md:px-6 md:py-5">
+            <div className="border-t border-[#E5DED0] bg-[#FFFCFB] px-4 py-4 md:px-6 md:py-5">
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between text-[7px] text-[#746661]"><span>المجموع الفرعي</span><span>{fmt(orderData.subtotal)} {currency}</span></div>
                 <div className="flex items-center justify-between gap-3 text-[7px] text-[#746661]"><span className="truncate">رسوم التوصيل ({orderData.deliveryCompany})</span><span className="shrink-0">{fmt(orderData.deliveryFee)} {currency}</span></div>
@@ -346,10 +346,10 @@ const OrderConfirmationPage = () => {
                       <p className="mt-1 text-[5px] leading-4 text-[#9A8580]">أرسله لشخص تعرفه. صالح لمدة 48 ساعة فقط، ويُستخدم مرة واحدة لكل عميل.</p>
                     </div>
                     <div className="flex shrink-0 items-center gap-1">
-                      <span dir="ltr" className="rounded-[5px] border border-[#EED8D5] bg-white px-1.5 py-1 font-mono text-[5.5px] font-semibold tracking-[0.04em] text-[#A95B61]">
+                      <span dir="ltr" className="rounded-[5px] border border-[#DED4C0] bg-white px-1.5 py-1 font-mono text-[5.5px] font-semibold tracking-[0.04em] text-[#173A2D]">
                         {orderData.referralCode}
                       </span>
-                      <button type="button" onClick={handleCopyReferralCode} aria-label="نسخ كود الخصم" title="نسخ الكود" className="flex h-6 w-6 items-center justify-center rounded-[6px] border border-[#E7C9C5] bg-white text-[#B86168] active:bg-[#FFF0EE] print:hidden">
+                      <button type="button" onClick={handleCopyReferralCode} aria-label="نسخ كود الخصم" title="نسخ الكود" className="flex h-6 w-6 items-center justify-center rounded-[6px] border border-[#D7C8A8] bg-white text-[#9D7B40] active:bg-[#F0EDE5] print:hidden">
                         <Copy className="h-3 w-3" strokeWidth={1.6} />
                       </button>
                     </div>
@@ -360,24 +360,24 @@ const OrderConfirmationPage = () => {
 
               <div className="mt-4 flex items-end justify-between border-t border-[#E8DFDB] pt-4">
                 <div><p className="text-[8px] font-semibold text-[#514540]">الإجمالي</p><p className="mt-0.5 text-[5px] text-[#A99C97]">الإجمالي النهائي للطلب</p></div>
-                <span className="text-[16px] font-bold text-[#B86168] md:text-[18px]">{fmt(orderData.total)} {currency}</span>
+                <span className="text-[16px] font-bold text-[#9D7B40] md:text-[18px]">{fmt(orderData.total)} {currency}</span>
               </div>
 
-              <div className="mt-4 grid grid-cols-1 gap-2 border-t border-[#EEE5E1] pt-3 sm:grid-cols-2">
-                <div className="flex items-center justify-between gap-3"><span className="text-[6px] text-[#9A8C87]">طريقة الدفع</span><span className="text-[7px] font-medium text-[#5D504B]">{paymentLabel}</span></div>
-                {orderData.selectedRegion && <div className="flex items-center justify-between gap-3 sm:border-r sm:border-[#E8DFDB] sm:pr-3"><span className="text-[6px] text-[#9A8C87]">منطقة الاستلام</span><span className="text-[7px] font-medium text-[#5D504B]">{orderData.selectedRegion}</span></div>}
+              <div className="mt-4 grid grid-cols-1 gap-2 border-t border-[#E5DED0] pt-3 sm:grid-cols-2">
+                <div className="flex items-center justify-between gap-3"><span className="text-[6px] text-[#899289]">طريقة الدفع</span><span className="text-[7px] font-medium text-[#5D504B]">{paymentLabel}</span></div>
+                {orderData.selectedRegion && <div className="flex items-center justify-between gap-3 sm:border-r sm:border-[#E8DFDB] sm:pr-3"><span className="text-[6px] text-[#899289]">منطقة الاستلام</span><span className="text-[7px] font-medium text-[#5D504B]">{orderData.selectedRegion}</span></div>}
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-4 border-t border-[#EEE5E1] px-4 py-3 md:px-6">
-              <div className="flex items-center gap-1.5"><Check className="h-3 w-3 text-[#6E9274]" strokeWidth={1.7} /><span className="text-[5px] text-[#9B8D88]">تم إنشاء الطلب إلكترونياً</span></div>
+            <div className="flex items-center justify-between gap-4 border-t border-[#E5DED0] px-4 py-3 md:px-6">
+              <div className="flex items-center gap-1.5"><Check className="h-3 w-3 text-[#6E9274]" strokeWidth={1.7} /><span className="text-[5px] text-[#899289]">تم إنشاء الطلب إلكترونياً</span></div>
               <span className="text-[5px] tracking-[0.08em] text-[#B5AAA6]">GENAN</span>
             </div>
           </div>
 
           <div className="mt-4 print:hidden">
             {!isConfirmed ? (
-              <button type="button" onClick={handleConfirmOrder} className="flex h-[50px] w-full items-center justify-center gap-2.5 rounded-[12px] bg-[#D4777D] px-4 text-[9px] font-semibold text-white active:bg-[#C96B72]">
+              <button type="button" onClick={handleConfirmOrder} className="flex h-[50px] w-full items-center justify-center gap-2.5 rounded-[12px] bg-[#173A2D] px-4 text-[9px] font-semibold text-white active:bg-[#214C3B]">
                 <Check className="h-4 w-4" strokeWidth={2} />
                 تأكيد الطلب وإرساله عبر واتساب
               </button>
@@ -388,18 +388,18 @@ const OrderConfirmationPage = () => {
               </button>
             )}
 
-            <button type="button" onClick={() => window.print()} className="mt-2 flex h-[42px] w-full items-center justify-center gap-1.5 rounded-[10px] border border-[#E5DAD6] bg-white text-[8px] font-medium text-[#655752] active:bg-[#FAF8F7]">
+            <button type="button" onClick={() => window.print()} className="mt-2 flex h-[42px] w-full items-center justify-center gap-1.5 rounded-[10px] border border-[#DDD7C8] bg-white text-[8px] font-medium text-[#655752] active:bg-[#F5F3ED]">
               <FileText className="h-3.5 w-3.5" strokeWidth={1.5} />
               طباعة أو حفظ الفاتورة PDF
             </button>
 
             <div className="mt-2 grid grid-cols-2 gap-2">
-              <Link to={trackingUrl} className="flex h-[42px] items-center justify-center gap-1.5 rounded-[10px] border border-[#D9AEAA] bg-white text-[8px] font-semibold text-[#A95B61] active:bg-[#FFF7F5]">
+              <Link to={trackingUrl} className="flex h-[42px] items-center justify-center gap-1.5 rounded-[10px] border border-[#C6B17F] bg-white text-[8px] font-semibold text-[#173A2D] active:bg-[#F5F1E7]">
                 <Truck className="h-3.5 w-3.5" strokeWidth={1.5} />
                 تتبع الطلب
               </Link>
 
-              <Link to="/home" className="flex h-[42px] items-center justify-center gap-1.5 rounded-[10px] border border-[#E5DAD6] bg-white text-[8px] font-medium text-[#655752] active:bg-[#FAF8F7]">
+              <Link to="/home" className="flex h-[42px] items-center justify-center gap-1.5 rounded-[10px] border border-[#DDD7C8] bg-white text-[8px] font-medium text-[#655752] active:bg-[#F5F3ED]">
                 <Home className="h-3.5 w-3.5" strokeWidth={1.5} />
                 العودة للرئيسية
               </Link>
