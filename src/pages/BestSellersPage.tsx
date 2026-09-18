@@ -42,22 +42,22 @@ const BestSellersPage = () => {
       <CartDrawer />
 
       <main className="pb-20 md:pt-24">
-        <section className="border-b border-[#F0E6E2] bg-[#FFF8F6]">
+        <section className="border-b border-[#F0E6E2] bg-[#F6F3EA]">
           <div className="mx-auto w-full max-w-[1500px] px-4 pb-5 pt-6 md:px-6 md:pb-7 md:pt-8">
             <div className="flex items-end justify-between gap-5">
               <div>
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-                  <span className="font-serif text-[7px] tracking-[0.25em] text-[#B75F66]">{getSiteText(content, "best_sellers_eyebrow", "MOST LOVED")}</span>
+                  <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+                  <span className="font-serif text-[7px] tracking-[0.25em] text-[#9D7B40]">{getSiteText(content, "best_sellers_eyebrow", "MOST LOVED")}</span>
                 </div>
                 <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#403131] md:text-[36px]">{getSiteText(content, "best_sellers_title", "الأكثر مبيعاً")}</h1>
-                <p className="mt-1.5 max-w-[275px] text-[8px] leading-5 text-[#9B8984] md:max-w-md md:text-[10px]">القطع التي اختارها عملاء جنان أكثر من غيرها.</p>
+                <p className="mt-1.5 max-w-[275px] text-[8px] leading-5 text-[#899289] md:max-w-md md:text-[10px]">القطع التي اختارها عملاء جنان أكثر من غيرها.</p>
               </div>
 
               {!isLoading && total > 0 && (
                 <div className="shrink-0 text-left">
                   <span className="block text-[18px] font-semibold leading-none text-[#B85F66] md:text-[22px]">{total}</span>
-                  <span className="mt-1 block text-[6px] text-[#A99A94] md:text-[7px]">قطعة مميزة</span>
+                  <span className="mt-1 block text-[6px] text-[#929A92] md:text-[7px]">قطعة مميزة</span>
                 </div>
               )}
             </div>
@@ -67,11 +67,11 @@ const BestSellersPage = () => {
         <section className="border-b border-[#EFE6E2] bg-white">
           <div className="mx-auto flex h-[42px] w-full max-w-[1500px] items-center justify-between px-3 md:h-[46px] md:px-6">
             <div className="flex items-center gap-1.5">
-              <Heart className="h-3.5 w-3.5 fill-[#F7DCDD] stroke-[1.5] text-[#C96F79]" />
+              <Heart className="h-3.5 w-3.5 fill-[#F7DCDD] stroke-[1.5] text-[#9D7B40]" />
               <span className="text-[8px] font-medium text-[#755F5E] md:text-[9px]">الأكثر طلبًا</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Sparkles className="h-3 w-3 stroke-[1.4] text-[#C96F79]" />
+              <Sparkles className="h-3 w-3 stroke-[1.4] text-[#9D7B40]" />
               <span className="text-[7px] text-[#A89B95] md:text-[8px]">مختارات العملاء</span>
             </div>
           </div>
@@ -84,10 +84,10 @@ const BestSellersPage = () => {
             </div>
           ) : products.length === 0 ? (
             <div className="flex min-h-[48vh] flex-col items-center justify-center px-5 text-center">
-              <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#FAECE9]"><Heart className="h-5 w-5 stroke-[1.4] text-[#C76D73]" /></div>
-              <span className="mt-4 font-serif text-[6px] tracking-[0.22em] text-[#B86168]">GENAN</span>
+              <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#EAE5D7]"><Heart className="h-5 w-5 stroke-[1.4] text-[#9D7B40]" /></div>
+              <span className="mt-4 font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">GENAN</span>
               <h2 className="mt-2 text-[15px] font-semibold text-[#493837]">{getSiteText(content, "best_sellers_empty", "لا توجد منتجات حالياً")}</h2>
-              <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#9D8E89]">ستظهر هنا المنتجات الأكثر طلبًا عند توفرها.</p>
+              <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#899289]">ستظهر هنا المنتجات الأكثر طلبًا عند توفرها.</p>
             </div>
           ) : (
             <>
@@ -99,7 +99,7 @@ const BestSellersPage = () => {
 
               {hasMore && (
                 <div className="flex justify-center pt-8">
-                  <button type="button" disabled={isFetching} onClick={() => setVisibleCount((count) => count + PAGE_SIZE)} className="flex h-11 min-w-[150px] items-center justify-center gap-2 rounded-full border border-[#DFC4C0] bg-white px-6 text-[9px] font-semibold text-[#A95B61] disabled:opacity-50">
+                  <button type="button" disabled={isFetching} onClick={() => setVisibleCount((count) => count + PAGE_SIZE)} className="flex h-11 min-w-[150px] items-center justify-center gap-2 rounded-full border border-[#D4C9B3] bg-white px-6 text-[9px] font-semibold text-[#173A2D] disabled:opacity-50">
                     {isFetching && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                     {isFetching ? "جارٍ التحميل" : "عرض المزيد"}
                   </button>
@@ -113,11 +113,11 @@ const BestSellersPage = () => {
           <section className="mx-auto w-full max-w-[1500px] px-3 py-9 md:px-6 md:py-12">
             <div className="border-t border-[#EADFDA] pt-6 text-center">
               <div className="mb-2 flex items-center justify-center gap-2">
-                <span className="h-px w-5 bg-[#D9B6B2]" />
-                <span className="font-serif text-[6px] tracking-[0.24em] text-[#B86168]">GENAN MOST LOVED</span>
-                <span className="h-px w-5 bg-[#D9B6B2]" />
+                <span className="h-px w-5 bg-[#C6B17F]" />
+                <span className="font-serif text-[6px] tracking-[0.24em] text-[#9D7B40]">GENAN MOST LOVED</span>
+                <span className="h-px w-5 bg-[#C6B17F]" />
               </div>
-              <p className="text-[9px] text-[#968783]">اختيارات أحبها عملاء جنان واستمرت ضمن الأكثر طلبًا.</p>
+              <p className="text-[9px] text-[#858E86]">اختيارات أحبها عملاء جنان واستمرت ضمن الأكثر طلبًا.</p>
             </div>
           </section>
         )}
