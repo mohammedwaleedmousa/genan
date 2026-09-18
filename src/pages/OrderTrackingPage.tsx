@@ -20,7 +20,7 @@ interface TrackingStep {
 
 type NormalizedStatus = "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
 
-const STORE_WHATSAPP = "967778579777";
+const STORE_WHATSAPP = String(import.meta.env.VITE_GENAN_WHATSAPP_NUMBER || "").replace(/\\D/g, "");
 
 const normalizeStatus = (raw: string): NormalizedStatus => {
   const status = String(raw || "").trim().toLowerCase();
@@ -241,9 +241,9 @@ const OrderTrackingPage = () => {
   ========================================================= */
 
   const handleContact = () => {
+    if (!STORE_WHATSAPP) return;
     const message = `مرحباً، أحتاج للاستعلام عن طلبي${selectedOrder ? ` رقم ${selectedOrder}` : ""}.`;
     const url = `https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(message)}`;
-
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -304,7 +304,7 @@ const OrderTrackingPage = () => {
               <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
                 <div>
                   <label htmlFor="tracking-order-number" className="mb-1.5 block text-[8px] font-medium text-[#5B4E49]">رقم الطلب أو رابط التتبع *</label>
-                  <input id="tracking-order-number" name="order_number" value={orderDraft} onChange={(event) => handleOrderDraftChange(event.target.value)} autoComplete="off" inputMode="text" dir="ltr" placeholder="FLM-12345" className="h-11 w-full rounded-[10px] border border-[#DED8CA] bg-white px-3 text-left font-mono text-[9px] text-[#483C38] outline-none placeholder:text-[#ADA19C] focus:border-[#C6B17F]" />
+                  <input id="tracking-order-number" name="order_number" value={orderDraft} onChange={(event) => handleOrderDraftChange(event.target.value)} autoComplete="off" inputMode="text" dir="ltr" placeholder="GN-12345" className="h-11 w-full rounded-[10px] border border-[#DED8CA] bg-white px-3 text-left font-mono text-[9px] text-[#483C38] outline-none placeholder:text-[#ADA19C] focus:border-[#C6B17F]" />
                 </div>
 
                 <div>
@@ -450,7 +450,7 @@ const OrderTrackingPage = () => {
                         <div className={`min-w-0 flex-1 ${last ? "pb-0" : "pb-6"}`}>
                           <div className="flex items-start justify-between gap-3">
                             <div>
-                              <h3 className={`text-[9px] font-semibold ${isCancelStep ? "text-[#A95F5F]" : step.completed || step.active ? "text-[#514540]" : "text-[#A29590]"}`}>{step.title}</h3>
+                              <h3 className={`text-[9px] font-semibold ${isCancelStep ? "text-[#A95F5F]" : step.completed || step.active ? "text-[#514540]" : "text-[#8A938B]"}`}>{step.title}</h3>
                               <p className={`mt-1 text-[7px] leading-5 ${step.completed || step.active ? "text-[#8C7E79]" : "text-[#B2A6A1]"}`}>{step.description}</p>
                             </div>
                             {step.active && <span className={`shrink-0 rounded-full px-2 py-1 text-[5px] font-semibold ${isCancelStep ? "bg-[#F0EDE5] text-[#A95F5F]" : "bg-[#F3F0E6] text-[#173A2D]"}`}>الحالة الحالية</span>}
@@ -489,10 +489,10 @@ const OrderTrackingPage = () => {
                     <p className="text-[9px] font-semibold text-[#514540]">هل تحتاج إلى مساعدة؟</p>
                     <p className="mt-1 text-[6px] text-[#899289]">تواصل معنا وساعدنا برقم الطلب لتسريع الخدمة.</p>
                   </div>
-                  <button type="button" onClick={handleContact} className="flex h-[38px] shrink-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#568C68] px-3.5 text-[7px] font-semibold text-white active:bg-[#4C7D5D]">
+                  {STORE_WHATSAPP && <button type="button" onClick={handleContact} className="flex h-[38px] shrink-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#568C68] px-3.5 text-[7px] font-semibold text-white active:bg-[#4C7D5D]">
                     <MessageCircle className="h-3.5 w-3.5" strokeWidth={1.5} />
                     واتساب
-                  </button>
+                  </button>}
                 </div>
               </section>
 
