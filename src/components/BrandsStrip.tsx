@@ -88,17 +88,17 @@ const BrandsStrip = ({ enabled = true }: { enabled?: boolean }) => {
   if (!enabled || !renderBrands.length) return null;
 
   return (
-    <section className="w-full overflow-hidden border-y border-[#eee5e1] bg-white py-5 md:py-10" dir="rtl" aria-label="الماركات">
-      <div className="mx-auto w-full max-w-[1600px] px-3 md:px-8 lg:px-12">
-        <div className="mb-3 flex items-end justify-between md:mb-6">
+    <section className="w-full overflow-hidden border-y border-[#DCD5C6] bg-[#EEE9DD] py-10 md:py-16" dir="rtl" aria-label="الماركات">
+      <div className="mx-auto w-full max-w-[1680px] px-4 md:px-7 lg:px-10">
+        <div className="mb-7 flex items-end justify-between md:mb-10">
           <div>
-            <div className="mb-1 flex items-center gap-2">
-              <span className="h-[2px] w-4 bg-[#B89453] md:w-7" />
-              <span className="font-serif text-[6px] tracking-[.2em] text-[#9D7B40] md:text-[9px]">BRANDS</span>
+            <div className="mb-2 flex items-center gap-3">
+              <span className="h-px w-10 bg-[#B89453]/60" />
+              <span className="text-[7px] font-semibold tracking-[.28em] text-[#9D7B40] md:text-[8px]">BRANDS</span>
             </div>
-            <h2 className="text-[16px] font-semibold md:text-[28px]">أشهر الماركات</h2>
+            <h2 className="text-[27px] font-medium tracking-[-0.04em] text-[#173A2D] md:text-[40px]">أشهر الماركات</h2>
           </div>
-          <Link to="/brands" className="flex items-center gap-2 text-[7px] font-medium text-[#173A2D] md:text-[10px]">
+          <Link to="/brands" className="flex items-center gap-2 border-b border-[#B89453]/55 pb-1 text-[8px] font-semibold text-[#173A2D] md:text-[10px]">
             جميع الماركات
             <ArrowLeft className="h-4 w-4" />
           </Link>
@@ -108,28 +108,28 @@ const BrandsStrip = ({ enabled = true }: { enabled?: boolean }) => {
           ref={scrollerRef}
           className="-mx-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0"
         >
-          <div className="flex w-max gap-2.5 pl-6 md:gap-3 md:pl-8">
+          <div className="flex w-max gap-0 border-y border-[#D7CFBF] pl-5 md:pl-8">
             {renderBrands.map((brand) => (
               <Link
                 key={brand.id}
                 to={`/brands/${brand.slug}`}
                 onClick={() => saveStripPosition(brand.id)}
-                className="group flex w-[78px] shrink-0 flex-col items-center md:w-[78px]"
+                className="group flex w-[150px] shrink-0 flex-col items-center border-l border-[#D7CFBF] px-6 py-7 md:w-[210px] md:px-8 md:py-9"
               >
-                <div className="flex aspect-square w-full items-center justify-center rounded-[15px] border border-border/60 bg-white px-2.5">
+                <div className="flex h-[54px] w-full items-center justify-center bg-transparent md:h-[68px]">
                   {brand.logo_url ? (
                     <img
                       src={optimizeImage(brand.logo_url, 240, 78)}
                       alt={brand.name}
                       loading="lazy"
                       decoding="async"
-                      className="max-h-[45%] max-w-[82%] object-contain transition-transform duration-300 group-hover:scale-105"
+                      className="max-h-[58%] max-w-[78%] object-contain grayscale transition-all duration-300 group-hover:scale-105 group-hover:grayscale-0"
                     />
                   ) : (
-                    <span className="font-serif text-[10px] font-semibold">{brand.name}</span>
+                    <span className="font-serif text-[16px] font-medium tracking-[0.08em] text-[#173A2D]">{brand.name}</span>
                   )}
                 </div>
-                <p className="mt-1.5 max-w-full truncate text-[8px] font-semibold text-[#3F3532]">{brand.name}</p>
+                <p className="mt-3 max-w-full truncate text-[7px] font-semibold tracking-[0.12em] text-[#667168]">{brand.name}</p>
               </Link>
             ))}
           </div>
