@@ -133,22 +133,22 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
           <div className="relative min-w-0 flex-1">
             <Search className="pointer-events-none absolute right-3.5 top-1/2 h-[16px] w-[16px] -translate-y-1/2 stroke-[1.5] text-[#A99C97]" />
 
-            <input value={searchValue} onChange={(event) => setSearchValue(event.target.value)} placeholder="ابحث في المنتجات..." className="h-[46px] w-full rounded-[15px] border border-[#E9DEDA] bg-white pr-10 pl-9 text-[11px] text-[#443936] outline-none placeholder:text-[#B5A9A4] focus:border-[#DDBFBA]" />
+            <input value={searchValue} onChange={(event) => setSearchValue(event.target.value)} placeholder="ابحث في المنتجات..." className="h-[46px] w-full rounded-[15px] border border-[#DED8C9] bg-white pr-10 pl-9 text-[11px] text-[#443936] outline-none placeholder:text-[#B5A9A4] focus:border-[#DDBFBA]" />
 
             {searchValue && (
-              <button type="button" onClick={clearSearch} className="absolute left-3 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-[#F4EEEB] text-[#887A75]">
+              <button type="button" onClick={clearSearch} className="absolute left-3 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-[#F4EEEB] text-[#7B857D]">
                 <X className="h-3 w-3 stroke-[1.7]" />
               </button>
             )}
           </div>
 
           {/* FILTER BUTTON */}
-          <button type="button" onClick={openFilters} className={`relative flex h-[46px] shrink-0 items-center justify-center gap-1.5 rounded-[15px] border px-3.5 ${activeFilterCount > 0 ? "border-[#E0B8B5] bg-[#FFF3F1] text-[#A95B61]" : "border-[#E9DEDA] bg-white text-[#625551]"}`}>
-            <SlidersHorizontal className="h-[15px] w-[15px] stroke-[1.6] text-[#C96F79]" />
+          <button type="button" onClick={openFilters} className={`relative flex h-[46px] shrink-0 items-center justify-center gap-1.5 rounded-[15px] border px-3.5 ${activeFilterCount > 0 ? "border-[#C6B17F] bg-[#F3F0E6] text-[#173A2D]" : "border-[#DED8C9] bg-white text-[#4C5E54]"}`}>
+            <SlidersHorizontal className="h-[15px] w-[15px] stroke-[1.6] text-[#9D7B40]" />
 
             <span className="text-[10px] font-semibold">فلترة</span>
 
-            {activeFilterCount > 0 && <span className="flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#D4777D] px-1 text-[7px] font-semibold text-white">{activeFilterCount}</span>}
+            {activeFilterCount > 0 && <span className="flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#173A2D] px-1 text-[7px] font-semibold text-white">{activeFilterCount}</span>}
           </button>
         </div>
 
@@ -193,7 +193,7 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
               </button>
             )}
 
-            <button type="button" onClick={clearAll} className="shrink-0 px-1.5 py-1.5 text-[8px] font-medium text-[#B75F66]">
+            <button type="button" onClick={clearAll} className="shrink-0 px-1.5 py-1.5 text-[8px] font-medium text-[#9D7B40]">
               مسح الكل
             </button>
           </div>
@@ -208,7 +208,7 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
           <div className="relative min-w-[240px] flex-1">
             <Search className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 stroke-[1.5] text-[#A99C97]" />
 
-            <input value={searchValue} onChange={(event) => setSearchValue(event.target.value)} placeholder="ابحث في المنتجات..." className="h-[42px] w-full rounded-[13px] border border-[#E9DEDA] bg-white pr-10 pl-9 text-[10px] text-[#443936] outline-none placeholder:text-[#B5A9A4] focus:border-[#DDBFBA]" />
+            <input value={searchValue} onChange={(event) => setSearchValue(event.target.value)} placeholder="ابحث في المنتجات..." className="h-[42px] w-full rounded-[13px] border border-[#DED8C9] bg-white pr-10 pl-9 text-[10px] text-[#443936] outline-none placeholder:text-[#B5A9A4] focus:border-[#DDBFBA]" />
 
             {searchValue && (
               <button type="button" onClick={clearSearch} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9D8E89]">
@@ -219,7 +219,7 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
 
           {brands.length > 0 && (
             <div className="relative">
-              <select value={values.brand} onChange={(event) => onChange({ ...values, brand: event.target.value })} className="h-[42px] min-w-[145px] appearance-none rounded-[13px] border border-[#E9DEDA] bg-white pr-3 pl-8 text-[9px] font-medium text-[#625551] outline-none">
+              <select value={values.brand} onChange={(event) => onChange({ ...values, brand: event.target.value })} className="h-[42px] min-w-[145px] appearance-none rounded-[13px] border border-[#DED8C9] bg-white pr-3 pl-8 text-[9px] font-medium text-[#4C5E54] outline-none">
                 <option value="all">كل الماركات</option>
 
                 {brands.map((brand) => (
@@ -232,7 +232,7 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
           )}
 
           <div className="relative">
-            <select value={values.sort} onChange={(event) => onChange({ ...values, sort: event.target.value as ProductListFilterValues["sort"] })} className="h-[42px] min-w-[135px] appearance-none rounded-[13px] border border-[#E9DEDA] bg-white pr-3 pl-8 text-[9px] font-medium text-[#625551] outline-none">
+            <select value={values.sort} onChange={(event) => onChange({ ...values, sort: event.target.value as ProductListFilterValues["sort"] })} className="h-[42px] min-w-[135px] appearance-none rounded-[13px] border border-[#DED8C9] bg-white pr-3 pl-8 text-[9px] font-medium text-[#4C5E54] outline-none">
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
@@ -241,10 +241,10 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
             <ChevronDown className="pointer-events-none absolute left-3 top-1/2 h-3 w-3 -translate-y-1/2 text-[#A88E88]" />
           </div>
 
-          <button type="button" onClick={openFilters} className={`flex h-[42px] items-center gap-2 rounded-[13px] border px-4 text-[9px] font-medium ${activeFilterCount > 0 ? "border-[#DEB6B3] bg-[#FFF2F0] text-[#A95B61]" : "border-[#E9DEDA] bg-white text-[#625551]"}`}>
-            <SlidersHorizontal className="h-3.5 w-3.5 stroke-[1.6] text-[#C96F79]" />
+          <button type="button" onClick={openFilters} className={`flex h-[42px] items-center gap-2 rounded-[13px] border px-4 text-[9px] font-medium ${activeFilterCount > 0 ? "border-[#C6B17F] bg-[#F3F0E6] text-[#173A2D]" : "border-[#DED8C9] bg-white text-[#4C5E54]"}`}>
+            <SlidersHorizontal className="h-3.5 w-3.5 stroke-[1.6] text-[#9D7B40]" />
             فلاتر
-            {activeFilterCount > 0 && <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D4777D] px-1 text-[7px] text-white">{activeFilterCount}</span>}
+            {activeFilterCount > 0 && <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-[#173A2D] px-1 text-[7px] text-white">{activeFilterCount}</span>}
           </button>
 
           <span className="shrink-0 px-2 text-[8px] text-[#9B8D88]">{resultCount} منتج</span>
@@ -256,16 +256,16 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
       ========================================================= */}
       {filterOpen && (
         <div className="fixed inset-0 z-[100] flex items-end bg-black/25 md:items-stretch" onClick={closeFilters}>
-          <div onClick={(event) => event.stopPropagation()} className="relative mr-auto flex max-h-[90vh] w-full flex-col rounded-t-[26px] bg-[#FFFDFC] md:h-full md:max-h-none md:w-[410px] md:rounded-none">
+          <div onClick={(event) => event.stopPropagation()} className="relative mr-auto flex max-h-[90vh] w-full flex-col rounded-t-[26px] bg-[#F8F6F0] md:h-full md:max-h-none md:w-[410px] md:rounded-none">
             {/* HEADER */}
             <div className="shrink-0 px-4 pt-3 md:px-5 md:pt-5">
               <div className="mx-auto mb-4 h-1 w-9 rounded-full bg-[#DED2CE] md:hidden" />
 
-              <div className="flex items-start justify-between border-b border-[#EEE4E0] pb-4">
+              <div className="flex items-start justify-between border-b border-[#E5DED0] pb-4">
                 <div>
                   <div className="mb-1.5 flex items-center gap-2">
-                    <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-                    <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">FLAMINGO FILTER</span>
+                    <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+                    <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">GENAN FILTER</span>
                   </div>
 
                   <h3 className="text-[18px] font-semibold text-[#403331]">تصفية المنتجات</h3>
@@ -300,7 +300,7 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
                           <span className="mt-1 block text-[6px] text-[#A99C96]">{option.description}</span>
                         </div>
 
-                        <span className={`flex h-5 w-5 items-center justify-center rounded-full border ${active ? "border-[#C96F79] bg-[#C96F79]" : "border-[#DDD2CE] bg-white"}`}>
+                        <span className={`flex h-5 w-5 items-center justify-center rounded-full border ${active ? "border-[#9D7B40] bg-[#9D7B40]" : "border-[#D5CDBE] bg-white"}`}>
                           {active && <Check className="h-2.5 w-2.5 stroke-[2.2] text-white" />}
                         </span>
                       </button>
@@ -323,10 +323,10 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
 
                   <div className="max-h-[150px] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     <div className="grid grid-cols-2 gap-2">
-                      <button type="button" onClick={() => setDraft({ ...draft, brand: "all" })} className={`min-h-[38px] rounded-[11px] border px-3 text-right text-[8px] font-medium ${draft.brand === "all" ? "border-[#D89C9D] bg-[#FAEDEC] text-[#A95B61]" : "border-[#E9DEDA] bg-white text-[#655753]"}`}>كل الماركات</button>
+                      <button type="button" onClick={() => setDraft({ ...draft, brand: "all" })} className={`min-h-[38px] rounded-[11px] border px-3 text-right text-[8px] font-medium ${draft.brand === "all" ? "border-[#C6B17F] bg-[#EEE9DD] text-[#173A2D]" : "border-[#DED8C9] bg-white text-[#4F6157]"}`}>كل الماركات</button>
 
                       {brands.map((brand) => (
-                        <button key={brand} type="button" onClick={() => setDraft({ ...draft, brand })} className={`min-h-[38px] truncate rounded-[11px] border px-3 text-right text-[8px] font-medium ${draft.brand === brand ? "border-[#D89C9D] bg-[#FAEDEC] text-[#A95B61]" : "border-[#E9DEDA] bg-white text-[#655753]"}`}>{brand}</button>
+                        <button key={brand} type="button" onClick={() => setDraft({ ...draft, brand })} className={`min-h-[38px] truncate rounded-[11px] border px-3 text-right text-[8px] font-medium ${draft.brand === brand ? "border-[#C6B17F] bg-[#EEE9DD] text-[#173A2D]" : "border-[#DED8C9] bg-white text-[#4F6157]"}`}>{brand}</button>
                       ))}
                     </div>
                   </div>
@@ -357,13 +357,13 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
 
               {/* STOCK */}
               <div className="py-5">
-                <button type="button" onClick={() => setDraft({ ...draft, inStockOnly: !draft.inStockOnly })} className={`flex h-[52px] w-full items-center justify-between rounded-[14px] border px-3.5 ${draft.inStockOnly ? "border-[#D9A4A2] bg-[#FAEDEC]" : "border-[#EAE0DC] bg-white"}`}>
+                <button type="button" onClick={() => setDraft({ ...draft, inStockOnly: !draft.inStockOnly })} className={`flex h-[52px] w-full items-center justify-between rounded-[14px] border px-3.5 ${draft.inStockOnly ? "border-[#D9A4A2] bg-[#EEE9DD]" : "border-[#E2DCCE] bg-white"}`}>
                   <div className="text-right">
                     <span className={`block text-[9px] font-semibold ${draft.inStockOnly ? "text-[#AA5C62]" : "text-[#5A4C48]"}`}>المتوفر فقط</span>
                     <span className="mt-1 block text-[6px] text-[#A99C96]">إخفاء المنتجات غير المتوفرة</span>
                   </div>
 
-                  <span className={`flex h-5 w-5 items-center justify-center rounded-[6px] border ${draft.inStockOnly ? "border-[#C96F79] bg-[#C96F79]" : "border-[#D9CECA] bg-white"}`}>
+                  <span className={`flex h-5 w-5 items-center justify-center rounded-[6px] border ${draft.inStockOnly ? "border-[#9D7B40] bg-[#9D7B40]" : "border-[#D9CECA] bg-white"}`}>
                     {draft.inStockOnly && <Check className="h-3 w-3 text-white" />}
                   </span>
                 </button>
@@ -371,13 +371,13 @@ const ProductListFilters = ({ values, brands, resultCount, onChange }: ProductLi
             </div>
 
             {/* BOTTOM */}
-            <div className="shrink-0 border-t border-[#EDE4E0] bg-[#FFFDFC] px-4 pb-[calc(env(safe-area-inset-bottom)+13px)] pt-3 md:px-5 md:pb-5">
+            <div className="shrink-0 border-t border-[#EDE4E0] bg-[#F8F6F0] px-4 pb-[calc(env(safe-area-inset-bottom)+13px)] pt-3 md:px-5 md:pb-5">
               <div className="grid grid-cols-[.8fr_1.4fr] gap-2.5">
                 <button type="button" onClick={resetDraft} className="h-[46px] rounded-[13px] border border-[#DFD3CF] bg-white text-[9px] font-medium text-[#6D5F5A]">
                   إعادة تعيين
                 </button>
 
-                <button type="button" onClick={applyFilters} className="relative h-[46px] rounded-[13px] bg-[#D4777D] text-[10px] font-semibold text-white">
+                <button type="button" onClick={applyFilters} className="relative h-[46px] rounded-[13px] bg-[#173A2D] text-[10px] font-semibold text-white">
                   عرض النتائج
 
                   {draftFilterCount > 0 && <span className="absolute left-3 top-1/2 flex h-[17px] min-w-[17px] -translate-y-1/2 items-center justify-center rounded-full bg-white/20 px-1 text-[7px] text-white">{draftFilterCount}</span>}
