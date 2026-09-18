@@ -233,9 +233,9 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                 <div className="mb-4 flex items-end justify-between gap-4 md:mb-9">
                   <div>
                     <div className="mb-1 flex items-center gap-2 md:mb-2">
-                      <span className="h-[2px] w-4 rounded-full bg-[#D4777D] md:w-7" />
-                      <span className="font-serif text-[6px] uppercase tracking-[.2em] text-[#B86168] md:text-[9px]">
-                        {section.title || "FLAMINGO EDIT"}
+                      <span className="h-[2px] w-4 rounded-full bg-[#B89453] md:w-7" />
+                      <span className="font-serif text-[6px] uppercase tracking-[.2em] text-[#9D7B40] md:text-[9px]">
+                        {section.title || "GENAN EDIT"}
                       </span>
                     </div>
                     <h2 className="text-[17px] font-semibold text-foreground md:text-[32px] lg:text-[36px]">
@@ -249,7 +249,7 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                   {section.view_all_link && (
                     <Link
                       to={section.view_all_link}
-                      className="hidden items-center gap-2 rounded-full border border-[#e3d3ce] bg-white px-5 py-2.5 text-[10px] font-semibold text-[#A95B61] transition hover:border-[#d5ada8] hover:shadow-sm md:flex"
+                      className="hidden items-center gap-2 rounded-full border border-[#ddd5c5] bg-white px-5 py-2.5 text-[10px] font-semibold text-[#173A2D] transition hover:border-[#c5b07f] hover:shadow-sm md:flex"
                     >
                       عرض الكل
                       <ArrowLeft className="h-4 w-4" />
@@ -275,7 +275,7 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                       <button
                         type="button"
                         onClick={() => loadMore(section.id, products.length)}
-                        className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#D8B5B2] bg-white px-6 text-[8px] font-semibold text-[#A95B61] hover:bg-[#FFF7F5] md:h-12 md:px-9 md:text-[10px]"
+                        className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#C6B17F] bg-white px-6 text-[8px] font-semibold text-[#173A2D] hover:bg-[#F5F1E7] md:h-12 md:px-9 md:text-[10px]"
                       >
                         عرض المزيد
                         <ChevronDown className="h-4 w-4" />
