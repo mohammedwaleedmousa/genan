@@ -45,7 +45,7 @@ const AdminLoginPage = () => {
 
     const { data, error } = await supabase.auth.mfa.enroll({
       factorType: 'totp',
-      friendlyName: 'Flamingo Park Admin',
+      friendlyName: 'Genan Admin',
     });
 
     if (error) throw error;
