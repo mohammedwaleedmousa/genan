@@ -61,7 +61,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     },
     customMetadata: {
       uploadedBy: auth.userId,
-      source: "flamingopark-admin",
+      source: "genan-admin",
     },
   });
 
