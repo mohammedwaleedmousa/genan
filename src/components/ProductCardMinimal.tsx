@@ -51,7 +51,7 @@ const ProductCardMinimal = ({ product, index = 0 }: ProductCardMinimalProps) => 
       className="group h-full"
     >
       <Link to={`/product/${product.slug}`} className="block h-full">
-        <div className="relative flex flex-col h-full overflow-hidden rounded-lg bg-beige border-2 border-gold transition-all duration-300 hover:border-gold-light hover:shadow-[0_10px_30px_-8px_hsl(var(--gold)/0.3)]">
+        <div className="relative flex flex-col h-full overflow-hidden rounded-[18px] bg-white border border-[#E2DCCE] transition-all duration-300 hover:border-[#C8B687] hover:shadow-[0_18px_38px_-16px_rgba(23,58,45,.18)]">
           {/* Image */}
           <div className="w-full flex-1 overflow-hidden relative">
             {product.images[0] ? (
@@ -82,7 +82,7 @@ const ProductCardMinimal = ({ product, index = 0 }: ProductCardMinimalProps) => 
             {/* Discount */}
             {product.discount && (
               <div className="absolute top-3 left-3">
-                <span className="inline-flex items-center justify-center bg-gold text-secondary text-xs font-bold px-2 py-1 rounded-md">
+                <span className="inline-flex items-center justify-center bg-[#173A2D] text-white text-xs font-bold px-2 py-1 rounded-md">
                   -{product.discount}%
                 </span>
               </div>
@@ -93,8 +93,8 @@ const ProductCardMinimal = ({ product, index = 0 }: ProductCardMinimalProps) => 
               onClick={handleLike}
               className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-300 ${
                 isLiked
-                  ? "bg-gold text-secondary"
-                  : "bg-background/80 text-foreground hover:bg-gold hover:text-secondary"
+                  ? "bg-[#173A2D] text-white"
+                  : "bg-background/80 text-foreground hover:bg-[#173A2D] hover:text-white"
               }`}
             >
               <Heart className={`w-4 h-4 ${isLiked ? "fill-current" : ""}`} />
@@ -105,7 +105,7 @@ const ProductCardMinimal = ({ product, index = 0 }: ProductCardMinimalProps) => 
               <div className="absolute bottom-3 left-3 right-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                 <button
                   onClick={handleAddToCart}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 bg-secondary text-secondary-foreground font-medium text-sm rounded-lg transition-all duration-300 hover:bg-secondary/90"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#173A2D] text-white font-medium text-sm rounded-lg transition-all duration-300 hover:bg-[#214C3B]"
                 >
                   <ShoppingBag className="w-4 h-4" />
                   <span>أضف للسلة</span>
@@ -116,8 +116,8 @@ const ProductCardMinimal = ({ product, index = 0 }: ProductCardMinimalProps) => 
 
           {/* Content */}
           <div className="p-4 bg-background border-t border-border/20 flex flex-col flex-1">
-            <span className="text-[11px] font-medium text-gold uppercase tracking-wider">{product.brand}</span>
-            <h3 className="font-heading text-sm text-foreground mt-1 mb-2 line-clamp-2 group-hover:text-gold transition-colors">
+            <span className="text-[11px] font-medium text-[#9D7B40] uppercase tracking-wider">{product.brand}</span>
+            <h3 className="font-heading text-sm text-foreground mt-1 mb-2 line-clamp-2 group-hover:text-[#9D7B40] transition-colors">
               {product.nameAr}
             </h3>
 
