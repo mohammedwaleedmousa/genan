@@ -49,7 +49,7 @@ const NewArrivalsPage = () => {
               <div>
                 <div className="mb-2 flex items-center gap-2"><span className="h-[2px] w-4 rounded-full bg-[#D4777D]" /><span className="font-serif text-[7px] tracking-[0.25em] text-[#B75F66]">{getSiteText(content, "new_arrivals_eyebrow", "NEW IN")}</span></div>
                 <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#403131] md:text-[36px]">{getSiteText(content, "new_arrivals_title", "وصل حديثاً")}</h1>
-                <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#9B8984] md:max-w-md md:text-[10px]">أحدث القطع التي وصلت إلى فلامنجو، مختارة لتكوني أول من يكتشفها.</p>
+                <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#9B8984] md:max-w-md md:text-[10px]">أحدث القطع التي وصلت إلى جنان، مختارة لتكوني أول من يكتشفها.</p>
               </div>
 
               {!isLoading && total > 0 && <div className="shrink-0 text-left"><span className="block text-[18px] font-semibold leading-none text-[#B85F66] md:text-[22px]">{total}</span><span className="mt-1 block text-[6px] text-[#A99A94] md:text-[7px]">قطعة جديدة</span></div>}
@@ -70,9 +70,9 @@ const NewArrivalsPage = () => {
           ) : products.length === 0 ? (
             <div className="flex min-h-[48vh] flex-col items-center justify-center px-5 text-center">
               <div className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#FAECE9]"><Sparkles className="h-5 w-5 stroke-[1.4] text-[#C76D73]" /></div>
-              <span className="mt-4 font-serif text-[6px] tracking-[0.22em] text-[#B86168]">FLAMINGO PARK</span>
+              <span className="mt-4 font-serif text-[6px] tracking-[0.22em] text-[#B86168]">GENAN</span>
               <h2 className="mt-2 text-[15px] font-semibold text-[#493837]">لا توجد إضافات جديدة حالياً</h2>
-              <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#9D8E89]">ترقب أحدث القطع التي ستصل إلى فلامنجو قريبًا.</p>
+              <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#9D8E89]">ترقب أحدث القطع التي ستصل إلى جنان قريبًا.</p>
             </div>
           ) : (
             <>
@@ -82,7 +82,7 @@ const NewArrivalsPage = () => {
           )}
         </section>
 
-        {!isLoading && products.length > 0 && <section className="mx-auto w-full max-w-[1500px] px-3 py-9 md:px-6 md:py-12"><div className="border-t border-[#EADFDA] pt-6 text-center"><div className="mb-2 flex items-center justify-center gap-2"><span className="h-px w-5 bg-[#D9B6B2]" /><span className="font-serif text-[6px] tracking-[0.24em] text-[#B86168]">FLAMINGO NEW EDIT</span><span className="h-px w-5 bg-[#D9B6B2]" /></div><p className="text-[9px] text-[#968783]">تتجدد اختياراتنا باستمرار لتكتشف كل جديد.</p></div></section>}
+        {!isLoading && products.length > 0 && <section className="mx-auto w-full max-w-[1500px] px-3 py-9 md:px-6 md:py-12"><div className="border-t border-[#EADFDA] pt-6 text-center"><div className="mb-2 flex items-center justify-center gap-2"><span className="h-px w-5 bg-[#D9B6B2]" /><span className="font-serif text-[6px] tracking-[0.24em] text-[#B86168]">GENAN NEW EDIT</span><span className="h-px w-5 bg-[#D9B6B2]" /></div><p className="text-[9px] text-[#968783]">تتجدد اختياراتنا باستمرار لتكتشف كل جديد.</p></div></section>}
       </main>
 
       <Footer />
