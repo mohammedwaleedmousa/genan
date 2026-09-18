@@ -13,9 +13,9 @@ const cols: { title: string; links: { label: string; href: string }[] }[] = [
     ],
   },
   {
-    title: "فلامنجو",
+    title: "جنان",
     links: [
-      { label: "عن فلامنجو", href: "/store-info#about" },
+      { label: "عن جنان", href: "/store-info#about" },
       { label: "سياسة الخصوصية", href: "/privacy-policy" },
       { label: "الشروط والأحكام", href: "/terms" },
       { label: "الماركات", href: "/brands" },
@@ -39,7 +39,7 @@ const Footer = () => {
       <div className="mx-auto w-full max-w-[1400px] px-4 md:px-6">
         <div className="border-b border-[#E8E0DC] py-8 md:py-10">
           <Link to="/home" className="inline-flex">
-            <img src="/icons/flamingo.jpeg" alt="Flamingo Park" loading="lazy" decoding="async" className="h-[62px] w-auto object-contain md:h-[70px]" />
+            <span className="text-[24px] font-semibold tracking-[0.12em] text-[#403633] md:text-[28px]">GENAN</span>
           </Link>
           <p className="mt-3 max-w-[370px] text-[13px] leading-7 text-[#857873]">متجر أزياء يجمع بين الماركات العالمية، الجودة، والتفاصيل التي تصنع أناقة مختلفة.</p>
         </div>
@@ -66,7 +66,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col items-center justify-between gap-3 border-t border-[#E8E0DC] py-3.5 sm:flex-row">
-          <p className="text-center text-[11px] text-[#948781] sm:text-right">© 2026 فلامنجو بارك — جميع الحقوق محفوظة.</p>
+          <p className="text-center text-[11px] text-[#948781] sm:text-right">© 2026 جنان — جميع الحقوق محفوظة.</p>
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="العودة للأعلى" className="flex h-9 items-center gap-2 rounded-[10px] border border-[#DED3CE] bg-background px-3.5 text-[11px] font-medium text-[#675A55] transition-colors hover:border-[#D3AAA7] hover:text-[#B86168]">
             العودة للأعلى
             <ArrowUp className="h-3.5 w-3.5" strokeWidth={1.6} />
