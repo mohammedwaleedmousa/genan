@@ -1,4 +1,4 @@
-name: Launch Gate
+name: Genan Launch Gate
 
 on:
   pull_request:
