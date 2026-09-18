@@ -227,21 +227,21 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
           <div key={section.id}>
             <section
               id={`home-section-${section.id}`}
-              className={`scroll-mt-20 py-7 md:py-16 ${sectionIndex % 2 === 0 ? "bg-background" : "bg-[#fffaf8]"}`}
+              className={`scroll-mt-20 py-12 md:py-24 ${sectionIndex % 2 === 0 ? "bg-[#F8F6F0]" : "bg-[#F1EDE2]"}`}
             >
-              <div className="mx-auto w-full max-w-[1600px] px-3 md:px-8 lg:px-12">
-                <div className="mb-4 flex items-end justify-between gap-4 md:mb-9">
+              <div className="mx-auto w-full max-w-[1680px] px-4 md:px-7 lg:px-10">
+                <div className="mb-8 flex items-end justify-between gap-6 md:mb-12">
                   <div>
-                    <div className="mb-1 flex items-center gap-2 md:mb-2">
-                      <span className="h-[2px] w-4 rounded-full bg-[#B89453] md:w-7" />
-                      <span className="font-serif text-[6px] uppercase tracking-[.2em] text-[#9D7B40] md:text-[9px]">
+                    <div className="mb-3 flex items-center gap-3">
+                      <span className="h-px w-10 bg-[#B89453]/60" />
+                      <span className="text-[7px] font-semibold uppercase tracking-[.28em] text-[#9D7B40] md:text-[8px]">
                         {section.title || "GENAN EDIT"}
                       </span>
                     </div>
-                    <h2 className="text-[17px] font-semibold text-foreground md:text-[32px] lg:text-[36px]">
+                    <h2 className="max-w-[720px] text-[27px] font-medium leading-[1.4] tracking-[-0.045em] text-[#173A2D] md:text-[42px]">
                       {section.title_ar}
                     </h2>
-                    <p className="mt-2 hidden text-[11px] text-[#94847f] md:block">
+                    <p className="mt-3 hidden max-w-[520px] text-[11px] leading-7 text-[#6F786F] md:block">
                       اختيارات مميزة، مرتبة لتصل إلى ما يناسبك بسرعة.
                     </p>
                   </div>
@@ -249,7 +249,7 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                   {section.view_all_link && (
                     <Link
                       to={section.view_all_link}
-                      className="hidden items-center gap-2 rounded-full border border-[#ddd5c5] bg-white px-5 py-2.5 text-[10px] font-semibold text-[#173A2D] transition hover:border-[#c5b07f] hover:shadow-sm md:flex"
+                      className="hidden items-center gap-3 border-b border-[#B89453]/55 pb-1 text-[10px] font-semibold text-[#173A2D] transition-colors hover:text-[#9D7B40] md:flex"
                     >
                       عرض الكل
                       <ArrowLeft className="h-4 w-4" />
@@ -257,7 +257,7 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 md:grid-cols-4 md:gap-x-4 md:gap-y-9 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-5">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-4 md:grid-cols-3 md:gap-x-5 md:gap-y-12 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-6">
                   {visibleProducts.map((product, index) => (
                     <div
                       key={product.id}
@@ -270,12 +270,12 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                 </div>
 
                 {(hasMore || canCollapse) && section.show_view_all !== false && (
-                  <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 md:mt-12">
+                  <div className="mt-10 flex flex-wrap items-center justify-center gap-3 md:mt-16">
                     {hasMore && (
                       <button
                         type="button"
                         onClick={() => loadMore(section.id, products.length)}
-                        className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#C6B17F] bg-white px-6 text-[8px] font-semibold text-[#173A2D] hover:bg-[#F5F1E7] md:h-12 md:px-9 md:text-[10px]"
+                        className="inline-flex h-11 items-center gap-2 border border-[#173A2D] bg-transparent px-7 text-[8px] font-semibold text-[#173A2D] transition-colors hover:bg-[#173A2D] hover:text-white md:h-12 md:px-9 md:text-[10px]"
                       >
                         عرض المزيد
                         <ChevronDown className="h-4 w-4" />
@@ -286,14 +286,14 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                       <button
                         type="button"
                         onClick={() => collapse(section.id, visibleCount)}
-                        className="inline-flex h-10 items-center gap-1.5 rounded-full border border-[#E7DDD9] bg-white px-5 text-[8px] font-semibold text-[#786863] md:h-12 md:px-8 md:text-[10px]"
+                        className="inline-flex h-11 items-center gap-2 border border-[#CFC7B8] bg-transparent px-6 text-[8px] font-semibold text-[#657068] md:h-12 md:px-8 md:text-[10px]"
                       >
                         تقليص
                         <ChevronUp className="h-4 w-4" />
                       </button>
                     )}
 
-                    <span className="w-full text-center text-[7px] text-[#A0938E] md:text-[8px]">
+                    <span className="w-full text-center text-[7px] tracking-[0.08em] text-[#889188] md:text-[8px]">
                       يظهر {visibleCount} من {products.length} منتج
                     </span>
                   </div>
