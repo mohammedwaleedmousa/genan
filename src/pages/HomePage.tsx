@@ -43,22 +43,22 @@ const isLingerieCategory = (category: { slug?: string | null; name?: string | nu
 };
 
 const DesktopDiscovery = () => (
-  <section className="hidden bg-background md:block" dir="rtl" aria-label="اكتشف فلامنجو">
+  <section className="hidden bg-background md:block" dir="rtl" aria-label="اكتشف جنان">
     <div className="mx-auto grid w-full max-w-[1500px] grid-cols-3 gap-3 px-6 pb-3 pt-5 lg:px-8">
-      <Link to="/new-arrivals" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-[#FFF9F7] px-5 transition-all hover:-translate-y-0.5 hover:border-[#E4C9C5] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#C5666F] shadow-sm"><Sparkles className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#493A36]">وصل حديثاً</span><span className="mt-1 block text-[9px] text-[#9B8B86]">اكتشف أحدث القطع فور وصولها</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#B78B86] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
+      <Link to="/new-arrivals" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-[#F6F3EA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D9CCAE] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#173A2D] shadow-sm"><Sparkles className="h-5 w-5" strokeWidth={1.5} /></span>
+        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#173A2D]">وصل حديثاً</span><span className="mt-1 block text-[9px] text-[#6F776F]">اكتشف أحدث القطع فور وصولها</span></span>
+        <ArrowLeft className="h-4 w-4 text-[#9D7B40] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
       </Link>
-      <Link to="/seasonal-offers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-white px-5 transition-all hover:-translate-y-0.5 hover:border-[#E4C9C5] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FFF5F3] text-[#C5666F]"><BadgePercent className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#493A36]">العروض</span><span className="mt-1 block text-[9px] text-[#9B8B86]">اختيارات مميزة بأسعار أفضل</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#B78B86] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
+      <Link to="/seasonal-offers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-white px-5 transition-all hover:-translate-y-0.5 hover:border-[#D9CCAE] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FFF5F3] text-[#173A2D]"><BadgePercent className="h-5 w-5" strokeWidth={1.5} /></span>
+        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#173A2D]">العروض</span><span className="mt-1 block text-[9px] text-[#6F776F]">اختيارات مميزة بأسعار أفضل</span></span>
+        <ArrowLeft className="h-4 w-4 text-[#9D7B40] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
       </Link>
-      <Link to="/best-sellers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-[#FFF9F7] px-5 transition-all hover:-translate-y-0.5 hover:border-[#E4C9C5] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#C5666F] shadow-sm"><TrendingUp className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#493A36]">الأكثر مبيعاً</span><span className="mt-1 block text-[9px] text-[#9B8B86]">القطع التي يختارها عملاؤنا أكثر</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#B78B86] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
+      <Link to="/best-sellers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-[#F6F3EA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D9CCAE] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#173A2D] shadow-sm"><TrendingUp className="h-5 w-5" strokeWidth={1.5} /></span>
+        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#173A2D]">الأكثر مبيعاً</span><span className="mt-1 block text-[9px] text-[#6F776F]">القطع التي يختارها عملاؤنا أكثر</span></span>
+        <ArrowLeft className="h-4 w-4 text-[#9D7B40] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
       </Link>
     </div>
   </section>
@@ -73,13 +73,13 @@ const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryI
         <div className="mb-3 flex items-end justify-between gap-3 md:mb-7">
           <div>
             <div className="mb-1 flex items-center gap-2 md:mb-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#D4777D] md:w-6" />
-              <span className="font-serif text-[6px] uppercase tracking-[0.2em] text-[#B86168] md:text-[8px]">CATEGORIES</span>
+              <span className="h-[2px] w-4 rounded-full bg-[#B89453] md:w-6" />
+              <span className="font-serif text-[6px] uppercase tracking-[0.2em] text-[#9D7B40] md:text-[8px]">CATEGORIES</span>
             </div>
             <h2 className="text-[16px] font-semibold tracking-[-0.02em] text-foreground md:text-[27px]">تسوق حسب القسم</h2>
-            <p className="mt-2 hidden text-[10px] text-[#9A8B86] md:block">ابدأ من القسم المناسب واختصر طريقك إلى ما تبحث عنه.</p>
+            <p className="mt-2 hidden text-[10px] text-[#6F776F] md:block">ابدأ من القسم المناسب واختصر طريقك إلى ما تبحث عنه.</p>
           </div>
-          <Link to="/categories" className="flex shrink-0 items-center gap-1 border-b border-border pb-0.5 text-[7px] font-medium text-[#A95B61] transition-opacity active:opacity-60 md:gap-2 md:text-[10px]">
+          <Link to="/categories" className="flex shrink-0 items-center gap-1 border-b border-border pb-0.5 text-[7px] font-medium text-[#173A2D] transition-opacity active:opacity-60 md:gap-2 md:text-[10px]">
             عرض كل الأقسام
             <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} />
           </Link>
@@ -96,7 +96,7 @@ const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryI
                 ))
               : items.slice(0, 8).map((item, index) => (
                   <Link key={`${item.title}-${item.link}`} to={item.link} className="group block w-[78px] shrink-0 select-none [-webkit-tap-highlight-color:transparent] sm:w-[90px] md:w-auto">
-                    <div className="relative aspect-square w-full overflow-hidden rounded-[15px] border border-border/60 bg-muted/40 md:aspect-[4/5] md:rounded-[20px] md:border-[#EDE3DF]">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-[15px] border border-border/60 bg-muted/40 md:aspect-[4/5] md:rounded-[20px] md:border-[#DED9CB]">
                       <img src={optimizeImage(item.image, 360, 78)} alt={item.title} loading={index < 5 ? "eager" : "lazy"} decoding="async" fetchPriority={index < 2 ? "high" : "auto"} width={360} height={450} className="h-full w-full object-cover object-center transition-transform duration-500 md:group-hover:scale-[1.045]" />
                       <div className="absolute inset-x-0 bottom-0 hidden h-2/5 bg-gradient-to-t from-black/45 to-transparent md:block" />
                       <div className="absolute inset-x-0 bottom-0 hidden p-3 text-white md:block">
@@ -126,21 +126,21 @@ const EditorialSection = ({ banner }: { banner: EditorialBanner | null }) => {
 
   if (hasImage) {
     return (
-      <section className="bg-[#FFF9F7] py-6 md:py-14">
+      <section className="bg-[#F6F3EA] py-6 md:py-14">
         <div className="mx-auto max-w-[1500px] px-0 md:px-6 lg:px-8">
-          <div className="relative min-h-[360px] overflow-hidden md:grid md:min-h-[500px] md:grid-cols-[1.35fr_0.85fr] md:rounded-[28px] md:border md:border-[#EDE3DF] md:bg-white md:shadow-[0_24px_70px_rgba(83,56,49,0.07)]">
+          <div className="relative min-h-[360px] overflow-hidden md:grid md:min-h-[500px] md:grid-cols-[1.35fr_0.85fr] md:rounded-[28px] md:border md:border-[#DED9CB] md:bg-white md:shadow-[0_24px_70px_rgba(83,56,49,0.07)]">
             <div className="absolute inset-0 md:relative md:inset-auto">
               <img src={optimizeImage(banner!.image_url, 1400, 80)} alt="" loading="lazy" decoding="async" width={1400} height={900} className="h-full w-full object-cover" style={{ objectPosition: `${Number(banner?.image_position_x ?? 50)}% ${Number(banner?.image_position_y ?? 50)}%`, transform: `scale(${Number(banner?.image_zoom ?? 1)})` }} />
               <div className="absolute inset-0 bg-black/35 md:bg-gradient-to-l md:from-black/10 md:via-transparent md:to-black/5" />
             </div>
             <div className="relative z-10 flex min-h-[360px] flex-col items-center justify-center px-5 py-12 text-center md:min-h-[500px] md:items-start md:px-12 md:text-right lg:px-16">
               <div className="mb-4 flex items-center justify-center gap-2 md:justify-start">
-                <span className="h-px w-6 bg-white/55 md:bg-[#D7B3AF]" />
-                <span className="font-serif text-[6px] uppercase tracking-[0.24em] text-white/85 md:text-[8px] md:text-[#B86168]">FLAMINGO EDIT</span>
+                <span className="h-px w-6 bg-white/55 md:bg-[#B89453]" />
+                <span className="font-serif text-[6px] uppercase tracking-[0.24em] text-white/85 md:text-[8px] md:text-[#9D7B40]">GENAN EDIT</span>
               </div>
-              <h2 className="max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-white drop-shadow-sm md:text-[34px] md:leading-[1.65] md:text-[#3F302D] md:drop-shadow-none">{title}</h2>
-              <p className="mt-4 max-w-[450px] text-[8px] leading-6 text-white/85 md:text-[11px] md:leading-8 md:text-[#8F7E79]">{subtitle}</p>
-              <Link to={ctaLink} className="mt-5 inline-flex items-center gap-1.5 border-b border-white/50 pb-1 text-[7px] font-semibold text-white md:mt-7 md:gap-2 md:border-[#D9BBB6] md:text-[10px] md:text-[#A95B61]">{ctaText}<ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} /></Link>
+              <h2 className="max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-white drop-shadow-sm md:text-[34px] md:leading-[1.65] md:text-[#173A2D] md:drop-shadow-none">{title}</h2>
+              <p className="mt-4 max-w-[450px] text-[8px] leading-6 text-white/85 md:text-[11px] md:leading-8 md:text-[#667066]">{subtitle}</p>
+              <Link to={ctaLink} className="mt-5 inline-flex items-center gap-1.5 border-b border-white/50 pb-1 text-[7px] font-semibold text-white md:mt-7 md:gap-2 md:border-[#B89453] md:text-[10px] md:text-[#173A2D]">{ctaText}<ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} /></Link>
             </div>
           </div>
         </div>
@@ -151,10 +151,10 @@ const EditorialSection = ({ banner }: { banner: EditorialBanner | null }) => {
   return (
     <section className="bg-background px-4 py-11 md:py-20">
       <div className="relative z-10 mx-auto flex max-w-[850px] flex-col items-center justify-center px-4 text-center">
-        <div className="mx-auto mb-4 flex items-center justify-center gap-2"><span className="h-px w-6 bg-border" /><span className="font-serif text-[6px] uppercase tracking-[0.24em] text-[#B86168]">FLAMINGO EDIT</span><span className="h-px w-6 bg-border" /></div>
+        <div className="mx-auto mb-4 flex items-center justify-center gap-2"><span className="h-px w-6 bg-border" /><span className="font-serif text-[6px] uppercase tracking-[0.24em] text-[#9D7B40]">GENAN EDIT</span><span className="h-px w-6 bg-border" /></div>
         <h2 className="mx-auto max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-foreground md:text-[36px] md:leading-[1.7]">{title}</h2>
         <p className="mx-auto mt-4 max-w-[450px] text-[8px] leading-6 text-muted-foreground md:text-[10px] md:leading-7">{subtitle}</p>
-        <Link to={ctaLink} className="mx-auto mt-5 inline-flex items-center gap-1.5 border-b border-border pb-1 text-[7px] font-semibold text-[#A95B61] md:text-[8px]">{ctaText}<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
+        <Link to={ctaLink} className="mx-auto mt-5 inline-flex items-center gap-1.5 border-b border-border pb-1 text-[7px] font-semibold text-[#173A2D] md:text-[8px]">{ctaText}<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
       </div>
     </section>
   );
