@@ -180,25 +180,25 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
 
   return (
     <Link to={`/product/${product.slug}`} dir="rtl" data-catalog-product-id={product.id} onPointerEnter={() => void prefetchProductDetailPage()} onPointerDown={() => void prefetchProductDetailPage()} onFocus={() => void prefetchProductDetailPage()} onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)} className="block w-full min-w-0">
-      <article className="relative w-full min-w-0 overflow-hidden rounded-[15px] border border-[#EEE6E2] bg-white transition-transform duration-150 active:scale-[0.985]">
-        <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#F1F0EE]">
+      <article className="relative w-full min-w-0 overflow-hidden rounded-[15px] border border-[#E4DED1] bg-white transition-transform duration-150 active:scale-[0.985]">
+        <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#F1EEE5]">
           {!allImagesFailed && optimizedMainImage ? (
             <>
-              {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#ECEAE8]" />}
-              <img key={`${product.id}-${imageIndex}-${mainImage}`} src={optimizedMainImage} srcSet={optimizedMainImageSrcSet} alt={product.nameAr || product.name || "منتج فلامنجو"} loading={shouldEagerLoad ? "eager" : "lazy"} decoding="async" fetchPriority={shouldPrioritize ? "high" : "auto"} onLoad={handleMainImageLoad} onError={handleMainImageError} width={480} height={600} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className={`absolute inset-0 h-full w-full select-none transition-opacity duration-150 ${imageLoaded ? "opacity-100" : "opacity-0"} ${imageFit === "cover" ? "object-cover object-center" : "scale-[1.035] object-contain object-center"}`} />
+              {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#E8E4D9]" />}
+              <img key={`${product.id}-${imageIndex}-${mainImage}`} src={optimizedMainImage} srcSet={optimizedMainImageSrcSet} alt={product.nameAr || product.name || "منتج جنان"} loading={shouldEagerLoad ? "eager" : "lazy"} decoding="async" fetchPriority={shouldPrioritize ? "high" : "auto"} onLoad={handleMainImageLoad} onError={handleMainImageError} width={480} height={600} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className={`absolute inset-0 h-full w-full select-none transition-opacity duration-150 ${imageLoaded ? "opacity-100" : "opacity-0"} ${imageFit === "cover" ? "object-cover object-center" : "scale-[1.035] object-contain object-center"}`} />
             </>
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F1F0EE]">
-              <ImageOff className="h-6 w-6 text-[#B8ACA7]" strokeWidth={1.3} />
-              <span className="mt-2 text-[8px] text-[#A79A95]">الصورة غير متوفرة</span>
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F1EEE5]">
+              <ImageOff className="h-6 w-6 text-[#9AA39A]" strokeWidth={1.3} />
+              <span className="mt-2 text-[8px] text-[#7D867D]">الصورة غير متوفرة</span>
             </div>
           )}
 
           <button type="button" aria-label={isLiked ? "إزالة من المفضلة" : "إضافة إلى المفضلة"} onClick={handleFavorite} className={`absolute left-2 top-2 z-20 flex h-[31px] w-[31px] items-center justify-center rounded-full border border-white/70 bg-white/95 shadow-[0_2px_8px_rgba(45,35,30,0.07)] transition-transform duration-200 ${heartBeat ? "scale-110" : "scale-100"}`}>
-            <Heart className={`h-[15px] w-[15px] transition-colors ${isLiked ? "fill-[#D4777D] text-[#D4777D]" : "fill-transparent text-[#766B67]"}`} strokeWidth={1.6} />
+            <Heart className={`h-[15px] w-[15px] transition-colors ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : "fill-transparent text-[#516258]"}`} strokeWidth={1.6} />
           </button>
 
-          {cardBadge && <span className="absolute right-2 top-2 z-20 flex h-[23px] min-w-[39px] items-center justify-center rounded-[7px] bg-[#D4777D] px-2 text-[8px] font-semibold leading-none text-white">{cardBadge}</span>}
+          {cardBadge && <span className="absolute right-2 top-2 z-20 flex h-[23px] min-w-[39px] items-center justify-center rounded-[7px] bg-[#173A2D] px-2 text-[8px] font-semibold leading-none text-white">{cardBadge}</span>}
 
           {colors.length > 0 && (
             <div className="absolute bottom-2 right-2 z-20 flex items-center gap-[4px] rounded-full bg-white/90 px-1.5 py-1 shadow-[0_2px_8px_rgba(45,35,30,0.06)]">
@@ -211,22 +211,22 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
         </div>
 
         <div className="relative h-[86px] bg-white px-[10px] pb-[9px] pt-[8px]">
-          <h3 className="overflow-hidden whitespace-nowrap pl-[36px] text-ellipsis text-[10.5px] font-semibold leading-[17px] text-[#3E3431]">{product.nameAr || product.name}</h3>
-          <p className="mt-[1px] overflow-hidden whitespace-nowrap pl-[36px] text-ellipsis text-[7.5px] leading-[14px] text-[#9E918C]">
-            {product.brand || "Flamingo Park"}
+          <h3 className="overflow-hidden whitespace-nowrap pl-[36px] text-ellipsis text-[10.5px] font-semibold leading-[17px] text-[#173A2D]">{product.nameAr || product.name}</h3>
+          <p className="mt-[1px] overflow-hidden whitespace-nowrap pl-[36px] text-ellipsis text-[7.5px] leading-[14px] text-[#758078]">
+            {product.brand || "Genan"}
             {firstColorName && <><span className="mx-[4px] text-[#D1C7C3]">•</span>{firstColorName}</>}
           </p>
 
           <div className="absolute bottom-[13px] left-[46px] right-[10px] flex min-w-0 items-center">
-            <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[11px] font-bold leading-none text-[#B86168]">{getDisplayedPrice()}</span>
+            <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[11px] font-bold leading-none text-[#9D7B40]">{getDisplayedPrice()}</span>
           </div>
 
           {product.inStock ? (
-            <button type="button" aria-label="إضافة إلى السلة" onClick={handleAdd} className={`absolute bottom-[9px] left-[9px] flex h-[33px] w-[33px] items-center justify-center rounded-[9px] border border-[#E9CFCC] bg-[#FFF7F5] text-[#B86168] transition-all duration-200 active:bg-[#FAECE9] ${bagPop ? "scale-110" : "scale-100"}`}>
+            <button type="button" aria-label="إضافة إلى السلة" onClick={handleAdd} className={`absolute bottom-[9px] left-[9px] flex h-[33px] w-[33px] items-center justify-center rounded-[9px] border border-[#D7C8A8] bg-[#F5F1E7] text-[#9D7B40] transition-all duration-200 active:bg-[#EAE5D7] ${bagPop ? "scale-110" : "scale-100"}`}>
               <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.7} />
             </button>
           ) : (
-            <span className="absolute bottom-[14px] left-[9px] text-[7px] font-medium text-[#A89C97]">نفدت الكمية</span>
+            <span className="absolute bottom-[14px] left-[9px] text-[7px] font-medium text-[#859087]">نفدت الكمية</span>
           )}
         </div>
       </article>
