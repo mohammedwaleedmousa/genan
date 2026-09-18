@@ -266,19 +266,19 @@ const OrderTrackingPage = () => {
 
           <header className="mb-5">
             <div className="flex items-center gap-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-              <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">ORDER TRACKING</span>
+              <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+              <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">ORDER TRACKING</span>
             </div>
 
             <div className="mt-1.5 flex items-start justify-between gap-3">
               <div>
-                <h1 className="text-[19px] font-semibold tracking-[-0.025em] text-[#403633] md:text-[25px]">تتبع طلبك</h1>
+                <h1 className="text-[19px] font-semibold tracking-[-0.025em] text-[#173A2D] md:text-[25px]">تتبع طلبك</h1>
 
-                <p className="mt-1 text-[8px] leading-5 text-[#9B8D88]">تابع حالة طلبك منذ استلامه وحتى وصوله إليك.</p>
+                <p className="mt-1 text-[8px] leading-5 text-[#899289]">تابع حالة طلبك منذ استلامه وحتى وصوله إليك.</p>
               </div>
 
               {!missingTrackingInfo && (
-                <button type="button" onClick={() => void refetch()} disabled={isFetching} aria-label="تحديث حالة الطلب" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#E5DAD6] bg-white text-[#8A7772] active:bg-[#FFF7F5] disabled:opacity-50">
+                <button type="button" onClick={() => void refetch()} disabled={isFetching} aria-label="تحديث حالة الطلب" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#DDD7C8] bg-white text-[#788178] active:bg-[#F5F1E7] disabled:opacity-50">
                   <RefreshCw className={`h-3.5 w-3.5 ${isFetching ? "animate-spin" : ""}`} strokeWidth={1.5} />
                 </button>
               )}
@@ -290,10 +290,10 @@ const OrderTrackingPage = () => {
           ================================================= */}
 
           {(missingTrackingInfo || (!isLoading && !isError && !order)) && (
-            <form onSubmit={handleTrackingSubmit} className="rounded-[15px] border border-[#E8DDD9] bg-white px-4 py-5 md:px-5">
+            <form onSubmit={handleTrackingSubmit} className="rounded-[15px] border border-[#DDD7C8] bg-white px-4 py-5 md:px-5">
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FAECE9]">
-                  <Package className="h-4 w-4 text-[#C66C72]" strokeWidth={1.5} />
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EAE5D7]">
+                  <Package className="h-4 w-4 text-[#9D7B40]" strokeWidth={1.5} />
                 </span>
                 <div>
                   <h2 className="text-[11px] font-semibold text-[#4A3E3A]">{missingTrackingInfo ? "أدخل بيانات طلبك" : "تحقق من بيانات التتبع"}</h2>
@@ -304,20 +304,20 @@ const OrderTrackingPage = () => {
               <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
                 <div>
                   <label htmlFor="tracking-order-number" className="mb-1.5 block text-[8px] font-medium text-[#5B4E49]">رقم الطلب أو رابط التتبع *</label>
-                  <input id="tracking-order-number" name="order_number" value={orderDraft} onChange={(event) => handleOrderDraftChange(event.target.value)} autoComplete="off" inputMode="text" dir="ltr" placeholder="FLM-12345" className="h-11 w-full rounded-[10px] border border-[#E6DCD8] bg-white px-3 text-left font-mono text-[9px] text-[#483C38] outline-none placeholder:text-[#ADA19C] focus:border-[#D9AEAA]" />
+                  <input id="tracking-order-number" name="order_number" value={orderDraft} onChange={(event) => handleOrderDraftChange(event.target.value)} autoComplete="off" inputMode="text" dir="ltr" placeholder="FLM-12345" className="h-11 w-full rounded-[10px] border border-[#DED8CA] bg-white px-3 text-left font-mono text-[9px] text-[#483C38] outline-none placeholder:text-[#ADA19C] focus:border-[#C6B17F]" />
                 </div>
 
                 <div>
-                  <label htmlFor="tracking-token" className="mb-1.5 block text-[8px] font-medium text-[#5B4E49]">رمز التتبع <span className="font-normal text-[#AA9D98]">(للزائر)</span></label>
-                  <input id="tracking-token" name="tracking_token" value={tokenDraft} onChange={(event) => { setTokenDraft(event.target.value); setFormError(""); }} autoComplete="off" dir="ltr" placeholder="رمز التتبع" className="h-11 w-full rounded-[10px] border border-[#E6DCD8] bg-white px-3 text-left font-mono text-[9px] text-[#483C38] outline-none placeholder:text-[#ADA19C] focus:border-[#D9AEAA]" />
+                  <label htmlFor="tracking-token" className="mb-1.5 block text-[8px] font-medium text-[#5B4E49]">رمز التتبع <span className="font-normal text-[#949C94]">(للزائر)</span></label>
+                  <input id="tracking-token" name="tracking_token" value={tokenDraft} onChange={(event) => { setTokenDraft(event.target.value); setFormError(""); }} autoComplete="off" dir="ltr" placeholder="رمز التتبع" className="h-11 w-full rounded-[10px] border border-[#DED8CA] bg-white px-3 text-left font-mono text-[9px] text-[#483C38] outline-none placeholder:text-[#ADA19C] focus:border-[#C6B17F]" />
                 </div>
               </div>
 
               {formError && <p role="alert" className="mt-2 text-[7px] font-medium text-[#A45D5D]">{formError}</p>}
 
               <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-[6px] leading-5 text-[#A0938E]">إذا كنت مسجّل الدخول، يكفي رقم الطلب الخاص بحسابك.</p>
-                <button type="submit" className="flex h-10 items-center justify-center gap-2 rounded-[10px] bg-[#D4777D] px-5 text-[8px] font-semibold text-white active:bg-[#C96B72]">
+                <p className="text-[6px] leading-5 text-[#8A938B]">إذا كنت مسجّل الدخول، يكفي رقم الطلب الخاص بحسابك.</p>
+                <button type="submit" className="flex h-10 items-center justify-center gap-2 rounded-[10px] bg-[#173A2D] px-5 text-[8px] font-semibold text-white active:bg-[#214C3B]">
                   <Truck className="h-3.5 w-3.5" strokeWidth={1.5} />
                   تتبع الطلب
                 </button>
@@ -331,13 +331,13 @@ const OrderTrackingPage = () => {
 
           {!missingTrackingInfo && isLoading && (
             <div className="space-y-3">
-              <div className="h-[118px] animate-pulse rounded-[15px] border border-[#EEE5E1] bg-white p-4">
+              <div className="h-[118px] animate-pulse rounded-[15px] border border-[#E5DED0] bg-white p-4">
                 <div className="h-3 w-20 rounded-full bg-[#EEE8E5]" />
                 <div className="mt-4 h-5 w-36 rounded-full bg-[#E9E3E0]" />
                 <div className="mt-3 h-2.5 w-28 rounded-full bg-[#F0EAE7]" />
               </div>
 
-              <div className="h-[340px] animate-pulse rounded-[15px] border border-[#EEE5E1] bg-white" />
+              <div className="h-[340px] animate-pulse rounded-[15px] border border-[#E5DED0] bg-white" />
             </div>
           )}
 
@@ -376,17 +376,17 @@ const OrderTrackingPage = () => {
                   ORDER STATUS CARD
               ================================================= */}
 
-              <section className="overflow-hidden rounded-[15px] border border-[#E9DFDB] bg-white">
+              <section className="overflow-hidden rounded-[15px] border border-[#E2DCCE] bg-white">
                 <div className="px-4 py-4 md:px-5">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[6px] text-[#A0938E]">رقم الطلب</p>
+                      <p className="text-[6px] text-[#8A938B]">رقم الطلب</p>
 
                       <p dir="ltr" className="mt-1 text-right font-mono text-[11px] font-semibold text-[#4B3F3B]">{order.order_number || selectedOrder}</p>
                     </div>
 
-                    <div className={`flex h-[27px] items-center gap-1.5 rounded-full px-2.5 ${isCancelled ? "bg-[#FFF0EF] text-[#A95F5F]" : normalizedStatus === "delivered" ? "bg-[#EFF7F1] text-[#58785F]" : "bg-[#FFF5F3] text-[#A95B61]"}`}>
-                      <span className={`h-1.5 w-1.5 rounded-full ${isCancelled ? "bg-[#BD6A6A]" : normalizedStatus === "delivered" ? "bg-[#6F9576]" : "bg-[#D4777D]"}`} />
+                    <div className={`flex h-[27px] items-center gap-1.5 rounded-full px-2.5 ${isCancelled ? "bg-[#F0EDE5] text-[#A95F5F]" : normalizedStatus === "delivered" ? "bg-[#EFF7F1] text-[#58785F]" : "bg-[#F3F0E6] text-[#173A2D]"}`}>
+                      <span className={`h-1.5 w-1.5 rounded-full ${isCancelled ? "bg-[#BD6A6A]" : normalizedStatus === "delivered" ? "bg-[#6F9576]" : "bg-[#173A2D]"}`} />
 
                       <span className="text-[7px] font-semibold">{STATUS_LABELS[normalizedStatus]}</span>
                     </div>
@@ -394,28 +394,28 @@ const OrderTrackingPage = () => {
 
                   <div className="mt-4 grid grid-cols-2 gap-3 border-t border-[#F0E8E5] pt-3">
                     <div>
-                      <p className="text-[6px] text-[#A0938E]">تاريخ الطلب</p>
+                      <p className="text-[6px] text-[#8A938B]">تاريخ الطلب</p>
 
-                      <p className="mt-1 text-[7px] font-medium text-[#625550]">{createdDate ? createdDate.toLocaleDateString("ar-YE", { day: "numeric", month: "long", year: "numeric" }) : "—"}</p>
+                      <p className="mt-1 text-[7px] font-medium text-[#4C5E54]">{createdDate ? createdDate.toLocaleDateString("ar-YE", { day: "numeric", month: "long", year: "numeric" }) : "—"}</p>
                     </div>
 
                     <div>
-                      <p className="text-[6px] text-[#A0938E]">شركة التوصيل</p>
+                      <p className="text-[6px] text-[#8A938B]">شركة التوصيل</p>
 
-                      <p className="mt-1 truncate text-[7px] font-medium text-[#625550]">{order.delivery_company_name || "سيتم تحديدها"}</p>
+                      <p className="mt-1 truncate text-[7px] font-medium text-[#4C5E54]">{order.delivery_company_name || "سيتم تحديدها"}</p>
                     </div>
                   </div>
                 </div>
 
                 {!isCancelled && (
-                  <div className="border-t border-[#EEE5E1] bg-[#FFFCFB] px-4 py-3 md:px-5">
+                  <div className="border-t border-[#E5DED0] bg-[#FFFCFB] px-4 py-3 md:px-5">
                     <div className="mb-2 flex items-center justify-between">
                       <span className="text-[6px] text-[#9C8E89]">تقدم الطلب</span>
-                      <span className="text-[6px] font-medium text-[#A95B61]">{Math.round(progressPercentage)}%</span>
+                      <span className="text-[6px] font-medium text-[#173A2D]">{Math.round(progressPercentage)}%</span>
                     </div>
 
                     <div className="h-[4px] overflow-hidden rounded-full bg-[#EEE9E6]">
-                      <div className="h-full rounded-full bg-[#D4777D] transition-[width] duration-500" style={{ width: `${progressPercentage}%` }} />
+                      <div className="h-full rounded-full bg-[#173A2D] transition-[width] duration-500" style={{ width: `${progressPercentage}%` }} />
                     </div>
                   </div>
                 )}
@@ -425,11 +425,11 @@ const OrderTrackingPage = () => {
                   TIMELINE
               ================================================= */}
 
-              <section className="mt-4 overflow-hidden rounded-[15px] border border-[#E9DFDB] bg-white px-4 py-4 md:px-5 md:py-5">
+              <section className="mt-4 overflow-hidden rounded-[15px] border border-[#E2DCCE] bg-white px-4 py-4 md:px-5 md:py-5">
                 <div className="mb-4">
                   <h2 className="text-[10px] font-semibold text-[#493D39]">رحلة الطلب</h2>
 
-                  <p className="mt-1 text-[6px] text-[#A0938E]">يتم تحديث الحالة تلقائيًا كل عدة ثوانٍ.</p>
+                  <p className="mt-1 text-[6px] text-[#8A938B]">يتم تحديث الحالة تلقائيًا كل عدة ثوانٍ.</p>
                 </div>
 
                 <div>
@@ -442,9 +442,9 @@ const OrderTrackingPage = () => {
                       <div key={`${step.title}-${index}`} className="relative flex gap-3">
                         {!last && <div className={`absolute right-[15px] top-[30px] h-[calc(100%-6px)] w-px ${step.completed && !isCancelled ? "bg-[#D8AAA7]" : isCancelStep ? "bg-[#D5A2A0]" : "bg-[#E7DFDC]"}`} />}
 
-                        <div className={`relative z-10 flex h-[31px] w-[31px] shrink-0 items-center justify-center rounded-full border ${isCancelStep ? "border-[#D69491] bg-[#FFF0EF] text-[#AE6262]" : step.completed || step.active ? "border-[#D9A7A4] bg-[#FFF5F3] text-[#B86168]" : "border-[#E5DCD8] bg-[#FAF8F7] text-[#ACA09B]"}`}>
+                        <div className={`relative z-10 flex h-[31px] w-[31px] shrink-0 items-center justify-center rounded-full border ${isCancelStep ? "border-[#C6A77A] bg-[#F0EDE5] text-[#AE6262]" : step.completed || step.active ? "border-[#C6B17F] bg-[#F3F0E6] text-[#9D7B40]" : "border-[#E5DCD8] bg-[#F5F3ED] text-[#979F98]"}`}>
                           {step.completed && !step.active && !isCancelStep ? <Check className="h-3.5 w-3.5" strokeWidth={2} /> : <Icon className="h-3.5 w-3.5" strokeWidth={1.5} />}
-                          {step.active && !isCancelStep && normalizedStatus !== "delivered" && <span className="absolute inset-[-4px] animate-pulse rounded-full border border-[#D9A7A4]/45" />}
+                          {step.active && !isCancelStep && normalizedStatus !== "delivered" && <span className="absolute inset-[-4px] animate-pulse rounded-full border border-[#C6B17F]/45" />}
                         </div>
 
                         <div className={`min-w-0 flex-1 ${last ? "pb-0" : "pb-6"}`}>
@@ -453,11 +453,11 @@ const OrderTrackingPage = () => {
                               <h3 className={`text-[9px] font-semibold ${isCancelStep ? "text-[#A95F5F]" : step.completed || step.active ? "text-[#514540]" : "text-[#A29590]"}`}>{step.title}</h3>
                               <p className={`mt-1 text-[7px] leading-5 ${step.completed || step.active ? "text-[#8C7E79]" : "text-[#B2A6A1]"}`}>{step.description}</p>
                             </div>
-                            {step.active && <span className={`shrink-0 rounded-full px-2 py-1 text-[5px] font-semibold ${isCancelStep ? "bg-[#FFF0EF] text-[#A95F5F]" : "bg-[#FFF5F3] text-[#A95B61]"}`}>الحالة الحالية</span>}
+                            {step.active && <span className={`shrink-0 rounded-full px-2 py-1 text-[5px] font-semibold ${isCancelStep ? "bg-[#F0EDE5] text-[#A95F5F]" : "bg-[#F3F0E6] text-[#173A2D]"}`}>الحالة الحالية</span>}
                           </div>
 
                           {step.date && (
-                            <div className="mt-1.5 flex items-center gap-1 text-[6px] text-[#A0938E]">
+                            <div className="mt-1.5 flex items-center gap-1 text-[6px] text-[#8A938B]">
                               <Clock3 className="h-2.5 w-2.5" strokeWidth={1.4} />
                               <span>{step.date}</span>
                               {step.time && <><span className="text-[#D2C7C3]">•</span><span>{step.time}</span></>}
@@ -470,24 +470,24 @@ const OrderTrackingPage = () => {
                 </div>
               </section>
 
-              <section className="mt-4 rounded-[15px] border border-[#E9DFDB] bg-white px-4 py-4 md:px-5">
+              <section className="mt-4 rounded-[15px] border border-[#E2DCCE] bg-white px-4 py-4 md:px-5">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FAECE9]">
-                    <Truck className="h-4 w-4 text-[#C66C72]" strokeWidth={1.5} />
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EAE5D7]">
+                    <Truck className="h-4 w-4 text-[#9D7B40]" strokeWidth={1.5} />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="text-[6px] text-[#9B8D88]">شركة التوصيل</p>
+                    <p className="text-[6px] text-[#899289]">شركة التوصيل</p>
                     <p className="mt-1 truncate text-[9px] font-semibold text-[#514540]">{order.delivery_company_name || "سيتم تحديد شركة التوصيل"}</p>
                   </div>
-                  {!isCancelled && normalizedStatus === "shipped" && <span className="flex shrink-0 items-center gap-1 rounded-full bg-[#FFF5F3] px-2 py-1.5 text-[6px] font-medium text-[#A95B61]"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#D4777D]" />في الطريق</span>}
+                  {!isCancelled && normalizedStatus === "shipped" && <span className="flex shrink-0 items-center gap-1 rounded-full bg-[#F3F0E6] px-2 py-1.5 text-[6px] font-medium text-[#173A2D]"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#173A2D]" />في الطريق</span>}
                 </div>
               </section>
 
-              <section className="mt-4 overflow-hidden rounded-[15px] border border-[#E9DFDB] bg-[#FFFCFB]">
+              <section className="mt-4 overflow-hidden rounded-[15px] border border-[#E2DCCE] bg-[#FFFCFB]">
                 <div className="flex items-center justify-between gap-3 px-4 py-4 md:px-5">
                   <div>
                     <p className="text-[9px] font-semibold text-[#514540]">هل تحتاج إلى مساعدة؟</p>
-                    <p className="mt-1 text-[6px] text-[#9B8D88]">تواصل معنا وساعدنا برقم الطلب لتسريع الخدمة.</p>
+                    <p className="mt-1 text-[6px] text-[#899289]">تواصل معنا وساعدنا برقم الطلب لتسريع الخدمة.</p>
                   </div>
                   <button type="button" onClick={handleContact} className="flex h-[38px] shrink-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#568C68] px-3.5 text-[7px] font-semibold text-white active:bg-[#4C7D5D]">
                     <MessageCircle className="h-3.5 w-3.5" strokeWidth={1.5} />
@@ -497,7 +497,7 @@ const OrderTrackingPage = () => {
               </section>
 
               <div className="mt-4 text-center">
-                <Link to="/home" className="inline-flex h-9 items-center justify-center gap-1.5 px-3 text-[7px] font-medium text-[#887A75] active:text-[#A95B61]">
+                <Link to="/home" className="inline-flex h-9 items-center justify-center gap-1.5 px-3 text-[7px] font-medium text-[#7B857D] active:text-[#173A2D]">
                   <Home className="h-3.5 w-3.5" strokeWidth={1.5} />
                   العودة للرئيسية
                 </Link>
