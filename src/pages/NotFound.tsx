@@ -15,7 +15,7 @@ const NotFound = () => {
         {/* LOGO */}
 
         <Link to="/home" className="mx-auto inline-flex items-center justify-center">
-          <img src="/icons/flamingo.jpeg" alt="Flamingo Park" className="h-[64px] w-auto object-contain md:h-[76px]" />
+          <span className="text-[24px] font-semibold tracking-[0.12em] text-[#403633] md:text-[28px]">GENAN</span>
         </Link>
 
         {/* 404 */}
