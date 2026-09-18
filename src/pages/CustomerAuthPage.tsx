@@ -289,7 +289,7 @@ const CustomerAuthPage = () => {
       if (!customer) {
         const country = phoneCountry;
         customer = await finalizeRegistration({
-          name: "عميل فلامنجو",
+          name: "عميل جنان",
           phone,
           region: defaultRegionForCountry(country),
           country,
@@ -347,13 +347,13 @@ const CustomerAuthPage = () => {
       <div className="mx-auto flex min-h-[100svh] w-full max-w-[520px] flex-col px-5 pb-7 pt-5 sm:px-7 md:justify-center md:py-10">
         <div className="flex justify-center">
           <button type="button" onClick={() => navigate("/home")} aria-label="العودة إلى المتجر" className="flex h-[78px] w-[78px] items-center justify-center">
-            <img src="/icons/flamingo.jpeg" alt="Flamingo Park" width={78} height={78} fetchPriority="high" className="h-[78px] w-[78px] object-contain" />
+            <img src="/icons/app-icon-1024.png" alt="Genan" width={78} height={78} fetchPriority="high" className="h-[78px] w-[78px] object-contain" />
           </button>
         </div>
 
         <div className="mt-2 flex items-center justify-center gap-2.5">
           <span className="h-px w-5 bg-[#E0B7B4]" />
-          <span className="font-serif text-[8px] tracking-[0.26em] text-[#B86168]">FLAMINGO PARK</span>
+          <span className="font-serif text-[8px] tracking-[0.26em] text-[#B86168]">GENAN</span>
           <span className="h-px w-5 bg-[#E0B7B4]" />
         </div>
 
