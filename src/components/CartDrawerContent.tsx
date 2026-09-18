@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "@/store/useStore";
 import { useCurrency } from "@/lib/currency";
 
-const POST_AUTH_REDIRECT_KEY = "flamingo-post-auth-redirect";
+const POST_AUTH_REDIRECT_KEY = "genan-post-auth-redirect";
 
 const CartDrawerContent = () => {
   const { customer, cart, isCartOpen, closeCart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useStore();
@@ -74,30 +74,30 @@ const CartDrawerContent = () => {
           CART DRAWER
       ========================================================= */}
 
-      <aside className="fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#EDE3DF] bg-[#FFFDFC] shadow-[-14px_0_40px_rgba(48,34,30,.08)] sm:max-w-[430px]" dir="rtl">
+      <aside className="fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#E2DCCE] bg-[#F8F6F0] shadow-[-14px_0_40px_rgba(48,34,30,.08)] sm:max-w-[430px]" dir="rtl">
         {/* =========================================================
             HEADER
         ========================================================= */}
 
-        <header className="shrink-0 border-b border-[#EEE5E1] bg-[#FFFDFC] px-4 pb-3 pt-[calc(env(safe-area-inset-top)+12px)] sm:px-5 sm:pt-5">
+        <header className="shrink-0 border-b border-[#E5DED0] bg-[#F8F6F0] px-4 pb-3 pt-[calc(env(safe-area-inset-top)+12px)] sm:px-5 sm:pt-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F9EAE8]">
-                <ShoppingBag className="h-[17px] w-[17px] stroke-[1.6] text-[#C96F79]" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#ECE7DA]">
+                <ShoppingBag className="h-[17px] w-[17px] stroke-[1.6] text-[#9D7B40]" />
               </div>
 
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[17px] font-semibold tracking-[-0.025em] text-[#403331]">سلة التسوق</h2>
+                  <h2 className="text-[17px] font-semibold tracking-[-0.025em] text-[#173A2D]">سلة التسوق</h2>
 
-                  {totalQuantity > 0 && <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#D4777D] px-1 text-[7px] font-semibold text-white">{totalQuantity}</span>}
+                  {totalQuantity > 0 && <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#173A2D] px-1 text-[7px] font-semibold text-white">{totalQuantity}</span>}
                 </div>
 
-                <p className="mt-0.5 text-[7px] text-[#A0928D]">FLAMINGO BAG</p>
+                <p className="mt-0.5 text-[7px] text-[#788078]">GENAN BAG</p>
               </div>
             </div>
 
-            <button type="button" onClick={closeCart} className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E9DEDA] bg-white text-[#6C5D59] active:bg-[#F8F2EF]">
+            <button type="button" onClick={closeCart} className="flex h-9 w-9 items-center justify-center rounded-full border border-[#DED8C9] bg-white text-[#46584E] active:bg-[#EEEAE1]">
               <X className="h-4 w-4 stroke-[1.5]" />
             </button>
           </div>
@@ -115,19 +115,19 @@ const CartDrawerContent = () => {
 
             <div className="flex min-h-full flex-col items-center justify-center px-6 pb-16 text-center">
               <div className="relative flex h-[76px] w-[76px] items-center justify-center">
-                <span className="absolute inset-0 rounded-full border border-[#E8D4CF]" />
-                <span className="absolute inset-[8px] rounded-full bg-[#FAECE9]" />
+                <span className="absolute inset-0 rounded-full border border-[#D5C8AA]" />
+                <span className="absolute inset-[8px] rounded-full bg-[#E9E4D6]" />
 
-                <ShoppingBag className="relative h-6 w-6 stroke-[1.3] text-[#C66B71]" />
+                <ShoppingBag className="relative h-6 w-6 stroke-[1.3] text-[#9D7B40]" />
               </div>
 
-              <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#B86168]">FLAMINGO PARK</span>
+              <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#9D7B40]">GENAN</span>
 
-              <h3 className="mt-2 text-[17px] font-semibold text-[#483937]">سلتك فارغة</h3>
+              <h3 className="mt-2 text-[17px] font-semibold text-[#173A2D]">سلتك فارغة</h3>
 
-              <p className="mt-1.5 max-w-[245px] text-[9px] leading-5 text-[#9C8C87]">اكتشف أحدث اختيارات فلامنجو وأضف القطع التي تحبها إلى سلتك.</p>
+              <p className="mt-1.5 max-w-[245px] text-[9px] leading-5 text-[#737D74]">اكتشف أحدث اختيارات جنان وأضف القطع التي تحبها إلى سلتك.</p>
 
-              <button type="button" onClick={handleBrowseProducts} className="mt-5 h-[43px] rounded-full bg-[#D4777D] px-7 text-[10px] font-semibold text-white active:bg-[#C96B72]">تصفح المنتجات</button>
+              <button type="button" onClick={handleBrowseProducts} className="mt-5 h-[43px] rounded-full bg-[#173A2D] px-7 text-[10px] font-semibold text-white active:bg-[#214C3B]">تصفح المنتجات</button>
             </div>
           ) : (
             /* =====================================================
@@ -155,13 +155,13 @@ const CartDrawerContent = () => {
                 const maxQuantityReached = typeof stock === "number" && item.quantity >= stock;
 
                 return (
-                  <article key={`${item.product.id}-${item.variantId || "base"}-${cartIndex}`} className="relative flex gap-3 rounded-[17px] border border-[#EEE5E1] bg-white p-2.5">
+                  <article key={`${item.product.id}-${item.variantId || "base"}-${cartIndex}`} className="relative flex gap-3 rounded-[17px] border border-[#E5DED0] bg-white p-2.5">
                     {/* IMAGE */}
 
-                    <div className="relative h-[110px] w-[88px] shrink-0 overflow-hidden rounded-[13px] bg-[#F4F1EF]">
-                      {image ? <img src={image} alt={item.product.nameAr} loading="lazy" decoding="async" className="h-full w-full object-cover" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-5 w-5 text-[#C9BBB6]" /></div>}
+                    <div className="relative h-[110px] w-[88px] shrink-0 overflow-hidden rounded-[13px] bg-[#F0EDE5]">
+                      {image ? <img src={image} alt={item.product.nameAr} loading="lazy" decoding="async" className="h-full w-full object-cover" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-5 w-5 text-[#A6AEA6]" /></div>}
 
-                      {!!discount && <span className="absolute bottom-1.5 right-1.5 rounded-full bg-white/95 px-2 py-1 text-[7px] font-semibold text-[#B75F66]">-{discount}%</span>}
+                      {!!discount && <span className="absolute bottom-1.5 right-1.5 rounded-full bg-white/95 px-2 py-1 text-[7px] font-semibold text-[#9D7B40]">-{discount}%</span>}
                     </div>
 
                     {/* INFO */}
@@ -169,9 +169,9 @@ const CartDrawerContent = () => {
                     <div className="min-w-0 flex-1 py-0.5">
                       <div className="flex items-start justify-between gap-2 pl-7">
                         <div className="min-w-0">
-                          {item.product.brand && <p className="mb-0.5 truncate text-[7px] text-[#A39691]">{item.product.brand}</p>}
+                          {item.product.brand && <p className="mb-0.5 truncate text-[7px] text-[#7B847C]">{item.product.brand}</p>}
 
-                          <h3 className="line-clamp-2 text-[10px] font-semibold leading-[1.6] text-[#433634]">{item.product.nameAr}</h3>
+                          <h3 className="line-clamp-2 text-[10px] font-semibold leading-[1.6] text-[#20392E]">{item.product.nameAr}</h3>
                         </div>
                       </div>
 
@@ -179,16 +179,16 @@ const CartDrawerContent = () => {
 
                       {(item.selectedSize || item.selectedColor) && (
                         <div className="mt-1.5 flex flex-wrap items-center gap-1">
-                          {item.selectedSize && <span className="rounded-full bg-[#F7F2F0] px-2 py-1 text-[7px] text-[#796A66]">المقاس: {item.selectedSize}</span>}
+                          {item.selectedSize && <span className="rounded-full bg-[#F0EDE5] px-2 py-1 text-[7px] text-[#596A60]">المقاس: {item.selectedSize}</span>}
 
-                          {item.selectedColor && <span className="rounded-full bg-[#F7F2F0] px-2 py-1 text-[7px] text-[#796A66]">اللون: {item.selectedColor}</span>}
+                          {item.selectedColor && <span className="rounded-full bg-[#F0EDE5] px-2 py-1 text-[7px] text-[#596A60]">اللون: {item.selectedColor}</span>}
                         </div>
                       )}
 
                       {/* ACCESSORIES */}
 
                       {item.selectedAccessories && item.selectedAccessories.length > 0 && (
-                        <p className="mt-1.5 line-clamp-1 text-[7px] text-[#9E908B]">
+                        <p className="mt-1.5 line-clamp-1 text-[7px] text-[#788178]">
                           +{" "}
                           {item.selectedAccessories.map((accessory, index) => (
                             <span key={`${accessory.name_ar}-${index}`}>
@@ -203,33 +203,33 @@ const CartDrawerContent = () => {
                       {/* PRICE */}
 
                       <div className="mt-2 flex items-end gap-1.5">
-                        <span className="text-[13px] font-semibold leading-none text-[#C65F68]">{formatCurrency(unitTotal)}</span>
+                        <span className="text-[13px] font-semibold leading-none text-[#9D7B40]">{formatCurrency(unitTotal)}</span>
 
-                        {!!discount && <span className="text-[7px] leading-none text-[#AEA19C] line-through">{formatCurrency(basePrice)}</span>}
+                        {!!discount && <span className="text-[7px] leading-none text-[#929A92] line-through">{formatCurrency(basePrice)}</span>}
                       </div>
 
                       {/* QUANTITY */}
 
                       <div className="mt-3 flex items-center justify-between">
-                        <div className="flex h-[31px] items-center overflow-hidden rounded-[10px] border border-[#E6DDD9] bg-[#FFFDFC]">
-                          <button type="button" onClick={() => updateQuantity(item.product.id, item.quantity - 1, item.variantId)} disabled={item.quantity <= 1} className="flex h-full w-8 items-center justify-center text-[#6A5C58] disabled:opacity-30">
+                        <div className="flex h-[31px] items-center overflow-hidden rounded-[10px] border border-[#DED8CA] bg-[#F8F6F0]">
+                          <button type="button" onClick={() => updateQuantity(item.product.id, item.quantity - 1, item.variantId)} disabled={item.quantity <= 1} className="flex h-full w-8 items-center justify-center text-[#4E6056] disabled:opacity-30">
                             <Minus className="h-3 w-3 stroke-[1.6]" />
                           </button>
 
-                          <span className="flex h-full min-w-[28px] items-center justify-center border-x border-[#EEE5E1] px-1 text-[9px] font-semibold text-[#493B38]">{item.quantity}</span>
+                          <span className="flex h-full min-w-[28px] items-center justify-center border-x border-[#E5DED0] px-1 text-[9px] font-semibold text-[#253D32]">{item.quantity}</span>
 
-                          <button type="button" onClick={() => { if (maxQuantityReached) return; updateQuantity(item.product.id, item.quantity + 1, item.variantId); }} disabled={maxQuantityReached} className="flex h-full w-8 items-center justify-center text-[#6A5C58] disabled:opacity-30">
+                          <button type="button" onClick={() => { if (maxQuantityReached) return; updateQuantity(item.product.id, item.quantity + 1, item.variantId); }} disabled={maxQuantityReached} className="flex h-full w-8 items-center justify-center text-[#4E6056] disabled:opacity-30">
                             <Plus className="h-3 w-3 stroke-[1.6]" />
                           </button>
                         </div>
 
-                        <span className="text-[7px] text-[#AA9C97]">الإجمالي: {formatCurrency(unitTotal * item.quantity)}</span>
+                        <span className="text-[7px] text-[#818A82]">الإجمالي: {formatCurrency(unitTotal * item.quantity)}</span>
                       </div>
                     </div>
 
                     {/* REMOVE */}
 
-                    <button type="button" onClick={() => removeFromCart(item.product.id, item.variantId)} aria-label="حذف المنتج" className="absolute left-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-[#FFF5F3] text-[#C86A70] active:bg-[#F9E4E1]">
+                    <button type="button" onClick={() => removeFromCart(item.product.id, item.variantId)} aria-label="حذف المنتج" className="absolute left-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-[#F0EDE5] text-[#9D7B40] active:bg-[#E9E2D3]">
                       <Trash2 className="h-3.5 w-3.5 stroke-[1.5]" />
                     </button>
                   </article>
@@ -244,27 +244,27 @@ const CartDrawerContent = () => {
         ========================================================= */}
 
         {cart.length > 0 && (
-          <footer className="shrink-0 border-t border-[#EDE3DF] bg-[#FFFDFC] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 sm:px-5 sm:pb-5">
+          <footer className="shrink-0 border-t border-[#E2DCCE] bg-[#F8F6F0] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 sm:px-5 sm:pb-5">
             <div className="mb-3 flex items-end justify-between">
               <div>
-                <p className="text-[8px] text-[#9D8F89]">المجموع</p>
-                <p className="mt-1 text-[7px] text-[#B0A29D]">{totalQuantity} قطعة في السلة</p>
+                <p className="text-[8px] text-[#788178]">المجموع</p>
+                <p className="mt-1 text-[7px] text-[#929A92]">{totalQuantity} قطعة في السلة</p>
               </div>
 
               <div className="text-left">
-                <span className="text-[20px] font-semibold leading-none text-[#B85E66]">{formatCurrency(total)}</span>
+                <span className="text-[20px] font-semibold leading-none text-[#173A2D]">{formatCurrency(total)}</span>
               </div>
             </div>
 
-            <button type="button" onClick={handleCheckout} className="flex h-[48px] w-full items-center justify-center gap-2 rounded-[14px] bg-[#D4777D] text-[11px] font-semibold text-white active:bg-[#C96B72]">
+            <button type="button" onClick={handleCheckout} className="flex h-[48px] w-full items-center justify-center gap-2 rounded-[14px] bg-[#173A2D] text-[11px] font-semibold text-white active:bg-[#214C3B]">
               <ShoppingBag className="h-4 w-4 stroke-[1.6]" />
               إتمام الشراء
             </button>
 
             <div className="mt-2.5 flex items-center justify-between px-1">
-              <button type="button" onClick={handleBrowseProducts} className="text-[8px] font-medium text-[#776863]">متابعة التسوق</button>
+              <button type="button" onClick={handleBrowseProducts} className="text-[8px] font-medium text-[#52635A]">متابعة التسوق</button>
 
-              <button type="button" onClick={clearCart} className="text-[8px] font-medium text-[#B8686D]">إفراغ السلة</button>
+              <button type="button" onClick={clearCart} className="text-[8px] font-medium text-[#8F5D45]">إفراغ السلة</button>
             </div>
           </footer>
         )}
