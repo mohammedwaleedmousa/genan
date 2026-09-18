@@ -270,15 +270,15 @@ const QuickView = ({ product, onClose, isMobile }: { product: CatalogProduct | n
   };
 
   return (
-    <motion.aside initial={isMobile ? { y: "100%" } : { x: "100%" }} animate={isMobile ? { y: 0 } : { x: 0 }} exit={isMobile ? { y: "100%" } : { x: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className={`fixed inset-y-0 right-0 z-[90] w-full overflow-y-auto bg-[#FFFDFC] shadow-[0_0_50px_rgba(65,45,38,.16)] ${isMobile ? "p-4 pb-24" : "max-w-2xl border-l border-[#ECE3DF] p-6"}`}>
+    <motion.aside initial={isMobile ? { y: "100%" } : { x: "100%" }} animate={isMobile ? { y: 0 } : { x: 0 }} exit={isMobile ? { y: "100%" } : { x: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className={`fixed inset-y-0 right-0 z-[90] w-full overflow-y-auto bg-[#F8F6F0] shadow-[0_0_50px_rgba(65,45,38,.16)] ${isMobile ? "p-4 pb-24" : "max-w-2xl border-l border-[#E6E0D4] p-6"}`}>
       <div className="mb-5 flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <p className="mb-1 text-[9px] tracking-[0.22em] text-[#C5797D]">FLAMINGO</p>
+          <p className="mb-1 text-[9px] tracking-[0.22em] text-[#C5797D]">GENAN</p>
           <h3 className="truncate text-xl font-semibold text-[#27201D]">{product.nameAr}</h3>
           <p className="mt-1 text-[11px] text-[#928680]">{product.brand}</p>
         </div>
 
-        <button onClick={onClose} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#EAE0DC] bg-white text-[#554945]">
+        <button onClick={onClose} className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#E2DCCE] bg-white text-[#554945]">
           <X className="h-4 w-4" />
         </button>
       </div>
@@ -291,7 +291,7 @@ const QuickView = ({ product, onClose, isMobile }: { product: CatalogProduct | n
 
           <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {images.map((image, index) => (
-              <button key={`${image}-${index}`} onClick={() => setActiveImage(index)} className={`h-[66px] w-[54px] shrink-0 overflow-hidden rounded-xl border transition-all ${activeImage === index ? "border-[#C86D73] ring-1 ring-[#C86D73]/20" : "border-[#E7DDD9]"}`}>
+              <button key={`${image}-${index}`} onClick={() => setActiveImage(index)} className={`h-[66px] w-[54px] shrink-0 overflow-hidden rounded-xl border transition-all ${activeImage === index ? "border-[#C86D73] ring-1 ring-[#C86D73]/20" : "border-[#DED8CA]"}`}>
                 <img src={image} alt="" className="h-full w-full object-cover" />
               </button>
             ))}
@@ -330,7 +330,7 @@ const QuickView = ({ product, onClose, isMobile }: { product: CatalogProduct | n
                 {sizesForActiveVariant.map((size) => {
                   const disabled = size.stock <= 0;
 
-                  return <button key={size.size} onClick={() => setSelectedSize(size.size)} disabled={disabled} className={`min-w-[44px] rounded-xl border px-3 py-2 text-[11px] transition-all ${selectedSize === size.size ? "border-[#D4777D] bg-[#D4777D] text-white" : "border-[#E4DAD6] bg-white text-[#594E49]"} ${disabled ? "cursor-not-allowed opacity-30" : ""}`}>{size.size}</button>;
+                  return <button key={size.size} onClick={() => setSelectedSize(size.size)} disabled={disabled} className={`min-w-[44px] rounded-xl border px-3 py-2 text-[11px] transition-all ${selectedSize === size.size ? "border-[#173A2D] bg-[#173A2D] text-white" : "border-[#DED8CA] bg-white text-[#43554B]"} ${disabled ? "cursor-not-allowed opacity-30" : ""}`}>{size.size}</button>;
                 })}
               </div>
             </div>
@@ -345,7 +345,7 @@ const QuickView = ({ product, onClose, isMobile }: { product: CatalogProduct | n
               <button onClick={() => { const max = selectedSize ? stockForSize(selectedSize) : typeof product.stockQuantity === "number" ? product.stockQuantity : 999; setQty(Math.min(qty + 1, Math.max(1, max))); }} className="h-full w-10 text-lg">+</button>
             </div>
 
-            <button onClick={handleAdd} className="flex-1 rounded-xl bg-[#D4777D] text-[12px] font-semibold text-white shadow-[0_8px_24px_rgba(212,119,125,.20)]">إضافة للسلة</button>
+            <button onClick={handleAdd} className="flex-1 rounded-xl bg-[#173A2D] text-[12px] font-semibold text-white shadow-[0_8px_24px_rgba(23,58,45,.18)]">إضافة للسلة</button>
           </div>
         </div>
       </div>
@@ -1668,7 +1668,7 @@ const ProductsPage = () => {
   ========================================================= */
 
   return (
-    <div className="min-h-screen bg-[#FFFDFC] text-[#261F1D]" dir="rtl">
+    <div className="min-h-screen bg-[#F8F6F0] text-[#261F1D]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
@@ -1676,17 +1676,17 @@ const ProductsPage = () => {
         {/* =========================================================
             HEADER
         ========================================================= */}
-        <section className="bg-[#FFFDFC]">
+        <section className="bg-[#F8F6F0]">
           <div className="mx-auto w-full max-w-[1600px] px-4 pt-5 pb-3 text-center md:px-6 md:pt-8 md:pb-5">
             <div className="mb-1.5 flex items-center justify-center gap-2.5">
               <span className="h-px w-6 bg-gradient-to-l from-[#C9797E]/60 to-transparent" />
-              <span className="font-serif text-[8px] tracking-[0.34em] text-[#B96C72] md:text-[9px]">FLAMINGO</span>
+              <span className="font-serif text-[8px] tracking-[0.34em] text-[#9D7B40] md:text-[9px]">GENAN</span>
               <span className="h-px w-6 bg-gradient-to-r from-[#C9797E]/60 to-transparent" />
             </div>
 
             <h1 className="text-[21px] font-semibold leading-tight tracking-[-0.02em] text-[#261F1D] md:text-[30px]">{currentCategory ? currentCategory.name_ar : getSiteText(content, "products_page_title", "جميع المنتجات")}</h1>
 
-            <p className="mx-auto mt-1.5 max-w-lg text-[10px] leading-5 text-[#968A85] md:text-[12px]">{currentCategory ? "مختارات فلامنجو لهذه المجموعة" : "تشكيلة مختارة بعناية لتجربة تسوق أكثر أناقة"}</p>
+            <p className="mx-auto mt-1.5 max-w-lg text-[10px] leading-5 text-[#858E86] md:text-[12px]">{currentCategory ? "مختارات جنان لهذه المجموعة" : "تشكيلة مختارة بعناية لتجربة تسوق أكثر أناقة"}</p>
           </div>
 
           {/* =========================================================
@@ -1694,10 +1694,10 @@ const ProductsPage = () => {
           ========================================================= */}
           <div className="mx-auto w-full max-w-[1600px] border-t border-[#F2ECE9] px-3 py-3 md:px-6">
             <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <button onClick={() => setParam("category", null)} className={`shrink-0 rounded-full px-4 py-[7px] text-[10px] font-medium transition-all md:text-[11px] ${!categorySlug ? "bg-[#D4777D] text-white shadow-[0_5px_16px_rgba(212,119,125,.19)]" : "border border-[#E9DFDB] bg-white text-[#6D625D]"}`}>الكل</button>
+              <button onClick={() => setParam("category", null)} className={`shrink-0 rounded-full px-4 py-[7px] text-[10px] font-medium transition-all md:text-[11px] ${!categorySlug ? "bg-[#173A2D] text-white shadow-[0_5px_16px_rgba(23,58,45,.16)]" : "border border-[#E2DCCE] bg-white text-[#55665D]"}`}>الكل</button>
 
               {categories.filter((category) => !category.parent_id).map((category) => (
-                <button key={category.id} onClick={() => setParam("category", category.slug)} className={`shrink-0 rounded-full px-4 py-[7px] text-[10px] font-medium transition-all md:text-[11px] ${categorySlug === category.slug ? "bg-[#D4777D] text-white shadow-[0_5px_16px_rgba(212,119,125,.19)]" : "border border-[#E9DFDB] bg-white text-[#6D625D]"}`}>{category.name_ar}</button>
+                <button key={category.id} onClick={() => setParam("category", category.slug)} className={`shrink-0 rounded-full px-4 py-[7px] text-[10px] font-medium transition-all md:text-[11px] ${categorySlug === category.slug ? "bg-[#173A2D] text-white shadow-[0_5px_16px_rgba(23,58,45,.16)]" : "border border-[#E2DCCE] bg-white text-[#55665D]"}`}>{category.name_ar}</button>
               ))}
             </div>
           </div>
@@ -1706,9 +1706,9 @@ const ProductsPage = () => {
         {/* =========================================================
             PREMIUM TOOLBAR
         ========================================================= */}
-        <section className="sticky top-[68px] z-30 transform-gpu bg-[#FFFDFC] px-3 py-2 [backface-visibility:hidden] md:top-[76px] md:px-6">
+        <section className="sticky top-[68px] z-30 transform-gpu bg-[#F8F6F0] px-3 py-2 [backface-visibility:hidden] md:top-[76px] md:px-6">
           <div className="mx-auto max-w-[1600px]">
-            <div className="flex h-[48px] items-center overflow-hidden rounded-[15px] border border-[#EAE0DC] bg-white shadow-[0_8px_28px_rgba(65,45,38,.055)]">
+            <div className="flex h-[48px] items-center overflow-hidden rounded-[15px] border border-[#E2DCCE] bg-white shadow-[0_8px_28px_rgba(65,45,38,.055)]">
               <button onClick={openFilters} className="group flex h-full min-w-0 flex-1 items-center justify-center gap-2 border-l border-[#EFE7E3] px-3 transition-colors active:bg-[#FBF5F3]">
                 <span className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors ${activeFilterCount > 0 ? "bg-[#F8E7E6] text-[#BE666C]" : "bg-[#F7F3F1] text-[#625752]"}`}>
                   <SlidersHorizontal className="h-[14px] w-[14px] stroke-[1.7]" />
@@ -1716,7 +1716,7 @@ const ProductsPage = () => {
 
                 <span className="truncate text-[11px] font-medium text-[#3D3430]">فلترة</span>
 
-                {activeFilterCount > 0 && <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#D4777D] px-1 text-[8px] font-semibold text-white">{activeFilterCount}</span>}
+                {activeFilterCount > 0 && <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#173A2D] px-1 text-[8px] font-semibold text-white">{activeFilterCount}</span>}
               </button>
 
               <button onClick={() => setSortOpen(true)} className="flex h-full min-w-0 flex-1 items-center justify-center gap-2 border-l border-[#EFE7E3] px-2 transition-colors active:bg-[#FBF5F3]">
@@ -1729,7 +1729,7 @@ const ProductsPage = () => {
               </button>
 
               <div className="flex h-full w-[72px] shrink-0 flex-col items-center justify-center bg-[#FDF9F7] sm:w-[82px]">
-                {catalogMetadataLoading && needsClientFiltering ? <span className="h-3 w-6 animate-pulse rounded bg-[#EDE4E0]" /> : <span className="text-[12px] font-semibold leading-none text-[#B86168]">{totalProductsCount}</span>}
+                {catalogMetadataLoading && needsClientFiltering ? <span className="h-3 w-6 animate-pulse rounded bg-[#EDE4E0]" /> : <span className="text-[12px] font-semibold leading-none text-[#9D7B40]">{totalProductsCount}</span>}
                 <span className="mt-1 text-[8px] leading-none text-[#9D918B]">منتج</span>
               </div>
             </div>
@@ -1756,7 +1756,7 @@ const ProductsPage = () => {
 
               {(minPriceParam > 0 || maxPriceParam > 0) && <button onClick={() => { const next = new URLSearchParams(searchParams); next.delete("min"); next.delete("max"); next.delete("page"); setLoadedPage(1); setSearchParams(next, { replace: true }); }} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">{effectiveMin} - {effectiveMax}<X className="h-2.5 w-2.5" /></button>}
 
-              <button onClick={clearAllFilters} className="shrink-0 px-2 py-1.5 text-[9px] font-medium text-[#B75F66]">مسح الكل</button>
+              <button onClick={clearAllFilters} className="shrink-0 px-2 py-1.5 text-[9px] font-medium text-[#9D7B40]">مسح الكل</button>
             </div>
           </section>
         )}
@@ -1798,10 +1798,10 @@ const ProductsPage = () => {
 
           {hasMore && (
             <div className="flex flex-col items-center justify-center pb-5 pt-10 md:pt-14">
-              <button onClick={handleLoadMore} disabled={isLoadingProducts} className="group flex h-[46px] min-w-[178px] items-center justify-center rounded-full border border-[#DBCBC6] bg-white px-7 text-[11px] font-medium text-[#514540] shadow-[0_7px_24px_rgba(64,44,37,.055)] transition-all active:scale-[0.985] disabled:cursor-wait disabled:opacity-60">
+              <button onClick={handleLoadMore} disabled={isLoadingProducts} className="group flex h-[46px] min-w-[178px] items-center justify-center rounded-full border border-[#DBCBC6] bg-white px-7 text-[11px] font-medium text-[#30453A] shadow-[0_7px_24px_rgba(64,44,37,.055)] transition-all active:scale-[0.985] disabled:cursor-wait disabled:opacity-60">
                 {isLoadingProducts ? (
                   <span className="flex items-center gap-2">
-                    <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-[#E3D7D2] border-t-[#C66C72]" />
+                    <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-[#D9D2C3] border-t-[#9D7B40]" />
                     جاري التحميل
                   </span>
                 ) : (
@@ -1827,16 +1827,16 @@ const ProductsPage = () => {
         <AnimatePresence>
           {sortOpen && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }} className="fixed inset-0 z-[80] flex items-end justify-center bg-[#211B19]/35 backdrop-blur-[2px] md:items-center" onClick={() => setSortOpen(false)}>
-              <motion.div initial={isMobileViewport ? { y: "100%" } : { opacity: 0, scale: 0.97 }} animate={isMobileViewport ? { y: 0 } : { opacity: 1, scale: 1 }} exit={isMobileViewport ? { y: "100%" } : { opacity: 0, scale: 0.97 }} transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }} onClick={(event) => event.stopPropagation()} className="w-full rounded-t-[26px] bg-[#FFFDFC] px-4 pb-[calc(env(safe-area-inset-bottom)+18px)] pt-3 shadow-[0_-20px_50px_rgba(55,37,31,.12)] md:max-w-[380px] md:rounded-[22px] md:p-5">
+              <motion.div initial={isMobileViewport ? { y: "100%" } : { opacity: 0, scale: 0.97 }} animate={isMobileViewport ? { y: 0 } : { opacity: 1, scale: 1 }} exit={isMobileViewport ? { y: "100%" } : { opacity: 0, scale: 0.97 }} transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }} onClick={(event) => event.stopPropagation()} className="w-full rounded-t-[26px] bg-[#F8F6F0] px-4 pb-[calc(env(safe-area-inset-bottom)+18px)] pt-3 shadow-[0_-20px_50px_rgba(55,37,31,.12)] md:max-w-[380px] md:rounded-[22px] md:p-5">
                 <div className="mx-auto mb-4 h-1 w-9 rounded-full bg-[#DDD1CD] md:hidden" />
 
                 <div className="mb-2 flex items-center justify-between px-1">
                   <div>
-                    <p className="text-[9px] text-[#B66A70]">FLAMINGO</p>
+                    <p className="text-[9px] text-[#9D7B40]">GENAN</p>
                     <h3 className="mt-0.5 text-[16px] font-semibold text-[#302724]">ترتيب المنتجات</h3>
                   </div>
 
-                  <button onClick={() => setSortOpen(false)} className="flex h-8 w-8 items-center justify-center rounded-full border border-[#EAE0DC] bg-white">
+                  <button onClick={() => setSortOpen(false)} className="flex h-8 w-8 items-center justify-center rounded-full border border-[#E2DCCE] bg-white">
                     <X className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -1845,17 +1845,17 @@ const ProductsPage = () => {
                   {[
                     { value: "new", label: "الأحدث", desc: "أحدث المنتجات المضافة" },
                     { value: "best", label: "الأكثر مبيعًا", desc: "القطع الأكثر طلبًا" },
-                    { value: "featured", label: "مختارات فلامنجو", desc: "منتجات مختارة بعناية" },
+                    { value: "featured", label: "مختارات جنان", desc: "منتجات مختارة بعناية" },
                     { value: "price-asc", label: "السعر: الأقل أولًا", desc: "من الأقل إلى الأعلى" },
                     { value: "price-desc", label: "السعر: الأعلى أولًا", desc: "من الأعلى إلى الأقل" },
                   ].map((option) => (
                     <button key={option.value} onClick={() => handleSortSelect(option.value)} className="flex min-h-[57px] w-full items-center justify-between border-b border-[#F0E9E6] px-3.5 text-right last:border-0">
                       <div>
-                        <span className={`block text-[11px] ${sortBy === option.value ? "font-semibold text-[#B95F66]" : "font-medium text-[#4B403B]"}`}>{option.label}</span>
+                        <span className={`block text-[11px] ${sortBy === option.value ? "font-semibold text-[#173A2D]" : "font-medium text-[#4B403B]"}`}>{option.label}</span>
                         <span className="mt-1 block text-[8px] text-[#A0958F]">{option.desc}</span>
                       </div>
 
-                      <span className={`flex h-[22px] w-[22px] items-center justify-center rounded-full border transition-all ${sortBy === option.value ? "border-[#D4777D] bg-[#D4777D]" : "border-[#DDD2CE] bg-white"}`}>
+                      <span className={`flex h-[22px] w-[22px] items-center justify-center rounded-full border transition-all ${sortBy === option.value ? "border-[#173A2D] bg-[#173A2D]" : "border-[#D5CDBE] bg-white"}`}>
                         {sortBy === option.value && <Check className="h-3 w-3 stroke-[2.2] text-white" />}
                       </span>
                     </button>
@@ -1874,19 +1874,19 @@ const ProductsPage = () => {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }} className="fixed inset-0 z-[80] flex items-end bg-[#211B19]/35 backdrop-blur-[2px] md:items-stretch">
               <div className="absolute inset-0" onClick={() => setFiltersOpen(false)} />
 
-              <motion.aside initial={isMobileViewport ? { y: "100%" } : { x: "100%" }} animate={isMobileViewport ? { y: 0 } : { x: 0 }} exit={isMobileViewport ? { y: "100%" } : { x: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className="relative mr-auto flex max-h-[92vh] w-full flex-col rounded-t-[28px] bg-[#FFFDFC] shadow-[0_-20px_60px_rgba(55,37,31,.14)] md:h-full md:max-h-none md:w-[430px] md:rounded-none">
+              <motion.aside initial={isMobileViewport ? { y: "100%" } : { x: "100%" }} animate={isMobileViewport ? { y: 0 } : { x: 0 }} exit={isMobileViewport ? { y: "100%" } : { x: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className="relative mr-auto flex max-h-[92vh] w-full flex-col rounded-t-[28px] bg-[#F8F6F0] shadow-[0_-20px_60px_rgba(55,37,31,.14)] md:h-full md:max-h-none md:w-[430px] md:rounded-none">
                 {/* HEADER */}
                 <div className="shrink-0 px-4 pt-3 md:px-6 md:pt-6">
                   <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-[#DDD1CD] md:hidden" />
 
                   <div className="flex items-center justify-between border-b border-[#EEE6E2] pb-4">
                     <div>
-                      <p className="text-[8px] tracking-[0.18em] text-[#B86A70]">FLAMINGO FILTER</p>
+                      <p className="text-[8px] tracking-[0.18em] text-[#9D7B40]">GENAN FILTER</p>
                       <h3 className="mt-1 text-[18px] font-semibold tracking-[-0.02em] text-[#302724]">فلترة المنتجات</h3>
                       <p className="mt-1 text-[9px] text-[#9A8F89]">{filterMetadataLoading ? "جاري تجهيز الخيارات..." : `${draftResultCount} منتج مطابق لاختياراتك`}</p>
                     </div>
 
-                    <button onClick={() => setFiltersOpen(false)} className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E9DEDA] bg-white text-[#554944]">
+                    <button onClick={() => setFiltersOpen(false)} className="flex h-9 w-9 items-center justify-center rounded-full border border-[#DED8C9] bg-white text-[#554944]">
                       <X className="h-4 w-4" />
                     </button>
                   </div>
@@ -1895,7 +1895,7 @@ const ProductsPage = () => {
                 {/* CONTENT */}
                 <div className="flex-1 overflow-y-auto px-4 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-6">
                   {/* CATEGORY */}
-                  <div className="border-b border-[#F0E8E5] py-5">
+                  <div className="border-b border-[#EBE6DC] py-5">
                     <div className="mb-3 flex items-center justify-between">
                       <div>
                         <p className="text-[12px] font-semibold text-[#403632]">الفئة</p>
@@ -1906,17 +1906,17 @@ const ProductsPage = () => {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      <button onClick={() => setDraftCategory(null)} className={`rounded-full px-3.5 py-2 text-[10px] font-medium transition-all ${!draftCategorySlug ? "bg-[#D4777D] text-white shadow-[0_5px_14px_rgba(212,119,125,.17)]" : "border border-[#E6DCD8] bg-white text-[#6D625D]"}`}>الكل</button>
+                      <button onClick={() => setDraftCategory(null)} className={`rounded-full px-3.5 py-2 text-[10px] font-medium transition-all ${!draftCategorySlug ? "bg-[#173A2D] text-white shadow-[0_5px_14px_rgba(23,58,45,.14)]" : "border border-[#DED8CA] bg-white text-[#55665D]"}`}>الكل</button>
 
                       {categories.filter((category) => !category.parent_id).map((category) => (
-                        <button key={category.id} onClick={() => setDraftCategory(category.slug)} className={`rounded-full px-3.5 py-2 text-[10px] font-medium transition-all ${draftCategorySlug === category.slug ? "bg-[#D4777D] text-white shadow-[0_5px_14px_rgba(212,119,125,.17)]" : "border border-[#E6DCD8] bg-white text-[#6D625D]"}`}>{category.name_ar}</button>
+                        <button key={category.id} onClick={() => setDraftCategory(category.slug)} className={`rounded-full px-3.5 py-2 text-[10px] font-medium transition-all ${draftCategorySlug === category.slug ? "bg-[#173A2D] text-white shadow-[0_5px_14px_rgba(23,58,45,.14)]" : "border border-[#DED8CA] bg-white text-[#55665D]"}`}>{category.name_ar}</button>
                       ))}
                     </div>
                   </div>
 
                   {/* SHOE AUDIENCE */}
                   {isDraftShoeCategory && (
-                    <div className="border-b border-[#F0E8E5] py-5">
+                    <div className="border-b border-[#EBE6DC] py-5">
                       <div className="mb-3 flex items-center justify-between">
                         <div>
                           <p className="text-[12px] font-semibold text-[#403632]">نوع الأحذية</p>
@@ -1927,17 +1927,17 @@ const ProductsPage = () => {
                       </div>
 
                       <div className="grid grid-cols-2 gap-2">
-                        <button onClick={() => setDraftAudience(null)} className={`min-h-[40px] rounded-xl border px-3 text-[9px] font-medium transition-all ${draftAudienceFilter === "all" ? "border-[#D4777D] bg-[#FAEDEC] text-[#B95F66]" : "border-[#E4DAD6] bg-white text-[#655A55]"}`}>كل الأحذية</button>
+                        <button onClick={() => setDraftAudience(null)} className={`min-h-[40px] rounded-xl border px-3 text-[9px] font-medium transition-all ${draftAudienceFilter === "all" ? "border-[#173A2D] bg-[#EEE9DD] text-[#173A2D]" : "border-[#DED8CA] bg-white text-[#4F6157]"}`}>كل الأحذية</button>
 
                         {(filterMetadataLoading ? AUDIENCE_OPTIONS : availableAudienceOptions).map((option) => (
-                          <button key={option.value} onClick={() => setDraftAudience(option.value)} className={`min-h-[40px] rounded-xl border px-3 text-[9px] font-medium transition-all ${draftAudienceFilter === option.value ? "border-[#D4777D] bg-[#FAEDEC] text-[#B95F66]" : "border-[#E4DAD6] bg-white text-[#655A55]"}`}>{option.label}</button>
+                          <button key={option.value} onClick={() => setDraftAudience(option.value)} className={`min-h-[40px] rounded-xl border px-3 text-[9px] font-medium transition-all ${draftAudienceFilter === option.value ? "border-[#173A2D] bg-[#EEE9DD] text-[#173A2D]" : "border-[#DED8CA] bg-white text-[#4F6157]"}`}>{option.label}</button>
                         ))}
                       </div>
                     </div>
                   )}
 
                   {/* BRANDS */}
-                  <div className="border-b border-[#F0E8E5] py-5">
+                  <div className="border-b border-[#EBE6DC] py-5">
                     <div className="mb-3 flex items-center justify-between">
                       <div>
                         <p className="text-[12px] font-semibold text-[#403632]">الماركة</p>
@@ -1949,17 +1949,17 @@ const ProductsPage = () => {
 
                     <div className="max-h-[126px] overflow-y-auto overscroll-contain pr-[1px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                       <div className="flex flex-wrap gap-2">
-                        <button onClick={() => setDraftBrand(null)} className={`rounded-full px-3.5 py-2 text-[9px] font-medium transition-all ${draftBrandFilter === "all" ? "border border-[#D4777D] bg-[#FAEDEC] text-[#B95F66]" : "border border-[#E6DCD8] bg-white text-[#6C615C]"}`}>جميع الماركات</button>
+                        <button onClick={() => setDraftBrand(null)} className={`rounded-full px-3.5 py-2 text-[9px] font-medium transition-all ${draftBrandFilter === "all" ? "border border-[#173A2D] bg-[#EEE9DD] text-[#173A2D]" : "border border-[#DED8CA] bg-white text-[#55665D]"}`}>جميع الماركات</button>
 
                         {brandsAvailable.map((brand) => (
-                          <button key={brand} onClick={() => setDraftBrand(brand)} className={`rounded-full px-3.5 py-2 text-[9px] font-medium transition-all ${draftBrandFilter === brand ? "border border-[#D4777D] bg-[#FAEDEC] text-[#B95F66]" : "border border-[#E6DCD8] bg-white text-[#6C615C]"}`}>{brand}</button>
+                          <button key={brand} onClick={() => setDraftBrand(brand)} className={`rounded-full px-3.5 py-2 text-[9px] font-medium transition-all ${draftBrandFilter === brand ? "border border-[#173A2D] bg-[#EEE9DD] text-[#173A2D]" : "border border-[#DED8CA] bg-white text-[#55665D]"}`}>{brand}</button>
                         ))}
                       </div>
                     </div>
                   </div>
 
                   {/* COLORS - 3 ROWS THEN HIDDEN SCROLL */}
-                  <div className="border-b border-[#F0E8E5] py-5">
+                  <div className="border-b border-[#EBE6DC] py-5">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
                         <p className="text-[12px] font-semibold text-[#403632]">اللون</p>
@@ -1972,8 +1972,8 @@ const ProductsPage = () => {
                     <div className="max-h-[178px] overflow-y-auto overscroll-contain px-[1px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                       <div className="grid grid-cols-4 gap-x-2 gap-y-3">
                         <button onClick={() => setDraftParam("color", null)} className="group flex min-w-0 flex-col items-center">
-                          <span className={`relative flex h-[38px] w-[38px] items-center justify-center rounded-full border-2 transition-all ${draftColorFilter === "all" ? "border-[#C96B71] ring-2 ring-[#C96B71]/12" : "border-[#E2D9D5]"}`} style={{ background: "conic-gradient(#D4777D,#D4AB62,#6D9779,#6D8DA8,#8970A8,#D4777D)" }}>
-                            <span className="flex h-[29px] w-[29px] items-center justify-center rounded-full bg-[#FFFDFC] text-[8px] font-semibold text-[#5F544F]">كل</span>
+                          <span className={`relative flex h-[38px] w-[38px] items-center justify-center rounded-full border-2 transition-all ${draftColorFilter === "all" ? "border-[#C96B71] ring-2 ring-[#C96B71]/12" : "border-[#E2D9D5]"}`} style={{ background: "conic-gradient(#173A2D,#B89453,#6D9779,#6D8DA8,#8970A8,#173A2D)" }}>
+                            <span className="flex h-[29px] w-[29px] items-center justify-center rounded-full bg-[#F8F6F0] text-[8px] font-semibold text-[#5F544F]">كل</span>
                           </span>
 
                           <span className={`mt-1.5 max-w-full truncate text-[8px] ${draftColorFilter === "all" ? "font-semibold text-[#B65E65]" : "text-[#786D67]"}`}>الكل</span>
@@ -2012,7 +2012,7 @@ const ProductsPage = () => {
 
                   {/* SIZES */}
                   {sizesAvailable.length > 0 && (
-                    <div className="border-b border-[#F0E8E5] py-5">
+                    <div className="border-b border-[#EBE6DC] py-5">
                       <div className="mb-3 flex items-center justify-between">
                         <div>
                           <p className="text-[12px] font-semibold text-[#403632]">المقاس</p>
@@ -2023,17 +2023,17 @@ const ProductsPage = () => {
                       </div>
 
                       <div className="flex flex-wrap gap-2">
-                        <button onClick={() => setDraftParam("size", null)} className={`min-w-[44px] rounded-xl px-3 py-2 text-[9px] font-medium ${draftSizeFilter === "all" ? "border border-[#D4777D] bg-[#FAEDEC] text-[#B95F66]" : "border border-[#E4DAD6] bg-white text-[#655A55]"}`}>الكل</button>
+                        <button onClick={() => setDraftParam("size", null)} className={`min-w-[44px] rounded-xl px-3 py-2 text-[9px] font-medium ${draftSizeFilter === "all" ? "border border-[#173A2D] bg-[#EEE9DD] text-[#173A2D]" : "border border-[#DED8CA] bg-white text-[#4F6157]"}`}>الكل</button>
 
                         {sizesAvailable.map((size) => (
-                          <button key={size} onClick={() => setDraftParam("size", size)} className={`min-w-[44px] rounded-xl px-3 py-2 text-[9px] font-medium ${draftSizeFilter === size ? "border border-[#D4777D] bg-[#FAEDEC] text-[#B95F66]" : "border border-[#E4DAD6] bg-white text-[#655A55]"}`}>{size}</button>
+                          <button key={size} onClick={() => setDraftParam("size", size)} className={`min-w-[44px] rounded-xl px-3 py-2 text-[9px] font-medium ${draftSizeFilter === size ? "border border-[#173A2D] bg-[#EEE9DD] text-[#173A2D]" : "border border-[#DED8CA] bg-white text-[#4F6157]"}`}>{size}</button>
                         ))}
                       </div>
                     </div>
                   )}
 
                   {/* PRICE */}
-                  <div className="border-b border-[#F0E8E5] py-5">
+                  <div className="border-b border-[#EBE6DC] py-5">
                     <div className="mb-4 flex items-end justify-between">
                       <div>
                         <p className="text-[12px] font-semibold text-[#403632]">نطاق السعر</p>
@@ -2045,7 +2045,7 @@ const ProductsPage = () => {
                       </div>
                     </div>
 
-                    <div className="rounded-[18px] border border-[#EAE0DC] bg-white px-4 py-5 shadow-[0_5px_18px_rgba(60,42,36,.025)]">
+                    <div className="rounded-[18px] border border-[#E2DCCE] bg-white px-4 py-5 shadow-[0_5px_18px_rgba(60,42,36,.025)]">
                       <Slider value={[priceRange[0], priceRange[1]]} min={filterPriceBounds.min} max={filterPriceBounds.max} step={1} onValueChange={(values) => { if (values.length === 2) setPriceRange([values[0], values[1]]); }} onValueCommit={(values) => { if (values.length === 2) commitDraftPriceRange([values[0], values[1]]); }} />
 
                       <div className="mt-4 flex items-center justify-between text-[8px] text-[#A19792]">
@@ -2063,14 +2063,14 @@ const ProductsPage = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2.5">
-                      <button onClick={() => setDraftParam("sale", draftSaleOnly ? null : "1")} className={`relative min-h-[54px] overflow-hidden rounded-[15px] border px-3 text-right transition-all ${draftSaleOnly ? "border-[#D4777D] bg-[#FAEDEC]" : "border-[#E7DDD9] bg-white"}`}>
+                      <button onClick={() => setDraftParam("sale", draftSaleOnly ? null : "1")} className={`relative min-h-[54px] overflow-hidden rounded-[15px] border px-3 text-right transition-all ${draftSaleOnly ? "border-[#173A2D] bg-[#EEE9DD]" : "border-[#DED8CA] bg-white"}`}>
                         <span className={`block text-[10px] font-semibold ${draftSaleOnly ? "text-[#B85E65]" : "text-[#554A45]"}`}>العروض فقط</span>
                         <span className="mt-1 block text-[7px] text-[#A29892]">المنتجات المخفضة</span>
 
                         {draftSaleOnly && <Check className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#C6666D]" />}
                       </button>
 
-                      <button onClick={() => setDraftParam("stock", draftInStockOnly ? null : "1")} className={`relative min-h-[54px] overflow-hidden rounded-[15px] border px-3 text-right transition-all ${draftInStockOnly ? "border-[#D4777D] bg-[#FAEDEC]" : "border-[#E7DDD9] bg-white"}`}>
+                      <button onClick={() => setDraftParam("stock", draftInStockOnly ? null : "1")} className={`relative min-h-[54px] overflow-hidden rounded-[15px] border px-3 text-right transition-all ${draftInStockOnly ? "border-[#173A2D] bg-[#EEE9DD]" : "border-[#DED8CA] bg-white"}`}>
                         <span className={`block text-[10px] font-semibold ${draftInStockOnly ? "text-[#B85E65]" : "text-[#554A45]"}`}>المتوفر فقط</span>
                         <span className="mt-1 block text-[7px] text-[#A29892]">جاهز للطلب</span>
 
@@ -2081,14 +2081,14 @@ const ProductsPage = () => {
                 </div>
 
                 {/* BOTTOM */}
-                <div className="shrink-0 border-t border-[#EDE4E0] bg-[#FFFDFC]/96 px-4 pb-[calc(env(safe-area-inset-bottom)+13px)] pt-3 backdrop-blur-xl md:px-6 md:pb-5">
+                <div className="shrink-0 border-t border-[#EDE4E0] bg-[#F8F6F0]/96 px-4 pb-[calc(env(safe-area-inset-bottom)+13px)] pt-3 backdrop-blur-xl md:px-6 md:pb-5">
                   <div className="grid grid-cols-[.85fr_1.45fr] gap-2.5">
                     <button onClick={resetDraftFilters} className="flex h-[47px] items-center justify-center gap-1.5 rounded-[14px] border border-[#DFD4CF] bg-white text-[10px] font-medium text-[#6B5F59]">
                       <RotateCcw className="h-3.5 w-3.5 stroke-[1.6]" />
                       إعادة تعيين
                     </button>
 
-                    <button onClick={applyDraftFilters} className="h-[47px] rounded-[14px] bg-[#D4777D] text-[11px] font-semibold text-white shadow-[0_7px_22px_rgba(212,119,125,.23)]">
+                    <button onClick={applyDraftFilters} className="h-[47px] rounded-[14px] bg-[#173A2D] text-[11px] font-semibold text-white shadow-[0_7px_22px_rgba(23,58,45,.20)]">
                       {filterMetadataLoading ? "جاري التجهيز..." : `عرض ${draftResultCount} منتج`}
                     </button>
                   </div>
