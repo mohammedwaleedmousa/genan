@@ -79,8 +79,8 @@ const AllBrandsPage = () => {
 
           <header className="mb-5 md:mb-7">
             <div className="flex items-center gap-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-              <span className="font-serif text-[6px] uppercase tracking-[0.22em] text-[#B86168] md:text-[7px]">BRANDS</span>
+              <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+              <span className="font-serif text-[6px] uppercase tracking-[0.22em] text-[#9D7B40] md:text-[7px]">BRANDS</span>
             </div>
 
             <div className="mt-1.5 flex items-end justify-between gap-3">
@@ -102,7 +102,7 @@ const AllBrandsPage = () => {
             <div className="relative w-full">
               <Search className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9E918C]" strokeWidth={1.5} />
 
-              <input value={term} onChange={(event) => setTerm(event.target.value)} placeholder="ابحث عن ماركة..." autoComplete="off" className="h-[50px] w-full rounded-[14px] border border-border bg-white pr-11 pl-11 text-[11px] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[#D9AEAA] md:h-[52px] md:text-[12px]" />
+              <input value={term} onChange={(event) => setTerm(event.target.value)} placeholder="ابحث عن ماركة..." autoComplete="off" className="h-[50px] w-full rounded-[14px] border border-border bg-white pr-11 pl-11 text-[11px] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[#C6B17F] md:h-[52px] md:text-[12px]" />
 
               {term && (
                 <button type="button" onClick={() => setTerm("")} aria-label="مسح البحث" className="absolute left-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground active:bg-muted">
@@ -135,7 +135,7 @@ const AllBrandsPage = () => {
           {!isLoading && list.length === 0 && (
             <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
               <span className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white">
-                <Search className="h-4 w-4 text-[#A0938E]" strokeWidth={1.5} />
+                <Search className="h-4 w-4 text-[#8A938B]" strokeWidth={1.5} />
               </span>
 
               <h2 className="mt-3 text-[11px] font-semibold text-foreground">لا توجد ماركة مطابقة</h2>
@@ -143,7 +143,7 @@ const AllBrandsPage = () => {
               <p className="mt-1.5 text-[7px] text-muted-foreground">جرّب البحث باسم مختلف.</p>
 
               {term && (
-                <button type="button" onClick={() => setTerm("")} className="mt-4 flex items-center gap-1 border-b border-border pb-1 text-[7px] font-medium text-[#A95B61]">
+                <button type="button" onClick={() => setTerm("")} className="mt-4 flex items-center gap-1 border-b border-border pb-1 text-[7px] font-medium text-[#173A2D]">
                   عرض جميع الماركات
                   <ArrowLeft className="h-3 w-3" strokeWidth={1.5} />
                 </button>
@@ -165,14 +165,14 @@ const AllBrandsPage = () => {
                     {brand.logo_url ? (
                       <img src={optimizeImage(brand.logo_url, 320, 76)} srcSet={createImageSrcSet(brand.logo_url, [120, 220, 320], 76)} sizes="(max-width: 639px) 33vw, (max-width: 767px) 25vw, (max-width: 1023px) 20vw, 16vw" alt={brand.name} loading={index < 6 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" width={320} height={320} onError={handleImageError} className="block h-full w-full object-contain object-center transition-transform duration-200 group-hover:scale-[1.025]" />
                     ) : (
-                      <span className="max-w-full truncate px-1 font-serif text-[11px] font-semibold text-[#403633] md:text-[13px]">{brand.name}</span>
+                      <span className="max-w-full truncate px-1 font-serif text-[11px] font-semibold text-[#173A2D] md:text-[13px]">{brand.name}</span>
                     )}
                   </div>
 
                   {/* NAME */}
 
                   <div className="mt-2.5">
-                    <p className="truncate text-[8px] font-semibold text-foreground transition-colors group-hover:text-[#A95B61] md:text-[9px]">{brand.name}</p>
+                    <p className="truncate text-[8px] font-semibold text-foreground transition-colors group-hover:text-[#173A2D] md:text-[9px]">{brand.name}</p>
 
                     <p className="mt-1 font-serif text-[5px] uppercase tracking-[0.1em] text-muted-foreground md:text-[6px]">BRAND</p>
                   </div>
