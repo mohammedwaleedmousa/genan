@@ -273,7 +273,7 @@ const QuickView = ({ product, onClose, isMobile }: { product: CatalogProduct | n
     <motion.aside initial={isMobile ? { y: "100%" } : { x: "100%" }} animate={isMobile ? { y: 0 } : { x: 0 }} exit={isMobile ? { y: "100%" } : { x: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className={`fixed inset-y-0 right-0 z-[90] w-full overflow-y-auto bg-[#F8F6F0] shadow-[0_0_50px_rgba(65,45,38,.16)] ${isMobile ? "p-4 pb-24" : "max-w-2xl border-l border-[#E6E0D4] p-6"}`}>
       <div className="mb-5 flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
-          <p className="mb-1 text-[9px] tracking-[0.22em] text-[#C5797D]">GENAN</p>
+          <p className="mb-1 text-[9px] tracking-[0.22em] text-[#9D7B40]">GENAN</p>
           <h3 className="truncate text-xl font-semibold text-[#27201D]">{product.nameAr}</h3>
           <p className="mt-1 text-[11px] text-[#928680]">{product.brand}</p>
         </div>
@@ -285,13 +285,13 @@ const QuickView = ({ product, onClose, isMobile }: { product: CatalogProduct | n
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="space-y-3">
-          <div className="aspect-[4/5] w-full overflow-hidden rounded-[20px] bg-[#F4F0ED]">
+          <div className="aspect-[4/5] w-full overflow-hidden bg-[#E8E3D8]">
             {images[activeImage] ? <img src={images[activeImage]} alt={product.nameAr} className="h-full w-full object-cover" /> : <div className="flex h-full items-center justify-center text-xs text-[#9A8E88]">لا توجد صورة</div>}
           </div>
 
           <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {images.map((image, index) => (
-              <button key={`${image}-${index}`} onClick={() => setActiveImage(index)} className={`h-[66px] w-[54px] shrink-0 overflow-hidden rounded-xl border transition-all ${activeImage === index ? "border-[#C86D73] ring-1 ring-[#C86D73]/20" : "border-[#DED8CA]"}`}>
+              <button key={`${image}-${index}`} onClick={() => setActiveImage(index)} className={`h-[66px] w-[54px] shrink-0 overflow-hidden border transition-all ${activeImage === index ? "border-[#173A2D] ring-1 ring-[#173A2D]/20" : "border-[#DED8CA]"}`}>
                 <img src={image} alt="" className="h-full w-full object-cover" />
               </button>
             ))}
@@ -316,7 +316,7 @@ const QuickView = ({ product, onClose, isMobile }: { product: CatalogProduct | n
                   const active = currentVariantIndex === index;
                   const hex = variant.hex || NAMED_COLOR_HEX[name] || NAMED_COLOR_HEX[name.toLowerCase()] || "#E6E2DF";
 
-                  return <button key={variant.id || index} onClick={() => { setActiveVariantIndex(index); setActiveImage(0); setSelectedSize(null); setQty(1); }} title={name} className={`h-9 w-9 rounded-full border-2 transition-all ${active ? "border-[#C86D73] ring-2 ring-[#C86D73]/15" : "border-[#DED4D0]"}`} style={{ background: variant.hex2 ? `linear-gradient(135deg, ${hex} 50%, ${variant.hex2} 50%)` : hex }} />;
+                  return <button key={variant.id || index} onClick={() => { setActiveVariantIndex(index); setActiveImage(0); setSelectedSize(null); setQty(1); }} title={name} className={`h-9 w-9 rounded-full border-2 transition-all ${active ? "border-[#173A2D] ring-2 ring-[#173A2D]/15" : "border-[#DED4D0]"}`} style={{ background: variant.hex2 ? `linear-gradient(135deg, ${hex} 50%, ${variant.hex2} 50%)` : hex }} />;
                 })}
               </div>
             </div>
@@ -1750,19 +1750,19 @@ const ProductsPage = () => {
         {activeFilterCount > 0 && (
           <section className="mx-auto w-full max-w-[1600px] px-3 pt-1 md:px-6">
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {brandFilter !== "all" && <button onClick={() => setParam("brand", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">{brandFilter}<X className="h-2.5 w-2.5" /></button>}
+              {brandFilter !== "all" && <button onClick={() => setParam("brand", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEE9DD] px-2.5 py-1.5 text-[9px] font-medium text-[#657068]">{brandFilter}<X className="h-2.5 w-2.5" /></button>}
 
-              {audienceFilter !== "all" && <button onClick={() => setParam("audience", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">{getAudienceLabel(audienceFilter)}<X className="h-2.5 w-2.5" /></button>}
+              {audienceFilter !== "all" && <button onClick={() => setParam("audience", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEE9DD] px-2.5 py-1.5 text-[9px] font-medium text-[#657068]">{getAudienceLabel(audienceFilter)}<X className="h-2.5 w-2.5" /></button>}
 
-              {colorFilter !== "all" && <button onClick={() => setParam("color", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">{colorFilter}<X className="h-2.5 w-2.5" /></button>}
+              {colorFilter !== "all" && <button onClick={() => setParam("color", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEE9DD] px-2.5 py-1.5 text-[9px] font-medium text-[#657068]">{colorFilter}<X className="h-2.5 w-2.5" /></button>}
 
-              {sizeFilter !== "all" && <button onClick={() => setParam("size", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">{sizeFilter}<X className="h-2.5 w-2.5" /></button>}
+              {sizeFilter !== "all" && <button onClick={() => setParam("size", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEE9DD] px-2.5 py-1.5 text-[9px] font-medium text-[#657068]">{sizeFilter}<X className="h-2.5 w-2.5" /></button>}
 
-              {saleOnly && <button onClick={() => setParam("sale", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">العروض<X className="h-2.5 w-2.5" /></button>}
+              {saleOnly && <button onClick={() => setParam("sale", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEE9DD] px-2.5 py-1.5 text-[9px] font-medium text-[#657068]">العروض<X className="h-2.5 w-2.5" /></button>}
 
-              {inStockOnly && <button onClick={() => setParam("stock", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">متوفر<X className="h-2.5 w-2.5" /></button>}
+              {inStockOnly && <button onClick={() => setParam("stock", null)} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEE9DD] px-2.5 py-1.5 text-[9px] font-medium text-[#657068]">متوفر<X className="h-2.5 w-2.5" /></button>}
 
-              {(minPriceParam > 0 || maxPriceParam > 0) && <button onClick={() => { const next = new URLSearchParams(searchParams); next.delete("min"); next.delete("max"); next.delete("page"); setLoadedPage(1); setSearchParams(next, { replace: true }); }} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#F9EFED] px-2.5 py-1.5 text-[9px] font-medium text-[#956268]">{effectiveMin} - {effectiveMax}<X className="h-2.5 w-2.5" /></button>}
+              {(minPriceParam > 0 || maxPriceParam > 0) && <button onClick={() => { const next = new URLSearchParams(searchParams); next.delete("min"); next.delete("max"); next.delete("page"); setLoadedPage(1); setSearchParams(next, { replace: true }); }} className="flex shrink-0 items-center gap-1.5 rounded-full bg-[#EEE9DD] px-2.5 py-1.5 text-[9px] font-medium text-[#657068]">{effectiveMin} - {effectiveMax}<X className="h-2.5 w-2.5" /></button>}
 
               <button onClick={clearAllFilters} className="shrink-0 px-2 py-1.5 text-[9px] font-medium text-[#9D7B40]">مسح الكل</button>
             </div>
@@ -1785,8 +1785,8 @@ const ProductsPage = () => {
             </div>
           ) : products.length === 0 ? (
             <div className="flex min-h-[52vh] flex-col items-center justify-center px-6 text-center">
-              <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-[#FAF0EE]">
-                <Heart className="h-7 w-7 stroke-[1.25] text-[#CE7A7F]" />
+              <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-[#EEE9DD]">
+                <Heart className="h-7 w-7 stroke-[1.25] text-[#9D7B40]" />
               </div>
 
               <h3 className="mt-5 text-[17px] font-semibold text-[#302724]">لا توجد منتجات مطابقة</h3>
@@ -1910,7 +1910,7 @@ const ProductsPage = () => {
                         <p className="mt-0.5 text-[8px] text-[#AAA09A]">اختر القسم المناسب</p>
                       </div>
 
-                      {draftCategorySlug && <button onClick={() => setDraftCategory(null)} className="text-[8px] font-medium text-[#B76269]">مسح</button>}
+                      {draftCategorySlug && <button onClick={() => setDraftCategory(null)} className="text-[8px] font-medium text-[#9D7B40]">مسح</button>}
                     </div>
 
                     <div className="flex flex-wrap gap-2">
@@ -1931,7 +1931,7 @@ const ProductsPage = () => {
                           <p className="mt-0.5 text-[8px] text-[#AAA09A]">اختر رجالي أو نسائي</p>
                         </div>
 
-                        {draftAudienceFilter !== "all" && <button onClick={() => setDraftAudience(null)} className="text-[8px] font-medium text-[#B76269]">مسح</button>}
+                        {draftAudienceFilter !== "all" && <button onClick={() => setDraftAudience(null)} className="text-[8px] font-medium text-[#9D7B40]">مسح</button>}
                       </div>
 
                       <div className="grid grid-cols-2 gap-2">
@@ -1952,7 +1952,7 @@ const ProductsPage = () => {
                         <p className="mt-0.5 text-[8px] text-[#AAA09A]">{brandsAvailable.length} ماركة متاحة</p>
                       </div>
 
-                      {draftBrandFilter !== "all" && <button onClick={() => setDraftBrand(null)} className="text-[8px] font-medium text-[#B76269]">مسح</button>}
+                      {draftBrandFilter !== "all" && <button onClick={() => setDraftBrand(null)} className="text-[8px] font-medium text-[#9D7B40]">مسح</button>}
                     </div>
 
                     <div className="max-h-[126px] overflow-y-auto overscroll-contain pr-[1px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -1974,17 +1974,17 @@ const ProductsPage = () => {
                         <p className="mt-0.5 text-[8px] text-[#AAA09A]">{filterMetadataLoading ? "جاري تحميل الألوان" : `${colorsAvailable.length} لون متاح`}</p>
                       </div>
 
-                      {draftColorFilter !== "all" && <button onClick={() => setDraftParam("color", null)} className="text-[8px] font-medium text-[#B76269]">مسح</button>}
+                      {draftColorFilter !== "all" && <button onClick={() => setDraftParam("color", null)} className="text-[8px] font-medium text-[#9D7B40]">مسح</button>}
                     </div>
 
                     <div className="max-h-[178px] overflow-y-auto overscroll-contain px-[1px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                       <div className="grid grid-cols-4 gap-x-2 gap-y-3">
                         <button onClick={() => setDraftParam("color", null)} className="group flex min-w-0 flex-col items-center">
-                          <span className={`relative flex h-[38px] w-[38px] items-center justify-center rounded-full border-2 transition-all ${draftColorFilter === "all" ? "border-[#C96B71] ring-2 ring-[#C96B71]/12" : "border-[#E2D9D5]"}`} style={{ background: "conic-gradient(#173A2D,#B89453,#6D9779,#6D8DA8,#8970A8,#173A2D)" }}>
+                          <span className={`relative flex h-[38px] w-[38px] items-center justify-center rounded-full border-2 transition-all ${draftColorFilter === "all" ? "border-[#173A2D] ring-2 ring-[#173A2D]/12" : "border-[#E2D9D5]"}`} style={{ background: "conic-gradient(#173A2D,#B89453,#6D9779,#6D8DA8,#8970A8,#173A2D)" }}>
                             <span className="flex h-[29px] w-[29px] items-center justify-center rounded-full bg-[#F8F6F0] text-[8px] font-semibold text-[#5F544F]">كل</span>
                           </span>
 
-                          <span className={`mt-1.5 max-w-full truncate text-[8px] ${draftColorFilter === "all" ? "font-semibold text-[#B65E65]" : "text-[#786D67]"}`}>الكل</span>
+                          <span className={`mt-1.5 max-w-full truncate text-[8px] ${draftColorFilter === "all" ? "font-semibold text-[#173A2D]" : "text-[#786D67]"}`}>الكل</span>
                         </button>
 
                         {colorsAvailable.map((color) => {
@@ -1992,7 +1992,7 @@ const ProductsPage = () => {
 
                           return (
                             <button key={color.name} onClick={() => setDraftParam("color", active ? null : color.name)} className="group flex min-w-0 flex-col items-center">
-                              <span className={`relative block h-[38px] w-[38px] rounded-full border-2 transition-all ${active ? "border-[#C96B71] ring-2 ring-[#C96B71]/12" : "border-[#E2D9D5]"}`} style={{ background: color.hex2 ? `linear-gradient(135deg, ${color.hex} 0%, ${color.hex} 50%, ${color.hex2} 50%, ${color.hex2} 100%)` : color.hex }}>
+                              <span className={`relative block h-[38px] w-[38px] rounded-full border-2 transition-all ${active ? "border-[#173A2D] ring-2 ring-[#173A2D]/12" : "border-[#E2D9D5]"}`} style={{ background: color.hex2 ? `linear-gradient(135deg, ${color.hex} 0%, ${color.hex} 50%, ${color.hex2} 50%, ${color.hex2} 100%)` : color.hex }}>
                                 {active && (
                                   <span className="absolute inset-0 flex items-center justify-center">
                                     <span className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-white/95 shadow-[0_2px_7px_rgba(30,20,18,.16)]">
@@ -2002,7 +2002,7 @@ const ProductsPage = () => {
                                 )}
                               </span>
 
-                              <span className={`mt-1.5 max-w-full truncate px-1 text-[8px] ${active ? "font-semibold text-[#B65E65]" : "text-[#786D67]"}`}>{color.name}</span>
+                              <span className={`mt-1.5 max-w-full truncate px-1 text-[8px] ${active ? "font-semibold text-[#173A2D]" : "text-[#786D67]"}`}>{color.name}</span>
                             </button>
                           );
                         })}
@@ -2027,7 +2027,7 @@ const ProductsPage = () => {
                           <p className="mt-0.5 text-[8px] text-[#AAA09A]">اختر المقاس المطلوب</p>
                         </div>
 
-                        {draftSizeFilter !== "all" && <button onClick={() => setDraftParam("size", null)} className="text-[8px] font-medium text-[#B76269]">مسح</button>}
+                        {draftSizeFilter !== "all" && <button onClick={() => setDraftParam("size", null)} className="text-[8px] font-medium text-[#9D7B40]">مسح</button>}
                       </div>
 
                       <div className="flex flex-wrap gap-2">
@@ -2072,17 +2072,17 @@ const ProductsPage = () => {
 
                     <div className="grid grid-cols-2 gap-2.5">
                       <button onClick={() => setDraftParam("sale", draftSaleOnly ? null : "1")} className={`relative min-h-[54px] overflow-hidden rounded-[15px] border px-3 text-right transition-all ${draftSaleOnly ? "border-[#173A2D] bg-[#EEE9DD]" : "border-[#DED8CA] bg-white"}`}>
-                        <span className={`block text-[10px] font-semibold ${draftSaleOnly ? "text-[#B85E65]" : "text-[#554A45]"}`}>العروض فقط</span>
+                        <span className={`block text-[10px] font-semibold ${draftSaleOnly ? "text-[#173A2D]" : "text-[#554A45]"}`}>العروض فقط</span>
                         <span className="mt-1 block text-[7px] text-[#A29892]">المنتجات المخفضة</span>
 
-                        {draftSaleOnly && <Check className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#C6666D]" />}
+                        {draftSaleOnly && <Check className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#9D7B40]" />}
                       </button>
 
                       <button onClick={() => setDraftParam("stock", draftInStockOnly ? null : "1")} className={`relative min-h-[54px] overflow-hidden rounded-[15px] border px-3 text-right transition-all ${draftInStockOnly ? "border-[#173A2D] bg-[#EEE9DD]" : "border-[#DED8CA] bg-white"}`}>
-                        <span className={`block text-[10px] font-semibold ${draftInStockOnly ? "text-[#B85E65]" : "text-[#554A45]"}`}>المتوفر فقط</span>
+                        <span className={`block text-[10px] font-semibold ${draftInStockOnly ? "text-[#173A2D]" : "text-[#554A45]"}`}>المتوفر فقط</span>
                         <span className="mt-1 block text-[7px] text-[#A29892]">جاهز للطلب</span>
 
-                        {draftInStockOnly && <Check className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#C6666D]" />}
+                        {draftInStockOnly && <Check className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#9D7B40]" />}
                       </button>
                     </div>
                   </div>
