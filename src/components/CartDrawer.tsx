@@ -12,7 +12,7 @@ const CountBadge = ({ count, className }: { count: number; className: string }) 
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none fixed top-[4px] z-[60] flex h-[16px] min-w-[16px] items-center justify-center rounded-full border-2 border-white bg-[#D4777D] px-[3px] text-[8px] font-bold leading-none text-white shadow-sm md:hidden ${className}`}
+      className={`pointer-events-none fixed top-[4px] z-[60] flex h-[16px] min-w-[16px] items-center justify-center rounded-full border-2 border-white bg-[#173A2D] px-[3px] text-[8px] font-bold leading-none text-white shadow-sm md:hidden ${className}`}
     >
       {count > 99 ? "99+" : count}
     </span>
