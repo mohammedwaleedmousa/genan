@@ -244,7 +244,7 @@ const AccountPage = () => {
         return;
       }
 
-      const migrationKey = `flamingopark-addresses-db-synced:${user.id}`;
+      const migrationKey = `genan-addresses-db-synced:${user.id}`;
 
       let rows = existing || [];
 
@@ -756,7 +756,7 @@ const AccountPage = () => {
 
     invoiceWindow.opener = null;
     invoiceWindow.document.open();
-    invoiceWindow.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فاتورة ${escapeInvoiceHtml(invoice.order_number)}</title><style>*{box-sizing:border-box}body{margin:0;background:#fffaf9;color:#403633;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}.page{max-width:820px;margin:0 auto;padding:28px 18px 48px}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;border-bottom:1px solid #eaded9;padding-bottom:18px}.brand{font-size:22px;font-weight:800;color:#b86168;letter-spacing:.04em}.muted{color:#9b8d88;font-size:12px;line-height:1.9}.number{font-size:15px;font-weight:700;margin-top:5px}.badge{display:inline-block;margin-top:8px;padding:5px 10px;border-radius:999px;background:#fff0ee;color:#a95b61;font-size:11px}.card{margin-top:16px;border:1px solid #eaded9;border-radius:15px;background:white;padding:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.label{font-size:10px;color:#a0938e}.value{font-size:13px;font-weight:600;margin-top:4px;word-break:break-word}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:right;padding:11px 8px;border-bottom:1px solid #f0e8e5;font-size:12px}th{font-size:10px;color:#9b8d88;font-weight:600}td small{display:block;color:#9b8d88;font-size:10px;margin-top:4px}.empty{text-align:center;color:#9b8d88;padding:24px}.totals{margin-top:14px;margin-right:auto;max-width:330px}.row{display:flex;justify-content:space-between;gap:18px;padding:7px 0;font-size:12px}.row.total{border-top:1px solid #e8dcd7;margin-top:5px;padding-top:12px;font-size:16px;font-weight:800;color:#a9585e}.actions{display:flex;justify-content:center;margin-top:20px}.print{border:0;border-radius:11px;background:#d4777d;color:white;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer}@media(max-width:600px){.page{padding:18px 12px 36px}.top{display:block}.top>div:last-child{margin-top:13px}.grid{grid-template-columns:1fr}th,td{padding:9px 5px;font-size:11px}.brand{font-size:19px}}@media print{body{background:white}.page{max-width:none;padding:0}.actions{display:none}.card{break-inside:avoid}}</style></head><body><main class="page"><div class="top"><div><div class="brand">FLAMINGO PARK</div><div class="muted">تفاصيل الفاتورة</div></div><div><div class="muted">رقم الطلب</div><div class="number">${escapeInvoiceHtml(invoice.order_number)}</div><div class="badge">${escapeInvoiceHtml(statusLabel[String(invoice.status || "").toLowerCase()] || invoice.status || "—")}</div></div></div><section class="card"><div class="grid"><div><div class="label">تاريخ الطلب</div><div class="value">${escapeInvoiceHtml(new Date(invoice.created_at).toLocaleString("ar-EG"))}</div></div><div><div class="label">طريقة الدفع</div><div class="value">${escapeInvoiceHtml(paymentLabel)}</div></div><div><div class="label">عنوان التوصيل</div><div class="value">${address}</div></div><div><div class="label">العملة</div><div class="value">${escapeInvoiceHtml(currencyCode)}</div></div></div></section><section class="card"><div class="label">المنتجات</div><table><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>${rows}</tbody></table><div class="totals"><div class="row"><span>المجموع الفرعي</span><strong>${escapeInvoiceHtml(formatMoney(subtotal))}</strong></div><div class="row"><span>التوصيل</span><strong>${escapeInvoiceHtml(formatMoney(deliveryFee))}</strong></div>${discount > 0 ? `<div class="row"><span>الخصم</span><strong>- ${escapeInvoiceHtml(formatMoney(discount))}</strong></div>` : ""}<div class="row total"><span>الإجمالي</span><span>${escapeInvoiceHtml(formatMoney(total))}</span></div></div></section><div class="actions"><button class="print" onclick="window.print()">طباعة الفاتورة</button></div></main></body></html>`);
+    invoiceWindow.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فاتورة ${escapeInvoiceHtml(invoice.order_number)}</title><style>*{box-sizing:border-box}body{margin:0;background:#f8f6f0;color:#173A2D;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}.page{max-width:820px;margin:0 auto;padding:28px 18px 48px}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;border-bottom:1px solid #e2dcce;padding-bottom:18px}.brand{font-size:22px;font-weight:800;color:#173a2d;letter-spacing:.04em}.muted{color:#9b8d88;font-size:12px;line-height:1.9}.number{font-size:15px;font-weight:700;margin-top:5px}.badge{display:inline-block;margin-top:8px;padding:5px 10px;border-radius:999px;background:#f0ede5;color:#173a2d;font-size:11px}.card{margin-top:16px;border:1px solid #e2dcce;border-radius:15px;background:white;padding:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.label{font-size:10px;color:#a0938e}.value{font-size:13px;font-weight:600;margin-top:4px;word-break:break-word}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:right;padding:11px 8px;border-bottom:1px solid #f0e8e5;font-size:12px}th{font-size:10px;color:#9b8d88;font-weight:600}td small{display:block;color:#9b8d88;font-size:10px;margin-top:4px}.empty{text-align:center;color:#9b8d88;padding:24px}.totals{margin-top:14px;margin-right:auto;max-width:330px}.row{display:flex;justify-content:space-between;gap:18px;padding:7px 0;font-size:12px}.row.total{border-top:1px solid #e8dcd7;margin-top:5px;padding-top:12px;font-size:16px;font-weight:800;color:#a9585e}.actions{display:flex;justify-content:center;margin-top:20px}.print{border:0;border-radius:11px;background:#d4777d;color:white;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer}@media(max-width:600px){.page{padding:18px 12px 36px}.top{display:block}.top>div:last-child{margin-top:13px}.grid{grid-template-columns:1fr}th,td{padding:9px 5px;font-size:11px}.brand{font-size:19px}}@media print{body{background:white}.page{max-width:none;padding:0}.actions{display:none}.card{break-inside:avoid}}</style></head><body><main class="page"><div class="top"><div><div class="brand">FLAMINGO PARK</div><div class="muted">تفاصيل الفاتورة</div></div><div><div class="muted">رقم الطلب</div><div class="number">${escapeInvoiceHtml(invoice.order_number)}</div><div class="badge">${escapeInvoiceHtml(statusLabel[String(invoice.status || "").toLowerCase()] || invoice.status || "—")}</div></div></div><section class="card"><div class="grid"><div><div class="label">تاريخ الطلب</div><div class="value">${escapeInvoiceHtml(new Date(invoice.created_at).toLocaleString("ar-EG"))}</div></div><div><div class="label">طريقة الدفع</div><div class="value">${escapeInvoiceHtml(paymentLabel)}</div></div><div><div class="label">عنوان التوصيل</div><div class="value">${address}</div></div><div><div class="label">العملة</div><div class="value">${escapeInvoiceHtml(currencyCode)}</div></div></div></section><section class="card"><div class="label">المنتجات</div><table><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>${rows}</tbody></table><div class="totals"><div class="row"><span>المجموع الفرعي</span><strong>${escapeInvoiceHtml(formatMoney(subtotal))}</strong></div><div class="row"><span>التوصيل</span><strong>${escapeInvoiceHtml(formatMoney(deliveryFee))}</strong></div>${discount > 0 ? `<div class="row"><span>الخصم</span><strong>- ${escapeInvoiceHtml(formatMoney(discount))}</strong></div>` : ""}<div class="row total"><span>الإجمالي</span><span>${escapeInvoiceHtml(formatMoney(total))}</span></div></div></section><div class="actions"><button class="print" onclick="window.print()">طباعة الفاتورة</button></div></main></body></html>`);
     invoiceWindow.document.close();
   };
 
@@ -853,7 +853,7 @@ const AccountPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FFFDFC] text-[#302725]" dir="rtl">
+    <div className="min-h-screen bg-[#F8F6F0] text-[#302725]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
@@ -863,7 +863,7 @@ const AccountPage = () => {
               PROFILE
           ===================================================== */}
 
-          <section className="border-b border-[#EEE4E0] bg-[#FFF8F6] px-4 pb-5 pt-6 md:mx-6 md:mt-6 md:rounded-[20px] md:border md:px-6 md:py-6">
+          <section className="border-b border-[#E5DED0] bg-[#FFF8F6] px-4 pb-5 pt-6 md:mx-6 md:mt-6 md:rounded-[20px] md:border md:px-6 md:py-6">
             <div className="flex items-center gap-4">
               <div className="relative shrink-0">
                 <div className="flex h-[70px] w-[70px] items-center justify-center overflow-hidden rounded-full border border-[#E7CECA] bg-[#FAE7E5] md:h-[82px] md:w-[82px]">
@@ -874,15 +874,15 @@ const AccountPage = () => {
                   )}
                 </div>
 
-                <button type="button" onClick={handleSettingsClick} className="absolute -bottom-0.5 -left-0.5 flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#FFF8F6] bg-[#D4777D] text-white" aria-label="تعديل الملف الشخصي">
+                <button type="button" onClick={handleSettingsClick} className="absolute -bottom-0.5 -left-0.5 flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#FFF8F6] bg-[#173A2D] text-white" aria-label="تعديل الملف الشخصي">
                   <Pencil className="h-3 w-3 stroke-[1.8]" />
                 </button>
               </div>
 
               <div className="min-w-0 flex-1">
                 <div className="mb-1 flex items-center gap-2">
-                  <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-                  <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">MY FLAMINGO</span>
+                  <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+                  <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">MY FLAMINGO</span>
                 </div>
 
                 <h1 className="truncate text-[21px] font-semibold tracking-[-0.03em] text-[#403230] md:text-[27px]">{customer?.name || "أهلاً بك"}</h1>
@@ -901,7 +901,7 @@ const AccountPage = () => {
               </div>
 
               <button type="button" onClick={handleSettingsClick} className="hidden h-9 shrink-0 items-center gap-1.5 rounded-full border border-[#E4D6D2] bg-white px-4 text-[8px] font-medium text-[#665652] md:flex">
-                <Settings className="h-3.5 w-3.5 stroke-[1.5] text-[#C66B71]" />
+                <Settings className="h-3.5 w-3.5 stroke-[1.5] text-[#9D7B40]" />
                 تعديل الحساب
               </button>
             </div>
@@ -951,14 +951,14 @@ const AccountPage = () => {
 
           <section className="px-3 pt-5 md:px-6 md:pt-7">
             <div className="mb-3">
-              <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">QUICK ACCESS</span>
-              <h2 className="mt-1 text-[15px] font-semibold text-[#443633] md:text-[18px]">حسابي</h2>
+              <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">QUICK ACCESS</span>
+              <h2 className="mt-1 text-[15px] font-semibold text-[#173A2D] md:text-[18px]">حسابي</h2>
             </div>
 
             <div className="grid grid-cols-3 gap-2">
               {mainItems.map((item) => (
-                <Link key={item.to} to={item.to} className="flex min-w-0 flex-col items-center rounded-[14px] border border-[#EBE1DD] bg-white px-2 py-4 text-center active:bg-[#FFF7F5]">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FAECE9] text-[#C56C72]">
+                <Link key={item.to} to={item.to} className="flex min-w-0 flex-col items-center rounded-[14px] border border-[#EBE1DD] bg-white px-2 py-4 text-center active:bg-[#F5F1E7]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAE5D7] text-[#C56C72]">
                     <item.icon className="h-4 w-4 stroke-[1.5]" />
                   </span>
 
@@ -977,8 +977,8 @@ const AccountPage = () => {
             <div className="mb-3 flex items-end justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2">
-                  <Truck className="h-4 w-4 stroke-[1.5] text-[#C66C72]" />
-                  <h2 className="text-[15px] font-semibold text-[#443633] md:text-[18px]">شحناتي الحالية</h2>
+                  <Truck className="h-4 w-4 stroke-[1.5] text-[#9D7B40]" />
+                  <h2 className="text-[15px] font-semibold text-[#173A2D] md:text-[18px]">شحناتي الحالية</h2>
                 </div>
 
                 <p className="mt-1 text-[7px] text-[#9F918C]">{activeShipments.length} شحنة نشطة</p>
@@ -991,7 +991,7 @@ const AccountPage = () => {
               )}
             </div>
 
-            <div className="overflow-hidden rounded-[16px] border border-[#EAE0DC] bg-white">
+            <div className="overflow-hidden rounded-[16px] border border-[#E2DCCE] bg-white">
               {invoicesLoading && <p className="px-4 py-5 text-[8px] text-[#9F918C]">جاري تحميل الشحنات...</p>}
 
               {!invoicesLoading && activeShipments.length === 0 && (
@@ -1002,7 +1002,7 @@ const AccountPage = () => {
 
                   <div>
                     <p className="text-[9px] font-medium text-[#5E504C]">لا توجد شحنات جارية الآن</p>
-                    <p className="mt-1 text-[7px] text-[#A49792]">ستظهر طلباتك النشطة هنا.</p>
+                    <p className="mt-1 text-[7px] text-[#909890]">ستظهر طلباتك النشطة هنا.</p>
                   </div>
                 </div>
               )}
@@ -1011,11 +1011,11 @@ const AccountPage = () => {
                 activeShipments.map((invoice, index) => {
                   const status = String(invoice.status || "").toLowerCase();
                   const progress = shippingProgressMap[status] ?? 15;
-                  const tone = shippingToneMap[status] || "bg-[#F3F0EE] text-[#746762]";
-                  const barTone = shippingProgressBarMap[status] || "bg-[#D4777D]";
+                  const tone = shippingToneMap[status] || "bg-[#F3F0EE] text-[#68736B]";
+                  const barTone = shippingProgressBarMap[status] || "bg-[#173A2D]";
 
                   return (
-                    <div key={`shipment-${invoice.id}`} className={`p-4 ${index !== activeShipments.length - 1 ? "border-b border-[#F0E8E5]" : ""}`}>
+                    <div key={`shipment-${invoice.id}`} className={`p-4 ${index !== activeShipments.length - 1 ? "border-b border-[#EBE6DC]" : ""}`}>
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-[10px] font-semibold text-[#493B38]">{invoice.order_number}</p>
@@ -1049,8 +1049,8 @@ const AccountPage = () => {
             <div className="mb-3 flex items-end justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <Receipt className="h-4 w-4 stroke-[1.5] text-[#C66C72]" />
-                  <h2 className="text-[15px] font-semibold text-[#443633] md:text-[18px]">سجل فواتيري</h2>
+                  <Receipt className="h-4 w-4 stroke-[1.5] text-[#9D7B40]" />
+                  <h2 className="text-[15px] font-semibold text-[#173A2D] md:text-[18px]">سجل فواتيري</h2>
                 </div>
 
                 <p className="mt-1 text-[7px] text-[#9F918C]">آخر 20 طلبًا</p>
@@ -1063,18 +1063,18 @@ const AccountPage = () => {
             </div>
 
             <div className="mb-3 grid grid-cols-2 gap-2">
-              <div className="rounded-[14px] border border-[#EAE0DC] bg-white px-3 py-3">
+              <div className="rounded-[14px] border border-[#E2DCCE] bg-white px-3 py-3">
                 <span className="text-[6px] text-[#A29590]">عدد الفواتير</span>
                 <span className="mt-1 block text-[17px] font-semibold leading-none text-[#A9585E]">{invoices.length}</span>
               </div>
 
-              <div className="rounded-[14px] border border-[#EAE0DC] bg-white px-3 py-3">
+              <div className="rounded-[14px] border border-[#E2DCCE] bg-white px-3 py-3">
                 <span className="text-[6px] text-[#A29590]">إجمالي الطلبات</span>
                 <span className="mt-1 block truncate text-[17px] font-semibold leading-none text-[#A9585E]">{invoiceTotal.toLocaleString("ar-EG")}</span>
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[16px] border border-[#EAE0DC] bg-white">
+            <div className="overflow-hidden rounded-[16px] border border-[#E2DCCE] bg-white">
               {invoicesLoading && <p className="px-4 py-5 text-[8px] text-[#9F918C]">جاري تحميل الفواتير...</p>}
 
               {!invoicesLoading && invoices.length === 0 && <p className="px-4 py-5 text-[8px] text-[#9F918C]">لا توجد فواتير بعد</p>}
@@ -1084,10 +1084,10 @@ const AccountPage = () => {
                   const status = String(invoice.status || "").toLowerCase();
 
                   return (
-                    <div key={invoice.id} className={`flex items-center justify-between gap-3 p-4 ${index !== invoices.length - 1 ? "border-b border-[#F0E8E5]" : ""}`}>
+                    <div key={invoice.id} className={`flex items-center justify-between gap-3 p-4 ${index !== invoices.length - 1 ? "border-b border-[#EBE6DC]" : ""}`}>
                       <div className="min-w-0">
                         <p className="truncate text-[10px] font-semibold text-[#493B38]">{invoice.order_number}</p>
-                        <p className="mt-1 text-[6px] text-[#A49792]">{new Date(invoice.created_at).toLocaleDateString("ar-EG")}</p>
+                        <p className="mt-1 text-[6px] text-[#909890]">{new Date(invoice.created_at).toLocaleDateString("ar-EG")}</p>
 
                         <button type="button" onClick={() => openInvoice(invoice)} className="mt-2 rounded-full border border-[#E0D2CE] px-2.5 py-1.5 text-[6px] font-medium text-[#A85D63]">
                           عرض الفاتورة
@@ -1112,38 +1112,38 @@ const AccountPage = () => {
           <section className="px-3 pt-7 md:px-6">
             <div className="mb-3">
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 stroke-[1.5] text-[#C66C72]" />
-                <h2 className="text-[15px] font-semibold text-[#443633] md:text-[18px]">العناوين المحفوظة</h2>
+                <MapPin className="h-4 w-4 stroke-[1.5] text-[#9D7B40]" />
+                <h2 className="text-[15px] font-semibold text-[#173A2D] md:text-[18px]">العناوين المحفوظة</h2>
               </div>
 
               <p className="mt-1 text-[7px] text-[#9F918C]">احفظ عناوينك لتسريع عملية الطلب</p>
             </div>
 
-            <div id="saved-address-form" className="rounded-[16px] border border-[#EAE0DC] bg-white p-3 md:p-4">
+            <div id="saved-address-form" className="rounded-[16px] border border-[#E2DCCE] bg-white p-3 md:p-4">
               <div className="mb-3 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] font-semibold text-[#4D403C]">{editingAddressId ? "تعديل العنوان" : "إضافة عنوان"}</p>
-                  <p className="mt-1 text-[6px] text-[#A49792]">{editingAddressId ? "عدّل البيانات ثم احفظ" : "أضف عنوان توصيل جديد"}</p>
+                  <p className="mt-1 text-[6px] text-[#909890]">{editingAddressId ? "عدّل البيانات ثم احفظ" : "أضف عنوان توصيل جديد"}</p>
                 </div>
 
                 {editingAddressId && (
-                  <button type="button" onClick={resetAddressForm} className="text-[7px] font-medium text-[#B86168]">
+                  <button type="button" onClick={resetAddressForm} className="text-[7px] font-medium text-[#9D7B40]">
                     إلغاء التعديل
                   </button>
                 )}
               </div>
 
               <div className="grid grid-cols-2 gap-2">
-                <input value={addressForm.label} onChange={(event) => setAddressForm((current) => ({ ...current, label: event.target.value }))} placeholder="اسم العنوان" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#FFFDFC] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+                <input value={addressForm.label} onChange={(event) => setAddressForm((current) => ({ ...current, label: event.target.value }))} placeholder="اسم العنوان" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
 
-                <input value={addressForm.city} onChange={(event) => setAddressForm((current) => ({ ...current, city: event.target.value }))} placeholder="المدينة *" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#FFFDFC] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+                <input value={addressForm.city} onChange={(event) => setAddressForm((current) => ({ ...current, city: event.target.value }))} placeholder="المدينة *" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
               </div>
 
-              <input value={addressForm.address} onChange={(event) => setAddressForm((current) => ({ ...current, address: event.target.value }))} placeholder="العنوان بالتفصيل *" className="mt-2 h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#FFFDFC] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+              <input value={addressForm.address} onChange={(event) => setAddressForm((current) => ({ ...current, address: event.target.value }))} placeholder="العنوان بالتفصيل *" className="mt-2 h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
 
-              <textarea value={addressForm.notes} onChange={(event) => setAddressForm((current) => ({ ...current, notes: event.target.value }))} placeholder="ملاحظات إضافية" rows={2} className="mt-2 w-full resize-none rounded-[11px] border border-[#E8DEDA] bg-[#FFFDFC] px-3 py-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+              <textarea value={addressForm.notes} onChange={(event) => setAddressForm((current) => ({ ...current, notes: event.target.value }))} placeholder="ملاحظات إضافية" rows={2} className="mt-2 w-full resize-none rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 py-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
 
-              <button type="button" onClick={saveAddress} className="mt-2.5 h-[42px] w-full rounded-[11px] bg-[#D4777D] text-[9px] font-semibold text-white active:bg-[#C96A71]">
+              <button type="button" onClick={saveAddress} className="mt-2.5 h-[42px] w-full rounded-[11px] bg-[#173A2D] text-[9px] font-semibold text-white active:bg-[#C96A71]">
                 {editingAddressId ? "تحديث العنوان" : "حفظ عنوان جديد"}
               </button>
             </div>
@@ -1157,7 +1157,7 @@ const AccountPage = () => {
               )}
 
               {savedAddresses.map((address) => (
-                <div key={address.id} className="rounded-[14px] border border-[#EAE0DC] bg-white p-3">
+                <div key={address.id} className="rounded-[14px] border border-[#E2DCCE] bg-white p-3">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5">
@@ -1165,7 +1165,7 @@ const AccountPage = () => {
 
                         {address.isDefault && (
                           <span className="flex shrink-0 items-center gap-1 rounded-full bg-[#FAEDEA] px-2 py-1 text-[6px] font-medium text-[#B15F65]">
-                            <Star className="h-2.5 w-2.5 fill-[#C96F79] stroke-[#C96F79]" />
+                            <Star className="h-2.5 w-2.5 fill-[#9D7B40] stroke-[#9D7B40]" />
                             افتراضي
                           </span>
                         )}
@@ -1173,11 +1173,11 @@ const AccountPage = () => {
 
                       <p className="mt-1.5 text-[7px] leading-5 text-[#8E807B]">{address.city} - {address.address}</p>
 
-                      {address.notes && <p className="mt-1 text-[6px] text-[#A49792]">{address.notes}</p>}
+                      {address.notes && <p className="mt-1 text-[6px] text-[#909890]">{address.notes}</p>}
                     </div>
                   </div>
 
-                  <div className="mt-3 flex items-center gap-1.5 border-t border-[#F0E8E5] pt-2.5">
+                  <div className="mt-3 flex items-center gap-1.5 border-t border-[#EBE6DC] pt-2.5">
                     {!address.isDefault && (
                       <button type="button" onClick={() => setDefaultAddress(address)} className="rounded-full border border-[#E2D5D0] px-2.5 py-1.5 text-[6px] font-medium text-[#7B6964]">
                         تعيين افتراضي
@@ -1202,17 +1202,17 @@ const AccountPage = () => {
           ===================================================== */}
 
           <section className="px-3 pt-7 md:px-6">
-            <h2 className="mb-3 text-[15px] font-semibold text-[#443633] md:text-[18px]">أكثر خيارات</h2>
+            <h2 className="mb-3 text-[15px] font-semibold text-[#173A2D] md:text-[18px]">أكثر خيارات</h2>
 
             {settingsItems.map((item) => (
-              <button key={item.to} type="button" onClick={handleSettingsClick} className="flex w-full items-center gap-3 rounded-[14px] border border-[#EAE0DC] bg-white p-3.5 text-right active:bg-[#FFF8F6]">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FAECE9]">
-                  <item.icon className="h-4 w-4 stroke-[1.5] text-[#C66C72]" />
+              <button key={item.to} type="button" onClick={handleSettingsClick} className="flex w-full items-center gap-3 rounded-[14px] border border-[#E2DCCE] bg-white p-3.5 text-right active:bg-[#FFF8F6]">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EAE5D7]">
+                  <item.icon className="h-4 w-4 stroke-[1.5] text-[#9D7B40]" />
                 </span>
 
                 <div className="min-w-0 flex-1">
                   <p className="text-[9px] font-semibold text-[#4D403C]">{item.label}</p>
-                  <p className="mt-1 text-[6px] text-[#A49792]">{item.desc}</p>
+                  <p className="mt-1 text-[6px] text-[#909890]">{item.desc}</p>
                 </div>
 
                 <ChevronLeft className="h-3.5 w-3.5 stroke-[1.4] text-[#AA9C97]" />
@@ -1241,15 +1241,15 @@ const AccountPage = () => {
             <>
               <motion.button type="button" aria-label="إغلاق نافذة التعديل" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }} onClick={handleCancelEdit} className="fixed inset-0 z-[80] bg-black/25" />
 
-              <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className="fixed inset-x-0 bottom-0 z-[90] flex max-h-[92vh] flex-col rounded-t-[26px] bg-[#FFFDFC] shadow-[0_-10px_35px_rgba(50,35,30,.10)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-[460px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[20px]" dir="rtl">
-                <div className="shrink-0 border-b border-[#ECE2DE] bg-[#FFFDFC] px-4 pb-4 pt-3 md:px-5 md:pt-5">
+              <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className="fixed inset-x-0 bottom-0 z-[90] flex max-h-[92vh] flex-col rounded-t-[26px] bg-[#F8F6F0] shadow-[0_-10px_35px_rgba(50,35,30,.10)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-[460px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[20px]" dir="rtl">
+                <div className="shrink-0 border-b border-[#ECE2DE] bg-[#F8F6F0] px-4 pb-4 pt-3 md:px-5 md:pt-5">
                   <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-[#DED2CE] md:hidden" />
 
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="mb-1 flex items-center gap-2">
-                        <span className="h-[2px] w-4 bg-[#D4777D]" />
-                        <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">MY PROFILE</span>
+                        <span className="h-[2px] w-4 bg-[#173A2D]" />
+                        <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">MY PROFILE</span>
                       </div>
 
                       <h2 className="text-[18px] font-semibold text-[#403230]">تحديث البيانات</h2>
@@ -1265,7 +1265,7 @@ const AccountPage = () => {
                   {/* AVATAR */}
 
                   <div className="flex flex-col items-center">
-                    <div className="relative h-[82px] w-[82px] overflow-hidden rounded-full border border-[#E4CECA] bg-[#FAECE9]">
+                    <div className="relative h-[82px] w-[82px] overflow-hidden rounded-full border border-[#E4CECA] bg-[#EAE5D7]">
                       {avatarPreview ? (
                         <img src={avatarPreview} alt="معاينة الصورة" className="h-full w-full object-cover" />
                       ) : (
@@ -1277,7 +1277,7 @@ const AccountPage = () => {
 
                     <input ref={fileInputRef} type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
 
-                    <button type="button" onClick={() => fileInputRef.current?.click()} disabled={formLoading} className="mt-2 flex items-center gap-1.5 text-[7px] font-medium text-[#B86168] disabled:opacity-50">
+                    <button type="button" onClick={() => fileInputRef.current?.click()} disabled={formLoading} className="mt-2 flex items-center gap-1.5 text-[7px] font-medium text-[#9D7B40] disabled:opacity-50">
                       <Upload className="h-3 w-3" />
                       تغيير الصورة
                     </button>
@@ -1306,8 +1306,8 @@ const AccountPage = () => {
 
                     <button type="button" onClick={() => { if (!formLoading) { setRegionSearch(""); setRegionPickerOpen(true); } }} disabled={formLoading} className="flex h-[46px] w-full items-center justify-between rounded-[13px] border border-[#E6DBD7] bg-white px-3 text-right disabled:opacity-50">
                       <div className="flex min-w-0 items-center gap-2.5">
-                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#FAECE9]">
-                          <MapPin className="h-3.5 w-3.5 stroke-[1.5] text-[#C96F79]" />
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EAE5D7]">
+                          <MapPin className="h-3.5 w-3.5 stroke-[1.5] text-[#9D7B40]" />
                         </span>
 
                         <div className="min-w-0">
@@ -1333,7 +1333,7 @@ const AccountPage = () => {
                   {/* ACTIONS */}
 
                   <div className="grid grid-cols-[1.4fr_.8fr] gap-2 pt-1">
-                    <button type="submit" disabled={formLoading} className="flex h-[46px] items-center justify-center gap-2 rounded-[13px] bg-[#D4777D] text-[9px] font-semibold text-white disabled:opacity-50">
+                    <button type="submit" disabled={formLoading} className="flex h-[46px] items-center justify-center gap-2 rounded-[13px] bg-[#173A2D] text-[9px] font-semibold text-white disabled:opacity-50">
                       {formLoading ? (
                         <>
                           <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
@@ -1366,17 +1366,17 @@ const AccountPage = () => {
             <>
               <motion.button type="button" aria-label="إغلاق اختيار المحافظة" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.12 }} onClick={() => setRegionPickerOpen(false)} className="fixed inset-0 z-[110] bg-black/30" />
 
-              <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className="fixed inset-x-0 bottom-0 z-[120] flex max-h-[82vh] flex-col rounded-t-[26px] bg-[#FFFDFC] shadow-[0_-12px_35px_rgba(50,35,30,.12)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-[420px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[20px]" dir="rtl">
+              <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }} className="fixed inset-x-0 bottom-0 z-[120] flex max-h-[82vh] flex-col rounded-t-[26px] bg-[#F8F6F0] shadow-[0_-12px_35px_rgba(50,35,30,.12)] md:bottom-auto md:left-1/2 md:right-auto md:top-1/2 md:w-[420px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-[20px]" dir="rtl">
                 {/* HEADER */}
 
                 <div className="shrink-0 px-4 pt-3 md:px-5 md:pt-5">
                   <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-[#DDD1CD] md:hidden" />
 
-                  <div className="flex items-start justify-between border-b border-[#EEE4E0] pb-4">
+                  <div className="flex items-start justify-between border-b border-[#E5DED0] pb-4">
                     <div>
                       <div className="mb-1 flex items-center gap-2">
-                        <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-                        <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">FLAMINGO LOCATION</span>
+                        <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+                        <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">FLAMINGO LOCATION</span>
                       </div>
 
                       <h3 className="text-[18px] font-semibold text-[#403230]">اختر المحافظة</h3>
@@ -1413,25 +1413,25 @@ const AccountPage = () => {
                     <div className="flex min-h-[180px] flex-col items-center justify-center text-center">
                       <MapPin className="h-5 w-5 stroke-[1.4] text-[#C3B4AF]" />
                       <p className="mt-2 text-[9px] font-medium text-[#6D5E59]">لا توجد نتائج</p>
-                      <p className="mt-1 text-[7px] text-[#A49792]">جرّب البحث باسم محافظة أخرى</p>
+                      <p className="mt-1 text-[7px] text-[#909890]">جرّب البحث باسم محافظة أخرى</p>
                     </div>
                   ) : (
-                    <div className="overflow-hidden rounded-[15px] border border-[#EAE0DC] bg-white">
+                    <div className="overflow-hidden rounded-[15px] border border-[#E2DCCE] bg-white">
                       {filteredRegions.map((item, index) => {
                         const active = region === item;
 
                         return (
-                          <button key={item} type="button" onClick={() => { setRegion(item); setRegionPickerOpen(false); setRegionSearch(""); }} className={`flex h-[48px] w-full items-center justify-between px-3.5 text-right ${index !== filteredRegions.length - 1 ? "border-b border-[#F0E8E5]" : ""} ${active ? "bg-[#FFF0EE]" : "bg-white active:bg-[#FBF7F5]"}`}>
+                          <button key={item} type="button" onClick={() => { setRegion(item); setRegionPickerOpen(false); setRegionSearch(""); }} className={`flex h-[48px] w-full items-center justify-between px-3.5 text-right ${index !== filteredRegions.length - 1 ? "border-b border-[#EBE6DC]" : ""} ${active ? "bg-[#FFF0EE]" : "bg-white active:bg-[#FBF7F5]"}`}>
                             <div className="flex items-center gap-2.5">
                               <span className={`flex h-7 w-7 items-center justify-center rounded-full ${active ? "bg-[#F5D8D5]" : "bg-[#F8F4F2]"}`}>
                                 <MapPin className={`h-3.5 w-3.5 stroke-[1.5] ${active ? "text-[#C86269]" : "text-[#A99B96]"}`} />
                               </span>
 
-                              <span className={`text-[10px] font-medium ${active ? "text-[#A95B61]" : "text-[#51433F]"}`}>{item}</span>
+                              <span className={`text-[10px] font-medium ${active ? "text-[#173A2D]" : "text-[#51433F]"}`}>{item}</span>
                             </div>
 
                             {active && (
-                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#D4777D]">
+                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#173A2D]">
                                 <Check className="h-2.5 w-2.5 stroke-[2.2] text-white" />
                               </span>
                             )}
@@ -1444,13 +1444,13 @@ const AccountPage = () => {
 
                 {/* REGION BOTTOM */}
 
-                <div className="shrink-0 border-t border-[#EDE4E0] bg-[#FFFDFC] px-4 pb-[calc(env(safe-area-inset-bottom)+13px)] pt-3 md:px-5 md:pb-5">
+                <div className="shrink-0 border-t border-[#EDE4E0] bg-[#F8F6F0] px-4 pb-[calc(env(safe-area-inset-bottom)+13px)] pt-3 md:px-5 md:pb-5">
                   <div className="grid grid-cols-[.75fr_1.4fr] gap-2.5">
                     <button type="button" onClick={() => setRegionPickerOpen(false)} className="h-[44px] rounded-[12px] border border-[#DFD3CF] bg-white text-[8px] font-medium text-[#6D5F5A]">
                       إلغاء
                     </button>
 
-                    <button type="button" onClick={() => setRegionPickerOpen(false)} disabled={!region} className="flex h-[44px] items-center justify-center gap-2 rounded-[12px] bg-[#D4777D] text-[9px] font-semibold text-white disabled:opacity-45">
+                    <button type="button" onClick={() => setRegionPickerOpen(false)} disabled={!region} className="flex h-[44px] items-center justify-center gap-2 rounded-[12px] bg-[#173A2D] text-[9px] font-semibold text-white disabled:opacity-45">
                       <Check className="h-3.5 w-3.5" />
                       تأكيد المحافظة
                     </button>
