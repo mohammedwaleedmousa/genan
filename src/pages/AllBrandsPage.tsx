@@ -161,7 +161,7 @@ const AllBrandsPage = () => {
                 <Link key={brand.id} to={`/brands/${brand.slug}`} aria-label={`عرض منتجات ${brand.name}`} className="group block min-w-0 select-none text-center [-webkit-tap-highlight-color:transparent]">
                   {/* LOGO CARD */}
 
-                  <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-[15px] border border-border/70 bg-white p-5 transition-all duration-200 group-hover:border-[#D7C8C2] group-hover:shadow-[0_8px_24px_rgba(52,40,34,0.045)] md:rounded-[18px] md:p-7">
+                  <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-[15px] border border-border/70 bg-white p-5 transition-all duration-200 group-hover:border-[#CFC4A8] group-hover:shadow-[0_8px_24px_rgba(23,58,45,0.06)] md:rounded-[18px] md:p-7">
                     {brand.logo_url ? (
                       <img src={optimizeImage(brand.logo_url, 320, 76)} srcSet={createImageSrcSet(brand.logo_url, [120, 220, 320], 76)} sizes="(max-width: 639px) 33vw, (max-width: 767px) 25vw, (max-width: 1023px) 20vw, 16vw" alt={brand.name} loading={index < 6 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" width={320} height={320} onError={handleImageError} className="block h-full w-full object-contain object-center transition-transform duration-200 group-hover:scale-[1.025]" />
                     ) : (
