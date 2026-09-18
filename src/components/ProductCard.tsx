@@ -285,6 +285,7 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
         </div>
       </article>
     </Link>
-  );};
+  );
+};
 
 export default memo(ProductCard);
