@@ -61,7 +61,7 @@ const StoreInfoPage = () => {
   const whatsappNumber = storeInfo?.whatsapp || storeInfo?.whatsapp_ye || storeInfo?.whatsapp_sa;
   const phone = String(storeInfo?.phone_sa || storeInfo?.phone_ye || storeInfo?.phone || "+967778579777");
   const email = String(storeInfo?.email || "").trim();
-  const placeholderEmails = new Set(["info@flamingo.com", "info@flamingopark.com"]);
+  const placeholderEmails = new Set(["info@genan.com", "info@genan.com"]);
   const showEmail = Boolean(email && !placeholderEmails.has(email.toLowerCase()));
   const whatsappDigits = String(whatsappNumber || phone).replace(/\D/g, "");
 
@@ -263,14 +263,14 @@ const StoreInfoPage = () => {
         </section>
 
         <section className="mx-auto w-full max-w-[1200px] px-3 pt-8 md:px-6 md:pt-12">
-          <div className="border-y border-[#E8D5D0] bg-[#FFF5F2] px-4 py-6 md:px-8 md:py-8">
+          <div className="border-y border-[#DDD4C3] bg-[#F3F0E6] px-4 py-6 md:px-8 md:py-8">
             <div className="flex items-start gap-3">
               <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
                 <Shield className="h-4 w-4 stroke-[1.4] text-[#9D7B40]" />
               </span>
               <div>
                 <span className="font-serif text-[6px] tracking-[0.2em] text-[#9D7B40]">GENAN PROMISE</span>
-                <h3 className="mt-1.5 text-[14px] font-semibold text-[#553E3E] md:text-[17px]">تجربة تسوق تستحق ثقتك</h3>
+                <h3 className="mt-1.5 text-[14px] font-semibold text-[#20392E] md:text-[17px]">تجربة تسوق تستحق ثقتك</h3>
                 <p className="mt-1.5 max-w-[650px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">من اختيار المنتج وحتى وصوله إليك، نهتم بالتفاصيل التي تجعل تجربتك مع جنان أكثر وضوحًا وراحة.</p>
               </div>
             </div>
@@ -283,8 +283,8 @@ const StoreInfoPage = () => {
               <MessageCircle className="h-4 w-4 stroke-[1.5] text-[#9D7B40]" />
             </div>
             <span className="mt-4 block font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">PERSONAL SERVICE</span>
-            <h2 className="mt-2 text-[18px] font-semibold tracking-[-0.025em] text-[#493837] md:text-[25px]">{getSiteText(content, "store_info_cta_title", "هل تحتاج مساعدة في الاختيار؟")}</h2>
-            <p className="mx-auto mt-2 max-w-[480px] text-[8px] leading-5 text-[#988782] md:text-[10px] md:leading-6">{getSiteText(content, "store_info_cta_description", "فريق خدمة العملاء متاح للإجابة على استفساراتك حول المقاسات، التوفر، أو الشحن.")}</p>
+            <h2 className="mt-2 text-[18px] font-semibold tracking-[-0.025em] text-[#20392E] md:text-[25px]">{getSiteText(content, "store_info_cta_title", "هل تحتاج مساعدة في الاختيار؟")}</h2>
+            <p className="mx-auto mt-2 max-w-[480px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">{getSiteText(content, "store_info_cta_description", "فريق خدمة العملاء متاح للإجابة على استفساراتك حول المقاسات، التوفر، أو الشحن.")}</p>
 
             <div className="mx-auto mt-5 flex max-w-[430px] flex-col gap-2 sm:flex-row sm:justify-center">
               {whatsappDigits && (
@@ -309,7 +309,7 @@ const StoreInfoPage = () => {
 };
 
 const ChevronIndicator = () => (
-  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#DED8C9] text-[#B56A6E]">
+  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#DED8C9] text-[#9D7B40]">
     <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
   </span>
 );
