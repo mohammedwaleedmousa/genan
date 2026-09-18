@@ -1,20 +1,12 @@
 {
-  "name": "فلامنجو بارك | ماركات عالمية",
-  "short_name": "Flamingo",
+  "name": "جنان | Genan",
+  "short_name": "Genan",
   "id": "/home",
-  "description": "اكتشف أرقى الماركات العالمية والقطع المختارة من فلامنجو بارك",
+  "description": "متجر جنان الإلكتروني",
   "start_url": "/home",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#FFFDFC",
-  "theme_color": "#D4777D",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "/icons/app-icon-1024.png",
-      "sizes": "1024x1024",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#FFFFFF",
+  "theme_color": "#171717",
+  "orientation": "portrait-primary"
 }
