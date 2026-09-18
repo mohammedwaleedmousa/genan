@@ -54,7 +54,7 @@ const defaultRegionForCountry = (country: string) => (country === "YE" ? "عدن
 const authPasswordFor = async (phone: string, password: string) => {
   if (password.length >= 6) return password;
 
-  const source = new TextEncoder().encode(`flamingopark:v1:${phone}:${password}`);
+  const source = new TextEncoder().encode(`genan:v1:${phone}:${password}`);
   const digest = await crypto.subtle.digest("SHA-256", source);
 
   return Array.from(new Uint8Array(digest))
@@ -239,7 +239,7 @@ const CustomerAuthPage = () => {
               name,
               full_name: name,
               contact_phone: phone,
-              customer_signup: "flamingo_customer",
+              customer_signup: "genan_customer",
               region,
               country,
             },
@@ -353,11 +353,11 @@ const CustomerAuthPage = () => {
 
         <div className="mt-2 flex items-center justify-center gap-2.5">
           <span className="h-px w-5 bg-[#E0B7B4]" />
-          <span className="font-serif text-[8px] tracking-[0.26em] text-[#B86168]">GENAN</span>
+          <span className="font-serif text-[8px] tracking-[0.26em] text-[#9D7B40]">GENAN</span>
           <span className="h-px w-5 bg-[#E0B7B4]" />
         </div>
 
-        <section className="mt-8 rounded-[22px] border border-[#EEE4E0] bg-[#FFFDFC] px-4 pb-5 pt-6 sm:px-6 sm:pb-6 sm:pt-7">
+        <section className="mt-8 rounded-[22px] border border-[#E5DED0] bg-[#F8F6F0] px-4 pb-5 pt-6 sm:px-6 sm:pb-6 sm:pt-7">
           <div className="text-center">
             <h1 className="text-[25px] font-semibold tracking-[-0.035em] text-[#382F2C] sm:text-[28px]">
               {mode === "login" ? "مرحباً بعودتك" : "إنشاء حساب جديد"}
@@ -466,7 +466,7 @@ const CustomerAuthPage = () => {
               </div>
             </div>
 
-            <button type="submit" disabled={isLoading} className="mt-2 flex h-[50px] w-full items-center justify-center gap-2 rounded-[12px] bg-[#D4777D] text-[11px] font-semibold text-white disabled:opacity-60">
+            <button type="submit" disabled={isLoading} className="mt-2 flex h-[50px] w-full items-center justify-center gap-2 rounded-[12px] bg-[#173A2D] text-[11px] font-semibold text-white disabled:opacity-60">
               {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               {mode === "login" ? "تسجيل الدخول" : "إنشاء الحساب"}
             </button>
