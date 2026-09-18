@@ -47,7 +47,7 @@ const FlamingoServices = () => {
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/[0.03] to-black/[0.03] md:bg-gradient-to-l md:from-black/55 md:via-black/15 md:to-transparent" />
 
-        <span dir="ltr" className="absolute left-4 top-4 z-10 text-[7px] font-medium tracking-[0.38em] text-white/80 md:left-8 md:top-7 md:text-[9px]">FLAMINGO PARK</span>
+        <span dir="ltr" className="absolute left-4 top-4 z-10 text-[7px] font-medium tracking-[0.38em] text-white/80 md:left-8 md:top-7 md:text-[9px]">GENAN</span>
 
         <div className="absolute bottom-5 right-4 z-10 max-w-[560px] md:bottom-auto md:right-10 md:top-1/2 md:-translate-y-1/2 lg:right-16">
           <div className="mb-3 hidden items-center gap-2 md:flex"><span className="h-px w-7 bg-white/60" /><span className="font-serif text-[8px] tracking-[0.2em] text-white/80">CURATED FOR YOU</span></div>
