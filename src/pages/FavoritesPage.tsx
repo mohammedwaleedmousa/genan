@@ -113,9 +113,9 @@ const FavoritesPage = () => {
                   <span className="font-serif text-[7px] tracking-[0.24em] text-[#9D7B40]">GENAN WISHLIST</span>
                 </div>
 
-                <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#403131] md:text-[36px]">{getSiteText(content, "favorites_hero_title", "المنتجات المفضلة")}</h1>
+                <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#173A2D] md:text-[36px]">{getSiteText(content, "favorites_hero_title", "المنتجات المفضلة")}</h1>
 
-                <p className="mt-1.5 max-w-[270px] text-[8px] leading-5 text-[#9B8984] md:max-w-md md:text-[10px]">{heroText}</p>
+                <p className="mt-1.5 max-w-[270px] text-[8px] leading-5 text-[#899289] md:max-w-md md:text-[10px]">{heroText}</p>
               </div>
 
               <div className="flex shrink-0 flex-col items-center">
@@ -170,7 +170,7 @@ const FavoritesPage = () => {
 
                   <h2 className="text-[16px] font-semibold text-[#413432] md:text-[20px]">اختياراتك</h2>
 
-                  <p className="mt-1 text-[7px] text-[#A29590]">{sortedFavorites.length} منتج</p>
+                  <p className="mt-1 text-[7px] text-[#8A938B]">{sortedFavorites.length} منتج</p>
                 </div>
 
                 {/* CUSTOM SORT */}
@@ -199,7 +199,7 @@ const FavoritesPage = () => {
                               <div>
                                 <span className={`block text-[9px] font-semibold ${active ? "text-[#AD5C63]" : "text-[#594B47]"}`}>{option.label}</span>
 
-                                <span className="mt-1 block text-[6px] text-[#A99B96]">{option.description}</span>
+                                <span className="mt-1 block text-[6px] text-[#929A92]">{option.description}</span>
                               </div>
 
                               <span className={`flex h-[19px] w-[19px] items-center justify-center rounded-full border ${active ? "border-[#9D7B40] bg-[#9D7B40]" : "border-[#DDD3CF] bg-white"}`}>
@@ -247,17 +247,17 @@ const FavoritesPage = () => {
             ===================================================== */
             <div className="flex min-h-[58vh] flex-col items-center justify-center px-6 text-center">
               <div className="relative flex h-[82px] w-[82px] items-center justify-center">
-                <span className="absolute inset-0 rounded-full border border-[#E8D4CF]" />
+                <span className="absolute inset-0 rounded-full border border-[#D6C8A8]" />
                 <span className="absolute inset-[8px] rounded-full bg-[#EAE5D7]" />
 
-                <Heart className="relative h-7 w-7 stroke-[1.25] text-[#C76D73]" />
+                <Heart className="relative h-7 w-7 stroke-[1.25] text-[#9D7B40]" />
               </div>
 
               <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#9D7B40]">GENAN</span>
 
-              <h2 className="mt-2 text-[18px] font-semibold text-[#493837]">{getSiteText(content, "favorites_empty_title", "قائمة المفضلة فارغة")}</h2>
+              <h2 className="mt-2 text-[18px] font-semibold text-[#20392E]">{getSiteText(content, "favorites_empty_title", "قائمة المفضلة فارغة")}</h2>
 
-              <p className="mt-2 max-w-[275px] text-[9px] leading-5 text-[#9D8E89]">{getSiteText(content, "favorites_empty_desc", "اضغط على أيقونة القلب في أي منتج لحفظه هنا والعودة إليه لاحقًا")}</p>
+              <p className="mt-2 max-w-[275px] text-[9px] leading-5 text-[#899289]">{getSiteText(content, "favorites_empty_desc", "اضغط على أيقونة القلب في أي منتج لحفظه هنا والعودة إليه لاحقًا")}</p>
 
               <Link to="/products" className="mt-5 flex h-[44px] items-center justify-center gap-2 rounded-full bg-[#173A2D] px-7 text-[10px] font-semibold text-white active:bg-[#214C3B]">
                 <ShoppingBag className="h-3.5 w-3.5 stroke-[1.6]" />
