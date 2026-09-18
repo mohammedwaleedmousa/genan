@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, BadgePercent, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowLeft, ArrowUpLeft } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -42,119 +42,163 @@ const isLingerieCategory = (category: { slug?: string | null; name?: string | nu
   return /lingerie|لانجري|لانجيري|لانجيرى|ملابس داخليه|ملابس داخلية/.test(value);
 };
 
-const DesktopDiscovery = () => (
-  <section className="hidden bg-background md:block" dir="rtl" aria-label="اكتشف جنان">
-    <div className="mx-auto grid w-full max-w-[1500px] grid-cols-3 gap-3 px-6 pb-3 pt-5 lg:px-8">
-      <Link to="/new-arrivals" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-[#F6F3EA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D9CCAE] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#173A2D] shadow-sm"><Sparkles className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#173A2D]">وصل حديثاً</span><span className="mt-1 block text-[9px] text-[#6F776F]">اكتشف أحدث القطع فور وصولها</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#9D7B40] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
-      </Link>
-      <Link to="/seasonal-offers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-white px-5 transition-all hover:-translate-y-0.5 hover:border-[#D9CCAE] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FFF5F3] text-[#173A2D]"><BadgePercent className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#173A2D]">العروض</span><span className="mt-1 block text-[9px] text-[#6F776F]">اختيارات مميزة بأسعار أفضل</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#9D7B40] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
-      </Link>
-      <Link to="/best-sellers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EEE3DF] bg-[#F6F3EA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D9CCAE] hover:shadow-[0_14px_34px_rgba(96,64,57,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#173A2D] shadow-sm"><TrendingUp className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#173A2D]">الأكثر مبيعاً</span><span className="mt-1 block text-[9px] text-[#6F776F]">القطع التي يختارها عملاؤنا أكثر</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#9D7B40] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
-      </Link>
-    </div>
-  </section>
-);
-
-const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
-  if (!loading && items.length === 0) return null;
+const EditorialNav = () => {
+  const items = [
+    { label: "وصل حديثًا", kicker: "NEW", to: "/new-arrivals" },
+    { label: "الأكثر اختيارًا", kicker: "BEST", to: "/best-sellers" },
+    { label: "العروض", kicker: "EDIT", to: "/seasonal-offers" },
+    { label: "كل الماركات", kicker: "BRANDS", to: "/brands" },
+  ];
 
   return (
-    <section className="w-full overflow-hidden bg-background py-5 md:py-10" dir="rtl" aria-label="الأقسام">
-      <div className="mx-auto w-full max-w-[1500px] px-3 md:px-6 lg:px-8">
-        <div className="mb-3 flex items-end justify-between gap-3 md:mb-7">
-          <div>
-            <div className="mb-1 flex items-center gap-2 md:mb-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#B89453] md:w-6" />
-              <span className="font-serif text-[6px] uppercase tracking-[0.2em] text-[#9D7B40] md:text-[8px]">CATEGORIES</span>
+    <section className="border-b border-[#DDD7C8] bg-[#F8F6F0]" dir="rtl">
+      <div className="mx-auto grid max-w-[1680px] grid-cols-2 md:grid-cols-4">
+        {items.map((item, index) => (
+          <Link
+            key={item.to}
+            to={item.to}
+            className={`group flex min-h-[86px] items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-[#F1EDE2] md:min-h-[104px] md:px-7 ${index % 2 === 0 ? "border-l border-[#E2DCCE]" : ""} md:border-l md:last:border-l-0`}
+          >
+            <div>
+              <span className="block text-[7px] font-semibold tracking-[0.26em] text-[#9D7B40]">{item.kicker}</span>
+              <span className="mt-1.5 block text-[11px] font-semibold text-[#173A2D] md:text-[13px]">{item.label}</span>
             </div>
-            <h2 className="text-[16px] font-semibold tracking-[-0.02em] text-foreground md:text-[27px]">تسوق حسب القسم</h2>
-            <p className="mt-2 hidden text-[10px] text-[#6F776F] md:block">ابدأ من القسم المناسب واختصر طريقك إلى ما تبحث عنه.</p>
+            <ArrowUpLeft className="h-4 w-4 text-[#879087] transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#173A2D]" strokeWidth={1.3} />
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const CategoryStories = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
+  if (!loading && items.length === 0) return null;
+
+  const display = items.slice(0, 5);
+
+  return (
+    <section className="bg-[#F8F6F0] py-12 md:py-24" dir="rtl" aria-label="الأقسام">
+      <div className="mx-auto max-w-[1680px] px-4 md:px-7 lg:px-10">
+        <div className="mb-8 flex items-end justify-between gap-4 md:mb-12">
+          <div className="max-w-[680px]">
+            <span className="text-[8px] font-semibold tracking-[0.28em] text-[#9D7B40]">DISCOVER / CATEGORIES</span>
+            <h2 className="mt-3 text-[28px] font-medium leading-[1.45] tracking-[-0.045em] text-[#173A2D] md:text-[44px]">
+              لا تبحث طويلًا. ابدأ من المكان الصحيح.
+            </h2>
           </div>
-          <Link to="/categories" className="flex shrink-0 items-center gap-1 border-b border-border pb-0.5 text-[7px] font-medium text-[#173A2D] transition-opacity active:opacity-60 md:gap-2 md:text-[10px]">
-            عرض كل الأقسام
-            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} />
+          <Link to="/categories" className="hidden items-center gap-2 border-b border-[#B89453]/55 pb-1 text-[10px] font-semibold text-[#173A2D] md:flex">
+            جميع الأقسام
+            <ArrowLeft className="h-4 w-4" strokeWidth={1.4} />
           </Link>
         </div>
 
-        <div className="-mx-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
-          <div className="flex w-max gap-2.5 after:block after:w-3 after:shrink-0 after:content-[''] md:grid md:w-full md:grid-cols-4 md:gap-4 md:after:hidden lg:grid-cols-6 xl:grid-cols-8">
-            {loading
-              ? Array.from({ length: 8 }).map((_, index) => (
-                  <div key={index} className="block w-[78px] shrink-0 sm:w-[90px] md:w-auto" aria-hidden="true">
-                    <div className="aspect-square w-full animate-pulse rounded-[15px] bg-muted md:aspect-[4/5] md:rounded-[20px]" />
-                    <div className="mx-auto mt-2 h-2 w-10 animate-pulse rounded-full bg-muted" />
-                  </div>
-                ))
-              : items.slice(0, 8).map((item, index) => (
-                  <Link key={`${item.title}-${item.link}`} to={item.link} className="group block w-[78px] shrink-0 select-none [-webkit-tap-highlight-color:transparent] sm:w-[90px] md:w-auto">
-                    <div className="relative aspect-square w-full overflow-hidden rounded-[15px] border border-border/60 bg-muted/40 md:aspect-[4/5] md:rounded-[20px] md:border-[#DED9CB]">
-                      <img src={optimizeImage(item.image, 360, 78)} alt={item.title} loading={index < 5 ? "eager" : "lazy"} decoding="async" fetchPriority={index < 2 ? "high" : "auto"} width={360} height={450} className="h-full w-full object-cover object-center transition-transform duration-500 md:group-hover:scale-[1.045]" />
-                      <div className="absolute inset-x-0 bottom-0 hidden h-2/5 bg-gradient-to-t from-black/45 to-transparent md:block" />
-                      <div className="absolute inset-x-0 bottom-0 hidden p-3 text-white md:block">
-                        <p className="truncate text-[11px] font-semibold">{item.title}</p>
-                        <p className="mt-0.5 truncate font-serif text-[6px] uppercase tracking-[0.12em] text-white/75">{item.subtitle}</p>
+        {loading ? (
+          <div className="grid min-h-[560px] grid-cols-2 gap-3 md:grid-cols-12 md:grid-rows-2">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className={`animate-pulse bg-[#E8E3D8] ${index === 0 ? "col-span-2 md:col-span-5 md:row-span-2" : "md:col-span-3"}`} />
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className="hidden h-[610px] grid-cols-12 grid-rows-2 gap-3 md:grid">
+              {display.map((item, index) => {
+                const placement = [
+                  "col-span-5 row-span-2",
+                  "col-span-4 row-span-1",
+                  "col-span-3 row-span-1",
+                  "col-span-3 row-span-1",
+                  "col-span-4 row-span-1",
+                ][index] || "col-span-3";
+                return (
+                  <Link key={item.link} to={item.link} className={`group relative overflow-hidden bg-[#E9E4D8] ${placement}`}>
+                    <img
+                      src={optimizeImage(item.image, index === 0 ? 1000 : 720, 80)}
+                      alt={item.title}
+                      loading={index < 2 ? "eager" : "lazy"}
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/[0.06] to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 lg:p-7">
+                      <div>
+                        <p className="text-[17px] font-medium text-white lg:text-[21px]">{item.title}</p>
+                        <p className="mt-1 text-[7px] tracking-[0.18em] text-white/65">{item.subtitle}</p>
                       </div>
-                    </div>
-                    <div className="mt-1.5 text-center md:hidden">
-                      <p className="truncate text-[8px] font-semibold text-foreground">{item.title}</p>
-                      <p className="mt-0.5 truncate font-serif text-[5px] uppercase tracking-[0.08em] text-muted-foreground">{item.subtitle}</p>
+                      <span className="flex h-9 w-9 items-center justify-center border border-white/35 text-white transition-colors group-hover:bg-white group-hover:text-[#173A2D]">
+                        <ArrowUpLeft className="h-4 w-4" strokeWidth={1.3} />
+                      </span>
                     </div>
                   </Link>
-                ))}
-          </div>
-        </div>
+                );
+              })}
+            </div>
+
+            <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:hidden">
+              {display.map((item, index) => (
+                <Link key={item.link} to={item.link} className="group relative h-[430px] w-[78vw] max-w-[330px] shrink-0 snap-start overflow-hidden bg-[#E9E4D8]">
+                  <img src={optimizeImage(item.image, 700, 80)} alt={item.title} loading={index < 2 ? "eager" : "lazy"} decoding="async" className="h-full w-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="text-[19px] font-medium text-white">{item.title}</p>
+                    <p className="mt-1 text-[7px] tracking-[0.16em] text-white/65">{item.subtitle}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
 };
 
 const EditorialSection = ({ banner }: { banner: EditorialBanner | null }) => {
-  const title = banner?.title_ar?.trim() || "الأناقة ليست ما ترتديه، بل ما يبقى في الذاكرة.";
-  const subtitle = banner?.subtitle_ar?.trim() || "مختارات منتقاة لمن يقدّر التفاصيل والجودة والتصميم الذي لا يحتاج إلى المبالغة.";
-  const ctaText = banner?.cta_text_ar?.trim() || "اكتشف المجموعة";
+  const title = banner?.title_ar?.trim() || "مساحة أقل ازدحامًا، واختيار أكثر وضوحًا.";
+  const subtitle = banner?.subtitle_ar?.trim() || "جنان تجمع لك القطع التي تستحق المشاهدة، ثم تترك لك مساحة كافية لتختار بهدوء.";
+  const ctaText = banner?.cta_text_ar?.trim() || "شاهد المجموعة";
   const ctaLink = banner?.cta_link?.trim() || "/products";
   const hasImage = Boolean(banner?.image_url?.trim());
 
-  if (hasImage) {
-    return (
-      <section className="bg-[#F6F3EA] py-6 md:py-14">
-        <div className="mx-auto max-w-[1500px] px-0 md:px-6 lg:px-8">
-          <div className="relative min-h-[360px] overflow-hidden md:grid md:min-h-[500px] md:grid-cols-[1.35fr_0.85fr] md:rounded-[28px] md:border md:border-[#DED9CB] md:bg-white md:shadow-[0_24px_70px_rgba(83,56,49,0.07)]">
-            <div className="absolute inset-0 md:relative md:inset-auto">
-              <img src={optimizeImage(banner!.image_url, 1400, 80)} alt="" loading="lazy" decoding="async" width={1400} height={900} className="h-full w-full object-cover" style={{ objectPosition: `${Number(banner?.image_position_x ?? 50)}% ${Number(banner?.image_position_y ?? 50)}%`, transform: `scale(${Number(banner?.image_zoom ?? 1)})` }} />
-              <div className="absolute inset-0 bg-black/35 md:bg-gradient-to-l md:from-black/10 md:via-transparent md:to-black/5" />
-            </div>
-            <div className="relative z-10 flex min-h-[360px] flex-col items-center justify-center px-5 py-12 text-center md:min-h-[500px] md:items-start md:px-12 md:text-right lg:px-16">
-              <div className="mb-4 flex items-center justify-center gap-2 md:justify-start">
-                <span className="h-px w-6 bg-white/55 md:bg-[#B89453]" />
-                <span className="font-serif text-[6px] uppercase tracking-[0.24em] text-white/85 md:text-[8px] md:text-[#9D7B40]">GENAN EDIT</span>
-              </div>
-              <h2 className="max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-white drop-shadow-sm md:text-[34px] md:leading-[1.65] md:text-[#173A2D] md:drop-shadow-none">{title}</h2>
-              <p className="mt-4 max-w-[450px] text-[8px] leading-6 text-white/85 md:text-[11px] md:leading-8 md:text-[#667066]">{subtitle}</p>
-              <Link to={ctaLink} className="mt-5 inline-flex items-center gap-1.5 border-b border-white/50 pb-1 text-[7px] font-semibold text-white md:mt-7 md:gap-2 md:border-[#B89453] md:text-[10px] md:text-[#173A2D]">{ctaText}<ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} /></Link>
-            </div>
+  return (
+    <section className="bg-[#173A2D] py-0" dir="rtl">
+      <div className="mx-auto grid min-h-[540px] max-w-[1680px] md:grid-cols-[1.08fr_0.92fr]">
+        <div className="relative min-h-[420px] overflow-hidden bg-[#263F34]">
+          {hasImage ? (
+            <img
+              src={optimizeImage(banner!.image_url, 1400, 82)}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{
+                objectPosition: `${Number(banner?.image_position_x ?? 50)}% ${Number(banner?.image_position_y ?? 50)}%`,
+                transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
+              }}
+            />
+          ) : (
+            <>
+              <div className="absolute left-[12%] top-[16%] h-[58%] w-[56%] border border-white/15" />
+              <div className="absolute bottom-[12%] right-[12%] h-[42%] w-[42%] bg-[#B89453]/35" />
+            </>
+          )}
+          <div className="absolute inset-0 bg-black/15" />
+        </div>
+
+        <div className="flex items-center px-6 py-14 sm:px-10 md:px-12 lg:px-16">
+          <div className="max-w-[560px]">
+            <span className="text-[8px] font-semibold tracking-[0.3em] text-[#D9BC7D]">THE GENAN EDIT</span>
+            <h2 className="mt-5 text-[30px] font-medium leading-[1.6] tracking-[-0.045em] text-white md:text-[44px]">
+              {title}
+            </h2>
+            <p className="mt-5 max-w-[450px] text-[11px] leading-8 text-white/62 md:text-[13px]">
+              {subtitle}
+            </p>
+            <Link to={ctaLink} className="mt-8 inline-flex h-12 items-center gap-3 border border-white/30 px-6 text-[10px] font-semibold text-white transition-colors hover:bg-white hover:text-[#173A2D]">
+              {ctaText}
+              <ArrowLeft className="h-4 w-4" strokeWidth={1.4} />
+            </Link>
           </div>
         </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="bg-background px-4 py-11 md:py-20">
-      <div className="relative z-10 mx-auto flex max-w-[850px] flex-col items-center justify-center px-4 text-center">
-        <div className="mx-auto mb-4 flex items-center justify-center gap-2"><span className="h-px w-6 bg-border" /><span className="font-serif text-[6px] uppercase tracking-[0.24em] text-[#9D7B40]">GENAN EDIT</span><span className="h-px w-6 bg-border" /></div>
-        <h2 className="mx-auto max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-foreground md:text-[36px] md:leading-[1.7]">{title}</h2>
-        <p className="mx-auto mt-4 max-w-[450px] text-[8px] leading-6 text-muted-foreground md:text-[10px] md:leading-7">{subtitle}</p>
-        <Link to={ctaLink} className="mx-auto mt-5 inline-flex items-center gap-1.5 border-b border-border pb-1 text-[7px] font-semibold text-[#173A2D] md:text-[8px]">{ctaText}<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
       </div>
     </section>
   );
@@ -165,9 +209,13 @@ const HomePage = () => {
   const showHomeSection = (section: string) => customerExperience?.homeSections[section] !== false;
 
   const { data: categories = [], isLoading: categoriesLoading } = useQuery({
-    queryKey: ["categories-all-active-v4"],
+    queryKey: ["categories-all-active-v5"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("categories").select("id,slug,name,name_ar,parent_id,image_url,sort_order").eq("is_active", true).order("sort_order", { ascending: true });
+      const { data, error } = await supabase
+        .from("categories")
+        .select("id,slug,name,name_ar,parent_id,image_url,sort_order")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
       if (error) throw error;
       return data || [];
     },
@@ -179,9 +227,14 @@ const HomePage = () => {
   });
 
   const { data: editorialBanner = null } = useQuery({
-    queryKey: ["home-editorial-banner-v1"],
+    queryKey: ["home-editorial-banner-v2"],
     queryFn: async () => {
-      const { data, error } = await (supabase as any).from("banners").select("image_url,title_ar,subtitle_ar,cta_text_ar,cta_link,image_zoom,image_position_x,image_position_y").eq("page_slug", "home-editorial").eq("is_active", true).maybeSingle();
+      const { data, error } = await (supabase as any)
+        .from("banners")
+        .select("image_url,title_ar,subtitle_ar,cta_text_ar,cta_link,image_zoom,image_position_x,image_position_y")
+        .eq("page_slug", "home-editorial")
+        .eq("is_active", true)
+        .maybeSingle();
       if (error) throw error;
       return (data || null) as EditorialBanner | null;
     },
@@ -192,31 +245,42 @@ const HomePage = () => {
     refetchOnReconnect: false,
   });
 
-  const featuredCategories = useMemo<FeaturedCategoryItem[]>(() => categories
-    .filter((category: any) => !category.parent_id && !isLingerieCategory(category))
-    .map((category: any) => ({
-      title: category.name_ar || category.name || category.slug,
-      subtitle: category.name || category.name_ar || category.slug,
-      image: category.image_url || "/placeholder.svg",
-      link: `/categories?parent=${category.slug}`,
-    })), [categories]);
+  const featuredCategories = useMemo<FeaturedCategoryItem[]>(
+    () =>
+      categories
+        .filter((category: any) => !category.parent_id && !isLingerieCategory(category))
+        .map((category: any) => ({
+          title: category.name_ar || category.name || category.slug,
+          subtitle: category.name || category.name_ar || category.slug,
+          image: category.image_url || "/placeholder.svg",
+          link: `/categories?parent=${category.slug}`,
+        })),
+    [categories],
+  );
 
-  const brandsViewport = useNearViewport<HTMLDivElement>("120px");
-  const imageBanner = showHomeSection("services") ? <div className="bg-background"><GenanServices /></div> : null;
+  const brandsViewport = useNearViewport<HTMLDivElement>("160px");
+  const imageBanner = showHomeSection("services") ? <GenanServices /> : null;
   const textBanner = showHomeSection("editorial") ? <EditorialSection banner={editorialBanner} /> : null;
 
   return (
-    <div className="relative min-h-screen bg-background" dir="rtl">
-      <Navbar /><CartDrawer />
-      <main className="overflow-hidden bg-background">
+    <div className="relative min-h-screen bg-[#F8F6F0]" dir="rtl">
+      <Navbar />
+      <CartDrawer />
+
+      <main className="overflow-hidden bg-[#F8F6F0]">
         {showHomeSection("hero") && <HeroSlider />}
-        <DesktopDiscovery />
-        {showHomeSection("categories") && <CategoryCarousel items={featuredCategories} loading={categoriesLoading} />}
+        <EditorialNav />
+        {showHomeSection("categories") && <CategoryStories items={featuredCategories} loading={categoriesLoading} />}
+
         {showHomeSection("brands") && (
-          <div ref={brandsViewport.ref} className="bg-background" style={{ minHeight: 92 }}><BrandsStrip enabled={brandsViewport.isNearViewport} /></div>
+          <div ref={brandsViewport.ref} className="bg-[#F8F6F0]">
+            <BrandsStrip enabled={brandsViewport.isNearViewport} />
+          </div>
         )}
+
         <HomeManagedSections betweenSections={imageBanner} afterSections={textBanner} />
       </main>
+
       <Footer />
     </div>
   );
