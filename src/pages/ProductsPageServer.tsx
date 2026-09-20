@@ -359,7 +359,7 @@ const ProductsPageServer = () => {
 
         <section className="sticky top-[110px] z-30 border-y border-[#173A2D]/12 bg-[#F3F0E8]/95 px-5 py-3 backdrop-blur-xl md:top-[126px] md:px-[6vw]">
           <div className="mx-auto flex h-12 max-w-[1760px] overflow-hidden border border-[#173A2D]/15 bg-[#F8F6F0]">
-            <button onClick={openFilters} className="flex flex-1 items-center justify-center gap-2 border-l border-[#EFE7E3] text-[11px]">
+            <button onClick={openFilters} className="flex flex-1 items-center justify-center gap-2 border-l border-[#E5DED0] text-[11px]">
               <SlidersHorizontal className="h-4 w-4" /> فلترة
               {activeFilterCount > 0 && <span className="rounded-full bg-[#173A2D] px-1.5 py-0.5 text-[8px] text-white">{activeFilterCount}</span>}
             </button>
@@ -368,7 +368,7 @@ const ProductsPageServer = () => {
             </button>
             <div className="flex w-20 flex-col items-center justify-center bg-[#EAE5D7]">
               {loadingProducts && products.length === 0 ? <span className="h-3 w-6 animate-pulse rounded bg-[#EDE4E0]" /> : <span className="text-xs font-semibold text-[#173A2D]">{totalCount}</span>}
-              <span className="text-[8px] text-[#9D918B]">منتج</span>
+              <span className="text-[8px] text-[#7B857D]">منتج</span>
             </div>
           </div>
         </section>
