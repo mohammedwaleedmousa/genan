@@ -186,20 +186,20 @@ const PolicyPage = () => {
       <main className="pb-16 pt-5 md:pb-20 md:pt-8">
         <div className="mx-auto w-full max-w-[880px] px-3 md:px-6">
           <header className="overflow-hidden rounded-[20px] border border-[#E9DFDB] bg-[#FFF7F5] px-4 py-6 md:px-7 md:py-9">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#C66C72] shadow-[0_8px_24px_rgba(80,45,40,0.05)]">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#9D7B40] shadow-[0_8px_24px_rgba(80,45,40,0.05)]">
               <Icon className="h-5 w-5" strokeWidth={1.4} />
             </span>
-            <p className="mt-5 font-serif text-[7px] tracking-[0.24em] text-[#B86168]">{policy.eyebrow}</p>
+            <p className="mt-5 font-serif text-[7px] tracking-[0.24em] text-[#9D7B40]">{policy.eyebrow}</p>
             <h1 className="mt-1.5 text-[23px] font-semibold tracking-[-0.035em] text-[#403130] md:text-[34px]">{policy.title}</h1>
             <p className="mt-2 max-w-[620px] text-[9px] leading-6 text-[#8F7E79] md:text-[11px] md:leading-7">{policy.summary}</p>
-            <p className="mt-4 text-[7px] text-[#AA928C]">آخر تحديث: 3 سبتمبر 2026</p>
+            <p className="mt-4 text-[7px] text-[#778179]">آخر تحديث: 3 سبتمبر 2026</p>
           </header>
 
           <div className="mt-4 overflow-hidden rounded-[18px] border border-[#EAE0DC] bg-white md:mt-5">
             {policy.sections.map((section, index) => (
               <section key={section.title} className={`px-4 py-5 md:px-7 md:py-6 ${index !== policy.sections.length - 1 ? "border-b border-[#F0E8E5]" : ""}`}>
                 <div className="flex items-center gap-2">
-                  <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
+                  <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
                   <h2 className="text-[12px] font-semibold text-[#493B38] md:text-[14px]">{section.title}</h2>
                 </div>
 
@@ -209,7 +209,7 @@ const PolicyPage = () => {
                   <ul className="mt-3 space-y-2.5">
                     {section.items.map((item) => (
                       <li key={item} className="flex items-start gap-2.5 text-[9px] leading-7 text-[#81736E] md:text-[10px]">
-                        <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4777D]" />
+                        <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#173A2D]" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -224,7 +224,7 @@ const PolicyPage = () => {
               <p className="text-[10px] font-semibold text-[#493B38]">هل تحتاج توضيحًا؟</p>
               <p className="mt-1 text-[7px] leading-5 text-[#94857F]">تواصل معنا واذكر رقم الطلب إن كان استفسارك متعلقًا بطلب قائم.</p>
             </div>
-            <Link to="/store-info#contact" className="inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-[10px] bg-[#D4777D] px-4 text-[8px] font-semibold text-white">
+            <Link to="/store-info#contact" className="inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-[10px] bg-[#173A2D] px-4 text-[8px] font-semibold text-white">
               تواصل معنا
               <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
             </Link>
