@@ -1,297 +1,119 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { useQueries, useQuery } from "@tanstack/react-query";
-import { ChevronDown, ChevronLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, ArrowUpLeft } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
-import ProductCard from "@/components/ProductCard";
-import ProductListFilters, { type ProductListFilterValues } from "@/components/ProductListFilters";
-
 import { supabase } from "@/integrations/supabase/client";
-import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
-import { useSiteContent, getSiteText } from "@/hooks/useSiteContent";
-import { createImageSrcSet, handleImageError, optimizeImage } from "@/lib/imageUrl";
+import { optimizeImage } from "@/lib/imageUrl";
 
-interface Category {
+type Category = {
   id: string;
-  slug: string;
   name: string;
   name_ar: string;
-  parent_id: string | null;
+  slug: string;
   image_url: string | null;
-  sort_order: number;
-}
-
-const PAGE_SIZE = 24;
-
-const FALLBACK: Record<string, string> = {
-  women: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=640&q=65",
-  men: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=640&q=65",
-  kids: "https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=640&q=65",
-  bags: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=640&q=65",
-  shoes: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=640&q=65",
-  beauty: "https://images.unsplash.com/photo-1522335789203-aaa2a87b6ed8?w=640&q=65",
-};
-
-const WOMEN_CATEGORY_SLUGS = [
-  "women-clothes",
-  "dresses",
-  "womens-sets",
-  "high",
-  "flat",
-  "other-watches",
-  "handbags",
-  "shoulderhandbag",
-  "shulderhandbag",
-  "necklaces",
-  "earring",
-  "bracelets",
-  "glasses",
-  "bucket",
-  "women-cloth",
-] as const;
-
-const MEN_CATEGORY_SLUGS = [
-  "mens-shoes",
-  "mens-pants",
-  "mens-watches",
-  "men-handbags",
-  "men-sandals",
-  "men-sports",
-] as const;
-
-const normalizeCategorySlug = (value: string) => {
-  const normalized = value.toLowerCase().trim().replace(/^(mens?|womens?|kids?)-/, "");
-  if (normalized === "shose") return "shoes";
-  if (normalized === "watchs") return "watches";
-  return normalized;
-};
-
-const normalizeCategoryName = (value: string) =>
-  value
-    .trim()
-    .replace(/[\u064B-\u065F\u0670]/g, "")
-    .replace(/[أإآ]/g, "ا")
-    .replace(/ة/g, "ه")
-    .replace(/رجاليه|رجالي|نسائيه|نسائي|اطفال|طفل|طفله/g, "")
-    .replace(/^ال/, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-const isLingerieCategory = (category: Pick<Category, "slug" | "name" | "name_ar">) => {
-  const value = `${category.slug || ""} ${category.name || ""} ${category.name_ar || ""}`
-    .toLowerCase()
-    .replace(/[أإآ]/g, "ا")
-    .replace(/\s+/g, " ");
-  return /lingerie|لانجري|لانجيري|لانجيرى|ملابس داخليه|ملابس داخلية/.test(value);
-};
-
-const inferCategoryAudience = (category: Category | null) => {
-  if (!category) return "";
-  const slug = category.slug.toLowerCase();
-  const name = category.name_ar.replace(/[أإآ]/g, "ا").replace(/ة/g, "ه");
-  if (/^(mens?|men)-/.test(slug) || name.includes("رجالي") || name.includes("رجال")) return "men";
-  if (/^(womens?|women)-/.test(slug) || name.includes("نسائي") || name.includes("نساء")) return "women";
-  if (/^(kids?|children)-/.test(slug) || name.includes("اطفال") || name.includes("طفل")) return "kids";
-  return "";
+  description_ar: string | null;
+  parent_id: string | null;
 };
 
 const CategoriesPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { data: content } = useSiteContent("categories_page_");
-  const [brandOpen, setBrandOpen] = useState(false);
-  const [loadedPage, setLoadedPage] = useState(1);
-  const previousScopeRef = useRef("");
-  const scrollPositionsRef = useRef<Record<string, number>>({});
-
-  const parentSlug = searchParams.get("parent") || "";
-  const subSlug = searchParams.get("sub") || "";
-  const brandFilter = searchParams.get("brand") || "all";
-  const productQuery = searchParams.get("q") || "";
-  const productSort = (searchParams.get("sort") || "new") as ProductListFilterValues["sort"];
-  const inStockOnly = searchParams.get("stock") === "1";
-  const minPrice = searchParams.get("min") || "";
-  const maxPrice = searchParams.get("max") || "";
-
-  const rememberScroll = (key: string) => {
-    scrollPositionsRef.current[key] = window.scrollY;
-  };
-
-  const restoreScroll = (key: string) => {
-    const top = scrollPositionsRef.current[key] ?? 0;
-    requestAnimationFrame(() => {
-      window.scrollTo({ top, left: 0, behavior: "auto" });
-    });
-  };
-
-  const { data: categories = [], isLoading: categoriesLoading } = useQuery({
-    queryKey: ["categories-all-active-v4"],
+  const { data: categories = [], isLoading } = useQuery({
+    queryKey: ["genan-categories-page-v1"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("categories").select("id,slug,name,name_ar,parent_id,image_url,sort_order").eq("is_active", true).order("sort_order", { ascending: true });
+      const { data, error } = await supabase
+        .from("categories")
+        .select("id,name,name_ar,slug,image_url,description_ar,parent_id")
+        .eq("is_active", true)
+        .is("parent_id", null)
+        .order("sort_order", { ascending: true });
       if (error) throw error;
       return (data || []) as Category[];
     },
     staleTime: 10 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
   });
-
-  const parents = useMemo(() => categories.filter((category) => !category.parent_id && !isLingerieCategory(category)), [categories]);
-  const selectedParent = useMemo(() => parents.find((parent) => parent.slug === parentSlug) || null, [parents, parentSlug]);
-
-  const subCategories = useMemo(() => {
-    if (!selectedParent) return [];
-    const audienceSlugs: readonly string[] | null = selectedParent.slug === "women" ? WOMEN_CATEGORY_SLUGS : selectedParent.slug === "men" ? MEN_CATEGORY_SLUGS : null;
-    if (audienceSlugs) {
-      const order = new Map<string, number>(audienceSlugs.map((slug, index) => [slug, index]));
-      const matches = categories.filter((category) => order.has(category.slug));
-      if (selectedParent.slug === "women") {
-        categories.forEach((category) => {
-          if (isLingerieCategory(category) && !matches.some((item) => item.id === category.id)) matches.push(category);
-        });
-      }
-      return matches.sort((a, b) => {
-        const aOrder = order.get(a.slug) ?? (isLingerieCategory(a) ? audienceSlugs.length : 999);
-        const bOrder = order.get(b.slug) ?? (isLingerieCategory(b) ? audienceSlugs.length : 999);
-        return aOrder - bOrder;
-      });
-    }
-    return categories.filter((category) => category.parent_id === selectedParent.id);
-  }, [categories, selectedParent]);
-
-  const selectedSub = useMemo(() => subCategories.find((sub) => sub.slug === subSlug) || null, [subCategories, subSlug]);
-  const audienceContext = useMemo(() => {
-    if (selectedParent?.slug === "men") return "men";
-    if (selectedParent?.slug === "women") return "women";
-    if (["babes", "kids"].includes(selectedParent?.slug || "")) return "kids";
-    return inferCategoryAudience(selectedSub || selectedParent);
-  }, [selectedParent, selectedSub]);
-  const audienceValues = useMemo(() => {
-    if (audienceContext === "men") return ["men", "unisex"];
-    if (audienceContext === "women") return ["women", "unisex"];
-    if (audienceContext === "kids") return ["kids"];
-    return [] as string[];
-  }, [audienceContext]);
-
-  const activeProductCategory = selectedSub || (selectedParent && subCategories.length === 0 ? selectedParent : null);
-  const scopedCategoryIds = useMemo(() => {
-    if (!activeProductCategory) return [];
-    const targetSlug = normalizeCategorySlug(activeProductCategory.slug);
-    const targetName = normalizeCategoryName(activeProductCategory.name_ar);
-    const ids = new Set<string>();
-    const pendingParentIds: string[] = [];
-    const categoryById = new Map(categories.map((category) => [category.id, category]));
-    const audienceRootIds = new Set(categories.filter((category) => !category.parent_id && ["men", "women", "babes", "kids"].includes(category.slug)).map((category) => category.id));
-    const isInsideAudienceTree = (category: Category) => {
-      let parentId = category.parent_id;
-      while (parentId) {
-        if (audienceRootIds.has(parentId)) return true;
-        parentId = categoryById.get(parentId)?.parent_id || null;
-      }
-      return false;
-    };
-    categories.forEach((category) => {
-      const sameCategory = category.id === activeProductCategory.id;
-      const sameSlug = Boolean(targetSlug) && normalizeCategorySlug(category.slug) === targetSlug;
-      const sameName = Boolean(targetName) && normalizeCategoryName(category.name_ar) === targetName;
-      const semanticMatch = (sameSlug || sameName) && !isInsideAudienceTree(category);
-      if (!sameCategory && !semanticMatch) return;
-      ids.add(category.id);
-      pendingParentIds.push(category.id);
-    });
-    while (pendingParentIds.length > 0) {
-      const parentId = pendingParentIds.shift();
-      if (!parentId) continue;
-      categories.forEach((category) => {
-        if (category.parent_id !== parentId || ids.has(category.id)) return;
-        ids.add(category.id);
-        pendingParentIds.push(category.id);
-      });
-    }
-    return Array.from(ids);
-  }, [activeProductCategory, categories]);
-
-  const audienceRootOnly = Boolean(audienceContext && selectedParent && !selectedSub && ["men", "women"].includes(selectedParent.slug));
-  const hasProductScope = Boolean(activeProductCategory && scopedCategoryIds.length > 0);
-
-  useEffect(() => {
-    if (!subSlug || selectedSub || categoriesLoading) return;
-    setSearchParams((current) => {
-      const next = new URLSearchParams(current);
-      next.delete("sub"); next.delete("brand"); next.delete("page");
-      return next;
-    }, { replace: true });
-  }, [subSlug, selectedSub, categoriesLoading, setSearchParams]);
-
-  const productScopeKey = useMemo(() => [audienceContext, audienceRootOnly ? "audience-root" : scopedCategoryIds.join(","), brandFilter, productQuery, productSort, inStockOnly ? "1" : "0", minPrice, maxPrice].join("|"), [audienceContext, audienceRootOnly, scopedCategoryIds, brandFilter, productQuery, productSort, inStockOnly, minPrice, maxPrice]);
-  useEffect(() => { if (previousScopeRef.current && previousScopeRef.current !== productScopeKey) setLoadedPage(1); previousScopeRef.current = productScopeKey; }, [productScopeKey]);
-
-  const { data: totalProductCount = 0 } = useQuery({
-    queryKey: ["category-products-count", productScopeKey], enabled: hasProductScope,
-    queryFn: async () => {
-      let query = (supabase as any).from("products").select("id", { count: "exact", head: true }).eq("is_active", true);
-      if (!audienceRootOnly) query = query.in("category_id", scopedCategoryIds);
-      if (audienceValues.length > 0) query = query.in("audience", audienceValues);
-      if (brandFilter !== "all") query = query.eq("brand", brandFilter);
-      if (productQuery.trim()) { const term = productQuery.trim(); query = query.or(`name_ar.ilike.%${term}%,name.ilike.%${term}%,description_ar.ilike.%${term}%`); }
-      if (inStockOnly) query = query.eq("in_stock", true);
-      if (Number(minPrice) > 0) query = query.gte("price", Number(minPrice));
-      if (Number(maxPrice) > 0) query = query.lte("price", Number(maxPrice));
-      const { count, error } = await query; if (error) throw error; return count || 0;
-    }, staleTime: 60 * 1000, gcTime: 10 * 60 * 1000, refetchOnWindowFocus: false,
-  });
-
-  const productQueries = useQueries({ queries: Array.from({ length: loadedPage }, (_, pageIndex) => ({
-    queryKey: ["categories-products", productScopeKey, pageIndex + 1], enabled: hasProductScope,
-    queryFn: async () => {
-      const from = pageIndex * PAGE_SIZE;
-      let query = (supabase as any).from("products").select(PRODUCT_CARD_SELECT).eq("is_active", true);
-      if (!audienceRootOnly) query = query.in("category_id", scopedCategoryIds);
-      if (audienceValues.length > 0) query = query.in("audience", audienceValues);
-      if (brandFilter !== "all") query = query.eq("brand", brandFilter);
-      if (productQuery.trim()) { const term = productQuery.trim(); query = query.or(`name_ar.ilike.%${term}%,name.ilike.%${term}%,description_ar.ilike.%${term}%`); }
-      if (inStockOnly) query = query.eq("in_stock", true);
-      if (Number(minPrice) > 0) query = query.gte("price", Number(minPrice));
-      if (Number(maxPrice) > 0) query = query.lte("price", Number(maxPrice));
-      if (productSort === "price-asc") query = query.order("price", { ascending: true }); else if (productSort === "price-desc") query = query.order("price", { ascending: false }); else if (productSort === "name") query = query.order("name_ar", { ascending: true }); else query = query.order("created_at", { ascending: false });
-      const { data, error } = await query.range(from, from + PAGE_SIZE - 1); if (error) throw error; return (data || []).map(mapProductCard);
-    }, staleTime: 5 * 60 * 1000, gcTime: 20 * 60 * 1000, refetchOnWindowFocus: false, refetchOnReconnect: false,
-  })) });
-
-  const products = useMemo(() => { const seen = new Set<string>(); return productQueries.flatMap((query) => query.data || []).filter((product) => { if (seen.has(product.id)) return false; seen.add(product.id); return true; }); }, [productQueries]);
-  const productsLoading = productQueries.some((query) => query.isLoading || query.isFetching);
-  const initialProductsLoading = productsLoading && products.length === 0;
-  const hasMore = products.length < totalProductCount;
-  const brandScopeKey = useMemo(() => [audienceContext, audienceRootOnly ? "audience-root" : scopedCategoryIds.join(","), productQuery, inStockOnly ? "1" : "0", minPrice, maxPrice].join("|"), [audienceContext, audienceRootOnly, scopedCategoryIds, productQuery, inStockOnly, minPrice, maxPrice]);
-
-  const { data: availableBrands = [] } = useQuery({ queryKey: ["category-available-brands", brandScopeKey], enabled: hasProductScope,
-    queryFn: async () => { const brands = new Set<string>(); const batchSize = 1000; for (let page = 0; page < 20; page += 1) { let query = (supabase as any).from("products").select("brand").eq("is_active", true); if (!audienceRootOnly) query = query.in("category_id", scopedCategoryIds); if (audienceValues.length > 0) query = query.in("audience", audienceValues); if (productQuery.trim()) { const term = productQuery.trim(); query = query.or(`name_ar.ilike.%${term}%,name.ilike.%${term}%,description_ar.ilike.%${term}%`); } if (inStockOnly) query = query.eq("in_stock", true); if (Number(minPrice) > 0) query = query.gte("price", Number(minPrice)); if (Number(maxPrice) > 0) query = query.lte("price", Number(maxPrice)); const from = page * batchSize; const { data, error } = await query.range(from, from + batchSize - 1); if (error) throw error; (data || []).forEach((row: any) => { const brand = String(row.brand || "").trim(); if (brand) brands.add(brand); }); if ((data || []).length < batchSize) break; } return Array.from(brands).sort((a, b) => a.localeCompare(b, "ar")); }, staleTime: 5 * 60 * 1000, gcTime: 20 * 60 * 1000, refetchOnWindowFocus: false,
-  });
-
-  useEffect(() => { setBrandOpen(false); }, [parentSlug, subSlug]);
-  const setStepParams = (nextValues: Record<string, string | null>, options?: { restoreKey?: string; keepScroll?: boolean }) => {
-    const params = new URLSearchParams(searchParams);
-    Object.entries(nextValues).forEach(([key, value]) => { if (!value) params.delete(key); else params.set(key, value); });
-    params.delete("page");
-    setLoadedPage(1);
-    setSearchParams(params, { replace: true });
-    if (options?.restoreKey) restoreScroll(options.restoreKey);
-    else if (!options?.keepScroll) requestAnimationFrame(() => { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); });
-  };
-  const updateProductFilters = (values: ProductListFilterValues) => { setStepParams({ brand: values.brand === "all" ? null : values.brand, q: values.query || null, sort: values.sort === "new" ? null : values.sort, stock: values.inStockOnly ? "1" : null, min: values.minPrice || null, max: values.maxPrice || null }); };
-  const handleLoadMore = () => { if (productsLoading || !hasMore) return; setLoadedPage((current) => current + 1); };
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-[#302725]" dir="rtl"><Navbar /><CartDrawer /><main className="pb-20 md:pt-24">
-      {!selectedParent && <section className="border-b border-[#EAEAEA] bg-[#F6F3EA]"><div className="mx-auto w-full max-w-[1500px] px-4 pb-5 pt-6 md:px-6 md:pb-8 md:pt-9"><div><div className="mb-2 flex items-center gap-2"><span className="h-[2px] w-4 rounded-full bg-[#0E0E0E]" /><span className="font-serif text-[7px] tracking-[0.24em] text-[#D8C29A]">{getSiteText(content, "categories_page_eyebrow", "GENAN")}</span></div><h1 className="text-[26px] font-semibold leading-tight tracking-[-0.04em] text-[#0E0E0E] md:text-[38px]">{getSiteText(content, "categories_page_title", "تسوّقي حسب القسم")}</h1><p className="mt-1.5 max-w-[280px] text-[9px] leading-5 text-[#899289] md:max-w-md md:text-[11px]">{getSiteText(content, "categories_page_subtitle", "اكتشفي ما يناسبك من مجموعات جنان المختارة بعناية")}</p></div></div></section>}
-      {selectedParent && <section className="border-b border-[#EAEAEA] bg-[#FFFFFF]"><div className="mx-auto flex h-[46px] w-full max-w-[1500px] items-center justify-between gap-3 px-3 md:h-[50px] md:px-6"><div className="flex min-w-0 items-center gap-1.5 overflow-hidden text-[9px] text-[#8A938B] md:text-[10px]"><button type="button" onClick={() => setStepParams({ parent: null, sub: null, brand: null }, { restoreKey: "root" })} className="shrink-0 transition-colors hover:text-[#D8C29A]">الأقسام</button><ChevronLeft className="h-3 w-3 shrink-0 stroke-[1.4] text-[#B9B2A4]" />{selectedSub ? <><button type="button" onClick={() => setStepParams({ sub: null, brand: null }, { restoreKey: `parent:${selectedParent.slug}` })} className="max-w-[100px] truncate text-[#756763] transition-colors hover:text-[#D8C29A] md:max-w-[180px]">{selectedParent.name_ar}</button><ChevronLeft className="h-3 w-3 shrink-0 stroke-[1.4] text-[#B9B2A4]" /><span className="max-w-[110px] truncate font-semibold text-[#263B31] md:max-w-[200px]">{selectedSub.name_ar}</span></> : <span className="max-w-[150px] truncate font-semibold text-[#263B31]">{selectedParent.name_ar}</span>}</div>{!!activeProductCategory && availableBrands.length > 0 && <div className="relative shrink-0">{brandOpen && <div className="absolute left-0 top-10 z-50 w-48 overflow-hidden rounded-none border border-[#EAEAEA] bg-white shadow-[0_12px_30px_rgba(60,40,35,.09)]"><div className="max-h-56 overflow-y-auto p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"><button type="button" onClick={() => { setStepParams({ brand: null }); setBrandOpen(false); }} className={`w-full rounded-[10px] px-3 py-2 text-right text-[9px] ${brandFilter === "all" ? "bg-[#F5F5F5] font-semibold text-[#D8C29A]" : "text-[#4C5E54]"}`}>كل الماركات</button>{availableBrands.map((brand) => <button key={brand} type="button" onClick={() => { setStepParams({ brand }); setBrandOpen(false); }} className={`w-full rounded-[10px] px-3 py-2 text-right text-[9px] ${brandFilter === brand ? "bg-[#F5F5F5] font-semibold text-[#D8C29A]" : "text-[#4C5E54]"}`}>{brand}</button>)}</div></div>}</div>}</div></section>}
-      {!selectedParent && <section className="mx-auto w-full max-w-[1500px] px-2 pb-8 pt-3 md:px-6 md:pb-12 md:pt-6">{categoriesLoading ? <div className="grid grid-cols-2 gap-px bg-[#EAEAEA] md:grid-cols-3 md:gap-px">{Array.from({ length: 8 }).map((_, index) => <div key={index} className="aspect-[4/5] animate-pulse rounded-none bg-[#EEEAE1] md:rounded-none" />)}</div> : <div className="grid grid-cols-2 gap-px bg-[#EAEAEA] md:grid-cols-3 md:gap-px">{parents.map((category, index) => <Link key={category.id} to={`/categories?parent=${category.slug}`} onClick={() => rememberScroll("root")} className="group relative aspect-[4/5] overflow-hidden rounded-none bg-[#F4F1EF] md:rounded-none"><img src={optimizeImage(category.image_url || FALLBACK[category.slug] || FALLBACK.women, 960, 78)} srcSet={createImageSrcSet(category.image_url || FALLBACK[category.slug] || FALLBACK.women, [180, 360, 720], 78)} sizes="(max-width: 767px) 25vw, 33vw" alt={category.name_ar} loading={index < 4 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" width={960} height={1200} onError={handleImageError} className="h-full w-full object-cover md:transition-transform md:duration-300 md:group-hover:scale-[1.02]" /><div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" /><div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-0.5 p-1.5 md:gap-2 md:p-4"><div className="min-w-0">{category.name && <p className="mb-0.5 truncate text-[4px] tracking-[0.04em] text-white/65 md:text-[8px] md:tracking-[0.11em]">{category.name}</p>}<h2 className="truncate text-[10px] font-semibold text-white sm:text-[11px] md:text-[22px]">{category.name_ar}</h2></div><span className="hidden h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-[#D8C29A] sm:flex md:h-8 md:w-8"><ChevronLeft className="h-2.5 w-2.5 stroke-[1.7] md:h-3.5 md:w-3.5" /></span></div></Link>)}</div>}</section>}
-      {selectedParent && !selectedSub && subCategories.length > 0 && <><section className="mx-auto w-full max-w-[1500px] px-4 pb-3 pt-5 md:px-6 md:pb-5 md:pt-7"><div className="flex items-end justify-between"><div><div className="mb-1.5 flex items-center gap-2"><span className="h-[2px] w-4 rounded-full bg-[#0E0E0E]" /><span className="font-serif text-[6px] tracking-[0.22em] text-[#D8C29A]">GENAN</span></div><h1 className="text-[22px] font-semibold tracking-[-0.035em] text-[#0E0E0E] md:text-[30px]">{selectedParent.name_ar}</h1><p className="mt-1 text-[8px] text-[#899289] md:text-[10px]">اختاري المجموعة التي تريدين استكشافها</p></div><span className="text-[8px] font-medium text-[#D8C29A]">{subCategories.length} أقسام</span></div></section><section className="mx-auto w-full max-w-[1500px] px-2.5 pb-9 md:px-6 md:pb-12"><div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 md:gap-5">{subCategories.map((category, index) => <Link key={category.id} to={`/categories?parent=${selectedParent.slug}&sub=${category.slug}`} onClick={() => rememberScroll(`parent:${selectedParent.slug}`)} className="group overflow-hidden rounded-none border border-[#E5DED0] bg-white"><div className="aspect-square overflow-hidden bg-[#F4F1EF]"><img src={optimizeImage(category.image_url || FALLBACK[category.slug] || FALLBACK.women, 640, 78)} srcSet={createImageSrcSet(category.image_url || FALLBACK[category.slug] || FALLBACK.women, [240, 400, 640], 78)} sizes="(max-width: 639px) 50vw, (max-width: 767px) 33vw, 25vw" alt={category.name_ar} loading={index < 2 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" width={640} height={640} onError={handleImageError} className="h-full w-full object-cover md:transition-transform md:duration-300 md:group-hover:scale-[1.02]" /></div><div className="flex min-h-[52px] items-center justify-between gap-2 px-3 py-2.5"><div className="min-w-0"><h2 className="truncate text-[11px] font-semibold text-[#263B31] md:text-[13px]">{category.name_ar}</h2>{category.name && <p className="mt-0.5 truncate text-[7px] text-[#8A938B] md:text-[8px]">{category.name}</p>}</div><ChevronLeft className="h-3.5 w-3.5 shrink-0 stroke-[1.5] text-[#D8C29A]" /></div></Link>)}</div></section></>}
-      {!!activeProductCategory && <section className="mx-auto w-full max-w-[1500px] pb-9"><div className="px-3 pb-3 pt-5 md:px-6 md:pb-5 md:pt-7"><div className="flex items-end justify-between"><div><div className="mb-1 flex items-center gap-2"><span className="h-[2px] w-4 rounded-full bg-[#0E0E0E]" /><span className="font-serif text-[6px] tracking-[0.21em] text-[#D8C29A]">GENAN EDIT</span></div><h1 className="text-[20px] font-semibold tracking-[-0.03em] text-[#0E0E0E] md:text-[28px]">{activeProductCategory.name_ar}</h1></div><div className="text-left"><span className="block text-[12px] font-semibold leading-none text-[#D8C29A]">{totalProductCount}</span><span className="mt-1 block text-[6px] text-[#929A92]">منتج</span></div></div></div><div className="px-3 md:px-6"><ProductListFilters values={{ query: productQuery, brand: brandFilter, sort: productSort, inStockOnly, minPrice, maxPrice }} brands={availableBrands} resultCount={totalProductCount} onChange={updateProductFilters} /></div><div className="px-2.5 pt-4 md:px-6 md:pt-6">{initialProductsLoading ? <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-5">{Array.from({ length: 10 }).map((_, index) => <div key={index}><div className="aspect-[4/5] animate-pulse rounded-none bg-[#EEEAE1]" /><div className="mt-2.5 h-2.5 w-[70%] animate-pulse rounded-full bg-[#EFEFEF]" /><div className="mt-2 h-2.5 w-[36%] animate-pulse rounded-full bg-[#EFEFEF]" /></div>)}</div> : products.length === 0 ? <div className="flex min-h-[42vh] flex-col items-center justify-center px-5 text-center"><div className="flex h-[62px] w-[62px] items-center justify-center rounded-full bg-[#F5F5F5]"><span className="text-[20px] font-light text-[#D8C29A]">G</span></div><h2 className="mt-4 text-[14px] font-semibold text-[#263B31]">لا توجد منتجات حالياً</h2><p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#899289]">جرّبي تغيير الفلاتر أو اختيار ماركة أخرى.</p></div> : <><div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 sm:gap-y-6 md:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">{products.map((product, index) => <div key={product.id} className="min-w-0"><ProductCard product={product} index={index} /></div>)}</div>{hasMore && <div className="flex flex-col items-center pb-2 pt-10 md:pt-12"><button type="button" onClick={handleLoadMore} disabled={productsLoading} className="flex h-[43px] min-w-[160px] items-center justify-center border border-[#0E0E0E] bg-transparent px-6 text-[9px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#0E0E0E] hover:text-white disabled:opacity-50">{productsLoading ? "جاري التحميل..." : "عرض المزيد"}</button><span className="mt-2 text-[7px] text-[#929A92]">{products.length} / {totalProductCount}</span></div>}</>}</div></section>}
-    </main><Footer /></div>
+    <div dir="rtl" className="min-h-screen bg-white text-[#0E0E0E]">
+      <Navbar />
+      <CartDrawer />
+
+      <main>
+        <section className="border-b border-[#EAEAEA] px-5 py-14 sm:px-8 md:px-[6vw] md:py-20">
+          <div className="mx-auto grid max-w-[1760px] gap-8 md:grid-cols-[1.2fr_.8fr] md:items-end">
+            <div>
+              <div className="mb-4 flex items-center gap-3">
+                <span className="h-px w-12 bg-[#D8C29A]" />
+                <span className="text-[8px] font-semibold tracking-[.34em] text-[#9A825B]">GENAN / CATEGORIES</span>
+              </div>
+              <h1 className="max-w-[800px] text-[40px] font-medium leading-[1.25] tracking-[-.055em] sm:text-[52px] md:text-[70px]">
+                أقسام واضحة، بدون ازدحام.
+              </h1>
+            </div>
+            <p className="max-w-[460px] text-[11px] leading-8 text-[#707070] md:text-[13px]">
+              كل قسم يأخذ مساحته الخاصة، مع صورة واضحة ومسار مباشر للمنتجات الموجودة داخله.
+            </p>
+          </div>
+        </section>
+
+        <section className="px-4 py-10 sm:px-6 md:px-[5vw] md:py-16">
+          <div className="mx-auto max-w-[1760px]">
+            {isLoading ? (
+              <div className="grid gap-3 md:grid-cols-2">
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <div key={index} className="h-[430px] animate-pulse bg-[#F3F3F3]" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid gap-px bg-[#EAEAEA] md:grid-cols-2">
+                {categories.map((category, index) => (
+                  <Link
+                    key={category.id}
+                    to={`/products?category=${category.slug}`}
+                    className="group relative min-h-[430px] overflow-hidden bg-[#F7F7F7] md:min-h-[560px]"
+                  >
+                    {category.image_url && (
+                      <img
+                        src={optimizeImage(category.image_url, 1100, 84)}
+                        alt={category.name_ar}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/[0.06] to-transparent" />
+                    <span className="absolute left-5 top-5 text-[8px] font-semibold tracking-[.3em] text-[#A9D8D3] md:left-7 md:top-7">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <div className="absolute inset-x-0 bottom-0 p-5 md:p-8">
+                      <div className="flex items-end justify-between gap-5">
+                        <div>
+                          <span className="text-[7px] font-semibold tracking-[.24em] text-[#E6D7B8]">{category.name}</span>
+                          <h2 className="mt-2 text-[30px] font-medium tracking-[-.035em] text-white md:text-[40px]">{category.name_ar}</h2>
+                          {category.description_ar && <p className="mt-3 max-w-[430px] text-[10px] leading-6 text-white/58 md:text-[11px]">{category.description_ar}</p>}
+                        </div>
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/35 text-white transition-colors group-hover:bg-white group-hover:text-[#0E0E0E]">
+                          <ArrowUpLeft className="h-4 w-4" strokeWidth={1.4} />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            <div className="mt-10 flex justify-center">
+              <Link to="/products" className="inline-flex h-12 items-center gap-3 border border-[#0E0E0E] px-7 text-[10px] font-semibold transition-colors hover:bg-[#0E0E0E] hover:text-white">
+                جميع المنتجات
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
   );
 };
 
