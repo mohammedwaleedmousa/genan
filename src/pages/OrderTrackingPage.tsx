@@ -346,14 +346,14 @@ const OrderTrackingPage = () => {
           ================================================= */}
 
           {!missingTrackingInfo && !isLoading && isError && (
-            <div className="rounded-[14px] border border-[#E9D0CE] bg-[#FFF8F7] px-4 py-5 text-center">
+            <div className="rounded-[14px] border border-[#E5DED0] bg-[#FFF8F7] px-4 py-5 text-center">
               <XCircle className="mx-auto h-7 w-7 text-[#B86565]" strokeWidth={1.4} />
 
               <p className="mt-2 text-[9px] font-semibold text-[#8E5555]">تعذر تحميل حالة الطلب</p>
 
               <p className="mt-1 text-[7px] text-[#A47A76]">تحقق من اتصال الإنترنت ثم حاول مرة أخرى.</p>
 
-              <button type="button" onClick={() => void refetch()} className="mt-3 h-9 rounded-[9px] border border-[#DDBDB9] bg-white px-4 text-[8px] font-semibold text-[#A45D5D]">
+              <button type="button" onClick={() => void refetch()} className="mt-3 h-9 rounded-[9px] border border-[#DCD5C6] bg-white px-4 text-[8px] font-semibold text-[#A45D5D]">
                 إعادة المحاولة
               </button>
             </div>
@@ -364,7 +364,7 @@ const OrderTrackingPage = () => {
           ================================================= */}
 
           {!missingTrackingInfo && !isLoading && !isError && !order && (
-            <div className="mt-3 rounded-[12px] border border-[#E9D0CE] bg-[#FFF8F7] px-4 py-3 text-center">
+            <div className="mt-3 rounded-[12px] border border-[#E5DED0] bg-[#FFF8F7] px-4 py-3 text-center">
               <p className="text-[8px] font-semibold text-[#815953]">تعذر مطابقة بيانات الطلب</p>
               <p className="mt-1 text-[7px] leading-5 text-[#A08782]">راجع رقم الطلب ورمز التتبع دون مسافات إضافية، أو تواصل معنا للمساعدة.</p>
             </div>
@@ -440,7 +440,7 @@ const OrderTrackingPage = () => {
 
                     return (
                       <div key={`${step.title}-${index}`} className="relative flex gap-3">
-                        {!last && <div className={`absolute right-[15px] top-[30px] h-[calc(100%-6px)] w-px ${step.completed && !isCancelled ? "bg-[#D8AAA7]" : isCancelStep ? "bg-[#D5A2A0]" : "bg-[#E7DFDC]"}`} />}
+                        {!last && <div className={`absolute right-[15px] top-[30px] h-[calc(100%-6px)] w-px ${step.completed && !isCancelled ? "bg-[#DCD5C6]" : isCancelStep ? "bg-[#C6B17F]" : "bg-[#E7DFDC]"}`} />}
 
                         <div className={`relative z-10 flex h-[31px] w-[31px] shrink-0 items-center justify-center rounded-full border ${isCancelStep ? "border-[#C6A77A] bg-[#F0EDE5] text-[#AE6262]" : step.completed || step.active ? "border-[#C6B17F] bg-[#F3F0E6] text-[#9D7B40]" : "border-[#E5DCD8] bg-[#F5F3ED] text-[#979F98]"}`}>
                           {step.completed && !step.active && !isCancelStep ? <Check className="h-3.5 w-3.5" strokeWidth={2} /> : <Icon className="h-3.5 w-3.5" strokeWidth={1.5} />}
