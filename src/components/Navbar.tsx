@@ -149,6 +149,15 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
+    const previousStorefront = document.body.dataset.storefront;
+    document.body.dataset.storefront = "genan";
+    return () => {
+      if (previousStorefront) document.body.dataset.storefront = previousStorefront;
+      else delete document.body.dataset.storefront;
+    };
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     void loadSearchIndex().then((index) => {
       if (!cancelled) setSearchIndex(index);
