@@ -756,7 +756,7 @@ const AccountPage = () => {
 
     invoiceWindow.opener = null;
     invoiceWindow.document.open();
-    invoiceWindow.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فاتورة ${escapeInvoiceHtml(invoice.order_number)}</title><style>*{box-sizing:border-box}body{margin:0;background:#f8f6f0;color:#173A2D;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}.page{max-width:820px;margin:0 auto;padding:28px 18px 48px}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;border-bottom:1px solid #e2dcce;padding-bottom:18px}.brand{font-size:22px;font-weight:800;color:#173a2d;letter-spacing:.04em}.muted{color:#9b8d88;font-size:12px;line-height:1.9}.number{font-size:15px;font-weight:700;margin-top:5px}.badge{display:inline-block;margin-top:8px;padding:5px 10px;border-radius:999px;background:#f0ede5;color:#173a2d;font-size:11px}.card{margin-top:16px;border:1px solid #e2dcce;border-radius:15px;background:white;padding:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.label{font-size:10px;color:#a0938e}.value{font-size:13px;font-weight:600;margin-top:4px;word-break:break-word}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:right;padding:11px 8px;border-bottom:1px solid #f0e8e5;font-size:12px}th{font-size:10px;color:#9b8d88;font-weight:600}td small{display:block;color:#9b8d88;font-size:10px;margin-top:4px}.empty{text-align:center;color:#9b8d88;padding:24px}.totals{margin-top:14px;margin-right:auto;max-width:330px}.row{display:flex;justify-content:space-between;gap:18px;padding:7px 0;font-size:12px}.row.total{border-top:1px solid #e8dcd7;margin-top:5px;padding-top:12px;font-size:16px;font-weight:800;color:#a9585e}.actions{display:flex;justify-content:center;margin-top:20px}.print{border:0;border-radius:11px;background:#d4777d;color:white;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer}@media(max-width:600px){.page{padding:18px 12px 36px}.top{display:block}.top>div:last-child{margin-top:13px}.grid{grid-template-columns:1fr}th,td{padding:9px 5px;font-size:11px}.brand{font-size:19px}}@media print{body{background:white}.page{max-width:none;padding:0}.actions{display:none}.card{break-inside:avoid}}</style></head><body><main class="page"><div class="top"><div><div class="brand">FLAMINGO PARK</div><div class="muted">تفاصيل الفاتورة</div></div><div><div class="muted">رقم الطلب</div><div class="number">${escapeInvoiceHtml(invoice.order_number)}</div><div class="badge">${escapeInvoiceHtml(statusLabel[String(invoice.status || "").toLowerCase()] || invoice.status || "—")}</div></div></div><section class="card"><div class="grid"><div><div class="label">تاريخ الطلب</div><div class="value">${escapeInvoiceHtml(new Date(invoice.created_at).toLocaleString("ar-EG"))}</div></div><div><div class="label">طريقة الدفع</div><div class="value">${escapeInvoiceHtml(paymentLabel)}</div></div><div><div class="label">عنوان التوصيل</div><div class="value">${address}</div></div><div><div class="label">العملة</div><div class="value">${escapeInvoiceHtml(currencyCode)}</div></div></div></section><section class="card"><div class="label">المنتجات</div><table><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>${rows}</tbody></table><div class="totals"><div class="row"><span>المجموع الفرعي</span><strong>${escapeInvoiceHtml(formatMoney(subtotal))}</strong></div><div class="row"><span>التوصيل</span><strong>${escapeInvoiceHtml(formatMoney(deliveryFee))}</strong></div>${discount > 0 ? `<div class="row"><span>الخصم</span><strong>- ${escapeInvoiceHtml(formatMoney(discount))}</strong></div>` : ""}<div class="row total"><span>الإجمالي</span><span>${escapeInvoiceHtml(formatMoney(total))}</span></div></div></section><div class="actions"><button class="print" onclick="window.print()">طباعة الفاتورة</button></div></main></body></html>`);
+    invoiceWindow.document.write(`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>فاتورة ${escapeInvoiceHtml(invoice.order_number)}</title><style>*{box-sizing:border-box}body{margin:0;background:#f8f6f0;color:#173A2D;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif}.page{max-width:820px;margin:0 auto;padding:28px 18px 48px}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;border-bottom:1px solid #e2dcce;padding-bottom:18px}.brand{font-size:22px;font-weight:800;color:#173a2d;letter-spacing:.04em}.muted{color:#9b8d88;font-size:12px;line-height:1.9}.number{font-size:15px;font-weight:700;margin-top:5px}.badge{display:inline-block;margin-top:8px;padding:5px 10px;border-radius:999px;background:#f0ede5;color:#173a2d;font-size:11px}.card{margin-top:16px;border:1px solid #e2dcce;border-radius:15px;background:white;padding:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.label{font-size:10px;color:#a0938e}.value{font-size:13px;font-weight:600;margin-top:4px;word-break:break-word}table{width:100%;border-collapse:collapse;margin-top:8px}th,td{text-align:right;padding:11px 8px;border-bottom:1px solid #f0e8e5;font-size:12px}th{font-size:10px;color:#9b8d88;font-weight:600}td small{display:block;color:#9b8d88;font-size:10px;margin-top:4px}.empty{text-align:center;color:#9b8d88;padding:24px}.totals{margin-top:14px;margin-right:auto;max-width:330px}.row{display:flex;justify-content:space-between;gap:18px;padding:7px 0;font-size:12px}.row.total{border-top:1px solid #e8dcd7;margin-top:5px;padding-top:12px;font-size:16px;font-weight:800;color:#a9585e}.actions{display:flex;justify-content:center;margin-top:20px}.print{border:0;border-radius:11px;background:#d4777d;color:white;padding:11px 24px;font-size:13px;font-weight:700;cursor:pointer}@media(max-width:600px){.page{padding:18px 12px 36px}.top{display:block}.top>div:last-child{margin-top:13px}.grid{grid-template-columns:1fr}th,td{padding:9px 5px;font-size:11px}.brand{font-size:19px}}@media print{body{background:white}.page{max-width:none;padding:0}.actions{display:none}.card{break-inside:avoid}}</style></head><body><main class="page"><div class="top"><div><div class="brand">GENAN PARK</div><div class="muted">تفاصيل الفاتورة</div></div><div><div class="muted">رقم الطلب</div><div class="number">${escapeInvoiceHtml(invoice.order_number)}</div><div class="badge">${escapeInvoiceHtml(statusLabel[String(invoice.status || "").toLowerCase()] || invoice.status || "—")}</div></div></div><section class="card"><div class="grid"><div><div class="label">تاريخ الطلب</div><div class="value">${escapeInvoiceHtml(new Date(invoice.created_at).toLocaleString("ar-EG"))}</div></div><div><div class="label">طريقة الدفع</div><div class="value">${escapeInvoiceHtml(paymentLabel)}</div></div><div><div class="label">عنوان التوصيل</div><div class="value">${address}</div></div><div><div class="label">العملة</div><div class="value">${escapeInvoiceHtml(currencyCode)}</div></div></div></section><section class="card"><div class="label">المنتجات</div><table><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>${rows}</tbody></table><div class="totals"><div class="row"><span>المجموع الفرعي</span><strong>${escapeInvoiceHtml(formatMoney(subtotal))}</strong></div><div class="row"><span>التوصيل</span><strong>${escapeInvoiceHtml(formatMoney(deliveryFee))}</strong></div>${discount > 0 ? `<div class="row"><span>الخصم</span><strong>- ${escapeInvoiceHtml(formatMoney(discount))}</strong></div>` : ""}<div class="row total"><span>الإجمالي</span><span>${escapeInvoiceHtml(formatMoney(total))}</span></div></div></section><div class="actions"><button class="print" onclick="window.print()">طباعة الفاتورة</button></div></main></body></html>`);
     invoiceWindow.document.close();
   };
 
@@ -866,11 +866,11 @@ const AccountPage = () => {
           <section className="border-b border-[#E5DED0] bg-[#FFF8F6] px-4 pb-5 pt-6 md:mx-6 md:mt-6 md:rounded-[20px] md:border md:px-6 md:py-6">
             <div className="flex items-center gap-4">
               <div className="relative shrink-0">
-                <div className="flex h-[70px] w-[70px] items-center justify-center overflow-hidden rounded-full border border-[#E7CECA] bg-[#FAE7E5] md:h-[82px] md:w-[82px]">
+                <div className="flex h-[70px] w-[70px] items-center justify-center overflow-hidden rounded-full border border-[#E5DED0] bg-[#FAE7E5] md:h-[82px] md:w-[82px]">
                   {customer?.avatar_url ? (
                     <img src={customer.avatar_url} alt={customer?.name || "الصورة الشخصية"} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                   ) : (
-                    <User className="h-7 w-7 stroke-[1.4] text-[#C36A70]" />
+                    <User className="h-7 w-7 stroke-[1.4] text-[#9D7B40]" />
                   )}
                 </div>
 
@@ -882,7 +882,7 @@ const AccountPage = () => {
               <div className="min-w-0 flex-1">
                 <div className="mb-1 flex items-center gap-2">
                   <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
-                  <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">MY FLAMINGO</span>
+                  <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">MY GENAN</span>
                 </div>
 
                 <h1 className="truncate text-[21px] font-semibold tracking-[-0.03em] text-[#403230] md:text-[27px]">{customer?.name || "أهلاً بك"}</h1>
@@ -908,17 +908,17 @@ const AccountPage = () => {
 
             <div className="mt-5 grid grid-cols-3 divide-x divide-x-reverse divide-[#E8D8D4] border-t border-[#E9DDD9] pt-4">
               <div className="text-center">
-                <span className="block text-[15px] font-semibold leading-none text-[#A9585E]">{favorites.length}</span>
+                <span className="block text-[15px] font-semibold leading-none text-[#9D7B40]">{favorites.length}</span>
                 <span className="mt-1.5 block text-[6px] text-[#9E8E89]">المفضلة</span>
               </div>
 
               <div className="text-center">
-                <span className="block text-[15px] font-semibold leading-none text-[#A9585E]">{invoices.length}</span>
+                <span className="block text-[15px] font-semibold leading-none text-[#9D7B40]">{invoices.length}</span>
                 <span className="mt-1.5 block text-[6px] text-[#9E8E89]">الطلبات</span>
               </div>
 
               <div className="text-center">
-                <span className="block text-[15px] font-semibold leading-none text-[#A9585E]">{activeShipments.length}</span>
+                <span className="block text-[15px] font-semibold leading-none text-[#9D7B40]">{activeShipments.length}</span>
                 <span className="mt-1.5 block text-[6px] text-[#9E8E89]">قيد الشحن</span>
               </div>
             </div>
@@ -932,7 +932,7 @@ const AccountPage = () => {
 
           {notification && !editMode && (
             <div className="px-3 pt-3 md:px-6">
-              <div className={`flex items-center justify-between gap-3 rounded-[12px] border px-3 py-2.5 ${notification.type === "success" ? "border-[#CFE1D1] bg-[#F2F8F3] text-[#527358]" : "border-[#E9C7C5] bg-[#FFF3F2] text-[#A85B5D]"}`}>
+              <div className={`flex items-center justify-between gap-3 rounded-[12px] border px-3 py-2.5 ${notification.type === "success" ? "border-[#CFE1D1] bg-[#F2F8F3] text-[#527358]" : "border-[#E5DED0] bg-[#FFF3F2] text-[#A85B5D]"}`}>
                 <div className="flex items-center gap-2">
                   {notification.type === "success" ? <Check className="h-3.5 w-3.5" /> : <AlertCircle className="h-3.5 w-3.5" />}
                   <span className="text-[8px] font-medium">{notification.message}</span>
@@ -985,7 +985,7 @@ const AccountPage = () => {
               </div>
 
               {latestOrderNumber && (
-                <button type="button" onClick={() => navigate(`/order-tracking?order=${encodeURIComponent(latestOrderNumber)}`)} className="text-[7px] font-medium text-[#B76168]">
+                <button type="button" onClick={() => navigate(`/order-tracking?order=${encodeURIComponent(latestOrderNumber)}`)} className="text-[7px] font-medium text-[#9D7B40]">
                   تتبع آخر طلب
                 </button>
               )}
@@ -1026,7 +1026,7 @@ const AccountPage = () => {
                           </div>
                         </div>
 
-                        <button type="button" onClick={() => navigate(`/order-tracking?order=${encodeURIComponent(invoice.order_number)}`)} className="flex h-8 shrink-0 items-center gap-1 rounded-full border border-[#E2D4D0] px-3 text-[7px] font-medium text-[#A65B61]">
+                        <button type="button" onClick={() => navigate(`/order-tracking?order=${encodeURIComponent(invoice.order_number)}`)} className="flex h-8 shrink-0 items-center gap-1 rounded-full border border-[#E2D4D0] px-3 text-[7px] font-medium text-[#9D7B40]">
                           تتبع
                           <ChevronLeft className="h-3 w-3 stroke-[1.5]" />
                         </button>
@@ -1056,7 +1056,7 @@ const AccountPage = () => {
                 <p className="mt-1 text-[7px] text-[#9F918C]">آخر 20 طلبًا</p>
               </div>
 
-              <Link to="/my-orders" className="flex items-center gap-1 text-[7px] font-medium text-[#B76168]">
+              <Link to="/my-orders" className="flex items-center gap-1 text-[7px] font-medium text-[#9D7B40]">
                 كل الطلبات
                 <ChevronLeft className="h-3 w-3 stroke-[1.5]" />
               </Link>
@@ -1065,12 +1065,12 @@ const AccountPage = () => {
             <div className="mb-3 grid grid-cols-2 gap-2">
               <div className="rounded-[14px] border border-[#E2DCCE] bg-white px-3 py-3">
                 <span className="text-[6px] text-[#A29590]">عدد الفواتير</span>
-                <span className="mt-1 block text-[17px] font-semibold leading-none text-[#A9585E]">{invoices.length}</span>
+                <span className="mt-1 block text-[17px] font-semibold leading-none text-[#9D7B40]">{invoices.length}</span>
               </div>
 
               <div className="rounded-[14px] border border-[#E2DCCE] bg-white px-3 py-3">
                 <span className="text-[6px] text-[#A29590]">إجمالي الطلبات</span>
-                <span className="mt-1 block truncate text-[17px] font-semibold leading-none text-[#A9585E]">{invoiceTotal.toLocaleString("ar-EG")}</span>
+                <span className="mt-1 block truncate text-[17px] font-semibold leading-none text-[#9D7B40]">{invoiceTotal.toLocaleString("ar-EG")}</span>
               </div>
             </div>
 
@@ -1089,13 +1089,13 @@ const AccountPage = () => {
                         <p className="truncate text-[10px] font-semibold text-[#493B38]">{invoice.order_number}</p>
                         <p className="mt-1 text-[6px] text-[#909890]">{new Date(invoice.created_at).toLocaleDateString("ar-EG")}</p>
 
-                        <button type="button" onClick={() => openInvoice(invoice)} className="mt-2 rounded-full border border-[#E0D2CE] px-2.5 py-1.5 text-[6px] font-medium text-[#A85D63]">
+                        <button type="button" onClick={() => openInvoice(invoice)} className="mt-2 rounded-full border border-[#E0D2CE] px-2.5 py-1.5 text-[6px] font-medium text-[#9D7B40]">
                           عرض الفاتورة
                         </button>
                       </div>
 
                       <div className="shrink-0 text-left">
-                        <p className="text-[11px] font-semibold text-[#A9585E]">{Number(invoice.total).toLocaleString("ar-EG")}</p>
+                        <p className="text-[11px] font-semibold text-[#9D7B40]">{Number(invoice.total).toLocaleString("ar-EG")}</p>
 
                         <span className={`mt-1.5 inline-block rounded-full px-2 py-1 text-[6px] ${shippingToneMap[status] || "bg-[#F4F0EE] text-[#857773]"}`}>{shippingStatusMap[status] || invoice.status}</span>
                       </div>
@@ -1134,16 +1134,16 @@ const AccountPage = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-2">
-                <input value={addressForm.label} onChange={(event) => setAddressForm((current) => ({ ...current, label: event.target.value }))} placeholder="اسم العنوان" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+                <input value={addressForm.label} onChange={(event) => setAddressForm((current) => ({ ...current, label: event.target.value }))} placeholder="اسم العنوان" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DCD5C6]" />
 
-                <input value={addressForm.city} onChange={(event) => setAddressForm((current) => ({ ...current, city: event.target.value }))} placeholder="المدينة *" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+                <input value={addressForm.city} onChange={(event) => setAddressForm((current) => ({ ...current, city: event.target.value }))} placeholder="المدينة *" className="h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DCD5C6]" />
               </div>
 
-              <input value={addressForm.address} onChange={(event) => setAddressForm((current) => ({ ...current, address: event.target.value }))} placeholder="العنوان بالتفصيل *" className="mt-2 h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+              <input value={addressForm.address} onChange={(event) => setAddressForm((current) => ({ ...current, address: event.target.value }))} placeholder="العنوان بالتفصيل *" className="mt-2 h-[42px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DCD5C6]" />
 
-              <textarea value={addressForm.notes} onChange={(event) => setAddressForm((current) => ({ ...current, notes: event.target.value }))} placeholder="ملاحظات إضافية" rows={2} className="mt-2 w-full resize-none rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 py-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DDB7B3]" />
+              <textarea value={addressForm.notes} onChange={(event) => setAddressForm((current) => ({ ...current, notes: event.target.value }))} placeholder="ملاحظات إضافية" rows={2} className="mt-2 w-full resize-none rounded-[11px] border border-[#E8DEDA] bg-[#F8F6F0] px-3 py-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#DCD5C6]" />
 
-              <button type="button" onClick={saveAddress} className="mt-2.5 h-[42px] w-full rounded-[11px] bg-[#173A2D] text-[9px] font-semibold text-white active:bg-[#C96A71]">
+              <button type="button" onClick={saveAddress} className="mt-2.5 h-[42px] w-full rounded-[11px] bg-[#173A2D] text-[9px] font-semibold text-white active:bg-[#9D7B40]">
                 {editingAddressId ? "تحديث العنوان" : "حفظ عنوان جديد"}
               </button>
             </div>
@@ -1164,7 +1164,7 @@ const AccountPage = () => {
                         <p className="truncate text-[9px] font-semibold text-[#4C3F3B]">{address.label}</p>
 
                         {address.isDefault && (
-                          <span className="flex shrink-0 items-center gap-1 rounded-full bg-[#FAEDEA] px-2 py-1 text-[6px] font-medium text-[#B15F65]">
+                          <span className="flex shrink-0 items-center gap-1 rounded-full bg-[#FAEDEA] px-2 py-1 text-[6px] font-medium text-[#9D7B40]">
                             <Star className="h-2.5 w-2.5 fill-[#9D7B40] stroke-[#9D7B40]" />
                             افتراضي
                           </span>
@@ -1188,7 +1188,7 @@ const AccountPage = () => {
                       تعديل
                     </button>
 
-                    <button type="button" onClick={() => deleteAddress(address.id)} className="mr-auto rounded-full border border-[#EACBC7] px-2.5 py-1.5 text-[6px] font-medium text-[#B96365]">
+                    <button type="button" onClick={() => deleteAddress(address.id)} className="mr-auto rounded-full border border-[#E5DED0] px-2.5 py-1.5 text-[6px] font-medium text-[#9D7B40]">
                       حذف
                     </button>
                   </div>
@@ -1225,7 +1225,7 @@ const AccountPage = () => {
           ===================================================== */}
 
           <section className="px-3 pb-10 pt-6 md:px-6">
-            <button type="button" onClick={handleLogout} className="flex h-[44px] w-full items-center justify-center gap-2 rounded-[13px] border border-[#E7C9C6] bg-[#FFF7F6] text-[9px] font-semibold text-[#B45C61] active:bg-[#FCECEA]">
+            <button type="button" onClick={handleLogout} className="flex h-[44px] w-full items-center justify-center gap-2 rounded-[13px] border border-[#E5DED0] bg-[#FFF7F6] text-[9px] font-semibold text-[#9D7B40] active:bg-[#FCECEA]">
               <LogOut className="h-4 w-4 stroke-[1.5]" />
               تسجيل الخروج
             </button>
@@ -1270,7 +1270,7 @@ const AccountPage = () => {
                         <img src={avatarPreview} alt="معاينة الصورة" className="h-full w-full object-cover" />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
-                          <Camera className="h-6 w-6 stroke-[1.4] text-[#B77A7B]" />
+                          <Camera className="h-6 w-6 stroke-[1.4] text-[#9D7B40]" />
                         </div>
                       )}
                     </div>
@@ -1288,7 +1288,7 @@ const AccountPage = () => {
                   <label className="block">
                     <span className="mb-1.5 block text-[8px] font-medium text-[#655651]">الاسم الكامل</span>
 
-                    <input type="text" value={fullName} onChange={(event) => setFullName(event.target.value)} placeholder="أدخل اسمك الكامل" disabled={formLoading} className="h-[46px] w-full rounded-[13px] border border-[#E6DBD7] bg-white px-3 text-[9px] text-[#4F423E] outline-none placeholder:text-[#AA9D97] focus:border-[#D8AAA8] disabled:opacity-50" />
+                    <input type="text" value={fullName} onChange={(event) => setFullName(event.target.value)} placeholder="أدخل اسمك الكامل" disabled={formLoading} className="h-[46px] w-full rounded-[13px] border border-[#E6DBD7] bg-white px-3 text-[9px] text-[#4F423E] outline-none placeholder:text-[#AA9D97] focus:border-[#DCD5C6] disabled:opacity-50" />
                   </label>
 
                   {/* PHONE */}
@@ -1296,7 +1296,7 @@ const AccountPage = () => {
                   <label className="block">
                     <span className="mb-1.5 block text-[8px] font-medium text-[#655651]">رقم الهاتف</span>
 
-                    <input type="tel" value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} placeholder="أدخل رقم الهاتف" disabled={formLoading} className="h-[46px] w-full rounded-[13px] border border-[#E6DBD7] bg-white px-3 text-[9px] text-[#4F423E] outline-none placeholder:text-[#AA9D97] focus:border-[#D8AAA8] disabled:opacity-50" />
+                    <input type="tel" value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} placeholder="أدخل رقم الهاتف" disabled={formLoading} className="h-[46px] w-full rounded-[13px] border border-[#E6DBD7] bg-white px-3 text-[9px] text-[#4F423E] outline-none placeholder:text-[#AA9D97] focus:border-[#DCD5C6] disabled:opacity-50" />
                   </label>
 
                   {/* CUSTOM REGION */}
@@ -1316,14 +1316,14 @@ const AccountPage = () => {
                         </div>
                       </div>
 
-                      <ChevronDown className="h-3.5 w-3.5 shrink-0 stroke-[1.5] text-[#B76A6E]" />
+                      <ChevronDown className="h-3.5 w-3.5 shrink-0 stroke-[1.5] text-[#9D7B40]" />
                     </button>
                   </div>
 
                   {/* NOTIFICATION */}
 
                   {notification && (
-                    <div className={`flex items-center gap-2 rounded-[11px] border px-3 py-2.5 ${notification.type === "success" ? "border-[#CFE1D1] bg-[#F2F8F3] text-[#527358]" : "border-[#E9C7C5] bg-[#FFF3F2] text-[#A85B5D]"}`}>
+                    <div className={`flex items-center gap-2 rounded-[11px] border px-3 py-2.5 ${notification.type === "success" ? "border-[#CFE1D1] bg-[#F2F8F3] text-[#527358]" : "border-[#E5DED0] bg-[#FFF3F2] text-[#A85B5D]"}`}>
                       {notification.type === "success" ? <Check className="h-3.5 w-3.5 shrink-0" /> : <AlertCircle className="h-3.5 w-3.5 shrink-0" />}
 
                       <span className="text-[8px]">{notification.message}</span>
@@ -1376,7 +1376,7 @@ const AccountPage = () => {
                     <div>
                       <div className="mb-1 flex items-center gap-2">
                         <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
-                        <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">FLAMINGO LOCATION</span>
+                        <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">GENAN LOCATION</span>
                       </div>
 
                       <h3 className="text-[18px] font-semibold text-[#403230]">اختر المحافظة</h3>
@@ -1396,7 +1396,7 @@ const AccountPage = () => {
                   <div className="relative">
                     <Search className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 stroke-[1.5] text-[#B09F99]" />
 
-                    <input value={regionSearch} onChange={(event) => setRegionSearch(event.target.value)} placeholder="ابحث عن المحافظة..." className="h-[43px] w-full rounded-[12px] border border-[#E8DEDA] bg-white pr-9 pl-8 text-[9px] text-[#51433F] outline-none placeholder:text-[#AEA19B] focus:border-[#DDAFAD]" />
+                    <input value={regionSearch} onChange={(event) => setRegionSearch(event.target.value)} placeholder="ابحث عن المحافظة..." className="h-[43px] w-full rounded-[12px] border border-[#E8DEDA] bg-white pr-9 pl-8 text-[9px] text-[#51433F] outline-none placeholder:text-[#AEA19B] focus:border-[#DCD5C6]" />
 
                     {regionSearch && (
                       <button type="button" onClick={() => setRegionSearch("")} className="absolute left-3 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-[#F5EFEC] text-[#93847F]">
@@ -1423,8 +1423,8 @@ const AccountPage = () => {
                         return (
                           <button key={item} type="button" onClick={() => { setRegion(item); setRegionPickerOpen(false); setRegionSearch(""); }} className={`flex h-[48px] w-full items-center justify-between px-3.5 text-right ${index !== filteredRegions.length - 1 ? "border-b border-[#EBE6DC]" : ""} ${active ? "bg-[#FFF0EE]" : "bg-white active:bg-[#FBF7F5]"}`}>
                             <div className="flex items-center gap-2.5">
-                              <span className={`flex h-7 w-7 items-center justify-center rounded-full ${active ? "bg-[#F5D8D5]" : "bg-[#F8F4F2]"}`}>
-                                <MapPin className={`h-3.5 w-3.5 stroke-[1.5] ${active ? "text-[#C86269]" : "text-[#A99B96]"}`} />
+                              <span className={`flex h-7 w-7 items-center justify-center rounded-full ${active ? "bg-[#EEE9DD]" : "bg-[#F8F4F2]"}`}>
+                                <MapPin className={`h-3.5 w-3.5 stroke-[1.5] ${active ? "text-[#9D7B40]" : "text-[#A99B96]"}`} />
                               </span>
 
                               <span className={`text-[10px] font-medium ${active ? "text-[#173A2D]" : "text-[#51433F]"}`}>{item}</span>
