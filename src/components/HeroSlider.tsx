@@ -6,7 +6,6 @@ import type { Swiper as SwiperInstance } from "swiper";
 import { Autoplay } from "swiper/modules";
 import { ArrowLeft } from "phosphor-react";
 
-import Logo from "@/components/Logo";
 import { supabase } from "@/integrations/supabase/client";
 import { isBannerCurrentlyVisible } from "@/lib/bannerSchedule";
 import { handleImageError, optimizeImage } from "@/lib/imageUrl";
@@ -25,44 +24,40 @@ type HeroSlide = {
 };
 
 const FallbackHero = () => (
-  <div className="mx-auto grid min-h-[650px] w-full max-w-[1680px] overflow-hidden bg-[#F5F1E7] md:grid-cols-[0.92fr_1.08fr]">
-    <div className="relative order-2 flex items-center overflow-hidden px-6 py-14 sm:px-10 md:order-1 md:px-14 lg:px-20">
-      <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full border border-[#173A2D]/10" />
-      <div className="pointer-events-none absolute -bottom-8 -left-8 h-48 w-48 rounded-full border border-[#B89453]/20" />
-      <div className="relative max-w-[620px]">
-        <div className="mb-9 flex items-center gap-4">
-          <span className="text-[9px] font-medium tracking-[0.38em] text-[#9D7B40]">GENAN / 01</span>
-          <span className="h-px w-14 bg-[#B89453]/55" />
-        </div>
-        <Logo size="xl" className="mb-7" />
-        <h1 className="max-w-[610px] text-[38px] font-medium leading-[1.42] tracking-[-0.055em] text-[#173A2D] sm:text-[48px] lg:text-[66px]">
-          أشياء مختارة بهدوء، لتبقى أكثر.
-        </h1>
-        <p className="mt-6 max-w-[470px] text-[12px] leading-8 text-[#647067] lg:text-[14px]">
-          جنان ليست واجهة مليئة بالضجيج. هي مساحة مرتبة لاكتشاف القطع التي تستحق أن تتوقف عندها.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center gap-5">
-          <Link to="/products" className="inline-flex h-12 items-center gap-3 bg-[#173A2D] px-7 text-[10px] font-semibold tracking-[0.02em] text-white transition-all hover:bg-[#214C3B]">
-            اكتشف المجموعة
-            <ArrowLeft size={15} weight="bold" />
-          </Link>
-          <Link to="/new-arrivals" className="inline-flex h-12 items-center border-b border-[#9D7B40]/55 text-[10px] font-semibold text-[#173A2D]">
-            وصل حديثًا
-          </Link>
-        </div>
+  <div className="relative min-h-[760px] overflow-hidden bg-[#F3F0E8] md:min-h-[820px]">
+    <div className="absolute inset-y-0 left-0 hidden w-[12%] border-r border-[#173A2D]/15 md:block">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[8px] tracking-[0.42em] text-[#173A2D]/45 [writing-mode:vertical-rl]">
+        GENAN — CURATED COMMERCE
       </div>
     </div>
 
-    <div className="relative order-1 min-h-[430px] overflow-hidden bg-[#173A2D] md:order-2 md:min-h-[650px]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_25%,rgba(255,255,255,.13),transparent_22%),radial-gradient(circle_at_28%_76%,rgba(184,148,83,.34),transparent_28%)]" />
-      <div className="absolute left-[12%] top-[11%] h-[68%] w-[58%] border border-white/16" />
-      <div className="absolute bottom-[12%] right-[8%] h-[36%] w-[38%] bg-[#F0E7D1]" />
-      <div className="absolute bottom-[18%] right-[14%] h-[36%] w-[38%] border border-[#B89453]" />
-      <div className="absolute left-7 top-7 text-[8px] tracking-[0.4em] text-white/55 [writing-mode:vertical-rl]">
-        OBJECTS · STYLE · EVERYDAY
+    <div className="grid min-h-[760px] md:ml-[12%] md:min-h-[820px] md:grid-cols-[1.05fr_.95fr]">
+      <div className="relative flex items-end bg-[#173A2D] px-6 pb-10 pt-20 sm:px-10 md:px-14 md:pb-16 lg:px-20">
+        <span className="absolute left-6 top-6 text-[clamp(100px,17vw,260px)] font-light leading-none tracking-[-.08em] text-white/[0.055] md:left-10 md:top-0">G</span>
+        <div className="relative max-w-[720px]">
+          <span className="text-[8px] font-semibold tracking-[.38em] text-[#D5B875]">GENAN / NEW LANGUAGE</span>
+          <h1 className="mt-5 text-[44px] font-medium leading-[1.25] tracking-[-.06em] text-white sm:text-[58px] lg:text-[78px]">
+            التسوق كمساحة عرض، لا كقائمة طويلة.
+          </h1>
+          <p className="mt-7 max-w-[520px] text-[12px] leading-8 text-white/58 md:text-[14px]">
+            تجربة هادئة، انتقائية، ومصممة حول القطعة نفسها. جنان تعرض أقل، لكن بطريقة تستحق التوقف.
+          </p>
+          <div className="mt-9 flex items-center gap-5">
+            <Link to="/products" className="inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#173A2D] transition-transform hover:-translate-y-0.5">
+              اكتشف المجموعة <ArrowLeft size={15} weight="bold" />
+            </Link>
+            <Link to="/new-arrivals" className="border-b border-white/35 pb-1 text-[10px] font-semibold text-white/80">وصل حديثًا</Link>
+          </div>
+        </div>
       </div>
-      <div className="absolute bottom-7 right-7 max-w-[260px] text-right text-[11px] leading-6 text-white/65">
-        مساحة جديدة للتسوق، مصممة حول الاختيار لا حول الازدحام.
+
+      <div className="relative min-h-[420px] overflow-hidden bg-[#D8C9A6] md:min-h-0">
+        <div className="absolute inset-[9%] border border-[#173A2D]/25" />
+        <div className="absolute bottom-[11%] right-[10%] h-[43%] w-[50%] bg-[#F4EFE2]" />
+        <div className="absolute bottom-[17%] right-[16%] h-[43%] w-[50%] border border-[#173A2D]" />
+        <div className="absolute left-6 top-6 max-w-[180px] text-[8px] leading-5 tracking-[.24em] text-[#173A2D]/55">
+          OBJECTS / STYLE / DAILY LIFE
+        </div>
       </div>
     </div>
   </div>
@@ -73,7 +68,7 @@ const HeroSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { data: managedSlides = [], isLoading } = useQuery({
-    queryKey: ["genan-home-hero-banners-v2"],
+    queryKey: ["genan-home-hero-banners-v3"],
     queryFn: async () => {
       const { data, error } = await (supabase as any)
         .from("banners")
@@ -108,101 +103,91 @@ const HeroSlider = () => {
   });
 
   const slides = managedSlides;
-  const heroImageWidth = typeof window !== "undefined" && window.innerWidth < 768 ? 900 : 1500;
+  const heroImageWidth = typeof window !== "undefined" && window.innerWidth < 768 ? 900 : 1600;
 
   return (
-    <section dir="rtl" className="w-full bg-[#EEE9DD]">
-      <div className="mx-auto w-full max-w-[1760px] px-0 md:px-5 lg:px-8">
-        {slides.length > 0 ? (
-          <div className="relative overflow-hidden md:py-6">
-            <Swiper
-              modules={[Autoplay]}
-              onSwiper={(swiper) => { swiperRef.current = swiper; }}
-              onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-              autoplay={{ delay: 6200, disableOnInteraction: false, pauseOnMouseEnter: true }}
-              speed={820}
-              loop={slides.length > 1}
-              className="w-full"
-            >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={`${slide.image}-${index}`}>
-                  <article className="grid min-h-[680px] overflow-hidden bg-[#F8F6F0] md:grid-cols-[0.9fr_1.1fr]">
-                    <div className="order-2 flex items-center px-6 py-12 sm:px-10 md:order-1 md:px-12 lg:px-16 xl:px-20">
-                      <div className="w-full max-w-[620px]">
-                        <div className="mb-7 flex items-center gap-4">
-                          <span className="text-[8px] font-semibold tracking-[0.35em] text-[#9D7B40]">
-                            GENAN / {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <span className="h-px w-12 bg-[#B89453]/55" />
-                        </div>
-                        <h1 className="max-w-[610px] text-[36px] font-medium leading-[1.46] tracking-[-0.05em] text-[#173A2D] sm:text-[46px] lg:text-[64px]">
-                          {slide.title}
-                        </h1>
-                        {slide.desc && (
-                          <p className="mt-6 max-w-[470px] text-[12px] leading-8 text-[#657068] lg:text-[14px]">
-                            {slide.desc}
-                          </p>
-                        )}
-                        <div className="mt-9 flex flex-wrap items-center gap-5">
-                          <Link to={slide.link} className="inline-flex h-12 items-center gap-3 bg-[#173A2D] px-7 text-[10px] font-semibold text-white transition-all hover:bg-[#214C3B]">
-                            {slide.cta}
-                            <ArrowLeft size={15} weight="bold" />
-                          </Link>
-                          <Link to="/products" className="inline-flex h-12 items-center border-b border-[#9D7B40]/55 text-[10px] font-semibold text-[#173A2D]">
-                            كل المنتجات
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
+    <section dir="rtl" className="w-full bg-[#F3F0E8]">
+      {slides.length > 0 ? (
+        <div className="relative overflow-hidden">
+          <Swiper
+            modules={[Autoplay]}
+            onSwiper={(swiper) => { swiperRef.current = swiper; }}
+            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+            autoplay={{ delay: 6800, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            speed={900}
+            loop={slides.length > 1}
+            className="w-full"
+          >
+            {slides.map((slide, index) => (
+              <SwiperSlide key={`${slide.image}-${index}`}>
+                <article className="relative min-h-[760px] overflow-hidden md:min-h-[820px]">
+                  <div className="absolute inset-0">
+                    <img
+                      src={optimizeImage(slide.image, heroImageWidth, index === 0 ? 86 : 80)}
+                      alt={slide.title || "Genan"}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      fetchPriority={index === 0 ? "high" : "low"}
+                      width={heroImageWidth}
+                      height={1200}
+                      onError={handleImageError}
+                      className="h-full w-full object-cover"
+                      style={{
+                        objectPosition: `${slide.imagePositionX}% ${slide.imagePositionY}%`,
+                        transform: `scale(${slide.imageZoom})`,
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,34,27,.92)_0%,rgba(15,34,27,.78)_34%,rgba(15,34,27,.18)_70%,rgba(15,34,27,.05)_100%)]" />
+                  </div>
 
-                    <div className="relative order-1 min-h-[440px] overflow-hidden bg-[#D9D4C8] md:order-2 md:min-h-[680px]">
-                      <img
-                        src={optimizeImage(slide.image, heroImageWidth, index === 0 ? 84 : 78)}
-                        alt={slide.title || "Genan"}
-                        loading={index === 0 ? "eager" : "lazy"}
-                        decoding="async"
-                        fetchPriority={index === 0 ? "high" : "low"}
-                        width={heroImageWidth}
-                        height={1100}
-                        onError={handleImageError}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1400ms]"
-                        style={{
-                          objectPosition: `${slide.imagePositionX}% ${slide.imagePositionY}%`,
-                          transform: `scale(${slide.imageZoom})`,
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/[0.03]" />
-                      <div className="absolute bottom-5 left-5 text-[8px] tracking-[0.32em] text-white/70 md:bottom-8 md:left-8">
-                        CURATED BY GENAN
+                  <div className="relative z-10 flex min-h-[760px] items-end px-5 pb-12 pt-24 sm:px-8 md:min-h-[820px] md:px-[8vw] md:pb-20">
+                    <div className="max-w-[690px]">
+                      <div className="mb-6 flex items-center gap-4">
+                        <span className="text-[8px] font-semibold tracking-[.4em] text-[#E1C98F]">GENAN / {String(index + 1).padStart(2, "0")}</span>
+                        <span className="h-px w-16 bg-[#E1C98F]/45" />
+                      </div>
+                      <h1 className="text-[44px] font-medium leading-[1.28] tracking-[-.065em] text-white sm:text-[58px] lg:text-[78px]">
+                        {slide.title}
+                      </h1>
+                      {slide.desc && <p className="mt-6 max-w-[520px] text-[12px] leading-8 text-white/66 md:text-[14px]">{slide.desc}</p>}
+                      <div className="mt-9 flex flex-wrap items-center gap-5">
+                        <Link to={slide.link} className="inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#173A2D] transition-transform hover:-translate-y-0.5">
+                          {slide.cta} <ArrowLeft size={15} weight="bold" />
+                        </Link>
+                        <Link to="/products" className="border-b border-white/35 pb-1 text-[10px] font-semibold text-white/82">كل المنتجات</Link>
                       </div>
                     </div>
-                  </article>
-                </SwiperSlide>
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 top-0 hidden w-[74px] border-r border-white/15 md:block">
+                    <span className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[8px] tracking-[.36em] text-white/45 [writing-mode:vertical-rl]">CURATED BY GENAN</span>
+                  </div>
+                </article>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {slides.length > 1 && (
+            <div className="absolute bottom-6 left-5 z-30 flex gap-1 sm:left-8 md:bottom-10 md:left-[8vw]">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  aria-label={`الانتقال إلى العرض ${index + 1}`}
+                  onClick={() => swiperRef.current?.slideToLoop(index)}
+                  className={`h-8 min-w-10 border-t px-2 text-[8px] transition-all ${activeIndex === index ? "border-white text-white" : "border-white/25 text-white/45"}`}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </button>
               ))}
-            </Swiper>
-
-            {slides.length > 1 && (
-              <div className="absolute bottom-8 right-6 z-30 flex items-center gap-2 md:bottom-12 md:right-[calc(55%+28px)]">
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    aria-label={`الانتقال إلى العرض ${index + 1}`}
-                    onClick={() => swiperRef.current?.slideToLoop(index)}
-                    className={`flex h-7 min-w-7 items-center justify-center border-b text-[8px] transition-all ${activeIndex === index ? "border-[#173A2D] text-[#173A2D]" : "border-transparent text-[#8A918A]"}`}
-                  >
-                    {String(index + 1).padStart(2, "0")}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        ) : isLoading ? (
-          <div className="min-h-[680px] animate-pulse bg-[#E4DFD3]" />
-        ) : (
-          <FallbackHero />
-        )}
-      </div>
+            </div>
+          )}
+        </div>
+      ) : isLoading ? (
+        <div className="min-h-[760px] animate-pulse bg-[#DCD6C8]" />
+      ) : (
+        <FallbackHero />
+      )}
     </section>
   );
 };
