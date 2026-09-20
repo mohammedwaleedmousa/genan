@@ -42,7 +42,7 @@
 
     --radius: 1rem;
 
-    /* Brand aliases — retinted from gold to soft flamingo pink */
+    /* Brand aliases — retinted from gold to Genan forest and mineral tones */
     --gold: 39 40% 66%;
     --gold-light: 41 44% 84%;
     --gold-dark: 39 39% 48%;
@@ -55,7 +55,7 @@
     --marble: 42 28% 96%;
     --icon-light: 151 33% 20%;
 
-    /* Gradients — soft flamingo pink */
+    /* Gradients — Genan forest and mineral tones */
     --gradient-primary: linear-gradient(
       135deg,
       hsl(41 45% 78%) 0%,
@@ -119,13 +119,13 @@
     --shadow-hover: 0 24px 60px -20px hsl(346 50% 30% / 0.22);
     --shadow-glass: 0 8px 32px -8px hsl(25 18% 14% / 0.1);
 
-    /* Unified flamingo button system */
-    --flamingo-btn-start: 151 43% 18%;
-    --flamingo-btn-end: 151 40% 25%;
-    --flamingo-btn-text: 0 0% 100%;
-    --flamingo-btn-border: 151 32% 28%;
-    --flamingo-btn-hover-start: 151 41% 22%;
-    --flamingo-btn-hover-end: 151 38% 30%;
+    /* Unified Genan button system */
+    --genan-btn-start: 151 43% 18%;
+    --genan-btn-end: 151 40% 25%;
+    --genan-btn-text: 0 0% 100%;
+    --genan-btn-border: 151 32% 28%;
+    --genan-btn-hover-start: 151 41% 22%;
+    --genan-btn-hover-end: 151 38% 30%;
 
     /* Sidebar — dark warm brown */
     --sidebar-background: 0 0% 100%;
@@ -174,12 +174,12 @@
     --sidebar-accent-foreground: 0 0% 97%;
     --sidebar-border: 0 0% 18%;
     --sidebar-ring: 0 0% 97%;
-    --flamingo-btn-start: 346 54% 36%;
-    --flamingo-btn-end: 346 48% 28%;
-    --flamingo-btn-text: 0 0% 98%;
-    --flamingo-btn-border: 346 48% 42%;
-    --flamingo-btn-hover-start: 346 56% 40%;
-    --flamingo-btn-hover-end: 346 50% 32%;
+    --genan-btn-start: 346 54% 36%;
+    --genan-btn-end: 346 48% 28%;
+    --genan-btn-text: 0 0% 98%;
+    --genan-btn-border: 346 48% 42%;
+    --genan-btn-hover-start: 346 56% 40%;
+    --genan-btn-hover-end: 346 50% 32%;
   }
 }
 
@@ -268,22 +268,22 @@
 @layer components {
   .btn-unified {
     @apply inline-flex items-center justify-center gap-2 rounded-xl font-medium tracking-wide transition-all duration-300;
-    color: hsl(var(--flamingo-btn-text));
+    color: hsl(var(--genan-btn-text));
     background: linear-gradient(
       135deg,
-      hsl(var(--flamingo-btn-start)) 0%,
-      hsl(var(--flamingo-btn-end)) 100%
+      hsl(var(--genan-btn-start)) 0%,
+      hsl(var(--genan-btn-end)) 100%
     );
-    border: 1px solid hsl(var(--flamingo-btn-border));
+    border: 1px solid hsl(var(--genan-btn-border));
     box-shadow: 0 10px 30px -14px hsl(346 60% 45% / 0.45);
   }
 
   .btn-unified:hover {
-    color: hsl(var(--flamingo-btn-text));
+    color: hsl(var(--genan-btn-text));
     background: linear-gradient(
       135deg,
-      hsl(var(--flamingo-btn-hover-start)) 0%,
-      hsl(var(--flamingo-btn-hover-end)) 100%
+      hsl(var(--genan-btn-hover-start)) 0%,
+      hsl(var(--genan-btn-hover-end)) 100%
     );
     transform: translateY(-1px);
     box-shadow: 0 16px 36px -16px hsl(346 65% 42% / 0.5);
@@ -411,7 +411,7 @@
   }
 
   /* Genan wordmark */
-  .logo-flamingo, .logo-genan {
+  ..logo-genan {
     font-family: "Playfair Display", "Cormorant Garamond", serif;
     font-weight: 500;
     letter-spacing: 0.18em;
@@ -478,6 +478,61 @@
   @keyframes admin-content-enter {
     from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+
+@layer components {
+  .genan-page {
+    background: #f3f0e8;
+    color: #173a2d;
+  }
+
+  .genan-shell {
+    width: min(100%, 1760px);
+    margin-inline: auto;
+  }
+
+  .genan-rule {
+    border-color: rgba(23, 58, 45, 0.16);
+  }
+
+  .genan-kicker {
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #9d7b40;
+  }
+
+  .genan-display {
+    letter-spacing: -0.055em;
+    line-height: 1.22;
+  }
+
+  .genan-panel-dark {
+    background: #10251d;
+    color: white;
+  }
+
+  .genan-link-line {
+    position: relative;
+  }
+
+  .genan-link-line::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -0.28rem;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: right;
+    background: currentColor;
+    transition: transform 220ms ease;
+  }
+
+  .genan-link-line:hover::after {
+    transform: scaleX(1);
   }
 }
 
