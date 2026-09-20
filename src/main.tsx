@@ -30,14 +30,14 @@ const warmUpSupabaseConnection = () => {
 
   try {
     const origin = new URL(rawUrl).origin;
-    const existing = document.head.querySelector(`link[data-flamingo-preconnect="${origin}"]`);
+    const existing = document.head.querySelector(`link[data-genan-preconnect="${origin}"]`);
     if (existing) return;
 
     const preconnect = document.createElement("link");
     preconnect.rel = "preconnect";
     preconnect.href = origin;
     preconnect.crossOrigin = "anonymous";
-    preconnect.dataset.flamingoPreconnect = origin;
+    preconnect.dataset.genanPreconnect = origin;
     document.head.appendChild(preconnect);
 
     const dnsPrefetch = document.createElement("link");
