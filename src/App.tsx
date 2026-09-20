@@ -24,7 +24,7 @@ const isLazyImportError = (error: unknown) => {
 
 const lazy = <T extends ComponentType<any>>(factory: () => Promise<{ default: T }>) =>
   reactLazy(async () => {
-    const retryKey = typeof window !== "undefined" ? `flamingo-lazy-retry:${window.location.pathname}` : "flamingo-lazy-retry";
+    const retryKey = typeof window !== "undefined" ? `genan-lazy-retry:${window.location.pathname}` : "genan-lazy-retry";
     try {
       const module = await factory();
       if (typeof window !== "undefined") window.sessionStorage.removeItem(retryKey);
