@@ -109,21 +109,21 @@ const FavoritesPage = () => {
             <div className="flex items-end justify-between gap-4">
               <div className="min-w-0">
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
-                  <span className="font-serif text-[7px] tracking-[0.24em] text-[#9D7B40]">GENAN WISHLIST</span>
+                  <span className="h-[2px] w-4 rounded-full bg-[#0E0E0E]" />
+                  <span className="font-serif text-[7px] tracking-[0.24em] text-[#D8C29A]">GENAN WISHLIST</span>
                 </div>
 
-                <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#173A2D] md:text-[36px]">{getSiteText(content, "favorites_hero_title", "المنتجات المفضلة")}</h1>
+                <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#0E0E0E] md:text-[36px]">{getSiteText(content, "favorites_hero_title", "المنتجات المفضلة")}</h1>
 
                 <p className="mt-1.5 max-w-[270px] text-[8px] leading-5 text-[#899289] md:max-w-md md:text-[10px]">{heroText}</p>
               </div>
 
               <div className="flex shrink-0 flex-col items-center">
                 <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#FAE9E7] md:h-[48px] md:w-[48px]">
-                  <Heart className="h-[18px] w-[18px] fill-[#173A2D] stroke-[#173A2D] md:h-5 md:w-5" />
+                  <Heart className="h-[18px] w-[18px] fill-[#0E0E0E] stroke-[#0E0E0E] md:h-5 md:w-5" />
                 </div>
 
-                {favorites.length > 0 && <span className="mt-1.5 text-[7px] font-semibold text-[#9D7B40]">{favorites.length} قطعة</span>}
+                {favorites.length > 0 && <span className="mt-1.5 text-[7px] font-semibold text-[#D8C29A]">{favorites.length} قطعة</span>}
               </div>
             </div>
           </div>
@@ -136,7 +136,7 @@ const FavoritesPage = () => {
           <section className="border-b border-[#EFE6E2] bg-white">
             <div className="mx-auto flex h-[54px] w-full max-w-[1500px] items-center justify-between gap-3 px-3 md:h-[60px] md:px-6">
               <div className="flex min-w-0 items-center gap-2">
-                <Heart className="h-4 w-4 shrink-0 fill-[#EEE9DD] stroke-[#9D7B40]" />
+                <Heart className="h-4 w-4 shrink-0 fill-[#F7F7F7] stroke-[#D8C29A]" />
 
                 <div className="min-w-0">
                   <span className="block truncate text-[8px] font-semibold leading-none text-[#645451] md:text-[9px]">قائمتك الخاصة</span>
@@ -144,7 +144,7 @@ const FavoritesPage = () => {
                 </div>
               </div>
 
-              <button type="button" onClick={handleAddAllToCart} className="flex h-[36px] shrink-0 items-center gap-1.5 rounded-full bg-[#173A2D] px-4 text-[8px] font-semibold text-white active:bg-[#214C3B] md:h-[39px] md:px-5 md:text-[9px]">
+              <button type="button" onClick={handleAddAllToCart} className="flex h-[36px] shrink-0 items-center gap-1.5 rounded-full bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white active:bg-[#1A1A1A] md:h-[39px] md:px-5 md:text-[9px]">
                 <Plus className="h-3 w-3 stroke-[1.8]" />
                 إضافة الكل للسلة
               </button>
@@ -164,8 +164,8 @@ const FavoritesPage = () => {
               <div className="flex items-end justify-between gap-3 px-3 pb-3 pt-5 md:px-6 md:pb-5 md:pt-7">
                 <div>
                   <div className="mb-1 flex items-center gap-2">
-                    <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
-                    <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">MY GENAN</span>
+                    <span className="h-[2px] w-4 rounded-full bg-[#0E0E0E]" />
+                    <span className="font-serif text-[6px] tracking-[0.22em] text-[#D8C29A]">MY GENAN</span>
                   </div>
 
                   <h2 className="text-[16px] font-semibold text-[#413432] md:text-[20px]">اختياراتك</h2>
@@ -175,9 +175,9 @@ const FavoritesPage = () => {
 
                 {/* CUSTOM SORT */}
                 <div ref={sortRef} className="relative shrink-0">
-                  <button type="button" onClick={() => setSortOpen((current) => !current)} className={`flex h-[38px] min-w-[122px] items-center justify-between gap-3 rounded-[13px] border bg-white px-3 transition-colors md:h-[41px] md:min-w-[145px] ${sortOpen ? "border-[#DCD5C6]" : "border-[#DDD7C8]"}`}>
+                  <button type="button" onClick={() => setSortOpen((current) => !current)} className={`flex h-[38px] min-w-[122px] items-center justify-between gap-3 rounded-[13px] border bg-white px-3 transition-colors md:h-[41px] md:min-w-[145px] ${sortOpen ? "border-[#EAEAEA]" : "border-[#EAEAEA]"}`}>
                     <div className="flex items-center gap-1.5">
-                      <SlidersHorizontal className="h-3.5 w-3.5 stroke-[1.5] text-[#9D7B40]" />
+                      <SlidersHorizontal className="h-3.5 w-3.5 stroke-[1.5] text-[#D8C29A]" />
 
                       <div className="text-right">
                         <span className="block text-[6px] leading-none text-[#AA9C96]">ترتيب</span>
@@ -185,7 +185,7 @@ const FavoritesPage = () => {
                       </div>
                     </div>
 
-                    <ChevronDown className={`h-3 w-3 shrink-0 stroke-[1.5] text-[#9D7B40] transition-transform duration-150 ${sortOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`h-3 w-3 shrink-0 stroke-[1.5] text-[#D8C29A] transition-transform duration-150 ${sortOpen ? "rotate-180" : ""}`} />
                   </button>
 
                   {sortOpen && (
@@ -197,12 +197,12 @@ const FavoritesPage = () => {
                           return (
                             <button key={option.value} type="button" onClick={() => { setSortBy(option.value); setSortOpen(false); }} className={`flex min-h-[49px] w-full items-center justify-between rounded-[11px] px-3 text-right ${active ? "bg-[#F0EDE5]" : "bg-white active:bg-[#FAF7F5]"}`}>
                               <div>
-                                <span className={`block text-[9px] font-semibold ${active ? "text-[#173A2D]" : "text-[#594B47]"}`}>{option.label}</span>
+                                <span className={`block text-[9px] font-semibold ${active ? "text-[#0E0E0E]" : "text-[#594B47]"}`}>{option.label}</span>
 
                                 <span className="mt-1 block text-[6px] text-[#929A92]">{option.description}</span>
                               </div>
 
-                              <span className={`flex h-[19px] w-[19px] items-center justify-center rounded-full border ${active ? "border-[#9D7B40] bg-[#9D7B40]" : "border-[#DDD3CF] bg-white"}`}>
+                              <span className={`flex h-[19px] w-[19px] items-center justify-center rounded-full border ${active ? "border-[#D8C29A] bg-[#D8C29A]" : "border-[#DDD3CF] bg-white"}`}>
                                 {active && <Check className="h-2.5 w-2.5 stroke-[2.2] text-white" />}
                               </span>
                             </button>
@@ -233,7 +233,7 @@ const FavoritesPage = () => {
                 <div className="border-t border-[#EADFDA] pt-6 text-center">
                   <div className="mb-2 flex items-center justify-center gap-2">
                     <span className="h-px w-5 bg-[#C6B17F]" />
-                    <span className="font-serif text-[6px] tracking-[0.24em] text-[#9D7B40]">GENAN FAVORITES</span>
+                    <span className="font-serif text-[6px] tracking-[0.24em] text-[#D8C29A]">GENAN FAVORITES</span>
                     <span className="h-px w-5 bg-[#C6B17F]" />
                   </div>
 
@@ -248,18 +248,18 @@ const FavoritesPage = () => {
             <div className="flex min-h-[58vh] flex-col items-center justify-center px-6 text-center">
               <div className="relative flex h-[82px] w-[82px] items-center justify-center">
                 <span className="absolute inset-0 rounded-full border border-[#D6C8A8]" />
-                <span className="absolute inset-[8px] rounded-full bg-[#EAE5D7]" />
+                <span className="absolute inset-[8px] rounded-full bg-[#F5F5F5]" />
 
-                <Heart className="relative h-7 w-7 stroke-[1.25] text-[#9D7B40]" />
+                <Heart className="relative h-7 w-7 stroke-[1.25] text-[#D8C29A]" />
               </div>
 
-              <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#9D7B40]">GENAN</span>
+              <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#D8C29A]">GENAN</span>
 
               <h2 className="mt-2 text-[18px] font-semibold text-[#20392E]">{getSiteText(content, "favorites_empty_title", "قائمة المفضلة فارغة")}</h2>
 
               <p className="mt-2 max-w-[275px] text-[9px] leading-5 text-[#899289]">{getSiteText(content, "favorites_empty_desc", "اضغط على أيقونة القلب في أي منتج لحفظه هنا والعودة إليه لاحقًا")}</p>
 
-              <Link to="/products" className="mt-5 flex h-[44px] items-center justify-center gap-2 rounded-full bg-[#173A2D] px-7 text-[10px] font-semibold text-white active:bg-[#214C3B]">
+              <Link to="/products" className="mt-5 flex h-[44px] items-center justify-center gap-2 rounded-full bg-[#0E0E0E] px-7 text-[10px] font-semibold text-white active:bg-[#1A1A1A]">
                 <ShoppingBag className="h-3.5 w-3.5 stroke-[1.6]" />
                 {getSiteText(content, "favorites_browse_cta", "تصفح المنتجات")}
               </Link>
