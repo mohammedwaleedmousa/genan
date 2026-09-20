@@ -1,11 +1,11 @@
 /* Genan storefront design system — intentionally independent from Flamingo. */
 :root {
-  --genan-ink: #173A2D;
-  --genan-paper: #F8F6F0;
-  --genan-paper-deep: #EEE9DD;
-  --genan-line: #DCD5C6;
+  --genan-ink: #0E0E0E;
+  --genan-paper: #FFFFFF;
+  --genan-paper-deep: #F7F7F7;
+  --genan-line: #EAEAEA;
   --genan-muted: #778179;
-  --genan-brass: #9D7B40;
+  --genan-brass: #D8C29A;
   --genan-dark: #102A20;
 }
 
@@ -157,7 +157,7 @@ body[data-storefront="genan"] main a:focus-visible {
     background:
       linear-gradient(90deg, rgba(23,58,45,.035) 1px, transparent 1px),
       linear-gradient(rgba(23,58,45,.035) 1px, transparent 1px),
-      #F8F6F0;
+      #FFFFFF;
     background-size: 42px 42px;
   }
 
@@ -175,7 +175,7 @@ body[data-storefront="genan"] main a:focus-visible {
     grid-column: 2;
     grid-row: 1 / span 5;
     border-radius: 0 !important;
-    border: 1px solid #DCD5C6 !important;
+    border: 1px solid #EAEAEA !important;
     box-shadow: none !important;
     padding: 38px !important;
     background: rgba(248,246,240,.88) !important;
