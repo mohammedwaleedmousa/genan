@@ -24,18 +24,18 @@ type HeroSlide = {
 };
 
 const FallbackHero = () => (
-  <div className="relative min-h-[760px] overflow-hidden bg-[#F3F0E8] md:min-h-[820px]">
-    <div className="absolute inset-y-0 left-0 hidden w-[12%] border-r border-[#173A2D]/15 md:block">
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[8px] tracking-[0.42em] text-[#173A2D]/45 [writing-mode:vertical-rl]">
+  <div className="relative min-h-[760px] overflow-hidden bg-[#FFFFFF] md:min-h-[820px]">
+    <div className="absolute inset-y-0 left-0 hidden w-[12%] border-r border-[#0E0E0E]/15 md:block">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[8px] tracking-[0.42em] text-[#0E0E0E]/45 [writing-mode:vertical-rl]">
         GENAN — CURATED COMMERCE
       </div>
     </div>
 
     <div className="grid min-h-[760px] md:ml-[12%] md:min-h-[820px] md:grid-cols-[1.05fr_.95fr]">
-      <div className="relative flex items-end bg-[#173A2D] px-6 pb-10 pt-20 sm:px-10 md:px-14 md:pb-16 lg:px-20">
+      <div className="relative flex items-end bg-[#0E0E0E] px-6 pb-10 pt-20 sm:px-10 md:px-14 md:pb-16 lg:px-20">
         <span className="absolute left-6 top-6 text-[clamp(100px,17vw,260px)] font-light leading-none tracking-[-.08em] text-white/[0.055] md:left-10 md:top-0">G</span>
         <div className="relative max-w-[720px]">
-          <span className="text-[8px] font-semibold tracking-[.38em] text-[#D5B875]">GENAN / NEW LANGUAGE</span>
+          <span className="text-[8px] font-semibold tracking-[.38em] text-[#D8C29A]">GENAN / NEW LANGUAGE</span>
           <h1 className="mt-5 text-[44px] font-medium leading-[1.25] tracking-[-.06em] text-white sm:text-[58px] lg:text-[78px]">
             التسوق كمساحة عرض، لا كقائمة طويلة.
           </h1>
@@ -43,7 +43,7 @@ const FallbackHero = () => (
             تجربة هادئة، انتقائية، ومصممة حول القطعة نفسها. جنان تعرض أقل، لكن بطريقة تستحق التوقف.
           </p>
           <div className="mt-9 flex items-center gap-5">
-            <Link to="/products" className="inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#173A2D] transition-transform hover:-translate-y-0.5">
+            <Link to="/products" className="inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#0E0E0E] transition-transform hover:-translate-y-0.5">
               اكتشف المجموعة <ArrowLeft size={15} weight="bold" />
             </Link>
             <Link to="/new-arrivals" className="border-b border-white/35 pb-1 text-[10px] font-semibold text-white/80">وصل حديثًا</Link>
@@ -51,11 +51,11 @@ const FallbackHero = () => (
         </div>
       </div>
 
-      <div className="relative min-h-[420px] overflow-hidden bg-[#D8C9A6] md:min-h-0">
-        <div className="absolute inset-[9%] border border-[#173A2D]/25" />
-        <div className="absolute bottom-[11%] right-[10%] h-[43%] w-[50%] bg-[#F4EFE2]" />
-        <div className="absolute bottom-[17%] right-[16%] h-[43%] w-[50%] border border-[#173A2D]" />
-        <div className="absolute left-6 top-6 max-w-[180px] text-[8px] leading-5 tracking-[.24em] text-[#173A2D]/55">
+      <div className="relative min-h-[420px] overflow-hidden bg-[#E6D7B8] md:min-h-0">
+        <div className="absolute inset-[9%] border border-[#0E0E0E]/25" />
+        <div className="absolute bottom-[11%] right-[10%] h-[43%] w-[50%] bg-[#FFFFFF]" />
+        <div className="absolute bottom-[17%] right-[16%] h-[43%] w-[50%] border border-[#0E0E0E]" />
+        <div className="absolute left-6 top-6 max-w-[180px] text-[8px] leading-5 tracking-[.24em] text-[#0E0E0E]/55">
           OBJECTS / STYLE / DAILY LIFE
         </div>
       </div>
@@ -106,7 +106,7 @@ const HeroSlider = () => {
   const heroImageWidth = typeof window !== "undefined" && window.innerWidth < 768 ? 900 : 1600;
 
   return (
-    <section dir="rtl" className="w-full bg-[#F3F0E8]">
+    <section dir="rtl" className="w-full bg-[#FFFFFF]">
       {slides.length > 0 ? (
         <div className="relative overflow-hidden">
           <Swiper
@@ -143,15 +143,15 @@ const HeroSlider = () => {
                   <div className="relative z-10 flex min-h-[760px] items-end px-5 pb-12 pt-24 sm:px-8 md:min-h-[820px] md:px-[8vw] md:pb-20">
                     <div className="max-w-[690px]">
                       <div className="mb-6 flex items-center gap-4">
-                        <span className="text-[8px] font-semibold tracking-[.4em] text-[#E1C98F]">GENAN / {String(index + 1).padStart(2, "0")}</span>
-                        <span className="h-px w-16 bg-[#E1C98F]/45" />
+                        <span className="text-[8px] font-semibold tracking-[.4em] text-[#E6D7B8]">GENAN / {String(index + 1).padStart(2, "0")}</span>
+                        <span className="h-px w-16 bg-[#E6D7B8]/45" />
                       </div>
                       <h1 className="text-[44px] font-medium leading-[1.28] tracking-[-.065em] text-white sm:text-[58px] lg:text-[78px]">
                         {slide.title}
                       </h1>
                       {slide.desc && <p className="mt-6 max-w-[520px] text-[12px] leading-8 text-white/66 md:text-[14px]">{slide.desc}</p>}
                       <div className="mt-9 flex flex-wrap items-center gap-5">
-                        <Link to={slide.link} className="inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#173A2D] transition-transform hover:-translate-y-0.5">
+                        <Link to={slide.link} className="inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#0E0E0E] transition-transform hover:-translate-y-0.5">
                           {slide.cta} <ArrowLeft size={15} weight="bold" />
                         </Link>
                         <Link to="/products" className="border-b border-white/35 pb-1 text-[10px] font-semibold text-white/82">كل المنتجات</Link>
@@ -160,7 +160,7 @@ const HeroSlider = () => {
                   </div>
 
                   <div className="absolute bottom-0 left-0 top-0 hidden w-[74px] border-r border-white/15 md:block">
-                    <span className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[8px] tracking-[.36em] text-white/45 [writing-mode:vertical-rl]">CURATED BY GENAN</span>
+                    <span className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[8px] tracking-[.36em] text-[#A9D8D3]/80 [writing-mode:vertical-rl]">CURATED BY GENAN</span>
                   </div>
                 </article>
               </SwiperSlide>
