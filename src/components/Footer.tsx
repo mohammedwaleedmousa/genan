@@ -8,18 +8,18 @@ const groups = [
 ];
 
 const Footer = () => (
-  <footer className="bg-[#10251D] text-white" dir="rtl">
+  <footer className="bg-[#0E0E0E] text-white" dir="rtl">
     <div className="border-b border-white/10 px-5 py-12 sm:px-8 md:px-[6vw] md:py-16">
       <div className="grid gap-12 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
         <div>
-          <span className="text-[8px] font-semibold tracking-[.4em] text-[#D9BC7D]">GENAN / STAY CURIOUS</span>
+          <span className="text-[8px] font-semibold tracking-[.4em] text-[#E6D7B8]">GENAN / STAY CURIOUS</span>
           <h2 className="mt-4 max-w-[880px] text-[38px] font-medium leading-[1.35] tracking-[-.055em] text-white sm:text-[52px] lg:text-[68px]">
             مساحة أهدأ للتسوق، واختيار أكثر وضوحًا.
           </h2>
         </div>
         <Link to="/products" className="group inline-flex w-fit items-center gap-5 border-b border-white/30 pb-3 text-[11px] font-semibold text-white">
           ابدأ الاكتشاف
-          <ArrowUpLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1" strokeWidth={1.4} />
+          <ArrowUpLeft className="h-4 w-4 text-[#A9D8D3] transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1" strokeWidth={1.4} />
         </Link>
       </div>
     </div>
@@ -38,7 +38,7 @@ const Footer = () => (
       <div className="grid grid-cols-2 sm:grid-cols-3">
         {groups.map((group, groupIndex) => (
           <div key={group.title} className={`min-h-[240px] px-5 py-9 sm:px-7 md:py-12 ${groupIndex < groups.length - 1 ? "border-l border-white/10" : ""}`}>
-            <p className="text-[8px] font-semibold tracking-[.24em] text-[#D9BC7D]">{group.title}</p>
+            <p className="text-[8px] font-semibold tracking-[.24em] text-[#E6D7B8]">{group.title}</p>
             <ul className="mt-6 space-y-3.5">
               {group.links.map(([label, href]) => (
                 <li key={href}>
