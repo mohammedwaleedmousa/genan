@@ -1,168 +1,128 @@
-/* Customer page refinements — desktop only. Mobile styles are intentionally untouched. */
-
+/* Genan customer-page composition — sharp editorial geometry. */
 @media (min-width: 1024px) {
   /* PRODUCT DETAIL */
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] {
-    max-width: 1480px !important;
-    padding-left: clamp(34px, 4vw, 58px) !important;
-    padding-right: clamp(34px, 4vw, 58px) !important;
+  body[data-storefront="genan"] main > div[class*="max-w-[1380px]"] {
+    max-width: 1580px !important;
+    padding-left: clamp(32px, 4vw, 64px) !important;
+    padding-right: clamp(32px, 4vw, 64px) !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] > div[class*="lg:grid-cols-"] {
-    grid-template-columns: minmax(0, 1.12fr) minmax(420px, 0.88fr) !important;
-    border-radius: 24px !important;
-    box-shadow: 0 18px 48px rgba(65, 45, 38, 0.065);
+  body[data-storefront="genan"] main > div[class*="max-w-[1380px]"] > div[class*="lg:grid-cols-"] {
+    grid-template-columns: minmax(0, 1.18fr) minmax(430px, .82fr) !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    column-gap: clamp(46px, 5vw, 92px) !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] section[class*="lg:px-6"] {
-    padding: 34px 38px !important;
+  body[data-storefront="genan"] main > div[class*="max-w-[1380px]"] section:last-of-type {
+    border-right: 1px solid #DCD5C6;
+    padding-right: clamp(34px, 4vw, 70px) !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] section:first-of-type > div[class*="lg:sticky"] {
-    top: 154px !important;
+  body[data-storefront="genan"] main > div[class*="max-w-[1380px]"] section:first-of-type > div[class*="lg:sticky"] {
+    top: 150px !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] section:first-of-type div[class*="aspect-[4/5]"] {
-    aspect-ratio: 4 / 5;
-    max-height: 760px;
+  body[data-storefront="genan"] main > div[class*="max-w-[1380px]"] section:first-of-type div[class*="aspect-[4/5]"] {
+    max-height: 780px;
+    border-radius: 0 !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] section:last-of-type h1 {
-    font-size: clamp(26px, 2vw, 34px) !important;
-    line-height: 1.5 !important;
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] section:last-of-type p,
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] section:last-of-type span,
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] section:last-of-type button {
-    font-size: max(11px, 0.74rem);
+  body[data-storefront="genan"] main > div[class*="max-w-[1380px]"] section:last-of-type h1 {
+    font-size: clamp(34px, 3vw, 54px) !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.055em !important;
   }
 
   /* CART */
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main section[class*="max-w-[1200px]"] {
-    max-width: 1380px !important;
-    grid-template-columns: minmax(0, 1fr) 380px !important;
-    gap: 38px !important;
-    padding: 42px 48px !important;
+  body[data-storefront="genan"] main section[class*="max-w-[1200px]"] {
+    max-width: 1480px !important;
+    grid-template-columns: minmax(0, 1fr) 400px !important;
+    gap: 58px !important;
+    padding: 54px 48px !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main section[class*="max-w-[1200px]"] article {
-    padding: 18px !important;
-    border-radius: 20px !important;
+  body[data-storefront="genan"] main section[class*="max-w-[1200px]"] article {
+    border: 0 !important;
+    border-bottom: 1px solid #DCD5C6 !important;
+    border-radius: 0 !important;
+    padding: 22px 0 !important;
+    box-shadow: none !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main section[class*="max-w-[1200px]"] article > a[href^="/product/"] {
-    width: 136px !important;
-    height: 172px !important;
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main section[class*="max-w-[1200px]"] article h3 {
-    font-size: 14px !important;
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main section[class*="max-w-[1200px]"] aside > div {
-    top: 154px !important;
-    padding: 26px !important;
-    border-radius: 22px !important;
+  body[data-storefront="genan"] main section[class*="max-w-[1200px]"] aside > div {
+    top: 150px !important;
+    border: 1px solid #DCD5C6 !important;
+    border-radius: 0 !important;
+    padding: 30px !important;
+    box-shadow: none !important;
+    background: #EEE9DD !important;
   }
 
   /* CHECKOUT */
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1120px]"] {
-    max-width: 1280px !important;
-    padding-left: 46px !important;
-    padding-right: 46px !important;
+  body[data-storefront="genan"] main > div[class*="max-w-[1120px]"] {
+    max-width: 1320px !important;
+    padding-left: 48px !important;
+    padding-right: 48px !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1120px]"] > div[class*="lg:grid-cols-"] {
-    grid-template-columns: minmax(0, 1fr) 370px !important;
-    gap: 32px !important;
+  body[data-storefront="genan"] main > div[class*="max-w-[1120px]"] > div[class*="lg:grid-cols-"] {
+    grid-template-columns: minmax(0, 1fr) 390px !important;
+    gap: 52px !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1120px]"] section {
-    border-radius: 20px !important;
-    box-shadow: 0 12px 34px rgba(65, 45, 38, 0.05);
+  body[data-storefront="genan"] main > div[class*="max-w-[1120px]"] section {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-color: #DCD5C6 !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1120px]"] section > div {
-    padding: 30px !important;
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1120px]"] label,
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1120px]"] p,
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1120px]"] button {
-    font-size: max(11px, 0.72rem);
+  body[data-storefront="genan"] main > div[class*="max-w-[1120px]"] section > div {
+    padding: 32px !important;
   }
 
   /* ACCOUNT */
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1050px]"] {
-    max-width: 1280px !important;
-    padding-left: 42px;
-    padding-right: 42px;
+  body[data-storefront="genan"] main > div[class*="max-w-[1050px]"] {
+    max-width: 1320px !important;
+    padding-left: 44px !important;
+    padding-right: 44px !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1050px]"] > section:first-child {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 32px 36px !important;
-    border-radius: 24px !important;
+  body[data-storefront="genan"] main > div[class*="max-w-[1050px]"] > section:first-child {
+    border-radius: 0 !important;
+    border: 1px solid #DCD5C6 !important;
+    padding: 36px 40px !important;
+    box-shadow: none !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1050px]"] section[class*="px-3"] {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1050px]"] .grid.grid-cols-3 > a {
-    min-height: 138px;
+  body[data-storefront="genan"] main > div[class*="max-w-[1050px]"] .grid.grid-cols-3 > a {
+    min-height: 148px;
     justify-content: center;
-    border-radius: 20px !important;
-    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    border-radius: 0 !important;
+    border-color: #DCD5C6 !important;
+    box-shadow: none !important;
   }
 
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1050px]"] .grid.grid-cols-3 > a:hover {
-    transform: translateY(-3px);
-    border-color: #dfcbc6;
-    box-shadow: 0 16px 34px rgba(65, 45, 38, 0.07);
+  body[data-storefront="genan"] main > div[class*="max-w-[1050px]"] .grid.grid-cols-3 > a:hover {
+    background: #EEE9DD;
   }
 
-  /* ORDER / NOTIFICATION / STORE INFO style content pages */
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[900px]"],
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[920px]"],
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[960px]"] {
-    max-width: 1160px !important;
-    padding-left: 42px !important;
-    padding-right: 42px !important;
+  /* CONTENT / TRACKING / NOTIFICATIONS */
+  body[data-storefront="genan"] main > div[class*="max-w-[900px]"],
+  body[data-storefront="genan"] main > div[class*="max-w-[920px]"],
+  body[data-storefront="genan"] main > div[class*="max-w-[960px]"] {
+    max-width: 1180px !important;
+    padding-left: 44px !important;
+    padding-right: 44px !important;
   }
 
-  /* Desktop cards and list rows should not keep tiny phone typography. */
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main article:not(:has(a[href^="/product/"])) h2,
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main article:not(:has(a[href^="/product/"])) h3 {
-    font-size: max(14px, 0.88rem);
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main article:not(:has(a[href^="/product/"])) p {
-    font-size: max(11px, 0.72rem);
-  }
-
-  /* Better mouse affordance for customer controls. */
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main button:not(:disabled),
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main a[href] {
-    cursor: pointer;
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main button:not(:disabled):focus-visible,
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main a[href]:focus-visible {
-    outline: 2px solid rgba(212, 119, 125, 0.55);
-    outline-offset: 3px;
-  }
-}
-
-@media (min-width: 1440px) {
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main > div[class*="max-w-[1380px]"] > div[class*="lg:grid-cols-"] {
-    grid-template-columns: minmax(0, 1.16fr) minmax(460px, 0.84fr) !important;
-  }
-
-  :where(body:has(header[dir="rtl"] img[src="/icons/flamingo.jpeg"])) main section[class*="max-w-[1200px]"] {
-    max-width: 1440px !important;
+  body[data-storefront="genan"] main > div[class*="max-w-[900px]"] article,
+  body[data-storefront="genan"] main > div[class*="max-w-[920px]"] article,
+  body[data-storefront="genan"] main > div[class*="max-w-[960px]"] article {
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 }
