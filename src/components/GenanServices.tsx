@@ -33,7 +33,7 @@ const GenanServices = () => {
 
   return (
     <section className="w-full bg-white py-5 md:py-14" dir="rtl">
-      <div className="relative h-[360px] w-full overflow-hidden bg-[#EAE4DE] sm:h-[420px] md:mx-auto md:h-[500px] md:max-w-[1500px] md:rounded-[28px] md:border md:border-[#E9DEDA] md:shadow-[0_22px_60px_rgba(77,51,45,0.08)] lg:h-[560px]">
+      <div className="relative h-[360px] w-full overflow-hidden bg-[#F4F4F4] sm:h-[420px] md:mx-auto md:h-[500px] md:max-w-[1500px] md:rounded-[28px] md:border md:border-[#EAEAEA] md:shadow-[0_22px_60px_rgba(77,51,45,0.08)] lg:h-[560px]">
         <img
           src={optimizeImage(String(banner.image_url), 1700, 82)}
           alt={String(banner.title_ar || "Genan curated brands")}
@@ -56,7 +56,7 @@ const GenanServices = () => {
             {banner.subtitle_ar && <><br /><span className="text-white/72">{String(banner.subtitle_ar)}</span></>}
           </h2>
 
-          <Link to={String(banner.cta_link || "/brands")} className="group mt-3 inline-flex items-center gap-1.5 text-[8px] font-medium text-white/90 md:mt-6 md:h-11 md:rounded-[11px] md:bg-white md:px-6 md:text-[10px] md:font-semibold md:text-[#173A2D] md:transition-all md:hover:-translate-y-0.5 md:hover:shadow-[0_12px_28px_rgba(0,0,0,0.16)]">
+          <Link to={String(banner.cta_link || "/brands")} className="group mt-3 inline-flex items-center gap-1.5 text-[8px] font-medium text-white/90 md:mt-6 md:h-11 md:rounded-[11px] md:bg-white md:px-6 md:text-[10px] md:font-semibold md:text-[#0E0E0E] md:transition-all md:hover:-translate-y-0.5 md:hover:shadow-[0_12px_28px_rgba(169,216,211,0.20)]">
             {String(banner.cta_text_ar || "اكتشف الماركات")}
             <ArrowLeft className="h-2.5 w-2.5 md:h-3.5 md:w-3.5" strokeWidth={1.5} />
           </Link>
