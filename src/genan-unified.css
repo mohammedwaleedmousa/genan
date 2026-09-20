@@ -1,0 +1,129 @@
+/* Genan unified storefront layer
+   Visual system only: preserves all storefront business logic. */
+
+body[data-storefront="genan"] {
+  --genan-black: #0e0e0e;
+  --genan-white: #ffffff;
+  --genan-paper: #fafafa;
+  --genan-line: #eaeaea;
+  --genan-gold: #d8c29a;
+  --genan-gold-light: #e6d7b8;
+  --genan-aqua: #a9d8d3;
+  --genan-muted: #707070;
+  background: var(--genan-white);
+  color: var(--genan-black);
+}
+
+body[data-storefront="genan"] main {
+  background: var(--genan-white);
+  color: var(--genan-black);
+}
+
+body[data-storefront="genan"] main :is(h1,h2,h3,h4) {
+  color: var(--genan-black);
+  letter-spacing: -0.035em;
+}
+
+body[data-storefront="genan"] main :is(input,select,textarea) {
+  border-radius: 0 !important;
+  border-color: #dddddd !important;
+  background: #ffffff !important;
+  color: var(--genan-black) !important;
+  box-shadow: none !important;
+}
+
+body[data-storefront="genan"] main :is(input,select,textarea):focus {
+  border-color: var(--genan-aqua) !important;
+  box-shadow: 0 0 0 1px var(--genan-aqua) !important;
+  outline: none !important;
+}
+
+body[data-storefront="genan"] main button,
+body[data-storefront="genan"] main a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body[data-storefront="genan"] main button[class*="rounded"],
+body[data-storefront="genan"] main a[class*="rounded"] {
+  border-radius: 0 !important;
+}
+
+body[data-storefront="genan"] main :is(.shadow-sm,.shadow-md,.shadow-lg,.shadow-xl,.shadow-2xl) {
+  box-shadow: none !important;
+}
+
+body[data-storefront="genan"] main [class*="bg-[#FFFDFC]"],
+body[data-storefront="genan"] main [class*="bg-[#FFF9F7]"],
+body[data-storefront="genan"] main [class*="bg-[#F8F6F0]"],
+body[data-storefront="genan"] main [class*="bg-[#F6F3EA]"] {
+  background: #ffffff !important;
+}
+
+body[data-storefront="genan"] main [class*="border-[#F0E6E2]"],
+body[data-storefront="genan"] main [class*="border-[#E5DED0]"],
+body[data-storefront="genan"] main [class*="border-[#DED8C9]"],
+body[data-storefront="genan"] main [class*="border-[#EADFDA]"] {
+  border-color: var(--genan-line) !important;
+}
+
+body[data-storefront="genan"] main [class*="text-[#20392E]"],
+body[data-storefront="genan"] main [class*="text-[#2D4136]"],
+body[data-storefront="genan"] main [class*="text-[#302725]"],
+body[data-storefront="genan"] main [class*="text-[#413432]"],
+body[data-storefront="genan"] main [class*="text-[#433634]"] {
+  color: var(--genan-black) !important;
+}
+
+body[data-storefront="genan"] main [class*="text-[#899289]"],
+body[data-storefront="genan"] main [class*="text-[#8A938B]"],
+body[data-storefront="genan"] main [class*="text-[#748078]"],
+body[data-storefront="genan"] main [class*="text-[#929A92]"] {
+  color: var(--genan-muted) !important;
+}
+
+body[data-storefront="genan"] main [class*="text-[#D8C29A]"] {
+  color: #9a825b !important;
+}
+
+body[data-storefront="genan"] main [class*="bg-[#0E0E0E]"] {
+  background: var(--genan-black) !important;
+}
+
+body[data-storefront="genan"] main [class*="bg-[#A9D8D3]"] {
+  background: var(--genan-aqua) !important;
+}
+
+body[data-storefront="genan"] main [role="dialog"],
+body[data-storefront="genan"] [data-radix-dialog-content],
+body[data-storefront="genan"] [data-radix-popover-content],
+body[data-storefront="genan"] [data-radix-menu-content] {
+  border-radius: 0 !important;
+  border-color: var(--genan-line) !important;
+  box-shadow: 0 24px 70px rgba(14,14,14,.12) !important;
+}
+
+body[data-storefront="genan"] .genan-surface {
+  background: var(--genan-white);
+  border: 1px solid var(--genan-line);
+}
+
+body[data-storefront="genan"] .genan-eyebrow {
+  color: #9a825b;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .32em;
+}
+
+body[data-storefront="genan"] .genan-aqua-detail {
+  color: var(--genan-aqua);
+}
+
+@media (max-width: 767px) {
+  body[data-storefront="genan"] main {
+    overflow-x: clip;
+  }
+
+  body[data-storefront="genan"] main :is(input,select,textarea) {
+    min-height: 44px;
+  }
+}
