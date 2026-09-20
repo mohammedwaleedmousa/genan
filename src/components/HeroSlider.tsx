@@ -19,7 +19,7 @@ type HeroBanner = {
 
 const HeroSlider = () => {
   const { data: banner } = useQuery({
-    queryKey: ["genan-clean-home-hero-v1"],
+    queryKey: ["genan-home-hero-compact-v1"],
     queryFn: async () => {
       const { data, error } = await (supabase as any)
         .from("banners")
@@ -46,85 +46,59 @@ const HeroSlider = () => {
 
   const image = banner?.image_url?.trim() || "/demo/genan-bag-black.svg";
   const imageSrc = image.startsWith("/") ? image : optimizeImage(image, 1400, 86);
-  const title = banner?.title_ar?.trim() || "اختيارات أقل. حضور أقوى.";
+  const title = banner?.title_ar?.trim() || "اختيارات واضحة. تصميم أهدأ.";
   const description =
     banner?.subtitle_ar?.trim() ||
-    "جنان ترتب تجربة التسوق حول المنتج نفسه: صورة واضحة، تفاصيل هادئة، واختيار أسرع.";
-  const cta = banner?.cta_text_ar?.trim() || "اكتشف المنتجات";
+    "تجربة تسوق مرتبة حول القطعة، بدون ازدحام بصري.";
+  const cta = banner?.cta_text_ar?.trim() || "تسوق الآن";
   const link = banner?.cta_link?.trim() || "/products";
 
   return (
-    <section dir="rtl" className="border-b border-[#EAEAEA] bg-white">
-      <div className="mx-auto grid max-w-[1760px] md:min-h-[620px] md:grid-cols-2">
-        <div className="flex items-center px-5 py-14 sm:px-8 md:px-[6vw] md:py-20">
-          <div className="max-w-[620px]">
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-px w-12 bg-[#D8C29A]" />
-              <span className="text-[8px] font-semibold tracking-[.34em] text-[#9A825B]">GENAN / CURATED STORE</span>
-              <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
-            </div>
+    <section dir="rtl" className="bg-white px-4 pt-4 sm:px-6 md:px-[5vw] md:pt-6">
+      <div className="mx-auto max-w-[1600px] overflow-hidden bg-[#0E0E0E]">
+        <div className="grid min-h-[420px] md:min-h-[500px] md:grid-cols-[42%_58%]">
+          <div className="order-2 flex items-center px-6 py-10 text-white sm:px-9 md:order-1 md:px-12 lg:px-16">
+            <div className="max-w-[510px]">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="h-px w-9 bg-[#D8C29A]" />
+                <span className="text-[7px] font-semibold tracking-[.28em] text-[#D8C29A]">GENAN / EDIT</span>
+                <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
+              </div>
 
-            <h1 className="text-[42px] font-medium leading-[1.28] tracking-[-.055em] text-[#0E0E0E] sm:text-[54px] lg:text-[68px]">
-              {title}
-            </h1>
+              <h1 className="text-[34px] font-medium leading-[1.3] tracking-[-.045em] text-white sm:text-[42px] lg:text-[52px]">
+                {title}
+              </h1>
 
-            <p className="mt-6 max-w-[500px] text-[12px] leading-8 text-[#6F6F6F] md:text-[13px]">
-              {description}
-            </p>
+              <p className="mt-4 max-w-[430px] text-[10px] leading-7 text-white/58 sm:text-[11px]">
+                {description}
+              </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-5">
               <Link
                 to={link}
-                className="inline-flex h-12 items-center gap-3 bg-[#0E0E0E] px-7 text-[10px] font-semibold text-white transition-colors hover:bg-[#1B1B1B]"
+                className="mt-7 inline-flex h-11 items-center gap-3 bg-white px-6 text-[9px] font-semibold text-[#0E0E0E]"
               >
                 {cta}
-                <ArrowLeft size={15} weight="bold" />
+                <ArrowLeft size={14} weight="bold" />
               </Link>
-
-              <Link
-                to="/categories"
-                className="border-b border-[#D8C29A] pb-1.5 text-[10px] font-semibold text-[#0E0E0E]"
-              >
-                تصفح الأقسام
-              </Link>
-            </div>
-
-            <div className="mt-12 flex items-center gap-8 border-t border-[#EAEAEA] pt-5">
-              <div>
-                <span className="block text-[16px] font-semibold text-[#0E0E0E]">01</span>
-                <span className="mt-1 block text-[7px] tracking-[.16em] text-[#999]">CLEAR LAYOUT</span>
-              </div>
-              <div>
-                <span className="block text-[16px] font-semibold text-[#0E0E0E]">02</span>
-                <span className="mt-1 block text-[7px] tracking-[.16em] text-[#999]">CURATED ITEMS</span>
-              </div>
-              <div>
-                <span className="block h-2 w-2 bg-[#A9D8D3]" />
-                <span className="mt-2 block text-[7px] tracking-[.16em] text-[#999]">GENAN DETAIL</span>
-              </div>
             </div>
           </div>
-        </div>
 
-        <div className="relative min-h-[430px] overflow-hidden bg-[#F4F4F4] md:min-h-[620px]">
-          <img
-            src={imageSrc}
-            alt={title}
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{
-              objectPosition: `${Number(banner?.image_position_x ?? 50)}% ${Number(banner?.image_position_y ?? 50)}%`,
-              transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
-            }}
-          />
-
-          <div className="pointer-events-none absolute inset-0 border-[14px] border-white/0 md:border-[22px]" />
-
-          <div className="absolute bottom-0 left-0 flex items-center gap-3 bg-white px-5 py-4 md:px-6">
-            <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
-            <span className="text-[7px] font-semibold tracking-[.24em] text-[#777]">GENAN / 2026</span>
+          <div className="order-1 relative min-h-[300px] overflow-hidden bg-[#F3F3F3] md:order-2 md:min-h-[500px]">
+            <img
+              src={imageSrc}
+              alt={title}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{
+                objectPosition: `${Number(banner?.image_position_x ?? 50)}% ${Number(banner?.image_position_y ?? 50)}%`,
+                transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
+              }}
+            />
+            <div className="absolute bottom-0 left-0 bg-white px-4 py-3">
+              <span className="text-[7px] font-semibold tracking-[.2em] text-[#777]">GENAN / 2026</span>
+            </div>
           </div>
         </div>
       </div>
