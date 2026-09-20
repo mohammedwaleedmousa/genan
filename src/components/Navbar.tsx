@@ -159,31 +159,32 @@ const Navbar = () => {
                 </button>
               </SheetTrigger>
 
-              <SheetContent side="right" dir="rtl" className="w-[88vw] max-w-[360px] border-l border-[#EAEAEA] bg-white p-0">
-                <div className="flex h-16 items-center justify-between border-b border-[#EAEAEA] px-5">
+              <SheetContent side="right" dir="rtl" className="w-[82vw] max-w-[320px] border-l border-[#EAEAEA] bg-white p-0">
+                <div className="flex h-16 items-center border-b border-[#EAEAEA] px-5">
                   <Logo size="md" />
-                  <span className="h-2 w-2 bg-[#A9D8D3]" />
                 </div>
 
-                <div className="p-5">
-                  <form
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      submitSearch();
-                    }}
-                    className="relative"
-                  >
-                    <MagnifyingGlass size={17} className="absolute right-0 top-1/2 -translate-y-1/2 text-[#777]" />
-                    <input
-                      value={searchTerm}
-                      onChange={(event) => setSearchTerm(event.target.value)}
-                      placeholder="ابحث في جنان"
-                      className="h-11 w-full border-b border-[#DADADA] bg-transparent pr-7 pl-2 text-[12px] outline-none focus:border-[#A9D8D3]"
-                    />
-                  </form>
+                <div className="flex h-[calc(100dvh-64px)] flex-col">
+                  <div className="px-5 pt-5">
+                    <form
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        submitSearch();
+                      }}
+                      className="relative"
+                    >
+                      <MagnifyingGlass size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A8A8A]" />
+                      <input
+                        value={searchTerm}
+                        onChange={(event) => setSearchTerm(event.target.value)}
+                        placeholder="بحث"
+                        className="h-11 w-full border border-[#E5E5E5] bg-white pr-9 pl-3 text-[11px] outline-none focus:border-[#A9D8D3]"
+                      />
+                    </form>
+                  </div>
 
-                  <nav className="mt-8 border-t border-[#EAEAEA]">
-                    {navLinks.map((item) => (
+                  <nav className="mt-4 flex-1 overflow-y-auto px-5">
+                    {navLinks.map((item, index) => (
                       <button
                         key={item.to}
                         type="button"
@@ -191,31 +192,54 @@ const Navbar = () => {
                           navigate(item.to);
                           setMenuOpen(false);
                         }}
-                        className={`flex h-14 w-full items-center justify-between border-b border-[#EAEAEA] text-right text-[13px] ${isActive(item.to) ? "font-semibold text-[#0E0E0E]" : "text-[#666]"}`}
+                        className={`flex h-13 min-h-[52px] w-full items-center justify-between border-b border-[#EEEEEE] text-right ${isActive(item.to) ? "font-semibold text-[#0E0E0E]" : "font-medium text-[#6F6F6F]"}`}
                       >
-                        {item.label}
+                        <span className="flex items-center gap-3">
+                          <span className="w-5 text-[8px] tracking-[.12em] text-[#B0B0B0]">{String(index + 1).padStart(2, "0")}</span>
+                          <span className="text-[12px]">{item.label}</span>
+                        </span>
                         {isActive(item.to) && <span className="h-1.5 w-1.5 bg-[#D8C29A]" />}
                       </button>
                     ))}
+
+                    <button
+                      type="button"
+                      onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
+                      className="flex min-h-[52px] w-full items-center justify-between border-b border-[#EEEEEE] text-right text-[12px] font-medium text-[#6F6F6F]"
+                    >
+                      <span className="flex items-center gap-3">
+                        <Heart size={16} />
+                        المفضلة
+                      </span>
+                      {favorites.length > 0 && <span className="text-[9px] font-semibold text-[#0E0E0E]">{favorites.length}</span>}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
+                      className="flex min-h-[52px] w-full items-center gap-3 border-b border-[#EEEEEE] text-right text-[12px] font-medium text-[#6F6F6F]"
+                    >
+                      <User size={16} />
+                      {customer ? "حسابي" : "تسجيل الدخول"}
+                    </button>
                   </nav>
 
-                  <div className="mt-8 grid grid-cols-2 gap-px bg-[#EAEAEA]">
-                    <button onClick={() => { navigate("/favorites"); setMenuOpen(false); }} className="flex h-12 items-center justify-center gap-2 bg-white text-[10px] font-semibold">
-                      <Heart size={16} /> المفضلة
-                    </button>
-                    <button onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }} className="flex h-12 items-center justify-center gap-2 bg-white text-[10px] font-semibold">
-                      <User size={16} /> {customer ? "حسابي" : "الدخول"}
-                    </button>
-                  </div>
-
-                  <div className="mt-4">
+                  <div className="border-t border-[#EAEAEA] px-5 py-4">
                     {customer ? (
-                      <button onClick={handleLogout} className="flex h-12 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[10px] font-semibold text-white">
-                        <SignOut size={16} /> تسجيل الخروج
+                      <button
+                        onClick={handleLogout}
+                        className="flex h-11 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[10px] font-semibold text-white"
+                      >
+                        <SignOut size={15} />
+                        تسجيل الخروج
                       </button>
                     ) : (
-                      <button onClick={() => { navigate("/auth"); setMenuOpen(false); }} className="flex h-12 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[10px] font-semibold text-white">
-                        <SignIn size={16} /> تسجيل الدخول
+                      <button
+                        onClick={() => { navigate("/auth"); setMenuOpen(false); }}
+                        className="flex h-11 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[10px] font-semibold text-white"
+                      >
+                        <SignIn size={15} />
+                        تسجيل الدخول
                       </button>
                     )}
                   </div>
