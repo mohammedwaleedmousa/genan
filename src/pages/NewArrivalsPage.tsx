@@ -52,7 +52,7 @@ const NewArrivalsPage = () => {
                 <p className="mt-1.5 max-w-[260px] text-[8px] leading-5 text-[#899289] md:max-w-md md:text-[10px]">أحدث القطع التي وصلت إلى جنان، مختارة لتكوني أول من يكتشفها.</p>
               </div>
 
-              {!isLoading && total > 0 && <div className="shrink-0 text-left"><span className="block text-[18px] font-semibold leading-none text-[#B85F66] md:text-[22px]">{total}</span><span className="mt-1 block text-[6px] text-[#929A92] md:text-[7px]">قطعة جديدة</span></div>}
+              {!isLoading && total > 0 && <div className="shrink-0 text-left"><span className="block text-[18px] font-semibold leading-none text-[#9D7B40] md:text-[22px]">{total}</span><span className="mt-1 block text-[6px] text-[#929A92] md:text-[7px]">قطعة جديدة</span></div>}
             </div>
           </div>
         </section>
