@@ -17,7 +17,7 @@
   }
 
   body[data-storefront="genan"] main > div[class*="max-w-[1380px]"] section:last-of-type {
-    border-right: 1px solid #DCD5C6;
+    border-right: 1px solid #EAEAEA;
     padding-right: clamp(34px, 4vw, 70px) !important;
   }
 
@@ -47,7 +47,7 @@
 
   body[data-storefront="genan"] main section[class*="max-w-[1200px]"] article {
     border: 0 !important;
-    border-bottom: 1px solid #DCD5C6 !important;
+    border-bottom: 1px solid #EAEAEA !important;
     border-radius: 0 !important;
     padding: 22px 0 !important;
     box-shadow: none !important;
@@ -55,11 +55,11 @@
 
   body[data-storefront="genan"] main section[class*="max-w-[1200px]"] aside > div {
     top: 150px !important;
-    border: 1px solid #DCD5C6 !important;
+    border: 1px solid #EAEAEA !important;
     border-radius: 0 !important;
     padding: 30px !important;
     box-shadow: none !important;
-    background: #EEE9DD !important;
+    background: #F7F7F7 !important;
   }
 
   /* CHECKOUT */
@@ -77,7 +77,7 @@
   body[data-storefront="genan"] main > div[class*="max-w-[1120px]"] section {
     border-radius: 0 !important;
     box-shadow: none !important;
-    border-color: #DCD5C6 !important;
+    border-color: #EAEAEA !important;
   }
 
   body[data-storefront="genan"] main > div[class*="max-w-[1120px]"] section > div {
@@ -93,7 +93,7 @@
 
   body[data-storefront="genan"] main > div[class*="max-w-[1050px]"] > section:first-child {
     border-radius: 0 !important;
-    border: 1px solid #DCD5C6 !important;
+    border: 1px solid #EAEAEA !important;
     padding: 36px 40px !important;
     box-shadow: none !important;
   }
@@ -102,12 +102,12 @@
     min-height: 148px;
     justify-content: center;
     border-radius: 0 !important;
-    border-color: #DCD5C6 !important;
+    border-color: #EAEAEA !important;
     box-shadow: none !important;
   }
 
   body[data-storefront="genan"] main > div[class*="max-w-[1050px]"] .grid.grid-cols-3 > a:hover {
-    background: #EEE9DD;
+    background: #F7F7F7;
   }
 
   /* CONTENT / TRACKING / NOTIFICATIONS */
