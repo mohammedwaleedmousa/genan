@@ -79,7 +79,7 @@ const loadSearchIndex = async () => {
 
 const Section = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <section className="mt-6">
-    <p className="mb-2 px-2 text-[10px] font-semibold text-[#7B817B]">{label}</p>
+    <p className="mb-2 px-2 text-[9px] font-semibold tracking-[0.12em] text-white/35">{label}</p>
     <div className="space-y-1">{children}</div>
   </section>
 );
@@ -100,15 +100,15 @@ const NavItem = ({
   <button
     type="button"
     onClick={onPress}
-    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F3F0E6] text-white" : "text-white/78 hover:bg-[#F5F3EC]"}`}
+    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-white/[0.08] text-white" : "text-white/68 hover:bg-white/[0.05] hover:text-white"}`}
   >
     {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#D9BC7D]" />}
-    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E8E4D8] text-[#9D7B40]" : "bg-[#F3F0E8] text-[#697269]"}`}>
+    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-white/[0.10] text-[#D9BC7D]" : "bg-white/[0.05] text-white/55"}`}>
       <Icon size={19} weight="regular" />
     </span>
     <span className={`flex-1 text-right text-[13px] ${isActive ? "font-semibold" : "font-medium"}`}>{label}</span>
     {!!badge && <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D9BC7D] px-1.5 text-[9px] font-bold text-[#10251D]">{badge}</span>}
-    <CaretLeft size={14} className={isActive ? "text-[#9D7B40]" : "text-[#C5B9B5]"} />
+    <CaretLeft size={14} className={isActive ? "text-[#D9BC7D]" : "text-white/25"} />
   </button>
 );
 
@@ -278,7 +278,7 @@ const Navbar = () => {
         <DropdownMenuSeparator className="bg-[#E4DED1]" />
         {currencies.map((currency) => (
           <DropdownMenuItem key={currency.key} onClick={() => setMode(currency.key)} className={`cursor-pointer justify-between rounded-[9px] focus:bg-[#F1EEE5] ${mode === currency.key ? "bg-[#F1EEE5]" : ""}`}>
-            <span className="flex items-center gap-2 text-sm text-white/78">
+            <span className="flex items-center gap-2 text-sm text-[#30453A]">
               <span>{currency.flag}</span>
               {currency.label}
             </span>
@@ -306,7 +306,7 @@ const Navbar = () => {
                 <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-white/10 bg-[#10251D] p-0">
                   <div className="flex items-center justify-center border-b border-white/10 px-5 py-5">
                     <button type="button" onClick={() => goFromMenu("/home")} className="flex items-center" aria-label="الرئيسية">
-                      <Logo size="lg" showArabic />
+                      <Logo size="lg" showArabic invert />
                     </button>
                   </div>
 
@@ -346,7 +346,7 @@ const Navbar = () => {
                         تسجيل الخروج
                       </button>
                     ) : (
-                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#D9BC7D] text-sm font-semibold text-white transition-colors hover:bg-[#214C3B]">
+                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 bg-[#D9BC7D] text-sm font-semibold text-[#10251D] transition-colors hover:bg-[#E1C98F]">
                         <SignIn size={18} />
                         تسجيل الدخول
                       </button>
@@ -357,7 +357,7 @@ const Navbar = () => {
             </div>
 
             <Link to="/home" aria-label="الرئيسية" className="absolute left-1/2 -translate-x-1/2">
-              <Logo size="md" />
+              <Logo size="md" invert />
             </Link>
 
             <div className="flex items-center gap-0.5">
@@ -394,8 +394,8 @@ const Navbar = () => {
                   {suggestions.map((suggestion, index) => (
                     <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#E4DED1] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#F8F6F0]/8">
                       <MagnifyingGlass size={14} className="shrink-0 text-[#9D7B40]" />
-                      <span className="min-w-0 flex-1 truncate text-[11px] font-medium text-[#10251D]">{suggestion.value}</span>
-                      <span className="shrink-0 text-[7px] tracking-[0.08em] text-[#798279]">{suggestion.type}</span>
+                      <span className="min-w-0 flex-1 truncate text-[11px] font-medium text-white/82">{suggestion.value}</span>
+                      <span className="shrink-0 text-[7px] tracking-[0.08em] text-white/35">{suggestion.type}</span>
                     </button>
                   ))}
                 </div>
@@ -403,7 +403,7 @@ const Navbar = () => {
             </form>
 
             <Link to="/home" aria-label="الرئيسية" className="justify-self-center">
-              <Logo size="xl" showArabic />
+              <Logo size="xl" showArabic invert />
             </Link>
 
             <div className="flex items-center justify-self-end gap-1">
@@ -449,7 +449,7 @@ const Navbar = () => {
                   <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#ECE8DE] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#FFF8F6] active:bg-[#EFEBE1]">
                     <MagnifyingGlass size={15} className="shrink-0 text-[#9D7B40]" />
                     <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-[#2D4136]">{suggestion.value}</span>
-                    <span className="shrink-0 rounded-full bg-[#F0EDE5] px-2 py-1 text-[8px] text-white/45">{suggestion.type}</span>
+                    <span className="shrink-0 bg-[#EEE9DD] px-2 py-1 text-[8px] text-[#7D877F]">{suggestion.type}</span>
                   </button>
                 ))}
               </div>
