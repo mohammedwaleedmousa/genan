@@ -136,7 +136,7 @@ const FavoritesPage = () => {
           <section className="border-b border-[#EFE6E2] bg-white">
             <div className="mx-auto flex h-[54px] w-full max-w-[1500px] items-center justify-between gap-3 px-3 md:h-[60px] md:px-6">
               <div className="flex min-w-0 items-center gap-2">
-                <Heart className="h-4 w-4 shrink-0 fill-[#F4D5D6] stroke-[#9D7B40]" />
+                <Heart className="h-4 w-4 shrink-0 fill-[#EEE9DD] stroke-[#9D7B40]" />
 
                 <div className="min-w-0">
                   <span className="block truncate text-[8px] font-semibold leading-none text-[#645451] md:text-[9px]">قائمتك الخاصة</span>
@@ -175,7 +175,7 @@ const FavoritesPage = () => {
 
                 {/* CUSTOM SORT */}
                 <div ref={sortRef} className="relative shrink-0">
-                  <button type="button" onClick={() => setSortOpen((current) => !current)} className={`flex h-[38px] min-w-[122px] items-center justify-between gap-3 rounded-[13px] border bg-white px-3 transition-colors md:h-[41px] md:min-w-[145px] ${sortOpen ? "border-[#DDB8B5]" : "border-[#DDD7C8]"}`}>
+                  <button type="button" onClick={() => setSortOpen((current) => !current)} className={`flex h-[38px] min-w-[122px] items-center justify-between gap-3 rounded-[13px] border bg-white px-3 transition-colors md:h-[41px] md:min-w-[145px] ${sortOpen ? "border-[#DCD5C6]" : "border-[#DDD7C8]"}`}>
                     <div className="flex items-center gap-1.5">
                       <SlidersHorizontal className="h-3.5 w-3.5 stroke-[1.5] text-[#9D7B40]" />
 
@@ -185,7 +185,7 @@ const FavoritesPage = () => {
                       </div>
                     </div>
 
-                    <ChevronDown className={`h-3 w-3 shrink-0 stroke-[1.5] text-[#B26C70] transition-transform duration-150 ${sortOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`h-3 w-3 shrink-0 stroke-[1.5] text-[#9D7B40] transition-transform duration-150 ${sortOpen ? "rotate-180" : ""}`} />
                   </button>
 
                   {sortOpen && (
@@ -197,7 +197,7 @@ const FavoritesPage = () => {
                           return (
                             <button key={option.value} type="button" onClick={() => { setSortBy(option.value); setSortOpen(false); }} className={`flex min-h-[49px] w-full items-center justify-between rounded-[11px] px-3 text-right ${active ? "bg-[#F0EDE5]" : "bg-white active:bg-[#FAF7F5]"}`}>
                               <div>
-                                <span className={`block text-[9px] font-semibold ${active ? "text-[#AD5C63]" : "text-[#594B47]"}`}>{option.label}</span>
+                                <span className={`block text-[9px] font-semibold ${active ? "text-[#173A2D]" : "text-[#594B47]"}`}>{option.label}</span>
 
                                 <span className="mt-1 block text-[6px] text-[#929A92]">{option.description}</span>
                               </div>
@@ -232,9 +232,9 @@ const FavoritesPage = () => {
               <div className="px-3 py-9 md:px-6 md:py-12">
                 <div className="border-t border-[#EADFDA] pt-6 text-center">
                   <div className="mb-2 flex items-center justify-center gap-2">
-                    <span className="h-px w-5 bg-[#D9B6B2]" />
+                    <span className="h-px w-5 bg-[#C6B17F]" />
                     <span className="font-serif text-[6px] tracking-[0.24em] text-[#9D7B40]">GENAN FAVORITES</span>
-                    <span className="h-px w-5 bg-[#D9B6B2]" />
+                    <span className="h-px w-5 bg-[#C6B17F]" />
                   </div>
 
                   <p className="text-[8px] text-[#968783]">احتفظ بالقطع التي تحبها وارجع إليها في أي وقت.</p>
