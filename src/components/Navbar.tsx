@@ -102,13 +102,13 @@ const NavItem = ({
     onClick={onPress}
     className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-white/[0.08] text-white" : "text-white/68 hover:bg-white/[0.05] hover:text-white"}`}
   >
-    {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#D9BC7D]" />}
-    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-white/[0.10] text-[#D9BC7D]" : "bg-white/[0.05] text-white/55"}`}>
+    {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#E6D7B8]" />}
+    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-white/[0.10] text-[#E6D7B8]" : "bg-white/[0.05] text-white/55"}`}>
       <Icon size={19} weight="regular" />
     </span>
     <span className={`flex-1 text-right text-[13px] ${isActive ? "font-semibold" : "font-medium"}`}>{label}</span>
-    {!!badge && <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D9BC7D] px-1.5 text-[9px] font-bold text-[#10251D]">{badge}</span>}
-    <CaretLeft size={14} className={isActive ? "text-[#D9BC7D]" : "text-white/25"} />
+    {!!badge && <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#A9D8D3] px-1.5 text-[9px] font-bold text-[#0E0E0E]">{badge}</span>}
+    <CaretLeft size={14} className={isActive ? "text-[#E6D7B8]" : "text-white/25"} />
   </button>
 );
 
@@ -268,21 +268,21 @@ const Navbar = () => {
   const currencyMenu = (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button type="button" aria-label="العملة" className="flex h-10 items-center gap-1 rounded-xl px-2 text-[11px] font-semibold text-white/70 transition-colors hover:bg-[#F8F6F0]/8 hover:text-[#E1C98F] md:h-10 md:px-3">
+        <button type="button" aria-label="العملة" className="flex h-10 items-center gap-1 rounded-xl px-2 text-[11px] font-semibold text-white/70 transition-colors hover:bg-[#FFFFFF]/8 hover:text-[#E6D7B8] md:h-10 md:px-3">
           <Globe size={17} />
           <span>{short}</span>
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-60 rounded-[14px] border-white/12 bg-[#F8F6F0]">
-        <DropdownMenuLabel className="text-xs text-[#31443A]">اختر العملة</DropdownMenuLabel>
-        <DropdownMenuSeparator className="bg-[#E4DED1]" />
+      <DropdownMenuContent align="end" className="w-60 rounded-[14px] border-[#EAEAEA] bg-white text-[#0E0E0E]">
+        <DropdownMenuLabel className="text-xs text-[#0E0E0E]">اختر العملة</DropdownMenuLabel>
+        <DropdownMenuSeparator className="bg-[#EAEAEA]" />
         {currencies.map((currency) => (
           <DropdownMenuItem key={currency.key} onClick={() => setMode(currency.key)} className={`cursor-pointer justify-between rounded-[9px] focus:bg-[#F1EEE5] ${mode === currency.key ? "bg-[#F1EEE5]" : ""}`}>
-            <span className="flex items-center gap-2 text-sm text-[#30453A]">
+            <span className="flex items-center gap-2 text-sm text-[#0E0E0E]">
               <span>{currency.flag}</span>
               {currency.label}
             </span>
-            {mode === currency.key && <span className="h-2 w-2 rounded-full bg-[#D9BC7D]" />}
+            {mode === currency.key && <span className="h-2 w-2 rounded-full bg-[#E6D7B8]" />}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
@@ -291,19 +291,19 @@ const Navbar = () => {
 
   return (
     <>
-      <header dir="rtl" className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#10251D]/96 text-white backdrop-blur-2xl">
-        {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[112px] z-[55] touch-none bg-[#10251D]/96 md:top-[120px]" />}
+      <header dir="rtl" className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#0E0E0E]/96 text-white backdrop-blur-2xl">
+        {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[112px] z-[55] touch-none bg-[#0E0E0E]/96 md:top-[120px]" />}
         <div className="mx-auto max-w-[1500px] px-4 md:px-6 lg:px-8">
           <div className="relative flex h-[58px] items-center justify-between md:hidden">
             <div className="flex items-center">
               <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
                 <SheetTrigger asChild>
-                  <button type="button" aria-label="فتح القائمة" className="flex h-10 w-10 items-center justify-center rounded-xl text-white/78 transition-colors hover:bg-[#F8F6F0]/8 hover:text-[#E1C98F]">
+                  <button type="button" aria-label="فتح القائمة" className="flex h-10 w-10 items-center justify-center rounded-xl text-white/78 transition-colors hover:bg-[#FFFFFF]/8 hover:text-[#E6D7B8]">
                     <List size={22} />
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-white/10 bg-[#10251D] p-0">
+                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-white/10 bg-[#0E0E0E] p-0">
                   <div className="flex items-center justify-center border-b border-white/10 px-5 py-5">
                     <button type="button" onClick={() => goFromMenu("/home")} className="flex items-center" aria-label="الرئيسية">
                       <Logo size="lg" showArabic invert />
@@ -312,9 +312,9 @@ const Navbar = () => {
 
                   <nav className="flex-1 overflow-y-auto px-3 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {unreadCount > 0 && (
-                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mt-4 flex w-full items-center gap-3 rounded-[14px] border border-[#D8CCAE] bg-[#F3F0E6] px-4 py-3 text-right">
-                        <Bell size={19} className="text-[#9D7B40]" />
-                        <span className="flex-1 text-xs font-medium text-[#10251D]">لديك {unreadCount} إشعار جديد</span>
+                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mt-4 flex w-full items-center gap-3 rounded-[14px] border border-[#E6D7B8] bg-[#F7F7F7] px-4 py-3 text-right">
+                        <Bell size={19} className="text-[#D8C29A]" />
+                        <span className="flex-1 text-xs font-medium text-[#0E0E0E]">لديك {unreadCount} إشعار جديد</span>
                       </button>
                     )}
 
@@ -339,14 +339,14 @@ const Navbar = () => {
                     </Section>
                   </nav>
 
-                  <div className="border-t border-white/10 bg-[#10251D] p-4">
+                  <div className="border-t border-white/10 bg-[#0E0E0E] p-4">
                     {customer ? (
-                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#E4D8D4] bg-[#F8F6F0] text-sm font-medium text-[#70625D] transition-colors hover:border-[#E2B9B5] hover:bg-[#FFF8F6] hover:text-[#E1C98F]">
+                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#E4D8D4] bg-[#FFFFFF] text-sm font-medium text-[#70625D] transition-colors hover:border-[#E2B9B5] hover:bg-[#FAFAFA] hover:text-[#E6D7B8]">
                         <SignOut size={18} />
                         تسجيل الخروج
                       </button>
                     ) : (
-                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 bg-[#D9BC7D] text-sm font-semibold text-[#10251D] transition-colors hover:bg-[#E1C98F]">
+                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 bg-[#E6D7B8] text-sm font-semibold text-[#0E0E0E] transition-colors hover:bg-[#E6D7B8]">
                         <SignIn size={18} />
                         تسجيل الدخول
                       </button>
@@ -362,9 +362,9 @@ const Navbar = () => {
 
             <div className="flex items-center gap-0.5">
               {currencyMenu}
-              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center rounded-xl text-white/78 transition-colors hover:bg-[#F8F6F0]/8 hover:text-[#E1C98F]">
+              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center rounded-xl text-white/78 transition-colors hover:bg-[#FFFFFF]/8 hover:text-[#E6D7B8]">
                 <ShoppingCart size={21} weight="regular" />
-                {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#D9BC7D] px-1 text-[9px] font-bold text-[#10251D]">{cartCount > 99 ? "99+" : cartCount}</span>}
+                {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#E6D7B8] px-1 text-[9px] font-bold text-[#0E0E0E]">{cartCount > 99 ? "99+" : cartCount}</span>}
               </button>
             </div>
           </div>
@@ -390,10 +390,10 @@ const Navbar = () => {
               )}
 
               {searchPanelOpen && suggestions.length > 0 && (
-                <div ref={searchResultsRef} role="listbox" className="absolute right-0 top-[50px] z-[75] max-h-[360px] w-[390px] overflow-y-auto border border-white/12 bg-[#10251D] shadow-[0_24px_60px_rgba(35,49,40,0.12)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div ref={searchResultsRef} role="listbox" className="absolute right-0 top-[50px] z-[75] max-h-[360px] w-[390px] overflow-y-auto border border-white/12 bg-[#0E0E0E] shadow-[0_24px_60px_rgba(35,49,40,0.12)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {suggestions.map((suggestion, index) => (
-                    <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#E4DED1] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#F8F6F0]/8">
-                      <MagnifyingGlass size={14} className="shrink-0 text-[#9D7B40]" />
+                    <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#EAEAEA] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#FFFFFF]/8">
+                      <MagnifyingGlass size={14} className="shrink-0 text-[#D8C29A]" />
                       <span className="min-w-0 flex-1 truncate text-[11px] font-medium text-white/82">{suggestion.value}</span>
                       <span className="shrink-0 text-[7px] tracking-[0.08em] text-white/35">{suggestion.type}</span>
                     </button>
@@ -408,15 +408,15 @@ const Navbar = () => {
 
             <div className="flex items-center justify-self-end gap-1">
               {currencyMenu}
-              <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center text-white/76 transition-colors hover:text-[#E1C98F]">
+              <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center text-white/76 transition-colors hover:text-[#E6D7B8]">
                 <Heart size={19} weight="regular" />
-                {favorites.length > 0 && <span className="absolute -left-1 top-0 flex h-[15px] min-w-[15px] items-center justify-center bg-[#D9BC7D] px-1 text-[7px] font-bold text-[#10251D]">{favorites.length > 99 ? "99+" : favorites.length}</span>}
+                {favorites.length > 0 && <span className="absolute -left-1 top-0 flex h-[15px] min-w-[15px] items-center justify-center bg-[#E6D7B8] px-1 text-[7px] font-bold text-[#0E0E0E]">{favorites.length > 99 ? "99+" : favorites.length}</span>}
               </Link>
-              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center text-white/76 transition-colors hover:text-[#E1C98F]">
+              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center text-white/76 transition-colors hover:text-[#E6D7B8]">
                 <ShoppingCart size={19} weight="regular" />
-                {cartCount > 0 && <span className="absolute -left-1 top-0 flex h-[15px] min-w-[15px] items-center justify-center bg-[#D9BC7D] px-1 text-[7px] font-bold text-[#10251D]">{cartCount > 99 ? "99+" : cartCount}</span>}
+                {cartCount > 0 && <span className="absolute -left-1 top-0 flex h-[15px] min-w-[15px] items-center justify-center bg-[#E6D7B8] px-1 text-[7px] font-bold text-[#0E0E0E]">{cartCount > 99 ? "99+" : cartCount}</span>}
               </button>
-              <Link to={customer ? "/account" : "/auth"} className="ml-1 flex h-10 items-center gap-2 border-r border-[#D8D1C3] pr-3 text-[9px] font-semibold text-white/76 transition-colors hover:text-[#E1C98F]">
+              <Link to={customer ? "/account" : "/auth"} className="ml-1 flex h-10 items-center gap-2 border-r border-[#EAEAEA] pr-3 text-[9px] font-semibold text-white/76 transition-colors hover:text-[#E6D7B8]">
                 <User size={16} />
                 <span>{customer ? "حسابي" : "الدخول"}</span>
               </Link>
@@ -425,7 +425,7 @@ const Navbar = () => {
 
           <form onSubmit={submitSearch} className="relative z-[70] pb-3 md:hidden">
             <label className="relative block">
-              <MagnifyingGlass size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#7A827A]" />
+              <MagnifyingGlass size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#777777]" />
               <input
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -435,21 +435,21 @@ const Navbar = () => {
                 autoComplete="off"
                 aria-autocomplete="list"
                 aria-expanded={searchPanelOpen && suggestions.length > 0}
-                className="h-10 w-full border-b border-white/20 bg-transparent pr-9 pl-9 text-[12px] text-white outline-none placeholder:text-white/35 focus:border-[#9D7B40]"
+                className="h-10 w-full border-b border-white/20 bg-transparent pr-9 pl-9 text-[12px] text-white outline-none placeholder:text-white/35 focus:border-[#A9D8D3]"
               />
             </label>
 
             {searchFocused && (
-              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-[22px] z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[20px] font-light leading-none text-white/45 transition-colors hover:bg-[#EFECE3] hover:text-[#E1C98F] active:bg-[#EAE6DC]">×</button>
+              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-[22px] z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[20px] font-light leading-none text-white/45 transition-colors hover:bg-[#F5F5F5] hover:text-[#E6D7B8] active:bg-[#EFEFEF]">×</button>
             )}
 
             {searchPanelOpen && suggestions.length > 0 && (
-              <div ref={searchResultsRef} role="listbox" className="absolute inset-x-0 top-[calc(100%-8px)] z-[75] max-h-[calc(100dvh-135px)] touch-pan-y overflow-y-auto overscroll-contain rounded-2xl border border-white/12 bg-[#F8F6F0] shadow-[0_14px_35px_rgba(78,55,50,0.12)] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div ref={searchResultsRef} role="listbox" className="absolute inset-x-0 top-[calc(100%-8px)] z-[75] max-h-[calc(100dvh-135px)] touch-pan-y overflow-y-auto overscroll-contain rounded-2xl border border-[#EAEAEA] bg-white shadow-[0_14px_35px_rgba(78,55,50,0.12)] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {suggestions.map((suggestion, index) => (
-                  <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#ECE8DE] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#FFF8F6] active:bg-[#EFEBE1]">
-                    <MagnifyingGlass size={15} className="shrink-0 text-[#9D7B40]" />
-                    <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-[#2D4136]">{suggestion.value}</span>
-                    <span className="shrink-0 bg-[#EEE9DD] px-2 py-1 text-[8px] text-[#7D877F]">{suggestion.type}</span>
+                  <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#F4F4F4] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#FAFAFA] active:bg-[#F4F4F4]">
+                    <MagnifyingGlass size={15} className="shrink-0 text-[#D8C29A]" />
+                    <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-[#0E0E0E]">{suggestion.value}</span>
+                    <span className="shrink-0 bg-[#F7F7F7] px-2 py-1 text-[8px] text-[#777777]">{suggestion.type}</span>
                   </button>
                 ))}
               </div>
@@ -466,7 +466,7 @@ const Navbar = () => {
                   className={`relative flex h-full items-center px-4 text-[9px] font-semibold tracking-[0.01em] transition-colors lg:px-5 lg:text-[10px] ${active ? "text-white" : "text-white/50 hover:text-white"}`}
                 >
                   {item.label}
-                  {active && <span className="absolute inset-x-4 bottom-0 h-px bg-[#D9BC7D] lg:inset-x-5" />}
+                  {active && <span className="absolute inset-x-4 bottom-0 h-px bg-[#A9D8D3] lg:inset-x-5" />}
                 </Link>
               );
             })}
