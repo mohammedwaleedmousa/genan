@@ -227,21 +227,21 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
           <div key={section.id}>
             <section
               id={`home-section-${section.id}`}
-              className={`scroll-mt-20 py-12 md:py-24 ${sectionIndex % 2 === 0 ? "bg-[#F8F6F0]" : "bg-[#F1EDE2]"}`}
+              className={`scroll-mt-20 py-12 md:py-24 ${sectionIndex % 2 === 0 ? "bg-[#FFFFFF]" : "bg-[#F7F7F7]"}`}
             >
               <div className="mx-auto w-full max-w-[1680px] px-4 md:px-7 lg:px-10">
                 <div className="mb-8 flex items-end justify-between gap-6 md:mb-12">
                   <div>
                     <div className="mb-3 flex items-center gap-3">
-                      <span className="h-px w-10 bg-[#B89453]/60" />
-                      <span className="text-[7px] font-semibold uppercase tracking-[.28em] text-[#9D7B40] md:text-[8px]">
+                      <span className="h-px w-10 bg-[#D8C29A]/60" />
+                      <span className="text-[7px] font-semibold uppercase tracking-[.28em] text-[#D8C29A] md:text-[8px]">
                         {section.title || "GENAN EDIT"}
                       </span>
                     </div>
-                    <h2 className="max-w-[720px] text-[27px] font-medium leading-[1.4] tracking-[-0.045em] text-[#173A2D] md:text-[42px]">
+                    <h2 className="max-w-[720px] text-[27px] font-medium leading-[1.4] tracking-[-0.045em] text-[#0E0E0E] md:text-[42px]">
                       {section.title_ar}
                     </h2>
-                    <p className="mt-3 hidden max-w-[520px] text-[11px] leading-7 text-[#6F786F] md:block">
+                    <p className="mt-3 hidden max-w-[520px] text-[11px] leading-7 text-[#6F6F6F] md:block">
                       اختيارات مميزة، مرتبة لتصل إلى ما يناسبك بسرعة.
                     </p>
                   </div>
@@ -249,7 +249,7 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                   {section.view_all_link && (
                     <Link
                       to={section.view_all_link}
-                      className="hidden items-center gap-3 border-b border-[#B89453]/55 pb-1 text-[10px] font-semibold text-[#173A2D] transition-colors hover:text-[#9D7B40] md:flex"
+                      className="hidden items-center gap-3 border-b border-[#D8C29A]/55 pb-1 text-[10px] font-semibold text-[#0E0E0E] transition-colors hover:text-[#A9D8D3] md:flex"
                     >
                       عرض الكل
                       <ArrowLeft className="h-4 w-4" />
@@ -275,7 +275,7 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                       <button
                         type="button"
                         onClick={() => loadMore(section.id, products.length)}
-                        className="inline-flex h-11 items-center gap-2 border border-[#173A2D] bg-transparent px-7 text-[8px] font-semibold text-[#173A2D] transition-colors hover:bg-[#173A2D] hover:text-white md:h-12 md:px-9 md:text-[10px]"
+                        className="inline-flex h-11 items-center gap-2 border border-[#0E0E0E] bg-transparent px-7 text-[8px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#0E0E0E] hover:text-white md:h-12 md:px-9 md:text-[10px]"
                       >
                         عرض المزيد
                         <ChevronDown className="h-4 w-4" />
@@ -286,14 +286,14 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
                       <button
                         type="button"
                         onClick={() => collapse(section.id, visibleCount)}
-                        className="inline-flex h-11 items-center gap-2 border border-[#CFC7B8] bg-transparent px-6 text-[8px] font-semibold text-[#657068] md:h-12 md:px-8 md:text-[10px]"
+                        className="inline-flex h-11 items-center gap-2 border border-[#DADADA] bg-transparent px-6 text-[8px] font-semibold text-[#6F6F6F] md:h-12 md:px-8 md:text-[10px]"
                       >
                         تقليص
                         <ChevronUp className="h-4 w-4" />
                       </button>
                     )}
 
-                    <span className="w-full text-center text-[7px] tracking-[0.08em] text-[#889188] md:text-[8px]">
+                    <span className="w-full text-center text-[7px] tracking-[0.08em] text-[#888888] md:text-[8px]">
                       يظهر {visibleCount} من {products.length} منتج
                     </span>
                   </div>
