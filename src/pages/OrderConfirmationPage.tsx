@@ -343,7 +343,7 @@ const OrderConfirmationPage = () => {
               </div>
 
               {orderData.referralCode && (
-                <div className="mt-4 rounded-[10px] border border-[#F0D8D5] bg-[#FFF7F6] px-3 py-3 print:border-[#E7D4D1]">
+                <div className="mt-4 rounded-[10px] border border-[#E5DED0] bg-[#FFF7F6] px-3 py-3 print:border-[#E7D4D1]">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-[7px] font-semibold text-[#6A5651]">كود خصم هدية 10%</p>
