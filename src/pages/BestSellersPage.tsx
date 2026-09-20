@@ -56,7 +56,7 @@ const BestSellersPage = () => {
 
               {!isLoading && total > 0 && (
                 <div className="shrink-0 text-left">
-                  <span className="block text-[18px] font-semibold leading-none text-[#B85F66] md:text-[22px]">{total}</span>
+                  <span className="block text-[18px] font-semibold leading-none text-[#9D7B40] md:text-[22px]">{total}</span>
                   <span className="mt-1 block text-[6px] text-[#929A92] md:text-[7px]">قطعة مميزة</span>
                 </div>
               )}
@@ -67,7 +67,7 @@ const BestSellersPage = () => {
         <section className="border-b border-[#EFE6E2] bg-white">
           <div className="mx-auto flex h-[42px] w-full max-w-[1500px] items-center justify-between px-3 md:h-[46px] md:px-6">
             <div className="flex items-center gap-1.5">
-              <Heart className="h-3.5 w-3.5 fill-[#F7DCDD] stroke-[1.5] text-[#9D7B40]" />
+              <Heart className="h-3.5 w-3.5 fill-[#EEE9DD] stroke-[1.5] text-[#9D7B40]" />
               <span className="text-[8px] font-medium text-[#755F5E] md:text-[9px]">الأكثر طلبًا</span>
             </div>
             <div className="flex items-center gap-1.5">
