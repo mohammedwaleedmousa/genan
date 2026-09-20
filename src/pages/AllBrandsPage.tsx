@@ -1,14 +1,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Search, X } from "lucide-react";
+import { ArrowUpLeft, Search, X } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
-
 import { supabase } from "@/integrations/supabase/client";
-import { createImageSrcSet, handleImageError, optimizeImage } from "@/lib/imageUrl";
+import { handleImageError, optimizeImage } from "@/lib/imageUrl";
 
 interface BrandRow {
   id: string;
@@ -18,179 +17,115 @@ interface BrandRow {
   sort_order: number | null;
 }
 
-interface BrandViewModel {
-  id: string;
-  name: string;
-  slug: string;
-  logo_url: string | null;
-}
-
 const AllBrandsPage = () => {
   const [term, setTerm] = useState("");
-
-  /* =========================================================
-     BRANDS
-  ========================================================= */
 
   const { data: brands = [], isLoading } = useQuery({
     queryKey: ["all-brands"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("brands").select("id,name,logo_url,sort_order,slug").eq("is_active", true).order("sort_order", { ascending: true });
-
+      const { data, error } = await supabase
+        .from("brands")
+        .select("id,name,logo_url,sort_order,slug")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
       if (error) throw error;
-
       return (data || []) as BrandRow[];
     },
     staleTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,
   });
 
-  /* =========================================================
-     FILTER
-  ========================================================= */
-
-  const list = useMemo<BrandViewModel[]>(() => {
+  const list = useMemo(() => {
     const query = term.trim().toLowerCase();
-
     return brands
       .map((brand) => ({
-        id: brand.id,
-        name: brand.name,
+        ...brand,
         slug: brand.slug || brand.name.toLowerCase().trim().replace(/\s+/g, "-"),
-        logo_url: brand.logo_url,
       }))
-      .filter((brand) => {
-        if (!query) return true;
-
-        return brand.name.toLowerCase().includes(query);
-      });
+      .filter((brand) => !query || brand.name.toLowerCase().includes(query));
   }, [brands, term]);
 
   return (
-    <div className="min-h-screen bg-background" dir="rtl">
+    <div className="min-h-screen bg-[#F8F6F0]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main className="pb-16 pt-5 md:pb-20 md:pt-8">
-        <div className="mx-auto w-full max-w-[1200px] px-3 md:px-6">
-          {/* =====================================================
-              HEADER
-          ===================================================== */}
-
-          <header className="mb-5 md:mb-7">
-            <div className="flex items-center gap-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
-              <span className="font-serif text-[6px] uppercase tracking-[0.22em] text-[#9D7B40] md:text-[7px]">BRANDS</span>
+      <main className="pb-20">
+        <section className="border-b border-[#DCD5C6]">
+          <div className="mx-auto grid max-w-[1680px] gap-8 px-5 py-12 md:grid-cols-[1.25fr_.75fr] md:px-8 md:py-20 lg:px-12">
+            <div>
+              <span className="text-[8px] font-semibold tracking-[0.34em] text-[#9D7B40]">BRAND INDEX / GENAN</span>
+              <h1 className="mt-5 text-[42px] font-medium leading-[1.25] tracking-[-0.055em] text-[#173A2D] md:text-[72px]">
+                دليل الماركات
+              </h1>
             </div>
-
-            <div className="mt-1.5 flex items-end justify-between gap-3">
-              <div>
-                <h1 className="text-[20px] font-semibold tracking-[-0.025em] text-foreground md:text-[28px]">جميع الماركات</h1>
-
-                <p className="mt-1 text-[8px] text-muted-foreground md:text-[9px]">اكتشف الماركات واختر علامتك المفضلة.</p>
-              </div>
-
-              {!isLoading && brands.length > 0 && <span className="shrink-0 text-[7px] text-muted-foreground">{brands.length} ماركة</span>}
-            </div>
-          </header>
-
-          {/* =====================================================
-              SEARCH
-          ===================================================== */}
-
-          <div className="mb-6 md:mb-8">
-            <div className="relative w-full">
-              <Search className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9E918C]" strokeWidth={1.5} />
-
-              <input value={term} onChange={(event) => setTerm(event.target.value)} placeholder="ابحث عن ماركة..." autoComplete="off" className="h-[50px] w-full rounded-[14px] border border-border bg-white pr-11 pl-11 text-[11px] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-[#C6B17F] md:h-[52px] md:text-[12px]" />
-
-              {term && (
-                <button type="button" onClick={() => setTerm("")} aria-label="مسح البحث" className="absolute left-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground active:bg-muted">
-                  <X className="h-3.5 w-3.5" strokeWidth={1.5} />
-                </button>
-              )}
+            <div className="flex items-end">
+              <p className="max-w-[420px] text-[11px] leading-7 text-[#69736B] md:text-[13px]">
+                فهرس مباشر للعلامات الموجودة في جنان. بدون بطاقات مزدحمة؛ اختر الاسم وادخل إلى مجموعته.
+              </p>
             </div>
           </div>
+        </section>
 
-          {/* =====================================================
-              LOADING
-          ===================================================== */}
+        <section className="sticky top-[110px] z-20 border-b border-[#DCD5C6] bg-[#F8F6F0]/96 backdrop-blur-xl md:top-[126px]">
+          <div className="mx-auto flex max-w-[1680px] items-center gap-4 px-5 py-4 md:px-8 lg:px-12">
+            <Search className="h-4 w-4 shrink-0 text-[#9D7B40]" strokeWidth={1.4} />
+            <input
+              value={term}
+              onChange={(event) => setTerm(event.target.value)}
+              placeholder="ابحث باسم الماركة"
+              autoComplete="off"
+              className="h-10 min-w-0 flex-1 border-0 bg-transparent text-[12px] text-[#173A2D] outline-none placeholder:text-[#8A938B]"
+            />
+            {term && (
+              <button type="button" onClick={() => setTerm("")} aria-label="مسح البحث" className="flex h-8 w-8 items-center justify-center border border-[#DCD5C6] text-[#657068]">
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+            <span className="hidden text-[9px] tracking-[0.14em] text-[#8A938B] sm:block">{list.length} / {brands.length}</span>
+          </div>
+        </section>
 
-          {isLoading && (
-            <div className="grid grid-cols-3 gap-x-3 gap-y-7 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 md:gap-x-4 md:gap-y-9">
-              {Array.from({ length: 18 }).map((_, index) => (
-                <div key={index} className="flex flex-col items-center">
-                  <div className="aspect-square w-full animate-pulse rounded-[15px] border border-border/50 bg-muted/60 md:rounded-[18px]" />
-                  <div className="mt-2.5 h-2.5 w-14 animate-pulse rounded-full bg-muted" />
-                  <div className="mt-1.5 h-1.5 w-8 animate-pulse rounded-full bg-muted/80" />
-                </div>
+        <section className="mx-auto max-w-[1680px] px-5 md:px-8 lg:px-12">
+          {isLoading ? (
+            <div className="grid md:grid-cols-2">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <div key={index} className="h-[118px] animate-pulse border-b border-[#DCD5C6] md:odd:border-l" />
               ))}
             </div>
-          )}
-
-          {/* =====================================================
-              EMPTY
-          ===================================================== */}
-
-          {!isLoading && list.length === 0 && (
-            <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white">
-                <Search className="h-4 w-4 text-[#8A938B]" strokeWidth={1.5} />
-              </span>
-
-              <h2 className="mt-3 text-[11px] font-semibold text-foreground">لا توجد ماركة مطابقة</h2>
-
-              <p className="mt-1.5 text-[7px] text-muted-foreground">جرّب البحث باسم مختلف.</p>
-
-              {term && (
-                <button type="button" onClick={() => setTerm("")} className="mt-4 flex items-center gap-1 border-b border-border pb-1 text-[7px] font-medium text-[#173A2D]">
-                  عرض جميع الماركات
-                  <ArrowLeft className="h-3 w-3" strokeWidth={1.5} />
-                </button>
-              )}
+          ) : list.length === 0 ? (
+            <div className="flex min-h-[44vh] flex-col items-start justify-center border-b border-[#DCD5C6]">
+              <span className="text-[8px] tracking-[0.24em] text-[#9D7B40]">NO MATCH</span>
+              <h2 className="mt-3 text-[28px] font-medium text-[#173A2D]">لا توجد ماركة بهذا الاسم.</h2>
+              <button type="button" onClick={() => setTerm("")} className="mt-6 border-b border-[#173A2D] pb-1 text-[10px] font-semibold text-[#173A2D]">
+                العودة للفهرس الكامل
+              </button>
             </div>
-          )}
-
-          {/* =====================================================
-              BRANDS GRID
-          ===================================================== */}
-
-          {!isLoading && list.length > 0 && (
-            <div className="grid grid-cols-3 gap-x-3 gap-y-7 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 md:gap-x-4 md:gap-y-9">
+          ) : (
+            <div className="grid md:grid-cols-2">
               {list.map((brand, index) => (
-                <Link key={brand.id} to={`/brands/${brand.slug}`} aria-label={`عرض منتجات ${brand.name}`} className="group block min-w-0 select-none text-center [-webkit-tap-highlight-color:transparent]">
-                  {/* LOGO CARD */}
-
-                  <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-[15px] border border-border/70 bg-white p-5 transition-all duration-200 group-hover:border-[#CFC4A8] group-hover:shadow-[0_8px_24px_rgba(23,58,45,0.06)] md:rounded-[18px] md:p-7">
-                    {brand.logo_url ? (
-                      <img src={optimizeImage(brand.logo_url, 320, 76)} srcSet={createImageSrcSet(brand.logo_url, [120, 220, 320], 76)} sizes="(max-width: 639px) 33vw, (max-width: 767px) 25vw, (max-width: 1023px) 20vw, 16vw" alt={brand.name} loading={index < 6 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" width={320} height={320} onError={handleImageError} className="block h-full w-full object-contain object-center transition-transform duration-200 group-hover:scale-[1.025]" />
-                    ) : (
-                      <span className="max-w-full truncate px-1 font-serif text-[11px] font-semibold text-[#173A2D] md:text-[13px]">{brand.name}</span>
-                    )}
+                <Link
+                  key={brand.id}
+                  to={`/brands/${brand.slug}`}
+                  className="group grid min-h-[118px] grid-cols-[46px_1fr_64px] items-center gap-4 border-b border-[#DCD5C6] py-5 transition-colors hover:bg-[#EEE9DD] md:min-h-[136px] md:grid-cols-[56px_1fr_80px] md:px-5 md:odd:border-l"
+                >
+                  <span className="self-start pt-1 text-[8px] tracking-[0.16em] text-[#9D7B40]">{String(index + 1).padStart(2, "0")}</span>
+                  <div className="min-w-0">
+                    <h2 className="truncate font-serif text-[24px] font-medium tracking-[0.03em] text-[#173A2D] md:text-[30px]">{brand.name}</h2>
+                    <span className="mt-2 block text-[7px] tracking-[0.2em] text-[#7D877F]">VIEW COLLECTION</span>
                   </div>
-
-                  {/* NAME */}
-
-                  <div className="mt-2.5">
-                    <p className="truncate text-[8px] font-semibold text-foreground transition-colors group-hover:text-[#173A2D] md:text-[9px]">{brand.name}</p>
-
-                    <p className="mt-1 font-serif text-[5px] uppercase tracking-[0.1em] text-muted-foreground md:text-[6px]">BRAND</p>
+                  <div className="flex h-14 w-14 items-center justify-center justify-self-end bg-white/55 p-2 md:h-16 md:w-16">
+                    {brand.logo_url ? (
+                      <img src={optimizeImage(brand.logo_url, 180, 78)} alt={brand.name} loading={index < 6 ? "eager" : "lazy"} onError={handleImageError} className="h-full w-full object-contain grayscale transition-all duration-300 group-hover:grayscale-0" />
+                    ) : (
+                      <ArrowUpLeft className="h-5 w-5 text-[#9D7B40] transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1" strokeWidth={1.2} />
+                    )}
                   </div>
                 </Link>
               ))}
             </div>
           )}
-
-          {/* =====================================================
-              RESULTS
-          ===================================================== */}
-
-          {!isLoading && term && list.length > 0 && (
-            <div className="mt-9 border-t border-border/60 pt-3 text-center">
-              <p className="text-[6px] text-muted-foreground">تم العثور على {list.length} {list.length === 1 ? "ماركة" : "ماركات"}</p>
-            </div>
-          )}
-        </div>
+        </section>
       </main>
 
       <Footer />
