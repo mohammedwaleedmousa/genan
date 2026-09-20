@@ -6,136 +6,87 @@
 
 @layer base {
   :root {
-    /* Genan — Ivory / Deep Forest / Warm Gold */
-    --background: 42 30% 98%; /* ivory */
-    --foreground: 151 33% 16%; /* deep forest */
+    /* Genan — White / Black / Light Gold / Soft Turquoise */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 5.5%;
 
     --card: 0 0% 100%;
-    --card-foreground: 25 18% 12%;
+    --card-foreground: 0 0% 5.5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 18% 12%;
+    --popover-foreground: 0 0% 5.5%;
 
-    /* Primary = soft rose pink */
-    --primary: 151 43% 16%; /* deep forest */
+    --primary: 0 0% 5.5%;
     --primary-foreground: 0 0% 100%;
-    --primary-container: 42 34% 93%;
+    --primary-container: 0 0% 97%;
 
-    --secondary: 39 40% 66%; /* warm gold */
-    --secondary-foreground: 151 43% 16%;
+    --secondary: 39 45% 73%;
+    --secondary-foreground: 0 0% 5.5%;
 
-    --muted: 42 22% 94%;
-    --muted-foreground: 148 8% 42%;
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 44%;
 
-    --accent: 42 35% 92%;
-    --accent-foreground: 151 43% 16%;
+    --accent: 174 40% 75%;
+    --accent-foreground: 0 0% 5.5%;
 
-    --destructive: 0 60% 45%;
+    --destructive: 0 62% 44%;
     --destructive-foreground: 0 0% 100%;
+    --success: 145 38% 38%;
+    --warning: 38 78% 47%;
 
-    --success: 145 40% 38%;
-    --warning: 38 80% 45%;
+    --border: 0 0% 92%;
+    --input: 0 0% 89%;
+    --ring: 174 40% 75%;
+    --radius: 0.75rem;
 
-    --border: 42 17% 84%;
-    --input: 42 17% 88%;
-    --ring: 151 43% 22%;
+    --gold: 39 45% 73%;
+    --gold-light: 39 53% 81%;
+    --gold-dark: 38 34% 56%;
+    --turquoise: 174 40% 75%;
+    --turquoise-light: 174 45% 82%;
+    --rose: 0 0% 5.5%;
+    --rose-light: 0 0% 97%;
+    --beige: 0 0% 97%;
+    --beige-dark: 0 0% 92%;
+    --cream: 0 0% 100%;
+    --charcoal: 0 0% 5.5%;
+    --marble: 0 0% 98%;
+    --icon-light: 0 0% 16%;
 
-    --radius: 1rem;
-
-    /* Brand aliases — retinted from gold to Genan forest and mineral tones */
-    --gold: 39 40% 66%;
-    --gold-light: 41 44% 84%;
-    --gold-dark: 39 39% 48%;
-    --rose: 151 43% 22%;
-    --rose-light: 42 35% 92%;
-    --beige: 42 28% 94%;
-    --beige-dark: 42 16% 86%;
-    --cream: 42 30% 98%;
-    --charcoal: 151 33% 16%;
-    --marble: 42 28% 96%;
-    --icon-light: 151 33% 20%;
-
-    /* Gradients — Genan forest and mineral tones */
-    --gradient-primary: linear-gradient(
-      135deg,
-      hsl(41 45% 78%) 0%,
-      hsl(151 32% 34%) 100%
-    );
-    --gradient-gold: linear-gradient(
-      135deg,
-      hsl(41 45% 78%) 0%,
-      hsl(39 40% 66%) 100%
-    );
-    --gradient-rose: linear-gradient(
-      135deg,
-      hsl(42 42% 86%) 0%,
-      hsl(151 32% 34%) 100%
-    );
+    --gradient-primary: linear-gradient(135deg, #0E0E0E 0%, #222222 100%);
+    --gradient-gold: linear-gradient(135deg, #E6D7B8 0%, #D8C29A 100%);
+    --gradient-rose: linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 100%);
     --gradient-glow:
-      radial-gradient(
-        circle at 20% 0%,
-        hsl(42 35% 93% / 0.7),
-        transparent 55%
-      ),
-      radial-gradient(
-        circle at 80% 100%,
-        hsl(41 35% 88% / 0.55),
-        transparent 50%
-      );
-    --gradient-gold-shine: linear-gradient(
-      90deg,
-      transparent 0%,
-      hsl(0 0% 100% / 0.55) 50%,
-      transparent 100%
-    );
-    --gradient-beige: linear-gradient(
-      180deg,
-      hsl(30 40% 99%) 0%,
-      hsl(30 30% 95%) 100%
-    );
-    --gradient-dark: linear-gradient(
-      180deg,
-      hsl(25 18% 16%) 0%,
-      hsl(25 25% 9%) 100%
-    );
-    --gradient-marble: linear-gradient(
-      135deg,
-      hsl(30 40% 99%) 0%,
-      hsl(346 40% 97%) 50%,
-      hsl(346 60% 96%) 100%
-    );
-    --gradient-warm-hero: linear-gradient(
-      160deg,
-      hsl(346 80% 96%) 0%,
-      hsl(30 40% 97%) 45%,
-      hsl(346 70% 94%) 100%
-    );
+      radial-gradient(circle at 20% 0%, rgba(169, 216, 211, 0.18), transparent 48%),
+      radial-gradient(circle at 80% 100%, rgba(216, 194, 154, 0.16), transparent 50%);
+    --gradient-gold-shine: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.62) 50%, transparent 100%);
+    --gradient-beige: linear-gradient(180deg, #FFFFFF 0%, #F7F7F7 100%);
+    --gradient-dark: linear-gradient(180deg, #161616 0%, #0E0E0E 100%);
+    --gradient-marble: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 50%, #F4F4F4 100%);
+    --gradient-warm-hero: linear-gradient(160deg, #FFFFFF 0%, #FAFAFA 55%, #F5F5F5 100%);
 
-    /* Shadows — soft luxury */
-    --shadow-gold: 0 8px 28px -10px hsl(39 40% 66% / 0.28);
-    --shadow-rose: 0 12px 40px -12px hsl(346 70% 62% / 0.3);
-    --shadow-elegant: 0 18px 50px -18px hsl(25 18% 14% / 0.18);
-    --shadow-card: 0 4px 20px -6px hsl(25 18% 14% / 0.08);
-    --shadow-hover: 0 24px 60px -20px hsl(346 50% 30% / 0.22);
-    --shadow-glass: 0 8px 32px -8px hsl(25 18% 14% / 0.1);
+    --shadow-gold: 0 10px 30px -16px rgba(216, 194, 154, 0.5);
+    --shadow-rose: 0 12px 40px -18px rgba(14, 14, 14, 0.14);
+    --shadow-elegant: 0 18px 50px -20px rgba(14, 14, 14, 0.18);
+    --shadow-card: 0 4px 20px -10px rgba(14, 14, 14, 0.10);
+    --shadow-hover: 0 24px 60px -24px rgba(14, 14, 14, 0.22);
+    --shadow-glass: 0 8px 32px -16px rgba(14, 14, 14, 0.12);
 
-    /* Unified Genan button system */
-    --genan-btn-start: 151 43% 18%;
-    --genan-btn-end: 151 40% 25%;
+    --genan-btn-start: 0 0% 5.5%;
+    --genan-btn-end: 0 0% 13%;
     --genan-btn-text: 0 0% 100%;
-    --genan-btn-border: 151 32% 28%;
-    --genan-btn-hover-start: 151 41% 22%;
-    --genan-btn-hover-end: 151 38% 30%;
+    --genan-btn-border: 0 0% 5.5%;
+    --genan-btn-hover-start: 0 0% 12%;
+    --genan-btn-hover-end: 0 0% 18%;
 
-    /* Sidebar — dark warm brown */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 32 49% 64%;
-    --sidebar-primary-foreground: 25 25% 10%;
-    --sidebar-accent: 25 18% 18%;
-    --sidebar-accent-foreground: 36 35% 92%;
-    --sidebar-border: 25 15% 22%;
-    --sidebar-ring: 32 49% 64%;
+    --sidebar-foreground: 0 0% 5.5%;
+    --sidebar-primary: 0 0% 5.5%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 174 40% 75%;
+    --sidebar-accent-foreground: 0 0% 5.5%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 39 45% 73%;
   }
 
   .dark {
@@ -174,12 +125,12 @@
     --sidebar-accent-foreground: 0 0% 97%;
     --sidebar-border: 0 0% 18%;
     --sidebar-ring: 0 0% 97%;
-    --genan-btn-start: 346 54% 36%;
-    --genan-btn-end: 346 48% 28%;
-    --genan-btn-text: 0 0% 98%;
-    --genan-btn-border: 346 48% 42%;
-    --genan-btn-hover-start: 346 56% 40%;
-    --genan-btn-hover-end: 346 50% 32%;
+    --genan-btn-start: 0 0% 96%;
+    --genan-btn-end: 0 0% 88%;
+    --genan-btn-text: 0 0% 5.5%;
+    --genan-btn-border: 0 0% 72%;
+    --genan-btn-hover-start: 39 45% 73%;
+    --genan-btn-hover-end: 174 40% 75%;
   }
 }
 
@@ -275,7 +226,7 @@
       hsl(var(--genan-btn-end)) 100%
     );
     border: 1px solid hsl(var(--genan-btn-border));
-    box-shadow: 0 10px 30px -14px hsl(346 60% 45% / 0.45);
+    box-shadow: 0 10px 30px -16px rgba(14,14,14,.28);
   }
 
   .btn-unified:hover {
@@ -286,7 +237,7 @@
       hsl(var(--genan-btn-hover-end)) 100%
     );
     transform: translateY(-1px);
-    box-shadow: 0 16px 36px -16px hsl(346 65% 42% / 0.5);
+    box-shadow: 0 16px 36px -18px rgba(14,14,14,.34);
   }
 
   .btn-unified:active {
@@ -300,7 +251,7 @@
   }
 
   .text-gold-gradient {
-    background: linear-gradient(135deg, hsl(39 40% 52%) 0%, hsl(151 38% 24%) 100%);
+    background: linear-gradient(135deg, #D8C29A 0%, #A9D8D3 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -358,7 +309,7 @@
     background: hsla(0, 0%, 100%, 0.65);
     backdrop-filter: saturate(180%) blur(18px);
     -webkit-backdrop-filter: saturate(180%) blur(18px);
-    border: 1px solid hsla(346, 40%, 90%, 0.6);
+    border: 1px solid rgba(216,194,154,.35);
     box-shadow: var(--shadow-glass);
   }
 
@@ -411,12 +362,12 @@
   }
 
   /* Genan wordmark */
-  ..logo-genan {
+  .logo-genan {
     font-family: "Playfair Display", "Cormorant Garamond", serif;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #173A2D;
+    color: #0E0E0E;
   }
 
   .hide-scrollbar::-webkit-scrollbar {
@@ -484,8 +435,8 @@
 
 @layer components {
   .genan-page {
-    background: #f3f0e8;
-    color: #173a2d;
+    background: #FFFFFF;
+    color: #0E0E0E;
   }
 
   .genan-shell {
@@ -494,7 +445,7 @@
   }
 
   .genan-rule {
-    border-color: rgba(23, 58, 45, 0.16);
+    border-color: rgba(14, 14, 14, 0.12);
   }
 
   .genan-kicker {
@@ -502,7 +453,7 @@
     font-weight: 700;
     letter-spacing: 0.34em;
     text-transform: uppercase;
-    color: #9d7b40;
+    color: #D8C29A;
   }
 
   .genan-display {
@@ -511,8 +462,16 @@
   }
 
   .genan-panel-dark {
-    background: #10251d;
+    background: #0E0E0E;
     color: white;
+  }
+
+  .genan-accent-turquoise {
+    color: #A9D8D3;
+  }
+
+  .genan-accent-turquoise-bg {
+    background: #A9D8D3;
   }
 
   .genan-link-line {
