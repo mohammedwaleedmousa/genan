@@ -190,10 +190,10 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
       className="group block w-full min-w-0"
     >
       <article className="relative w-full min-w-0">
-        <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE8DE]">
+        <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#F4F4F4]">
           {!allImagesFailed && optimizedMainImage ? (
             <>
-              {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#E4DFD3]" />}
+              {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#EFEFEF]" />}
               <img
                 key={`${product.id}-${imageIndex}-${mainImage}`}
                 src={optimizedMainImage}
@@ -211,9 +211,9 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
               />
             </>
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#ECE8DE]">
-              <ImageOff className="h-6 w-6 text-[#98A198]" strokeWidth={1.2} />
-              <span className="mt-2 text-[8px] text-[#7D867D]">الصورة غير متوفرة</span>
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F4F4F4]">
+              <ImageOff className="h-6 w-6 text-[#A0A0A0]" strokeWidth={1.2} />
+              <span className="mt-2 text-[8px] text-[#777777]">الصورة غير متوفرة</span>
             </div>
           )}
 
@@ -223,13 +223,13 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
             type="button"
             aria-label={isLiked ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
             onClick={handleFavorite}
-            className={`absolute left-3 top-3 z-20 flex h-9 w-9 items-center justify-center bg-white/88 text-[#173A2D] backdrop-blur-md transition-all hover:bg-white ${heartBeat ? "scale-110" : "scale-100"}`}
+            className={`absolute left-3 top-3 z-20 flex h-9 w-9 items-center justify-center bg-white/88 text-[#0E0E0E] backdrop-blur-md transition-all hover:bg-white ${heartBeat ? "scale-110" : "scale-100"}`}
           >
-            <Heart className={`h-[16px] w-[16px] ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : "fill-transparent text-[#173A2D]"}`} strokeWidth={1.35} />
+            <Heart className={`h-[16px] w-[16px] ${isLiked ? "fill-[#A9D8D3] text-[#0E0E0E]" : "fill-transparent text-[#0E0E0E]"}`} strokeWidth={1.35} />
           </button>
 
           {cardBadge && (
-            <span className="absolute right-3 top-3 z-20 bg-[#173A2D] px-2.5 py-1.5 text-[7px] font-semibold tracking-[0.06em] text-white">
+            <span className="absolute right-3 top-3 z-20 bg-[#0E0E0E] px-2.5 py-1.5 text-[7px] font-semibold tracking-[0.06em] text-white">
               {cardBadge}
             </span>
           )}
@@ -239,12 +239,12 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
               type="button"
               aria-label="إضافة إلى السلة"
               onClick={handleAdd}
-              className={`absolute bottom-3 left-3 z-20 flex h-10 w-10 items-center justify-center bg-[#F8F6F0] text-[#173A2D] shadow-[0_8px_22px_rgba(23,58,45,.12)] transition-all md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 ${bagPop ? "scale-110" : "scale-100"}`}
+              className={`absolute bottom-3 left-3 z-20 flex h-10 w-10 items-center justify-center bg-[#FFFFFF] text-[#0E0E0E] shadow-[0_8px_22px_rgba(23,58,45,.12)] transition-all md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 ${bagPop ? "scale-110" : "scale-100"}`}
             >
               <ShoppingBag className="h-[16px] w-[16px]" strokeWidth={1.5} />
             </button>
           ) : (
-            <span className="absolute bottom-3 left-3 bg-white/88 px-2 py-1 text-[7px] font-medium text-[#6D786F]">نفدت الكمية</span>
+            <span className="absolute bottom-3 left-3 bg-white/88 px-2 py-1 text-[7px] font-medium text-[#777777]">نفدت الكمية</span>
           )}
 
           {colors.length > 0 && (
@@ -259,7 +259,7 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
                     : { backgroundColor: color.hex || "#e2e2e2" }}
                 />
               ))}
-              {colors.length > 4 && <span className="mr-0.5 text-[6px] text-[#6F786F]">+{colors.length - 4}</span>}
+              {colors.length > 4 && <span className="mr-0.5 text-[6px] text-[#6F6F6F]">+{colors.length - 4}</span>}
             </div>
           )}
         </div>
@@ -267,20 +267,20 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
         <div className="pt-3.5">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <p className="mb-1 text-[7px] font-semibold uppercase tracking-[0.16em] text-[#9D7B40]">
+              <p className="mb-1 text-[7px] font-semibold uppercase tracking-[0.16em] text-[#D8C29A]">
                 {product.brand || "GENAN"}
               </p>
-              <h3 className="truncate text-[11px] font-medium leading-5 text-[#173A2D] md:text-[12px]">
+              <h3 className="truncate text-[11px] font-medium leading-5 text-[#0E0E0E] md:text-[12px]">
                 {product.nameAr || product.name}
               </h3>
             </div>
-            <span className="shrink-0 text-[11px] font-semibold text-[#173A2D] md:text-[12px]">
+            <span className="shrink-0 text-[11px] font-semibold text-[#0E0E0E] md:text-[12px]">
               {getDisplayedPrice()}
             </span>
           </div>
 
           {firstColorName && (
-            <p className="mt-1.5 truncate text-[7px] text-[#7B857D]">{firstColorName}</p>
+            <p className="mt-1.5 truncate text-[7px] text-[#777777]">{firstColorName}</p>
           )}
         </div>
       </article>
