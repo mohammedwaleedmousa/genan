@@ -455,28 +455,28 @@ const BrandProductsPage = () => {
         {activeFilterCount > 0 && (
           <section className="mx-auto mt-2 flex w-full max-w-[1400px] items-center gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-6">
             {selectedSection !== "all" && (
-              <button type="button" onClick={() => setSelectedSection("all")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setSelectedSection("all")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9D7B40]">
                 {sections.find((section) => section.id === selectedSection)?.name || "القسم"}
                 <X className="h-3 w-3" />
               </button>
             )}
 
             {minPrice && (
-              <button type="button" onClick={() => setMinPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setMinPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9D7B40]">
                 من {minPrice}
                 <X className="h-3 w-3" />
               </button>
             )}
 
             {maxPrice && (
-              <button type="button" onClick={() => setMaxPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setMaxPrice("")} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9D7B40]">
                 إلى {maxPrice}
                 <X className="h-3 w-3" />
               </button>
             )}
 
             {inStockOnly && (
-              <button type="button" onClick={() => setInStockOnly(false)} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9E6165]">
+              <button type="button" onClick={() => setInStockOnly(false)} className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#E5D7D2] bg-[#F6F3EA] px-3 text-[10px] text-[#9D7B40]">
                 متوفر فقط
                 <X className="h-3 w-3" />
               </button>
