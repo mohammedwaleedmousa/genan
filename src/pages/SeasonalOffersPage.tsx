@@ -102,7 +102,7 @@ const SeasonalOffersPage = () => {
 
               {!loading && products.length > 0 && (
                 <div className="shrink-0 text-left">
-                  <span className="block text-[18px] font-semibold leading-none text-[#B85F66] md:text-[22px]">{products.length}</span>
+                  <span className="block text-[18px] font-semibold leading-none text-[#9D7B40] md:text-[22px]">{products.length}</span>
                   <span className="mt-1 block text-[6px] text-[#929A92] md:text-[7px]">منتج ضمن العروض</span>
                 </div>
               )}
