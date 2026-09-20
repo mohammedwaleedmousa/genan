@@ -1196,7 +1196,8 @@ const ProductDetailPage = () => {
               {justAdded && (
                 <div className="mx-3.5 mb-4 flex items-center justify-between gap-3 rounded-none border border-[#E6D7B8]/40 bg-[#F5F5F5] px-3 py-2.5 sm:mx-5 lg:mx-0">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 items-center justify-center bg-[#A9D8D3] text-[#0E0E0E]">\n                      <Check className="h-3 w-3 text-white" strokeWidth={2.2} />
+                    <span className="flex h-6 w-6 items-center justify-center bg-[#A9D8D3] text-[#0E0E0E]">
+                      <Check className="h-3 w-3 text-[#0E0E0E]" strokeWidth={2.2} />
                     </span>
 
                     <div>
