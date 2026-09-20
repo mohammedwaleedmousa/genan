@@ -39,7 +39,7 @@ const ResetPasswordPage = () => {
     <div className="min-h-screen flex items-center justify-center p-6 bg-background" dir="rtl">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <p className="logo-flamingo text-3xl mb-4">FLAMINGO</p>
+          <p className="logo-genan text-3xl mb-4">GENAN</p>
           <h1 className="font-heading text-3xl">إعادة تعيين كلمة المرور</h1>
           <p className="text-sm text-muted-foreground mt-2">{ready ? "أدخل كلمة مرور جديدة" : "جاري التحقق من الرابط..."}</p>
         </div>
