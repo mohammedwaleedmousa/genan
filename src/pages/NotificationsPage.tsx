@@ -26,7 +26,7 @@ const NotificationsPage = () => {
   const getIconStyle = (type: string) => {
     switch (type) {
       case "order":
-        return "bg-[#F7ECE9] text-[#B86168]";
+        return "bg-[#F7ECE9] text-[#9D7B40]";
 
       case "system":
         return "bg-[#F2EFEA] text-[#786B65]";
@@ -75,8 +75,8 @@ const NotificationsPage = () => {
 
           <header className="mb-6">
             <div className="flex items-center gap-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#D4777D]" />
-              <span className="font-serif text-[8px] uppercase tracking-[0.22em] text-[#B86168]">NOTIFICATIONS</span>
+              <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
+              <span className="font-serif text-[8px] uppercase tracking-[0.22em] text-[#9D7B40]">NOTIFICATIONS</span>
             </div>
 
             <div className="mt-2 flex items-end justify-between gap-4">
@@ -87,15 +87,15 @@ const NotificationsPage = () => {
               </div>
 
               {unreadCount > 0 && (
-                <div className="flex h-8 shrink-0 items-center gap-2 rounded-full border border-[#E6CAC7] bg-[#FFF7F5] px-3">
-                  <span className="h-2 w-2 rounded-full bg-[#D4777D]" />
-                  <span className="text-[11px] font-semibold text-[#A95B61]">{unreadCount} جديد</span>
+                <div className="flex h-8 shrink-0 items-center gap-2 rounded-full border border-[#E5DED0] bg-[#FFF7F5] px-3">
+                  <span className="h-2 w-2 rounded-full bg-[#173A2D]" />
+                  <span className="text-[11px] font-semibold text-[#9D7B40]">{unreadCount} جديد</span>
                 </div>
               )}
             </div>
 
             {unreadCount > 0 && (
-              <button type="button" onClick={() => void markAllAsRead()} className="mt-4 inline-flex h-9 items-center gap-2 rounded-[9px] border border-[#DDD3CE] bg-white px-3.5 text-[11px] font-medium text-[#675A55] transition-colors hover:border-[#D3AAA7] hover:text-[#B86168]">
+              <button type="button" onClick={() => void markAllAsRead()} className="mt-4 inline-flex h-9 items-center gap-2 rounded-[9px] border border-[#DDD3CE] bg-white px-3.5 text-[11px] font-medium text-[#675A55] transition-colors hover:border-[#DCD5C6] hover:text-[#9D7B40]">
                 <Check className="h-4 w-4" strokeWidth={1.6} />
                 تحديد الكل كمقروء
               </button>
@@ -132,7 +132,7 @@ const NotificationsPage = () => {
                 <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-[#E8DFDB] bg-[#F8F5F3]">
                   <Bell className="h-7 w-7 text-[#968883]" strokeWidth={1.4} />
 
-                  <span className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-[#F8F5F3] bg-[#D4777D]" />
+                  <span className="absolute right-1.5 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-[#F8F5F3] bg-[#173A2D]" />
                 </div>
 
                 <h2 className="mt-4 text-[16px] font-semibold text-[#403633]">لا توجد إشعارات</h2>
@@ -152,7 +152,7 @@ const NotificationsPage = () => {
 
                   return (
                     <article key={notification.id} className={`relative px-4 py-4 transition-colors md:px-5 md:py-5 ${notification.read ? "bg-white" : "bg-[#FFFBFA]"} ${index !== notifications.length - 1 ? "border-b border-[#EEE7E3]" : ""}`}>
-                      {!notification.read && <span className="absolute right-0 top-0 h-full w-[3px] bg-[#D4777D]" />}
+                      {!notification.read && <span className="absolute right-0 top-0 h-full w-[3px] bg-[#173A2D]" />}
 
                       <div className="flex items-start gap-3.5">
                         {/* ICON */}
@@ -169,7 +169,7 @@ const NotificationsPage = () => {
                               <div className="flex items-center gap-2">
                                 <h3 className={`truncate text-[14px] text-[#493D39] ${notification.read ? "font-medium" : "font-semibold"}`}>{notification.title}</h3>
 
-                                {!notification.read && <span className="h-2 w-2 shrink-0 rounded-full bg-[#D4777D]" />}
+                                {!notification.read && <span className="h-2 w-2 shrink-0 rounded-full bg-[#173A2D]" />}
                               </div>
 
                               <p className="mt-1.5 text-[12px] leading-6 text-[#857873]">{notification.message}</p>
@@ -192,7 +192,7 @@ const NotificationsPage = () => {
 
                             <div className="flex items-center gap-2">
                               {!notification.read && (
-                                <button type="button" onClick={() => void markAsRead(notification.id)} className="flex h-8 items-center gap-1.5 rounded-[8px] border border-[#E3D9D5] px-2.5 text-[10px] font-medium text-[#71635E] transition-colors hover:border-[#D7AAA7] hover:text-[#B86168]">
+                                <button type="button" onClick={() => void markAsRead(notification.id)} className="flex h-8 items-center gap-1.5 rounded-[8px] border border-[#E3D9D5] px-2.5 text-[10px] font-medium text-[#71635E] transition-colors hover:border-[#C6B17F] hover:text-[#9D7B40]">
                                   <CheckCircle2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                                   مقروء
                                 </button>
@@ -201,11 +201,11 @@ const NotificationsPage = () => {
                               {actionUrl && (
                                 <>
                                   {isInternalAction ? (
-                                    <Link to={actionUrl} className="flex h-8 items-center justify-center rounded-[8px] bg-[#D4777D] px-3 text-[10px] font-semibold text-white transition-colors hover:bg-[#C96B72]">
+                                    <Link to={actionUrl} className="flex h-8 items-center justify-center rounded-[8px] bg-[#173A2D] px-3 text-[10px] font-semibold text-white transition-colors hover:bg-[#9D7B40]">
                                       عرض التفاصيل
                                     </Link>
                                   ) : (
-                                    <a href={actionUrl} target="_blank" rel="noopener noreferrer" className="flex h-8 items-center justify-center rounded-[8px] bg-[#D4777D] px-3 text-[10px] font-semibold text-white transition-colors hover:bg-[#C96B72]">
+                                    <a href={actionUrl} target="_blank" rel="noopener noreferrer" className="flex h-8 items-center justify-center rounded-[8px] bg-[#173A2D] px-3 text-[10px] font-semibold text-white transition-colors hover:bg-[#9D7B40]">
                                       عرض التفاصيل
                                     </a>
                                   )}
