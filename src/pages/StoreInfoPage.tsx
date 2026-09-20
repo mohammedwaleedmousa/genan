@@ -152,8 +152,8 @@ const StoreInfoPage = () => {
               <p className="mt-4 max-w-[540px] text-[9px] leading-6 text-[#788178] md:mt-5 md:text-[12px] md:leading-7">{getSiteText(content, "store_info_hero_description", "جنان وجهة للأزياء والإكسسوارات المنتقاة بعناية. نؤمن أن التفصيل الصغير هو ما يصنع الفرق، ولذلك نختار كل قطعة كما لو كانت لنا.")}</p>
 
               <div className="mt-5 flex items-center gap-2 md:mt-7">
-                <span className="h-px w-8 bg-[#DABBB7]" />
-                <span className="text-[6px] tracking-[0.16em] text-[#AA8D88]">CURATED WITH CARE</span>
+                <span className="h-px w-8 bg-[#DCD5C6]" />
+                <span className="text-[6px] tracking-[0.16em] text-[#778179]">CURATED WITH CARE</span>
               </div>
             </div>
           </div>
@@ -172,7 +172,7 @@ const StoreInfoPage = () => {
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAE5D7]">
                     <pillar.icon className="h-4 w-4 stroke-[1.4] text-[#9D7B40]" />
                   </span>
-                  <span className="font-serif text-[7px] tracking-[0.12em] text-[#C8B1AC]">{pillar.number}</span>
+                  <span className="font-serif text-[7px] tracking-[0.12em] text-[#B9B2A4]">{pillar.number}</span>
                 </div>
                 <h3 className="mt-4 text-[13px] font-semibold text-[#493B38] md:text-[15px]">{pillar.title}</h3>
                 <p className="mt-1.5 max-w-[310px] text-[8px] leading-5 text-[#94857F] md:text-[9px] md:leading-6">{pillar.desc}</p>
@@ -195,7 +195,7 @@ const StoreInfoPage = () => {
               const row = (
                 <div className="flex min-h-[62px] items-center gap-3 px-3.5 py-3 md:min-h-[70px] md:px-5">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F8F3F1]">
-                    <fact.icon className="h-4 w-4 stroke-[1.4] text-[#B96A70]" />
+                    <fact.icon className="h-4 w-4 stroke-[1.4] text-[#9D7B40]" />
                   </span>
                   <div className="min-w-0 flex-1">
                     <span className="block text-[7px] text-[#A49792] md:text-[8px]">{fact.label}</span>
