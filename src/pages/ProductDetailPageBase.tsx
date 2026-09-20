@@ -409,7 +409,7 @@ const ProductDetailPage = () => {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F8F6F0]" dir="rtl">
         <div className="px-6 text-center">
-          <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#EAE5D7]">
+          <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-none bg-[#EAE5D7]">
             <ShoppingBag className="h-6 w-6 stroke-[1.4] text-[#9D7B40]" />
           </span>
 
@@ -771,8 +771,8 @@ const ProductDetailPage = () => {
           MOBILE HEADER
       ===================================================== */}
 
-      <header className="sticky top-0 z-50 flex h-[54px] items-center justify-between border-b border-[#DCD5C6] bg-[#F8F6F0]/96 px-2 backdrop-blur-xl md:hidden">
-        <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-10 w-10 items-center justify-center rounded-full text-[#263B31] active:bg-[#F3F0E6]">
+      <header className="sticky top-0 z-50 flex h-[54px] items-center justify-between border-b border-[#173A2D]/15 bg-[#F8F6F0]/96 px-2 backdrop-blur-xl md:hidden">
+        <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-10 w-10 items-center justify-center rounded-none text-[#263B31] active:bg-[#EAE5D7]">
           <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
         </button>
 
@@ -781,15 +781,15 @@ const ProductDetailPage = () => {
         </button>
 
         <div className="flex items-center">
-          <button type="button" onClick={() => navigate("/cart")} aria-label="السلة" className="flex h-9 w-9 items-center justify-center rounded-full text-[#263B31] active:bg-[#F3F0E6]">
+          <button type="button" onClick={() => navigate("/cart")} aria-label="السلة" className="flex h-9 w-9 items-center justify-center rounded-none text-[#263B31] active:bg-[#EAE5D7]">
             <ShoppingCart className="h-[19px] w-[19px]" strokeWidth={1.5} />
           </button>
 
-          <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center rounded-full text-[#263B31] active:bg-[#F3F0E6]">
+          <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center rounded-none text-[#263B31] active:bg-[#EAE5D7]">
             <Heart className={`h-[19px] w-[19px] ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : ""}`} strokeWidth={1.5} />
           </button>
 
-          <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-9 w-9 items-center justify-center rounded-full text-[#263B31] active:bg-[#F3F0E6]">
+          <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-9 w-9 items-center justify-center rounded-none text-[#263B31] active:bg-[#EAE5D7]">
             <Share2 className="h-[18px] w-[18px]" strokeWidth={1.5} />
           </button>
         </div>
@@ -821,12 +821,12 @@ const ProductDetailPage = () => {
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="grid grid-cols-1 border-y border-[#DCD5C6] bg-[#F8F6F0] lg:grid-cols-[minmax(0,1.14fr)_minmax(420px,0.86fr)]">
+          <div className="grid grid-cols-1 border-y border-[#173A2D]/15 bg-[#F8F6F0] lg:grid-cols-[minmax(0,1.14fr)_minmax(420px,0.86fr)]">
             {/* ===============================================
                 GALLERY
             =============================================== */}
 
-            <section className="min-w-0 bg-[#EEE9DD] lg:border-l lg:border-[#DCD5C6]">
+            <section className="min-w-0 bg-[#E9E4D8] lg:border-l lg:border-[#173A2D]/15">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -852,20 +852,20 @@ const ProductDetailPage = () => {
   )}
 
   {/* COUNTER */}
-  <span className="pointer-events-none absolute bottom-3 right-3 z-20 rounded-full border border-[#DDD7C8] bg-white/95 px-2.5 py-1 text-[8px] font-semibold text-[#173A2D] shadow-sm">
+  <span className="pointer-events-none absolute bottom-3 right-3 z-20 rounded-none border border-[#DDD7C8] bg-[#F8F6F0]/95 px-2.5 py-1 text-[8px] font-semibold text-[#173A2D] shadow-sm">
     {safeSelectedImage + 1} / {displayImages.length}
   </span>
 
   {/* DESKTOP PREVIOUS */}
   {displayImages.length > 1 && (
-    <button type="button" onClick={prevImage} aria-label="الصورة السابقة" className="absolute right-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#DED8CA] bg-white/95 text-[#786863] shadow-sm md:flex">
+    <button type="button" onClick={prevImage} aria-label="الصورة السابقة" className="absolute right-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#173A2D]/16 bg-[#F8F6F0]/95 text-[#786863] shadow-sm md:flex">
       <ChevronRight className="h-4 w-4" strokeWidth={1.4} />
     </button>
   )}
 
   {/* DESKTOP NEXT */}
   {displayImages.length > 1 && (
-    <button type="button" onClick={nextImage} aria-label="الصورة التالية" className="absolute left-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#DED8CA] bg-white/95 text-[#786863] shadow-sm md:flex">
+    <button type="button" onClick={nextImage} aria-label="الصورة التالية" className="absolute left-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#173A2D]/16 bg-[#F8F6F0]/95 text-[#786863] shadow-sm md:flex">
       <ChevronLeft className="h-4 w-4" strokeWidth={1.4} />
     </button>
   )}
@@ -874,7 +874,7 @@ const ProductDetailPage = () => {
   {displayImages.length > 1 && (
     <div className="pointer-events-none absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 md:hidden">
       {displayImages.slice(0, 8).map((_, index) => (
-        <span key={index} className={`h-1 rounded-full transition-all duration-150 ${safeSelectedImage === index ? "w-4 bg-[#173A2D]" : "w-1 bg-white/80"}`} />
+        <span key={index} className={`h-1 rounded-none transition-all duration-150 ${safeSelectedImage === index ? "w-4 bg-[#173A2D]" : "w-1 bg-[#F8F6F0]/80"}`} />
       ))}
     </div>
   )}
@@ -885,7 +885,7 @@ const ProductDetailPage = () => {
                 =========================================== */}
 
                 {displayImages.length > 1 && (
-                  <div className="border-b border-[#E5DED0] bg-white">
+                  <div className="border-b border-[#173A2D]/12 bg-[#F8F6F0]">
                     <div className="flex gap-2 overflow-x-auto px-2.5 py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-4 md:py-3">
                       {displayImages.map((image, index) => (
                         <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} className={`relative h-[58px] w-[58px] shrink-0 overflow-hidden rounded-[9px] bg-[#F5F3F1] transition md:h-[68px] md:w-[68px] ${safeSelectedImage === index ? "ring-1 ring-[#9D7B40] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
@@ -907,7 +907,7 @@ const ProductDetailPage = () => {
                   TITLE + PRICE
               ============================================= */}
 
-              <div className="border-b border-[#DCD5C6] px-4 py-6 sm:px-6 lg:px-0 lg:pt-0 lg:pb-8">
+              <div className="border-b border-[#173A2D]/15 px-4 py-6 sm:px-6 lg:px-0 lg:pt-0 lg:pb-8">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     {product.brand && (
@@ -925,11 +925,11 @@ const ProductDetailPage = () => {
                   </div>
 
                   <div className="hidden shrink-0 items-center gap-1 lg:flex">
-                    <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center border border-[#CFC8B9] text-[#667168] transition-colors hover:bg-[#EEE9DD]">
+                    <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center border border-[#173A2D]/20 text-[#667168] transition-colors hover:bg-[#E9E4D8]">
                       <Heart className={`h-3.5 w-3.5 ${isLiked ? "fill-[#173A2D] text-[#173A2D]" : ""}`} strokeWidth={1.5} />
                     </button>
 
-                    <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#DED8CA] text-[#68736B] hover:bg-[#F5F1E7]">
+                    <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#173A2D]/16 text-[#68736B] hover:bg-[#F5F1E7]">
                       <Share2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                     </button>
                   </div>
@@ -948,7 +948,7 @@ const ProductDetailPage = () => {
                 {/* STOCK */}
 
                 <div className="mt-2.5 flex items-center gap-1.5">
-                  <span className={`h-1.5 w-1.5 rounded-full ${available ? (lowStock ? "bg-[#D99855]" : "bg-[#6E9574]") : "bg-[#C96767]"}`} />
+                  <span className={`h-1.5 w-1.5 rounded-none ${available ? (lowStock ? "bg-[#D99855]" : "bg-[#6E9574]") : "bg-[#C96767]"}`} />
 
                   <p className={`text-[8px] font-medium ${available ? (lowStock ? "text-[#A96D39]" : "text-[#527258]") : "text-[#A95959]"}`}>
                     {available ? (typeof activeStock === "number" ? `متوفر — ${activeStock} قطعة${lowStock ? " فقط" : ""}` : "متوفر الآن") : "غير متوفر حالياً"}
@@ -961,9 +961,9 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {product.hasQualityVariants && product.qualityVariants?.length > 0 && (
-                <div className="border-b border-[#E5DED0] px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#173A2D]/12 px-3.5 py-4 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="text-[10px] font-semibold text-[#413633]">الجودة / الخامة</span>
+                    <span className="text-[10px] font-semibold text-[#173A2D]">الجودة / الخامة</span>
                     <span className="text-[8px] text-[#9B8D88]">{activeQuality?.name || "اختر"}</span>
                   </div>
 
@@ -972,7 +972,7 @@ const ProductDetailPage = () => {
                       const active = selectedQualityIdx === index;
 
                       return (
-                        <button type="button" key={variant.id || index} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-[#C6B17F] bg-[#F5F1E7]" : "border-[#E2DCCE] bg-white"}`}>
+                        <button type="button" key={variant.id || index} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-[#C6B17F] bg-[#F5F1E7]" : "border-[#E2DCCE] bg-[#F8F6F0]"}`}>
                           {variant.images?.[0] ? (
                             <img src={optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={handleImageError} className="h-10 w-10 shrink-0 bg-[#F0ECE2] object-cover object-center" />
                           ) : (
@@ -999,9 +999,9 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {product.colorVariants?.length > 0 && (
-                <div className="border-b border-[#E5DED0] px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#173A2D]/12 px-3.5 py-4 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center gap-1.5">
-                    <span className="text-[10px] font-semibold text-[#413633]">اللون</span>
+                    <span className="text-[10px] font-semibold text-[#173A2D]">اللون</span>
                     <span className="text-[8px] text-[#8F807B]">— {selectedColorIdx !== null ? product.colorVariants[selectedColorIdx]?.name : "اختر اللون"}</span>
                   </div>
 
@@ -1010,8 +1010,8 @@ const ProductDetailPage = () => {
                       const active = selectedColorIdx === index;
 
                       return (
-                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-8 w-8 items-center justify-center rounded-full ${active ? "ring-2 ring-[#173A2D] ring-offset-[3px]" : "ring-1 ring-[#D6CEBF]"}`}>
-                          <span className="h-full w-full rounded-full border border-black/[0.06]" style={variant.hex2 ? { background: `linear-gradient(135deg, ${variant.hex} 0%, ${variant.hex} 50%, ${variant.hex2} 50%, ${variant.hex2} 100%)` } : { backgroundColor: variant.hex }} />
+                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-8 w-8 items-center justify-center rounded-none ${active ? "ring-2 ring-[#173A2D] ring-offset-[3px]" : "ring-1 ring-[#D6CEBF]"}`}>
+                          <span className="h-full w-full rounded-none border border-black/[0.06]" style={variant.hex2 ? { background: `linear-gradient(135deg, ${variant.hex} 0%, ${variant.hex} 50%, ${variant.hex2} 50%, ${variant.hex2} 100%)` } : { backgroundColor: variant.hex }} />
 
                           {active && <Check className="absolute h-3 w-3 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,.75)]" strokeWidth={3} />}
                         </button>
@@ -1026,18 +1026,18 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {sizesToShow.length > 0 && (
-                <div className="border-b border-[#E5DED0] px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#173A2D]/12 px-3.5 py-4 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="text-[10px] font-semibold text-[#413633]">المقاس</span>
+                    <span className="text-[10px] font-semibold text-[#173A2D]">المقاس</span>
 
-                    {selectedSize && <span className="text-[8px] text-[#958782]">المختار: {selectedSize}</span>}
+                    {selectedSize && <span className="text-[8px] text-[#7D877F]">المختار: {selectedSize}</span>}
                   </div>
 
                   <div className="flex flex-wrap gap-2">
                     {sizesToShow.map((size: string) => {
                       const adjustment = getSizePriceAdjustment(size);
                       return (
-                        <button type="button" key={size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] rounded-[8px] border px-3 py-2 text-[9px] font-semibold ${selectedSize === size ? "border-[#173A2D] bg-[#F3F0E6] text-[#173A2D]" : "border-[#DED8CA] bg-white text-[#45584E]"}`}>
+                        <button type="button" key={size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] rounded-none border px-3 py-2 text-[9px] font-semibold ${selectedSize === size ? "border-[#173A2D] bg-[#EAE5D7] text-[#173A2D]" : "border-[#173A2D]/16 bg-[#F8F6F0] text-[#45584E]"}`}>
                           {size}{adjustment > 0 ? ` +${formatCurrency(adjustment)}` : ""}
                         </button>
                       );
@@ -1050,20 +1050,20 @@ const ProductDetailPage = () => {
                   QUANTITY
               ============================================= */}
 
-              <div className="flex items-center justify-between border-b border-[#E5DED0] px-3.5 py-3 sm:px-5 lg:px-0">
+              <div className="flex items-center justify-between border-b border-[#173A2D]/12 px-3.5 py-3 sm:px-5 lg:px-0">
                 <div>
-                  <span className="block text-[10px] font-semibold text-[#413633]">الكمية</span>
+                  <span className="block text-[10px] font-semibold text-[#173A2D]">الكمية</span>
                   <span className="mt-1 block text-[7px] text-[#8A938B]">حدد العدد المطلوب</span>
                 </div>
 
-                <div className="flex h-10 items-center overflow-hidden border border-[#CFC8B9]">
-                  <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="إنقاص الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F3F0E6]">
+                <div className="flex h-10 items-center overflow-hidden border border-[#173A2D]/20">
+                  <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="إنقاص الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#EAE5D7]">
                     <Minus className="h-3 w-3" strokeWidth={1.6} />
                   </button>
 
-                  <span className="flex h-full min-w-[38px] items-center justify-center border-x border-[#E5DED0] text-[10px] font-semibold text-[#173A2D]">{quantity}</span>
+                  <span className="flex h-full min-w-[38px] items-center justify-center border-x border-[#173A2D]/12 text-[10px] font-semibold text-[#173A2D]">{quantity}</span>
 
-                  <button type="button" onClick={() => { if (typeof activeStock === "number" && quantity >= activeStock) { toast({ title: "الكمية غير متوفرة", description: `المتاح: ${activeStock} فقط`, variant: "destructive" }); return; } setQuantity((current) => current + 1); }} aria-label="زيادة الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F3F0E6]">
+                  <button type="button" onClick={() => { if (typeof activeStock === "number" && quantity >= activeStock) { toast({ title: "الكمية غير متوفرة", description: `المتاح: ${activeStock} فقط`, variant: "destructive" }); return; } setQuantity((current) => current + 1); }} aria-label="زيادة الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#EAE5D7]">
                     <Plus className="h-3 w-3" strokeWidth={1.6} />
                   </button>
                 </div>
@@ -1073,17 +1073,17 @@ const ProductDetailPage = () => {
                   FEATURES
               ============================================= */}
 
-              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#DCD5C6] bg-[#EEE9DD]">
+              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#173A2D]/15 bg-[#E9E4D8]">
                 {features.map((feature, index) => {
                   const Icon = getFeatureIcon(feature.icon);
 
                   return (
-                    <div key={`${feature.title}-${index}`} className={`flex min-h-[72px] flex-col items-center justify-center px-1.5 py-2.5 text-center ${index !== features.length - 1 ? "border-l border-[#E5DED0]" : ""}`}>
+                    <div key={`${feature.title}-${index}`} className={`flex min-h-[72px] flex-col items-center justify-center px-1.5 py-2.5 text-center ${index !== features.length - 1 ? "border-l border-[#173A2D]/12" : ""}`}>
                       <Icon className="mb-1 h-4 w-4 text-[#9D7B40]" strokeWidth={1.4} />
 
-                      <span className="text-[8px] font-semibold leading-4 text-[#4E423E]">{feature.title}</span>
+                      <span className="text-[8px] font-semibold leading-4 text-[#29483B]">{feature.title}</span>
 
-                      <span className="text-[7px] leading-4 text-[#998B86]">{feature.desc}</span>
+                      <span className="text-[7px] leading-4 text-[#7D877F]">{feature.desc}</span>
                     </div>
                   );
                 })}
@@ -1094,9 +1094,9 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {product.accessories?.length > 0 && (
-                <div className="border-b border-[#E5DED0] px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#173A2D]/12 px-3.5 py-4 sm:px-5 lg:px-0">
                   <div className="mb-3">
-                    <h2 className="text-[10px] font-semibold text-[#413633]">إضافات اختيارية</h2>
+                    <h2 className="text-[10px] font-semibold text-[#173A2D]">إضافات اختيارية</h2>
                     <p className="mt-1 text-[7px] text-[#8A938B]">يمكن إضافتها إلى طلبك</p>
                   </div>
 
@@ -1120,7 +1120,7 @@ const ProductDetailPage = () => {
                 {product.specs?.length > 0 && (
                   <div>
                     <button type="button" onClick={() => setOpenSection(openSection === "specs" ? null : "specs")} className="flex w-full items-center justify-between px-3.5 py-4 text-right sm:px-5 lg:px-0">
-                      <span className="text-[10px] font-semibold text-[#413633]">المواصفات</span>
+                      <span className="text-[10px] font-semibold text-[#173A2D]">المواصفات</span>
 
                       <ChevronDown className={`h-3.5 w-3.5 text-[#173A2D] transition-transform ${openSection === "specs" ? "rotate-180" : ""}`} strokeWidth={1.5} />
                     </button>
@@ -1130,9 +1130,9 @@ const ProductDetailPage = () => {
                         <dl className="px-3.5 pb-4 sm:px-5 lg:px-0">
                           {product.specs.map((spec, index) => (
                             <div key={`${spec.label}-${index}`} className="flex items-start justify-between gap-4 border-b border-[#F2EBE8] py-2.5 last:border-0">
-                              <dt className="text-[8px] text-[#998B86]">{spec.label}</dt>
+                              <dt className="text-[8px] text-[#7D877F]">{spec.label}</dt>
 
-                              <dd className="max-w-[65%] text-left text-[8px] font-semibold text-[#4E423E]">{spec.value}</dd>
+                              <dd className="max-w-[65%] text-left text-[8px] font-semibold text-[#29483B]">{spec.value}</dd>
                             </div>
                           ))}
                         </dl>
@@ -1147,7 +1147,7 @@ const ProductDetailPage = () => {
                   <button type="button" onClick={() => setOpenSection(openSection === "delivery" ? null : "delivery")} className="flex w-full items-center justify-between px-3.5 py-4 text-right sm:px-5 lg:px-0">
                     <div className="flex items-center gap-2">
                       <Truck className="h-3.5 w-3.5 text-[#9D7B40]" strokeWidth={1.4} />
-                      <span className="text-[10px] font-semibold text-[#413633]">الشحن والتوصيل</span>
+                      <span className="text-[10px] font-semibold text-[#173A2D]">الشحن والتوصيل</span>
                     </div>
 
                     <ChevronDown className={`h-3.5 w-3.5 text-[#173A2D] transition-transform ${openSection === "delivery" ? "rotate-180" : ""}`} strokeWidth={1.5} />
@@ -1155,7 +1155,7 @@ const ProductDetailPage = () => {
 
                   {openSection === "delivery" && (
                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="overflow-hidden">
-                      <div className="px-3.5 pb-4 text-[9px] leading-6 text-[#796A65] sm:px-5 lg:px-0">
+                      <div className="px-3.5 pb-4 text-[9px] leading-6 text-[#67756D] sm:px-5 lg:px-0">
                         <p>مدة التوصيل ورسومه تظهر لك بوضوح أثناء إتمام الطلب حسب منطقتك.</p>
 
                         <p className="mt-1">قد تختلف مدة الوصول حسب المحافظة وشركة التوصيل المختارة.</p>
@@ -1172,7 +1172,7 @@ const ProductDetailPage = () => {
                       <div className="flex items-center gap-2">
                         <RotateCcw className="h-3.5 w-3.5 text-[#9D7B40]" strokeWidth={1.4} />
 
-                        <span className="text-[10px] font-semibold text-[#413633]">الإرجاع والاستبدال</span>
+                        <span className="text-[10px] font-semibold text-[#173A2D]">الإرجاع والاستبدال</span>
                       </div>
 
                       <ChevronDown className={`h-3.5 w-3.5 text-[#173A2D] transition-transform ${openSection === "return" ? "rotate-180" : ""}`} strokeWidth={1.5} />
@@ -1181,7 +1181,7 @@ const ProductDetailPage = () => {
                     {openSection === "return" && (
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="overflow-hidden">
                         <div className="px-3.5 pb-4 sm:px-5 lg:px-0">
-                          <p className="whitespace-pre-line text-[9px] leading-6 text-[#796A65]">{effectiveReturnPolicy}</p>
+                          <p className="whitespace-pre-line text-[9px] leading-6 text-[#67756D]">{effectiveReturnPolicy}</p>
                         </div>
                       </motion.div>
                     )}
@@ -1194,7 +1194,7 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {justAdded && (
-                <div className="mx-3.5 mb-4 flex items-center justify-between gap-3 rounded-[10px] border border-[#E8C9C6] bg-[#F3F0E6] px-3 py-2.5 sm:mx-5 lg:mx-0">
+                <div className="mx-3.5 mb-4 flex items-center justify-between gap-3 rounded-none border border-[#D9BC7D]/40 bg-[#EAE5D7] px-3 py-2.5 sm:mx-5 lg:mx-0">
                   <div className="flex items-center gap-2">
                     <span className="flex h-6 w-6 items-center justify-center bg-[#173A2D]">
                       <Check className="h-3 w-3 text-white" strokeWidth={2.2} />
@@ -1202,7 +1202,7 @@ const ProductDetailPage = () => {
 
                     <div>
                       <p className="text-[8px] font-semibold text-[#173A2D]">تمت الإضافة إلى السلة</p>
-                      <p className="mt-0.5 text-[7px] text-[#9D7878]">الكمية: {quantity}</p>
+                      <p className="mt-0.5 text-[7px] text-[#9D7B40]">الكمية: {quantity}</p>
                     </div>
                   </div>
 
@@ -1216,9 +1216,9 @@ const ProductDetailPage = () => {
                   DESKTOP ACTIONS
               ============================================= */}
 
-              <div className="hidden border-t border-[#E5DED0] pt-5 lg:block">
+              <div className="hidden border-t border-[#173A2D]/12 pt-5 lg:block">
                 <div className="flex gap-2">
-                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 border border-[#173A2D] bg-transparent px-5 text-[10px] font-semibold text-[#173A2D] transition-colors hover:bg-[#EEE9DD] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 border border-[#173A2D] bg-transparent px-5 text-[10px] font-semibold text-[#173A2D] transition-colors hover:bg-[#E9E4D8] disabled:cursor-not-allowed disabled:opacity-40">
                     <ShoppingBag className="h-4 w-4" strokeWidth={1.5} />
                     أضف إلى السلة
                   </button>
@@ -1228,7 +1228,7 @@ const ProductDetailPage = () => {
                   </button>
 
                   {WHATSAPP_URL && (
-                    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-[10px] border border-[#DED8CA] bg-white text-[#3F7C58]">
+                    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-none border border-[#173A2D]/16 bg-[#F8F6F0] text-[#3F7C58]">
                       <FaWhatsapp className="h-[18px] w-[18px]" />
                     </a>
                   )}
@@ -1241,12 +1241,12 @@ const ProductDetailPage = () => {
               STORE + QA + REVIEWS
           ================================================= */}
 
-          <div className="mt-2 bg-white px-3.5 sm:px-5 md:mt-6 md:border-y md:border-[#DCD5C6] md:px-6">
+          <div className="mt-2 bg-[#F8F6F0] px-3.5 sm:px-5 md:mt-6 md:border-y md:border-[#173A2D]/15 md:px-6">
             {/* STORE */}
 
-            <section className="flex items-center justify-between border-b border-[#E5DED0] py-4">
+            <section className="flex items-center justify-between border-b border-[#173A2D]/12 py-4">
               <div className="flex min-w-0 items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EAE5D7]">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none bg-[#EAE5D7]">
                   <ShoppingBag className="h-4 w-4 text-[#9D7B40]" strokeWidth={1.4} />
                 </span>
 
@@ -1274,7 +1274,7 @@ const ProductDetailPage = () => {
 
             {/* REVIEWS */}
 
-            <section className="border-t border-[#E5DED0] py-5 md:py-7">
+            <section className="border-t border-[#173A2D]/12 py-5 md:py-7">
               <ProductReviews productId={product.id} productName={product.nameAr || product.name} />
             </section>
           </div>
@@ -1284,7 +1284,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {relatedProducts.length > 0 && (
-            <section className="mt-2 bg-white px-2.5 py-5 md:mt-6 md:border-y md:border-[#DCD5C6] md:px-6 md:py-7">
+            <section className="mt-2 bg-[#F8F6F0] px-2.5 py-5 md:mt-6 md:border-y md:border-[#173A2D]/15 md:px-6 md:py-7">
               <div className="mb-4 flex items-end justify-between px-0.5">
                 <div>
                   <div className="mb-1 flex items-center gap-2">
@@ -1313,7 +1313,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {recentItems.filter((item) => item.id !== product.id).length > 0 && (
-            <section className="mt-2 bg-white px-2.5 py-5 md:mt-6 md:border-y md:border-[#DCD5C6] md:px-6 md:py-7">
+            <section className="mt-2 bg-[#F8F6F0] px-2.5 py-5 md:mt-6 md:border-y md:border-[#173A2D]/15 md:px-6 md:py-7">
               <div className="mb-4">
                 <div className="mb-1 flex items-center gap-2">
                   <span className="h-[2px] w-4 bg-[#173A2D]" />
@@ -1340,15 +1340,15 @@ const ProductDetailPage = () => {
           MOBILE BUY BAR
       ===================================================== */}
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#DCD5C6] bg-[#F8F6F0]/96 px-2.5 pt-2 backdrop-blur-xl lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#173A2D]/15 bg-[#F8F6F0]/96 px-2.5 pt-2 backdrop-blur-xl lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
         <div className="flex h-[49px] gap-2">
           {WHATSAPP_URL && (
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-full w-[46px] shrink-0 items-center justify-center rounded-[10px] border border-[#DED8CA] bg-white text-[#3F7C58]">
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-full w-[46px] shrink-0 items-center justify-center rounded-none border border-[#173A2D]/16 bg-[#F8F6F0] text-[#3F7C58]">
               <FaWhatsapp className="h-[18px] w-[18px]" />
             </a>
           )}
 
-          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 border border-[#173A2D] bg-white px-2 text-[9px] font-semibold text-[#9D7B40] active:bg-[#F5F1E7] disabled:opacity-40">
+          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 border border-[#173A2D] bg-[#F8F6F0] px-2 text-[9px] font-semibold text-[#9D7B40] active:bg-[#F5F1E7] disabled:opacity-40">
             <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.6} />
             <span>{available ? "أضف للسلة" : "غير متوفر"}</span>
           </button>
