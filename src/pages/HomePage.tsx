@@ -36,13 +36,13 @@ const SectionHeader = ({
   description?: string;
   to?: string;
 }) => (
-  <div className="mb-8 flex items-end justify-between gap-8 md:mb-10">
+  <div className="mb-6 flex items-end justify-between gap-6 md:mb-8">
     <div>
       <div className="mb-3 flex items-center gap-3">
         <span className="h-px w-10 bg-[#D8C29A]" />
         <span className="text-[8px] font-semibold tracking-[.3em] text-[#9A825B]">{eyebrow}</span>
       </div>
-      <h2 className="text-[28px] font-medium leading-[1.35] tracking-[-.04em] text-[#0E0E0E] md:text-[42px]">{title}</h2>
+      <h2 className="text-[25px] font-medium leading-[1.35] tracking-[-.04em] text-[#0E0E0E] md:text-[36px]">{title}</h2>
       {description && <p className="mt-3 max-w-[560px] text-[11px] leading-7 text-[#777] md:text-[12px]">{description}</p>}
     </div>
 
@@ -65,7 +65,7 @@ const HomePage = () => {
         .eq("is_active", true)
         .is("parent_id", null)
         .order("sort_order", { ascending: true })
-        .limit(4);
+        .limit(5);
 
       if (error) throw error;
       return (data || []) as Category[];
@@ -133,47 +133,49 @@ const HomePage = () => {
       <main>
         <HeroSlider />
 
-        <section className="bg-white px-4 py-14 sm:px-6 md:px-[5vw] md:py-20">
+        <section className="bg-white px-4 py-10 sm:px-6 md:px-[5vw] md:py-14">
           <div className="mx-auto max-w-[1600px]">
             <SectionHeader
               eyebrow="SHOP BY CATEGORY"
-              title="الأقسام الرئيسية"
-              description="أربع نقاط بداية واضحة بدل عدد كبير من الروابط والأقسام المتداخلة."
+              title="تسوق حسب القسم"
+              description="أقسام صغيرة وواضحة في صف واحد، للوصول أسرع."
               to="/categories"
             />
 
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-              {categories.map((category, index) => (
-                <Link
-                  key={category.id}
-                  to={`/products?category=${category.slug}`}
-                  className="group"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden bg-[#F4F4F4]">
-                    {category.image_url ? (
-                      <img
-                        src={category.image_url.startsWith("/") ? category.image_url : optimizeImage(category.image_url, 700, 82)}
-                        alt={category.name_ar}
-                        loading={index < 2 ? "eager" : "lazy"}
-                        decoding="async"
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-[#F2F2F2]" />
-                    )}
+            <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 md:mx-0 md:overflow-visible md:px-0">
+              <div className="flex w-max gap-3 md:grid md:w-full md:grid-cols-5 md:gap-3">
+                {categories.map((category, index) => (
+                  <Link
+                    key={category.id}
+                    to={`/products?category=${category.slug}`}
+                    className="group w-[160px] shrink-0 sm:w-[180px] md:w-auto"
+                  >
+                    <div className="relative aspect-[5/4] overflow-hidden bg-[#F4F4F4]">
+                      {category.image_url ? (
+                        <img
+                          src={category.image_url.startsWith("/") ? category.image_url : optimizeImage(category.image_url, 520, 82)}
+                          alt={category.name_ar}
+                          loading={index < 3 ? "eager" : "lazy"}
+                          decoding="async"
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-[#F2F2F2]" />
+                      )}
 
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-4 pb-4 pt-16">
-                      <div className="flex items-end justify-between gap-3">
-                        <div>
-                          <span className="text-[7px] font-semibold tracking-[.2em] text-[#E6D7B8]">{String(index + 1).padStart(2, "0")}</span>
-                          <h3 className="mt-1 text-[16px] font-medium text-white md:text-[19px]">{category.name_ar}</h3>
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/68 to-transparent px-3 pb-3 pt-10">
+                        <div className="flex items-end justify-between gap-2">
+                          <div>
+                            <span className="text-[6px] font-semibold tracking-[.18em] text-[#E6D7B8]">{String(index + 1).padStart(2, "0")}</span>
+                            <h3 className="mt-0.5 text-[13px] font-medium text-white md:text-[14px]">{category.name_ar}</h3>
+                          </div>
+                          <ArrowUpLeft className="h-3.5 w-3.5 text-[#A9D8D3]" strokeWidth={1.4} />
                         </div>
-                        <ArrowUpLeft className="h-4 w-4 text-[#A9D8D3]" strokeWidth={1.4} />
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
 
             <Link to="/categories" className="mt-6 inline-flex items-center gap-2 text-[9px] font-semibold text-[#0E0E0E] md:hidden">
