@@ -35,19 +35,19 @@ const SectionHeader = ({
   title: string;
   to?: string;
 }) => (
-  <div className="mb-4 flex items-end justify-between gap-4 md:mb-7">
+  <div className="mb-4 flex items-end justify-between gap-3 md:mb-7">
     <div>
-      <div className="mb-1.5 flex items-center gap-2 md:mb-2">
+      <div className="mb-1.5 flex items-center gap-2">
         <span className="h-px w-5 bg-[#C9B183] md:w-7" />
         <span className="text-[6px] font-semibold tracking-[.24em] text-[#9A825B] md:text-[8px]">{eyebrow}</span>
       </div>
-      <h2 className="text-[18px] font-medium tracking-[-.035em] text-[#0E0E0E] md:text-[30px]">{title}</h2>
+      <h2 className="text-[17px] font-semibold tracking-[-.025em] text-[#0E0E0E] md:text-[29px]">{title}</h2>
     </div>
 
     {to && (
-      <Link to={to} className="flex shrink-0 items-center gap-1 border-b border-[#D7C7A8] pb-0.5 text-[7px] font-semibold text-[#0E0E0E] md:gap-2 md:text-[9px]">
+      <Link to={to} className="flex shrink-0 items-center gap-1 border-b border-[#D8C29A] pb-0.5 text-[7px] font-semibold text-[#0E0E0E] md:gap-2 md:text-[10px]">
         عرض الكل
-        <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.4} />
+        <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} />
       </Link>
     )}
   </div>
@@ -115,7 +115,7 @@ const HomePage = () => {
         .select("id,name,slug")
         .eq("is_active", true)
         .order("sort_order", { ascending: true })
-        .limit(8);
+        .limit(10);
 
       if (error) throw error;
       return (data || []) as Brand[];
@@ -132,37 +132,40 @@ const HomePage = () => {
         <HeroSlider />
 
         {categories.length > 0 && (
-          <section className="bg-[#F8F6F1] py-6 md:py-10">
-            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
+          <section className="bg-[#FAF9F6] py-6 md:py-12">
+            <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
               <SectionHeader eyebrow="SHOP / CATEGORY" title="تسوق حسب القسم" to="/categories" />
 
-              <div className="-mx-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
-                <div className="flex w-max gap-2.5 after:block after:w-3 after:shrink-0 after:content-[''] md:grid md:w-full md:grid-cols-5 md:gap-4 md:after:hidden lg:grid-cols-8">
+              <div className="-mx-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
+                <div className="flex w-max gap-2.5 after:block after:w-3 after:shrink-0 after:content-[''] md:grid md:w-full md:grid-cols-4 md:gap-4 md:after:hidden lg:grid-cols-6 xl:grid-cols-8">
                   {categories.map((category, index) => (
                     <Link
                       key={category.id}
                       to={`/products?category=${category.slug}`}
-                      className="group block w-[82px] shrink-0 sm:w-[92px] md:w-auto"
+                      className="group block w-[82px] shrink-0 sm:w-[94px] md:w-auto"
                     >
-                      <div className="relative aspect-square overflow-hidden border border-[#E7E2D9] bg-[#EEEAE2] md:aspect-[4/5]">
+                      <div className="relative aspect-[4/5] overflow-hidden border border-[#E7E2D9] bg-[#F1EEE8]">
                         {category.image_url ? (
                           <img
                             src={category.image_url.startsWith("/") ? category.image_url : optimizeImage(category.image_url, 360, 80)}
-                            alt={category.name_ar}
-                            loading={index < 4 ? "eager" : "lazy"}
+                            alt={category.name_ar || category.name}
+                            loading={index < 5 ? "eager" : "lazy"}
                             decoding="async"
-                            className="h-full w-full object-cover transition-transform duration-500 md:group-hover:scale-[1.035]"
+                            className="h-full w-full object-cover object-center transition-transform duration-500 md:group-hover:scale-[1.035]"
                           />
                         ) : (
-                          <div className="h-full w-full bg-[#EEEAE2]" />
+                          <div className="h-full w-full bg-[#F1EEE8]" />
                         )}
-                        <div className="absolute inset-x-0 bottom-0 hidden h-2/5 bg-gradient-to-t from-black/45 to-transparent md:block" />
-                        <div className="absolute inset-x-0 bottom-0 hidden px-2.5 pb-2.5 text-white md:block">
-                          <span className="text-[6px] tracking-[.16em] text-[#E6D7B8]">{String(index + 1).padStart(2, "0")}</span>
-                          <p className="mt-0.5 truncate text-[10px] font-semibold">{category.name_ar}</p>
-                        </div>
                       </div>
-                      <p className="mt-1.5 truncate text-center text-[8px] font-semibold text-[#272727] md:hidden">{category.name_ar}</p>
+
+                      <div className="mt-1.5 text-center">
+                        <p className="truncate text-[8px] font-semibold text-[#222] md:text-[11px]">
+                          {category.name_ar || category.name}
+                        </p>
+                        <p className="mt-0.5 hidden truncate text-[6px] tracking-[.08em] text-[#9A825B] md:block">
+                          {category.name}
+                        </p>
+                      </div>
                     </Link>
                   ))}
                 </div>
@@ -174,11 +177,26 @@ const HomePage = () => {
         <GenanServices slot={0} />
 
         {featured.length > 0 && (
-          <section className="bg-white py-7 md:py-12">
-            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
+          <section className="bg-white py-7 md:py-14">
+            <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
               <SectionHeader eyebrow="GENAN / EDIT" title="مختارات جنان" to="/products?sort=featured" />
-              <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
+
+              <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 sm:gap-x-3 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
                 {featured.map((product, index) => (
+                  <ProductCard key={product.id} product={product} index={index} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {best.length > 0 && (
+          <section className="bg-[#FAF9F6] py-7 md:py-14">
+            <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
+              <SectionHeader eyebrow="MOST WANTED" title="الأكثر اختيارًا" to="/best-sellers" />
+
+              <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 sm:gap-x-3 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
+                {best.map((product, index) => (
                   <ProductCard key={product.id} product={product} index={index} />
                 ))}
               </div>
@@ -188,33 +206,23 @@ const HomePage = () => {
 
         <GenanServices slot={1} />
 
-        {best.length > 0 && (
-          <section className="bg-[#F8F6F1] py-7 md:py-12">
-            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
-              <SectionHeader eyebrow="MOST WANTED" title="الأكثر اختيارًا" to="/best-sellers" />
-              <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
-                {best.map((product, index) => (
-                  <ProductCard key={product.id} product={product} index={index} />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
         {brands.length > 0 && (
-          <section className="bg-white py-7 md:py-12">
-            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
+          <section className="bg-white py-7 md:py-14">
+            <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
               <SectionHeader eyebrow="BRANDS" title="الماركات" to="/brands" />
-              <div className="grid grid-cols-2 border-r border-t border-[#E6E1D8] sm:grid-cols-4">
-                {brands.map((brand) => (
-                  <Link
-                    key={brand.id}
-                    to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="flex min-h-[64px] items-center justify-center border-b border-l border-[#E6E1D8] bg-white px-3 text-center transition-colors hover:bg-[#F8F6F1] md:min-h-[74px]"
-                  >
-                    <span className="text-[10px] font-medium tracking-[.05em] text-[#0E0E0E] md:text-[12px]">{brand.name}</span>
-                  </Link>
-                ))}
+
+              <div className="-mx-3 overflow-x-auto px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0">
+                <div className="flex w-max gap-2 md:grid md:w-full md:grid-cols-5">
+                  {brands.map((brand) => (
+                    <Link
+                      key={brand.id}
+                      to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="flex h-[58px] min-w-[132px] items-center justify-center border border-[#E7E2D9] bg-[#FAF9F6] px-4 text-center transition-colors hover:bg-[#0E0E0E] hover:text-white md:min-w-0"
+                    >
+                      <span className="text-[9px] font-semibold tracking-[.04em] md:text-[11px]">{brand.name}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
