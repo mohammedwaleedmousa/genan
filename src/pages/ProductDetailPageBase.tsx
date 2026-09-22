@@ -795,7 +795,7 @@ const ProductDetailPage = () => {
         </div>
       </header>
 
-      <main className="bg-[#F7F5F0] pb-[88px] md:pb-24">
+      <main className="bg-white pb-[82px] md:pb-20">
         <div className="mx-auto w-full max-w-[1600px] md:px-7 lg:px-10">
           {/* =================================================
               BREADCRUMB
@@ -821,12 +821,12 @@ const ProductDetailPage = () => {
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="genan-product-stage grid grid-cols-1 bg-transparent lg:grid-cols-[minmax(0,1.18fr)_minmax(390px,0.82fr)] lg:gap-10 xl:gap-14">
+          <div className="genan-product-stage grid grid-cols-1 bg-white lg:grid-cols-[minmax(0,1.12fr)_minmax(390px,0.88fr)] lg:gap-8 xl:gap-10">
             {/* ===============================================
                 GALLERY
             =============================================== */}
 
-            <section className="genan-product-gallery min-w-0 bg-[#EFEBE3]">
+            <section className="genan-product-gallery min-w-0 bg-[#F3F0E9]">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -834,7 +834,7 @@ const ProductDetailPage = () => {
                     الخلفية تملأ الفراغ الجانبي
                 =========================================== */}
 
-                <div className="relative h-[58svh] min-h-[430px] max-h-[620px] w-full overflow-hidden bg-[#EFEBE3] sm:h-[64svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[3/4]">
+                <div className="relative h-[52svh] min-h-[350px] max-h-[520px] w-full overflow-hidden bg-[#F3F0E9] sm:h-[58svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[4/5]">
   {/* MAIN PRODUCT */}
   <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y" }} className="h-full w-full cursor-grab active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
@@ -902,20 +902,20 @@ const ProductDetailPage = () => {
                 DETAILS
             =============================================== */}
 
-            <section className="genan-product-info min-w-0 bg-white lg:my-8 lg:self-start lg:border-t lg:border-[#0E0E0E]/12 lg:px-9 lg:py-9 xl:px-11">
+            <section className="genan-product-info min-w-0 bg-white lg:my-5 lg:self-start lg:border lg:border-[#E7E2D9] lg:px-8 lg:py-7 xl:px-9">
               {/* =============================================
                   TITLE + PRICE
               ============================================= */}
 
-              <div className="border-b border-[#0E0E0E]/15 px-4 py-6 sm:px-6 lg:px-0 lg:pt-0 lg:pb-8">
+              <div className="border-b border-[#E7E2D9] px-3.5 py-4 sm:px-5 lg:px-0 lg:pt-0 lg:pb-6">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <div className="mb-5 flex items-center justify-between border-b border-[#E2DDD3] pb-4">
+                    <div className="mb-3 flex items-center justify-between border-b border-[#E2DDD3] pb-3">
                     <div className="flex items-center gap-3">
                       <span className="text-[7px] font-semibold tracking-[.26em] text-[#9A825B]">PRODUCT / GENAN EDIT</span>
                       <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
                     </div>
-                    <span className="text-[7px] tracking-[.18em] text-[#9A9A9A]">CURATED OBJECT</span>
+                    
                   </div>
 
                   {product.brand && (
@@ -925,10 +925,10 @@ const ProductDetailPage = () => {
                       </div>
                     )}
 
-                    <h1 className="text-[30px] font-medium leading-[1.38] tracking-[-0.052em] text-[#0E0E0E] md:text-[40px]">{product.nameAr || product.name}</h1>
+                    <h1 className="text-[22px] font-semibold leading-[1.45] tracking-[-0.035em] text-[#0E0E0E] md:text-[34px]">{product.nameAr || product.name}</h1>
 
                     {effectiveDescription && (
-                      <p className="mt-4 max-w-[620px] whitespace-pre-line text-[10px] leading-7 text-[#6F6F6F] md:text-[12px] md:leading-8">{effectiveDescription}</p>
+                      <p className="mt-2.5 max-w-[620px] whitespace-pre-line text-[9px] leading-6 text-[#6F6F6F] md:text-[11px] md:leading-7">{effectiveDescription}</p>
                     )}
                   </div>
 
@@ -946,7 +946,7 @@ const ProductDetailPage = () => {
                 {/* PRICE */}
 
                 <div className="mt-3 flex flex-wrap items-end gap-2">
-                  <span className="text-[24px] font-semibold leading-none text-[#0E0E0E] md:text-[30px]">{formatCurrency(totalPrice * quantity)}</span>
+                  <span className="text-[20px] font-semibold leading-none text-[#0E0E0E] md:text-[27px]">{formatCurrency(totalPrice * quantity)}</span>
 
                   {product.originalPrice && !activeQuality && <span className="text-[9px] text-[#8B8B8B] line-through">{formatCurrency(product.originalPrice)}</span>}
 
@@ -969,7 +969,7 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {product.hasQualityVariants && product.qualityVariants?.length > 0 && (
-                <div className="border-b border-[#0E0E0E]/12 px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#E7E2D9] px-3.5 py-3 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center justify-between">
                     <span className="text-[10px] font-semibold text-[#0E0E0E]">الجودة / الخامة</span>
                     <span className="text-[8px] text-[#777777]">{activeQuality?.name || "اختر"}</span>
@@ -1007,7 +1007,7 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {product.colorVariants?.length > 0 && (
-                <div className="border-b border-[#0E0E0E]/12 px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#E7E2D9] px-3.5 py-3 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center gap-1.5">
                     <span className="text-[10px] font-semibold text-[#0E0E0E]">اللون</span>
                     <span className="text-[8px] text-[#777777]">— {selectedColorIdx !== null ? product.colorVariants[selectedColorIdx]?.name : "اختر اللون"}</span>
@@ -1034,7 +1034,7 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {sizesToShow.length > 0 && (
-                <div className="border-b border-[#0E0E0E]/12 px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#E7E2D9] px-3.5 py-3 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center justify-between">
                     <span className="text-[10px] font-semibold text-[#0E0E0E]">المقاس</span>
 
@@ -1102,7 +1102,7 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {product.accessories?.length > 0 && (
-                <div className="border-b border-[#0E0E0E]/12 px-3.5 py-4 sm:px-5 lg:px-0">
+                <div className="border-b border-[#E7E2D9] px-3.5 py-3 sm:px-5 lg:px-0">
                   <div className="mb-3">
                     <h2 className="text-[10px] font-semibold text-[#0E0E0E]">إضافات اختيارية</h2>
                     <p className="mt-1 text-[7px] text-[#777777]">يمكن إضافتها إلى طلبك</p>
@@ -1249,7 +1249,7 @@ const ProductDetailPage = () => {
               STORE + QA + REVIEWS
           ================================================= */}
 
-          <div className="mt-8 bg-white px-4 sm:px-6 md:mt-12 md:border-t md:border-[#0E0E0E]/12 md:px-0">
+          <div className="mt-5 bg-white px-3.5 sm:px-5 md:mt-8 md:border-t md:border-[#E7E2D9] md:px-0">
             {/* STORE */}
 
             <section className="flex items-center justify-between border-b border-[#0E0E0E]/12 py-4">
@@ -1292,7 +1292,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {relatedProducts.length > 0 && (
-            <section className="mt-10 bg-white px-4 py-10 sm:px-6 md:mt-14 md:border-t md:border-[#0E0E0E]/12 md:px-0 md:py-12">
+            <section className="mt-6 bg-white px-3 py-6 sm:px-5 md:mt-10 md:border-t md:border-[#E7E2D9] md:px-0 md:py-9">
               <div className="mb-4 flex items-end justify-between px-0.5">
                 <div>
                   <div className="mb-1 flex items-center gap-2">
@@ -1321,7 +1321,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {recentItems.filter((item) => item.id !== product.id).length > 0 && (
-            <section className="mt-10 bg-white px-4 py-10 sm:px-6 md:mt-14 md:border-t md:border-[#0E0E0E]/12 md:px-0 md:py-12">
+            <section className="mt-6 bg-white px-3 py-6 sm:px-5 md:mt-10 md:border-t md:border-[#E7E2D9] md:px-0 md:py-9">
               <div className="mb-4">
                 <div className="mb-1 flex items-center gap-2">
                   <span className="h-[2px] w-4 bg-[#0E0E0E]" />
