@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ArrowUpLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -26,58 +26,28 @@ type Brand = {
   slug: string | null;
 };
 
-const categoryDesktopLayout = [
-  "md:col-span-5 md:row-span-2",
-  "md:col-span-4",
-  "md:col-span-3",
-  "md:col-span-3",
-  "md:col-span-4",
-];
-
 const SectionHeader = ({
-  number,
   eyebrow,
   title,
-  description,
   to,
-  inverse = false,
 }: {
-  number: string;
   eyebrow: string;
   title: string;
-  description?: string;
   to?: string;
-  inverse?: boolean;
 }) => (
-  <div className="mb-8 grid gap-6 border-t border-current/10 pt-5 md:mb-12 md:grid-cols-[110px_1fr_auto] md:items-end md:gap-8">
-    <span className={`text-[10px] font-semibold tracking-[.28em] ${inverse ? "text-white/38" : "text-[#9A825B]"}`}>
-      {number}
-    </span>
-
+  <div className="mb-4 flex items-end justify-between gap-4 md:mb-7">
     <div>
-      <div className="mb-3 flex items-center gap-3">
-        <span className={`h-px w-8 ${inverse ? "bg-[#D8C29A]" : "bg-[#D8C29A]"}`} />
-        <span className={`text-[8px] font-semibold tracking-[.3em] ${inverse ? "text-[#D8C29A]" : "text-[#9A825B]"}`}>
-          {eyebrow}
-        </span>
+      <div className="mb-1.5 flex items-center gap-2 md:mb-2">
+        <span className="h-px w-5 bg-[#C9B183] md:w-7" />
+        <span className="text-[6px] font-semibold tracking-[.24em] text-[#9A825B] md:text-[8px]">{eyebrow}</span>
       </div>
-      <h2 className={`max-w-[820px] text-[28px] font-medium leading-[1.3] tracking-[-.045em] md:text-[44px] ${inverse ? "text-white" : "text-[#0E0E0E]"}`}>
-        {title}
-      </h2>
-      {description && (
-        <p className={`mt-3 max-w-[590px] text-[11px] leading-7 md:text-[12px] ${inverse ? "text-white/52" : "text-[#737373]"}`}>
-          {description}
-        </p>
-      )}
+      <h2 className="text-[18px] font-medium tracking-[-.035em] text-[#0E0E0E] md:text-[30px]">{title}</h2>
     </div>
 
     {to && (
-      <Link
-        to={to}
-        className={`hidden items-center gap-2 border-b pb-1 text-[9px] font-semibold transition-opacity hover:opacity-60 md:flex ${inverse ? "border-white/30 text-white" : "border-[#C9B183] text-[#0E0E0E]"}`}
-      >
+      <Link to={to} className="flex shrink-0 items-center gap-1 border-b border-[#D7C7A8] pb-0.5 text-[7px] font-semibold text-[#0E0E0E] md:gap-2 md:text-[9px]">
         عرض الكل
-        <ArrowLeft className="h-4 w-4" strokeWidth={1.4} />
+        <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.4} />
       </Link>
     )}
   </div>
@@ -85,7 +55,7 @@ const SectionHeader = ({
 
 const HomePage = () => {
   const { data: categories = [] } = useQuery({
-    queryKey: ["genan-home-categories-editorial-v2"],
+    queryKey: ["genan-home-categories-compact-v1"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("categories")
@@ -93,7 +63,7 @@ const HomePage = () => {
         .eq("is_active", true)
         .is("parent_id", null)
         .order("sort_order", { ascending: true })
-        .limit(5);
+        .limit(8);
 
       if (error) throw error;
       return (data || []) as Category[];
@@ -102,7 +72,7 @@ const HomePage = () => {
   });
 
   const { data: featured = [] } = useQuery({
-    queryKey: ["genan-home-featured-editorial-v2"],
+    queryKey: ["genan-home-featured-compact-v1"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("products")
@@ -120,7 +90,7 @@ const HomePage = () => {
   });
 
   const { data: best = [] } = useQuery({
-    queryKey: ["genan-home-best-editorial-v2"],
+    queryKey: ["genan-home-best-compact-v1"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("products")
@@ -138,7 +108,7 @@ const HomePage = () => {
   });
 
   const { data: brands = [] } = useQuery({
-    queryKey: ["genan-home-brands-editorial-v2"],
+    queryKey: ["genan-home-brands-compact-v1"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("brands")
@@ -158,136 +128,71 @@ const HomePage = () => {
       <Navbar />
       <CartDrawer />
 
-      <main className="overflow-hidden">
+      <main className="overflow-hidden bg-white">
         <HeroSlider />
 
         {categories.length > 0 && (
-          <section className="bg-[#F7F5F0] px-4 py-14 sm:px-6 md:px-[5vw] md:py-24">
-            <div className="mx-auto max-w-[1600px]">
-              <SectionHeader
-                number="01"
-                eyebrow="SHOP / CATEGORY"
-                title="ابدأ من القسم الذي يشبهك."
-                description="دخول أسرع إلى التشكيلة، بواجهة تحرّر الصور من شكل الكروت التقليدي وتعرضها كصفحات من كتالوج."
-                to="/categories"
-              />
+          <section className="bg-[#F8F6F1] py-6 md:py-10">
+            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
+              <SectionHeader eyebrow="SHOP / CATEGORY" title="تسوق حسب القسم" to="/categories" />
 
-              <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 md:mx-0 md:overflow-visible md:px-0">
-                <div className="flex w-max gap-3 md:grid md:w-full md:grid-cols-12 md:grid-rows-2 md:gap-3">
+              <div className="-mx-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
+                <div className="flex w-max gap-2.5 after:block after:w-3 after:shrink-0 after:content-[''] md:grid md:w-full md:grid-cols-5 md:gap-4 md:after:hidden lg:grid-cols-8">
                   {categories.map((category, index) => (
                     <Link
                       key={category.id}
                       to={`/products?category=${category.slug}`}
-                      className={`group relative w-[72vw] max-w-[310px] shrink-0 overflow-hidden bg-[#EAE7E0] md:w-auto md:max-w-none ${categoryDesktopLayout[index] || "md:col-span-3"}`}
+                      className="group block w-[82px] shrink-0 sm:w-[92px] md:w-auto"
                     >
-                      <div className={`relative overflow-hidden ${index === 0 ? "aspect-[4/5] md:h-full md:aspect-auto" : "aspect-[5/4] md:h-[235px] md:aspect-auto lg:h-[275px]"}`}>
+                      <div className="relative aspect-square overflow-hidden border border-[#E7E2D9] bg-[#EEEAE2] md:aspect-[4/5]">
                         {category.image_url ? (
                           <img
-                            src={category.image_url.startsWith("/") ? category.image_url : optimizeImage(category.image_url, index === 0 ? 900 : 640, 84)}
+                            src={category.image_url.startsWith("/") ? category.image_url : optimizeImage(category.image_url, 360, 80)}
                             alt={category.name_ar}
-                            loading={index < 2 ? "eager" : "lazy"}
+                            loading={index < 4 ? "eager" : "lazy"}
                             decoding="async"
-                            className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.035] group-hover:brightness-[.92]"
+                            className="h-full w-full object-cover transition-transform duration-500 md:group-hover:scale-[1.035]"
                           />
                         ) : (
-                          <div className="absolute inset-0 bg-[#EAE7E0]" />
+                          <div className="h-full w-full bg-[#EEEAE2]" />
                         )}
-
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/68 via-black/0 to-black/5" />
-
-                        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 md:p-5">
-                          <div>
-                            <span className="text-[7px] font-semibold tracking-[.24em] text-[#E6D7B8]">
-                              {String(index + 1).padStart(2, "0")}
-                            </span>
-                            <h3 className="mt-1 text-[17px] font-medium tracking-[-.03em] !text-white md:text-[20px]">
-                              {category.name_ar}
-                            </h3>
-                          </div>
-                          <ArrowUpLeft className="h-4 w-4 text-[#A9D8D3] transition-transform duration-300 group-hover:-translate-x-1 group-hover:-translate-y-1" strokeWidth={1.35} />
+                        <div className="absolute inset-x-0 bottom-0 hidden h-2/5 bg-gradient-to-t from-black/45 to-transparent md:block" />
+                        <div className="absolute inset-x-0 bottom-0 hidden px-2.5 pb-2.5 text-white md:block">
+                          <span className="text-[6px] tracking-[.16em] text-[#E6D7B8]">{String(index + 1).padStart(2, "0")}</span>
+                          <p className="mt-0.5 truncate text-[10px] font-semibold">{category.name_ar}</p>
                         </div>
                       </div>
+                      <p className="mt-1.5 truncate text-center text-[8px] font-semibold text-[#272727] md:hidden">{category.name_ar}</p>
                     </Link>
                   ))}
                 </div>
               </div>
-
-              <Link to="/categories" className="mt-7 inline-flex items-center gap-2 border-b border-[#C9B183] pb-1 text-[9px] font-semibold md:hidden">
-                جميع الأقسام <ArrowLeft className="h-3.5 w-3.5" />
-              </Link>
             </div>
           </section>
         )}
 
         <GenanServices slot={0} />
 
-        <section className="bg-white px-4 py-14 sm:px-6 md:px-[5vw] md:py-24">
-          <div className="mx-auto max-w-[1600px]">
-            <SectionHeader
-              number="02"
-              eyebrow="GENAN / EDIT"
-              title="اختيارات تستحق أن تكون في الواجهة."
-              description="مجموعة مختارة بعناية، مع ترك المساحة للمنتج نفسه بدل ازدحام العناصر حوله."
-              to="/products?sort=featured"
-            />
-
-            <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-14">
-              {featured.map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index} />
-              ))}
+        {featured.length > 0 && (
+          <section className="bg-white py-7 md:py-12">
+            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
+              <SectionHeader eyebrow="GENAN / EDIT" title="مختارات جنان" to="/products?sort=featured" />
+              <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
+                {featured.map((product, index) => (
+                  <ProductCard key={product.id} product={product} index={index} />
+                ))}
+              </div>
             </div>
-
-            <Link to="/products?sort=featured" className="mt-8 inline-flex items-center gap-2 border-b border-[#C9B183] pb-1 text-[9px] font-semibold md:hidden">
-              عرض الكل <ArrowLeft className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </section>
+          </section>
+        )}
 
         <GenanServices slot={1} />
 
-        <section className="relative overflow-hidden bg-[#0E0E0E] px-5 py-16 text-white sm:px-8 md:px-[6vw] md:py-28">
-          <div aria-hidden className="pointer-events-none absolute -left-4 top-1/2 -translate-y-1/2 select-none text-[28vw] font-semibold leading-none tracking-[-.08em] text-white/[.025]">
-            GENAN
-          </div>
-
-          <div className="relative mx-auto grid max-w-[1600px] gap-12 md:grid-cols-[1fr_360px] md:items-end">
-            <div className="max-w-[850px]">
-              <div className="mb-5 flex items-center gap-3">
-                <span className="h-px w-10 bg-[#D8C29A]" />
-                <span className="text-[8px] font-semibold tracking-[.32em] text-[#D8C29A]">03 / THE GENAN NOTE</span>
-                <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
-              </div>
-
-              <p className="text-[11px] leading-8 text-white/45 md:text-[12px]">أقل عناصر. صور أكبر. قرار أسرع.</p>
-              <h2 className="mt-4 max-w-[800px] text-[36px] font-medium leading-[1.35] tracking-[-.05em] !text-white md:text-[62px]">
-                التسوق الراقي لا يحتاج إلى ضجيج بصري.
-              </h2>
-            </div>
-
-            <div className="border-t border-white/15 pt-5 md:border-r md:border-t-0 md:pr-8 md:pt-0">
-              <p className="text-[11px] leading-8 text-white/52">
-                في جنان نعطي الأولوية للصورة، الاسم، والسعر. كل ما لا يساعدك على الاختيار يأخذ خطوة إلى الخلف.
-              </p>
-              <Link to="/products" className="mt-6 inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#E6D7B8]">
-                اكتشف التشكيلة
-                <ArrowLeft className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
         {best.length > 0 && (
-          <section className="bg-[#F7F5F0] px-4 py-14 sm:px-6 md:px-[5vw] md:py-24">
-            <div className="mx-auto max-w-[1600px]">
-              <SectionHeader
-                number="04"
-                eyebrow="MOST WANTED"
-                title="الأكثر اختيارًا الآن."
-                description="قطع تتكرر حولها الاختيارات، مع إبقاء القسم مختصرًا وواضحًا."
-                to="/best-sellers"
-              />
-
-              <div className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-14">
+          <section className="bg-[#F8F6F1] py-7 md:py-12">
+            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
+              <SectionHeader eyebrow="MOST WANTED" title="الأكثر اختيارًا" to="/best-sellers" />
+              <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
                 {best.map((product, index) => (
                   <ProductCard key={product.id} product={product} index={index} />
                 ))}
@@ -297,24 +202,17 @@ const HomePage = () => {
         )}
 
         {brands.length > 0 && (
-          <section className="bg-white px-4 py-14 sm:px-6 md:px-[5vw] md:py-24">
-            <div className="mx-auto max-w-[1600px]">
-              <SectionHeader number="05" eyebrow="BRAND INDEX" title="الماركات، بدون ازدحام." to="/brands" />
-
-              <div className="border-t border-[#DADADA]">
-                {brands.map((brand, index) => (
+          <section className="bg-white py-7 md:py-12">
+            <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-6 lg:px-8">
+              <SectionHeader eyebrow="BRANDS" title="الماركات" to="/brands" />
+              <div className="grid grid-cols-2 border-r border-t border-[#E6E1D8] sm:grid-cols-4">
+                {brands.map((brand) => (
                   <Link
                     key={brand.id}
                     to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="group grid min-h-[74px] grid-cols-[52px_1fr_auto] items-center gap-3 border-b border-[#E2E2E2] transition-colors hover:bg-[#0E0E0E] md:min-h-[88px] md:grid-cols-[90px_1fr_auto]"
+                    className="flex min-h-[64px] items-center justify-center border-b border-l border-[#E6E1D8] bg-white px-3 text-center transition-colors hover:bg-[#F8F6F1] md:min-h-[74px]"
                   >
-                    <span className="text-[8px] tracking-[.2em] text-[#9A825B] group-hover:text-[#D8C29A]">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-[16px] font-medium tracking-[.04em] text-[#0E0E0E] transition-colors group-hover:text-white md:text-[20px]">
-                      {brand.name}
-                    </span>
-                    <ArrowUpLeft className="ml-3 h-4 w-4 text-[#A9D8D3] transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 md:ml-5" strokeWidth={1.3} />
+                    <span className="text-[10px] font-medium tracking-[.05em] text-[#0E0E0E] md:text-[12px]">{brand.name}</span>
                   </Link>
                 ))}
               </div>
