@@ -409,13 +409,13 @@ const ProductDetailPage = () => {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#FFFFFF]" dir="rtl">
         <div className="px-6 text-center">
-          <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-none bg-[#F5F5F5]">
+          <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-none bg-[#F3F0E9]">
             <ShoppingBag className="h-6 w-6 stroke-[1.4] text-[#D8C29A]" />
           </span>
 
           <h1 className="mt-4 text-[20px] font-semibold text-[#0E0E0E]">المنتج غير موجود</h1>
 
-          <p className="mt-2 text-[9px] text-[#858E86]">قد يكون المنتج قد نفد أو لم يعد متاحًا.</p>
+          <p className="mt-2 text-[9px] text-[#777777]">قد يكون المنتج قد نفد أو لم يعد متاحًا.</p>
 
           <button type="button" onClick={() => navigate("/products")} className="mt-5 h-11 rounded-[12px] bg-[#0E0E0E] px-7 text-[9px] font-semibold text-white">
             تصفح المنتجات
@@ -756,7 +756,7 @@ const ProductDetailPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF]" dir="rtl">
+    <div className="genan-product-detail min-h-screen bg-[#F7F5F0]" dir="rtl">
       {/* =====================================================
           DESKTOP NAVBAR
       ===================================================== */}
@@ -772,7 +772,7 @@ const ProductDetailPage = () => {
       ===================================================== */}
 
       <header className="sticky top-0 z-50 flex h-[54px] items-center justify-between border-b border-[#0E0E0E]/15 bg-[#FFFFFF]/96 px-2 backdrop-blur-xl md:hidden">
-        <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-10 w-10 items-center justify-center rounded-none text-[#263B31] active:bg-[#F5F5F5]">
+        <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-10 w-10 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
           <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
         </button>
 
@@ -781,22 +781,22 @@ const ProductDetailPage = () => {
         </button>
 
         <div className="flex items-center">
-          <button type="button" onClick={() => navigate("/cart")} aria-label="السلة" className="flex h-9 w-9 items-center justify-center rounded-none text-[#263B31] active:bg-[#F5F5F5]">
+          <button type="button" onClick={() => navigate("/cart")} aria-label="السلة" className="flex h-9 w-9 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
             <ShoppingCart className="h-[19px] w-[19px]" strokeWidth={1.5} />
           </button>
 
-          <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center rounded-none text-[#263B31] active:bg-[#F5F5F5]">
+          <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
             <Heart className={`h-[19px] w-[19px] ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.5} />
           </button>
 
-          <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-9 w-9 items-center justify-center rounded-none text-[#263B31] active:bg-[#F5F5F5]">
+          <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-9 w-9 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
             <Share2 className="h-[18px] w-[18px]" strokeWidth={1.5} />
           </button>
         </div>
       </header>
 
-      <main className="pb-[88px] md:pb-20">
-        <div className="mx-auto w-full max-w-[1680px] md:px-7 lg:px-10">
+      <main className="bg-[#F7F5F0] pb-[88px] md:pb-24">
+        <div className="mx-auto w-full max-w-[1600px] md:px-7 lg:px-10">
           {/* =================================================
               BREADCRUMB
           ================================================= */}
@@ -814,19 +814,19 @@ const ProductDetailPage = () => {
 
             <ChevronLeft className="h-3 w-3" strokeWidth={1.4} />
 
-            <span className="max-w-[300px] truncate text-[#554844]">{product.nameAr || product.name}</span>
+            <span className="max-w-[300px] truncate text-[#5F5F5F]">{product.nameAr || product.name}</span>
           </nav>
 
           {/* =================================================
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="grid grid-cols-1 border-y border-[#0E0E0E]/15 bg-[#FFFFFF] lg:grid-cols-[minmax(0,1.14fr)_minmax(420px,0.86fr)]">
+          <div className="genan-product-stage grid grid-cols-1 bg-transparent lg:grid-cols-[minmax(0,1.18fr)_minmax(390px,0.82fr)] lg:gap-10 xl:gap-14">
             {/* ===============================================
                 GALLERY
             =============================================== */}
 
-            <section className="min-w-0 bg-[#F4F4F4] lg:border-l lg:border-[#0E0E0E]/15">
+            <section className="genan-product-gallery min-w-0 bg-[#EFEBE3]">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -834,7 +834,7 @@ const ProductDetailPage = () => {
                     الخلفية تملأ الفراغ الجانبي
                 =========================================== */}
 
-                <div className="relative h-[58svh] min-h-[430px] max-h-[620px] w-full overflow-hidden bg-[#EFEFEF] sm:h-[64svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[3/4]">
+                <div className="relative h-[58svh] min-h-[430px] max-h-[620px] w-full overflow-hidden bg-[#EFEBE3] sm:h-[64svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[3/4]">
   {/* MAIN PRODUCT */}
   <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y" }} className="h-full w-full cursor-grab active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
@@ -846,26 +846,26 @@ const ProductDetailPage = () => {
 
   {/* DISCOUNT */}
   {!!product.discount && (
-    <span className="absolute right-3 top-3 z-20 rounded-[6px] bg-[#0E0E0E] px-2 py-1 text-[9px] font-semibold text-white md:right-5 md:top-5">
+    <span className="absolute right-3 top-3 z-20 rounded-none bg-[#0E0E0E] px-2 py-1 text-[9px] font-semibold text-white md:right-5 md:top-5">
       -{product.discount}%
     </span>
   )}
 
   {/* COUNTER */}
-  <span className="pointer-events-none absolute bottom-3 right-3 z-20 rounded-none border border-[#EAEAEA] bg-[#FFFFFF]/95 px-2.5 py-1 text-[8px] font-semibold text-[#0E0E0E] shadow-sm">
+  <span className="pointer-events-none absolute bottom-3 right-3 z-20 rounded-none border border-[#E2DDD3] bg-[#FFFFFF]/95 px-2.5 py-1 text-[8px] font-semibold text-[#0E0E0E] ">
     {safeSelectedImage + 1} / {displayImages.length}
   </span>
 
   {/* DESKTOP PREVIOUS */}
   {displayImages.length > 1 && (
-    <button type="button" onClick={prevImage} aria-label="الصورة السابقة" className="absolute right-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#0E0E0E]/16 bg-[#FFFFFF]/95 text-[#786863] shadow-sm md:flex">
+    <button type="button" onClick={prevImage} aria-label="الصورة السابقة" className="absolute right-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#0E0E0E]/16 bg-[#FFFFFF]/95 text-[#555555]  md:flex">
       <ChevronRight className="h-4 w-4" strokeWidth={1.4} />
     </button>
   )}
 
   {/* DESKTOP NEXT */}
   {displayImages.length > 1 && (
-    <button type="button" onClick={nextImage} aria-label="الصورة التالية" className="absolute left-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#0E0E0E]/16 bg-[#FFFFFF]/95 text-[#786863] shadow-sm md:flex">
+    <button type="button" onClick={nextImage} aria-label="الصورة التالية" className="absolute left-4 top-1/2 z-20 hidden h-9 w-9 -translate-y-1/2 items-center justify-center border border-[#0E0E0E]/16 bg-[#FFFFFF]/95 text-[#555555]  md:flex">
       <ChevronLeft className="h-4 w-4" strokeWidth={1.4} />
     </button>
   )}
@@ -888,7 +888,7 @@ const ProductDetailPage = () => {
                   <div className="border-b border-[#0E0E0E]/12 bg-[#FFFFFF]">
                     <div className="flex gap-2 overflow-x-auto px-2.5 py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-4 md:py-3">
                       {displayImages.map((image, index) => (
-                        <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} className={`relative h-[58px] w-[58px] shrink-0 overflow-hidden rounded-[9px] bg-[#F5F3F1] transition md:h-[68px] md:w-[68px] ${safeSelectedImage === index ? "ring-1 ring-[#D8C29A] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
+                        <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} className={`relative h-[58px] w-[58px] shrink-0 overflow-hidden rounded-none bg-[#F3F0E9] transition md:h-[68px] md:w-[68px] ${safeSelectedImage === index ? "ring-1 ring-[#D8C29A] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
                           <img src={optimizeImage(image, 220, 78)} alt="" loading="lazy" decoding="async" onError={handleImageError} className="h-full w-full object-cover object-center" />
                         </button>
                       ))}
@@ -902,7 +902,7 @@ const ProductDetailPage = () => {
                 DETAILS
             =============================================== */}
 
-            <section className="min-w-0 bg-[#FFFFFF] lg:px-10 lg:py-10 xl:px-12">
+            <section className="genan-product-info min-w-0 bg-white lg:my-8 lg:self-start lg:border-t lg:border-[#0E0E0E]/12 lg:px-9 lg:py-9 xl:px-11">
               {/* =============================================
                   TITLE + PRICE
               ============================================= */}
@@ -910,14 +910,22 @@ const ProductDetailPage = () => {
               <div className="border-b border-[#0E0E0E]/15 px-4 py-6 sm:px-6 lg:px-0 lg:pt-0 lg:pb-8">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    {product.brand && (
+                    <div className="mb-5 flex items-center justify-between border-b border-[#E2DDD3] pb-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[7px] font-semibold tracking-[.26em] text-[#9A825B]">PRODUCT / GENAN EDIT</span>
+                      <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
+                    </div>
+                    <span className="text-[7px] tracking-[.18em] text-[#9A9A9A]">CURATED OBJECT</span>
+                  </div>
+
+                  {product.brand && (
                       <div className="mb-3 flex items-center gap-3">
                         <span className="h-px w-9 bg-[#D8C29A]/65" />
                         <span className="text-[7px] font-semibold tracking-[0.2em] text-[#D8C29A]">{product.brand}</span>
                       </div>
                     )}
 
-                    <h1 className="text-[26px] font-medium leading-[1.5] tracking-[-0.045em] text-[#0E0E0E] md:text-[34px]">{product.nameAr || product.name}</h1>
+                    <h1 className="text-[30px] font-medium leading-[1.38] tracking-[-0.052em] text-[#0E0E0E] md:text-[40px]">{product.nameAr || product.name}</h1>
 
                     {effectiveDescription && (
                       <p className="mt-4 max-w-[620px] whitespace-pre-line text-[10px] leading-7 text-[#6F6F6F] md:text-[12px] md:leading-8">{effectiveDescription}</p>
@@ -925,11 +933,11 @@ const ProductDetailPage = () => {
                   </div>
 
                   <div className="hidden shrink-0 items-center gap-1 lg:flex">
-                    <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center border border-[#0E0E0E]/20 text-[#6F6F6F] transition-colors hover:bg-[#F4F4F4]">
+                    <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center border border-[#0E0E0E]/20 text-[#6F6F6F] transition-colors hover:bg-[#F7F5F0]">
                       <Heart className={`h-3.5 w-3.5 ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.5} />
                     </button>
 
-                    <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#0E0E0E]/16 text-[#68736B] hover:bg-[#FAFAFA]">
+                    <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#0E0E0E]/16 text-[#666666] hover:bg-[#FAFAFA]">
                       <Share2 className="h-3.5 w-3.5" strokeWidth={1.5} />
                     </button>
                   </div>
@@ -940,7 +948,7 @@ const ProductDetailPage = () => {
                 <div className="mt-3 flex flex-wrap items-end gap-2">
                   <span className="text-[24px] font-semibold leading-none text-[#0E0E0E] md:text-[30px]">{formatCurrency(totalPrice * quantity)}</span>
 
-                  {product.originalPrice && !activeQuality && <span className="text-[9px] text-[#AA9B96] line-through">{formatCurrency(product.originalPrice)}</span>}
+                  {product.originalPrice && !activeQuality && <span className="text-[9px] text-[#8B8B8B] line-through">{formatCurrency(product.originalPrice)}</span>}
 
                   {!!product.discount && <span className="bg-[#0E0E0E] px-2.5 py-1.5 text-[7px] font-semibold text-white">خصم {product.discount}%</span>}
                 </div>
@@ -964,7 +972,7 @@ const ProductDetailPage = () => {
                 <div className="border-b border-[#0E0E0E]/12 px-3.5 py-4 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center justify-between">
                     <span className="text-[10px] font-semibold text-[#0E0E0E]">الجودة / الخامة</span>
-                    <span className="text-[8px] text-[#9B8D88]">{activeQuality?.name || "اختر"}</span>
+                    <span className="text-[8px] text-[#777777]">{activeQuality?.name || "اختر"}</span>
                   </div>
 
                   <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -972,17 +980,17 @@ const ProductDetailPage = () => {
                       const active = selectedQualityIdx === index;
 
                       return (
-                        <button type="button" key={variant.id || index} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-[#D8C29A] bg-[#FAFAFA]" : "border-[#EAEAEA] bg-[#FFFFFF]"}`}>
+                        <button type="button" key={variant.id || index} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-[#D8C29A] bg-[#FAFAFA]" : "border-[#E2DDD3] bg-[#FFFFFF]"}`}>
                           {variant.images?.[0] ? (
-                            <img src={optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={handleImageError} className="h-10 w-10 shrink-0 bg-[#F0ECE2] object-cover object-center" />
+                            <img src={optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={handleImageError} className="h-10 w-10 shrink-0 bg-[#F1EEE7] object-cover object-center" />
                           ) : (
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#F0ECE2]">
-                              <Package className="h-4 w-4 stroke-[1.4] text-[#B96A70]" />
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#F1EEE7]">
+                              <Package className="h-4 w-4 stroke-[1.4] text-[#9A825B]" />
                             </span>
                           )}
 
                           <div className="min-w-0 flex-1">
-                            <p className="truncate text-[8px] font-semibold text-[#4C403C]">{variant.name}</p>
+                            <p className="truncate text-[8px] font-semibold text-[#222222]">{variant.name}</p>
                             <p className="mt-1 text-[9px] font-semibold text-[#D8C29A]">{formatCurrency(Number(variant.price))}</p>
                           </div>
 
@@ -1002,7 +1010,7 @@ const ProductDetailPage = () => {
                 <div className="border-b border-[#0E0E0E]/12 px-3.5 py-4 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center gap-1.5">
                     <span className="text-[10px] font-semibold text-[#0E0E0E]">اللون</span>
-                    <span className="text-[8px] text-[#8F807B]">— {selectedColorIdx !== null ? product.colorVariants[selectedColorIdx]?.name : "اختر اللون"}</span>
+                    <span className="text-[8px] text-[#777777]">— {selectedColorIdx !== null ? product.colorVariants[selectedColorIdx]?.name : "اختر اللون"}</span>
                   </div>
 
                   <div className="flex flex-wrap gap-3">
@@ -1010,7 +1018,7 @@ const ProductDetailPage = () => {
                       const active = selectedColorIdx === index;
 
                       return (
-                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-8 w-8 items-center justify-center rounded-none ${active ? "ring-2 ring-[#0E0E0E] ring-offset-[3px]" : "ring-1 ring-[#D6CEBF]"}`}>
+                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-8 w-8 items-center justify-center rounded-none ${active ? "ring-2 ring-[#0E0E0E] ring-offset-[3px]" : "ring-1 ring-[#D8D2C7]"}`}>
                           <span className="h-full w-full rounded-none border border-black/[0.06]" style={variant.hex2 ? { background: `linear-gradient(135deg, ${variant.hex} 0%, ${variant.hex} 50%, ${variant.hex2} 50%, ${variant.hex2} 100%)` } : { backgroundColor: variant.hex }} />
 
                           {active && <Check className="absolute h-3 w-3 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,.75)]" strokeWidth={3} />}
@@ -1037,7 +1045,7 @@ const ProductDetailPage = () => {
                     {sizesToShow.map((size: string) => {
                       const adjustment = getSizePriceAdjustment(size);
                       return (
-                        <button type="button" key={size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] rounded-none border px-3 py-2 text-[9px] font-semibold ${selectedSize === size ? "border-[#0E0E0E] bg-[#F5F5F5] text-[#0E0E0E]" : "border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#45584E]"}`}>
+                        <button type="button" key={size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] rounded-none border px-3 py-2 text-[9px] font-semibold ${selectedSize === size ? "border-[#0E0E0E] bg-[#F3F0E9] text-[#0E0E0E]" : "border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#5F5F5F]"}`}>
                           {size}{adjustment > 0 ? ` +${formatCurrency(adjustment)}` : ""}
                         </button>
                       );
@@ -1053,17 +1061,17 @@ const ProductDetailPage = () => {
               <div className="flex items-center justify-between border-b border-[#0E0E0E]/12 px-3.5 py-3 sm:px-5 lg:px-0">
                 <div>
                   <span className="block text-[10px] font-semibold text-[#0E0E0E]">الكمية</span>
-                  <span className="mt-1 block text-[7px] text-[#8A938B]">حدد العدد المطلوب</span>
+                  <span className="mt-1 block text-[7px] text-[#777777]">حدد العدد المطلوب</span>
                 </div>
 
                 <div className="flex h-10 items-center overflow-hidden border border-[#0E0E0E]/20">
-                  <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="إنقاص الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F5F5F5]">
+                  <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="إنقاص الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F3F0E9]">
                     <Minus className="h-3 w-3" strokeWidth={1.6} />
                   </button>
 
                   <span className="flex h-full min-w-[38px] items-center justify-center border-x border-[#0E0E0E]/12 text-[10px] font-semibold text-[#0E0E0E]">{quantity}</span>
 
-                  <button type="button" onClick={() => { if (typeof activeStock === "number" && quantity >= activeStock) { toast({ title: "الكمية غير متوفرة", description: `المتاح: ${activeStock} فقط`, variant: "destructive" }); return; } setQuantity((current) => current + 1); }} aria-label="زيادة الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F5F5F5]">
+                  <button type="button" onClick={() => { if (typeof activeStock === "number" && quantity >= activeStock) { toast({ title: "الكمية غير متوفرة", description: `المتاح: ${activeStock} فقط`, variant: "destructive" }); return; } setQuantity((current) => current + 1); }} aria-label="زيادة الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F3F0E9]">
                     <Plus className="h-3 w-3" strokeWidth={1.6} />
                   </button>
                 </div>
@@ -1073,7 +1081,7 @@ const ProductDetailPage = () => {
                   FEATURES
               ============================================= */}
 
-              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#0E0E0E]/15 bg-[#F4F4F4]">
+              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#0E0E0E]/15 bg-[#F7F5F0]">
                 {features.map((feature, index) => {
                   const Icon = getFeatureIcon(feature.icon);
 
@@ -1097,7 +1105,7 @@ const ProductDetailPage = () => {
                 <div className="border-b border-[#0E0E0E]/12 px-3.5 py-4 sm:px-5 lg:px-0">
                   <div className="mb-3">
                     <h2 className="text-[10px] font-semibold text-[#0E0E0E]">إضافات اختيارية</h2>
-                    <p className="mt-1 text-[7px] text-[#8A938B]">يمكن إضافتها إلى طلبك</p>
+                    <p className="mt-1 text-[7px] text-[#777777]">يمكن إضافتها إلى طلبك</p>
                   </div>
 
                   <div className="space-y-2">
@@ -1114,7 +1122,7 @@ const ProductDetailPage = () => {
                   ACCORDIONS
               ============================================= */}
 
-              <div className="divide-y divide-[#E5DED0]">
+              <div className="divide-y divide-[#DDD8CE]">
                 {/* SPECS */}
 
                 {product.specs?.length > 0 && (
@@ -1129,7 +1137,7 @@ const ProductDetailPage = () => {
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="overflow-hidden">
                         <dl className="px-3.5 pb-4 sm:px-5 lg:px-0">
                           {product.specs.map((spec, index) => (
-                            <div key={`${spec.label}-${index}`} className="flex items-start justify-between gap-4 border-b border-[#F2EBE8] py-2.5 last:border-0">
+                            <div key={`${spec.label}-${index}`} className="flex items-start justify-between gap-4 border-b border-[#E9E5DD] py-2.5 last:border-0">
                               <dt className="text-[8px] text-[#777777]">{spec.label}</dt>
 
                               <dd className="max-w-[65%] text-left text-[8px] font-semibold text-[#222222]">{spec.value}</dd>
@@ -1194,7 +1202,7 @@ const ProductDetailPage = () => {
               ============================================= */}
 
               {justAdded && (
-                <div className="mx-3.5 mb-4 flex items-center justify-between gap-3 rounded-none border border-[#E6D7B8]/40 bg-[#F5F5F5] px-3 py-2.5 sm:mx-5 lg:mx-0">
+                <div className="mx-3.5 mb-4 flex items-center justify-between gap-3 rounded-none border border-[#E6D7B8]/40 bg-[#F3F0E9] px-3 py-2.5 sm:mx-5 lg:mx-0">
                   <div className="flex items-center gap-2">
                     <span className="flex h-6 w-6 items-center justify-center bg-[#A9D8D3] text-[#0E0E0E]">
                       <Check className="h-3 w-3 text-[#0E0E0E]" strokeWidth={2.2} />
@@ -1218,7 +1226,7 @@ const ProductDetailPage = () => {
 
               <div className="hidden border-t border-[#0E0E0E]/12 pt-5 lg:block">
                 <div className="flex gap-2">
-                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 border border-[#0E0E0E] bg-transparent px-5 text-[10px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#F4F4F4] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 border border-[#0E0E0E] bg-transparent px-5 text-[10px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#F7F5F0] disabled:cursor-not-allowed disabled:opacity-40">
                     <ShoppingBag className="h-4 w-4" strokeWidth={1.5} />
                     أضف إلى السلة
                   </button>
@@ -1241,12 +1249,12 @@ const ProductDetailPage = () => {
               STORE + QA + REVIEWS
           ================================================= */}
 
-          <div className="mt-2 bg-[#FFFFFF] px-3.5 sm:px-5 md:mt-6 md:border-y md:border-[#0E0E0E]/15 md:px-6">
+          <div className="mt-8 bg-white px-4 sm:px-6 md:mt-12 md:border-t md:border-[#0E0E0E]/12 md:px-0">
             {/* STORE */}
 
             <section className="flex items-center justify-between border-b border-[#0E0E0E]/12 py-4">
               <div className="flex min-w-0 items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none bg-[#F5F5F5]">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none bg-[#F3F0E9]">
                   <ShoppingBag className="h-4 w-4 text-[#D8C29A]" strokeWidth={1.4} />
                 </span>
 
@@ -1284,7 +1292,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {relatedProducts.length > 0 && (
-            <section className="mt-2 bg-[#FFFFFF] px-2.5 py-5 md:mt-6 md:border-y md:border-[#0E0E0E]/15 md:px-6 md:py-7">
+            <section className="mt-10 bg-white px-4 py-10 sm:px-6 md:mt-14 md:border-t md:border-[#0E0E0E]/12 md:px-0 md:py-12">
               <div className="mb-4 flex items-end justify-between px-0.5">
                 <div>
                   <div className="mb-1 flex items-center gap-2">
@@ -1313,7 +1321,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {recentItems.filter((item) => item.id !== product.id).length > 0 && (
-            <section className="mt-2 bg-[#FFFFFF] px-2.5 py-5 md:mt-6 md:border-y md:border-[#0E0E0E]/15 md:px-6 md:py-7">
+            <section className="mt-10 bg-white px-4 py-10 sm:px-6 md:mt-14 md:border-t md:border-[#0E0E0E]/12 md:px-0 md:py-12">
               <div className="mb-4">
                 <div className="mb-1 flex items-center gap-2">
                   <span className="h-[2px] w-4 bg-[#0E0E0E]" />
@@ -1340,7 +1348,7 @@ const ProductDetailPage = () => {
           MOBILE BUY BAR
       ===================================================== */}
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#0E0E0E]/15 bg-[#FFFFFF]/96 px-2.5 pt-2 backdrop-blur-xl lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#D8D2C7] bg-[#F7F5F0]/96 px-2.5 pt-2 backdrop-blur-xl lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
         <div className="flex h-[49px] gap-2">
           {WHATSAPP_URL && (
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-full w-[46px] shrink-0 items-center justify-center rounded-none border border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#25D366]">
@@ -1348,7 +1356,7 @@ const ProductDetailPage = () => {
             </a>
           )}
 
-          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 border border-[#0E0E0E] bg-[#FFFFFF] px-2 text-[9px] font-semibold text-[#D8C29A] active:bg-[#FAFAFA] disabled:opacity-40">
+          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 border border-[#0E0E0E] bg-white px-2 text-[9px] font-semibold text-[#0E0E0E] active:bg-[#F3F0E9] disabled:opacity-40">
             <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.6} />
             <span>{available ? "أضف للسلة" : "غير متوفر"}</span>
           </button>
