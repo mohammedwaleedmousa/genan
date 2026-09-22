@@ -199,7 +199,7 @@ const HomePage = () => {
                             <span className="text-[7px] font-semibold tracking-[.24em] text-[#E6D7B8]">
                               {String(index + 1).padStart(2, "0")}
                             </span>
-                            <h3 className="mt-1 text-[17px] font-medium tracking-[-.03em] text-white md:text-[20px]">
+                            <h3 className="mt-1 text-[17px] font-medium tracking-[-.03em] !text-white md:text-[20px]">
                               {category.name_ar}
                             </h3>
                           </div>
@@ -254,7 +254,7 @@ const HomePage = () => {
               </div>
 
               <p className="text-[11px] leading-8 text-white/45 md:text-[12px]">أقل عناصر. صور أكبر. قرار أسرع.</p>
-              <h2 className="mt-4 max-w-[800px] text-[36px] font-medium leading-[1.35] tracking-[-.05em] text-white md:text-[62px]">
+              <h2 className="mt-4 max-w-[800px] text-[36px] font-medium leading-[1.35] tracking-[-.05em] !text-white md:text-[62px]">
                 التسوق الراقي لا يحتاج إلى ضجيج بصري.
               </h2>
             </div>
