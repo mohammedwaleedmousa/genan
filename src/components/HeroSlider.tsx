@@ -47,13 +47,13 @@ const HeroSlider = () => {
   const image = banner?.image_url?.trim() || "/demo/genan-bag-black.svg";
   const imageSrc = image.startsWith("/") ? image : optimizeImage(image, 1600, 84);
   const title = banner?.title_ar?.trim() || "اختيارات هادئة، بتفاصيل أوضح.";
-  const description = banner?.subtitle_ar?.trim() || "تشكيلة منتقاة بهوية جنان.";
+  const description = banner?.subtitle_ar?.trim() || "اكتشف تشكيلة جنان المختارة بعناية.";
   const cta = banner?.cta_text_ar?.trim() || "تسوق الآن";
   const link = banner?.cta_link?.trim() || "/products";
 
   return (
-    <section dir="rtl" className="bg-white px-3 pt-3 md:px-0 md:pt-0">
-      <div className="relative mx-auto h-[285px] w-full max-w-[1600px] overflow-hidden border border-[#E8E4DC] bg-[#F2EFE8] sm:h-[340px] md:h-[500px] md:border-x-0 md:border-t-0 lg:h-[540px]">
+    <section dir="rtl" className="w-full bg-white px-3 pt-3 md:px-0 md:pt-0">
+      <div className="relative mx-auto h-[245px] max-w-[1600px] overflow-hidden border border-[#E8E3DA] bg-[#F2EFE9] sm:h-[300px] md:h-[500px] md:max-w-none md:border-x-0 md:border-t-0 lg:h-[560px]">
         <img
           src={imageSrc}
           alt={title}
@@ -67,27 +67,27 @@ const HeroSlider = () => {
           }}
         />
 
-        <div className="absolute inset-0 bg-gradient-to-l from-black/78 via-black/36 to-transparent md:from-black/72 md:via-black/28" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/28 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-l from-white/96 via-white/72 to-transparent md:from-white/95 md:via-white/50" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/[.06] to-transparent" />
 
         <div className="absolute inset-0 flex items-center">
-          <div className="w-[78%] px-5 sm:w-[64%] sm:px-8 md:mr-[6vw] md:w-[42%] md:max-w-[570px] md:px-0">
+          <div className="mr-5 w-[68%] max-w-[520px] sm:mr-8 sm:w-[58%] md:mr-[7vw] md:w-[38%]">
             <div className="mb-2 flex items-center gap-2 md:mb-4">
-              <span className="h-px w-6 bg-[#D8C29A] md:w-8" />
-              <span className="text-[6px] font-semibold tracking-[.28em] text-[#E6D7B8] md:text-[9px]">GENAN / EDIT</span>
+              <span className="h-px w-5 bg-[#C9B183] md:w-8" />
+              <span className="text-[6px] font-semibold tracking-[.24em] text-[#9A825B] md:text-[9px]">GENAN / EDIT</span>
             </div>
 
-            <h1 className="text-[24px] font-medium leading-[1.45] tracking-[-.04em] !text-white sm:text-[30px] md:text-[44px] lg:text-[50px]">
+            <h1 className="line-clamp-2 text-[23px] font-semibold leading-[1.45] tracking-[-.03em] text-[#0E0E0E] sm:text-[29px] md:text-[46px]">
               {title}
             </h1>
 
-            <p className="mt-2 max-w-[390px] text-[8px] leading-6 text-white/72 sm:text-[9px] md:mt-4 md:text-[11px] md:leading-7">
+            <p className="mt-2 line-clamp-2 text-[8px] leading-5 text-[#777] sm:text-[9px] md:mt-4 md:text-[11px] md:leading-7">
               {description}
             </p>
 
             <Link
               to={link}
-              className="mt-4 inline-flex h-9 items-center gap-2 bg-white px-4 text-[8px] font-semibold text-[#0E0E0E] md:mt-6 md:h-11 md:px-6 md:text-[10px]"
+              className="mt-3 inline-flex items-center gap-1.5 border-b border-[#C9B183] pb-1 text-[7px] font-semibold text-[#0E0E0E] md:mt-6 md:gap-2 md:text-[10px]"
             >
               {cta}
               <ArrowLeft size={13} weight="bold" />
@@ -95,10 +95,9 @@ const HeroSlider = () => {
           </div>
         </div>
 
-        <div className="absolute bottom-3 left-4 flex items-center gap-2 text-[6px] font-semibold tracking-[.22em] text-white/55 md:bottom-5 md:left-6 md:text-[8px]">
+        <span className="absolute bottom-3 left-3 text-[6px] font-semibold tracking-[.22em] text-[#0E0E0E]/35 md:bottom-5 md:left-6 md:text-[8px]">
           GENAN / 2026
-          <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
-        </div>
+        </span>
       </div>
     </section>
   );
