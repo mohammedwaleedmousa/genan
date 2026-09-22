@@ -8,22 +8,12 @@ const SplashScreen = ({ onDone }: { onDone: () => void }) => {
     if (typeof window === "undefined") return;
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const update = () => {
-      setReduceMotion(mediaQuery.matches);
-    };
+    const update = () => setReduceMotion(mediaQuery.matches);
 
     update();
     mediaQuery.addEventListener("change", update);
-
-    return () => {
-      mediaQuery.removeEventListener("change", update);
-    };
+    return () => mediaQuery.removeEventListener("change", update);
   }, []);
-
-  /* =========================================================
-     LOCK PAGE SCROLL WHILE SPLASH IS OPEN
-  ========================================================= */
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -47,7 +37,6 @@ const SplashScreen = ({ onDone }: { onDone: () => void }) => {
     body.style.left = "0";
     body.style.right = "0";
     body.style.width = "100%";
-
     html.style.overflow = "hidden";
     html.style.overscrollBehavior = "none";
 
@@ -58,29 +47,18 @@ const SplashScreen = ({ onDone }: { onDone: () => void }) => {
       body.style.left = previousBodyLeft;
       body.style.right = previousBodyRight;
       body.style.width = previousBodyWidth;
-
       html.style.overflow = previousHtmlOverflow;
       html.style.overscrollBehavior = previousOverscroll;
-
-      window.scrollTo({
-        top: scrollY,
-        left: 0,
-        behavior: "auto",
-      });
+      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
     };
   }, []);
 
   useEffect(() => {
-    const leaveAt = reduceMotion ? 450 : 1850;
-    const doneAt = reduceMotion ? 650 : 2150;
+    const leaveAt = reduceMotion ? 350 : 1250;
+    const doneAt = reduceMotion ? 500 : 1550;
 
-    const leaveTimer = window.setTimeout(() => {
-      setLeaving(true);
-    }, leaveAt);
-
-    const doneTimer = window.setTimeout(() => {
-      onDone();
-    }, doneAt);
+    const leaveTimer = window.setTimeout(() => setLeaving(true), leaveAt);
+    const doneTimer = window.setTimeout(onDone, doneAt);
 
     return () => {
       window.clearTimeout(leaveTimer);
@@ -89,109 +67,50 @@ const SplashScreen = ({ onDone }: { onDone: () => void }) => {
   }, [onDone, reduceMotion]);
 
   return (
-    <div className={`fixed inset-0 z-[100] flex h-[100dvh] w-screen touch-none items-center justify-center overflow-hidden overscroll-none bg-background transition-opacity duration-300 ${leaving ? "pointer-events-none opacity-0" : "opacity-100"}`} dir="rtl" role="status" aria-live="polite" aria-label="جاري فتح فلامنجو بارك">
-      <div className={`flex flex-col items-center ${reduceMotion ? "" : "flamingo-splash-enter"}`}>
-        <div className="relative h-[150px] w-[116px] sm:h-[170px] sm:w-[132px]">
-          <div className="absolute inset-0 bg-[#F0D7D6] [mask-image:url('/icons/flamingo-loader.png')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/icons/flamingo-loader.png')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" />
+    <div
+      className={`fixed inset-0 z-[100] flex h-[100dvh] w-screen touch-none items-center justify-center overflow-hidden bg-[#F7F5F0] transition-opacity duration-300 ${leaving ? "pointer-events-none opacity-0" : "opacity-100"}`}
+      dir="rtl"
+      role="status"
+      aria-live="polite"
+      aria-label="جاري فتح جنان"
+    >
+      <div className={`relative flex min-h-[220px] w-[240px] items-center justify-center ${reduceMotion ? "" : "genan-splash-enter"}`}>
+        <div className="absolute inset-0 border border-[#D8C29A]/30" />
+        <div className="absolute -right-3 top-8 h-px w-16 bg-[#0E0E0E]/35" />
+        <div className="absolute -left-1 bottom-10 h-2 w-2 bg-[#A9D8D3]" />
 
-          <div className={`absolute inset-0 bg-[#C96F79] [mask-image:url('/icons/flamingo-loader.png')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/icons/flamingo-loader.png')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] ${reduceMotion ? "" : "flamingo-splash-reveal"}`} />
-
-          {!reduceMotion && <div className="flamingo-splash-sweep absolute inset-0 [mask-image:url('/icons/flamingo-loader.png')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/icons/flamingo-loader.png')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" />}
+        <div className="text-center">
+          <div className="genan-splash-word text-[38px] font-medium tracking-[.22em] text-[#0E0E0E]">GENAN</div>
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <span className="h-px w-8 bg-[#D8C29A]" />
+            <span className="text-[7px] font-semibold tracking-[.32em] text-[#9A825B]">CURATED STORE</span>
+            <span className="h-px w-8 bg-[#D8C29A]" />
+          </div>
         </div>
-
       </div>
 
       <style>{`
-        .flamingo-splash-enter {
-          animation: flamingo-splash-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        .genan-splash-enter {
+          animation: genan-splash-enter .7s cubic-bezier(.22,1,.36,1) both;
         }
 
-        .flamingo-splash-reveal {
-          clip-path: inset(0 0 100% 0);
-          animation: flamingo-splash-reveal 2.15s cubic-bezier(0.65, 0, 0.35, 1) both;
+        .genan-splash-word {
+          animation: genan-splash-word 1.15s cubic-bezier(.22,1,.36,1) both;
         }
 
-        .flamingo-splash-sweep {
-          background: linear-gradient(
-            to bottom,
-            transparent 0%,
-            transparent 34%,
-            rgba(169, 91, 97, 0.12) 40%,
-            rgba(169, 91, 97, 0.95) 48%,
-            rgba(169, 91, 97, 1) 50%,
-            rgba(169, 91, 97, 0.95) 52%,
-            rgba(169, 91, 97, 0.12) 60%,
-            transparent 66%,
-            transparent 100%
-          );
-
-          background-size: 100% 52%;
-          background-repeat: no-repeat;
-          background-position: center -80%;
-          animation: flamingo-splash-sweep 2.15s cubic-bezier(0.65, 0, 0.35, 1) both;
+        @keyframes genan-splash-enter {
+          from { opacity: 0; transform: scale(.975); }
+          to { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes flamingo-splash-enter {
-          0% {
-            opacity: 0;
-            transform: scale(0.965);
-          }
-
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes flamingo-splash-reveal {
-          0% {
-            clip-path: inset(0 0 100% 0);
-          }
-
-          10% {
-            clip-path: inset(0 0 100% 0);
-          }
-
-          72% {
-            clip-path: inset(0 0 0% 0);
-          }
-
-          100% {
-            clip-path: inset(0 0 0% 0);
-          }
-        }
-
-        @keyframes flamingo-splash-sweep {
-          0% {
-            background-position: center -80%;
-            opacity: 0;
-          }
-
-          8% {
-            opacity: 1;
-          }
-
-          74% {
-            background-position: center 180%;
-            opacity: 1;
-          }
-
-          88% {
-            opacity: 0;
-          }
-
-          100% {
-            background-position: center 180%;
-            opacity: 0;
-          }
+        @keyframes genan-splash-word {
+          from { opacity: 0; letter-spacing: .34em; transform: translateY(8px); }
+          to { opacity: 1; letter-spacing: .22em; transform: translateY(0); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .flamingo-splash-enter,
-          .flamingo-splash-reveal,
-          .flamingo-splash-sweep {
-            animation: none;
-          }
+          .genan-splash-enter,
+          .genan-splash-word { animation: none; }
         }
       `}</style>
     </div>
