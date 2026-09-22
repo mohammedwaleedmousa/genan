@@ -159,31 +159,25 @@ const Navbar = () => {
                 </button>
               </SheetTrigger>
 
-              <SheetContent side="right" dir="rtl" className="w-[82vw] max-w-[320px] border-l border-[#DDD8CE] bg-[#F8F6F1] p-0 shadow-[-18px_0_50px_rgba(14,14,14,.13)]">
-                <div className="bg-[#0E0E0E] px-4 py-4 text-white">
-                  <div className="flex items-center justify-between">
-                    <button
-                      type="button"
-                      onClick={() => setMenuOpen(false)}
-                      aria-label="إغلاق القائمة"
-                      className="flex h-8 w-8 items-center justify-center border border-white/15 text-white/75"
-                    >
-                      <X size={14} />
-                    </button>
-
+              <SheetContent side="right" dir="rtl" className="w-[80vw] max-w-[310px] border-l border-[#E8E3DA] bg-[#FAF9F6] p-0 shadow-[-20px_0_55px_rgba(14,14,14,.13)]">
+                <div className="flex h-[82px] items-center justify-between bg-[#0E0E0E] px-4 text-white">
+                  <div>
                     <Logo size="md" invert />
-
-                    <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
+                    <p className="mt-1 text-[6px] tracking-[.2em] text-[#D8C29A]">GENAN / MENU</p>
                   </div>
 
-                  <div className="mt-3 flex items-center gap-2">
-                    <span className="h-px w-6 bg-[#D8C29A]" />
-                    <span className="text-[6px] font-semibold tracking-[.26em] text-[#D8C29A]">GENAN / MENU</span>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setMenuOpen(false)}
+                    aria-label="إغلاق القائمة"
+                    className="flex h-8 w-8 items-center justify-center border border-white/15 text-white/70"
+                  >
+                    <X size={14} />
+                  </button>
                 </div>
 
-                <div className="flex h-[calc(100dvh-86px)] flex-col">
-                  <div className="border-b border-[#DDD8CE] px-4 py-3">
+                <div className="flex h-[calc(100dvh-82px)] flex-col">
+                  <div className="border-b border-[#E2DDD3] px-4 py-3">
                     <form
                       onSubmit={(event) => {
                         event.preventDefault();
@@ -191,17 +185,17 @@ const Navbar = () => {
                       }}
                       className="relative"
                     >
-                      <MagnifyingGlass size={15} className="absolute right-0 top-1/2 -translate-y-1/2 text-[#777]" />
+                      <MagnifyingGlass size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888]" />
                       <input
                         value={searchTerm}
                         onChange={(event) => setSearchTerm(event.target.value)}
-                        placeholder="ابحث"
-                        className="h-9 w-full border-0 border-b border-[#CFC9BE] bg-transparent pr-6 pl-2 text-[10px] outline-none placeholder:text-[#9A9A9A] focus:border-[#0E0E0E]"
+                        placeholder="ابحث في جنان"
+                        className="h-10 w-full border border-[#DDD8CE] bg-white pr-9 pl-3 text-[10px] outline-none focus:border-[#C9B183]"
                       />
                     </form>
                   </div>
 
-                  <nav className="flex-1 overflow-y-auto px-4">
+                  <nav className="flex-1 overflow-y-auto px-4 py-1">
                     {navLinks.map((item, index) => (
                       <button
                         key={item.to}
@@ -210,17 +204,15 @@ const Navbar = () => {
                           navigate(item.to);
                           setMenuOpen(false);
                         }}
-                        className={`flex min-h-[48px] w-full items-center justify-between border-b border-[#E2DDD3] text-right ${isActive(item.to) ? "text-[#0E0E0E]" : "text-[#6C6C6C]"}`}
+                        className={`flex min-h-[47px] w-full items-center justify-between border-b border-[#E5E0D7] text-right ${isActive(item.to) ? "font-semibold text-[#0E0E0E]" : "font-medium text-[#686868]"}`}
                       >
                         <span className="flex items-center gap-3">
-                          <span className={`w-5 text-[6px] font-semibold tracking-[.12em] ${isActive(item.to) ? "text-[#9A825B]" : "text-[#AAA49A]"}`}>
+                          <span className={`w-5 text-[6px] tracking-[.12em] ${isActive(item.to) ? "text-[#9A825B]" : "text-[#AAA49A]"}`}>
                             {String(index + 1).padStart(2, "0")}
                           </span>
-                          <span className={`text-[10px] ${isActive(item.to) ? "font-semibold" : "font-medium"}`}>
-                            {item.label}
-                          </span>
+                          <span className="text-[10px]">{item.label}</span>
                         </span>
-                        {isActive(item.to) && <span className="h-px w-6 bg-[#A9D8D3]" />}
+                        {isActive(item.to) && <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />}
                       </button>
                     ))}
 
@@ -228,17 +220,17 @@ const Navbar = () => {
                       <button
                         type="button"
                         onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
-                        className="flex min-h-[46px] items-center justify-center gap-2 border border-[#D8D2C7] bg-white px-2 text-[9px] font-medium text-[#555]"
+                        className="flex h-[44px] items-center justify-center gap-2 border border-[#DED9CF] bg-white text-[9px] font-medium text-[#555]"
                       >
                         <Heart size={14} />
                         المفضلة
-                        {favorites.length > 0 && <span className="text-[7px] font-semibold text-[#9A825B]">{favorites.length}</span>}
+                        {favorites.length > 0 && <span className="text-[7px] text-[#9A825B]">{favorites.length}</span>}
                       </button>
 
                       <button
                         type="button"
                         onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
-                        className="flex min-h-[46px] items-center justify-center gap-2 border border-[#D8D2C7] bg-white px-2 text-[9px] font-medium text-[#555]"
+                        className="flex h-[44px] items-center justify-center gap-2 border border-[#DED9CF] bg-white text-[9px] font-medium text-[#555]"
                       >
                         <User size={14} />
                         {customer ? "حسابي" : "الدخول"}
@@ -246,19 +238,25 @@ const Navbar = () => {
                     </div>
                   </nav>
 
-                  <div className="border-t border-[#D8D2C7] bg-white px-4 py-3">
-                    <div className="mb-2 flex items-center justify-between">
-                      <span className="flex items-center gap-1.5 text-[8px] text-[#777]"><Globe size={13} /> العملة</span>
-                      <span className="text-[8px] font-semibold text-[#0E0E0E]">{short}</span>
+                  <div className="border-t border-[#DED9CF] bg-white px-4 py-3">
+                    <div className="mb-2 flex items-center justify-between text-[8px]">
+                      <span className="flex items-center gap-1.5 text-[#777]"><Globe size={13} /> العملة</span>
+                      <span className="font-semibold text-[#0E0E0E]">{short}</span>
                     </div>
 
                     {customer ? (
-                      <button onClick={handleLogout} className="flex h-10 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white">
+                      <button
+                        onClick={handleLogout}
+                        className="flex h-10 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white"
+                      >
                         <SignOut size={13} />
                         تسجيل الخروج
                       </button>
                     ) : (
-                      <button onClick={() => { navigate("/auth"); setMenuOpen(false); }} className="flex h-10 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white">
+                      <button
+                        onClick={() => { navigate("/auth"); setMenuOpen(false); }}
+                        className="flex h-10 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white"
+                      >
                         <SignIn size={13} />
                         تسجيل الدخول
                       </button>
