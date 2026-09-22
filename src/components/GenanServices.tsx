@@ -44,7 +44,7 @@ const GenanServices = ({ slot = 0 }: HomeEditorialBannerProps) => {
         (item: any) =>
           isBannerCurrentlyVisible(item) &&
           (
-            String(item.page_slug || "") === "home-editorial" ||
+            String(item.page_slug || "").startsWith("home-editorial") ||
             String(item.title || "") === "Between products banner"
           ),
       );
