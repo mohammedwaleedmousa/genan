@@ -92,7 +92,7 @@ const HeroSlider = () => {
               <div className="py-10 md:py-14">
                 <span className="text-[9px] font-medium tracking-[.18em] text-white/38">NEW SELECTION / 01</span>
 
-                <h1 className="mt-5 max-w-[520px] text-[39px] font-medium leading-[1.23] tracking-[-.055em] text-white sm:text-[48px] lg:text-[64px]">
+                <h1 className="mt-5 max-w-[520px] text-[39px] font-medium leading-[1.23] tracking-[-.055em] !text-white sm:text-[48px] lg:text-[64px]">
                   {title}
                 </h1>
 
