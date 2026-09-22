@@ -150,7 +150,7 @@ const Navbar = () => {
   return (
     <>
       <header dir="rtl" className="fixed inset-x-0 top-0 z-50 border-b border-[#EAEAEA] bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-[1760px] items-center px-4 sm:px-6 md:h-[76px] md:px-[5vw]">
+        <div className="mx-auto flex h-14 max-w-[1760px] items-center px-3 sm:px-5 md:h-[76px] md:px-[5vw]">
           <div className="flex flex-1 items-center justify-start md:hidden">
             <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
               <SheetTrigger asChild>
@@ -414,7 +414,7 @@ const Navbar = () => {
         )}
       </header>
 
-      <div aria-hidden="true" className={mobileSearchOpen ? "h-[117px] md:h-[76px]" : "h-16 md:h-[76px]"} />
+      <div aria-hidden="true" className={mobileSearchOpen ? "h-[105px] md:h-[76px]" : "h-14 md:h-[76px]"} />
     </>
   );
 };
