@@ -177,7 +177,7 @@ const Navbar = () => {
                   </div>
 
                   <div className="relative mt-8">
-                    <Logo size="lg" />
+                    <Logo size="lg" invert />
                     <p className="mt-3 max-w-[240px] text-[9px] leading-6 text-white/48">
                       اكتشف التشكيلة من مساحة أبسط وأهدأ.
                     </p>
