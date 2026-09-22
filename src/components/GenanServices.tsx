@@ -12,17 +12,15 @@ type HomeEditorialBannerProps = {
 
 const fallbackCopy = [
   {
-    kicker: "GENAN / NEW",
     title: "تفاصيل أقل. اختيار أوضح.",
     subtitle: "اكتشف الجديد من جنان.",
     cta: "وصل حديثًا",
     link: "/new-arrivals",
   },
   {
-    kicker: "GENAN / CURATED",
-    title: "مختارات منتقاة بهدوء.",
-    subtitle: "تسوق التشكيلة الكاملة.",
-    cta: "اكتشف التشكيلة",
+    title: "مختارات صنعت لتبقى.",
+    subtitle: "تشكيلة هادئة، مرتبة حول القطعة نفسها.",
+    cta: "تسوق التشكيلة",
     link: "/products",
   },
 ];
@@ -62,8 +60,8 @@ const GenanServices = ({ slot = 0 }: HomeEditorialBannerProps) => {
   const link = String(banner?.cta_link || fallback.link);
 
   return (
-    <section className="bg-white px-3 py-3 sm:px-5 md:px-[5vw] md:py-7" dir="rtl">
-      <div className="relative mx-auto h-[210px] max-w-[1500px] overflow-hidden bg-[#0E0E0E] sm:h-[250px] md:h-[340px]">
+    <section className="bg-white px-3 py-3 md:px-6 md:py-8" dir="rtl">
+      <div className="relative mx-auto h-[188px] max-w-[1500px] overflow-hidden bg-[#0E0E0E] md:h-[340px]">
         {imageUrl ? (
           <>
             <img
@@ -77,46 +75,35 @@ const GenanServices = ({ slot = 0 }: HomeEditorialBannerProps) => {
                 transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-black/74 via-black/38 to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-l from-black/75 via-black/35 to-transparent" />
           </>
         ) : (
           <>
             <div className="absolute inset-0 bg-[#0E0E0E]" />
-            <div className="absolute -left-12 -top-16 h-56 w-56 border border-[#D8C29A]/18 md:h-72 md:w-72" />
-            <span className="absolute -bottom-5 left-4 text-[72px] font-medium tracking-[.1em] text-white/[.035] md:text-[120px]">GENAN</span>
+            <div className="absolute left-4 top-4 h-[70%] w-[44%] border border-[#D8C29A]/20 md:left-9 md:top-8" />
+            <span className="absolute -bottom-5 left-3 text-[62px] font-medium tracking-[.08em] text-white/[.035] md:-bottom-12 md:text-[150px]">GENAN</span>
           </>
         )}
 
-        <div className="relative z-10 flex h-full items-center px-5 sm:px-7 md:px-10 lg:px-12">
+        <div className="relative z-10 flex h-full items-center px-5 md:px-12">
           <div className="max-w-[520px]">
             <div className="mb-2 flex items-center gap-2">
-              <span className="h-px w-6 bg-[#D8C29A]" />
-              <span className="text-[6px] font-semibold tracking-[.26em] text-[#E6D7B8] md:text-[8px]">
-                {fallback.kicker}
-              </span>
+              <span className="h-px w-5 bg-[#D8C29A]" />
+              <span className="text-[6px] font-semibold tracking-[.24em] text-[#E6D7B8] md:text-[8px]">GENAN / CURATED</span>
             </div>
 
-            <h2 className="text-[22px] font-medium leading-[1.45] tracking-[-.04em] !text-white sm:text-[26px] md:text-[36px]">
+            <h2 className="max-w-[450px] text-[20px] font-medium leading-[1.45] tracking-[-.035em] !text-white md:text-[36px]">
               {title}
             </h2>
 
-            <p className="mt-2 max-w-[430px] text-[8px] leading-6 text-white/65 md:mt-3 md:text-[10px]">
-              {subtitle}
-            </p>
+            <p className="mt-2 line-clamp-1 text-[7px] text-white/55 md:mt-3 md:text-[10px]">{subtitle}</p>
 
-            <Link
-              to={link}
-              className="mt-4 inline-flex items-center gap-2 border-b border-white/35 pb-1 text-[8px] font-semibold text-white md:text-[9px]"
-            >
+            <Link to={link} className="mt-3 inline-flex items-center gap-1.5 border-b border-white/35 pb-0.5 text-[7px] font-semibold text-white md:mt-5 md:text-[9px]">
               {cta}
-              <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.4} />
+              <ArrowLeft className="h-3 w-3" strokeWidth={1.5} />
             </Link>
           </div>
         </div>
-
-        <span className="absolute bottom-3 left-4 z-10 text-[6px] tracking-[.22em] text-white/32 md:bottom-4 md:left-5 md:text-[7px]">
-          0{slot + 1} / HOME EDIT
-        </span>
       </div>
     </section>
   );
