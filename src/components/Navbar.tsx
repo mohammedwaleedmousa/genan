@@ -159,13 +159,33 @@ const Navbar = () => {
                 </button>
               </SheetTrigger>
 
-              <SheetContent side="right" dir="rtl" className="w-[82vw] max-w-[320px] border-l border-[#EAEAEA] bg-white p-0">
-                <div className="flex h-16 items-center border-b border-[#EAEAEA] px-5">
-                  <Logo size="md" />
+              <SheetContent side="right" dir="rtl" className="w-[88vw] max-w-[360px] border-l-0 bg-[#F7F5F0] p-0 shadow-[-30px_0_80px_rgba(14,14,14,.16)]">
+                <div className="relative overflow-hidden bg-[#0E0E0E] px-5 pb-7 pt-5 text-white">
+                  <div className="absolute -left-8 -top-16 h-44 w-44 border border-[#D8C29A]/15" />
+                  <div className="absolute bottom-5 left-6 h-2 w-2 bg-[#A9D8D3]" />
+
+                  <div className="relative flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => setMenuOpen(false)}
+                      aria-label="إغلاق القائمة"
+                      className="flex h-9 w-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-white/35 hover:text-white"
+                    >
+                      <X size={15} />
+                    </button>
+                    <span className="text-[7px] font-semibold tracking-[.32em] text-[#D8C29A]">GENAN / MENU</span>
+                  </div>
+
+                  <div className="relative mt-8">
+                    <Logo size="lg" />
+                    <p className="mt-3 max-w-[240px] text-[9px] leading-6 text-white/48">
+                      اكتشف التشكيلة من مساحة أبسط وأهدأ.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex h-[calc(100dvh-64px)] flex-col">
-                  <div className="px-5 pt-5">
+                <div className="flex h-[calc(100dvh-176px)] flex-col">
+                  <div className="border-b border-[#DDD8CE] px-5 py-4">
                     <form
                       onSubmit={(event) => {
                         event.preventDefault();
@@ -173,17 +193,17 @@ const Navbar = () => {
                       }}
                       className="relative"
                     >
-                      <MagnifyingGlass size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8A8A8A]" />
+                      <MagnifyingGlass size={16} className="absolute right-0 top-1/2 -translate-y-1/2 text-[#777]" />
                       <input
                         value={searchTerm}
                         onChange={(event) => setSearchTerm(event.target.value)}
-                        placeholder="بحث"
-                        className="h-11 w-full border border-[#E5E5E5] bg-white pr-9 pl-3 text-[11px] outline-none focus:border-[#A9D8D3]"
+                        placeholder="ابحث في جنان"
+                        className="h-11 w-full border-0 border-b border-[#CFC9BE] bg-transparent pr-7 pl-2 text-[11px] outline-none placeholder:text-[#9A9A9A] focus:border-[#0E0E0E]"
                       />
                     </form>
                   </div>
 
-                  <nav className="mt-4 flex-1 overflow-y-auto px-5">
+                  <nav className="flex-1 overflow-y-auto px-5 py-2">
                     {navLinks.map((item, index) => (
                       <button
                         key={item.to}
@@ -192,53 +212,61 @@ const Navbar = () => {
                           navigate(item.to);
                           setMenuOpen(false);
                         }}
-                        className={`flex h-13 min-h-[52px] w-full items-center justify-between border-b border-[#EEEEEE] text-right ${isActive(item.to) ? "font-semibold text-[#0E0E0E]" : "font-medium text-[#6F6F6F]"}`}
+                        className={`group flex min-h-[58px] w-full items-center justify-between border-b border-[#DDD8CE] text-right transition-colors ${isActive(item.to) ? "text-[#0E0E0E]" : "text-[#696969]"}`}
                       >
-                        <span className="flex items-center gap-3">
-                          <span className="w-5 text-[8px] tracking-[.12em] text-[#B0B0B0]">{String(index + 1).padStart(2, "0")}</span>
-                          <span className="text-[12px]">{item.label}</span>
+                        <span className="flex items-center gap-4">
+                          <span className={`w-6 text-[7px] font-semibold tracking-[.14em] ${isActive(item.to) ? "text-[#9A825B]" : "text-[#AAA49A]"}`}>
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className={`text-[12px] ${isActive(item.to) ? "font-semibold" : "font-medium"}`}>
+                            {item.label}
+                          </span>
                         </span>
-                        {isActive(item.to) && <span className="h-1.5 w-1.5 bg-[#D8C29A]" />}
+                        <span className={`h-px transition-all ${isActive(item.to) ? "w-8 bg-[#A9D8D3]" : "w-0 bg-[#D8C29A] group-hover:w-5"}`} />
                       </button>
                     ))}
 
-                    <button
-                      type="button"
-                      onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
-                      className="flex min-h-[52px] w-full items-center justify-between border-b border-[#EEEEEE] text-right text-[12px] font-medium text-[#6F6F6F]"
-                    >
-                      <span className="flex items-center gap-3">
-                        <Heart size={16} />
-                        المفضلة
-                      </span>
-                      {favorites.length > 0 && <span className="text-[9px] font-semibold text-[#0E0E0E]">{favorites.length}</span>}
-                    </button>
+                    <div className="grid grid-cols-2 gap-2 py-4">
+                      <button
+                        type="button"
+                        onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
+                        className="flex min-h-[58px] items-center justify-between border border-[#D8D2C7] bg-white px-3 text-[10px] font-medium text-[#555]"
+                      >
+                        <span className="flex items-center gap-2"><Heart size={15} /> المفضلة</span>
+                        {favorites.length > 0 && <span className="text-[8px] font-semibold text-[#9A825B]">{favorites.length}</span>}
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
-                      className="flex min-h-[52px] w-full items-center gap-3 border-b border-[#EEEEEE] text-right text-[12px] font-medium text-[#6F6F6F]"
-                    >
-                      <User size={16} />
-                      {customer ? "حسابي" : "تسجيل الدخول"}
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
+                        className="flex min-h-[58px] items-center gap-2 border border-[#D8D2C7] bg-white px-3 text-[10px] font-medium text-[#555]"
+                      >
+                        <User size={15} />
+                        {customer ? "حسابي" : "الدخول"}
+                      </button>
+                    </div>
                   </nav>
 
-                  <div className="border-t border-[#EAEAEA] px-5 py-4">
+                  <div className="border-t border-[#D8D2C7] bg-white px-5 py-4">
+                    <div className="mb-3 flex items-center justify-between">
+                      <span className="flex items-center gap-2 text-[9px] text-[#747474]"><Globe size={14} /> العملة</span>
+                      <span className="text-[8px] font-semibold tracking-[.14em] text-[#0E0E0E]">{short}</span>
+                    </div>
+
                     {customer ? (
                       <button
                         onClick={handleLogout}
-                        className="flex h-11 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[10px] font-semibold text-white"
+                        className="flex h-11 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white"
                       >
-                        <SignOut size={15} />
+                        <SignOut size={14} />
                         تسجيل الخروج
                       </button>
                     ) : (
                       <button
                         onClick={() => { navigate("/auth"); setMenuOpen(false); }}
-                        className="flex h-11 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[10px] font-semibold text-white"
+                        className="flex h-11 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white"
                       >
-                        <SignIn size={15} />
+                        <SignIn size={14} />
                         تسجيل الدخول
                       </button>
                     )}
