@@ -19,7 +19,7 @@ type HeroBanner = {
 
 const HeroSlider = () => {
   const { data: banner } = useQuery({
-    queryKey: ["genan-home-hero-compact-v1"],
+    queryKey: ["genan-home-hero-editorial-v2"],
     queryFn: async () => {
       const { data, error } = await (supabase as any)
         .from("banners")
@@ -45,45 +45,19 @@ const HeroSlider = () => {
   });
 
   const image = banner?.image_url?.trim() || "/demo/genan-bag-black.svg";
-  const imageSrc = image.startsWith("/") ? image : optimizeImage(image, 1400, 86);
-  const title = banner?.title_ar?.trim() || "اختيارات واضحة. تصميم أهدأ.";
+  const imageSrc = image.startsWith("/") ? image : optimizeImage(image, 1800, 88);
+  const title = banner?.title_ar?.trim() || "جنان، بشكل أكثر هدوءًا.";
   const description =
     banner?.subtitle_ar?.trim() ||
-    "تجربة تسوق مرتبة حول القطعة، بدون ازدحام بصري.";
-  const cta = banner?.cta_text_ar?.trim() || "تسوق الآن";
+    "تشكيلة منتقاة داخل مساحة نظيفة، حيث تبدأ التجربة من القطعة نفسها.";
+  const cta = banner?.cta_text_ar?.trim() || "اكتشف التشكيلة";
   const link = banner?.cta_link?.trim() || "/products";
 
   return (
-    <section dir="rtl" className="bg-white px-4 pt-4 sm:px-6 md:px-[5vw] md:pt-6">
-      <div className="mx-auto max-w-[1600px] overflow-hidden bg-[#0E0E0E]">
-        <div className="grid min-h-[420px] md:min-h-[500px] md:grid-cols-[42%_58%]">
-          <div className="order-2 flex items-center px-6 py-10 text-white sm:px-9 md:order-1 md:px-12 lg:px-16">
-            <div className="max-w-[510px]">
-              <div className="mb-4 flex items-center gap-3">
-                <span className="h-px w-9 bg-[#D8C29A]" />
-                <span className="text-[7px] font-semibold tracking-[.28em] text-[#D8C29A]">GENAN / EDIT</span>
-                <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
-              </div>
-
-              <h1 className="text-[34px] font-medium leading-[1.3] tracking-[-.045em] text-white sm:text-[42px] lg:text-[52px]">
-                {title}
-              </h1>
-
-              <p className="mt-4 max-w-[430px] text-[10px] leading-7 text-white/58 sm:text-[11px]">
-                {description}
-              </p>
-
-              <Link
-                to={link}
-                className="mt-7 inline-flex h-11 items-center gap-3 bg-white px-6 text-[9px] font-semibold text-[#0E0E0E]"
-              >
-                {cta}
-                <ArrowLeft size={14} weight="bold" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="order-1 relative min-h-[300px] overflow-hidden bg-[#F3F3F3] md:order-2 md:min-h-[500px]">
+    <section className="bg-white px-0 pt-0 md:px-[2.2vw] md:pt-5">
+      <div className="mx-auto max-w-[1880px] overflow-hidden border-y border-black/5 bg-[#F3F0E9] md:border">
+        <div dir="ltr" className="grid min-h-[720px] md:min-h-[calc(100svh-118px)] md:grid-cols-[58%_42%]">
+          <div className="relative order-1 min-h-[430px] overflow-hidden bg-[#E7E3DA] md:min-h-full">
             <img
               src={imageSrc}
               alt={title}
@@ -96,8 +70,51 @@ const HeroSlider = () => {
                 transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
               }}
             />
-            <div className="absolute bottom-0 left-0 bg-white px-4 py-3">
-              <span className="text-[7px] font-semibold tracking-[.2em] text-[#777]">GENAN / 2026</span>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/28 via-transparent to-black/5" />
+
+            <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-4 p-4 text-white md:p-6">
+              <span className="text-[7px] font-semibold tracking-[.26em] text-white/70">GENAN / 2026</span>
+              <span className="h-px w-14 bg-[#D8C29A]" />
+            </div>
+          </div>
+
+          <div dir="rtl" className="order-2 flex items-center bg-[#0E0E0E] px-6 py-12 text-white sm:px-10 md:px-[4vw] md:py-16">
+            <div className="w-full max-w-[560px]">
+              <div className="flex items-center justify-between border-b border-white/12 pb-5">
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-9 bg-[#D8C29A]" />
+                  <span className="text-[7px] font-semibold tracking-[.3em] text-[#D8C29A]">GENAN / EDIT</span>
+                </div>
+                <span className="h-2 w-2 bg-[#A9D8D3]" />
+              </div>
+
+              <div className="py-10 md:py-14">
+                <span className="text-[9px] font-medium tracking-[.18em] text-white/38">NEW SELECTION / 01</span>
+
+                <h1 className="mt-5 max-w-[520px] text-[39px] font-medium leading-[1.23] tracking-[-.055em] text-white sm:text-[48px] lg:text-[64px]">
+                  {title}
+                </h1>
+
+                <p className="mt-6 max-w-[430px] text-[11px] leading-8 text-white/55 md:text-[12px]">
+                  {description}
+                </p>
+              </div>
+
+              <div className="flex items-end justify-between gap-5 border-t border-white/12 pt-6">
+                <Link
+                  to={link}
+                  className="inline-flex h-12 items-center gap-3 bg-white px-7 text-[10px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#E6D7B8]"
+                >
+                  {cta}
+                  <ArrowLeft size={15} weight="bold" />
+                </Link>
+
+                <div className="hidden text-left md:block">
+                  <div className="text-[7px] tracking-[.24em] text-white/30">CURATED</div>
+                  <div className="mt-1 text-[9px] text-white/58">BY GENAN</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
