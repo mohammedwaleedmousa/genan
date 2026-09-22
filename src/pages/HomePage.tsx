@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 import HeroSlider from "@/components/HeroSlider";
 import ProductCard from "@/components/ProductCard";
+import GenanServices from "@/components/GenanServices";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 import { optimizeImage } from "@/lib/imageUrl";
@@ -218,6 +219,8 @@ const HomePage = () => {
           </section>
         )}
 
+        <GenanServices slot={0} />
+
         <section className="bg-white px-4 py-14 sm:px-6 md:px-[5vw] md:py-24">
           <div className="mx-auto max-w-[1600px]">
             <SectionHeader
@@ -239,6 +242,8 @@ const HomePage = () => {
             </Link>
           </div>
         </section>
+
+        <GenanServices slot={1} />
 
         <section className="relative overflow-hidden bg-[#0E0E0E] px-5 py-16 text-white sm:px-8 md:px-[6vw] md:py-28">
           <div aria-hidden className="pointer-events-none absolute -left-4 top-1/2 -translate-y-1/2 select-none text-[28vw] font-semibold leading-none tracking-[-.08em] text-white/[.025]">
