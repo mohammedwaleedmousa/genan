@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-const FLAMINGO_LOADER_SRC = "/icons/flamingo-loader.png";
 const AUTO_RETRY_WINDOW_MS = 30_000;
 
 const LoadingScreen = () => {
-  const [flamingoReady, setFlamingoReady] = useState(false);
-
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -28,11 +25,10 @@ const LoadingScreen = () => {
     body.style.left = "0";
     body.style.right = "0";
     body.style.width = "100%";
-
     html.style.overflow = "hidden";
     html.style.overscrollBehavior = "none";
 
-    const retryKey = `flamingo-stalled-route-retry:${window.location.pathname}`;
+    const retryKey = `genan-stalled-route-retry:${window.location.pathname}`;
     const autoRetryTimer = window.setTimeout(() => {
       const previousRetry = Number(window.sessionStorage.getItem(retryKey) || 0);
       if (previousRetry && Date.now() - previousRetry < AUTO_RETRY_WINDOW_MS) return;
@@ -43,99 +39,51 @@ const LoadingScreen = () => {
 
     return () => {
       window.clearTimeout(autoRetryTimer);
-
       body.style.overflow = previousBodyOverflow;
       body.style.position = previousBodyPosition;
       body.style.top = previousBodyTop;
       body.style.left = previousBodyLeft;
       body.style.right = previousBodyRight;
       body.style.width = previousBodyWidth;
-
       html.style.overflow = previousHtmlOverflow;
       html.style.overscrollBehavior = previousOverscroll;
-
-      window.scrollTo({
-        top: scrollY,
-        left: 0,
-        behavior: "auto",
-      });
+      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[100] flex h-[100dvh] w-screen touch-none items-center justify-center overflow-hidden overscroll-none bg-white" dir="rtl" role="status" aria-live="polite" aria-label="جاري التحميل">
-      <img
-        src={FLAMINGO_LOADER_SRC}
-        alt=""
-        aria-hidden="true"
-        className="absolute h-px w-px opacity-0"
-        onLoad={() => setFlamingoReady(true)}
-        onError={() => setFlamingoReady(false)}
-      />
+    <div
+      className="fixed inset-0 z-[100] flex h-[100dvh] w-screen touch-none items-center justify-center overflow-hidden bg-[#F7F5F0]"
+      dir="rtl"
+      role="status"
+      aria-live="polite"
+      aria-label="جاري التحميل"
+    >
+      <div className="relative flex h-[150px] w-[210px] items-center justify-center border border-[#D8C29A]/30">
+        <div className="absolute -right-4 top-7 h-px w-14 bg-[#0E0E0E]/25" />
+        <div className="absolute -left-1 bottom-7 h-2 w-2 bg-[#A9D8D3]" />
 
-      <div className="relative flex h-[170px] w-[132px] items-center justify-center">
-        {!flamingoReady && (
-          <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-[#E8D8D9] bg-[#FFF8F8] shadow-sm">
-            <span className="absolute h-8 w-8 animate-spin rounded-full border-[3px] border-[#F1D7DA] border-t-[#C96F79]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-[#C96F79]" />
+        <div className="text-center">
+          <div className="text-[27px] font-medium tracking-[.22em] text-[#0E0E0E]">GENAN</div>
+          <div className="mx-auto mt-4 h-px w-20 overflow-hidden bg-[#DED8CD]">
+            <span className="genan-loader-line block h-full w-1/2 bg-[#9A825B]" />
           </div>
-        )}
-
-        {flamingoReady && (
-          <>
-            <div className="absolute inset-0 bg-[#F0D7D6] [mask-image:url('/icons/flamingo-loader.png')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/icons/flamingo-loader.png')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" />
-            <div className="flamingo-loader-reveal absolute inset-0 bg-[#C96F79] [mask-image:url('/icons/flamingo-loader.png')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/icons/flamingo-loader.png')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" />
-            <div className="flamingo-loader-sweep absolute inset-0 [mask-image:url('/icons/flamingo-loader.png')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-image:url('/icons/flamingo-loader.png')] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain]" />
-          </>
-        )}
+        </div>
       </div>
 
       <style>{`
-        .flamingo-loader-reveal {
-          clip-path: inset(0 0 100% 0);
-          animation: flamingo-loader-reveal 2.15s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        .genan-loader-line {
+          animation: genan-loader-line 1.2s ease-in-out infinite alternate;
+          transform-origin: right center;
         }
 
-        .flamingo-loader-sweep {
-          background: linear-gradient(
-            to bottom,
-            transparent 0%,
-            transparent 34%,
-            rgba(169, 91, 97, 0.12) 40%,
-            rgba(169, 91, 97, 0.95) 48%,
-            rgba(169, 91, 97, 1) 50%,
-            rgba(169, 91, 97, 0.95) 52%,
-            rgba(169, 91, 97, 0.12) 60%,
-            transparent 66%,
-            transparent 100%
-          );
-          background-size: 100% 52%;
-          background-repeat: no-repeat;
-          background-position: center -80%;
-          animation: flamingo-loader-sweep 2.15s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-        }
-
-        @keyframes flamingo-loader-reveal {
-          0%, 10% { clip-path: inset(0 0 100% 0); opacity: 1; }
-          72%, 84% { clip-path: inset(0 0 0% 0); opacity: 1; }
-          100% { clip-path: inset(0 0 0% 0); opacity: 0; }
-        }
-
-        @keyframes flamingo-loader-sweep {
-          0% { background-position: center -80%; opacity: 0; }
-          8% { opacity: 1; }
-          74% { background-position: center 180%; opacity: 1; }
-          88%, 100% { background-position: center 180%; opacity: 0; }
+        @keyframes genan-loader-line {
+          from { transform: translateX(90%); opacity: .35; }
+          to { transform: translateX(-90%); opacity: 1; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .flamingo-loader-reveal {
-            animation: none;
-            clip-path: inset(0);
-            opacity: 1;
-          }
-
-          .flamingo-loader-sweep { display: none; }
+          .genan-loader-line { animation: none; transform: none; }
         }
       `}</style>
     </div>
