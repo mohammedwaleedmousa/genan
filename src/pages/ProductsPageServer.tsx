@@ -192,8 +192,8 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="sticky top-[110px] z-30 border-b border-[#EAEAEA] bg-white/95 px-5 py-3 backdrop-blur-xl md:top-[126px] md:px-[6vw]">
-          <div className="mx-auto flex h-12 max-w-[1760px] border border-[#EAEAEA]">
+        <section className="border-b border-[#EAEAEA] bg-white px-5 py-2.5 md:px-[6vw] md:py-3">
+          <div className="mx-auto flex h-11 max-w-[1760px] border border-[#EAEAEA] md:h-12">
             <button onClick={() => setFiltersOpen(true)} className="flex flex-1 items-center justify-center gap-2 border-l border-[#EAEAEA] text-[10px] font-semibold">
               <SlidersHorizontal className="h-4 w-4" />
               فلترة
