@@ -215,9 +215,9 @@ const HomePage = () => {
                     <Link
                       key={brand.id}
                       to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="flex h-[58px] min-w-[132px] items-center justify-center border border-[#E7E2D9] bg-[#FAF9F6] px-4 text-center transition-colors hover:bg-[#0E0E0E] hover:text-white md:min-w-0"
+                      className="flex h-[58px] min-w-[132px] items-center justify-center border border-[#E7E2D9] bg-white px-4 text-center text-[#111111] transition-all duration-200 hover:border-[#C9B183] hover:bg-[#FBF8F1] md:min-w-0"
                     >
-                      <span className="text-[9px] font-semibold tracking-[.04em] md:text-[11px]">{brand.name}</span>
+                      <span className="text-[9px] font-semibold tracking-[.04em] text-[#111111] md:text-[11px]">{brand.name}</span>
                     </Link>
                   ))}
                 </div>
