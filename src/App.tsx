@@ -19,7 +19,7 @@ import { ThemeProvider } from "next-themes";
 
 const isLazyImportError = (error: unknown) => {
   const message = String((error as { message?: unknown })?.message || error || "");
-  return /Failed to fetch dynamically imported module|Importing a module script failed|ChunkLoadError|Loading chunk|Load failed/i.test(message);
+  return /dynamic(?:ally)? imported module|module script|ChunkLoadError|Loading chunk|failed to fetch|Load failed|error loading/i.test(message);
 };
 
 const lazy = <T extends ComponentType<any>>(factory: () => Promise<{ default: T }>) =>
