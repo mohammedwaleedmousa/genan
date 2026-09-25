@@ -84,7 +84,7 @@ const HeroSlider = () => {
             <div className="mb-2.5 flex items-center gap-2 md:mb-4">
               <span className="h-px w-6 bg-[#D8C29A] md:w-9" />
               <span className="text-[6px] font-semibold tracking-[.27em] text-[#E9D9B8] md:text-[9px] md:text-[#9A825B]">
-                GENAN / NEW EDIT
+                GENAN / NEW COLLECTION
               </span>
             </div>
 
