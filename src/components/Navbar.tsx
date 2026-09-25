@@ -159,25 +159,22 @@ const Navbar = () => {
                 </button>
               </SheetTrigger>
 
-              <SheetContent side="right" dir="rtl" className="w-[80vw] max-w-[310px] border-l border-[#E8E3DA] bg-[#FAF9F6] p-0 shadow-[-20px_0_55px_rgba(14,14,14,.13)]">
-                <div className="flex h-[82px] items-center justify-between bg-[#0E0E0E] px-4 text-white">
-                  <div>
-                    <Logo size="md" invert />
-                    <p className="mt-1 text-[6px] tracking-[.2em] text-[#D8C29A]">GENAN / MENU</p>
-                  </div>
+              <SheetContent side="right" dir="rtl" className="w-[82vw] max-w-[320px] border-l border-[#EEEAE3] bg-white p-0 shadow-[-12px_0_35px_rgba(14,14,14,.07)]">
+                <div className="flex h-[72px] items-center justify-between border-b border-[#F0ECE5] px-5">
+                  <Logo size="md" />
 
                   <button
                     type="button"
                     onClick={() => setMenuOpen(false)}
                     aria-label="إغلاق القائمة"
-                    className="flex h-8 w-8 items-center justify-center border border-white/15 text-white/70"
+                    className="flex h-9 w-9 items-center justify-center text-[#777] transition-colors hover:text-[#0E0E0E]"
                   >
-                    <X size={14} />
+                    <X size={17} />
                   </button>
                 </div>
 
-                <div className="flex h-[calc(100dvh-82px)] flex-col">
-                  <div className="border-b border-[#E2DDD3] px-4 py-3">
+                <div className="flex h-[calc(100dvh-72px)] flex-col">
+                  <div className="px-5 pt-4 pb-2">
                     <form
                       onSubmit={(event) => {
                         event.preventDefault();
@@ -185,80 +182,69 @@ const Navbar = () => {
                       }}
                       className="relative"
                     >
-                      <MagnifyingGlass size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#888]" />
+                      <MagnifyingGlass size={15} className="absolute right-0 top-1/2 -translate-y-1/2 text-[#999]" />
                       <input
                         value={searchTerm}
                         onChange={(event) => setSearchTerm(event.target.value)}
                         placeholder="ابحث في جنان"
-                        className="h-10 w-full border border-[#DDD8CE] bg-white pr-9 pl-3 text-[10px] outline-none focus:border-[#C9B183]"
+                        className="h-10 w-full border-0 border-b border-[#DDD8CF] bg-transparent pr-7 pl-1 text-[11px] outline-none transition-colors focus:border-[#C9B183]"
                       />
                     </form>
                   </div>
 
-                  <nav className="flex-1 overflow-y-auto px-4 py-1">
-                    {navLinks.map((item, index) => (
-                      <button
-                        key={item.to}
-                        type="button"
-                        onClick={() => {
-                          navigate(item.to);
-                          setMenuOpen(false);
-                        }}
-                        className={`flex min-h-[47px] w-full items-center justify-between border-b border-[#E5E0D7] text-right ${isActive(item.to) ? "font-semibold text-[#0E0E0E]" : "font-medium text-[#686868]"}`}
-                      >
-                        <span className="flex items-center gap-3">
-                          <span className={`w-5 text-[6px] tracking-[.12em] ${isActive(item.to) ? "text-[#9A825B]" : "text-[#AAA49A]"}`}>
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <span className="text-[10px]">{item.label}</span>
-                        </span>
-                        {isActive(item.to) && <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />}
-                      </button>
-                    ))}
+                  <nav className="flex-1 overflow-y-auto px-3 py-3">
+                    {navLinks.map((item) => {
+                      const active = isActive(item.to);
+                      return (
+                        <button
+                          key={item.to}
+                          type="button"
+                          onClick={() => {
+                            navigate(item.to);
+                            setMenuOpen(false);
+                          }}
+                          className={`relative flex h-[50px] w-full items-center justify-between px-4 text-right transition-colors ${active ? "bg-[#FBF8F1] font-semibold text-[#0E0E0E]" : "font-medium text-[#666] hover:bg-[#FCFBF8] hover:text-[#0E0E0E]"}`}
+                        >
+                          {active && <span className="absolute inset-y-[11px] right-0 w-[2px] bg-[#C9B183]" />}
+                          <span className="text-[11px]">{item.label}</span>
+                          {active && <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />}
+                        </button>
+                      );
+                    })}
 
-                    <div className="grid grid-cols-2 gap-2 py-3">
-                      <button
-                        type="button"
-                        onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
-                        className="flex h-[44px] items-center justify-center gap-2 border border-[#DED9CF] bg-white text-[9px] font-medium text-[#555]"
-                      >
-                        <Heart size={14} />
-                        المفضلة
-                        {favorites.length > 0 && <span className="text-[7px] text-[#9A825B]">{favorites.length}</span>}
-                      </button>
+                    <div className="my-3 h-px bg-[#F0ECE5]" />
 
-                      <button
-                        type="button"
-                        onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
-                        className="flex h-[44px] items-center justify-center gap-2 border border-[#DED9CF] bg-white text-[9px] font-medium text-[#555]"
-                      >
-                        <User size={14} />
-                        {customer ? "حسابي" : "الدخول"}
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
+                      className="flex h-11 w-full items-center justify-between px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
+                    >
+                      <span className="flex items-center gap-2.5"><Heart size={15} /> المفضلة</span>
+                      {favorites.length > 0 && <span className="text-[8px] text-[#9A825B]">{favorites.length}</span>}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
+                      className="flex h-11 w-full items-center px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
+                    >
+                      <span className="flex items-center gap-2.5"><User size={15} /> {customer ? "حسابي" : "تسجيل الدخول"}</span>
+                    </button>
                   </nav>
 
-                  <div className="border-t border-[#DED9CF] bg-white px-4 py-3">
-                    <div className="mb-2 flex items-center justify-between text-[8px]">
-                      <span className="flex items-center gap-1.5 text-[#777]"><Globe size={13} /> العملة</span>
+                  <div className="border-t border-[#F0ECE5] px-5 py-4">
+                    <div className="flex items-center justify-between text-[9px] text-[#777]">
+                      <span className="flex items-center gap-2"><Globe size={14} /> العملة</span>
                       <span className="font-semibold text-[#0E0E0E]">{short}</span>
                     </div>
 
-                    {customer ? (
+                    {customer && (
                       <button
                         onClick={handleLogout}
-                        className="flex h-10 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white"
+                        className="mt-3 flex h-9 w-full items-center gap-2 text-[9px] font-medium text-[#888] transition-colors hover:text-[#0E0E0E]"
                       >
-                        <SignOut size={13} />
+                        <SignOut size={14} />
                         تسجيل الخروج
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => { navigate("/auth"); setMenuOpen(false); }}
-                        className="flex h-10 w-full items-center justify-center gap-2 bg-[#0E0E0E] text-[9px] font-semibold text-white"
-                      >
-                        <SignIn size={13} />
-                        تسجيل الدخول
                       </button>
                     )}
                   </div>
