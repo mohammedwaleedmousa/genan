@@ -756,7 +756,7 @@ const ProductDetailPage = () => {
   };
 
   return (
-    <div className="genan-product-detail min-h-screen bg-[#F7F5F0]" dir="rtl">
+    <div className="genan-product-detail min-h-screen bg-white" dir="rtl">
       {/* =====================================================
           DESKTOP NAVBAR
       ===================================================== */}
@@ -771,26 +771,24 @@ const ProductDetailPage = () => {
           MOBILE HEADER
       ===================================================== */}
 
-      <header className="sticky top-0 z-50 flex h-[54px] items-center justify-between border-b border-[#0E0E0E]/15 bg-[#FFFFFF]/96 px-2 backdrop-blur-xl md:hidden">
-        <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-10 w-10 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
-          <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
+      <header className="sticky top-0 z-50 flex h-[58px] items-center justify-between border-b border-[#E7E2D9] bg-white px-3 md:hidden">
+        <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
+          <ChevronRight className="h-[18px] w-[18px]" strokeWidth={1.5} />
         </button>
 
         <button type="button" onClick={() => navigate("/home")} aria-label="Genan" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <Logo size="md" />
         </button>
 
-        <div className="flex items-center">
-          <button type="button" onClick={() => navigate("/cart")} aria-label="السلة" className="flex h-9 w-9 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
-            <ShoppingCart className="h-[19px] w-[19px]" strokeWidth={1.5} />
+        <div className="flex items-center gap-0.5">
+          <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
+            <Share2 className="h-[17px] w-[17px]" strokeWidth={1.4} />
           </button>
-
-          <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
-            <Heart className={`h-[19px] w-[19px] ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.5} />
+          <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
+            <Heart className={`h-[18px] w-[18px] ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.4} />
           </button>
-
-          <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-9 w-9 items-center justify-center rounded-none text-[#0E0E0E] active:bg-[#F3F0E9]">
-            <Share2 className="h-[18px] w-[18px]" strokeWidth={1.5} />
+          <button type="button" onClick={() => navigate("/cart")} aria-label="السلة" className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
+            <ShoppingCart className="h-[18px] w-[18px]" strokeWidth={1.4} />
           </button>
         </div>
       </header>
@@ -826,7 +824,7 @@ const ProductDetailPage = () => {
                 GALLERY
             =============================================== */}
 
-            <section className="genan-product-gallery min-w-0 bg-[#F3F0E9]">
+            <section className="genan-product-gallery min-w-0 bg-[#F7F7F7]">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -834,12 +832,12 @@ const ProductDetailPage = () => {
                     الخلفية تملأ الفراغ الجانبي
                 =========================================== */}
 
-                <div className="relative h-[52svh] min-h-[350px] max-h-[520px] w-full overflow-hidden bg-[#F3F0E9] sm:h-[58svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[4/5]">
+                <div className="relative h-[56svh] min-h-[380px] max-h-[560px] w-full overflow-hidden bg-[#F7F7F7] sm:h-[60svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[4/5]">
   {/* MAIN PRODUCT */}
   <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y" }} className="h-full w-full cursor-grab active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
       <TransformComponent wrapperClass="!h-full !w-full !overflow-hidden" contentClass="!h-full !w-full">
-        <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 55vw" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={handleImageError} draggable={false} className="h-full w-full select-none object-cover object-bottom" />
+        <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 55vw" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={handleImageError} draggable={false} className="h-full w-full select-none object-contain object-center" />
       </TransformComponent>
     </TransformWrapper>
   </motion.div>
@@ -902,7 +900,7 @@ const ProductDetailPage = () => {
                 DETAILS
             =============================================== */}
 
-            <section className="genan-product-info min-w-0 bg-white lg:my-5 lg:self-start lg:border lg:border-[#E7E2D9] lg:px-8 lg:py-7 xl:px-9">
+            <section className="genan-product-info min-w-0 bg-white lg:my-0 lg:self-start lg:border-r lg:border-[#E7E2D9] lg:px-8 lg:py-2 xl:px-10">
               {/* =============================================
                   TITLE + PRICE
               ============================================= */}
@@ -912,7 +910,7 @@ const ProductDetailPage = () => {
                   <div className="min-w-0">
                     <div className="mb-3 flex items-center justify-between border-b border-[#E2DDD3] pb-3">
                     <div className="flex items-center gap-3">
-                      <span className="text-[7px] font-semibold tracking-[.26em] text-[#9A825B]">PRODUCT / GENAN EDIT</span>
+                      <span className="text-[7px] font-semibold tracking-[.26em] text-[#9A825B]">GENAN / PRODUCT</span>
                       <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
                     </div>
                     
@@ -1081,7 +1079,7 @@ const ProductDetailPage = () => {
                   FEATURES
               ============================================= */}
 
-              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#0E0E0E]/15 bg-[#F7F5F0]">
+              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#E7E2D9] bg-white">
                 {features.map((feature, index) => {
                   const Icon = getFeatureIcon(feature.icon);
 
@@ -1249,42 +1247,32 @@ const ProductDetailPage = () => {
               STORE + QA + REVIEWS
           ================================================= */}
 
-          <div className="mt-5 bg-white px-3.5 sm:px-5 md:mt-8 md:border-t md:border-[#E7E2D9] md:px-0">
-            {/* STORE */}
-
-            <section className="flex items-center justify-between border-b border-[#0E0E0E]/12 py-4">
-              <div className="flex min-w-0 items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none bg-[#F3F0E9]">
-                  <ShoppingBag className="h-4 w-4 text-[#D8C29A]" strokeWidth={1.4} />
-                </span>
-
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <p className="truncate text-[10px] font-semibold text-[#0E0E0E]">Genan</p>
-
-                    <Shield className="h-3 w-3 text-[#D8C29A]" strokeWidth={1.6} />
-                  </div>
-
-                  <p className="mt-1 text-[7px] tracking-[0.12em] text-[#777777]">CURATED BY GENAN</p>
+          <div className="mt-8 border-t border-[#E7E2D9] bg-white px-3.5 pt-7 sm:px-5 md:mt-12 md:px-0 md:pt-10">
+            <section className="mb-8 flex items-center justify-between border-b border-[#E7E2D9] pb-5">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="h-px w-7 bg-[#D8C29A]" />
+                  <span className="text-[7px] font-semibold tracking-[.22em] text-[#9A825B]">GENAN / SERVICE</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />
                 </div>
+                <h2 className="mt-2 text-[17px] font-semibold text-[#0E0E0E] md:text-[20px]">تسوق بثقة</h2>
+                <p className="mt-1 text-[8px] text-[#777]">منتجات مختارة بعناية وخدمة تساعدك قبل وبعد الطلب.</p>
               </div>
 
-              <button type="button" onClick={() => navigate("/products")} className="h-8 border border-[#D8C29A] px-3 text-[7px] font-semibold text-[#0E0E0E] active:bg-[#FAFAFA]">
-                عرض المتجر
+              <button type="button" onClick={() => navigate("/store-info")} className="border-b border-[#D8C29A] pb-1 text-[8px] font-semibold text-[#0E0E0E]">
+                اعرف أكثر
               </button>
             </section>
 
-            {/* QA */}
+            <div className="grid gap-10 md:grid-cols-2 md:gap-12">
+              <section>
+                <ProductQA productId={product.id} />
+              </section>
 
-            <section className="py-5 md:py-7">
-              <ProductQA productId={product.id} />
-            </section>
-
-            {/* REVIEWS */}
-
-            <section className="border-t border-[#0E0E0E]/12 py-5 md:py-7">
-              <ProductReviews productId={product.id} productName={product.nameAr || product.name} />
-            </section>
+              <section className="border-t border-[#E7E2D9] pt-8 md:border-r md:border-t-0 md:pr-10 md:pt-0">
+                <ProductReviews productId={product.id} productName={product.nameAr || product.name} />
+              </section>
+            </div>
           </div>
 
           {/* =================================================
@@ -1348,7 +1336,7 @@ const ProductDetailPage = () => {
           MOBILE BUY BAR
       ===================================================== */}
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#D8D2C7] bg-[#F7F5F0]/96 px-2.5 pt-2 backdrop-blur-xl lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E7E2D9] bg-white px-2.5 pt-2 lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
         <div className="flex h-[49px] gap-2">
           {WHATSAPP_URL && (
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-full w-[46px] shrink-0 items-center justify-center rounded-none border border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#25D366]">
