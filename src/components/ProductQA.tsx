@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { AlertCircle, Check, CheckCircle2, ChevronDown, Clock3, LogIn, MessageCircleQuestion, Search, Send, ShieldCheck, X } from "lucide-react";
+import { Check, ChevronDown, Clock3, LogIn, MessageCircleQuestion, Search, Send, ShieldCheck, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { supabase } from "@/integrations/supabase/client";
@@ -19,7 +19,7 @@ interface Question {
   created_at: string;
 }
 
-export const ProductQA = ({ productId }: { productId: string }) => {
+const ProductQA = ({ productId }: { productId: string }) => {
   const { data: content } = useSiteContent("product_qa_");
   const { customer } = useStore();
 
@@ -32,40 +32,18 @@ export const ProductQA = ({ productId }: { productId: string }) => {
   const [supabaseAuthed, setSupabaseAuthed] = useState(false);
   const [authChecking, setAuthChecking] = useState(true);
 
-  const canAskQuestion = supabaseAuthed;
-
-  /* =========================================================
-     AUTH
-  ========================================================= */
-
   useEffect(() => {
     let mounted = true;
 
     const checkAuth = async () => {
       try {
         const { data, error } = await supabase.auth.getUser();
-
-        if (error) {
-          if (mounted) {
-            setSupabaseAuthed(false);
-          }
-
-          return;
-        }
-
-        if (mounted) {
-          setSupabaseAuthed(Boolean(data.user));
-        }
-      } catch (error) {
-        console.error("Error checking auth:", error);
-
-        if (mounted) {
-          setSupabaseAuthed(false);
-        }
+        if (!mounted) return;
+        setSupabaseAuthed(!error && Boolean(data.user));
+      } catch {
+        if (mounted) setSupabaseAuthed(false);
       } finally {
-        if (mounted) {
-          setAuthChecking(false);
-        }
+        if (mounted) setAuthChecking(false);
       }
     };
 
@@ -75,7 +53,6 @@ export const ProductQA = ({ productId }: { productId: string }) => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!mounted) return;
-
       setSupabaseAuthed(Boolean(session?.user));
       setAuthChecking(false);
     });
@@ -86,10 +63,6 @@ export const ProductQA = ({ productId }: { productId: string }) => {
     };
   }, []);
 
-  /* =========================================================
-     QUESTIONS
-  ========================================================= */
-
   const {
     data: questions = [],
     refetch,
@@ -97,72 +70,52 @@ export const ProductQA = ({ productId }: { productId: string }) => {
   } = useQuery({
     queryKey: ["product-questions", productId],
     queryFn: async () => {
-      const { data, error } = await supabase.from("product_questions").select("id,content,content_ar,answer,answer_ar,author,helpful_count,created_at").eq("product_id", productId).order("helpful_count", { ascending: false }).order("created_at", { ascending: false });
+      const { data, error } = await supabase
+        .from("product_questions")
+        .select("id,content,content_ar,answer,answer_ar,author,helpful_count,created_at")
+        .eq("product_id", productId)
+        .order("helpful_count", { ascending: false })
+        .order("created_at", { ascending: false });
 
-      if (error) {
-        console.error("Error loading questions:", error);
-        throw error;
-      }
-
+      if (error) throw error;
       return (data || []) as Question[];
     },
     staleTime: 1000 * 60 * 3,
     refetchOnWindowFocus: false,
   });
 
-  /* =========================================================
-     COUNTS
-  ========================================================= */
-
-  const answeredCount = useMemo(() => {
-    return questions.filter((question) => Boolean(question.answer_ar || question.answer)).length;
-  }, [questions]);
-
-  /* =========================================================
-     SEARCH
-  ========================================================= */
-
   const filteredQuestions = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-
     if (!query) return questions;
 
     return questions.filter((question) => {
       const questionText = `${question.content_ar || ""} ${question.content || ""}`.toLowerCase();
       const answerText = `${question.answer_ar || ""} ${question.answer || ""}`.toLowerCase();
-
       return questionText.includes(query) || answerText.includes(query);
     });
   }, [questions, searchQuery]);
 
   const displayedQuestions = showAll ? filteredQuestions : filteredQuestions.slice(0, 4);
 
-  /* =========================================================
-     ASK QUESTION
-  ========================================================= */
-
   const handleAskQuestion = useCallback(async () => {
     if (authChecking) return;
 
-    if (!canAskQuestion) {
+    if (!supabaseAuthed) {
       toast({
         title: getSiteText(content, "qa_login_required", "يجب تسجيل الدخول أولاً"),
         description: getSiteText(content, "qa_login_description", "سجل دخولك حتى تتمكن من طرح سؤال عن المنتج"),
         variant: "destructive",
       });
-
       return;
     }
 
     const trimmedQuestion = newQuestion.trim();
-
     if (trimmedQuestion.length < 5) {
       toast({
-        title: getSiteText(content, "qa_error_empty", "اكتب سؤالك بشكل أوضح"),
+        title: "اكتب سؤالك بشكل أوضح",
         description: "يجب أن يحتوي السؤال على 5 أحرف على الأقل.",
         variant: "destructive",
       });
-
       return;
     }
 
@@ -173,43 +126,37 @@ export const ProductQA = ({ productId }: { productId: string }) => {
         product_id: productId,
         content: trimmedQuestion,
         content_ar: trimmedQuestion,
-        author: customer?.name || customer?.phone || "عميل فلامنجو",
+        author: customer?.name || customer?.phone || "عميل جنان",
         helpful_count: 0,
       });
 
       if (error) throw error;
 
       toast({
-        title: getSiteText(content, "qa_success", "تم إرسال سؤالك بنجاح"),
-        description: "سنقوم بالرد عليه في أقرب وقت.",
+        title: "تم إرسال سؤالك",
+        description: "سيراجعه فريق جنان ويجيبك في أقرب وقت.",
       });
 
       setNewQuestion("");
       setShowAskForm(false);
-
       await refetch();
     } catch (error: any) {
-      console.error("Error asking question:", error);
-
-      const isPermissionError = error?.code === "42501" || String(error?.message || "").toLowerCase().includes("row-level security");
+      const permissionError =
+        error?.code === "42501" ||
+        String(error?.message || "").toLowerCase().includes("row-level security");
 
       toast({
-        title: isPermissionError ? "يجب تسجيل الدخول أولاً" : getSiteText(content, "qa_error", "تعذر إرسال السؤال"),
-        description: isPermissionError ? "سجل دخولك ثم حاول إرسال السؤال مرة أخرى." : getSiteText(content, "qa_error_desc", "يرجى المحاولة مرة أخرى لاحقاً"),
+        title: permissionError ? "يجب تسجيل الدخول أولاً" : "تعذر إرسال السؤال",
+        description: permissionError ? "سجل دخولك ثم حاول مرة أخرى." : "يرجى المحاولة مرة أخرى لاحقاً.",
         variant: "destructive",
       });
     } finally {
       setLoading(false);
     }
-  }, [authChecking, canAskQuestion, content, customer, newQuestion, productId, refetch]);
-
-  /* =========================================================
-     DATE
-  ========================================================= */
+  }, [authChecking, content, customer, newQuestion, productId, refetch, supabaseAuthed]);
 
   const formatDate = (date?: string) => {
     if (!date) return "";
-
     try {
       return new Intl.DateTimeFormat("ar-YE", {
         day: "numeric",
@@ -223,121 +170,84 @@ export const ProductQA = ({ productId }: { productId: string }) => {
 
   return (
     <section className="w-full" dir="rtl">
-      {/* =====================================================
-          HEADER
-      ===================================================== */}
-
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className="h-[2px] w-4 shrink-0 rounded-full bg-[#D4777D]" />
-
-            <span className="font-serif text-[6px] tracking-[0.22em] text-[#B86168]">QUESTIONS</span>
+            <span className="h-px w-7 bg-[#D8C29A]" />
+            <span className="text-[7px] font-semibold tracking-[.24em] text-[#9A825B]">QUESTIONS</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />
           </div>
 
-          <h2 className="mt-1.5 text-[14px] font-semibold text-[#403633] md:text-[17px]">{getSiteText(content, "qa_heading", "الأسئلة والأجوبة")}</h2>
+          <h2 className="mt-2 text-[18px] font-semibold tracking-[-.025em] text-[#0E0E0E] md:text-[22px]">
+            {getSiteText(content, "qa_heading", "الأسئلة والأجوبة")}
+          </h2>
 
-          <p className="mt-1 text-[7px] leading-5 text-[#9A8C87] md:text-[8px]">{getSiteText(content, "qa_subtitle", "اسأل عن المقاس، الخامة أو أي تفاصيل قبل الطلب")}</p>
+          <p className="mt-1 max-w-[360px] text-[8px] leading-5 text-[#777] md:text-[9px]">
+            {getSiteText(content, "qa_subtitle", "اسأل عن المقاس أو الخامة أو أي تفصيل قبل الطلب.")}
+          </p>
         </div>
 
-        <button type="button" onClick={() => setShowAskForm((current) => !current)} className={`flex h-[34px] shrink-0 items-center justify-center gap-1.5 rounded-[10px] px-3 text-[8px] font-semibold transition-colors ${showAskForm ? "border border-[#E2D4D0] bg-white text-[#8B706C]" : "bg-[#D4777D] text-white active:bg-[#C96B72]"}`}>
-          {showAskForm ? (
-            <>
-              <X className="h-3 w-3" strokeWidth={1.7} />
-              إلغاء
-            </>
-          ) : (
-            <>
-              <MessageCircleQuestion className="h-3 w-3" strokeWidth={1.6} />
-              اسأل عن المنتج
-            </>
-          )}
+        <button
+          type="button"
+          onClick={() => setShowAskForm((current) => !current)}
+          className={`flex h-9 shrink-0 items-center gap-1.5 border px-3 text-[8px] font-semibold transition-colors ${
+            showAskForm
+              ? "border-[#D8C29A] bg-white text-[#0E0E0E]"
+              : "border-[#0E0E0E] bg-[#0E0E0E] text-white"
+          }`}
+        >
+          {showAskForm ? <X className="h-3 w-3" /> : <MessageCircleQuestion className="h-3 w-3" />}
+          {showAskForm ? "إلغاء" : "اسأل عن المنتج"}
         </button>
       </div>
 
-      {/* =====================================================
-          SIMPLE STATS
-      ===================================================== */}
-
-      {questions.length > 0 && (
-        <div className="mt-4 flex items-center gap-4 border-y border-[#F0E8E5] py-2.5">
-          <div className="flex items-center gap-1.5">
-            <MessageCircleQuestion className="h-3.5 w-3.5 stroke-[1.5] text-[#C66C72]" />
-
-            <span className="text-[7px] text-[#847671]">
-              <strong className="font-semibold text-[#5E504C]">{questions.length}</strong> {questions.length === 1 ? "سؤال" : "أسئلة"}
-            </span>
-          </div>
-
-          <span className="h-3 w-px bg-[#E8DEDA]" />
-
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="h-3.5 w-3.5 stroke-[1.5] text-[#6E9274]" />
-
-            <span className="text-[7px] text-[#847671]">
-              <strong className="font-semibold text-[#5E504C]">{answeredCount}</strong> تمت الإجابة
-            </span>
-          </div>
-
-          <span className="h-3 w-px bg-[#E8DEDA]" />
-
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="h-3.5 w-3.5 stroke-[1.5] text-[#9A7773]" />
-            <span className="text-[7px] text-[#847671]">ردود المتجر</span>
-          </div>
-        </div>
-      )}
-
-      {/* =====================================================
-          ASK FORM
-      ===================================================== */}
-
       {showAskForm && (
-        <div className="mt-4 overflow-hidden rounded-[14px] border border-[#E9DEDA] bg-[#FFFDFC]">
+        <div className="mt-5 border-y border-[#E7E2D9] bg-[#FAF9F6] px-3 py-4 md:px-4">
           {authChecking ? (
-            <div className="flex min-h-[110px] items-center justify-center">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#E9D1CF] border-t-[#D4777D]" />
+            <div className="flex min-h-[96px] items-center justify-center">
+              <span className="h-5 w-5 animate-spin rounded-full border-2 border-[#E7E2D9] border-t-[#0E0E0E]" />
             </div>
-          ) : !canAskQuestion ? (
-            <div className="p-4">
-              <div className="flex items-start gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FAECE9]">
-                  <AlertCircle className="h-4 w-4 stroke-[1.5] text-[#C76970]" />
-                </span>
-
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] font-semibold text-[#4A3D39]">{getSiteText(content, "qa_auth_required", "تسجيل الدخول مطلوب")}</p>
-
-                  <p className="mt-1 text-[8px] leading-5 text-[#978983]">{getSiteText(content, "qa_auth_message", "سجل دخولك حتى تتمكن من طرح سؤال عن هذا المنتج.")}</p>
-                </div>
+          ) : !supabaseAuthed ? (
+            <div className="flex items-center justify-between gap-4 py-2">
+              <div>
+                <p className="text-[10px] font-semibold text-[#0E0E0E]">سجّل دخولك لطرح سؤال</p>
+                <p className="mt-1 text-[8px] leading-5 text-[#777]">يمكنك بعدها متابعة سؤالك والعودة إليه بسهولة.</p>
               </div>
 
-              <Link to="/auth" className="mt-3 flex h-[39px] w-full items-center justify-center gap-2 rounded-[10px] bg-[#D4777D] text-[8px] font-semibold text-white md:w-auto md:px-5">
-                <LogIn className="h-3.5 w-3.5" strokeWidth={1.6} />
-                {getSiteText(content, "qa_go_to_login", "تسجيل الدخول")}
+              <Link to="/auth" className="flex h-9 shrink-0 items-center gap-1.5 bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white">
+                <LogIn className="h-3 w-3" />
+                تسجيل الدخول
               </Link>
             </div>
           ) : (
-            <div className="p-3.5 md:p-4">
-              <div className="mb-3">
-                <p className="text-[10px] font-semibold text-[#493C38]">{getSiteText(content, "qa_ask_question", "ما الذي تريد معرفته؟")}</p>
-
-                <p className="mt-1 text-[7px] leading-5 text-[#A0938E]">اكتب سؤالك بوضوح ليسهل على فريق فلامنجو الإجابة عليه.</p>
+            <div>
+              <label className="text-[9px] font-semibold text-[#0E0E0E]">سؤالك</label>
+              <div className="relative mt-2">
+                <textarea
+                  value={newQuestion}
+                  onChange={(event) => setNewQuestion(event.target.value.slice(0, 350))}
+                  rows={3}
+                  disabled={loading}
+                  placeholder="مثال: هل المقاس يطابق المقاسات المعتادة؟"
+                  className="w-full resize-none border border-[#DED8CE] bg-white px-3 py-3 pb-7 text-[9px] leading-6 text-[#0E0E0E] outline-none placeholder:text-[#AAA] focus:border-[#C9B183]"
+                />
+                <span className="absolute bottom-2 left-2 text-[6px] text-[#999]">{newQuestion.length}/350</span>
               </div>
 
-              <div className="relative">
-                <textarea value={newQuestion} onChange={(event) => setNewQuestion(event.target.value.slice(0, 350))} placeholder={getSiteText(content, "qa_placeholder", "مثال: هل المقاس يطابق المقاسات المعتادة؟")} rows={3} disabled={loading} className="w-full resize-none rounded-[11px] border border-[#E7DCD8] bg-white px-3 py-3 pb-7 text-[9px] leading-6 text-[#4C403C] outline-none placeholder:text-[#B0A29D] focus:border-[#D9AEAA] disabled:opacity-50" />
-
-                <span className="pointer-events-none absolute bottom-2 left-2.5 text-[6px] text-[#B4A6A1]">{newQuestion.length}/350</span>
-              </div>
-
-              <div className="mt-2.5 flex items-end justify-between gap-3">
-                <p className="max-w-[220px] text-[6px] leading-4 text-[#A89B96]">لا تكتب رقم الهاتف أو أي بيانات شخصية داخل السؤال.</p>
-
-                <button type="button" onClick={handleAskQuestion} disabled={loading || newQuestion.trim().length < 5} className="flex h-[36px] shrink-0 items-center justify-center gap-1.5 rounded-[9px] bg-[#D4777D] px-4 text-[8px] font-semibold text-white active:bg-[#C96B72] disabled:cursor-not-allowed disabled:opacity-40">
-                  {loading ? <span className="h-3 w-3 animate-spin rounded-full border-2 border-white/40 border-t-white" /> : <Send className="h-3 w-3" strokeWidth={1.7} />}
-
-                  {loading ? "جارٍ الإرسال" : getSiteText(content, "qa_send", "إرسال السؤال")}
+              <div className="mt-3 flex items-center justify-between gap-3">
+                <p className="text-[6px] leading-4 text-[#999]">لا تكتب رقم الهاتف أو أي بيانات شخصية داخل السؤال.</p>
+                <button
+                  type="button"
+                  onClick={handleAskQuestion}
+                  disabled={loading || newQuestion.trim().length < 5}
+                  className="flex h-9 shrink-0 items-center gap-1.5 bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white disabled:opacity-40"
+                >
+                  {loading ? (
+                    <span className="h-3 w-3 animate-spin rounded-full border-2 border-white/35 border-t-white" />
+                  ) : (
+                    <Send className="h-3 w-3" />
+                  )}
+                  {loading ? "جارٍ الإرسال" : "إرسال السؤال"}
                 </button>
               </div>
             </div>
@@ -345,187 +255,124 @@ export const ProductQA = ({ productId }: { productId: string }) => {
         </div>
       )}
 
-      {/* =====================================================
-          LOADING
-      ===================================================== */}
+      {questions.length >= 4 && (
+        <div className="relative mt-5">
+          <Search className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#999]" />
+          <input
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="ابحث في الأسئلة"
+            className="h-10 w-full border border-[#E7E2D9] bg-white pr-9 pl-9 text-[8px] text-[#0E0E0E] outline-none focus:border-[#C9B183]"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="absolute left-2 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center text-[#777]"
+              aria-label="مسح البحث"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          )}
+        </div>
+      )}
 
       {isLoading ? (
-        <div className="mt-4 space-y-2">
+        <div className="mt-5 space-y-3">
           {[1, 2, 3].map((item) => (
-            <div key={item} className="h-[68px] animate-pulse rounded-[10px] bg-[#F7F3F1]" />
+            <div key={item} className="h-16 animate-pulse bg-[#F4F2EE]" />
           ))}
         </div>
-      ) : questions.length === 0 ? (
-        /* ===================================================
-            EMPTY
-        =================================================== */
+      ) : filteredQuestions.length === 0 ? (
+        <div className="mt-5 border-y border-[#E7E2D9] py-8 text-center">
+          <MessageCircleQuestion className="mx-auto h-5 w-5 text-[#9A825B]" strokeWidth={1.4} />
+          <p className="mt-3 text-[11px] font-semibold text-[#0E0E0E]">
+            {searchQuery ? "لا توجد نتائج" : getSiteText(content, "qa_empty", "لا توجد أسئلة حتى الآن")}
+          </p>
+          <p className="mx-auto mt-1 max-w-[300px] text-[8px] leading-5 text-[#777]">
+            {searchQuery ? "جرّب كلمة بحث مختلفة." : "لديك استفسار عن هذا المنتج؟ كن أول من يسأل."}
+          </p>
 
-        <div className="mt-4 flex min-h-[150px] flex-col items-center justify-center rounded-[14px] border border-dashed border-[#E5D9D5] bg-[#FFFCFB] px-5 text-center">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FAECE9]">
-            <MessageCircleQuestion className="h-4 w-4 stroke-[1.5] text-[#C66C72]" />
-          </span>
-
-          <p className="mt-3 text-[10px] font-semibold text-[#493D39]">{getSiteText(content, "qa_empty", "لا توجد أسئلة حتى الآن")}</p>
-
-          <p className="mt-1 max-w-[270px] text-[7px] leading-5 text-[#9B8D88]">لديك استفسار عن المنتج؟ يمكنك أن تكون أول من يسأل.</p>
-
-          {!showAskForm && (
-            <button type="button" onClick={() => setShowAskForm(true)} className="mt-3 h-[34px] rounded-[9px] border border-[#D9AEAA] bg-white px-4 text-[8px] font-semibold text-[#A95B61]">
-              اسأل أول سؤال
+          {!searchQuery && !showAskForm && (
+            <button
+              type="button"
+              onClick={() => setShowAskForm(true)}
+              className="mt-4 border-b border-[#D8C29A] pb-1 text-[8px] font-semibold text-[#0E0E0E]"
+            >
+              اطرح أول سؤال
             </button>
           )}
         </div>
       ) : (
-        <>
-          {/* =================================================
-              SEARCH
-          ================================================= */}
+        <div className="mt-5 border-t border-[#E7E2D9]">
+          {displayedQuestions.map((question) => {
+            const expanded = expandedId === question.id;
+            const questionText = question.content_ar || question.content;
+            const answerText = question.answer_ar || question.answer;
+            const answered = Boolean(answerText);
 
-          {questions.length >= 4 && (
-            <div className="relative mt-4">
-              <Search className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 stroke-[1.4] text-[#A99B96]" />
+            return (
+              <article key={question.id} className="border-b border-[#E7E2D9]">
+                <button
+                  type="button"
+                  onClick={() => setExpandedId(expanded ? null : question.id)}
+                  className="flex w-full items-start gap-3 py-4 text-right"
+                >
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center border border-[#D8C29A] text-[8px] font-semibold text-[#9A825B]">
+                    س
+                  </span>
 
-              <input value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="ابحث في الأسئلة..." className="h-[39px] w-full rounded-[11px] border border-[#E8DEDA] bg-[#FCFAF9] pr-9 pl-8 text-[8px] text-[#514541] outline-none placeholder:text-[#AFA29D] focus:border-[#D9AEAA] focus:bg-white" />
-
-              {searchQuery && (
-                <button type="button" onClick={() => setSearchQuery("")} className="absolute left-3 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-[#F2ECE9] text-[#948580]">
-                  <X className="h-2.5 w-2.5" />
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* =================================================
-              RESULTS
-          ================================================= */}
-
-          {searchQuery.trim() && <p className="mt-2 text-[7px] text-[#9C8E89]">{filteredQuestions.length > 0 ? `${filteredQuestions.length} نتيجة` : "لا توجد نتائج"}</p>}
-
-          {/* =================================================
-              NO SEARCH RESULT
-          ================================================= */}
-
-          {filteredQuestions.length === 0 ? (
-            <div className="flex min-h-[130px] flex-col items-center justify-center text-center">
-              <Search className="h-5 w-5 stroke-[1.4] text-[#C3B6B1]" />
-
-              <p className="mt-2 text-[8px] font-medium text-[#756762]">لم نجد سؤالاً مطابقاً</p>
-
-              <button type="button" onClick={() => { setSearchQuery(""); setShowAskForm(true); }} className="mt-2 text-[7px] font-semibold text-[#B86168]">
-                امسح البحث واسأل سؤالك
-              </button>
-            </div>
-          ) : (
-            /* =================================================
-                QUESTIONS
-            ================================================= */
-
-            <div className="mt-3 overflow-hidden rounded-[14px] border border-[#EAE0DC] bg-white">
-              {displayedQuestions.map((question, index) => {
-                const expanded = expandedId === question.id;
-                const questionText = question.content_ar || question.content;
-                const answerText = question.answer_ar || question.answer;
-                const answered = Boolean(answerText);
-
-                return (
-                  <article key={question.id} className={index !== displayedQuestions.length - 1 ? "border-b border-[#F0E8E5]" : ""}>
-                    {/* QUESTION */}
-
-                    <button type="button" onClick={() => setExpandedId(expanded ? null : question.id)} className="flex w-full items-start gap-2.5 px-3 py-3.5 text-right active:bg-[#FFF9F7]">
-                      <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[9px] font-semibold ${answered ? "bg-[#FAECE9] text-[#B86168]" : "bg-[#F5F2F0] text-[#8C7D78]"}`}>
-                        س
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[9px] font-semibold leading-5 text-[#0E0E0E] md:text-[10px]">{questionText}</p>
+                    <div className="mt-1.5 flex flex-wrap items-center gap-2 text-[6px] text-[#888]">
+                      <span>{question.author}</span>
+                      <span className="h-1 w-1 rounded-full bg-[#A9D8D3]" />
+                      <span className="flex items-center gap-1"><Clock3 className="h-2.5 w-2.5" />{formatDate(question.created_at)}</span>
+                      <span className={answered ? "text-[#527258]" : "text-[#9A825B]"}>
+                        {answered ? "تمت الإجابة" : "بانتظار الرد"}
                       </span>
+                    </div>
+                  </div>
 
-                      <div className="min-w-0 flex-1">
-                        <p className="line-clamp-2 text-[9px] font-semibold leading-5 text-[#463A36] md:text-[10px]">{questionText}</p>
+                  <ChevronDown className={`mt-1 h-3.5 w-3.5 shrink-0 text-[#777] transition-transform ${expanded ? "rotate-180" : ""}`} />
+                </button>
 
-                        <div className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                          <span className="max-w-[120px] truncate text-[6px] text-[#9D8E89]">
-                            {getSiteText(content, "qa_by", "بواسطة")} {question.author}
+                {expanded && (
+                  <div className="pb-4 pr-9">
+                    {answered ? (
+                      <div className="border-r-2 border-[#D8C29A] bg-[#FAF9F6] px-3 py-3">
+                        <div className="mb-2 flex items-center gap-2">
+                          <span className="flex h-5 w-5 items-center justify-center bg-[#0E0E0E] text-white">
+                            <Check className="h-2.5 w-2.5" />
                           </span>
-
-                          {question.created_at && (
-                            <>
-                              <span className="h-[3px] w-[3px] rounded-full bg-[#D4C8C4]" />
-
-                              <span className="flex items-center gap-1 text-[6px] text-[#A99B96]">
-                                <Clock3 className="h-2.5 w-2.5" />
-                                {formatDate(question.created_at)}
-                              </span>
-                            </>
-                          )}
-
-                          <span className={`flex items-center gap-1 text-[6px] font-medium ${answered ? "text-[#5E8564]" : "text-[#A17C4F]"}`}>
-                            {answered ? (
-                              <>
-                                <CheckCircle2 className="h-2.5 w-2.5" strokeWidth={1.8} />
-                                تمت الإجابة
-                              </>
-                            ) : (
-                              <>
-                                <Clock3 className="h-2.5 w-2.5" strokeWidth={1.6} />
-                                بانتظار الرد
-                              </>
-                            )}
+                          <span className="text-[8px] font-semibold text-[#0E0E0E]">Genan</span>
+                          <span className="flex items-center gap-1 text-[6px] text-[#777]">
+                            <ShieldCheck className="h-2.5 w-2.5" />
+                            رد المتجر
                           </span>
                         </div>
+                        <p className="whitespace-pre-line text-[8px] leading-6 text-[#555] md:text-[9px]">{answerText}</p>
                       </div>
-
-                      <ChevronDown className={`mt-1 h-3.5 w-3.5 shrink-0 stroke-[1.5] text-[#A49792] transition-transform duration-150 ${expanded ? "rotate-180 text-[#B86168]" : ""}`} />
-                    </button>
-
-                    {/* ANSWER */}
-
-                    {expanded && (
-                      <div className="px-3 pb-3.5 pr-[50px]">
-                        {answered ? (
-                          <div className="relative rounded-[11px] bg-[#FFF7F5] px-3 py-3">
-                            <span className="absolute right-0 top-3 h-5 w-[2px] rounded-full bg-[#D4777D]" />
-
-                            <div className="mb-2 flex items-center gap-1.5">
-                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#D4777D]">
-                                <Check className="h-2.5 w-2.5 stroke-[2] text-white" />
-                              </span>
-
-                              <span className="text-[8px] font-semibold text-[#A95B61]">Flamingo Park</span>
-
-                              <span className="flex items-center gap-1 text-[6px] text-[#98716F]">
-                                <ShieldCheck className="h-2.5 w-2.5" strokeWidth={1.6} />
-                                رد المتجر
-                              </span>
-                            </div>
-
-                            <p className="whitespace-pre-line text-[8px] leading-6 text-[#6E5E59] md:text-[9px]">{answerText}</p>
-
-                            {question.helpful_count > 0 && <p className="mt-2 border-t border-[#EEDFDA] pt-2 text-[6px] text-[#A2928D]">وجد {question.helpful_count} من العملاء هذه الإجابة مفيدة</p>}
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-2 rounded-[10px] bg-[#F8F5F3] px-3 py-2.5">
-                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#D49B59]" />
-
-                            <p className="text-[7px] font-medium text-[#89766E]">{getSiteText(content, "qa_no_answer", "بانتظار رد فريق فلامنجو")}</p>
-                          </div>
-                        )}
-                      </div>
+                    ) : (
+                      <p className="text-[7px] text-[#777]">بانتظار رد فريق جنان.</p>
                     )}
-                  </article>
-                );
-              })}
-            </div>
-          )}
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      )}
 
-          {/* =================================================
-              SHOW ALL
-          ================================================= */}
-
-          {filteredQuestions.length > 4 && (
-            <button type="button" onClick={() => setShowAll((current) => !current)} className="mt-2 flex h-[38px] w-full items-center justify-center gap-1.5 rounded-[10px] border border-[#E5DAD6] bg-white text-[8px] font-semibold text-[#A95B61] active:bg-[#FFF8F6]">
-              {showAll ? "عرض أقل" : `عرض كل الأسئلة (${filteredQuestions.length})`}
-
-              <ChevronDown className={`h-3 w-3 stroke-[1.6] transition-transform ${showAll ? "rotate-180" : ""}`} />
-            </button>
-          )}
-        </>
+      {filteredQuestions.length > 4 && (
+        <button
+          type="button"
+          onClick={() => setShowAll((current) => !current)}
+          className="mt-3 flex h-9 w-full items-center justify-center gap-1.5 border border-[#E7E2D9] bg-white text-[8px] font-semibold text-[#0E0E0E]"
+        >
+          {showAll ? "عرض أقل" : `عرض كل الأسئلة (${filteredQuestions.length})`}
+          <ChevronDown className={`h-3 w-3 transition-transform ${showAll ? "rotate-180" : ""}`} />
+        </button>
       )}
     </section>
   );
