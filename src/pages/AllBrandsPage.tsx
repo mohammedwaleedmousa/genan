@@ -39,10 +39,10 @@ const AllBrandsPage = () => {
           <div className="mx-auto max-w-[1760px]">
             <div className="mb-4 flex items-center gap-3">
               <span className="h-px w-12 bg-[#D8C29A]" />
-              <span className="text-[8px] font-semibold tracking-[.34em] text-[#D8C29A]">GENAN / BRANDS INDEX</span>
+              <span className="text-[8px] font-semibold tracking-[.34em] text-[#D8C29A]">GENAN / BRANDS</span>
             </div>
             <h1 className="max-w-[820px] text-[42px] font-medium leading-[1.25] tracking-[-.055em] sm:text-[54px] md:text-[72px]">
-              العلامات، كفهرس بصري بسيط.
+              ماركات نختارها بعناية لأسلوبك.
             </h1>
           </div>
         </section>
