@@ -90,8 +90,8 @@ const FavoritesPage = () => {
       added += 1;
     });
 
-    if (added > 0) toast({ title: "تمت الإضافة للسلة", description: `تمت إضافة ${added} منتج بدون خيارات إلزامية.` });
-    if (needsSelection > 0) toast({ title: "بعض المنتجات تحتاج اختياراً", description: `${needsSelection} منتج يحتاج اختيار المقاس أو اللون من صفحة المنتج قبل إضافته للسلة.` });
+    if (added > 0) toast({ title: "تمت الإضافة للسلة", description: `تمت إضافة ${added} منتج إلى سلتك.` });
+    if (needsSelection > 0) toast({ title: "اختر التفاصيل أولًا", description: `${needsSelection} منتج يحتاج اختيار المقاس أو اللون قبل إضافته للسلة.` });
     if (unavailable > 0) toast({ title: "منتجات غير متوفرة", description: `${unavailable} منتج غير متوفر حالياً ولم تتم إضافته.` });
   };
 
