@@ -1,5 +1,5 @@
-const SHELL_CACHE = "genan-shell-v1";
-const IMAGE_CACHE = "genan-images-v1";
+const SHELL_CACHE = "genan-shell-v3";
+const IMAGE_CACHE = "genan-images-v2";
 const APP_SHELL = ["/index.html", "/manifest.json"];
 
 const isCacheableResponse = (response) => response && (response.ok || response.type === "opaque");
