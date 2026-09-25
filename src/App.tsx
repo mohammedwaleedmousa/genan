@@ -16,6 +16,7 @@ import CustomerAssistantEntry from "@/components/CustomerAssistantEntry";
 import CustomerSessionSync from "@/components/CustomerSessionSync";
 import StorefrontRealtimeSync from "@/components/StorefrontRealtimeSync";
 import { ThemeProvider } from "next-themes";
+import GoldNumbers from "@/components/GoldNumbers";
 
 const isLazyImportError = (error: unknown) => {
   const message = String((error as { message?: unknown })?.message || error || "");
@@ -239,6 +240,7 @@ const App = () => {
         <BrowserRouter>
           <StorefrontRealtimeSync />
           <ScrollToTop />
+          <GoldNumbers />
           <AnalyticsTracker />
           {SHOW_CUSTOMER_ASSISTANT && <CustomerAssistantEntry />}
           <Suspense fallback={<RouteFallback />}>
