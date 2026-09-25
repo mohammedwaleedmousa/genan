@@ -83,7 +83,7 @@ const NotificationsPage = () => {
               <div>
                 <h1 className="text-[23px] font-semibold tracking-[-0.025em] text-[#403633] md:text-[30px]">الإشعارات</h1>
 
-                <p className="mt-1 text-[12px] leading-6 text-[#8C7F7A]">آخر تحديثات طلباتك وتنبيهات فلامنجو.</p>
+                <p className="mt-1 text-[12px] leading-6 text-[#8C7F7A]">آخر تحديثات طلباتك وعروض جنان والتنبيهات المهمة لك.</p>
               </div>
 
               {unreadCount > 0 && (
@@ -229,7 +229,7 @@ const NotificationsPage = () => {
           {!isLoading && notifications.length > 0 && (
             <div className="mt-3 flex items-center justify-center gap-2 py-2">
               <Bell className="h-3.5 w-3.5 text-[#A99C97]" strokeWidth={1.4} />
-              <p className="text-[10px] text-[#9B8D88]">يتم تحديث الإشعارات تلقائيًا عند وصول تحديث جديد.</p>
+              <p className="text-[10px] text-[#9B8D88]">تابع كل جديد حول طلباتك وعروض جنان من مكان واحد.</p>
             </div>
           )}
         </div>
