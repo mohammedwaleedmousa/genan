@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ArrowUpLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -60,43 +60,40 @@ const CategoriesPage = () => {
         <section className="px-4 py-10 sm:px-6 md:px-[5vw] md:py-16">
           <div className="mx-auto max-w-[1760px]">
             {isLoading ? (
-              <div className="grid gap-3 md:grid-cols-2">
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <div key={index} className="h-[430px] animate-pulse bg-[#F3F3F3]" />
+              <div className="grid grid-cols-4 gap-2 md:gap-4">
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div key={index} className="aspect-[4/5] animate-pulse bg-[#F3F3F3]" />
                 ))}
               </div>
             ) : (
-              <div className="grid gap-px bg-[#EAEAEA] md:grid-cols-2">
+              <div className="grid grid-cols-4 gap-2 md:gap-4">
                 {categories.map((category, index) => (
                   <Link
                     key={category.id}
                     to={`/products?category=${category.slug}`}
-                    className="group relative min-h-[430px] overflow-hidden bg-[#F7F7F7] md:min-h-[560px]"
+                    className="group min-w-0"
                   >
-                    {category.image_url && (
-                      <img
-                        src={optimizeImage(category.image_url, 1100, 84)}
-                        alt={category.name_ar}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-                      />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/[0.06] to-transparent" />
-                    <span className="absolute left-5 top-5 text-[8px] font-semibold tracking-[.3em] text-[#A9D8D3] md:left-7 md:top-7">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    <div className="absolute inset-x-0 bottom-0 p-5 md:p-8">
-                      <div className="flex items-end justify-between gap-5">
-                        <div>
-                          <span className="text-[7px] font-semibold tracking-[.24em] text-[#E6D7B8]">{category.name}</span>
-                          <h2 className="mt-2 text-[30px] font-medium tracking-[-.035em] text-white md:text-[40px]">{category.name_ar}</h2>
-                          {category.description_ar && <p className="mt-3 max-w-[430px] text-[10px] leading-6 text-white/58 md:text-[11px]">{category.description_ar}</p>}
-                        </div>
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/35 text-white transition-colors group-hover:bg-white group-hover:text-[#0E0E0E]">
-                          <ArrowUpLeft className="h-4 w-4" strokeWidth={1.4} />
-                        </span>
+                    <div className="relative aspect-[4/5] overflow-hidden border border-[#EAEAEA] bg-[#F7F7F7]">
+                      {category.image_url ? (
+                        <img
+                          src={optimizeImage(category.image_url, 520, 82)}
+                          alt={category.name_ar}
+                          loading={index < 8 ? "eager" : "lazy"}
+                          decoding="async"
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-[#F3F3F3]" />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/48 via-transparent to-transparent" />
+                      <span className="absolute left-2 top-2 text-[6px] font-semibold tracking-[.18em] text-[#A9D8D3] md:left-3 md:top-3 md:text-[7px]">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <div className="absolute inset-x-0 bottom-0 p-2 md:p-3">
+                        <h2 className="truncate text-[10px] font-semibold text-white md:text-[14px]">{category.name_ar}</h2>
                       </div>
                     </div>
+                    <p className="mt-1 truncate text-center text-[6px] tracking-[.08em] text-[#9A825B] md:text-[8px]">{category.name}</p>
                   </Link>
                 ))}
               </div>
