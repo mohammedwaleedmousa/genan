@@ -293,37 +293,23 @@ body[data-storefront="genan"] main a:focus-visible {
 }
 
 
-/* Authentication does not mount Navbar, so it gets its own Genan treatment. */
+/* Desktop auth keeps the same restrained Genan composition. */
 @media (min-width: 1024px) {
   :where(body:has(#auth-phone)) main {
-    display: grid;
     min-height: 100vh;
-    place-items: center;
-    padding: 48px;
-    background:
-      linear-gradient(90deg, rgba(23,58,45,.035) 1px, transparent 1px),
-      linear-gradient(rgba(23,58,45,.035) 1px, transparent 1px),
-      #FFFFFF;
-    background-size: 42px 42px;
+    padding: 56px 24px;
+    background: #FFFFFF !important;
   }
 
   :where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] {
-    width: min(100%, 1120px) !important;
-    max-width: 1120px !important;
-    display: grid !important;
-    grid-template-columns: minmax(280px, .82fr) minmax(450px, 1.18fr);
-    gap: 84px;
-    align-items: center;
+    width: min(100%, 460px) !important;
+    max-width: 460px !important;
+    margin-inline: auto;
     padding: 0 !important;
   }
 
   :where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section {
-    grid-column: 2;
-    grid-row: 1 / span 5;
-    border-radius: 0 !important;
-    border: 1px solid #EAEAEA !important;
-    box-shadow: none !important;
-    padding: 38px !important;
-    background: rgba(248,246,240,.88) !important;
+    padding: 32px 24px !important;
+    background: #FFFFFF !important;
   }
 }
