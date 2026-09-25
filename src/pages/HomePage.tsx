@@ -177,7 +177,7 @@ const HomePage = () => {
         {featured.length > 0 && (
           <section className="bg-white py-7 md:py-14">
             <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
-              <SectionHeader eyebrow="GENAN / EDIT" title="مختارات جنان" to="/products?sort=featured" />
+              <SectionHeader eyebrow="GENAN / SELECTION" title="مختارات جنان" to="/products?sort=featured" />
 
               <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 sm:gap-x-3 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
                 {featured.map((product, index) => (
