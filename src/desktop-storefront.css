@@ -147,6 +147,152 @@ body[data-storefront="genan"] main a:focus-visible {
   }
 }
 
+
+/* Authentication does not mount Navbar, so give it the Genan identity directly. */
+:where(body:has(#auth-phone)) {
+  background: #FFFFFF !important;
+}
+
+:where(body:has(#auth-phone)) main {
+  background: #FFFFFF !important;
+  color: #0E0E0E !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] {
+  max-width: 460px !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > div:first-child {
+  margin-top: 8px;
+}
+
+:where(body:has(#auth-phone)) button[aria-label="العودة إلى المتجر"] {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  display: inline-flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+}
+
+:where(body:has(#auth-phone)) button[aria-label="العودة إلى المتجر"] img {
+  display: none !important;
+}
+
+:where(body:has(#auth-phone)) button[aria-label="العودة إلى المتجر"]::before {
+  content: "GENAN";
+  display: block;
+  font-family: "Playfair Display", "Cormorant Garamond", serif;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .22em;
+  color: #0E0E0E;
+  padding-inline-start: .22em;
+}
+
+:where(body:has(#auth-phone)) button[aria-label="العودة إلى المتجر"]::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 1px;
+  margin-top: 11px;
+  background: #D8C29A;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > div:nth-child(2) {
+  display: none !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section {
+  margin-top: 34px !important;
+  border-radius: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-top: 1px solid #E8E3DA !important;
+  border-bottom: 1px solid #E8E3DA !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section h1 {
+  color: #0E0E0E !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section p,
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section label {
+  color: #76716A !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section > div[class*="grid-cols-2"] {
+  border-radius: 0 !important;
+  background: transparent !important;
+  border-bottom: 1px solid #EAEAEA;
+  padding: 0 !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section > div[class*="grid-cols-2"] > button {
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #8B8B8B !important;
+  border-bottom: 2px solid transparent;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section > div[class*="grid-cols-2"] > button[class*="text-[#443936]"] {
+  color: #0E0E0E !important;
+  border-bottom-color: #D8C29A !important;
+}
+
+:where(body:has(#auth-phone)) #auth-name,
+:where(body:has(#auth-phone)) #auth-region,
+:where(body:has(#auth-phone)) #auth-phone,
+:where(body:has(#auth-phone)) #auth-password,
+:where(body:has(#auth-phone)) select[aria-label="الدولة"] {
+  border-radius: 0 !important;
+  border-color: #E3DED5 !important;
+  background: #FFFFFF !important;
+  color: #0E0E0E !important;
+  box-shadow: none !important;
+}
+
+:where(body:has(#auth-phone)) #auth-name:focus,
+:where(body:has(#auth-phone)) #auth-region:focus,
+:where(body:has(#auth-phone)) #auth-phone:focus,
+:where(body:has(#auth-phone)) #auth-password:focus,
+:where(body:has(#auth-phone)) select[aria-label="الدولة"]:focus {
+  border-color: #C9B183 !important;
+  outline: none !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section form > button[type="submit"] {
+  border-radius: 0 !important;
+  background: #0E0E0E !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section > button:last-child {
+  border-radius: 0 !important;
+  border-color: #E3DED5 !important;
+  background: #FFFFFF !important;
+  color: #57534D !important;
+  box-shadow: none !important;
+}
+
+:where(body:has(#auth-phone)) main > div[class*="max-w-[520px]"] > section::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin: -10px auto 18px;
+  border-radius: 999px;
+  background: #A9D8D3;
+}
+
+
 /* Authentication does not mount Navbar, so it gets its own Genan treatment. */
 @media (min-width: 1024px) {
   :where(body:has(#auth-phone)) main {
