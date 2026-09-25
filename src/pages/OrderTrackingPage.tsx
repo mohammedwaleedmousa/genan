@@ -429,7 +429,7 @@ const OrderTrackingPage = () => {
                 <div className="mb-4">
                   <h2 className="text-[10px] font-semibold text-[#493D39]">رحلة الطلب</h2>
 
-                  <p className="mt-1 text-[6px] text-[#8A938B]">يتم تحديث الحالة تلقائيًا كل عدة ثوانٍ.</p>
+                  <p className="mt-1 text-[6px] text-[#8A938B]">ستظهر هنا كل مرحلة جديدة يمر بها طلبك.</p>
                 </div>
 
                 <div>
