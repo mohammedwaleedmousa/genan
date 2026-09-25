@@ -170,7 +170,7 @@ const ProductsPageServer = () => {
             </div>
             <div className="md:text-left">
               <p className="text-[11px] leading-7 text-[#707070] md:text-[13px]">
-                كتالوج نظيف، فلترة مباشرة، ومساحة كافية لكل قطعة بدون عناصر تشتت الانتباه.
+                اكتشف تشكيلتنا من الأزياء والإكسسوارات المختارة بعناية، واعثر على القطعة التي تكمل أسلوبك.
               </p>
               <p className="mt-4 text-[8px] font-semibold tracking-[.22em] text-[#A9D8D3]">{filtered.length} PRODUCTS</p>
             </div>
