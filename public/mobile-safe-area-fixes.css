@@ -15,7 +15,10 @@
   }
 
   header.fixed.inset-x-0.top-0 + div[aria-hidden="true"] {
-    height: calc(112px + env(safe-area-inset-top)) !important;
+    /* Match the real 56px mobile navbar height + the iOS safe area.
+       The old 112px value duplicated an entire navbar height and created
+       a large blank band at the top of every customer page. */
+    height: calc(56px + env(safe-area-inset-top)) !important;
   }
 
   header.sticky.top-0 {
