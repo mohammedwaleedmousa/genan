@@ -1,6 +1,6 @@
-const SHELL_CACHE = "flamingopark-shell-v3";
-const IMAGE_CACHE = "flamingopark-images-v1";
-const APP_SHELL = ["/index.html", "/manifest.json", "/icons/app-icon-1024.png"];
+const SHELL_CACHE = "genan-shell-v1";
+const IMAGE_CACHE = "genan-images-v1";
+const APP_SHELL = ["/index.html", "/manifest.json"];
 
 const isCacheableResponse = (response) => response && (response.ok || response.type === "opaque");
 
