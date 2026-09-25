@@ -683,3 +683,20 @@
     display: inline-block;
   }
 }
+
+/* Genan global number treatment — numeric glyphs stay gold across customer pages. */
+::highlight(genan-numbers) {
+  color: #D8C29A;
+}
+
+html[data-genan-gold-numbers="true"] :is(
+  input[type="number"],
+  input[type="tel"],
+  input[inputmode="numeric"],
+  input[inputmode="decimal"],
+  input[inputmode="tel"]
+) {
+  color: #D8C29A !important;
+  caret-color: #0E0E0E;
+  font-variant-numeric: tabular-nums;
+}
