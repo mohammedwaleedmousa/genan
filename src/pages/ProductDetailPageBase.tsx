@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Heart, Minus, Package, Plus, RotateCcw, Share2, Shield, ShoppingBag, ShoppingCart, Star, Truck } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, ChevronRight, Heart, Minus, Package, Plus, RotateCcw, Share2, Shield, ShoppingBag, Star, Truck } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 import Navbar from "@/components/Navbar";
@@ -14,7 +14,6 @@ import ProductReviews from "@/components/ProductReviews";
 import ProductQA from "@/components/ProductQA";
 import AccessoryCard from "@/components/AccessoryCard";
 import ProductDetailSkeleton from "@/components/ProductDetailSkeleton";
-import Logo from "@/components/Logo";
 
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useStore, Product } from "@/store/useStore";
@@ -757,44 +756,11 @@ const ProductDetailPage = () => {
 
   return (
     <div className="genan-product-detail min-h-screen bg-white" dir="rtl">
-      {/* =====================================================
-          DESKTOP NAVBAR
-      ===================================================== */}
-
-      <div className="hidden md:block">
-        <Navbar />
-      </div>
-
+      <Navbar />
       <CartDrawer />
 
-      {/* =====================================================
-          MOBILE HEADER
-      ===================================================== */}
-
-      <header className="sticky top-0 z-50 flex h-[58px] items-center justify-between border-b border-[#E7E2D9] bg-white px-3 md:hidden">
-        <button type="button" onClick={() => navigate(-1)} aria-label="رجوع" className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
-          <ChevronRight className="h-[18px] w-[18px]" strokeWidth={1.5} />
-        </button>
-
-        <button type="button" onClick={() => navigate("/home")} aria-label="Genan" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Logo size="md" />
-        </button>
-
-        <div className="flex items-center gap-0.5">
-          <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
-            <Share2 className="h-[17px] w-[17px]" strokeWidth={1.4} />
-          </button>
-          <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
-            <Heart className={`h-[18px] w-[18px] ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.4} />
-          </button>
-          <button type="button" onClick={() => navigate("/cart")} aria-label="السلة" className="flex h-9 w-9 items-center justify-center text-[#0E0E0E]">
-            <ShoppingCart className="h-[18px] w-[18px]" strokeWidth={1.4} />
-          </button>
-        </div>
-      </header>
-
       <main className="bg-white pb-[82px] md:pb-20">
-        <div className="mx-auto w-full max-w-[1600px] md:px-7 lg:px-10">
+        <div className="mx-auto w-full max-w-[1600px] px-3 pt-3 md:px-7 md:pt-0 lg:px-10">
           {/* =================================================
               BREADCRUMB
           ================================================= */}
@@ -815,16 +781,33 @@ const ProductDetailPage = () => {
             <span className="max-w-[300px] truncate text-[#5F5F5F]">{product.nameAr || product.name}</span>
           </nav>
 
+          <div className="mb-3 flex items-center justify-between border-b border-[#E7E2D9] pb-3 md:hidden">
+            <div className="flex items-center gap-2">
+              <span className="h-px w-7 bg-[#D8C29A]" />
+              <span className="text-[6px] font-semibold tracking-[.22em] text-[#9A825B]">GENAN / PRODUCT</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />
+            </div>
+
+            <div className="flex items-center gap-1">
+              <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#E7E2D9] text-[#0E0E0E]">
+                <Share2 className="h-3.5 w-3.5" strokeWidth={1.4} />
+              </button>
+              <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-8 w-8 items-center justify-center border border-[#E7E2D9] text-[#0E0E0E]">
+                <Heart className={`h-3.5 w-3.5 ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.4} />
+              </button>
+            </div>
+          </div>
+
           {/* =================================================
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="genan-product-stage grid grid-cols-1 bg-white lg:grid-cols-[minmax(0,1.12fr)_minmax(390px,0.88fr)] lg:gap-8 xl:gap-10">
+          <div className="genan-product-stage grid grid-cols-1 gap-3 bg-white lg:grid-cols-[minmax(0,1.08fr)_minmax(390px,0.92fr)] lg:gap-10 xl:gap-12">
             {/* ===============================================
                 GALLERY
             =============================================== */}
 
-            <section className="genan-product-gallery min-w-0 bg-[#F7F7F7]">
+            <section className="genan-product-gallery min-w-0 border border-[#E7E2D9] bg-[#F7F7F7]">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -900,7 +883,7 @@ const ProductDetailPage = () => {
                 DETAILS
             =============================================== */}
 
-            <section className="genan-product-info min-w-0 bg-white lg:my-0 lg:self-start lg:border-r lg:border-[#E7E2D9] lg:px-8 lg:py-2 xl:px-10">
+            <section className="genan-product-info min-w-0 border-t border-[#E7E2D9] bg-white lg:self-start lg:border-t-0 lg:border-r lg:border-[#E7E2D9] lg:px-8 lg:py-2 xl:px-10">
               {/* =============================================
                   TITLE + PRICE
               ============================================= */}
