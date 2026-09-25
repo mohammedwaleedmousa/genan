@@ -255,7 +255,7 @@ const CustomerAuthPage = () => {
         if (!data.session) {
           const directLogin = await supabase.auth.signInWithPassword({ phone, password: authPassword });
           if (directLogin.error || !directLogin.data.user) {
-            throw new Error("إعداد تسجيل الهاتف في Supabase يطلب تأكيد الرقم. يجب إبقاء Phone confirmation غير مفعّل للتسجيل بدون OTP.");
+            throw new Error("تعذر إكمال إنشاء الحساب الآن. حاول مرة أخرى أو تواصل معنا للمساعدة.");
           }
           user = directLogin.data.user;
         }
@@ -364,8 +364,8 @@ const CustomerAuthPage = () => {
             </h1>
             <p className="mx-auto mt-2 max-w-[350px] text-[10px] leading-5 text-[#958883] sm:text-[11px] sm:leading-6">
               {mode === "login"
-                ? "اختر الدولة، اكتب رقمك المحلي وكلمة المرور."
-                : "اختر رمز الدولة ثم اكتب رقم الهاتف بدون رمز الدولة. لا يوجد رمز OTP في التسجيل."}
+                ? "سجّل الدخول برقم هاتفك وكلمة المرور للعودة إلى حسابك."
+                : "أنشئ حسابك برقم هاتفك وكلمة المرور لتسوق أسرع ومتابعة طلباتك بسهولة."}
             </p>
           </div>
 
