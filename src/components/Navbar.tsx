@@ -6,7 +6,6 @@ import {
   List,
   MagnifyingGlass,
   ShoppingBag,
-  SignIn,
   SignOut,
   User,
   X,
