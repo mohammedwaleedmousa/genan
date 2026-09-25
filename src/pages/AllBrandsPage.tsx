@@ -61,12 +61,12 @@ const AllBrandsPage = () => {
                   <Link
                     key={brand.id}
                     to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="group relative flex min-h-[220px] flex-col justify-between border-b border-l border-[#EAEAEA] bg-white p-5 transition-colors hover:bg-[#0E0E0E] md:min-h-[280px] md:p-7"
+                    className="group relative flex min-h-[220px] flex-col justify-between border-b border-l border-[#EAEAEA] bg-white p-5 transition-all duration-200 hover:bg-[#FBF8F1] md:min-h-[280px] md:p-7"
                   >
                     <span className="text-[8px] font-semibold tracking-[.28em] text-[#A9D8D3]">{String(index + 1).padStart(2, "0")}</span>
                     <div>
-                      <h2 className="text-[20px] font-medium tracking-[.04em] text-[#0E0E0E] transition-colors group-hover:text-white md:text-[25px]">{brand.name}</h2>
-                      {brand.description && <p className="mt-2 line-clamp-2 text-[9px] leading-6 text-[#777] transition-colors group-hover:text-white/55">{brand.description}</p>}
+                      <h2 className="text-[20px] font-medium tracking-[.04em] text-[#0E0E0E] md:text-[25px]">{brand.name}</h2>
+                      {brand.description && <p className="mt-2 line-clamp-2 text-[9px] leading-6 text-[#777]">{brand.description}</p>}
                     </div>
                     <ArrowUpLeft className="absolute bottom-5 left-5 h-4 w-4 text-[#D8C29A] transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 md:bottom-7 md:left-7" />
                   </Link>
