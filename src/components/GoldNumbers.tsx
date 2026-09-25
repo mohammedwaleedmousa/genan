@@ -15,9 +15,12 @@ const GoldNumbers = () => {
     const HighlightCtor = (window as any)?.Highlight;
 
     if (isAdmin || !highlights || !HighlightCtor) {
+      document.documentElement.removeAttribute("data-genan-gold-numbers");
       highlights?.delete?.("genan-numbers");
       return;
     }
+
+    document.documentElement.setAttribute("data-genan-gold-numbers", "true");
 
     let raf = 0;
 
@@ -71,6 +74,7 @@ const GoldNumbers = () => {
       observer.disconnect();
       window.cancelAnimationFrame(raf);
       highlights.delete("genan-numbers");
+      document.documentElement.removeAttribute("data-genan-gold-numbers");
     };
   }, [location.pathname]);
 
