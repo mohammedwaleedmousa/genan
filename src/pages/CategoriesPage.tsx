@@ -48,11 +48,11 @@ const CategoriesPage = () => {
                 <span className="text-[8px] font-semibold tracking-[.34em] text-[#9A825B]">GENAN / CATEGORIES</span>
               </div>
               <h1 className="max-w-[800px] text-[40px] font-medium leading-[1.25] tracking-[-.055em] sm:text-[52px] md:text-[70px]">
-                أقسام واضحة، بدون ازدحام.
+                كل ما تحب، في مكانه.
               </h1>
             </div>
             <p className="max-w-[460px] text-[11px] leading-8 text-[#707070] md:text-[13px]">
-              كل قسم يأخذ مساحته الخاصة، مع صورة واضحة ومسار مباشر للمنتجات الموجودة داخله.
+              تصفح الأزياء والحقائب والأحذية والساعات والإكسسوارات، واختر ما يناسب أسلوبك.
             </p>
           </div>
         </section>
