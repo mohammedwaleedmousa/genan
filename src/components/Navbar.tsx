@@ -6,6 +6,7 @@ import {
   List,
   MagnifyingGlass,
   ShoppingBag,
+  SignIn,
   SignOut,
   User,
   X,
@@ -158,9 +159,12 @@ const Navbar = () => {
                 </button>
               </SheetTrigger>
 
-              <SheetContent side="right" dir="rtl" className="w-[82vw] max-w-[320px] border-l border-[#EEEAE3] bg-white p-0 shadow-[-12px_0_35px_rgba(14,14,14,.07)]">
+              <SheetContent side="right" dir="rtl" className="w-[84vw] max-w-[330px] border-l border-[#EEEAE3] bg-white p-0 shadow-[-12px_0_35px_rgba(14,14,14,.07)]">
                 <div className="flex h-[72px] items-center justify-between border-b border-[#F0ECE5] px-5">
-                  <Logo size="md" />
+                  <div>
+                    <Logo size="md" />
+                    <p className="mt-1 text-[6px] tracking-[.22em] text-[#A38B61]">GENAN / MENU</p>
+                  </div>
 
                   <button
                     type="button"
@@ -173,7 +177,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex h-[calc(100dvh-72px)] flex-col">
-                  <div className="px-5 pt-4 pb-2">
+                  <div className="border-b border-[#F4F1EB] px-5 py-4">
                     <form
                       onSubmit={(event) => {
                         event.preventDefault();
@@ -185,65 +189,135 @@ const Navbar = () => {
                       <input
                         value={searchTerm}
                         onChange={(event) => setSearchTerm(event.target.value)}
-                        placeholder="ابحث في جنان"
+                        placeholder="ابحث عن منتج أو ماركة أو قسم"
                         className="h-10 w-full border-0 border-b border-[#DDD8CF] bg-transparent pr-7 pl-1 text-[11px] outline-none transition-colors focus:border-[#C9B183]"
                       />
                     </form>
+
+                    {suggestions.length > 0 && (
+                      <div className="pt-2">
+                        {suggestions.slice(0, 4).map((item) => (
+                          <button
+                            key={`sidebar-${item.type}-${item.value}`}
+                            type="button"
+                            onClick={() => submitSearch(item.value)}
+                            className="flex w-full items-center justify-between py-2 text-right"
+                          >
+                            <span className="truncate text-[9px] font-medium text-[#555]">{item.value}</span>
+                            <span className="text-[7px] text-[#AAA]">{item.type}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
-                  <nav className="flex-1 overflow-y-auto px-3 py-3">
-                    {navLinks.map((item) => {
-                      const active = isActive(item.to);
-                      return (
-                        <button
-                          key={item.to}
-                          type="button"
-                          onClick={() => {
-                            navigate(item.to);
-                            setMenuOpen(false);
-                          }}
-                          className={`relative flex h-[50px] w-full items-center justify-between px-4 text-right transition-colors ${active ? "bg-[#FBF8F1] font-semibold text-[#0E0E0E]" : "font-medium text-[#666] hover:bg-[#FCFBF8] hover:text-[#0E0E0E]"}`}
-                        >
-                          {active && <span className="absolute inset-y-[11px] right-0 w-[2px] bg-[#C9B183]" />}
-                          <span className="text-[11px]">{item.label}</span>
-                          {active && <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />}
-                        </button>
-                      );
-                    })}
+                  <div className="flex-1 overflow-y-auto px-3 py-3">
+                    <nav aria-label="القائمة الرئيسية">
+                      {navLinks.map((item) => {
+                        const active = isActive(item.to);
+                        return (
+                          <button
+                            key={item.to}
+                            type="button"
+                            onClick={() => {
+                              navigate(item.to);
+                              setMenuOpen(false);
+                            }}
+                            className={`relative flex h-[48px] w-full items-center justify-between px-4 text-right transition-colors ${active ? "bg-[#FBF8F1] font-semibold text-[#0E0E0E]" : "font-medium text-[#666] hover:bg-[#FCFBF8] hover:text-[#0E0E0E]"}`}
+                          >
+                            {active && <span className="absolute inset-y-[10px] right-0 w-[2px] bg-[#C9B183]" />}
+                            <span className="text-[11px]">{item.label}</span>
+                            {active && <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />}
+                          </button>
+                        );
+                      })}
+                    </nav>
 
                     <div className="my-3 h-px bg-[#F0ECE5]" />
 
-                    <button
-                      type="button"
-                      onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
-                      className="flex h-11 w-full items-center justify-between px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
-                    >
-                      <span className="flex items-center gap-2.5"><Heart size={15} /> المفضلة</span>
-                      {favorites.length > 0 && <span className="text-[8px] text-[#9A825B]">{favorites.length}</span>}
-                    </button>
+                    <div>
+                      <p className="px-4 pb-1 text-[7px] font-semibold tracking-[.18em] text-[#AAA49A]">حسابي وتسوقي</p>
 
-                    <button
-                      type="button"
-                      onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
-                      className="flex h-11 w-full items-center px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
-                    >
-                      <span className="flex items-center gap-2.5"><User size={15} /> {customer ? "حسابي" : "تسجيل الدخول"}</span>
-                    </button>
-                  </nav>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          openCart();
+                          setMenuOpen(false);
+                        }}
+                        className="flex h-11 w-full items-center justify-between px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
+                      >
+                        <span className="flex items-center gap-2.5"><ShoppingBag size={15} /> السلة</span>
+                        {cartCount > 0 && (
+                          <span className="min-w-[18px] text-center text-[8px] font-semibold text-[#9A825B]">
+                            {cartCount > 99 ? "99+" : cartCount}
+                          </span>
+                        )}
+                      </button>
 
-                  <div className="border-t border-[#F0ECE5] px-5 py-4">
-                    <div className="flex items-center justify-between text-[9px] text-[#777]">
-                      <span className="flex items-center gap-2"><Globe size={14} /> العملة</span>
-                      <span className="font-semibold text-[#0E0E0E]">{short}</span>
+                      <button
+                        type="button"
+                        onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
+                        className="flex h-11 w-full items-center justify-between px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
+                      >
+                        <span className="flex items-center gap-2.5"><Heart size={15} /> المفضلة</span>
+                        {favorites.length > 0 && <span className="text-[8px] font-semibold text-[#9A825B]">{favorites.length}</span>}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
+                        className="flex h-11 w-full items-center px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
+                      >
+                        <span className="flex items-center gap-2.5"><User size={15} /> {customer ? "حسابي" : "تسجيل الدخول"}</span>
+                      </button>
                     </div>
 
-                    {customer && (
+                    <div className="my-3 h-px bg-[#F0ECE5]" />
+
+                    <div>
+                      <div className="flex items-center justify-between px-4 pb-1">
+                        <p className="text-[7px] font-semibold tracking-[.18em] text-[#AAA49A]">العملة</p>
+                        <span className="text-[8px] font-semibold text-[#0E0E0E]">{short}</span>
+                      </div>
+
+                      <div className="px-2">
+                        {currencies.map((currency) => {
+                          const activeCurrency = mode === currency.code;
+                          return (
+                            <button
+                              key={currency.code}
+                              type="button"
+                              onClick={() => setMode(currency.code as typeof mode)}
+                              className={`relative flex h-10 w-full items-center justify-between px-2.5 text-right transition-colors ${activeCurrency ? "text-[#0E0E0E]" : "text-[#777] hover:text-[#0E0E0E]"}`}
+                            >
+                              <span className="flex items-center gap-2 text-[9px]">
+                                <Globe size={13} />
+                                {currency.meta.label}
+                              </span>
+                              {activeCurrency && <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-[#F0ECE5] px-5 py-4">
+                    {customer ? (
                       <button
                         onClick={handleLogout}
-                        className="mt-3 flex h-9 w-full items-center gap-2 text-[9px] font-medium text-[#888] transition-colors hover:text-[#0E0E0E]"
+                        className="flex h-10 w-full items-center gap-2 text-[9px] font-medium text-[#777] transition-colors hover:text-[#0E0E0E]"
                       >
                         <SignOut size={14} />
                         تسجيل الخروج
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => { navigate("/auth"); setMenuOpen(false); }}
+                        className="flex h-10 w-full items-center gap-2 text-[9px] font-semibold text-[#0E0E0E]"
+                      >
+                        <SignIn size={14} />
+                        تسجيل الدخول
                       </button>
                     )}
                   </div>
