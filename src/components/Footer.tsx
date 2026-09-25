@@ -38,7 +38,7 @@ const Footer = () => (
         <div>
           <Link to="/home" className="text-[24px] font-medium tracking-[.18em] text-[#0E0E0E] md:text-[32px]">GENAN</Link>
           <p className="mt-2 max-w-[320px] text-[8px] leading-5 text-[#777] md:text-[10px] md:leading-6">
-            أزياء وإكسسوارات مختارة بعناية، داخل تجربة تسوق بسيطة وواضحة.
+            وجهتك للأزياء والإكسسوارات المختارة بعناية لتكمل كل إطلالة.
           </p>
 
           <div className="mt-4 flex gap-2">
