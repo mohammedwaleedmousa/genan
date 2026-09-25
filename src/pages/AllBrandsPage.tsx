@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUpLeft } from "lucide-react";
@@ -16,18 +17,37 @@ type Brand = {
 
 const AllBrandsPage = () => {
   const { data: brands = [], isLoading } = useQuery({
-    queryKey: ["genan-all-brands-v1"],
+    queryKey: ["genan-all-brands-v2"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("brands")
         .select("id,name,slug,description")
         .eq("is_active", true)
-        .order("sort_order", { ascending: true });
+        .order("name", { ascending: true });
+
       if (error) throw error;
       return (data || []) as Brand[];
     },
     staleTime: 10 * 60 * 1000,
   });
+
+  const groupedBrands = useMemo(() => {
+    const groups = new Map<string, Brand[]>();
+
+    brands.forEach((brand) => {
+      const first = brand.name.trim().charAt(0).toUpperCase() || "#";
+      const key = /[A-Z]/.test(first) ? first : "#";
+      const list = groups.get(key) || [];
+      list.push(brand);
+      groups.set(key, list);
+    });
+
+    return Array.from(groups.entries()).sort(([a], [b]) => {
+      if (a === "#") return 1;
+      if (b === "#") return -1;
+      return a.localeCompare(b);
+    });
+  }, [brands]);
 
   return (
     <div dir="rtl" className="min-h-screen bg-white text-[#0E0E0E]">
@@ -35,45 +55,82 @@ const AllBrandsPage = () => {
       <CartDrawer />
 
       <main>
-        <section className="border-b border-[#EAEAEA] bg-[#0E0E0E] px-5 py-14 text-white sm:px-8 md:px-[6vw] md:py-20">
-          <div className="mx-auto max-w-[1760px]">
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-12 bg-[#D8C29A]" />
-              <span className="text-[8px] font-semibold tracking-[.34em] text-[#D8C29A]">GENAN / BRANDS</span>
+        <section className="border-b border-[#E7E2D9] bg-[#FAF9F6]">
+          <div className="mx-auto max-w-[1500px] px-4 py-10 md:px-6 md:py-16">
+            <div className="grid gap-8 md:grid-cols-[1fr_260px] md:items-end">
+              <div>
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-10 bg-[#D8C29A]" />
+                  <span className="text-[7px] font-semibold tracking-[.3em] text-[#9A825B]">GENAN / BRAND INDEX</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />
+                </div>
+
+                <h1 className="mt-5 max-w-[760px] text-[34px] font-medium leading-[1.2] tracking-[-.045em] md:text-[58px]">
+                  ماركات نختارها لأن التفاصيل تصنع الفرق.
+                </h1>
+              </div>
+
+              <div className="border-t border-[#D9D2C8] pt-4 md:border-r md:border-t-0 md:pr-6 md:pt-0">
+                <span className="block text-[7px] tracking-[.18em] text-[#9A825B]">TOTAL BRANDS</span>
+                <span className="mt-2 block text-[40px] font-medium leading-none md:text-[48px]">{brands.length}</span>
+                <p className="mt-2 text-[8px] leading-5 text-[#777]">تصفح العلامات واختر ما يناسب أسلوبك.</p>
+              </div>
             </div>
-            <h1 className="max-w-[820px] text-[42px] font-medium leading-[1.25] tracking-[-.055em] sm:text-[54px] md:text-[72px]">
-              ماركات نختارها بعناية لأسلوبك.
-            </h1>
           </div>
         </section>
 
-        <section className="px-4 py-12 sm:px-6 md:px-[5vw] md:py-20">
-          <div className="mx-auto max-w-[1760px]">
-            {isLoading ? (
-              <div className="grid grid-cols-2 gap-px bg-[#EAEAEA] md:grid-cols-4">
-                {Array.from({ length: 8 }).map((_, index) => (
-                  <div key={index} className="h-[220px] animate-pulse bg-[#F5F5F5]" />
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 border-r border-t border-[#EAEAEA] md:grid-cols-4">
-                {brands.map((brand, index) => (
-                  <Link
-                    key={brand.id}
-                    to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="group relative flex min-h-[220px] flex-col justify-between border-b border-l border-[#EAEAEA] bg-white p-5 transition-all duration-200 hover:bg-[#FBF8F1] md:min-h-[280px] md:p-7"
-                  >
-                    <span className="text-[8px] font-semibold tracking-[.28em] text-[#A9D8D3]">{String(index + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h2 className="text-[20px] font-medium tracking-[.04em] text-[#0E0E0E] md:text-[25px]">{brand.name}</h2>
-                      {brand.description && <p className="mt-2 line-clamp-2 text-[9px] leading-6 text-[#777]">{brand.description}</p>}
-                    </div>
-                    <ArrowUpLeft className="absolute bottom-5 left-5 h-4 w-4 text-[#D8C29A] transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1 md:bottom-7 md:left-7" />
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+        <section className="mx-auto max-w-[1500px] px-4 py-8 md:px-6 md:py-14">
+          {isLoading ? (
+            <div className="space-y-8">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <div key={index} className="grid gap-4 border-t border-[#E7E2D9] pt-5 md:grid-cols-[80px_1fr]">
+                  <div className="h-10 w-10 animate-pulse bg-[#F2EFE9]" />
+                  <div className="grid grid-cols-2 gap-px bg-[#E7E2D9] md:grid-cols-3 lg:grid-cols-4">
+                    {Array.from({ length: 4 }).map((__, item) => (
+                      <div key={item} className="h-28 animate-pulse bg-[#F7F5F0]" />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-10 md:space-y-14">
+              {groupedBrands.map(([letter, group]) => (
+                <section key={letter} className="grid gap-4 border-t border-[#E7E2D9] pt-5 md:grid-cols-[80px_1fr] md:gap-8">
+                  <div className="md:sticky md:top-[98px] md:self-start">
+                    <span className="text-[30px] font-medium leading-none text-[#D8C29A] md:text-[36px]">{letter}</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 border-r border-t border-[#E7E2D9] md:grid-cols-3 lg:grid-cols-4">
+                    {group.map((brand) => (
+                      <Link
+                        key={brand.id}
+                        to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        className="group relative min-h-[120px] border-b border-l border-[#E7E2D9] bg-white p-4 transition-colors hover:bg-[#FBF8F1] md:min-h-[150px] md:p-5"
+                      >
+                        <div className="flex h-full flex-col justify-between">
+                          <span className="text-[7px] tracking-[.18em] text-[#9A825B]">GENAN SELECT</span>
+
+                          <div>
+                            <h2 className="truncate text-[16px] font-medium tracking-[.02em] text-[#0E0E0E] md:text-[19px]">
+                              {brand.name}
+                            </h2>
+                            {brand.description && (
+                              <p className="mt-2 line-clamp-2 text-[8px] leading-5 text-[#777]">
+                                {brand.description}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        <ArrowUpLeft className="absolute bottom-4 left-4 h-3.5 w-3.5 text-[#9A825B] transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1" />
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          )}
         </section>
       </main>
 
