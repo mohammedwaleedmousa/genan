@@ -200,7 +200,7 @@ const OrderConfirmationPage = () => {
                   <CheckCircle2 className="h-6 w-6 text-[#63856A]" strokeWidth={1.5} />
                 </span>
                 <h1 className="mt-3 text-[17px] font-semibold text-[#3F4E42] md:text-[21px]">تم تأكيد طلبك بنجاح</h1>
-                <p className="mx-auto mt-1.5 max-w-[390px] text-[8px] leading-5 text-[#829086]">تم تجهيز تفاصيل الطلب بشكل خفيف وسريع لتعمل جيداً حتى مع الإنترنت البطيء.</p>
+                <p className="mx-auto mt-1.5 max-w-[390px] text-[8px] leading-5 text-[#829086]">شكرًا لاختيارك جنان. احتفظ برقم الطلب لتتمكن من متابعة حالته حتى يصل إليك.</p>
               </div>
             ) : (
               <div>
@@ -211,7 +211,7 @@ const OrderConfirmationPage = () => {
                 <div className="mt-1.5 flex items-end justify-between gap-4">
                   <div>
                     <h1 className="text-[19px] font-semibold tracking-[-0.025em] text-[#173A2D] md:text-[25px]">تفاصيل طلبك</h1>
-                    <p className="mt-1 text-[8px] text-[#899289]">راجع الفاتورة ثم أكّد الطلب. واتساب سيفتح فوراً برسالة فاتورة خفيفة بدون PDF ثقيل.</p>
+                    <p className="mt-1 text-[8px] text-[#899289]">راجع تفاصيل طلبك، ثم أرسله عبر واتساب لإكمال التأكيد مع فريق جنان.</p>
                   </div>
                   <span className="hidden h-9 w-9 items-center justify-center rounded-full bg-[#EAE5D7] md:flex">
                     <ReceiptText className="h-4 w-4 text-[#9D7B40]" strokeWidth={1.5} />
@@ -412,7 +412,7 @@ const OrderConfirmationPage = () => {
 
           <div className="mt-4 flex items-center justify-center gap-1.5 text-center print:hidden">
             <FileText className="h-3 w-3 text-[#A99B96]" strokeWidth={1.4} />
-            <p className="text-[6px] text-[#9C8E89]">واتساب يستخدم رسالة نصية خفيفة لتقليل استهلاك الإنترنت.</p>
+            <p className="text-[6px] text-[#9C8E89]">احتفظ برقم الطلب ورابط التتبع للرجوع إليهما في أي وقت.</p>
           </div>
         </div>
       </main>
