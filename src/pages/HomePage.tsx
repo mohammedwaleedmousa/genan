@@ -174,8 +174,6 @@ const HomePage = () => {
           </section>
         )}
 
-        <GenanServices slot={0} />
-
         {featured.length > 0 && (
           <section className="bg-white py-7 md:py-14">
             <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
@@ -190,6 +188,8 @@ const HomePage = () => {
           </section>
         )}
 
+        <GenanServices slot={0} />
+
         {best.length > 0 && (
           <section className="bg-[#FAF9F6] py-7 md:py-14">
             <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
@@ -203,8 +203,6 @@ const HomePage = () => {
             </div>
           </section>
         )}
-
-        <GenanServices slot={1} />
 
         {brands.length > 0 && (
           <section className="bg-white py-7 md:py-14">
