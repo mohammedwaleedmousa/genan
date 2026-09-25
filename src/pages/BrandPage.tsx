@@ -152,7 +152,7 @@ const BrandPage = () => {
               <div className="flex min-h-[180px] items-center justify-center rounded-[15px] border border-border/60 bg-background text-center">
                 <div>
                   <p className="text-[12px] font-semibold text-foreground">لا توجد أقسام متاحة حاليًا</p>
-                  <p className="mt-1.5 text-[10px] text-muted-foreground">ستظهر الأقسام تلقائيًا عند إضافتها.</p>
+                  <p className="mt-1.5 text-[10px] text-muted-foreground">لا تتوفر مجموعات لهذه الماركة حاليًا. اكتشف بقية اختيارات جنان.</p>
                 </div>
               </div>
             ) : (
