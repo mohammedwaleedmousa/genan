@@ -13,7 +13,7 @@ import {
 } from "phosphor-react";
 
 import Logo from "@/components/Logo";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -216,19 +216,16 @@ const Navbar = () => {
                       {navLinks.map((item) => {
                         const active = isActive(item.to);
                         return (
-                          <button
-                            key={item.to}
-                            type="button"
-                            onClick={() => {
-                              navigate(item.to);
-                              setMenuOpen(false);
-                            }}
-                            className={`relative flex h-[48px] w-full items-center justify-between px-4 text-right transition-colors ${active ? "bg-[#FBF8F1] font-semibold text-[#0E0E0E]" : "font-medium text-[#666] hover:bg-[#FCFBF8] hover:text-[#0E0E0E]"}`}
-                          >
-                            {active && <span className="absolute inset-y-[10px] right-0 w-[2px] bg-[#C9B183]" />}
-                            <span className="text-[11px]">{item.label}</span>
-                            {active && <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />}
-                          </button>
+                          <SheetClose asChild key={item.to}>
+                            <Link
+                              to={item.to}
+                              className={`relative flex h-[48px] w-full items-center justify-between px-4 text-right transition-colors ${active ? "bg-[#FBF8F1] font-semibold text-[#0E0E0E]" : "font-medium text-[#666] hover:bg-[#FCFBF8] hover:text-[#0E0E0E]"}`}
+                            >
+                              {active && <span className="absolute inset-y-[10px] right-0 w-[2px] bg-[#C9B183]" />}
+                              <span className="text-[11px]">{item.label}</span>
+                              {active && <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />}
+                            </Link>
+                          </SheetClose>
                         );
                       })}
                     </nav>
@@ -254,22 +251,24 @@ const Navbar = () => {
                         )}
                       </button>
 
-                      <button
-                        type="button"
-                        onClick={() => { navigate("/favorites"); setMenuOpen(false); }}
-                        className="flex h-11 w-full items-center justify-between px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
-                      >
-                        <span className="flex items-center gap-2.5"><Heart size={15} /> المفضلة</span>
-                        {favorites.length > 0 && <span className="text-[8px] font-semibold text-[#9A825B]">{favorites.length}</span>}
-                      </button>
+                      <SheetClose asChild>
+                        <Link
+                          to="/favorites"
+                          className="flex h-11 w-full items-center justify-between px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
+                        >
+                          <span className="flex items-center gap-2.5"><Heart size={15} /> المفضلة</span>
+                          {favorites.length > 0 && <span className="text-[8px] font-semibold text-[#9A825B]">{favorites.length}</span>}
+                        </Link>
+                      </SheetClose>
 
-                      <button
-                        type="button"
-                        onClick={() => { navigate(customer ? "/account" : "/auth"); setMenuOpen(false); }}
-                        className="flex h-11 w-full items-center px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
-                      >
-                        <span className="flex items-center gap-2.5"><User size={15} /> {customer ? "حسابي" : "تسجيل الدخول"}</span>
-                      </button>
+                      <SheetClose asChild>
+                        <Link
+                          to={customer ? "/account" : "/auth"}
+                          className="flex h-11 w-full items-center px-4 text-[10px] font-medium text-[#666] transition-colors hover:text-[#0E0E0E]"
+                        >
+                          <span className="flex items-center gap-2.5"><User size={15} /> {customer ? "حسابي" : "تسجيل الدخول"}</span>
+                        </Link>
+                      </SheetClose>
                     </div>
 
                     <div className="my-3 h-px bg-[#F0ECE5]" />
@@ -312,13 +311,15 @@ const Navbar = () => {
                         تسجيل الخروج
                       </button>
                     ) : (
-                      <button
-                        onClick={() => { navigate("/auth"); setMenuOpen(false); }}
-                        className="flex h-10 w-full items-center gap-2 text-[9px] font-semibold text-[#0E0E0E]"
-                      >
-                        <SignIn size={14} />
-                        تسجيل الدخول
-                      </button>
+                      <SheetClose asChild>
+                        <Link
+                          to="/auth"
+                          className="flex h-10 w-full items-center gap-2 text-[9px] font-semibold text-[#0E0E0E]"
+                        >
+                          <SignIn size={14} />
+                          تسجيل الدخول
+                        </Link>
+                      </SheetClose>
                     )}
                   </div>
                 </div>
