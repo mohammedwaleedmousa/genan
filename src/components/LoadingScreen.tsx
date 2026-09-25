@@ -53,39 +53,13 @@ const LoadingScreen = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex h-[100dvh] w-screen touch-none items-center justify-center overflow-hidden bg-[#F7F5F0]"
+      className="fixed inset-0 z-[100] flex h-[100dvh] w-screen touch-none items-center justify-center overflow-hidden bg-white"
       dir="rtl"
       role="status"
       aria-live="polite"
       aria-label="جاري التحميل"
     >
-      <div className="relative flex h-[150px] w-[210px] items-center justify-center border border-[#D8C29A]/30">
-        <div className="absolute -right-4 top-7 h-px w-14 bg-[#0E0E0E]/25" />
-        <div className="absolute -left-1 bottom-7 h-2 w-2 bg-[#A9D8D3]" />
-
-        <div className="text-center">
-          <div className="text-[27px] font-medium tracking-[.22em] text-[#0E0E0E]">GENAN</div>
-          <div className="mx-auto mt-4 h-px w-20 overflow-hidden bg-[#DED8CD]">
-            <span className="genan-loader-line block h-full w-1/2 bg-[#9A825B]" />
-          </div>
-        </div>
-      </div>
-
-      <style>{`
-        .genan-loader-line {
-          animation: genan-loader-line 1.2s ease-in-out infinite alternate;
-          transform-origin: right center;
-        }
-
-        @keyframes genan-loader-line {
-          from { transform: translateX(90%); opacity: .35; }
-          to { transform: translateX(-90%); opacity: 1; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .genan-loader-line { animation: none; transform: none; }
-        }
-      `}</style>
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#E7E2D9] border-t-[#0E0E0E]" />
     </div>
   );
 };
