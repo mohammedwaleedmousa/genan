@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
@@ -87,6 +87,7 @@ const WHATSAPP_URL = String(import.meta.env.VITE_GENAN_WHATSAPP_URL || "").trim(
 const ProductDetailPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { addToCart } = useStore();
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -94,6 +95,7 @@ const ProductDetailPage = () => {
   const { format: formatCurrency, symbol: currencySymbol } = useCurrency();
 
   const country = "GLOBAL" as any;
+  const productPreview = (location.state as { productPreview?: any } | null)?.productPreview;
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -152,6 +154,53 @@ const ProductDetailPage = () => {
       };
     },
     enabled: !!slug,
+    placeholderData: () => {
+      if (!productPreview || productPreview.slug !== slug) return undefined;
+
+      const previewColors = Array.isArray(productPreview.colorVariants)
+        ? productPreview.colorVariants
+        : Array.isArray(productPreview.color_variants)
+          ? productPreview.color_variants
+          : [];
+      const previewImages = Array.isArray(productPreview.images) && productPreview.images.length
+        ? productPreview.images
+        : previewColors?.[0]?.images || [];
+
+      return {
+        id: productPreview.id,
+        name: productPreview.name || "",
+        nameAr: productPreview.nameAr || productPreview.name_ar || "",
+        slug: productPreview.slug,
+        price: Number(productPreview.price || 0),
+        originalPrice: productPreview.originalPrice
+          ? Number(productPreview.originalPrice)
+          : productPreview.original_price
+            ? Number(productPreview.original_price)
+            : undefined,
+        discount: productPreview.discount || undefined,
+        description: productPreview.description || "",
+        descriptionAr: productPreview.descriptionAr || productPreview.description_ar || "",
+        images: previewImages,
+        category: productPreview.category || "",
+        categoryId: productPreview.categoryId || productPreview.category_id || undefined,
+        brand: productPreview.brand || "",
+        inStock: productPreview.inStock ?? productPreview.in_stock ?? true,
+        stockQuantity: productPreview.stockQuantity ?? productPreview.stock_quantity,
+        countries: productPreview.countries || ["GLOBAL"],
+        isFeatured: productPreview.isFeatured ?? productPreview.is_featured,
+        isBestSeller: productPreview.isBestSeller ?? productPreview.is_best_seller,
+        hasSizes: productPreview.hasSizes ?? productPreview.has_sizes ?? Boolean(productPreview.sizes?.length),
+        sizes: Array.isArray(productPreview.sizes) ? productPreview.sizes : [],
+        accessories: [],
+        features: [],
+        colorVariants: previewColors,
+        specs: [],
+        returnPolicy: null,
+        hasQualityVariants: false,
+        qualityVariants: [],
+        sizePriceRuleId: null,
+      };
+    },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,
