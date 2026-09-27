@@ -710,51 +710,45 @@ const ProductsPageServer = () => {
 
               {colors.length > 0 && (
                 <div>
-                  <div className="mb-3 flex items-center justify-between">
-                    <p className="text-[10px] font-semibold text-[#2A2723]">اللون</p>
-                    {draft.color !== "all" && (
-                      <button
-                        type="button"
-                        onClick={() => setDraft((value) => ({ ...value, color: "all" }))}
-                        className="text-[8px] text-[#8F7548]"
-                      >
-                        إلغاء
-                      </button>
-                    )}
-                  </div>
+                  <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">اللون</p>
 
-                  <div className="grid grid-cols-3 gap-2">
-                    {colors.map((color) => {
-                      const active = normalize(draft.color) === normalize(color.name);
+                  <div className="relative">
+                    <select
+                      value={draft.color}
+                      onChange={(event) =>
+                        setDraft((value) => ({ ...value, color: event.target.value }))
+                      }
+                      className="h-11 w-full appearance-none rounded-xl border border-[#E5E0D8] bg-white px-4 pr-11 text-[10px] text-[#44403A] outline-none focus:border-[#CDB98F]"
+                    >
+                      <option value="all">كل الألوان</option>
+                      {colors.map((color) => (
+                        <option key={color.name} value={color.name}>
+                          {color.name}
+                        </option>
+                      ))}
+                    </select>
 
-                      return (
-                        <button
-                          type="button"
-                          key={color.name}
-                          onClick={() =>
-                            setDraft((value) => ({
-                              ...value,
-                              color: active ? "all" : color.name,
-                            }))
-                          }
-                          className={`flex h-10 items-center gap-2 rounded-xl border px-3 text-right text-[8px] font-medium ${
-                            active
-                              ? "border-[#171717] bg-[#F7F3EA] text-[#171717]"
-                              : "border-[#E5E0D8] bg-white text-[#5F5A53]"
-                          }`}
-                        >
-                          <span
-                            className="h-4 w-4 shrink-0 rounded-full border border-black/10"
-                            style={{
-                              background: color.hex2
-                                ? `linear-gradient(135deg, ${color.hex || "#ddd"} 50%, ${color.hex2} 50%)`
-                                : color.hex || "#ddd",
-                            }}
-                          />
-                          <span className="truncate">{color.name}</span>
-                        </button>
-                      );
-                    })}
+                    <span
+                      className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border border-black/10"
+                      style={{
+                        background:
+                          draft.color === "all"
+                            ? "#F2EFE8"
+                            : (() => {
+                                const selected = colors.find(
+                                  (color) => normalize(color.name) === normalize(draft.color),
+                                );
+
+                                if (!selected) return "#F2EFE8";
+
+                                return selected.hex2
+                                  ? `linear-gradient(135deg, ${selected.hex || "#ddd"} 50%, ${selected.hex2} 50%)`
+                                  : selected.hex || "#ddd";
+                              })(),
+                      }}
+                    />
+
+                    <ChevronDown className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#8A847C]" />
                   </div>
                 </div>
               )}
