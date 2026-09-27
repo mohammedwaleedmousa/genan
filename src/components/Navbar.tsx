@@ -71,8 +71,13 @@ const navLinks = [
   { label: "وصل حديثًا", to: "/new-arrivals" },
 ];
 
-const Navbar = () => {
+type NavbarProps = {
+  variant?: "default" | "product";
+};
+
+const Navbar = ({ variant = "default" }: NavbarProps) => {
   const navigate = useNavigate();
+  const isProduct = variant === "product";
   const location = useLocation();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -143,20 +148,22 @@ const Navbar = () => {
       <header dir="rtl" className="fixed inset-x-0 top-0 z-50 border-b border-[#EEEAE2] bg-white/95 backdrop-blur-xl">
         {/* Mobile navbar */}
         <div className="md:hidden">
-          <div className="flex h-16 items-center justify-between px-4">
+          <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4`}>
             <Link to="/home" aria-label="الرئيسية" className="flex items-center">
               <Logo size="md" />
             </Link>
 
             <div className="flex items-center gap-0.5">
-              <button
-                type="button"
-                onClick={() => setMobileSearchOpen((value) => !value)}
-                aria-label="بحث"
-                className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
-              >
-                <MagnifyingGlass size={19} />
-              </button>
+              {!isProduct && (
+                <button
+                  type="button"
+                  onClick={() => setMobileSearchOpen((value) => !value)}
+                  aria-label="بحث"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
+                >
+                  <MagnifyingGlass size={19} />
+                </button>
+              )}
 
               <button
                 type="button"
@@ -338,7 +345,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {mobileSearchOpen && (
+          {!isProduct && mobileSearchOpen && (
             <div className="border-t border-[#F0EDE7] bg-[#FFFEFC] px-4 py-3">
               <form
                 onSubmit={(event) => {
@@ -538,7 +545,13 @@ const Navbar = () => {
 
       <div
         aria-hidden="true"
-        className={mobileSearchOpen ? "h-[125px] md:h-[72px]" : "h-16 md:h-[72px]"}
+        className={
+          !isProduct && mobileSearchOpen
+            ? "h-[125px] md:h-[72px]"
+            : isProduct
+              ? "h-14 md:h-[72px]"
+              : "h-16 md:h-[72px]"
+        }
       />
     </>
   );
