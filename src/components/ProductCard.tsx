@@ -91,6 +91,32 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
     setImageFit("cover");
   }, [imageIndex]);
 
+  useEffect(() => {
+    if (index > 3 || typeof window === "undefined") return;
+
+    let idleId: number | null = null;
+    let timeoutId: number | null = null;
+    const preload = () => void prefetchProductDetailPage();
+
+    const requestIdle = (window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    }).requestIdleCallback;
+
+    if (requestIdle) {
+      idleId = requestIdle(preload, { timeout: 1200 });
+    } else {
+      timeoutId = window.setTimeout(preload, 500);
+    }
+
+    return () => {
+      if (timeoutId !== null) window.clearTimeout(timeoutId);
+      if (idleId !== null) {
+        (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback?.(idleId);
+      }
+    };
+  }, [index]);
+
   const handleMainImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     const image = event.currentTarget;
     const width = image.naturalWidth;
@@ -181,6 +207,7 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
   return (
     <Link
       to={`/product/${product.slug}`}
+      state={{ productPreview: product }}
       dir="rtl"
       data-catalog-product-id={product.id}
       onPointerEnter={() => void prefetchProductDetailPage()}
