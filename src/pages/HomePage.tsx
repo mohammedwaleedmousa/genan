@@ -132,7 +132,7 @@ const HomePage = () => {
         <HeroSlider />
 
         {categories.length > 0 && (
-          <section className="bg-[#FAF9F6] py-6 md:py-12">
+          <section className="bg-white py-6 md:py-12">
             <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
               <SectionHeader eyebrow="SHOP / CATEGORY" title="تسوق حسب القسم" to="/categories" />
 
@@ -191,7 +191,7 @@ const HomePage = () => {
         <GenanServices slot={0} />
 
         {best.length > 0 && (
-          <section className="bg-[#FAF9F6] py-7 md:py-14">
+          <section className="bg-white py-7 md:py-14">
             <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
               <SectionHeader eyebrow="MOST WANTED" title="الأكثر اختيارًا" to="/best-sellers" />
 
