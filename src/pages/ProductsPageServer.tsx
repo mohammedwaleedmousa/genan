@@ -177,32 +177,86 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="border-b border-[#EAEAEA] bg-white px-5 sm:px-8 md:px-[6vw]">
-          <div className="mx-auto flex max-w-[1760px] gap-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <button onClick={() => setParam("category", null)} className={`shrink-0 border-l border-[#EAEAEA] px-5 py-4 text-[9px] font-semibold ${!categorySlug ? "bg-[#0E0E0E] text-white" : "bg-white text-[#666] hover:bg-[#FAFAFA]"}`}>الكل</button>
-            {categories.filter((category) => !category.parent_id).map((category) => (
+        <section className="border-b border-[#EEEAE3] bg-white px-4 py-4 sm:px-8 md:px-[6vw] md:py-5">
+          <div className="mx-auto max-w-[1760px]">
+            <div className="mb-2.5 flex items-center justify-between gap-4">
+              <span className="text-[8px] font-medium text-[#8A847C]">تصفح حسب القسم</span>
+              {categorySlug && (
+                <button
+                  type="button"
+                  onClick={() => setParam("category", null)}
+                  className="text-[8px] font-medium text-[#8F7548] underline decoration-[#CDB98F] underline-offset-4"
+                >
+                  عرض جميع المنتجات
+                </button>
+              )}
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <button
-                key={category.id}
-                onClick={() => setParam("category", category.slug)}
-                className={`shrink-0 border-l border-[#EAEAEA] px-5 py-4 text-[9px] font-semibold ${categorySlug === category.slug ? "bg-[#0E0E0E] text-white" : "bg-white text-[#666] hover:bg-[#FAFAFA]"}`}
+                type="button"
+                onClick={() => setParam("category", null)}
+                className={`h-9 shrink-0 rounded-full border px-4 text-[9px] font-semibold transition-colors md:h-10 md:px-5 md:text-[10px] ${
+                  !categorySlug
+                    ? "border-[#171717] bg-[#171717] text-white"
+                    : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
+                }`}
               >
-                {category.name_ar}
+                جميع المنتجات
               </button>
-            ))}
+
+              {categories.filter((category) => !category.parent_id).map((category) => (
+                <button
+                  type="button"
+                  key={category.id}
+                  onClick={() => setParam("category", category.slug)}
+                  className={`h-9 shrink-0 rounded-full border px-4 text-[9px] font-semibold transition-colors md:h-10 md:px-5 md:text-[10px] ${
+                    categorySlug === category.slug
+                      ? "border-[#171717] bg-[#171717] text-white"
+                      : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
+                  }`}
+                >
+                  {category.name_ar}
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="border-b border-[#EAEAEA] bg-white px-5 py-2.5 md:px-[6vw] md:py-3">
-          <div className="mx-auto flex h-11 max-w-[1760px] border border-[#EAEAEA] md:h-12">
-            <button onClick={() => setFiltersOpen(true)} className="flex flex-1 items-center justify-center gap-2 border-l border-[#EAEAEA] text-[10px] font-semibold">
-              <SlidersHorizontal className="h-4 w-4" />
-              فلترة
-              {activeFilterCount > 0 && <span className="flex h-5 min-w-5 items-center justify-center bg-[#A9D8D3] px-1 text-[8px] font-bold text-[#0E0E0E]">{activeFilterCount}</span>}
-            </button>
-            <button onClick={() => setSortOpen(true)} className="flex flex-1 items-center justify-center gap-2 text-[10px] font-semibold">
-              {sortLabel}
-              <ChevronDown className="h-3.5 w-3.5" />
-            </button>
+        <section className="border-b border-[#EEEAE3] bg-white px-4 py-3 sm:px-8 md:px-[6vw] md:py-4">
+          <div className="mx-auto flex max-w-[1760px] items-center justify-between gap-3">
+            <p className="hidden text-[9px] text-[#77716A] sm:block">
+              {filtered.length} منتج
+            </p>
+
+            <div className="grid w-full grid-cols-2 gap-2 sm:mr-auto sm:w-auto sm:min-w-[300px]">
+              <button
+                type="button"
+                onClick={() => setFiltersOpen(true)}
+                className={`flex h-10 items-center justify-center gap-2 rounded-xl border px-4 text-[10px] font-semibold transition-colors ${
+                  activeFilterCount > 0
+                    ? "border-[#CDB98F] bg-[#F7F3EA] text-[#27231F]"
+                    : "border-[#E5E0D8] bg-white text-[#39342F] hover:border-[#CDB98F]"
+                }`}
+              >
+                <SlidersHorizontal className="h-4 w-4" strokeWidth={1.6} />
+                فلترة
+                {activeFilterCount > 0 && (
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#171717] px-1 text-[8px] font-bold text-white">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSortOpen(true)}
+                className="flex h-10 items-center justify-center gap-2 rounded-xl border border-[#E5E0D8] bg-white px-4 text-[10px] font-semibold text-[#39342F] transition-colors hover:border-[#CDB98F]"
+              >
+                {sortLabel}
+                <ChevronDown className="h-3.5 w-3.5" strokeWidth={1.6} />
+              </button>
+            </div>
           </div>
         </section>
 
@@ -236,49 +290,124 @@ const ProductsPageServer = () => {
       <Footer />
 
       {filtersOpen && (
-        <div className="fixed inset-0 z-[100] bg-black/35" onClick={() => setFiltersOpen(false)}>
-          <aside onClick={(event) => event.stopPropagation()} className="absolute inset-y-0 right-0 w-full max-w-[430px] overflow-y-auto bg-white p-6">
-            <div className="flex items-start justify-between border-b border-[#EAEAEA] pb-5">
+        <div
+          className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-[1px]"
+          onClick={() => setFiltersOpen(false)}
+        >
+          <aside
+            onClick={(event) => event.stopPropagation()}
+            className="absolute inset-y-0 right-0 flex w-full max-w-[390px] flex-col bg-[#FFFEFC] shadow-[-18px_0_45px_rgba(20,20,20,.10)]"
+          >
+            <div className="flex items-center justify-between border-b border-[#EEEAE3] px-5 py-5">
               <div>
-                <span className="text-[8px] font-semibold tracking-[.28em] text-[#9A825B]">FILTER / GENAN</span>
-                <h2 className="mt-2 text-[28px] font-medium">تصفية المنتجات</h2>
+                <h2 className="text-[22px] font-semibold text-[#171717]">فلترة المنتجات</h2>
+                <p className="mt-1 text-[9px] text-[#8A847C]">اختر ما يناسبك ثم اعرض النتائج</p>
               </div>
-              <button onClick={() => setFiltersOpen(false)} className="flex h-10 w-10 items-center justify-center border border-[#EAEAEA]"><X className="h-4 w-4" /></button>
+
+              <button
+                type="button"
+                onClick={() => setFiltersOpen(false)}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F4F1EB] text-[#5F5A53] transition-colors hover:bg-[#EDE8DF]"
+                aria-label="إغلاق الفلترة"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
 
-            <div className="space-y-8 py-7">
+            <div className="flex-1 space-y-7 overflow-y-auto px-5 py-6">
               <div>
-                <p className="mb-3 text-[9px] font-semibold tracking-[.08em]">الماركة</p>
-                <select value={brandFilter} onChange={(e) => setParam("brand", e.target.value)} className="h-12 w-full border border-[#DDD] bg-white px-3 text-[11px]">
-                  <option value="all">كل الماركات</option>
-                  {brands.map((brand) => <option key={brand} value={brand}>{brand}</option>)}
-                </select>
-              </div>
-
-              <div>
-                <p className="mb-3 text-[9px] font-semibold tracking-[.08em]">الفئة</p>
-                <div className="grid grid-cols-2 gap-px bg-[#EAEAEA]">
-                  {AUDIENCE_OPTIONS.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => setParam("audience", audienceFilter === option.value ? null : option.value)}
-                      className={`min-h-11 px-3 text-[9px] font-semibold ${audienceFilter === option.value ? "bg-[#0E0E0E] text-white" : "bg-white text-[#666]"}`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
+                <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">الماركة</p>
+                <div className="relative">
+                  <select
+                    value={brandFilter}
+                    onChange={(e) => setParam("brand", e.target.value)}
+                    className="h-11 w-full appearance-none rounded-xl border border-[#E5E0D8] bg-white px-4 text-[10px] text-[#44403A] outline-none transition-colors focus:border-[#CDB98F]"
+                  >
+                    <option value="all">كل الماركات</option>
+                    {brands.map((brand) => <option key={brand} value={brand}>{brand}</option>)}
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#8A847C]" />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-px bg-[#EAEAEA]">
-                <button onClick={() => setParam("sale", saleOnly ? null : "1")} className={`min-h-12 px-3 text-[9px] font-semibold ${saleOnly ? "bg-[#D8C29A] text-[#0E0E0E]" : "bg-white"}`}>العروض فقط</button>
-                <button onClick={() => setParam("stock", inStockOnly ? null : "1")} className={`min-h-12 px-3 text-[9px] font-semibold ${inStockOnly ? "bg-[#A9D8D3] text-[#0E0E0E]" : "bg-white"}`}>المتوفر فقط</button>
+              <div>
+                <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">لمن</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {AUDIENCE_OPTIONS.map((option) => {
+                    const active = audienceFilter === option.value;
+                    return (
+                      <button
+                        type="button"
+                        key={option.value}
+                        onClick={() => setParam("audience", active ? null : option.value)}
+                        className={`h-10 rounded-xl border text-[9px] font-semibold transition-colors ${
+                          active
+                            ? "border-[#171717] bg-[#171717] text-white"
+                            : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F]"
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">التوفر والعروض</p>
+                <div className="space-y-2">
+                  <button
+                    type="button"
+                    onClick={() => setParam("sale", saleOnly ? null : "1")}
+                    className={`flex h-11 w-full items-center justify-between rounded-xl border px-4 text-[10px] font-medium transition-colors ${
+                      saleOnly
+                        ? "border-[#CDB98F] bg-[#F7F3EA] text-[#27231F]"
+                        : "border-[#E5E0D8] bg-white text-[#5F5A53]"
+                    }`}
+                  >
+                    <span>العروض فقط</span>
+                    <span className={`flex h-5 w-5 items-center justify-center rounded-full border ${
+                      saleOnly ? "border-[#171717] bg-[#171717]" : "border-[#D8D2C9] bg-white"
+                    }`}>
+                      {saleOnly && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setParam("stock", inStockOnly ? null : "1")}
+                    className={`flex h-11 w-full items-center justify-between rounded-xl border px-4 text-[10px] font-medium transition-colors ${
+                      inStockOnly
+                        ? "border-[#CDB98F] bg-[#F7F3EA] text-[#27231F]"
+                        : "border-[#E5E0D8] bg-white text-[#5F5A53]"
+                    }`}
+                  >
+                    <span>المتوفر فقط</span>
+                    <span className={`flex h-5 w-5 items-center justify-center rounded-full border ${
+                      inStockOnly ? "border-[#171717] bg-[#171717]" : "border-[#D8D2C9] bg-white"
+                    }`}>
+                      {inStockOnly && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="sticky bottom-0 grid grid-cols-2 gap-2 border-t border-[#EAEAEA] bg-white py-4">
-              <button onClick={clearFilters} className="h-12 border border-[#0E0E0E] text-[10px] font-semibold">مسح</button>
-              <button onClick={() => setFiltersOpen(false)} className="h-12 bg-[#0E0E0E] text-[10px] font-semibold text-white">عرض {filtered.length}</button>
+            <div className="grid grid-cols-[.8fr_1.4fr] gap-2 border-t border-[#EEEAE3] bg-white px-5 py-4">
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="h-11 rounded-xl border border-[#E1DCD4] bg-white text-[10px] font-semibold text-[#5F5A53]"
+              >
+                مسح
+              </button>
+              <button
+                type="button"
+                onClick={() => setFiltersOpen(false)}
+                className="h-11 rounded-xl bg-[#171717] text-[10px] font-semibold text-white"
+              >
+                عرض {filtered.length} منتج
+              </button>
             </div>
           </aside>
         </div>
