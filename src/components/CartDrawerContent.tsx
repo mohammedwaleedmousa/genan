@@ -17,15 +17,10 @@ const CartDrawerContent = () => {
 
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  /* =========================================================
-     LOCK PAGE WHILE CART IS OPEN
-  ========================================================= */
-
   useEffect(() => {
     if (!isCartOpen) return;
 
     const previousOverflow = document.body.style.overflow;
-
     document.body.style.overflow = "hidden";
 
     const handleEscape = (event: KeyboardEvent) => {
@@ -64,174 +59,228 @@ const CartDrawerContent = () => {
 
   return (
     <>
-      {/* =========================================================
-          BACKDROP
-      ========================================================= */}
+      <button
+        type="button"
+        aria-label="إغلاق السلة"
+        onClick={closeCart}
+        className="fixed inset-0 z-[70] cursor-default bg-black/15 backdrop-blur-[1px]"
+      />
 
-      <button type="button" aria-label="إغلاق السلة" onClick={closeCart} className="fixed inset-0 z-[70] cursor-default bg-black/20" />
+      <aside
+        className="fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#E8E4DC] bg-[#FCFBF8] shadow-[-18px_0_50px_rgba(31,34,30,.06)] sm:max-w-[440px]"
+        dir="rtl"
+      >
+        <header className="shrink-0 border-b border-[#E9E5DD] bg-[#FCFBF8]/95 px-4 pb-4 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur sm:px-5 sm:pt-5">
+          <div className="grid grid-cols-[40px_1fr_40px] items-center gap-3">
+            <button
+              type="button"
+              onClick={closeCart}
+              aria-label="إغلاق"
+              className="flex h-10 w-10 items-center justify-center border border-[#DEDAD2] bg-white text-[#4C514D] transition-colors active:bg-[#F3F1EC]"
+            >
+              <X className="h-4 w-4 stroke-[1.4]" />
+            </button>
 
-      {/* =========================================================
-          CART DRAWER
-      ========================================================= */}
-
-      <aside className="fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#E2DCCE] bg-[#F8F6F0] shadow-[-14px_0_40px_rgba(48,34,30,.08)] sm:max-w-[430px]" dir="rtl">
-        {/* =========================================================
-            HEADER
-        ========================================================= */}
-
-        <header className="shrink-0 border-b border-[#E5DED0] bg-[#F8F6F0] px-4 pb-3 pt-[calc(env(safe-area-inset-top)+12px)] sm:px-5 sm:pt-5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#ECE7DA]">
-                <ShoppingBag className="h-[17px] w-[17px] stroke-[1.6] text-[#9D7B40]" />
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-2">
+                <h2 className="text-[18px] font-semibold tracking-[-0.025em] text-[#26312C]">سلة التسوق</h2>
+                {totalQuantity > 0 && (
+                  <span className="text-[8px] font-medium text-[#8A8F89]">({totalQuantity})</span>
+                )}
               </div>
-
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="text-[17px] font-semibold tracking-[-0.025em] text-[#173A2D]">سلة التسوق</h2>
-
-                  {totalQuantity > 0 && <span className="flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#173A2D] px-1 text-[7px] font-semibold text-white">{totalQuantity}</span>}
-                </div>
-
-                <p className="mt-0.5 text-[7px] text-[#788078]">GENAN BAG</p>
-              </div>
+              <p className="mt-1 font-serif text-[6px] tracking-[0.28em] text-[#9A8461]">GENAN BAG</p>
             </div>
 
-            <button type="button" onClick={closeCart} className="flex h-9 w-9 items-center justify-center rounded-full border border-[#DED8C9] bg-white text-[#46584E] active:bg-[#EEEAE1]">
-              <X className="h-4 w-4 stroke-[1.5]" />
-            </button>
+            <div className="flex h-10 w-10 items-center justify-center border border-[#E5E1D9] bg-[#F5F2EC] text-[#6C716D]">
+              <ShoppingBag className="h-[17px] w-[17px] stroke-[1.35]" />
+            </div>
           </div>
         </header>
 
-        {/* =========================================================
-            CART CONTENT
-        ========================================================= */}
-
-        <div className="flex-1 overflow-y-auto overscroll-contain px-3 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-4">
+        <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-5">
           {cart.length === 0 ? (
-            /* =====================================================
-                EMPTY CART
-            ===================================================== */
-
             <div className="flex min-h-full flex-col items-center justify-center px-6 pb-16 text-center">
-              <div className="relative flex h-[76px] w-[76px] items-center justify-center">
-                <span className="absolute inset-0 rounded-full border border-[#D5C8AA]" />
-                <span className="absolute inset-[8px] rounded-full bg-[#E9E4D6]" />
-
-                <ShoppingBag className="relative h-6 w-6 stroke-[1.3] text-[#9D7B40]" />
+              <div className="flex h-[72px] w-[72px] items-center justify-center border border-[#DED9D0] bg-white">
+                <ShoppingBag className="h-6 w-6 stroke-[1.2] text-[#8B8F8A]" />
               </div>
 
-              <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#9D7B40]">GENAN</span>
+              <span className="mt-5 font-serif text-[6px] tracking-[0.28em] text-[#9A8461]">GENAN</span>
+              <h3 className="mt-2 text-[18px] font-semibold text-[#29332E]">سلتك فارغة</h3>
+              <p className="mt-2 max-w-[250px] text-[9px] leading-5 text-[#838781]">
+                اكتشف أحدث اختيارات جنان وأضف القطع التي تحبها إلى سلتك.
+              </p>
 
-              <h3 className="mt-2 text-[17px] font-semibold text-[#173A2D]">سلتك فارغة</h3>
-
-              <p className="mt-1.5 max-w-[245px] text-[9px] leading-5 text-[#737D74]">اكتشف أحدث اختيارات جنان وأضف القطع التي تحبها إلى سلتك.</p>
-
-              <button type="button" onClick={handleBrowseProducts} className="mt-5 h-[43px] rounded-full bg-[#173A2D] px-7 text-[10px] font-semibold text-white active:bg-[#214C3B]">تصفح المنتجات</button>
+              <button
+                type="button"
+                onClick={handleBrowseProducts}
+                className="mt-6 h-[44px] border border-[#2C3932] bg-[#2C3932] px-8 text-[10px] font-semibold text-white transition-colors active:bg-[#202A25]"
+              >
+                تصفح المنتجات
+              </button>
             </div>
           ) : (
-            /* =====================================================
-                ITEMS
-            ===================================================== */
-
-            <div className="space-y-2.5">
+            <div className="divide-y divide-[#EAE6DF]">
               {cart.map((item, cartIndex) => {
-                const variant = item.variantId ? item.product.variants?.find((candidate) => candidate.id === item.variantId) : undefined;
+                const variant = item.variantId
+                  ? item.product.variants?.find((candidate) => candidate.id === item.variantId)
+                  : undefined;
 
                 const basePrice = variant?.price !== undefined ? variant.price : item.product.price;
-
                 const discount = variant?.discount !== undefined ? variant.discount : item.product.discount;
-
                 const itemPrice = discount ? basePrice * (1 - discount / 100) : basePrice;
 
-                const accessoriesTotal = item.selectedAccessories ? item.selectedAccessories.reduce((sum, accessory) => sum + accessory.price * accessory.quantity, 0) : 0;
+                const accessoriesTotal = item.selectedAccessories
+                  ? item.selectedAccessories.reduce(
+                      (sum, accessory) => sum + accessory.price * accessory.quantity,
+                      0,
+                    )
+                  : 0;
 
                 const unitTotal = itemPrice + accessoriesTotal;
-
                 const image = variant?.images?.[0] || item.product.images?.[0];
-
                 const stock = item.product.stockQuantity;
-
                 const maxQuantityReached = typeof stock === "number" && item.quantity >= stock;
 
                 return (
-                  <article key={`${item.product.id}-${item.variantId || "base"}-${cartIndex}`} className="relative flex gap-3 rounded-[17px] border border-[#E5DED0] bg-white p-2.5">
-                    {/* IMAGE */}
+                  <article
+                    key={`${item.product.id}-${item.variantId || "base"}-${cartIndex}`}
+                    className="py-4 first:pt-1"
+                  >
+                    <div className="flex gap-3.5">
+                      <div className="relative h-[126px] w-[98px] shrink-0 overflow-hidden bg-[#F2F0EB]">
+                        {image ? (
+                          <img
+                            src={image}
+                            alt={item.product.nameAr}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center">
+                            <ShoppingBag className="h-5 w-5 stroke-[1.25] text-[#B2B4B0]" />
+                          </div>
+                        )}
 
-                    <div className="relative h-[110px] w-[88px] shrink-0 overflow-hidden rounded-[13px] bg-[#F0EDE5]">
-                      {image ? <img src={image} alt={item.product.nameAr} loading="lazy" decoding="async" className="h-full w-full object-cover" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-5 w-5 text-[#A6AEA6]" /></div>}
-
-                      {!!discount && <span className="absolute bottom-1.5 right-1.5 rounded-full bg-white/95 px-2 py-1 text-[7px] font-semibold text-[#9D7B40]">-{discount}%</span>}
-                    </div>
-
-                    {/* INFO */}
-
-                    <div className="min-w-0 flex-1 py-0.5">
-                      <div className="flex items-start justify-between gap-2 pl-7">
-                        <div className="min-w-0">
-                          {item.product.brand && <p className="mb-0.5 truncate text-[7px] text-[#7B847C]">{item.product.brand}</p>}
-
-                          <h3 className="line-clamp-2 text-[10px] font-semibold leading-[1.6] text-[#20392E]">{item.product.nameAr}</h3>
-                        </div>
+                        {!!discount && (
+                          <span className="absolute bottom-1.5 right-1.5 bg-white/95 px-2 py-1 text-[7px] font-semibold text-[#786747] shadow-sm">
+                            -{discount}%
+                          </span>
+                        )}
                       </div>
 
-                      {/* OPTIONS */}
+                      <div className="min-w-0 flex-1 py-0.5">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            {item.product.brand && (
+                              <p className="mb-1 truncate text-[7px] tracking-[0.05em] text-[#92958F]">
+                                {item.product.brand}
+                              </p>
+                            )}
 
-                      {(item.selectedSize || item.selectedColor) && (
-                        <div className="mt-1.5 flex flex-wrap items-center gap-1">
-                          {item.selectedSize && <span className="rounded-full bg-[#F0EDE5] px-2 py-1 text-[7px] text-[#596A60]">المقاس: {item.selectedSize}</span>}
+                            <h3 className="line-clamp-2 text-[11px] font-semibold leading-[1.65] text-[#2D332F]">
+                              {item.product.nameAr}
+                            </h3>
+                          </div>
 
-                          {item.selectedColor && <span className="rounded-full bg-[#F0EDE5] px-2 py-1 text-[7px] text-[#596A60]">اللون: {item.selectedColor}</span>}
+                          <button
+                            type="button"
+                            onClick={() => removeFromCart(item.product.id, item.variantId)}
+                            aria-label="حذف المنتج"
+                            className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#E4E0D8] bg-white text-[#8F8276] transition-colors active:bg-[#F4F1EC]"
+                          >
+                            <Trash2 className="h-3.5 w-3.5 stroke-[1.35]" />
+                          </button>
                         </div>
-                      )}
 
-                      {/* ACCESSORIES */}
+                        {(item.selectedSize || item.selectedColor) && (
+                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[7px] text-[#7E837D]">
+                            {item.selectedSize && (
+                              <span>
+                                <span className="text-[#A0A39E]">المقاس:</span> {item.selectedSize}
+                              </span>
+                            )}
 
-                      {item.selectedAccessories && item.selectedAccessories.length > 0 && (
-                        <p className="mt-1.5 line-clamp-1 text-[7px] text-[#788178]">
-                          +{" "}
-                          {item.selectedAccessories.map((accessory, index) => (
-                            <span key={`${accessory.name_ar}-${index}`}>
-                              {accessory.name_ar}
-                              {accessory.quantity > 1 ? ` ×${accessory.quantity}` : ""}
-                              {index < item.selectedAccessories!.length - 1 ? "، " : ""}
+                            {item.selectedColor && (
+                              <span>
+                                <span className="text-[#A0A39E]">اللون:</span> {item.selectedColor}
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        {item.selectedAccessories && item.selectedAccessories.length > 0 && (
+                          <p className="mt-2 line-clamp-1 text-[7px] text-[#8B8F89]">
+                            +{" "}
+                            {item.selectedAccessories.map((accessory, index) => (
+                              <span key={`${accessory.name_ar}-${index}`}>
+                                {accessory.name_ar}
+                                {accessory.quantity > 1 ? ` ×${accessory.quantity}` : ""}
+                                {index < item.selectedAccessories!.length - 1 ? "، " : ""}
+                              </span>
+                            ))}
+                          </p>
+                        )}
+
+                        <div className="mt-2.5 flex items-end gap-2">
+                          <span className="text-[14px] font-semibold leading-none text-[#343A36]">
+                            {formatCurrency(unitTotal)}
+                          </span>
+
+                          {!!discount && (
+                            <span className="text-[7px] leading-none text-[#A3A6A1] line-through">
+                              {formatCurrency(basePrice)}
                             </span>
-                          ))}
-                        </p>
-                      )}
-
-                      {/* PRICE */}
-
-                      <div className="mt-2 flex items-end gap-1.5">
-                        <span className="text-[13px] font-semibold leading-none text-[#9D7B40]">{formatCurrency(unitTotal)}</span>
-
-                        {!!discount && <span className="text-[7px] leading-none text-[#929A92] line-through">{formatCurrency(basePrice)}</span>}
-                      </div>
-
-                      {/* QUANTITY */}
-
-                      <div className="mt-3 flex items-center justify-between">
-                        <div className="flex h-[31px] items-center overflow-hidden rounded-[10px] border border-[#DED8CA] bg-[#F8F6F0]">
-                          <button type="button" onClick={() => updateQuantity(item.product.id, item.quantity - 1, item.variantId)} disabled={item.quantity <= 1} className="flex h-full w-8 items-center justify-center text-[#4E6056] disabled:opacity-30">
-                            <Minus className="h-3 w-3 stroke-[1.6]" />
-                          </button>
-
-                          <span className="flex h-full min-w-[28px] items-center justify-center border-x border-[#E5DED0] px-1 text-[9px] font-semibold text-[#253D32]">{item.quantity}</span>
-
-                          <button type="button" onClick={() => { if (maxQuantityReached) return; updateQuantity(item.product.id, item.quantity + 1, item.variantId); }} disabled={maxQuantityReached} className="flex h-full w-8 items-center justify-center text-[#4E6056] disabled:opacity-30">
-                            <Plus className="h-3 w-3 stroke-[1.6]" />
-                          </button>
+                          )}
                         </div>
 
-                        <span className="text-[7px] text-[#818A82]">الإجمالي: {formatCurrency(unitTotal * item.quantity)}</span>
+                        <div className="mt-4 flex items-end justify-between gap-3">
+                          <div className="flex h-[32px] items-center border border-[#DCD8D0] bg-white">
+                            <button
+                              type="button"
+                              onClick={() =>
+                                updateQuantity(
+                                  item.product.id,
+                                  item.quantity - 1,
+                                  item.variantId,
+                                )
+                              }
+                              disabled={item.quantity <= 1}
+                              className="flex h-full w-8 items-center justify-center text-[#555B57] disabled:opacity-25"
+                            >
+                              <Minus className="h-3 w-3 stroke-[1.45]" />
+                            </button>
+
+                            <span className="flex h-full min-w-[30px] items-center justify-center border-x border-[#E5E1DA] px-1 text-[9px] font-semibold text-[#343A36]">
+                              {item.quantity}
+                            </span>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (maxQuantityReached) return;
+                                updateQuantity(
+                                  item.product.id,
+                                  item.quantity + 1,
+                                  item.variantId,
+                                );
+                              }}
+                              disabled={maxQuantityReached}
+                              className="flex h-full w-8 items-center justify-center text-[#555B57] disabled:opacity-25"
+                            >
+                              <Plus className="h-3 w-3 stroke-[1.45]" />
+                            </button>
+                          </div>
+
+                          <div className="text-left">
+                            <span className="block text-[6px] text-[#A1A49F]">الإجمالي</span>
+                            <span className="mt-1 block text-[10px] font-semibold leading-none text-[#4B514D]">
+                              {formatCurrency(unitTotal * item.quantity)}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-
-                    {/* REMOVE */}
-
-                    <button type="button" onClick={() => removeFromCart(item.product.id, item.variantId)} aria-label="حذف المنتج" className="absolute left-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-[#F0EDE5] text-[#9D7B40] active:bg-[#E9E2D3]">
-                      <Trash2 className="h-3.5 w-3.5 stroke-[1.5]" />
-                    </button>
                   </article>
                 );
               })}
@@ -239,32 +288,44 @@ const CartDrawerContent = () => {
           )}
         </div>
 
-        {/* =========================================================
-            CART FOOTER
-        ========================================================= */}
-
         {cart.length > 0 && (
-          <footer className="shrink-0 border-t border-[#E2DCCE] bg-[#F8F6F0] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-3 sm:px-5 sm:pb-5">
-            <div className="mb-3 flex items-end justify-between">
+          <footer className="shrink-0 border-t border-[#E6E2DA] bg-[#FEFDFB] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-4 sm:px-5 sm:pb-5">
+            <div className="mb-4 flex items-end justify-between">
               <div>
-                <p className="text-[8px] text-[#788178]">المجموع</p>
-                <p className="mt-1 text-[7px] text-[#929A92]">{totalQuantity} قطعة في السلة</p>
+                <p className="text-[8px] text-[#8B8F89]">المجموع</p>
+                <p className="mt-1 text-[7px] text-[#A0A39E]">{totalQuantity} قطعة في السلة</p>
               </div>
 
-              <div className="text-left">
-                <span className="text-[20px] font-semibold leading-none text-[#173A2D]">{formatCurrency(total)}</span>
-              </div>
+              <span className="text-[23px] font-semibold leading-none text-[#2E3531]">
+                {formatCurrency(total)}
+              </span>
             </div>
 
-            <button type="button" onClick={handleCheckout} className="flex h-[48px] w-full items-center justify-center gap-2 rounded-[14px] bg-[#173A2D] text-[11px] font-semibold text-white active:bg-[#214C3B]">
-              <ShoppingBag className="h-4 w-4 stroke-[1.6]" />
+            <button
+              type="button"
+              onClick={handleCheckout}
+              className="flex h-[49px] w-full items-center justify-center gap-2 bg-[#2C3932] text-[11px] font-semibold text-white transition-colors active:bg-[#202A25]"
+            >
+              <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
               إتمام الشراء
             </button>
 
-            <div className="mt-2.5 flex items-center justify-between px-1">
-              <button type="button" onClick={handleBrowseProducts} className="text-[8px] font-medium text-[#52635A]">متابعة التسوق</button>
+            <div className="mt-3 flex items-center justify-between border-t border-[#EFECE6] pt-3">
+              <button
+                type="button"
+                onClick={handleBrowseProducts}
+                className="text-[8px] font-medium text-[#59615C]"
+              >
+                متابعة التسوق
+              </button>
 
-              <button type="button" onClick={clearCart} className="text-[8px] font-medium text-[#8F5D45]">إفراغ السلة</button>
+              <button
+                type="button"
+                onClick={clearCart}
+                className="text-[8px] font-medium text-[#9B7963]"
+              >
+                إفراغ السلة
+              </button>
             </div>
           </footer>
         )}
