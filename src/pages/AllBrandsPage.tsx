@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowUpLeft } from "lucide-react";
+import { ArrowUpLeft, Search, X } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,8 +16,10 @@ type Brand = {
 };
 
 const AllBrandsPage = () => {
+  const [query, setQuery] = useState("");
+
   const { data: brands = [], isLoading } = useQuery({
-    queryKey: ["genan-all-brands-v2"],
+    queryKey: ["genan-all-brands-v3"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("brands")
@@ -31,10 +33,23 @@ const AllBrandsPage = () => {
     staleTime: 10 * 60 * 1000,
   });
 
+  const filteredBrands = useMemo(() => {
+    const value = query.trim().toLowerCase();
+    if (!value) return brands;
+
+    return brands.filter((brand) =>
+      [brand.name, brand.description]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .includes(value),
+    );
+  }, [brands, query]);
+
   const groupedBrands = useMemo(() => {
     const groups = new Map<string, Brand[]>();
 
-    brands.forEach((brand) => {
+    filteredBrands.forEach((brand) => {
       const first = brand.name.trim().charAt(0).toUpperCase() || "#";
       const key = /[A-Z]/.test(first) ? first : "#";
       const list = groups.get(key) || [];
@@ -47,83 +62,129 @@ const AllBrandsPage = () => {
       if (b === "#") return -1;
       return a.localeCompare(b);
     });
-  }, [brands]);
+  }, [filteredBrands]);
+
+  const alphabet = useMemo(
+    () => groupedBrands.map(([letter]) => letter),
+    [groupedBrands],
+  );
 
   return (
-    <div dir="rtl" className="min-h-screen bg-white text-[#0E0E0E]">
+    <div dir="rtl" className="min-h-screen bg-white text-[#171717]">
       <Navbar />
       <CartDrawer />
 
       <main>
-        <section className="border-b border-[#E7E2D9] bg-[#FAF9F6]">
-          <div className="mx-auto max-w-[1500px] px-4 py-10 md:px-6 md:py-16">
-            <div className="grid gap-8 md:grid-cols-[1fr_260px] md:items-end">
+        <section className="border-b border-[#EEEAE3] bg-white">
+          <div className="mx-auto max-w-[1500px] px-4 py-10 md:px-6 md:py-14">
+            <div className="flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
               <div>
-                <div className="flex items-center gap-3">
-                  <span className="h-px w-10 bg-[#D8C29A]" />
-                  <span className="text-[7px] font-semibold tracking-[.3em] text-[#9A825B]">GENAN / BRAND INDEX</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />
-                </div>
-
-                <h1 className="mt-5 max-w-[760px] text-[34px] font-medium leading-[1.2] tracking-[-.045em] md:text-[58px]">
-                  ماركات نختارها لأن التفاصيل تصنع الفرق.
+                <p className="text-[8px] font-medium tracking-[.2em] text-[#9A825B]">GENAN / BRANDS</p>
+                <h1 className="mt-3 text-[34px] font-semibold tracking-[-.04em] md:text-[54px]">
+                  الماركات
                 </h1>
+                <p className="mt-3 max-w-[520px] text-[10px] leading-6 text-[#77716A] md:text-[11px]">
+                  تصفح جميع العلامات المتوفرة في جنان، وابحث مباشرة عن الماركة التي تريدها.
+                </p>
               </div>
 
-              <div className="border-t border-[#D9D2C8] pt-4 md:border-r md:border-t-0 md:pr-6 md:pt-0">
-                <span className="block text-[7px] tracking-[.18em] text-[#9A825B]">TOTAL BRANDS</span>
-                <span className="mt-2 block text-[40px] font-medium leading-none md:text-[48px]">{brands.length}</span>
-                <p className="mt-2 text-[8px] leading-5 text-[#777]">تصفح العلامات واختر ما يناسب أسلوبك.</p>
+              <div className="w-full md:max-w-[360px]">
+                <div className="relative">
+                  <Search className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8A847C]" />
+                  <input
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    placeholder="ابحث عن ماركة"
+                    className="h-11 w-full rounded-xl border border-[#E5E0D8] bg-white pr-11 pl-10 text-[10px] outline-none transition-colors placeholder:text-[#AAA49A] focus:border-[#CDB98F]"
+                  />
+                  {query && (
+                    <button
+                      type="button"
+                      onClick={() => setQuery("")}
+                      className="absolute left-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[#8A847C] hover:bg-[#F5F2EC]"
+                      aria-label="مسح البحث"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="mt-2 flex items-center justify-between px-1 text-[8px] text-[#8A847C]">
+                  <span>{filteredBrands.length} ماركة</span>
+                  {query && <span>نتائج البحث</span>}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1500px] px-4 py-8 md:px-6 md:py-14">
-          {isLoading ? (
-            <div className="space-y-8">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div key={index} className="grid gap-4 border-t border-[#E7E2D9] pt-5 md:grid-cols-[80px_1fr]">
-                  <div className="h-10 w-10 animate-pulse bg-[#F2EFE9]" />
-                  <div className="grid grid-cols-2 gap-px bg-[#E7E2D9] md:grid-cols-3 lg:grid-cols-4">
-                    {Array.from({ length: 4 }).map((__, item) => (
-                      <div key={item} className="h-28 animate-pulse bg-[#F7F5F0]" />
-                    ))}
-                  </div>
-                </div>
+        {alphabet.length > 0 && (
+          <section className="border-b border-[#EEEAE3] bg-white">
+            <div className="mx-auto flex max-w-[1500px] gap-1.5 overflow-x-auto px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-6">
+              {alphabet.map((letter) => (
+                <a
+                  key={letter}
+                  href={`#brand-letter-${letter}`}
+                  className="flex h-8 min-w-8 shrink-0 items-center justify-center rounded-lg border border-[#E8E3DB] bg-white px-2 text-[9px] font-semibold text-[#5F5A53] transition-colors hover:border-[#CDB98F] hover:text-[#171717]"
+                >
+                  {letter}
+                </a>
               ))}
             </div>
+          </section>
+        )}
+
+        <section className="mx-auto max-w-[1500px] px-4 py-8 md:px-6 md:py-12">
+          {isLoading ? (
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+              {Array.from({ length: 12 }).map((_, index) => (
+                <div key={index} className="h-[92px] animate-pulse rounded-xl bg-[#F5F3EF]" />
+              ))}
+            </div>
+          ) : groupedBrands.length === 0 ? (
+            <div className="flex min-h-[42vh] flex-col items-center justify-center text-center">
+              <h2 className="text-[20px] font-semibold">لا توجد ماركة بهذا الاسم</h2>
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                className="mt-4 text-[10px] font-medium text-[#8F7548] underline decoration-[#CDB98F] underline-offset-4"
+              >
+                عرض جميع الماركات
+              </button>
+            </div>
           ) : (
-            <div className="space-y-10 md:space-y-14">
+            <div className="space-y-10 md:space-y-12">
               {groupedBrands.map(([letter, group]) => (
-                <section key={letter} className="grid gap-4 border-t border-[#E7E2D9] pt-5 md:grid-cols-[80px_1fr] md:gap-8">
-                  <div className="md:sticky md:top-[98px] md:self-start">
-                    <span className="text-[30px] font-medium leading-none text-[#D8C29A] md:text-[36px]">{letter}</span>
+                <section
+                  key={letter}
+                  id={`brand-letter-${letter}`}
+                  className="scroll-mt-24"
+                >
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="text-[24px] font-semibold text-[#171717]">{letter}</span>
+                    <span className="h-px flex-1 bg-[#EEEAE3]" />
+                    <span className="text-[8px] text-[#9A958E]">{group.length}</span>
                   </div>
 
-                  <div className="grid grid-cols-2 border-r border-t border-[#E7E2D9] md:grid-cols-3 lg:grid-cols-4">
+                  <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-3 lg:grid-cols-4">
                     {group.map((brand) => (
                       <Link
                         key={brand.id}
                         to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                        className="group relative min-h-[120px] border-b border-l border-[#E7E2D9] bg-white p-4 transition-colors hover:bg-[#FBF8F1] md:min-h-[150px] md:p-5"
+                        className="group flex min-h-[92px] items-center justify-between rounded-xl border border-[#E8E3DB] bg-white px-4 py-4 transition-colors hover:border-[#CDB98F] hover:bg-[#FCFAF6] md:min-h-[104px] md:px-5"
                       >
-                        <div className="flex h-full flex-col justify-between">
-                          <span className="text-[7px] tracking-[.18em] text-[#9A825B]">GENAN SELECT</span>
-
-                          <div>
-                            <h2 className="truncate text-[16px] font-medium tracking-[.02em] text-[#0E0E0E] md:text-[19px]">
-                              {brand.name}
-                            </h2>
-                            {brand.description && (
-                              <p className="mt-2 line-clamp-2 text-[8px] leading-5 text-[#777]">
-                                {brand.description}
-                              </p>
-                            )}
-                          </div>
+                        <div className="min-w-0">
+                          <h2 className="truncate text-[14px] font-semibold text-[#171717] md:text-[16px]">
+                            {brand.name}
+                          </h2>
+                          {brand.description && (
+                            <p className="mt-1.5 line-clamp-1 text-[8px] text-[#8A847C] md:text-[9px]">
+                              {brand.description}
+                            </p>
+                          )}
                         </div>
 
-                        <ArrowUpLeft className="absolute bottom-4 left-4 h-3.5 w-3.5 text-[#9A825B] transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1" />
+                        <ArrowUpLeft className="h-4 w-4 shrink-0 text-[#A18A61] transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5" />
                       </Link>
                     ))}
                   </div>
