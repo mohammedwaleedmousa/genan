@@ -186,6 +186,7 @@ const Navbar = () => {
                 <SheetContent
                   side="right"
                   dir="rtl"
+                  hideCloseButton
                   className="w-[86vw] max-w-[340px] border-l border-[#EEEAE2] bg-[#FFFEFC] p-0 shadow-[-18px_0_45px_rgba(20,20,20,.08)]"
                 >
                   <div className="flex h-[72px] items-center justify-between border-b border-[#F0EDE7] px-5">
