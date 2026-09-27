@@ -175,7 +175,7 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
       if (onQuickView) {
         onQuickView(product);
       } else {
-        navigate(`/product/${product.slug}`);
+        navigate(`/product/${product.slug}`, { state: { productPreview: product } });
       }
       return;
     }
