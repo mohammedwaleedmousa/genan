@@ -805,11 +805,11 @@ const ProductDetailPage = () => {
 
   return (
     <div className="genan-product-detail min-h-screen bg-white" dir="rtl">
-      <Navbar />
+      <Navbar variant="product" />
       <CartDrawer />
 
       <main className="bg-white pb-[82px] md:pb-20">
-        <div className="mx-auto w-full max-w-[1600px] px-3 pt-3 md:px-7 md:pt-0 lg:px-10">
+        <div className="mx-auto w-full max-w-[1600px] px-3 pt-0 md:px-7 md:pt-0 lg:px-10">
           {/* =================================================
               BREADCRUMB
           ================================================= */}
@@ -830,33 +830,16 @@ const ProductDetailPage = () => {
             <span className="max-w-[300px] truncate text-[#5F5F5F]">{product.nameAr || product.name}</span>
           </nav>
 
-          <div className="mb-3 flex items-center justify-between border-b border-[#E7E2D9] pb-3 md:hidden">
-            <div className="flex items-center gap-2">
-              <span className="h-px w-7 bg-[#D8C29A]" />
-              <span className="text-[6px] font-semibold tracking-[.22em] text-[#9A825B]">GENAN / PRODUCT</span>
-              <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />
-            </div>
-
-            <div className="flex items-center gap-1">
-              <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#E7E2D9] text-[#0E0E0E]">
-                <Share2 className="h-3.5 w-3.5" strokeWidth={1.4} />
-              </button>
-              <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-8 w-8 items-center justify-center border border-[#E7E2D9] text-[#0E0E0E]">
-                <Heart className={`h-3.5 w-3.5 ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.4} />
-              </button>
-            </div>
-          </div>
-
           {/* =================================================
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="genan-product-stage grid grid-cols-1 gap-3 bg-white lg:grid-cols-[minmax(0,1.08fr)_minmax(390px,0.92fr)] lg:gap-10 xl:gap-12">
+          <div className="genan-product-stage grid grid-cols-1 gap-0 bg-white lg:grid-cols-[minmax(0,1.08fr)_minmax(390px,0.92fr)] lg:gap-10 xl:gap-12">
             {/* ===============================================
                 GALLERY
             =============================================== */}
 
-            <section className="genan-product-gallery min-w-0 border border-[#E7E2D9] bg-[#F7F7F7]">
+            <section className="genan-product-gallery min-w-0 border-y border-[#E7E2D9] bg-[#F7F7F7] md:border">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -865,6 +848,28 @@ const ProductDetailPage = () => {
                 =========================================== */}
 
                 <div className="relative h-[56svh] min-h-[380px] max-h-[560px] w-full overflow-hidden bg-[#F7F7F7] sm:h-[60svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[4/5]">
+  <div className="absolute left-3 top-3 z-30 flex items-center gap-2 md:hidden">
+    <button
+      type="button"
+      onClick={handleShare}
+      aria-label="مشاركة المنتج"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E8E3DB] bg-white/95 text-[#171717] shadow-sm backdrop-blur"
+    >
+      <Share2 className="h-4 w-4" strokeWidth={1.5} />
+    </button>
+
+    <button
+      type="button"
+      onClick={handleFavorite}
+      aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"}
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E8E3DB] bg-white/95 text-[#171717] shadow-sm backdrop-blur"
+    >
+      <Heart
+        className={`h-4 w-4 ${isLiked ? "fill-[#171717] text-[#171717]" : ""}`}
+        strokeWidth={1.5}
+      />
+    </button>
+  </div>
   {/* MAIN PRODUCT */}
   <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y" }} className="h-full w-full cursor-grab active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
@@ -934,63 +939,98 @@ const ProductDetailPage = () => {
 
             <section className="genan-product-info min-w-0 border-t border-[#E7E2D9] bg-white lg:self-start lg:border-t-0 lg:border-r lg:border-[#E7E2D9] lg:px-8 lg:py-2 xl:px-10">
               {/* =============================================
-                  TITLE + PRICE
+                  PRODUCT SUMMARY
               ============================================= */}
 
-              <div className="border-b border-[#E7E2D9] px-3.5 py-4 sm:px-5 lg:px-0 lg:pt-0 lg:pb-6">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="mb-3 flex items-center justify-between border-b border-[#E2DDD3] pb-3">
-                    <div className="flex items-center gap-3">
-                      <span className="text-[7px] font-semibold tracking-[.26em] text-[#9A825B]">GENAN / PRODUCT</span>
-                      <span className="h-1.5 w-1.5 bg-[#A9D8D3]" />
-                    </div>
-                    
-                  </div>
-
-                  {product.brand && (
-                      <div className="mb-3 flex items-center gap-3">
-                        <span className="h-px w-9 bg-[#D8C29A]/65" />
-                        <span className="text-[7px] font-semibold tracking-[0.2em] text-[#D8C29A]">{product.brand}</span>
-                      </div>
+              <div className="border-b border-[#E7E2D9] px-4 py-5 sm:px-5 lg:px-0 lg:pb-6 lg:pt-0">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0 flex-1">
+                    {product.brand && (
+                      <p className="text-[10px] font-medium text-[#8A847C] md:text-[11px]">
+                        {product.brand}
+                      </p>
                     )}
 
-                    <h1 className="text-[22px] font-semibold leading-[1.45] tracking-[-0.035em] text-[#0E0E0E] md:text-[34px]">{product.nameAr || product.name}</h1>
+                    <h1 className="mt-1.5 text-[25px] font-semibold leading-[1.35] tracking-[-0.035em] text-[#171717] md:text-[35px]">
+                      {product.nameAr || product.name}
+                    </h1>
 
                     {effectiveDescription && (
-                      <p className="mt-2.5 max-w-[620px] whitespace-pre-line text-[9px] leading-6 text-[#6F6F6F] md:text-[11px] md:leading-7">{effectiveDescription}</p>
+                      <p className="mt-3 max-w-[620px] whitespace-pre-line text-[10px] leading-6 text-[#6F6A63] md:text-[11px] md:leading-7">
+                        {effectiveDescription}
+                      </p>
                     )}
                   </div>
 
-                  <div className="hidden shrink-0 items-center gap-1 lg:flex">
-                    <button type="button" onClick={handleFavorite} aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"} className="flex h-9 w-9 items-center justify-center border border-[#0E0E0E]/20 text-[#6F6F6F] transition-colors hover:bg-[#F7F5F0]">
-                      <Heart className={`h-3.5 w-3.5 ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : ""}`} strokeWidth={1.5} />
+                  <div className="hidden shrink-0 items-center gap-2 lg:flex">
+                    <button
+                      type="button"
+                      onClick={handleFavorite}
+                      aria-label={isLiked ? "إزالة من المفضلة" : "إضافة للمفضلة"}
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E2DDD3] text-[#5F5A53] transition-colors hover:bg-[#F7F5F0]"
+                    >
+                      <Heart
+                        className={`h-4 w-4 ${isLiked ? "fill-[#171717] text-[#171717]" : ""}`}
+                        strokeWidth={1.5}
+                      />
                     </button>
 
-                    <button type="button" onClick={handleShare} aria-label="مشاركة المنتج" className="flex h-8 w-8 items-center justify-center border border-[#0E0E0E]/16 text-[#666666] hover:bg-[#FAFAFA]">
-                      <Share2 className="h-3.5 w-3.5" strokeWidth={1.5} />
+                    <button
+                      type="button"
+                      onClick={handleShare}
+                      aria-label="مشاركة المنتج"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[#E2DDD3] text-[#5F5A53] transition-colors hover:bg-[#F7F5F0]"
+                    >
+                      <Share2 className="h-4 w-4" strokeWidth={1.5} />
                     </button>
                   </div>
                 </div>
 
-                {/* PRICE */}
+                <div className="mt-5 flex items-end justify-between gap-4">
+                  <div className="flex min-w-0 flex-wrap items-baseline gap-2">
+                    <span className="text-[25px] font-semibold leading-none text-[#171717] md:text-[30px]">
+                      {formatCurrency(totalPrice * quantity)}
+                    </span>
 
-                <div className="mt-3 flex flex-wrap items-end gap-2">
-                  <span className="text-[20px] font-semibold leading-none text-[#0E0E0E] md:text-[27px]">{formatCurrency(totalPrice * quantity)}</span>
+                    {product.originalPrice && !activeQuality && (
+                      <span className="text-[9px] text-[#9A958E] line-through">
+                        {formatCurrency(product.originalPrice)}
+                      </span>
+                    )}
 
-                  {product.originalPrice && !activeQuality && <span className="text-[9px] text-[#8B8B8B] line-through">{formatCurrency(product.originalPrice)}</span>}
+                    {!!product.discount && (
+                      <span className="rounded-full bg-[#F3EFE6] px-2.5 py-1 text-[8px] font-semibold text-[#8F7548]">
+                        خصم {product.discount}%
+                      </span>
+                    )}
+                  </div>
 
-                  {!!product.discount && <span className="bg-[#0E0E0E] px-2.5 py-1.5 text-[7px] font-semibold text-white">خصم {product.discount}%</span>}
-                </div>
-
-                {/* STOCK */}
-
-                <div className="mt-2.5 flex items-center gap-1.5">
-                  <span className={`h-1.5 w-1.5 rounded-none ${available ? (lowStock ? "bg-[#D99855]" : "bg-[#6E9574]") : "bg-[#C96767]"}`} />
-
-                  <p className={`text-[8px] font-medium ${available ? (lowStock ? "text-[#A96D39]" : "text-[#527258]") : "text-[#A95959]"}`}>
-                    {available ? (typeof activeStock === "number" ? `متوفر — ${activeStock} قطعة${lowStock ? " فقط" : ""}` : "متوفر الآن") : "غير متوفر حالياً"}
-                  </p>
+                  <span
+                    className={`inline-flex shrink-0 items-center gap-2 rounded-full px-3 py-1.5 text-[9px] font-medium ${
+                      available
+                        ? lowStock
+                          ? "bg-[#FBF3E8] text-[#9A6737]"
+                          : "bg-[#F1F5F0] text-[#56705C]"
+                        : "bg-[#FAEEEE] text-[#A95959]"
+                    }`}
+                  >
+                    <span
+                      className={`h-2 w-2 rounded-full ${
+                        available
+                          ? lowStock
+                            ? "bg-[#D99855]"
+                            : "bg-[#6E9574]"
+                          : "bg-[#C96767]"
+                      }`}
+                    />
+                    {available
+                      ? typeof activeStock === "number"
+                        ? lowStock
+                          ? `${activeStock} متبقي`
+                          : "متوفر الآن"
+                        : "متوفر الآن"
+                      : "غير متوفر"}
+                  </span>
                 </div>
               </div>
 
