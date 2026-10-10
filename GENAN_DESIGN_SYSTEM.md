@@ -1,82 +1,91 @@
 # GENAN Design System
 
-Genan is intentionally **not** a Flamingo derivative. The storefront follows an editorial fashion-house / gallery language.
+Genan is an independent fashion storefront. It must not look like a Flamingo derivative.
 
-## Core direction
+## Experience principles
 
-- Editorial, quiet, spacious, fashion-first.
-- Products are presented like objects in a gallery, not rounded ecommerce cards.
-- Prefer asymmetry, large whitespace, thin rules, numbered labels, and strong typography.
-- UI should feel curated rather than crowded.
+- Premium editorial / fashion-house / gallery direction: calm, curated, spacious, image-led.
+- Treat products as the focus; avoid crowded ecommerce UI, excessive cards, decorative gradients, and heavy shadows.
+- Use strong hierarchy, deliberate whitespace, thin rules, considered asymmetry, and restrained motion.
+- All customer routes must feel like one system on both mobile and desktop.
+- Mobile is not a compressed desktop layout: prioritize readable copy, comfortable tap targets, stable image ratios, and simple purchase actions.
 
 ## Palette
 
-- Deep Forest: `#173A2D`
-- Dark Forest: `#102A20` / `#10251D`
-- Ivory: `#F8F6F0`
-- Warm Paper: `#EEE9DD`
-- Brass: `#9D7B40`
-- Light Brass: `#D9BC7D`
-- Divider: `#DCD5C6`
-- Muted text: `#778179`
+- Ink / primary text: `#111111`
+- White / main canvas: `#FFFFFF`
+- Soft paper: `#FAF9F6`
+- Light gold: `#D8C29A`
+- Gold for contrast and focus: `#9B7B42`
+- Soft turquoise: `#A9D8D3` — use sparingly for small details, never as a dominant surface
+- Rules: `#E8E4DC`
+- Muted text: `#66645F`
 
-Do not reintroduce Flamingo rose/pink as a brand accent.
+Do not reintroduce rose/pink branding. Do not make forest green the dominant Genan identity. Keep gold accents restrained rather than turning the UI into a gold-on-gold theme.
 
-## Geometry
+## Geometry and surfaces
 
-- Default customer-facing surfaces use sharp or near-sharp corners.
-- Avoid rounded ecommerce card stacks and pill-heavy navigation.
-- Thin borders replace shadows wherever possible.
-- Product imagery should remain the visual focus.
+- Prefer square or near-square corners on customer-facing surfaces.
+- Use thin borders and spacing instead of stacked rounded cards and large shadows.
+- Keep controls visually quiet, but make interactive states obvious.
+- Maintain a consistent 44px minimum target for primary touch controls where practical.
+
+## Typography and accessibility
+
+- Arabic body copy must be clear and comfortably readable; do not rely on tiny 6–9px labels for essential information.
+- Editorial display typography may be expressive, but price, size, availability, delivery, payment, and checkout instructions must remain highly legible.
+- Preserve browser zoom and text scaling.
+- Keyboard focus must be visible; reduced-motion preferences must be respected.
+- Maintain useful contrast for muted text, borders, and action states.
 
 ## Navigation
 
-- Dark editorial header.
-- Centered Genan wordmark.
-- Brass is reserved for active states and small accents.
-- Search should feel integrated into the header, not like a separate floating card.
+- Keep the centered Genan wordmark and restrained editorial header.
+- Integrate search into the navigation rather than making it feel like an unrelated floating card.
+- Ensure mobile navigation, search, favorites, and cart controls have comfortable touch targets and accessible labels.
 
-## Home
+## Home and discovery
 
-- Full editorial hero with strong image/text composition.
-- Category areas may use collage/asymmetric editorial layouts.
-- Brand surfaces should behave like an index or rail, not logo bubbles.
-- Sections should have generous vertical rhythm.
+- Use an image-led editorial hero with clear, concise copy and a single obvious next action.
+- Category and brand areas should feel curated and intentional, not like a dense collection of pills.
+- Use real active catalog data; never replace store products with demo content for visual polish.
+- Give sections consistent vertical rhythm and clear headings.
 
-## Catalog
+## Catalog and product cards
 
-- Product cards are borderless and square-edged.
-- Images use generous vertical proportions.
-- Product name, brand, and price live outside the image with minimal chrome.
-- Filters are flat editorial controls.
-- Category navigation uses rules/tabs rather than rounded pills.
+- Keep cards borderless or minimally framed, with product images as the primary visual.
+- Use readable brand, product name, price, discount, and stock messaging.
+- Keep filters and sorting discoverable on touch and desktop, with visible active states.
+- Preserve current search, filtering, sorting, pagination, favorites, and add-to-cart behavior.
 
 ## Product detail
 
-- Gallery-led split layout.
-- Large image area + clearly separated product information column.
-- No rounded floating card shell around the entire product.
-- Options, quantity, and purchase controls remain visually quiet until needed.
+- Use a gallery-led layout with a clear image area and a distinct information column on desktop.
+- On mobile, keep the product, price, options, stock, and purchase action easy to scan without excessive scrolling.
+- Preserve image zoom, color and size selection, accessory selection, quantity, and stock guards.
 
-## Brands
+## Cart, checkout, and customer account
 
-- Brands page is an index, not a grid of rounded logo cards.
-- Use sequence numbers, typography, and simple logo treatment.
+- Make order summary, totals, delivery, payment, validation errors, and next steps unambiguous.
+- Never change business rules or copy that carries legal/payment meaning as part of a visual-only refactor.
+- Preserve login/session behavior, order history, tracking, invoices, favorites, addresses, and notifications.
+- Use empty, loading, error, and success states consistently.
 
-## Footer
+## Safe implementation and release
 
-- Dark architectural footer.
-- Large GENAN wordmark.
-- Structured numbered navigation groups.
+1. Work on a dedicated branch and open a draft PR; never commit visual experiments directly to `main`.
+2. Prefer scoped CSS and small component-level changes before replacing page implementations.
+3. Do not modify database records, migrations, RPCs, pricing, stock, checkout payloads, delivery/payment rules, or auth/session logic in a UI-only task.
+4. Run critical-flow checks, lint, TypeScript, and production build.
+5. Review Cloudflare Preview on narrow mobile, large mobile, tablet, laptop, and wide desktop.
+6. Smoke-test customer navigation, search/filtering, product options, cart, auth, account, and checkout using a safe test setup.
+7. Merge only after the preview is reviewed and required checks are green; verify production after deployment.
 
-## Guardrail
+## Review questions
 
-When creating a new customer-facing component, ask:
-
-1. Does this look like an editorial fashion catalogue?
-2. Is the product/content more prominent than the UI container?
-3. Can a shadow or rounded card be replaced by spacing or a thin rule?
-4. Is the component using Genan forest/ivory/brass rather than inherited pink?
-5. Does it remain readable and usable on mobile?
-
-If the answer to any of these is no, revise before merging.
+- Does this feel like a premium editorial fashion catalogue rather than a generic ecommerce template?
+- Is the product/content more prominent than its container?
+- Is all essential Arabic copy readable on mobile?
+- Can the visitor zoom, navigate by keyboard, and understand focus/active/error states?
+- Does every page preserve the existing catalog and commerce behavior?
+- Is every color aligned with the restrained black / white / light-gold direction, with turquoise only as a small accent?

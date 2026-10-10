@@ -57,7 +57,7 @@ const HeroSlider = () => {
 
   return (
     <section dir="rtl" className="w-full bg-white px-3 pt-3 md:px-6 md:pt-6">
-      <div className="relative mx-auto h-[285px] max-w-[1500px] overflow-hidden border border-[#E6DED0] bg-[#F4F0E8] shadow-[0_25px_65px_-52px_rgba(15,15,15,.55)] sm:h-[330px] md:h-[500px] lg:h-[545px]">
+      <div className="relative mx-auto h-[340px] max-w-[1500px] overflow-hidden border border-[#E6DED0] bg-[#F4F0E8] shadow-[0_25px_65px_-52px_rgba(15,15,15,.55)] sm:h-[390px] md:h-[500px] lg:h-[545px]">
         <div className="absolute inset-0 md:left-0 md:right-auto md:w-[58%]">
           <img
             src={imageSrc}
@@ -83,22 +83,22 @@ const HeroSlider = () => {
           <div className="w-[82%] max-w-[520px] md:w-[40%]">
             <div className="mb-2.5 flex items-center gap-2 md:mb-4">
               <span className="h-px w-6 bg-[#D8C29A] md:w-9" />
-              <span className="text-[6px] font-semibold tracking-[.27em] text-[#E9D9B8] md:text-[9px] md:text-[#9A825B]">
+              <span className="text-[9px] font-semibold tracking-[.2em] text-[#E9D9B8] md:text-[10px] md:text-[#9A825B]">
                 GENAN / NEW COLLECTION
               </span>
             </div>
 
-            <h1 className="max-w-[480px] text-[25px] font-semibold leading-[1.4] tracking-[-.035em] !text-white sm:text-[31px] md:text-[48px] md:!text-[#111111]">
+            <h1 className="max-w-[480px] text-[28px] font-semibold leading-[1.3] tracking-[-.035em] !text-white sm:text-[32px] md:text-[48px] md:!text-[#111111]">
               {title}
             </h1>
 
-            <p className="mt-2.5 max-w-[400px] text-[8px] leading-5 text-white/75 sm:text-[9px] md:mt-4 md:text-[11px] md:leading-7 md:text-[#6D685F]">
+            <p className="mt-3 max-w-[400px] text-[12px] leading-6 text-white/85 sm:text-[13px] md:mt-4 md:text-[14px] md:leading-7 md:text-[#6D685F]">
               {description}
             </p>
 
             <Link
               to={link}
-              className="mt-4 inline-flex items-center gap-2 border-b border-[#D8C29A] pb-1.5 text-[8px] font-semibold text-white transition-all duration-300 hover:gap-3 md:mt-7 md:text-[10px] md:text-[#111111]"
+              className="mt-5 inline-flex min-h-10 items-center gap-2 border-b border-[#D8C29A] pb-1.5 text-[11px] font-semibold text-white transition-all duration-300 hover:gap-3 md:mt-7 md:text-[12px] md:text-[#111111]"
             >
               {cta}
               <ArrowLeft size={14} weight="bold" />

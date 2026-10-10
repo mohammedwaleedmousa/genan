@@ -1,0 +1,235 @@
+/*
+ * Genan luxury customer UI refinement — visual-only layer.
+ *
+ * Guardrails:
+ * - Scope to customer routes that mount the RTL storefront header; avoid admin routes.
+ * - No data, routing, checkout, inventory, pricing, auth, or API changes.
+ * - Keep the existing editorial direction: black, white, light gold, restrained aqua.
+ */
+
+body:has(header[dir="rtl"]) {
+  --genan-ink: #111111;
+  --genan-paper: #ffffff;
+  --genan-paper-soft: #faf9f6;
+  --genan-rule: #e8e4dc;
+  --genan-gold: #c7ad78;
+  --genan-gold-strong: #9b7b42;
+  --genan-aqua: #a9d8d3;
+  --genan-muted: #66645f;
+  color: var(--genan-ink);
+  background: var(--genan-paper);
+  font-synthesis: none;
+}
+
+body:has(header[dir="rtl"]) main {
+  color: var(--genan-ink);
+  text-rendering: optimizeLegibility;
+}
+
+body:has(header[dir="rtl"]) main :is(h1, h2, h3, h4) {
+  text-wrap: pretty;
+}
+
+body:has(header[dir="rtl"]) main :is(p, li, label, input, select, textarea, button) {
+  text-wrap: pretty;
+}
+
+/* Lift legacy micro-copy into a readable range without changing its wording. */
+body:has(header[dir="rtl"]) main [class*="text-[6px]"] {
+  font-size: 9px !important;
+  line-height: 1.55 !important;
+}
+body:has(header[dir="rtl"]) main [class*="text-[7px]"] {
+  font-size: 10px !important;
+  line-height: 1.55 !important;
+}
+body:has(header[dir="rtl"]) main [class*="text-[8px]"] {
+  font-size: 11px !important;
+  line-height: 1.6 !important;
+}
+body:has(header[dir="rtl"]) main [class*="text-[9px]"] {
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
+
+/* Consistent editorial rhythm and stronger page-level hierarchy. */
+body:has(header[dir="rtl"]) main h1 {
+  line-height: 1.18;
+}
+body:has(header[dir="rtl"]) main h2 {
+  line-height: 1.25;
+}
+body:has(header[dir="rtl"]) main section {
+  scroll-margin-top: 96px;
+}
+
+/* Product cards: protect legibility and preserve product imagery as the focus. */
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article {
+  color: var(--genan-ink);
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article :is(h3, p, span) {
+  overflow-wrap: anywhere;
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article img {
+  backface-visibility: hidden;
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article button {
+  min-width: 40px;
+  min-height: 40px;
+}
+
+/* Forms and purchase actions: clearer focus, reliable touch targets. */
+body:has(header[dir="rtl"]) main :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  min-height: 44px;
+  border-color: #d8d3c9 !important;
+  border-radius: 0 !important;
+  box-shadow: none;
+}
+body:has(header[dir="rtl"]) main :is(input, select, textarea):focus-visible {
+  outline: 2px solid var(--genan-gold-strong) !important;
+  outline-offset: 2px;
+  border-color: var(--genan-gold-strong) !important;
+}
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#0E0E0E]"],
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#2C3932]"] {
+  min-height: 44px;
+}
+body:has(header[dir="rtl"]) main :is(button, a):focus-visible,
+body:has(header[dir="rtl"]) header :is(button, a):focus-visible,
+body:has(header[dir="rtl"]) footer :is(button, a):focus-visible {
+  outline: 2px solid var(--genan-gold-strong);
+  outline-offset: 3px;
+}
+
+/* Header: polished, consistent tap areas while preserving its existing layout. */
+body:has(header[dir="rtl"]) header[dir="rtl"] {
+  border-color: var(--genan-rule) !important;
+}
+body:has(header[dir="rtl"]) header[dir="rtl"] button {
+  min-width: 40px;
+  min-height: 40px;
+}
+body:has(header[dir="rtl"]) header[dir="rtl"] a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* Footer micro-copy was below comfortable reading size on both breakpoints. */
+body:has(header[dir="rtl"]) footer {
+  border-color: var(--genan-rule);
+}
+body:has(header[dir="rtl"]) footer [class*="text-[8px]"] {
+  font-size: 10px !important;
+  line-height: 1.6 !important;
+}
+body:has(header[dir="rtl"]) footer [class*="text-[9px]"] {
+  font-size: 11px !important;
+  line-height: 1.6 !important;
+}
+body:has(header[dir="rtl"]) footer [class*="text-[10px]"] {
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
+
+/* Drawers and dialogs should use the same quiet, square-edged language. */
+body:has(header[dir="rtl"]) :is([role="dialog"], [data-radix-dialog-content], [data-radix-popover-content], [data-radix-menu-content]) {
+  border-color: var(--genan-rule) !important;
+  border-radius: 0 !important;
+}
+
+/* Small screens: prevent horizontal overflow and respect safe-area insets. */
+@media (max-width: 767px) {
+  body:has(header[dir="rtl"]) main {
+    overflow-x: clip;
+  }
+  body:has(header[dir="rtl"]) main :is(button, [role="button"]) {
+    touch-action: manipulation;
+  }
+  body:has(header[dir="rtl"]) footer > div {
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Wide screens: maintain deliberate margins instead of stretching content. */
+@media (min-width: 1440px) {
+  body:has(header[dir="rtl"]) main > :is(section, div) {
+    scroll-margin-top: 112px;
+  }
+}
+
+/* Honor the visitor's motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  body:has(header[dir="rtl"]) *,
+  body:has(header[dir="rtl"]) *::before,
+  body:has(header[dir="rtl"]) *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Customer sign-in is a standalone route and does not mount the storefront navbar. */
+body:has(#auth-phone) {
+  --genan-auth-ink: #111111;
+  --genan-auth-rule: #e8e4dc;
+  background: #ffffff;
+  color: var(--genan-auth-ink);
+}
+body:has(#auth-phone) main :is(h1, h2, h3) {
+  color: var(--genan-auth-ink);
+  text-wrap: pretty;
+}
+body:has(#auth-phone) main :is(input, button, [role="button"]) {
+  min-height: 44px;
+}
+body:has(#auth-phone) main input {
+  border-radius: 0 !important;
+  border-color: var(--genan-auth-rule) !important;
+}
+body:has(#auth-phone) main :is(input, button, a):focus-visible {
+  outline: 2px solid #9b7b42;
+  outline-offset: 3px;
+}
+@media (max-width: 767px) {
+  body:has(#auth-phone) main {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
+
+/* Final polish for the first customer-facing pass. Keep the palette quiet and consistent. */
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#2C3932]"],
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#173A2D]"] {
+  background-color: var(--genan-ink) !important;
+  border-color: var(--genan-ink) !important;
+}
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#2C3932]"]:hover,
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#173A2D]"]:hover {
+  background-color: #292929 !important;
+  border-color: #292929 !important;
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article > div:first-child {
+  background-color: var(--genan-paper-soft);
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article button {
+  min-width: 44px;
+  min-height: 44px;
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article > div:first-child > span[class*="text-[7px]"],
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article > div:first-child > span[class*="text-[8px]"] {
+  font-size: 10px !important;
+  line-height: 1.5 !important;
+}
+body:has(header[dir="rtl"]) main :is([role="dialog"], [data-radix-dialog-content]) :is(button, [role="button"]) {
+  min-height: 44px;
+}
+body:has(header[dir="rtl"]) main :is(select, input[type="checkbox"], input[type="radio"]) {
+  accent-color: var(--genan-gold-strong);
+}
+body:has(header[dir="rtl"]) main ::selection {
+  color: var(--genan-ink);
+  background: #eadfc9;
+}

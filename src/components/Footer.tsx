@@ -42,14 +42,14 @@ const Footer = () => (
             GENAN
           </Link>
 
-          <p className="mt-3 text-[10px] leading-6 text-[#77716A] md:text-[11px]">
+          <p className="mt-3 text-[12px] leading-6 text-[#77716A] md:text-[13px]">
             أزياء وإكسسوارات مختارة بعناية، بتجربة تسوق بسيطة وواضحة.
           </p>
 
           <div className="mt-5 flex items-center gap-4">
             <Link
               to="/store-info#contact"
-              className="text-[10px] font-medium text-[#333] underline decoration-[#CDB98F] underline-offset-4 transition-colors hover:text-[#8F7548]"
+              className="text-[12px] font-medium text-[#333] underline decoration-[#CDB98F] underline-offset-4 transition-colors hover:text-[#8F7548]"
             >
               تواصل معنا
             </Link>
@@ -67,13 +67,13 @@ const Footer = () => (
         <div className="grid grid-cols-2 gap-x-7 gap-y-8 border-t border-[#F0ECE6] pt-7 sm:grid-cols-3 md:border-t-0 md:pt-0">
           {groups.map((group) => (
             <div key={group.title}>
-              <h3 className="text-[10px] font-semibold text-[#222] md:text-[11px]">{group.title}</h3>
+              <h3 className="text-[12px] font-semibold text-[#222] md:text-[13px]">{group.title}</h3>
               <ul className="mt-4 space-y-3">
                 {group.links.map(([label, href]) => (
                   <li key={href}>
                     <Link
                       to={href}
-                      className="text-[9px] text-[#77716A] transition-colors hover:text-[#171717] md:text-[10px]"
+                      className="text-[11px] text-[#77716A] transition-colors hover:text-[#171717] md:text-[12px]"
                     >
                       {label}
                     </Link>
@@ -86,12 +86,12 @@ const Footer = () => (
       </div>
 
       <div className="mt-9 flex items-center justify-between border-t border-[#F0ECE6] pt-5">
-        <p className="text-[8px] text-[#9A958E]">© 2026 GENAN. جميع الحقوق محفوظة.</p>
+        <p className="text-[10px] text-[#9A958E]">© 2026 GENAN. جميع الحقوق محفوظة.</p>
 
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-1.5 text-[9px] text-[#69645D] transition-colors hover:text-[#171717]"
+          className="flex min-h-10 items-center gap-1.5 text-[11px] text-[#69645D] transition-colors hover:text-[#171717]"
         >
           للأعلى
           <ArrowUp className="h-3.5 w-3.5" strokeWidth={1.5} />

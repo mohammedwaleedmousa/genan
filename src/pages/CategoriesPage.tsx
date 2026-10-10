@@ -60,13 +60,13 @@ const CategoriesPage = () => {
         <section className="px-4 py-10 sm:px-6 md:px-[5vw] md:py-16">
           <div className="mx-auto max-w-[1760px]">
             {isLoading ? (
-              <div className="grid grid-cols-4 gap-2 md:gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4">
                 {Array.from({ length: 8 }).map((_, index) => (
                   <div key={index} className="aspect-[4/5] animate-pulse bg-[#F3F3F3]" />
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-4 gap-2 md:gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4">
                 {categories.map((category, index) => (
                   <Link
                     key={category.id}
