@@ -73,7 +73,7 @@ BEGIN
     'hex'
   );
   v_phone_hash := pg_catalog.encode(
-    extensions.digest(lower(pg_catalog.btrim(pg_catalog.coalesce(p_customer_phone, ''))), 'sha256'),
+    extensions.digest(lower(pg_catalog.btrim(coalesce(p_customer_phone, ''))), 'sha256'),
     'hex'
   );
 
