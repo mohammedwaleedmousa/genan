@@ -398,7 +398,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
 
         {/* Desktop navbar */}
         <div className="hidden md:block">
-          <div className="mx-auto flex h-[72px] max-w-[1600px] items-center px-6 lg:px-10 xl:px-14">
+          <div className="mx-auto flex h-[80px] max-w-[1600px] items-center px-6 lg:px-10 xl:px-14">
             <Link to="/home" aria-label="الرئيسية" className="flex min-w-[150px] items-center">
               <Logo size="lg" />
             </Link>
@@ -411,13 +411,13 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                   <Link
                     key={item.to}
                     to={item.to}
-                    className={`relative flex h-[72px] items-center text-[11px] font-medium transition-colors ${
+                    className={`relative flex h-[80px] items-center text-[12px] font-medium transition-colors ${
                       active ? "text-[#161616]" : "text-[#6F6A63] hover:text-[#161616]"
                     }`}
                   >
                     {item.label}
                     {active && (
-                      <span className="absolute bottom-0 right-0 h-[2px] w-full rounded-full bg-[#B99A63]" />
+                      <span className="absolute bottom-0 right-0 h-[2px] w-full bg-[#C7AD78]" />
                     )}
                   </Link>
                 );
@@ -432,7 +432,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                       event.preventDefault();
                       submitSearch();
                     }}
-                    className="relative flex h-10 w-[220px] items-center rounded-full border border-[#E8E3DB] bg-[#FAF8F4] px-3"
+                    className="relative flex h-11 w-[220px] items-center border border-[#E8E3DB] bg-[#FAF9F6] px-3"
                   >
                     <MagnifyingGlass size={16} className="shrink-0 text-[#7C766E]" />
                     <input
@@ -440,7 +440,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                       value={searchTerm}
                       onChange={(event) => setSearchTerm(event.target.value)}
                       placeholder="ابحث في جنان"
-                      className="h-full min-w-0 flex-1 bg-transparent px-2 text-[11px] outline-none"
+                      className="h-full min-w-0 flex-1 bg-transparent px-2 text-[12px] outline-none"
                     />
                     <button
                       type="button"
@@ -448,13 +448,13 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                         setDesktopSearchOpen(false);
                         setSearchTerm("");
                       }}
-                      className="flex h-7 w-7 items-center justify-center text-[#807A72]"
+                      className="flex h-10 w-10 items-center justify-center text-[#807A72]"
                     >
                       <X size={13} />
                     </button>
 
                     {suggestions.length > 0 && (
-                      <div className="absolute left-0 right-0 top-12 overflow-hidden rounded-xl border border-[#EEEAE2] bg-white shadow-[0_16px_40px_rgba(20,20,20,.09)]">
+                      <div className="absolute left-0 right-0 top-12 overflow-hidden border border-[#EEEAE2] bg-white shadow-[0_16px_40px_rgba(20,20,20,.09)]">
                         {suggestions.map((item) => (
                           <button
                             key={`desktop-${item.type}-${item.value}`}
@@ -474,7 +474,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                     type="button"
                     onClick={() => setDesktopSearchOpen(true)}
                     aria-label="بحث"
-                    className="flex h-10 w-10 items-center justify-center rounded-full text-[#252525] transition-colors hover:bg-[#F6F3ED]"
+                    className="flex h-11 w-11 items-center justify-center text-[#252525] transition-colors hover:bg-[#FAF9F6]"
                   >
                     <MagnifyingGlass size={18} />
                   </button>
@@ -484,7 +484,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
               <Link
                 to="/favorites"
                 aria-label="المفضلة"
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#252525] transition-colors hover:bg-[#F6F3ED]"
+                className="relative flex h-11 w-11 items-center justify-center text-[#252525] transition-colors hover:bg-[#FAF9F6]"
               >
                 <Heart size={18} />
                 {favorites.length > 0 && (
@@ -511,18 +511,18 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                   <button
                     type="button"
                     aria-label="اختيار العملة"
-                    className="hidden h-10 items-center gap-1.5 rounded-full px-3 text-[9px] font-medium text-[#625D56] transition-colors hover:bg-[#F6F3ED] lg:flex"
+                    className="hidden h-11 items-center gap-1.5 border-x border-[#E8E4DC] px-3 text-[11px] font-medium text-[#625D56] transition-colors hover:bg-[#FAF9F6] lg:flex"
                   >
                     <Globe size={15} />
                     {short}
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 rounded-xl border-[#EAE5DD] bg-white p-1.5">
+                <DropdownMenuContent align="end" className="w-48 rounded-none border-[#EAE5DD] bg-white p-1.5">
                   {currencies.map((currency) => (
                     <DropdownMenuItem
                       key={currency.code}
                       onClick={() => setMode(currency.code as typeof mode)}
-                      className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-[10px]"
+                      className="flex min-h-10 cursor-pointer items-center justify-between px-3 py-2 text-[11px]"
                     >
                       <span>{currency.meta.label}</span>
                       {mode === currency.code && <span className="h-1.5 w-1.5 rounded-full bg-[#B99A63]" />}
@@ -534,7 +534,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
               <Link
                 to={customer ? "/account" : "/auth"}
                 aria-label={customer ? "حسابي" : "تسجيل الدخول"}
-                className="flex h-10 w-10 items-center justify-center rounded-full text-[#252525] transition-colors hover:bg-[#F6F3ED]"
+                className="flex h-11 w-11 items-center justify-center text-[#252525] transition-colors hover:bg-[#FAF9F6]"
               >
                 <User size={18} />
               </Link>
