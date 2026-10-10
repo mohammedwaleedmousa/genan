@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 
 import { toast } from "@/hooks/use-toast";
-import { track } from "@/lib/analytics";
 import { CURRENCY_RATES, convertPrice, hydrateCurrencies } from "@/lib/currency";
 import { handleImageError, optimizeImage } from "@/lib/imageUrl";
 
