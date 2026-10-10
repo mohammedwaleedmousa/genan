@@ -79,13 +79,6 @@ const permissionForLocation = (pathname: string, search: string): RoutePermissio
   return null;
 };
 
-const getCachedPermission = (permission: RoutePermission | null) => {
-  if (!permissionSnapshot || permissionSnapshot.expiresAt <= Date.now()) return undefined;
-  if (!permissionSnapshot.isAdmin) return false;
-  if (!permission) return true;
-  return permissionSnapshot.values.get(permission) !== false;
-};
-
 const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
   const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
   if (sessionError) throw sessionError;
@@ -343,9 +336,8 @@ const adminInteractiveColorOverrides = `
 const AdminLayout = () => {
   const location = useLocation();
   const requiredPermission = useMemo(() => permissionForLocation(location.pathname, location.search), [location.pathname, location.search]);
-  const cachedPermission = getCachedPermission(requiredPermission);
-  const [checking, setChecking] = useState(cachedPermission === undefined);
-  const [allowed, setAllowed] = useState(cachedPermission ?? false);
+  const [checking, setChecking] = useState(true);
+  const [allowed, setAllowed] = useState(false);
   const [authRevision, setAuthRevision] = useState(0);
 
   useEffect(() => {
@@ -372,13 +364,6 @@ const AdminLayout = () => {
     let active = true;
 
     const check = async () => {
-      const cached = getCachedPermission(requiredPermission);
-      if (cached !== undefined) {
-        setAllowed(cached);
-        setChecking(false);
-        return;
-      }
-
       setChecking(true);
       try {
         const granted = await resolveAdminPermission(requiredPermission);
