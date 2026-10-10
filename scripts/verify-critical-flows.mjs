@@ -22,12 +22,12 @@ const checks = [
     message: "Checkout must use the Genan secure order RPC and pass the tracking token into confirmation state.",
   },
   {
-    file: "supabase/migrations/20261010170000_checkout_idempotency_and_rate_limit.sql",
+    file: "supabase/migrations/20261010133535_checkout_idempotency_and_rate_limit.sql",
     needles: ["create_secure_order_v4", "pg_advisory_xact_lock", "order_rate_limit", "checkout_request_idempotency"],
     message: "Checkout must persist idempotency responses and limit new successful submissions per phone.",
   },
   {
-    file: "supabase/migrations/20261010180000_server_validated_accessory_pricing.sql",
+    file: "supabase/migrations/20261010133542_server_validated_accessory_pricing.sql",
     needles: ["v_product.accessories", "invalid_accessory", "selected_accessories"],
     message: "Accessory selections and prices must be validated against server-side product catalog data.",
   },
