@@ -39,13 +39,13 @@ const SectionHeader = ({
     <div>
       <div className="mb-1.5 flex items-center gap-2">
         <span className="h-px w-5 bg-[#C9B183] md:w-7" />
-        <span className="text-[6px] font-semibold tracking-[.24em] text-[#9A825B] md:text-[8px]">{eyebrow}</span>
+        <span className="text-[9px] font-semibold tracking-[.2em] text-[#9A825B] md:text-[10px]">{eyebrow}</span>
       </div>
-      <h2 className="text-[17px] font-semibold tracking-[-.025em] text-[#0E0E0E] md:text-[29px]">{title}</h2>
+      <h2 className="text-[20px] font-semibold tracking-[-.025em] text-[#0E0E0E] md:text-[30px]">{title}</h2>
     </div>
 
     {to && (
-      <Link to={to} className="flex shrink-0 items-center gap-1 border-b border-[#D8C29A] pb-0.5 text-[7px] font-semibold text-[#0E0E0E] md:gap-2 md:text-[10px]">
+      <Link to={to} className="flex min-h-10 shrink-0 items-center gap-1 border-b border-[#D8C29A] pb-0.5 text-[11px] font-semibold text-[#0E0E0E] md:gap-2 md:text-[12px]">
         عرض الكل
         <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} />
       </Link>
@@ -142,7 +142,7 @@ const HomePage = () => {
                     <Link
                       key={category.id}
                       to={`/products?category=${category.slug}`}
-                      className="group block w-[82px] shrink-0 sm:w-[94px] md:w-auto"
+                      className="group block w-[96px] shrink-0 sm:w-[108px] md:w-auto"
                     >
                       <div className="relative aspect-[4/5] overflow-hidden border border-[#E7E2D9] bg-[#F1EEE8]">
                         {category.image_url ? (
@@ -158,11 +158,11 @@ const HomePage = () => {
                         )}
                       </div>
 
-                      <div className="mt-1.5 text-center">
-                        <p className="truncate text-[8px] font-semibold text-[#222] md:text-[11px]">
+                      <div className="mt-2 text-center">
+                        <p className="truncate text-[11px] font-semibold text-[#222] md:text-[12px]">
                           {category.name_ar || category.name}
                         </p>
-                        <p className="mt-0.5 hidden truncate text-[6px] tracking-[.08em] text-[#9A825B] md:block">
+                        <p className="mt-1 hidden truncate text-[10px] tracking-[.06em] text-[#9A825B] md:block">
                           {category.name}
                         </p>
                       </div>
@@ -215,9 +215,9 @@ const HomePage = () => {
                     <Link
                       key={brand.id}
                       to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="flex h-[58px] min-w-[132px] items-center justify-center border border-[#E7E2D9] bg-white px-4 text-center text-[#111111] transition-all duration-200 hover:border-[#C9B183] hover:bg-[#FBF8F1] md:min-w-0"
+                      className="flex h-[68px] min-w-[148px] items-center justify-center border border-[#E7E2D9] bg-white px-5 text-center text-[#111111] transition-colors duration-200 hover:border-[#C9B183] hover:bg-[#FBF8F1] md:min-w-0"
                     >
-                      <span className="text-[9px] font-semibold tracking-[.04em] text-[#111111] md:text-[11px]">{brand.name}</span>
+                      <span className="text-[11px] font-semibold tracking-[.04em] text-[#111111] md:text-[12px]">{brand.name}</span>
                     </Link>
                   ))}
                 </div>
