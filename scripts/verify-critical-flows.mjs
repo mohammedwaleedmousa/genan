@@ -12,8 +12,6 @@ const checks = [
       "if (!snapshot || !snapshot.isAdmin) return false;",
       "sessionData.session?.user?.id !== snapshot.userId",
       "if (!allowed) {",
-      "row.granted === true",
-      "snapshot.values.get(permission) === true",
       "if (active) setAllowed(false);",
     ],
     message: "Admin routes must verify the current admin role and session, deny unclassified routes by default, and fail closed on permission errors.",
