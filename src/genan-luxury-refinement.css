@@ -2,12 +2,12 @@
  * Genan luxury customer UI refinement — visual-only layer.
  *
  * Guardrails:
- * - Scope to the customer storefront; never style the admin dashboard.
+ * - Scope to customer routes that mount the RTL storefront header; avoid admin routes.
  * - No data, routing, checkout, inventory, pricing, auth, or API changes.
  * - Keep the existing editorial direction: black, white, light gold, restrained aqua.
  */
 
-body[data-storefront="genan"] {
+body:has(header[dir="rtl"]) {
   --genan-ink: #111111;
   --genan-paper: #ffffff;
   --genan-paper-soft: #faf9f6;
@@ -21,147 +21,147 @@ body[data-storefront="genan"] {
   font-synthesis: none;
 }
 
-body[data-storefront="genan"] main {
+body:has(header[dir="rtl"]) main {
   color: var(--genan-ink);
   text-rendering: optimizeLegibility;
 }
 
-body[data-storefront="genan"] main :is(h1, h2, h3, h4) {
+body:has(header[dir="rtl"]) main :is(h1, h2, h3, h4) {
   text-wrap: pretty;
 }
 
-body[data-storefront="genan"] main :is(p, li, label, input, select, textarea, button) {
+body:has(header[dir="rtl"]) main :is(p, li, label, input, select, textarea, button) {
   text-wrap: pretty;
 }
 
 /* Lift legacy micro-copy into a readable range without changing its wording. */
-body[data-storefront="genan"] main [class*="text-[6px]"] {
+body:has(header[dir="rtl"]) main [class*="text-[6px]"] {
   font-size: 9px !important;
   line-height: 1.55 !important;
 }
-body[data-storefront="genan"] main [class*="text-[7px]"] {
+body:has(header[dir="rtl"]) main [class*="text-[7px]"] {
   font-size: 10px !important;
   line-height: 1.55 !important;
 }
-body[data-storefront="genan"] main [class*="text-[8px]"] {
+body:has(header[dir="rtl"]) main [class*="text-[8px]"] {
   font-size: 11px !important;
   line-height: 1.6 !important;
 }
-body[data-storefront="genan"] main [class*="text-[9px]"] {
+body:has(header[dir="rtl"]) main [class*="text-[9px]"] {
   font-size: 12px !important;
   line-height: 1.6 !important;
 }
 
 /* Consistent editorial rhythm and stronger page-level hierarchy. */
-body[data-storefront="genan"] main h1 {
+body:has(header[dir="rtl"]) main h1 {
   line-height: 1.18;
 }
-body[data-storefront="genan"] main h2 {
+body:has(header[dir="rtl"]) main h2 {
   line-height: 1.25;
 }
-body[data-storefront="genan"] main section {
+body:has(header[dir="rtl"]) main section {
   scroll-margin-top: 96px;
 }
 
 /* Product cards: protect legibility and preserve product imagery as the focus. */
-body[data-storefront="genan"] main a[href^="/product/"] > article {
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article {
   color: var(--genan-ink);
 }
-body[data-storefront="genan"] main a[href^="/product/"] > article :is(h3, p, span) {
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article :is(h3, p, span) {
   overflow-wrap: anywhere;
 }
-body[data-storefront="genan"] main a[href^="/product/"] > article img {
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article img {
   backface-visibility: hidden;
 }
-body[data-storefront="genan"] main a[href^="/product/"] > article button {
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article button {
   min-width: 40px;
   min-height: 40px;
 }
 
 /* Forms and purchase actions: clearer focus, reliable touch targets. */
-body[data-storefront="genan"] main :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+body:has(header[dir="rtl"]) main :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
   min-height: 44px;
   border-color: #d8d3c9 !important;
   border-radius: 0 !important;
   box-shadow: none;
 }
-body[data-storefront="genan"] main :is(input, select, textarea):focus-visible {
+body:has(header[dir="rtl"]) main :is(input, select, textarea):focus-visible {
   outline: 2px solid var(--genan-gold-strong) !important;
   outline-offset: 2px;
   border-color: var(--genan-gold-strong) !important;
 }
-body[data-storefront="genan"] main :is(button, a)[class*="bg-[#0E0E0E]"],
-body[data-storefront="genan"] main :is(button, a)[class*="bg-[#2C3932]"] {
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#0E0E0E]"],
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#2C3932]"] {
   min-height: 44px;
 }
-body[data-storefront="genan"] main :is(button, a):focus-visible,
-body[data-storefront="genan"] header :is(button, a):focus-visible,
-body[data-storefront="genan"] footer :is(button, a):focus-visible {
+body:has(header[dir="rtl"]) main :is(button, a):focus-visible,
+body:has(header[dir="rtl"]) header :is(button, a):focus-visible,
+body:has(header[dir="rtl"]) footer :is(button, a):focus-visible {
   outline: 2px solid var(--genan-gold-strong);
   outline-offset: 3px;
 }
 
 /* Header: polished, consistent tap areas while preserving its existing layout. */
-body[data-storefront="genan"] header[dir="rtl"] {
+body:has(header[dir="rtl"]) header[dir="rtl"] {
   border-color: var(--genan-rule) !important;
 }
-body[data-storefront="genan"] header[dir="rtl"] button {
+body:has(header[dir="rtl"]) header[dir="rtl"] button {
   min-width: 40px;
   min-height: 40px;
 }
-body[data-storefront="genan"] header[dir="rtl"] a {
+body:has(header[dir="rtl"]) header[dir="rtl"] a {
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
 }
 
 /* Footer micro-copy was below comfortable reading size on both breakpoints. */
-body[data-storefront="genan"] footer {
+body:has(header[dir="rtl"]) footer {
   border-color: var(--genan-rule);
 }
-body[data-storefront="genan"] footer [class*="text-[8px]"] {
+body:has(header[dir="rtl"]) footer [class*="text-[8px]"] {
   font-size: 10px !important;
   line-height: 1.6 !important;
 }
-body[data-storefront="genan"] footer [class*="text-[9px]"] {
+body:has(header[dir="rtl"]) footer [class*="text-[9px]"] {
   font-size: 11px !important;
   line-height: 1.6 !important;
 }
-body[data-storefront="genan"] footer [class*="text-[10px]"] {
+body:has(header[dir="rtl"]) footer [class*="text-[10px]"] {
   font-size: 12px !important;
   line-height: 1.6 !important;
 }
 
 /* Drawers and dialogs should use the same quiet, square-edged language. */
-body[data-storefront="genan"] :is([role="dialog"], [data-radix-dialog-content], [data-radix-popover-content], [data-radix-menu-content]) {
+body:has(header[dir="rtl"]) :is([role="dialog"], [data-radix-dialog-content], [data-radix-popover-content], [data-radix-menu-content]) {
   border-color: var(--genan-rule) !important;
   border-radius: 0 !important;
 }
 
 /* Small screens: prevent horizontal overflow and respect safe-area insets. */
 @media (max-width: 767px) {
-  body[data-storefront="genan"] main {
+  body:has(header[dir="rtl"]) main {
     overflow-x: clip;
   }
-  body[data-storefront="genan"] main :is(button, [role="button"]) {
+  body:has(header[dir="rtl"]) main :is(button, [role="button"]) {
     touch-action: manipulation;
   }
-  body[data-storefront="genan"] footer > div {
+  body:has(header[dir="rtl"]) footer > div {
     padding-bottom: max(2rem, env(safe-area-inset-bottom));
   }
 }
 
 /* Wide screens: maintain deliberate margins instead of stretching content. */
 @media (min-width: 1440px) {
-  body[data-storefront="genan"] main > :is(section, div) {
+  body:has(header[dir="rtl"]) main > :is(section, div) {
     scroll-margin-top: 112px;
   }
 }
 
 /* Honor the visitor's motion preference. */
 @media (prefers-reduced-motion: reduce) {
-  body[data-storefront="genan"] *,
-  body[data-storefront="genan"] *::before,
-  body[data-storefront="genan"] *::after {
+  body:has(header[dir="rtl"]) *,
+  body:has(header[dir="rtl"]) *::before,
+  body:has(header[dir="rtl"]) *::after {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
