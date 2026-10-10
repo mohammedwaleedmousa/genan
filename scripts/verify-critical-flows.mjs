@@ -22,6 +22,16 @@ const checks = [
     message: "Checkout must use the Genan secure order RPC and pass the tracking token into confirmation state.",
   },
   {
+    file: "src/pages/OrderConfirmationPage.tsx",
+    needles: ["genan-last-order-confirmation", "saved.savedAt", "saved.orderData.trackingToken"],
+    message: "Order confirmation must recover recent same-tab order details after refresh without putting the tracking token in the URL.",
+  },
+  {
+    file: "src/components/AnalyticsTracker.tsx",
+    needles: ["genan-last-order-confirmation", "recordPurchaseAnalytics(orderId, trackingToken)"],
+    message: "Verified purchase analytics must remain recoverable after a confirmation-page refresh.",
+  },
+  {
     file: "src/integrations/supabase/client.ts",
     needles: ["mwwyvmyeqlgccsnztvkm.supabase.co", "VITE_SUPABASE_URL", "VITE_SUPABASE_PUBLISHABLE_KEY"],
     message: "The storefront must target the Genan Supabase project.",
