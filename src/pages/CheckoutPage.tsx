@@ -36,6 +36,15 @@ const orderItemSchema = z.object({
 
 const orderItemsSchema = z.array(orderItemSchema).min(1).max(100);
 
+const createCheckoutRequestId = () => {
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+};
+
 const arabicDigitsToLatin = (value: string) => value.replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit))).replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)));
 
 const normalizeCheckoutPhone = (value: string) => {
@@ -448,9 +457,13 @@ const CheckoutPage = () => {
 
     const requestFingerprint = JSON.stringify({
       customerId: customer?.id || "guest",
+      name: String(customer?.name || formData.name || "").trim(),
       phone: normalizeCheckoutPhone(String(customer?.phone || formData.phone || "").trim()),
       address: formData.address.trim(),
+      notes: formData.notes.trim() || null,
       city: composeOrderCity(selectedRegion, formData.city),
+      region: selectedRegion || null,
+      country: orderCountryFromPhone(normalizeCheckoutPhone(String(customer?.phone || formData.phone || "").trim())),
       paymentMethod: isCashPayment ? "cod" : paymentMethod,
       currencyMode,
       coupon: appliedCoupon || null,
@@ -458,7 +471,7 @@ const CheckoutPage = () => {
       items: validation.data,
     });
     const requestStorageKey = "genan-checkout-idempotency";
-    let checkoutRequestId = crypto.randomUUID();
+    let checkoutRequestId = createCheckoutRequestId();
     try {
       const stored = sessionStorage.getItem(requestStorageKey);
       const previous = stored ? JSON.parse(stored) as { fingerprint?: string; requestId?: string } : null;
