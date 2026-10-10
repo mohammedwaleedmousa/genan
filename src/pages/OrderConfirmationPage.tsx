@@ -87,7 +87,27 @@ const OrderConfirmationPage = () => {
   }, []);
 
   useEffect(() => {
-    const incomingOrder = location.state?.orderData as OrderData | undefined;
+    let incomingOrder = location.state?.orderData as OrderData | undefined;
+
+    if (!incomingOrder) {
+      try {
+        const raw = sessionStorage.getItem("genan-last-order-confirmation");
+        const saved = raw ? JSON.parse(raw) as { savedAt?: number; orderData?: OrderData } : null;
+        if (
+          saved?.orderData &&
+          typeof saved.savedAt === "number" &&
+          Date.now() - saved.savedAt >= 0 &&
+          Date.now() - saved.savedAt <= 7 * 24 * 60 * 60 * 1000 &&
+          saved.orderData.orderId &&
+          saved.orderData.orderNumber &&
+          saved.orderData.trackingToken
+        ) {
+          incomingOrder = saved.orderData;
+        }
+      } catch {
+        // Session storage is optional; continue to the safe redirect below.
+      }
+    }
 
     if (!incomingOrder) {
       navigate("/home", { replace: true });
@@ -95,19 +115,6 @@ const OrderConfirmationPage = () => {
     }
 
     setOrderData(incomingOrder);
-
-    track({
-      event_type: "purchase",
-      value: Number(incomingOrder.totalBase ?? incomingOrder.total) || 0,
-      metadata: {
-        order_number: incomingOrder.orderNumber,
-        items_count: incomingOrder.items?.length ?? 0,
-        country: incomingOrder.country,
-        currency_mode: incomingOrder.currencyMode || "SAR",
-        payment_method: incomingOrder.paymentMethod,
-        coupon_code: incomingOrder.couponCode ?? null,
-      },
-    });
   }, [location.state, navigate]);
 
   const handleCopyOrderNumber = async () => {
