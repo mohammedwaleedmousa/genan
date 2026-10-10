@@ -28,7 +28,7 @@ type PermissionSnapshot = {
 
 const PERMISSION_CACHE_TTL_MS = 60_000;
 let permissionSnapshot: PermissionSnapshot | null = null;
-let permissionSnapshotPromise: Promise<PermissionSnapshot | null> | null = null;
+let permissionSnapshotPromise: { userId: string; promise: Promise<PermissionSnapshot | null> } | null = null;
 
 const permissionForLocation = (pathname: string, search: string): RoutePermission | null => {
   pathname = normalizeAdminPathForLegacyRules(pathname);
@@ -90,9 +90,9 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
     return permissionSnapshot;
   }
 
-  if (permissionSnapshotPromise) return permissionSnapshotPromise;
+  if (permissionSnapshotPromise?.userId === userId) return permissionSnapshotPromise.promise;
 
-  permissionSnapshotPromise = (async () => {
+  const snapshotPromise = (async () => {
     const { data: isAdmin, error: adminError } = await supabase.rpc("is_current_user_admin");
     if (adminError) throw adminError;
 
@@ -127,16 +127,26 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
     return permissionSnapshot;
   })();
 
+  permissionSnapshotPromise = { userId, promise: snapshotPromise };
+
   try {
-    return await permissionSnapshotPromise;
+    return await snapshotPromise;
   } finally {
-    permissionSnapshotPromise = null;
+    if (permissionSnapshotPromise?.promise === snapshotPromise) {
+      permissionSnapshotPromise = null;
+    }
   }
 };
 
 const resolveAdminPermission = async (permission: RoutePermission | null) => {
   const snapshot = await loadPermissionSnapshot();
   if (!snapshot || !snapshot.isAdmin) return false;
+
+  // Do not apply a permission snapshot if the active session changed while it loaded.
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError) throw sessionError;
+  if (sessionData.session?.user?.id !== snapshot.userId) return false;
+
   if (!permission) return true;
   return snapshot.values.get(permission) !== false;
 };
@@ -384,7 +394,7 @@ const AdminLayout = () => {
     return <div className="fixed inset-0 grid place-items-center bg-[#F6F8FA]" dir="rtl"><div className="text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin text-[#675CBA]" /><p className="mt-2 text-[8px] text-[#8E96A1]">جاري التحقق من صلاحية الصفحة...</p></div></div>;
   }
 
-  if (!allowed && requiredPermission) {
+  if (!allowed) {
     return (
       <div className="fixed inset-0 grid place-items-center bg-[#F6F8FA] px-5" dir="rtl">
         <div className="w-full max-w-[420px] rounded-[18px] border border-[#E5E9EF] bg-white p-6 text-center shadow-sm">
