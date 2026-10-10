@@ -168,3 +168,33 @@ body[data-storefront="genan"] :is([role="dialog"], [data-radix-dialog-content], 
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Customer sign-in is a standalone route and does not mount the storefront navbar. */
+body:has(#auth-phone) {
+  --genan-auth-ink: #111111;
+  --genan-auth-rule: #e8e4dc;
+  background: #ffffff;
+  color: var(--genan-auth-ink);
+}
+body:has(#auth-phone) main :is(h1, h2, h3) {
+  color: var(--genan-auth-ink);
+  text-wrap: pretty;
+}
+body:has(#auth-phone) main :is(input, button, [role="button"]) {
+  min-height: 44px;
+}
+body:has(#auth-phone) main input {
+  border-radius: 0 !important;
+  border-color: var(--genan-auth-rule) !important;
+}
+body:has(#auth-phone) main :is(input, button, a):focus-visible {
+  outline: 2px solid #9b7b42;
+  outline-offset: 3px;
+}
+@media (max-width: 767px) {
+  body:has(#auth-phone) main {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
