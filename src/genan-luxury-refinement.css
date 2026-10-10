@@ -198,3 +198,38 @@ body:has(#auth-phone) main :is(input, button, a):focus-visible {
     padding-right: max(1rem, env(safe-area-inset-right));
   }
 }
+
+
+/* Final polish for the first customer-facing pass. Keep the palette quiet and consistent. */
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#2C3932]"],
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#173A2D]"] {
+  background-color: var(--genan-ink) !important;
+  border-color: var(--genan-ink) !important;
+}
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#2C3932]"]:hover,
+body:has(header[dir="rtl"]) main :is(button, a)[class*="bg-[#173A2D]"]:hover {
+  background-color: #292929 !important;
+  border-color: #292929 !important;
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article > div:first-child {
+  background-color: var(--genan-paper-soft);
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article button {
+  min-width: 44px;
+  min-height: 44px;
+}
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article > div:first-child > span[class*="text-[7px]"],
+body:has(header[dir="rtl"]) main a[href^="/product/"] > article > div:first-child > span[class*="text-[8px]"] {
+  font-size: 10px !important;
+  line-height: 1.5 !important;
+}
+body:has(header[dir="rtl"]) main :is([role="dialog"], [data-radix-dialog-content]) :is(button, [role="button"]) {
+  min-height: 44px;
+}
+body:has(header[dir="rtl"]) main :is(select, input[type="checkbox"], input[type="radio"]) {
+  accent-color: var(--genan-gold-strong);
+}
+body:has(header[dir="rtl"]) main ::selection {
+  color: var(--genan-ink);
+  background: #eadfc9;
+}
