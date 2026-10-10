@@ -6,9 +6,30 @@ const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "u
 
 const checks = [
   {
+    file: "src/components/admin/AdminLayout.tsx",
+    needles: [
+      'supabase.rpc("is_current_user_admin")',
+      "if (!snapshot || !snapshot.isAdmin) return false;",
+      "sessionData.session?.user?.id !== snapshot.userId",
+      "if (!allowed) {",
+      "if (active) setAllowed(false);",
+    ],
+    message: "Admin routes must verify the current admin role and session, deny unclassified routes by default, and fail closed on permission errors.",
+  },
+  {
     file: "src/pages/CheckoutPage.tsx",
     needles: ["create_secure_order_v3", "p_items", "p_delivery_company_id", "trackingToken: createdOrder.tracking_token"],
     message: "Checkout must use the Genan secure order RPC and pass the tracking token into confirmation state.",
+  },
+  {
+    file: "src/pages/OrderConfirmationPage.tsx",
+    needles: ["genan-last-order-confirmation", "saved.savedAt", "saved.orderData.trackingToken"],
+    message: "Order confirmation must recover recent same-tab order details after refresh without putting the tracking token in the URL.",
+  },
+  {
+    file: "src/components/AnalyticsTracker.tsx",
+    needles: ["genan-last-order-confirmation", "recordPurchaseAnalytics(orderId, trackingToken)"],
+    message: "Verified purchase analytics must remain recoverable after a confirmation-page refresh.",
   },
   {
     file: "src/integrations/supabase/client.ts",

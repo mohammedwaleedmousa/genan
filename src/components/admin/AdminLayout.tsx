@@ -21,13 +21,14 @@ type RoutePermission =
 
 type PermissionSnapshot = {
   userId: string;
+  isAdmin: boolean;
   values: Map<string, boolean>;
   expiresAt: number;
 };
 
 const PERMISSION_CACHE_TTL_MS = 60_000;
 let permissionSnapshot: PermissionSnapshot | null = null;
-let permissionSnapshotPromise: Promise<PermissionSnapshot | null> | null = null;
+let permissionSnapshotPromise: { userId: string; promise: Promise<PermissionSnapshot | null> } | null = null;
 
 const permissionForLocation = (pathname: string, search: string): RoutePermission | null => {
   pathname = normalizeAdminPathForLegacyRules(pathname);
@@ -78,11 +79,6 @@ const permissionForLocation = (pathname: string, search: string): RoutePermissio
   return null;
 };
 
-const getCachedPermission = (permission: RoutePermission) => {
-  if (!permissionSnapshot || permissionSnapshot.expiresAt <= Date.now()) return undefined;
-  return permissionSnapshot.values.get(permission) !== false;
-};
-
 const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
   const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
   if (sessionError) throw sessionError;
@@ -94,9 +90,23 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
     return permissionSnapshot;
   }
 
-  if (permissionSnapshotPromise) return permissionSnapshotPromise;
+  if (permissionSnapshotPromise?.userId === userId) return permissionSnapshotPromise.promise;
 
-  permissionSnapshotPromise = (async () => {
+  const snapshotPromise = (async () => {
+    const { data: isAdmin, error: adminError } = await supabase.rpc("is_current_user_admin");
+    if (adminError) throw adminError;
+
+    if (isAdmin !== true) {
+      const deniedSnapshot: PermissionSnapshot = {
+        userId,
+        isAdmin: false,
+        values: new Map<string, boolean>(),
+        expiresAt: Date.now() + PERMISSION_CACHE_TTL_MS,
+      };
+      permissionSnapshot = deniedSnapshot;
+      return deniedSnapshot;
+    }
+
     const { data, error } = await supabase
       .from("admin_user_permissions")
       .select("permission, granted")
@@ -109,6 +119,7 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
 
     permissionSnapshot = {
       userId,
+      isAdmin: true,
       values,
       expiresAt: Date.now() + PERMISSION_CACHE_TTL_MS,
     };
@@ -116,16 +127,27 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
     return permissionSnapshot;
   })();
 
+  permissionSnapshotPromise = { userId, promise: snapshotPromise };
+
   try {
-    return await permissionSnapshotPromise;
+    return await snapshotPromise;
   } finally {
-    permissionSnapshotPromise = null;
+    if (permissionSnapshotPromise?.promise === snapshotPromise) {
+      permissionSnapshotPromise = null;
+    }
   }
 };
 
-const resolveAdminPermission = async (permission: RoutePermission) => {
+const resolveAdminPermission = async (permission: RoutePermission | null) => {
   const snapshot = await loadPermissionSnapshot();
-  if (!snapshot) return true;
+  if (!snapshot || !snapshot.isAdmin) return false;
+
+  // Do not apply a permission snapshot if the active session changed while it loaded.
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError) throw sessionError;
+  if (sessionData.session?.user?.id !== snapshot.userId) return false;
+
+  if (!permission) return true;
   return snapshot.values.get(permission) !== false;
 };
 
@@ -324,9 +346,9 @@ const adminInteractiveColorOverrides = `
 const AdminLayout = () => {
   const location = useLocation();
   const requiredPermission = useMemo(() => permissionForLocation(location.pathname, location.search), [location.pathname, location.search]);
-  const cachedPermission = requiredPermission ? getCachedPermission(requiredPermission) : true;
-  const [checking, setChecking] = useState(Boolean(requiredPermission) && cachedPermission === undefined);
-  const [allowed, setAllowed] = useState(cachedPermission ?? true);
+  const [checking, setChecking] = useState(true);
+  const [allowed, setAllowed] = useState(false);
+  const [authRevision, setAuthRevision] = useState(0);
 
   useEffect(() => {
     const warmTimer = window.setTimeout(() => {
@@ -338,6 +360,7 @@ const AdminLayout = () => {
       if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") {
         permissionSnapshot = null;
         permissionSnapshotPromise = null;
+        setAuthRevision((revision) => revision + 1);
       }
     });
 
@@ -351,26 +374,13 @@ const AdminLayout = () => {
     let active = true;
 
     const check = async () => {
-      if (!requiredPermission) {
-        setAllowed(true);
-        setChecking(false);
-        return;
-      }
-
-      const cached = getCachedPermission(requiredPermission);
-      if (cached !== undefined) {
-        setAllowed(cached);
-        setChecking(false);
-        return;
-      }
-
       setChecking(true);
       try {
         const granted = await resolveAdminPermission(requiredPermission);
         if (active) setAllowed(granted);
       } catch (error) {
         console.error("Admin route permission check failed:", error);
-        if (active) setAllowed(true);
+        if (active) setAllowed(false);
       } finally {
         if (active) setChecking(false);
       }
@@ -378,13 +388,13 @@ const AdminLayout = () => {
 
     void check();
     return () => { active = false; };
-  }, [requiredPermission]);
+  }, [requiredPermission, authRevision]);
 
   if (checking) {
     return <div className="fixed inset-0 grid place-items-center bg-[#F6F8FA]" dir="rtl"><div className="text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin text-[#675CBA]" /><p className="mt-2 text-[8px] text-[#8E96A1]">جاري التحقق من صلاحية الصفحة...</p></div></div>;
   }
 
-  if (!allowed && requiredPermission) {
+  if (!allowed) {
     return (
       <div className="fixed inset-0 grid place-items-center bg-[#F6F8FA] px-5" dir="rtl">
         <div className="w-full max-w-[420px] rounded-[18px] border border-[#E5E9EF] bg-white p-6 text-center shadow-sm">

@@ -141,7 +141,23 @@ const AnalyticsTracker = () => {
   useEffect(() => {
     if (pathname !== "/order-confirmation") return;
 
-    const orderData = (location.state as { orderData?: Record<string, any> } | null)?.orderData;
+    let orderData = (location.state as { orderData?: Record<string, any> } | null)?.orderData;
+    if (!orderData) {
+      try {
+        const raw = sessionStorage.getItem("genan-last-order-confirmation");
+        const saved = raw ? JSON.parse(raw) as { savedAt?: number; orderData?: Record<string, any> } : null;
+        if (
+          saved?.orderData &&
+          typeof saved.savedAt === "number" &&
+          Date.now() - saved.savedAt >= 0 &&
+          Date.now() - saved.savedAt <= 7 * 24 * 60 * 60 * 1000
+        ) {
+          orderData = saved.orderData;
+        }
+      } catch {
+        // Analytics recovery is best-effort and must not affect checkout.
+      }
+    }
     const orderId = String(orderData?.orderId || "").trim();
     const trackingToken = String(orderData?.trackingToken || "").trim();
     if (!orderId || !trackingToken || lastPurchase.current === orderId) return;
