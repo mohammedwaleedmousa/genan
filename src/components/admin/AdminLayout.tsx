@@ -115,7 +115,7 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
     if (error) throw error;
 
     const values = new Map<string, boolean>();
-    (data ?? []).forEach((row) => values.set(String(row.permission), row.granted === true));
+    (data ?? []).forEach((row) => values.set(String(row.permission), row.granted !== false));
 
     permissionSnapshot = {
       userId,
@@ -148,7 +148,7 @@ const resolveAdminPermission = async (permission: RoutePermission | null) => {
   if (sessionData.session?.user?.id !== snapshot.userId) return false;
 
   if (!permission) return true;
-  return snapshot.values.get(permission) === true;
+  return snapshot.values.get(permission) !== false;
 };
 
 const prefetchPrimaryAdminRoutes = () => {
