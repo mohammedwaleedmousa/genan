@@ -36,6 +36,15 @@ const orderItemSchema = z.object({
 
 const orderItemsSchema = z.array(orderItemSchema).min(1).max(100);
 
+const createCheckoutRequestId = () => {
+  if (typeof crypto.randomUUID === "function") return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+};
+
 const arabicDigitsToLatin = (value: string) => value.replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit))).replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)));
 
 const normalizeCheckoutPhone = (value: string) => {
@@ -383,10 +392,11 @@ const CheckoutPage = () => {
     setFormData((current) => ({ ...current, name: isGuestLike ? String(address.name || current.name || "") : current.name, phone: isGuestLike ? String(address.phone || current.phone || "") : current.phone, city: cityWithoutGovernorate(address.city, savedGovernorate), address: address.address, notes: address.notes || "" }));
   };
 
-  const createSecureOrder = async (items: unknown[]) => {
+  const createSecureOrder = async (items: unknown[], requestId: string) => {
     const normalizedCustomerPhone = normalizeCheckoutPhone(String(customer?.phone || formData.phone || "").trim());
     const orderCountry = orderCountryFromPhone(normalizedCustomerPhone);
-    const { data, error } = await (supabase as any).rpc("create_secure_order_v3", {
+    const { data, error } = await (supabase as any).rpc("create_secure_order_v4", {
+      p_request_id: requestId,
       p_customer_name: String(customer?.name || formData.name || "").trim(),
       p_customer_phone: normalizedCustomerPhone,
       p_customer_address: formData.address.trim(),
@@ -444,11 +454,41 @@ const CheckoutPage = () => {
     });
     const validation = orderItemsSchema.safeParse(rawOrderItems);
     if (!validation.success) { console.error("ORDER VALIDATION:", validation.error); toast({ title: "بيانات الطلب غير صحيحة", description: "تحقق من المنتجات وحاول مرة أخرى.", variant: "destructive" }); setIsSubmitting(false); return; }
+
+    const requestFingerprint = JSON.stringify({
+      customerId: customer?.id || "guest",
+      name: String(customer?.name || formData.name || "").trim(),
+      phone: normalizeCheckoutPhone(String(customer?.phone || formData.phone || "").trim()),
+      address: formData.address.trim(),
+      notes: formData.notes.trim() || null,
+      city: composeOrderCity(selectedRegion, formData.city),
+      region: selectedRegion || null,
+      country: orderCountryFromPhone(normalizeCheckoutPhone(String(customer?.phone || formData.phone || "").trim())),
+      paymentMethod: isCashPayment ? "cod" : paymentMethod,
+      currencyMode,
+      coupon: appliedCoupon || null,
+      deliveryCompanyId: selectedDelivery,
+      items: validation.data,
+    });
+    const requestStorageKey = "genan-checkout-idempotency";
+    let checkoutRequestId = createCheckoutRequestId();
+    try {
+      const stored = sessionStorage.getItem(requestStorageKey);
+      const previous = stored ? JSON.parse(stored) as { fingerprint?: string; requestId?: string } : null;
+      if (previous?.fingerprint === requestFingerprint && previous.requestId) {
+        checkoutRequestId = previous.requestId;
+      } else {
+        sessionStorage.setItem(requestStorageKey, JSON.stringify({ fingerprint: requestFingerprint, requestId: checkoutRequestId }));
+      }
+    } catch {
+      // A unique in-memory key still protects this submission; server idempotency remains authoritative.
+    }
+
     try {
       const customerName = String(customer?.name || formData.name || "").trim();
       const customerPhone = normalizeCheckoutPhone(String(customer?.phone || formData.phone || "").trim());
       await saveAddressForCheckout();
-      const createdOrder = await createSecureOrder(validation.data);
+      const createdOrder = await createSecureOrder(validation.data, checkoutRequestId);
       const regionData = codRegions.find((region) => region.id === selectedRegion || region.region_name === selectedRegion || region.region_name_ar === selectedRegion);
       const amountsAreNative = createdOrder.total_base !== null && createdOrder.total_base !== undefined && Number(createdOrder.exchange_rate_snapshot) > 0;
       const orderData = { orderId: createdOrder.order_id, orderNumber: createdOrder.order_number, trackingToken: createdOrder.tracking_token, customerName: customerName || "عميل", customerPhone, customerAddress: formData.address || "-", customerCity: composeOrderCity(selectedRegion, formData.city), customerNotes: formData.notes || "", items: Array.isArray(createdOrder.items) ? createdOrder.items : validation.data, subtotal: Number(createdOrder.subtotal), deliveryFee: Number(createdOrder.delivery_fee), discountAmount: Number(createdOrder.discount_amount), couponCode: Number(createdOrder.discount_amount) > 0 ? (appliedCoupon || null) : null, referralCode: createdOrder.referral_code || null, referralExpiresAt: createdOrder.referral_expires_at || null, discountSource: createdOrder.discount_source || null, total: Number(createdOrder.total), totalBase: Number(createdOrder.total_base ?? createdOrder.total), amountsAreNative, paymentMethod, paymentMethodName: selectedPaymentMethod?.name_ar || selectedPaymentMethod?.name || paymentMethod, deliveryCompany: createdOrder.delivery_company || selectedCompany?.name || "", selectedRegion: regionData?.region_name_ar || selectedRegion || null, country: orderCountryFromPhone(customerPhone), currencyMode: createdOrder.currency_mode || currencyMode, createdAt: createdOrder.created_at || new Date().toISOString() };
@@ -464,6 +504,7 @@ const CheckoutPage = () => {
       }
       clearCart();
       navigate("/order-confirmation", { state: { orderData } });
+      try { sessionStorage.removeItem(requestStorageKey); } catch { /* Storage is optional. */ }
     } catch (error) {
       const rawMessage = error instanceof Error ? error.message : "فشل إرسال الطلب";
       const message = rawMessage.includes("invalid_checkout_phone") || rawMessage.includes("invalid_yemen_phone") ? "أدخل رقم هاتف صحيح. لليمن استخدم 9 أرقام تبدأ بـ7، وللدول الأخرى استخدم رمز الدولة." : rawMessage.includes("order_rate_limit") ? "تم إرسال عدة طلبات خلال فترة قصيرة. حاول مرة أخرى بعد قليل." : rawMessage.includes("guest_order_capacity_limit") ? "إنشاء الطلبات غير متاح مؤقتاً بسبب عدد كبير من المحاولات. حاول بعد قليل." : rawMessage.includes("insufficient_stock") ? "تغير مخزون أحد المنتجات في السلة. راجع الكمية وحاول مرة أخرى." : rawMessage.includes("variant_selection_required") ? "تحقق من اختيار المقاس أو اللون لجميع المنتجات." : rawMessage.includes("referral_code_expired") ? "انتهت صلاحية كود الإحالة (48 ساعة). استخدم كوداً آخر." : rawMessage.includes("referral_discount_already_used") ? "سبق لك الاستفادة من خصم الإحالة، لذلك لا يمكن استخدامه مرة أخرى." : rawMessage.includes("self_referral_not_allowed") ? "لا يمكنك استخدام كود الإحالة الخاص بك." : rawMessage.includes("invalid_coupon") ? "كود الخصم لم يعد صالحاً. أزله أو جرّب كوداً آخر." : rawMessage.includes("invalid_payment_method") ? "طريقة الدفع المختارة غير متاحة حالياً. اختر طريقة دفع أخرى." : rawMessage.includes("invalid_cod_region") ? "الدفع عند الاستلام متاح حاليًا داخل عدن فقط. اختر التحويل البنكي لهذه المحافظة." : rawMessage.includes("invalid_delivery_scope") ? "شركة التوصيل لا تغطي المحافظة المختارة. اختر شركة أخرى." : rawMessage.includes("invalid_delivery_company") || rawMessage.includes("delivery_company_required") ? "شركة التوصيل المختارة غير متاحة حالياً. اختر شركة توصيل أخرى." : rawMessage;
