@@ -83,7 +83,7 @@ const checks = [
   },
   {
     file: "src/components/HeroSlider.tsx",
-    needles: ["A NEW CHAPTER", "GENAN EDIT", "FallbackHero"],
+    needles: ["GENAN / NEW COLLECTION", "FALLBACK_HERO_IMAGE", "اكتشفي المجموعة"],
     message: "Home hero must keep the Genan fallback experience.",
   },
 ];
