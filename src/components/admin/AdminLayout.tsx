@@ -21,6 +21,7 @@ type RoutePermission =
 
 type PermissionSnapshot = {
   userId: string;
+  isAdmin: boolean;
   values: Map<string, boolean>;
   expiresAt: number;
 };
@@ -78,8 +79,10 @@ const permissionForLocation = (pathname: string, search: string): RoutePermissio
   return null;
 };
 
-const getCachedPermission = (permission: RoutePermission) => {
+const getCachedPermission = (permission: RoutePermission | null) => {
   if (!permissionSnapshot || permissionSnapshot.expiresAt <= Date.now()) return undefined;
+  if (!permissionSnapshot.isAdmin) return false;
+  if (!permission) return true;
   return permissionSnapshot.values.get(permission) !== false;
 };
 
@@ -97,6 +100,20 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
   if (permissionSnapshotPromise) return permissionSnapshotPromise;
 
   permissionSnapshotPromise = (async () => {
+    const { data: isAdmin, error: adminError } = await supabase.rpc("is_current_user_admin");
+    if (adminError) throw adminError;
+
+    if (isAdmin !== true) {
+      const deniedSnapshot: PermissionSnapshot = {
+        userId,
+        isAdmin: false,
+        values: new Map<string, boolean>(),
+        expiresAt: Date.now() + PERMISSION_CACHE_TTL_MS,
+      };
+      permissionSnapshot = deniedSnapshot;
+      return deniedSnapshot;
+    }
+
     const { data, error } = await supabase
       .from("admin_user_permissions")
       .select("permission, granted")
@@ -109,6 +126,7 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
 
     permissionSnapshot = {
       userId,
+      isAdmin: true,
       values,
       expiresAt: Date.now() + PERMISSION_CACHE_TTL_MS,
     };
@@ -123,9 +141,10 @@ const loadPermissionSnapshot = async (): Promise<PermissionSnapshot | null> => {
   }
 };
 
-const resolveAdminPermission = async (permission: RoutePermission) => {
+const resolveAdminPermission = async (permission: RoutePermission | null) => {
   const snapshot = await loadPermissionSnapshot();
-  if (!snapshot) return true;
+  if (!snapshot || !snapshot.isAdmin) return false;
+  if (!permission) return true;
   return snapshot.values.get(permission) !== false;
 };
 
@@ -324,9 +343,10 @@ const adminInteractiveColorOverrides = `
 const AdminLayout = () => {
   const location = useLocation();
   const requiredPermission = useMemo(() => permissionForLocation(location.pathname, location.search), [location.pathname, location.search]);
-  const cachedPermission = requiredPermission ? getCachedPermission(requiredPermission) : true;
-  const [checking, setChecking] = useState(Boolean(requiredPermission) && cachedPermission === undefined);
-  const [allowed, setAllowed] = useState(cachedPermission ?? true);
+  const cachedPermission = getCachedPermission(requiredPermission);
+  const [checking, setChecking] = useState(cachedPermission === undefined);
+  const [allowed, setAllowed] = useState(cachedPermission ?? false);
+  const [authRevision, setAuthRevision] = useState(0);
 
   useEffect(() => {
     const warmTimer = window.setTimeout(() => {
@@ -338,6 +358,7 @@ const AdminLayout = () => {
       if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") {
         permissionSnapshot = null;
         permissionSnapshotPromise = null;
+        setAuthRevision((revision) => revision + 1);
       }
     });
 
@@ -351,12 +372,6 @@ const AdminLayout = () => {
     let active = true;
 
     const check = async () => {
-      if (!requiredPermission) {
-        setAllowed(true);
-        setChecking(false);
-        return;
-      }
-
       const cached = getCachedPermission(requiredPermission);
       if (cached !== undefined) {
         setAllowed(cached);
@@ -370,7 +385,7 @@ const AdminLayout = () => {
         if (active) setAllowed(granted);
       } catch (error) {
         console.error("Admin route permission check failed:", error);
-        if (active) setAllowed(true);
+        if (active) setAllowed(false);
       } finally {
         if (active) setChecking(false);
       }
@@ -378,7 +393,7 @@ const AdminLayout = () => {
 
     void check();
     return () => { active = false; };
-  }, [requiredPermission]);
+  }, [requiredPermission, authRevision]);
 
   if (checking) {
     return <div className="fixed inset-0 grid place-items-center bg-[#F6F8FA]" dir="rtl"><div className="text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin text-[#675CBA]" /><p className="mt-2 text-[8px] text-[#8E96A1]">جاري التحقق من صلاحية الصفحة...</p></div></div>;
