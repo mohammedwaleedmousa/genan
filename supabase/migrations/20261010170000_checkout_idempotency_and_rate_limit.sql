@@ -95,6 +95,10 @@ BEGIN
     RETURN v_existing_response::json;
   END IF;
 
+  -- Keep stored tracking responses bounded; clients only retain an idempotency key for a pending same-tab attempt.
+  DELETE FROM private.checkout_request_idempotency
+   WHERE created_at < pg_catalog.now() - interval '30 days';
+
   -- Limit successful new order submissions to five per normalized phone per hour.
   -- A retry with the same request ID is returned above and does not consume another slot.
   SELECT pg_catalog.count(*)::integer
