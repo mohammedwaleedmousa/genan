@@ -202,7 +202,7 @@ begin
         RAISE EXCEPTION 'invalid_accessory_price';
       END;
 
-      IF v_accessory_price < 0 OR v_accessory_price > 1000000 THEN
+      IF v_accessory_price IS NULL OR v_accessory_price < 0 OR v_accessory_price > 1000000 THEN
         RAISE EXCEPTION 'invalid_accessory_price';
       END IF;
 
