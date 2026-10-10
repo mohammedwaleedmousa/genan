@@ -24,6 +24,7 @@ import "./mobile-smooth.css";
 import "./desktop-storefront.css";
 import "./desktop-pages.css";
 import "./genan-unified.css";
+import "./genan-luxury-refinement.css";
 
 const warmUpSupabaseConnection = () => {
   const rawUrl = String(import.meta.env.VITE_SUPABASE_URL || "").trim();
