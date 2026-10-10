@@ -18,8 +18,18 @@ const checks = [
   },
   {
     file: "src/pages/CheckoutPage.tsx",
-    needles: ["create_secure_order_v3", "p_items", "p_delivery_company_id", "trackingToken: createdOrder.tracking_token"],
+    needles: ["create_secure_order_v4", "p_request_id: requestId", "p_items", "p_delivery_company_id", "trackingToken: createdOrder.tracking_token", "checkoutRequestId"],
     message: "Checkout must use the Genan secure order RPC and pass the tracking token into confirmation state.",
+  },
+  {
+    file: "supabase/migrations/20261010170000_checkout_idempotency_and_rate_limit.sql",
+    needles: ["create_secure_order_v4", "pg_advisory_xact_lock", "order_rate_limit", "checkout_request_idempotency"],
+    message: "Checkout must persist idempotency responses and limit new successful submissions per phone.",
+  },
+  {
+    file: "supabase/migrations/20261010180000_server_validated_accessory_pricing.sql",
+    needles: ["v_product.accessories", "invalid_accessory", "selected_accessories"],
+    message: "Accessory selections and prices must be validated against server-side product catalog data.",
   },
   {
     file: "src/pages/OrderConfirmationPage.tsx",
