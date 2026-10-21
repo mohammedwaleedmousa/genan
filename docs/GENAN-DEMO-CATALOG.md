@@ -10,7 +10,7 @@ This one-time QA seed added 24 example products to the Genan Prod Supabase proje
 
 All products:
 - Slug prefix: `genan-demo-20261022-`
-- `is_active = false`
+- `is_active = true` — public **preview only**, never genuine stock.
 - `in_stock = false`
 - `stock_quantity = 0`
 - No actual brand is claimed or assigned.
@@ -22,11 +22,11 @@ All products:
 ## Validation completed
 
 - 24 products with the demo prefix
-- 0 demo products active
+- 24 demo products active and visible to the anonymous storefront
 - 0 demo products in stock
 - 0 demo products with missing images
 - 84 SKU records, 0 nonzero stock
-- Anonymous database role cannot see the demo products (0 results)
+- Anonymous database role sees all 24 demo products (verified)
 
 ## Source and cleanup
 
@@ -45,8 +45,14 @@ COMMIT;
 
 Related inventory SKU rows are removed by cascade on product deletion.
 
-Never activate these products, use the demo prices for real checkout, or represent their visual illustrations as supplier-provided merchandise. Real catalog launch requires authentic prices, accurate stock, and licensed photographs.
+Products are visible for display, but they MUST remain unavailable for sale. The database CHECK constraint `genan_demo_20261022_non_sale` prevents turning `in_stock` on or giving these demo products nonzero product stock. An actual test confirmed a sellable update is rejected. Never use mock prices for real checkout or represent illustrations as supplier-provided merchandise. Real catalog launch requires authentic prices, accurate stock, and licensed photographs.
 
 ## Limitations
 
-QA proof covers database records and anonymous data-visibility checks, not a rendered browser session or successful Cloudflare deployment. To test detail pages publicly, use a **staging environment** with separately seeded, published staging-only products rather than activating production drafts.
+QA proof covers database records, anonymous data-visibility checks, and the protection against mistakenly making demo products saleable. Home page now has a dedicated, labelled demo showcase; all 24 display on `/products` when Cloudflare uses the correct Supabase project. Cloudflare deployment and a rendered-browser test have not been directly verified. After a new deploy, confirm site and images on both mobile and desktop.
+
+## Why the previews were initially invisible and the fix
+
+The initial seed wrote `is_active=false`, while all customer-facing product queries require `is_active=true`. On 2026-10-22, demo rows were explicitly activated **without enabling sales**. Category covers were assigned to local demo SVG artwork, product cards show `عرض تجريبي`, and the home page has a clearly labelled preview rail. The change is recorded in `supabase/migrations/20261022124000_genan_visible_demo_preview.sql` (the seed itself is separate and opt-in).
+
+If users still see no products, first verify the Cloudflare build's `VITE_SUPABASE_URL` and publishable key refer to `ydpvfsemhbrkhtjjjwqs`; an old environment variable overrides the committed client fallback. Then use `/api/store-health`, inspect the browser's network requests for `products`, and perform a hard refresh.
