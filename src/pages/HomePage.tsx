@@ -116,6 +116,24 @@ const HomePage = () => {
     staleTime: 5 * 60 * 1000,
   });
 
+  // Demo products are public catalog PREVIEWS, not genuine stock or best sellers.
+  // Keep them in a separately labelled section; never mix them with sellable items.
+  const { data: demoPreview = [], isLoading: demoLoading } = useQuery({
+    queryKey: ["genan-home-demo-preview-20261022-v1"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("products")
+        .select(PRODUCT_CARD_SELECT)
+        .eq("is_active", true)
+        .like("slug", "genan-demo-20261022-%")
+        .order("sort_order", { ascending: true })
+        .limit(8);
+      if (error) throw error;
+      return (data || []).map(mapProductCard);
+    },
+    staleTime: 2 * 60 * 1000,
+  });
+
   const { data: brands = [] } = useQuery({
     queryKey: ["genan-home-brands-compact-v1"],
     queryFn: async () => {
@@ -197,7 +215,33 @@ const HomePage = () => {
           </section>
         )}
 
-        {!catalogLoading && !featuredLoading && !bestLoading && featured.length === 0 && best.length === 0 && (
+        {featured.length === 0 && demoPreview.length > 0 && (
+          <section className="bg-[#F8F6F2] py-9 md:py-16" aria-label="منتجات تجريبية غير متاحة للشراء">
+            <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
+              <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="mb-2 text-[10px] font-semibold tracking-[.2em] text-[#9A825B]">
+                    GENAN / DEMO COLLECTION
+                  </p>
+                  <h2 className="text-xl font-semibold text-[#171717] md:text-3xl">استكشف تصميم المنتجات التجريبية</h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-[#68635B]">
+                    هذه منتجات وصور وأسعار افتراضية لاختبار المتجر فقط؛ ليست متوفرة للبيع أو لإتمام الطلبات.
+                  </p>
+                </div>
+                <Link to="/products" className="inline-flex min-h-11 items-center gap-2 border-b border-[#9A825B] text-sm font-medium text-[#171717]">
+                  عرض جميع المنتجات التجريبية <ArrowLeft className="h-4 w-4" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 gap-x-3 gap-y-8 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
+                {demoPreview.map((product, index) => (
+                  <ProductCard key={product.id} product={product} index={index} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {!catalogLoading && !demoLoading && !featuredLoading && !bestLoading && demoPreview.length === 0 && featured.length === 0 && best.length === 0 && (
           <section className="bg-[#F8F6F2] px-4 py-12 text-center md:py-20" aria-live="polite">
             <div className="mx-auto max-w-lg">
               <p className="mb-3 text-[10px] font-semibold tracking-[.2em] text-[#9A825B]">GENAN / COLLECTION</p>
