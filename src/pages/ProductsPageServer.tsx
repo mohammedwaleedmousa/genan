@@ -147,7 +147,7 @@ const ProductsPageServer = () => {
     staleTime: 30 * 60 * 1000,
   });
 
-  const { data: rawRows = [], isLoading } = useQuery({
+  const { data: rawRows = [], isLoading, isError, refetch } = useQuery({
     queryKey: ["genan-products-direct-v3"],
     queryFn: async () => {
       const { data, error } = await (supabase as any)
@@ -561,17 +561,35 @@ const ProductsPageServer = () => {
                 <div key={index} className="aspect-[3/4] animate-pulse bg-[#F1F1F1]" />
               ))}
             </div>
+          ) : isError ? (
+            <div role="alert" className="mx-auto flex min-h-[52vh] max-w-lg flex-col items-center justify-center text-center" dir="rtl">
+              <span className="text-[9px] font-semibold tracking-[.2em] text-[#9A825B]">GENAN / CONNECTION</span>
+              <h3 className="mt-3 text-[24px] font-semibold text-[#171717]">تعذر تحميل المنتجات</h3>
+              <p className="mt-3 text-sm leading-7 text-[#6B655D]">حدث خطأ أثناء الاتصال بالمتجر. يرجى المحاولة مجددًا.</p>
+              <button type="button" onClick={() => { void refetch(); }} className="mt-6 min-h-11 rounded-xl bg-[#171717] px-8 py-3 text-sm font-semibold text-white hover:bg-[#353535]">
+                إعادة المحاولة
+              </button>
+            </div>
           ) : visibleProducts.length === 0 ? (
             <div className="flex min-h-[52vh] flex-col items-center justify-center text-center">
-              <span className="text-[8px] font-semibold tracking-[.28em] text-[#A9D8D3]">NO MATCHES</span>
-              <h3 className="mt-3 text-[28px] font-medium">لا توجد منتجات مطابقة.</h3>
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="mt-6 rounded-xl border border-[#0E0E0E] px-6 py-3 text-[10px] font-semibold"
-              >
-                إعادة التعيين
-              </button>
+              <span className="text-[9px] font-semibold tracking-[.24em] text-[#9A825B]">GENAN / COLLECTION</span>
+              <h3 className="mt-3 text-[24px] font-semibold">
+                {rawRows.length === 0 ? "مجموعة جنان قيد التجهيز" : "لا توجد منتجات مطابقة"}
+              </h3>
+              <p className="mt-3 max-w-md text-sm leading-7 text-[#6B655D]">
+                {rawRows.length === 0
+                  ? "نعمل على تجهيز منتجات جنان بصورها وأسعارها وتفاصيلها قبل عرضها للبيع."
+                  : "جرّب إزالة بعض الفلاتر أو اختيار قسم آخر."}
+              </p>
+              {rawRows.length > 0 && (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className="mt-6 min-h-11 rounded-xl border border-[#0E0E0E] px-6 py-3 text-sm font-semibold transition-colors hover:bg-[#0E0E0E] hover:text-white"
+                >
+                  مسح الفلاتر
+                </button>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-x-3 gap-y-9 sm:gap-x-4 md:grid-cols-3 md:gap-x-5 md:gap-y-12 lg:grid-cols-4">
