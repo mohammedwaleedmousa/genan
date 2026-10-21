@@ -34,4 +34,4 @@ create policy "customers update own notifications" on public.customer_notificati
   or customer_id in (select id from public.customers where user_id = auth.uid())
 );
 
-revoke execute on function public.customer_register(text,text,text,text,text) from anon;
+do $$ begin if to_regprocedure('public.customer_register(text,text,text,text,text)') is not null then execute 'revoke execute on function public.customer_register(text,text,text,text,text) from anon;'; end if; end $$;
