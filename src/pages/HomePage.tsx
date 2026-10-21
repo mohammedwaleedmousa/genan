@@ -71,7 +71,7 @@ const HomePage = () => {
     staleTime: 10 * 60 * 1000,
   });
 
-  const { data: featured = [] } = useQuery({
+  const { data: featured = [], isLoading: featuredLoading, isError: featuredError } = useQuery({
     queryKey: ["genan-home-featured-compact-v1"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -89,7 +89,7 @@ const HomePage = () => {
     staleTime: 5 * 60 * 1000,
   });
 
-  const { data: best = [] } = useQuery({
+  const { data: best = [], isLoading: bestLoading, isError: bestError } = useQuery({
     queryKey: ["genan-home-best-compact-v1"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -184,6 +184,31 @@ const HomePage = () => {
                   <ProductCard key={product.id} product={product} index={index} />
                 ))}
               </div>
+            </div>
+          </section>
+        )}
+
+        {!featuredLoading && !bestLoading && featured.length === 0 && best.length === 0 && (
+          <section className="bg-[#F8F6F2] px-4 py-12 text-center md:py-20" aria-live="polite">
+            <div className="mx-auto max-w-lg">
+              <p className="mb-3 text-[10px] font-semibold tracking-[.2em] text-[#9A825B]">GENAN / COLLECTION</p>
+              <h2 className="text-xl font-semibold text-[#161616] md:text-3xl">
+                {featuredError || bestError ? "تعذر عرض المنتجات حاليًا" : "مجموعة جنان قيد التجهيز"}
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-[#69645C]">
+                {featuredError || bestError
+                  ? "حدثت مشكلة أثناء جلب المنتجات. يمكنك المحاولة مرة أخرى."
+                  : "نعمل على تجهيز المنتجات وتفاصيلها لتقديم تجربة تسوق أفضل."}
+              </p>
+              {featuredError || bestError ? (
+                <button type="button" onClick={() => window.location.reload()} className="mt-6 inline-flex min-h-11 items-center justify-center bg-[#161616] px-7 text-sm font-semibold text-white hover:bg-[#343434]">
+                  إعادة المحاولة
+                </button>
+              ) : (
+                <Link to="/products" className="mt-6 inline-flex min-h-11 items-center justify-center bg-[#161616] px-7 text-sm font-semibold text-white hover:bg-[#343434]">
+                  تصفح جميع المنتجات
+                </Link>
+              )}
             </div>
           </section>
         )}
