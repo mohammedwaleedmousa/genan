@@ -34,6 +34,7 @@ create index if not exists customer_favorites_user_idx on public.customer_favori
 create index if not exists customer_addresses_user_idx on public.customer_addresses(user_id, updated_at desc);
 
 alter table public.orders add column if not exists owner_user_id uuid references auth.users(id) on delete set null;
+alter table public.orders add column if not exists tracking_token text;
 alter table public.orders add column if not exists tracking_token_hash text;
 create index if not exists orders_owner_user_id_idx on public.orders(owner_user_id, created_at desc);
 
@@ -124,6 +125,7 @@ $$;
 
 grant execute on function public.create_secure_order(uuid,text,text,text,text,text,text,text,jsonb,numeric,numeric,numeric,text,text,text,numeric,numeric,text,numeric) to anon, authenticated;
 
+drop function if exists public.get_order_tracking(text,text);
 create or replace function public.get_order_tracking(p_order_number text, p_tracking_token text)
 returns json language plpgsql security definer set search_path = public as $$
 declare result json;
@@ -140,5 +142,5 @@ create policy "customers can view own orders" on public.orders for select to aut
 
 drop policy if exists "Anyone can create orders" on public.orders;
 
-revoke execute on function public.customer_self(uuid,text) from anon;
-revoke execute on function public.customer_update_self(uuid,text,text,text,text) from anon;
+do $$ begin if to_regprocedure('public.customer_self(uuid,text)') is not null then execute 'revoke execute on function public.customer_self(uuid,text) from anon;'; end if; end $$;
+do $$ begin if to_regprocedure('public.customer_update_self(uuid,text,text,text,text)') is not null then execute 'revoke execute on function public.customer_update_self(uuid,text,text,text,text) from anon;'; end if; end $$;
