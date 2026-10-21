@@ -39,7 +39,7 @@ Deno.serve(async (req) => {
   let verifiedAal2 = false;
   if (user) {
     try {
-      const token = (req.headers.get("authorization") || "").replace(/^Bearer\\s+/i, "");
+      const token = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "");
       const raw = token.split(".")[1] || "";
       const padded = raw.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(raw.length / 4) * 4, "=");
       verifiedAal2 = JSON.parse(atob(padded)).aal === "aal2";
