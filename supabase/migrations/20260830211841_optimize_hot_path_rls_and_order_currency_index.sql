@@ -18,19 +18,35 @@ alter policy "customers view own orders" on public.orders
     )
   );
 
-alter policy "customer_carts_select_own" on public.customer_carts
-  using ((select auth.uid()) = user_id);
+DO $guard$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_policies WHERE schemaname='public' AND tablename='customer_carts' AND policyname='customer_carts_select_own') THEN
+    EXECUTE $policy_sql$alter policy "customer_carts_select_own" on public.customer_carts
+  using ((select auth.uid()) = user_id);$policy_sql$;
+  END IF;
+END $guard$;
 
-alter policy "customer_carts_insert_own" on public.customer_carts
-  with check ((select auth.uid()) = user_id);
+DO $guard$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_policies WHERE schemaname='public' AND tablename='customer_carts' AND policyname='customer_carts_insert_own') THEN
+    EXECUTE $policy_sql$alter policy "customer_carts_insert_own" on public.customer_carts
+  with check ((select auth.uid()) = user_id);$policy_sql$;
+  END IF;
+END $guard$;
 
-alter policy "customer_carts_update_own" on public.customer_carts
+DO $guard$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_policies WHERE schemaname='public' AND tablename='customer_carts' AND policyname='customer_carts_update_own') THEN
+    EXECUTE $policy_sql$alter policy "customer_carts_update_own" on public.customer_carts
   using ((select auth.uid()) = user_id)
-  with check ((select auth.uid()) = user_id);
+  with check ((select auth.uid()) = user_id);$policy_sql$;
+  END IF;
+END $guard$;
 
-alter policy "Admins manage inventory skus" on public.inventory_skus
+DO $guard$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_policies WHERE schemaname='public' AND tablename='inventory_skus' AND policyname='Admins manage inventory skus') THEN
+    EXECUTE $policy_sql$alter policy "Admins manage inventory skus" on public.inventory_skus
   using (public.has_role((select auth.uid()), 'admin'::public.app_role))
-  with check (public.has_role((select auth.uid()), 'admin'::public.app_role));
+  with check (public.has_role((select auth.uid()), 'admin'::public.app_role));$policy_sql$;
+  END IF;
+END $guard$;
 
 alter policy "Admins can read events" on public.analytics_events
   using (public.has_role((select auth.uid()), 'admin'::public.app_role));
