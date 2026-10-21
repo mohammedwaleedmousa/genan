@@ -216,7 +216,7 @@ BEGIN
     v_order_items, v_subtotal, coalesce(v_delivery.base_fee, 0), v_discount, v_total,
     v_total, v_currency_code, v_currency_mode, v_exchange_rate, v_delivery.id,
     p_payment_method, nullif(upper(trim(coalesce(p_coupon_code, ''))), ''),
-    encode(digest(v_tracking_token, 'sha256'), 'hex')
+    encode(extensions.digest(v_tracking_token, 'sha256'), 'hex')
   ) RETURNING id INTO v_order_id;
 
   RETURN jsonb_build_object(
@@ -254,7 +254,7 @@ AS $$
   FROM public.orders o
   LEFT JOIN public.delivery_companies d ON d.id = o.delivery_company_id
   WHERE o.order_number = p_order_number
-    AND o.tracking_token_hash = encode(digest(p_tracking_token, 'sha256'), 'hex')
+    AND o.tracking_token_hash = encode(extensions.digest(p_tracking_token, 'sha256'), 'hex')
   LIMIT 1;
 $$;
 
