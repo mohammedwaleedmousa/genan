@@ -198,7 +198,8 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
   };
 
   const discount = Number(product.discount || 0);
-  const cardBadge = badge || (discount > 0 ? `-${discount}%` : undefined);
+  const isDemo = product.slug.startsWith("genan-demo-20261022-");
+  const cardBadge = isDemo ? "عرض تجريبي" : badge || (discount > 0 ? `-${discount}%` : undefined);
   const isMobileViewport = typeof window !== "undefined" && window.innerWidth <= 767;
   const eagerImageLimit = isMobileViewport ? 2 : 4;
   const shouldEagerLoad = index < eagerImageLimit;
@@ -271,7 +272,7 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
               <ShoppingBag className="h-[16px] w-[16px]" strokeWidth={1.5} />
             </button>
           ) : (
-            <span className="absolute bottom-3 left-3 bg-white/88 px-2 py-1 text-[7px] font-medium text-[#777777]">نفدت الكمية</span>
+            <span className="absolute bottom-3 left-3 bg-white/88 px-2 py-1 text-[7px] font-medium text-[#777777]">{isDemo ? "غير متاح للشراء" : "نفدت الكمية"}</span>
           )}
 
           {colors.length > 0 && (
