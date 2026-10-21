@@ -131,33 +131,36 @@ declare
   v_pos integer;
 begin
   for r in select * from (values
-    ('public.admin_create_product_draft_from_excel(jsonb)'::regprocedure,E'  perform private.require_admin_permission(''products.bulk_update'');\n  perform private.require_admin_permission(''products.edit'');\n'),
-    ('public.admin_duplicate_product(uuid)'::regprocedure,E'  perform private.require_admin_permission(''products.edit'');\n'),
-    ('public.admin_update_inventory_sku_from_excel(uuid,integer)'::regprocedure,E'  perform private.require_admin_permission(''inventory.adjust'');\n'),
-    ('public.apply_inventory_adjustment(uuid,text,integer,text,text,text,uuid)'::regprocedure,E'  perform private.require_admin_permission(''inventory.adjust'');\n'),
-    ('public.create_manual_journal_entry(date,text,text,text,jsonb)'::regprocedure,E'  perform private.require_admin_permission(''finance.manage'');\n'),
-    ('public.create_refund_request(uuid,text,uuid,text,text,numeric,text,text,text,jsonb,text,text)'::regprocedure,E'  perform private.require_admin_permission(''finance.manage'');\n'),
-    ('public.delete_coupon_safe(uuid)'::regprocedure,E'  perform private.require_admin_permission(''marketing.manage'');\n'),
-    ('public.delete_currency_safe(text)'::regprocedure,E'  perform private.require_admin_permission(''finance.manage'');\n'),
-    ('public.delete_product_from_inventory(uuid)'::regprocedure,E'  perform private.require_admin_permission(''products.delete'');\n'),
-    ('public.delete_refund_safe(uuid)'::regprocedure,E'  perform private.require_admin_permission(''finance.manage'');\n'),
-    ('public.replace_product_inventory_skus(uuid,jsonb)'::regprocedure,E'  perform private.require_admin_permission(''inventory.adjust'');\n'),
-    ('public.reverse_journal_entry(uuid,date,text)'::regprocedure,E'  perform private.require_admin_permission(''finance.manage'');\n'),
-    ('public.update_refund_status(uuid,text,text)'::regprocedure,E'  perform private.require_admin_permission(''finance.manage'');\n')
+    (to_regprocedure('public.admin_create_product_draft_from_excel(jsonb)'),E'  perform private.require_admin_permission(''products.bulk_update'');\n  perform private.require_admin_permission(''products.edit'');\n'),
+    (to_regprocedure('public.admin_duplicate_product(uuid)'),E'  perform private.require_admin_permission(''products.edit'');\n'),
+    (to_regprocedure('public.admin_update_inventory_sku_from_excel(uuid,integer)'),E'  perform private.require_admin_permission(''inventory.adjust'');\n'),
+    (to_regprocedure('public.apply_inventory_adjustment(uuid,text,integer,text,text,text,uuid)'),E'  perform private.require_admin_permission(''inventory.adjust'');\n'),
+    (to_regprocedure('public.create_manual_journal_entry(date,text,text,text,jsonb)'),E'  perform private.require_admin_permission(''finance.manage'');\n'),
+    (to_regprocedure('public.create_refund_request(uuid,text,uuid,text,text,numeric,text,text,text,jsonb,text,text)'),E'  perform private.require_admin_permission(''finance.manage'');\n'),
+    (to_regprocedure('public.delete_coupon_safe(uuid)'),E'  perform private.require_admin_permission(''marketing.manage'');\n'),
+    (to_regprocedure('public.delete_currency_safe(text)'),E'  perform private.require_admin_permission(''finance.manage'');\n'),
+    (to_regprocedure('public.delete_product_from_inventory(uuid)'),E'  perform private.require_admin_permission(''products.delete'');\n'),
+    (to_regprocedure('public.delete_refund_safe(uuid)'),E'  perform private.require_admin_permission(''finance.manage'');\n'),
+    (to_regprocedure('public.replace_product_inventory_skus(uuid,jsonb)'),E'  perform private.require_admin_permission(''inventory.adjust'');\n'),
+    (to_regprocedure('public.reverse_journal_entry(uuid,date,text)'),E'  perform private.require_admin_permission(''finance.manage'');\n'),
+    (to_regprocedure('public.update_refund_status(uuid,text,text)'),E'  perform private.require_admin_permission(''finance.manage'');\n')
   ) as guards(fn,guard_sql)
   loop
+    if r.fn is null then continue; end if;
     v_def:=pg_get_functiondef(r.fn::oid); v_pos:=strpos(v_def,v_marker);
     if v_pos=0 then raise exception 'Could not locate main begin block for %',r.fn; end if;
     v_def:=substr(v_def,1,v_pos-1)||v_marker||r.guard_sql||substr(v_def,v_pos+length(v_marker));
     execute v_def;
   end loop;
 
-  v_def:=pg_get_functiondef('public.admin_quick_update_product(uuid,jsonb)'::regprocedure::oid); v_pos:=strpos(v_def,v_marker);
+  if to_regprocedure('public.admin_quick_update_product(uuid,jsonb)') is not null then
+  v_def:=pg_get_functiondef(to_regprocedure('public.admin_quick_update_product(uuid,jsonb)')::oid); v_pos:=strpos(v_def,v_marker);
   if v_pos=0 then raise exception 'Could not locate main begin block for admin_quick_update_product'; end if;
   v_def:=substr(v_def,1,v_pos-1)||v_marker
     ||E'  if coalesce(p_patch, ''{}''::jsonb) ?| array[''stock_quantity'',''in_stock''] then\n    perform private.require_admin_permission(''inventory.adjust'');\n  end if;\n'
     ||E'  if exists (select 1 from jsonb_object_keys(coalesce(p_patch, ''{}''::jsonb)) as k(key) where k.key not in (''stock_quantity'',''in_stock'')) then\n    perform private.require_admin_permission(''products.edit'');\n  end if;\n'
     ||substr(v_def,v_pos+length(v_marker));
   execute v_def;
+  end if;
 end;
 $$;
