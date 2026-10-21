@@ -29,11 +29,20 @@ begin
     raise exception 'create_secure_order_v3_not_found';
   end if;
 
-  if position(v_old in v_ddl) = 0 then
-    raise exception 'create_secure_order_v3_anchor_not_found';
+  if position('pg_advisory_xact_lock' in v_ddl) > 0 then
+    return;
   end if;
 
-  v_ddl := replace(v_ddl, v_old, v_new);
+  if position(v_old in v_ddl) > 0 then
+    v_ddl := replace(v_ddl, v_old, v_new);
+  elsif position('  if v_phone_key = '''' then raise exception ''phone_required''; end if;' in v_ddl) > 0 then
+    v_ddl := replace(v_ddl,
+      '  if v_phone_key = '''' then raise exception ''phone_required''; end if;',
+      '  if v_phone_key = '''' then raise exception ''phone_required''; end if;' || chr(10) ||
+      '  perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended(v_phone_key, 0));');
+  else
+    raise exception 'create_secure_order_v3_anchor_not_found';
+  end if;
   execute v_ddl;
 end
 $migration$;
