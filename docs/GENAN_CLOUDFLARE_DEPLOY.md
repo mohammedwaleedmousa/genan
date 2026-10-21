@@ -9,14 +9,14 @@
 
 ## Build environment variables
 Set these for Production and Preview:
-- `VITE_SUPABASE_URL=https://mwwyvmyeqlgccsnztvkm.supabase.co`
+- `VITE_SUPABASE_URL=https://ydpvfsemhbrkhtjjjwqs.supabase.co`
 - `VITE_SUPABASE_PUBLISHABLE_KEY=<Genan publishable key>`
 - `VITE_GENAN_WHATSAPP_URL=<optional full wa.me URL>`
 - `VITE_GENAN_WHATSAPP_NUMBER=<optional digits only>`
 
 ## Pages Functions runtime variables
 Set these in the Pages project runtime variables:
-- `SUPABASE_URL=https://mwwyvmyeqlgccsnztvkm.supabase.co`
+- `SUPABASE_URL=https://ydpvfsemhbrkhtjjjwqs.supabase.co`
 - `SUPABASE_PUBLISHABLE_KEY=<Genan publishable key>`
 
 Do not add a Supabase service-role key to the frontend or Pages project.
@@ -38,3 +38,10 @@ Check:
 7. Order tracking works with the returned token.
 
 Do not run the production read-load test until the preview has passed the checks above.
+
+## Deleted project migration (October 2026)
+Production database: `ydpvfsemhbrkhtjjjwqs` (Genan Prod). Replace the old project's publishable key in both build and runtime settings with the active **publishable** key from Supabase → Project Settings → API Keys. The deleted project's API settings cannot be reused.
+
+**Cloudflare environment values override application fallbacks.** Update both Production and Preview, then explicitly redeploy and check network requests target the new project. This GitHub commit alone does not change Cloudflare environment variables.
+
+Database structure has been reconstructed, but former user accounts, images and product/order records were not restored. Keep storefront checkout closed to live customers until product catalog, admin setup, storage and smoke testing are complete.
