@@ -35,8 +35,21 @@ Deno.serve(async (req) => {
   const { data: order, error: orderError } = await service.from("orders").select("id,order_number,invoice_url,owner_user_id,tracking_token_hash").eq("id", orderId).maybeSingle();
   if (orderError || !order) return json({ error: "Invoice access denied" }, 403, origin);
 
+  // Verify AAL2 for privileged invoice operations, even if the frontend guard is bypassed.
+  let verifiedAal2 = false;
+  if (user) {
+    try {
+      const token = (req.headers.get("authorization") || "").replace(/^Bearer\\s+/i, "");
+      const raw = token.split(".")[1] || "";
+      const padded = raw.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(raw.length / 4) * 4, "=");
+      verifiedAal2 = JSON.parse(atob(padded)).aal === "aal2";
+    } catch { verifiedAal2 = false; }
+  }
   let isAdmin = false;
-  if (user) { const { data: role } = await service.from("user_roles").select("id").eq("user_id", user.id).eq("role", "admin").maybeSingle(); isAdmin = Boolean(role); }
+  if (user && verifiedAal2) {
+    const { data: role } = await service.from("user_roles").select("id").eq("user_id", user.id).eq("role", "admin").maybeSingle();
+    isAdmin = Boolean(role);
+  }
   const isOwner = Boolean(user && order.owner_user_id === user.id);
   const validTrackingToken = Boolean(trackingToken && order.tracking_token_hash && await hashToken(trackingToken) === order.tracking_token_hash);
   if (!isAdmin && !isOwner && !validTrackingToken) return json({ error: "Invoice access denied" }, 403, origin);
