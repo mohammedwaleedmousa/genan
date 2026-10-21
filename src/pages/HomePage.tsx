@@ -54,6 +54,15 @@ const SectionHeader = ({
 );
 
 const HomePage = () => {
+  const { data: hasCatalogProducts = false, isLoading: catalogLoading } = useQuery({
+    queryKey: ["genan-home-active-catalog-presence-v1"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("products").select("id").eq("is_active", true).limit(1);
+      if (error) throw error;
+      return (data || []).length > 0;
+    },
+    staleTime: 2 * 60 * 1000,
+  });
   const { data: categories = [] } = useQuery({
     queryKey: ["genan-home-categories-compact-v1"],
     queryFn: async () => {
@@ -131,7 +140,7 @@ const HomePage = () => {
       <main className="overflow-hidden bg-white">
         <HeroSlider />
 
-        {categories.length > 0 && (
+        {hasCatalogProducts && categories.length > 0 && (
           <section className="bg-white py-6 md:py-12">
             <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
               <SectionHeader eyebrow="SHOP / CATEGORY" title="تسوق حسب القسم" to="/categories" />
@@ -188,17 +197,17 @@ const HomePage = () => {
           </section>
         )}
 
-        {!featuredLoading && !bestLoading && featured.length === 0 && best.length === 0 && (
+        {!catalogLoading && !featuredLoading && !bestLoading && featured.length === 0 && best.length === 0 && (
           <section className="bg-[#F8F6F2] px-4 py-12 text-center md:py-20" aria-live="polite">
             <div className="mx-auto max-w-lg">
               <p className="mb-3 text-[10px] font-semibold tracking-[.2em] text-[#9A825B]">GENAN / COLLECTION</p>
               <h2 className="text-xl font-semibold text-[#161616] md:text-3xl">
-                {featuredError || bestError ? "تعذر عرض المنتجات حاليًا" : "مجموعة جنان قيد التجهيز"}
+                {featuredError || bestError ? "تعذر عرض المنتجات حاليًا" : hasCatalogProducts ? "تصفحي تشكيلة جنان" : "مجموعة جنان قيد التجهيز"}
               </h2>
               <p className="mt-3 text-sm leading-7 text-[#69645C]">
                 {featuredError || bestError
                   ? "حدثت مشكلة أثناء جلب المنتجات. يمكنك المحاولة مرة أخرى."
-                  : "نعمل على تجهيز المنتجات وتفاصيلها لتقديم تجربة تسوق أفضل."}
+                  : hasCatalogProducts ? "يمكنك استكشاف جميع المنتجات المتاحة حاليًا بينما نجهز مختاراتنا الخاصة." : "نعمل على تجهيز المنتجات وتفاصيلها لتقديم تجربة تسوق أفضل."}
               </p>
               {featuredError || bestError ? (
                 <button type="button" onClick={() => window.location.reload()} className="mt-6 inline-flex min-h-11 items-center justify-center bg-[#161616] px-7 text-sm font-semibold text-white hover:bg-[#343434]">
@@ -229,7 +238,7 @@ const HomePage = () => {
           </section>
         )}
 
-        {brands.length > 0 && (
+        {hasCatalogProducts && brands.length > 0 && (
           <section className="bg-white py-7 md:py-14">
             <div className="mx-auto max-w-[1500px] px-3 md:px-6 lg:px-8">
               <SectionHeader eyebrow="BRANDS" title="الماركات" to="/brands" />
