@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-label="GENAN DEMO placeholder illustration">
+<defs><linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F7F3EC"/><stop offset="1" stop-color="#E8DDD0"/></linearGradient><filter id="shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="25" stdDeviation="24" flood-color="#332821" flood-opacity=".18"/></filter></defs>
+<rect width="900" height="1200" fill="url(#paper)"/><rect x="55" y="55" width="790" height="1090" fill="none" stroke="#C5A879" stroke-width="2" opacity=".4"/>
+<circle cx="738" cy="202" r="175" fill="#fff" opacity=".23"/><circle cx="130" cy="1017" r="217" fill="#fff" opacity=".17"/>
+<g filter="url(#shadow)"><g><path d="M267 352h135v231c0 54 16 91 72 108l35 12c45 15 53 58 27 95-18 26-51 33-80 22l-135-50c-45-17-70-60-70-114V353Z" fill="#5C4437"/><path d="M483 332h135v227c0 59 15 97 78 123l24 9c49 20 55 60 31 93-18 27-55 31-85 20l-139-56c-38-15-62-62-62-106V333Z" fill="#352C2A"/><path d="M267 390h135M483 370h135" stroke="#C5A879" stroke-width="19"/><path d="M253 654l108 22M469 646l120 26" stroke="#C5A879" opacity=".25" stroke-width="10"/></g></g>
+<path d="M95 928h710" stroke="#C5A879" stroke-opacity=".45"/>
+<text x="450" y="993" text-anchor="middle" font-family="Georgia,serif" font-size="53" fill="#352C2A" letter-spacing="12">GENAN</text>
+<text x="450" y="1049" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#5C4437" letter-spacing="5">DEMO • NOT FOR SALE</text></svg>
