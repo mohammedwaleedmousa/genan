@@ -16,9 +16,9 @@ export interface CurrencyMeta {
 
 // Mutable cache; overridden by hydrateCurrencies() on boot.
 export const CURRENCY_RATES: Record<string, CurrencyMeta> = {
+  // Do not fabricate exchange rates when the production database is unreachable.
+  // SAR is the pricing base currency; other currencies appear only after database hydration.
   SAR: { rate: 1, symbol: "ر.س", label: "ريال سعودي", short: "SAR", isBase: true, isActive: true, sortOrder: 1 },
-  YER_SOUTH: { rate: 410, symbol: "ر.ي", label: "ريال يمني — جنوبي", short: "YER (S)", isActive: true, sortOrder: 2 },
-  YER_NORTH: { rate: 140, symbol: "ر.ي", label: "ريال يمني — شمالي", short: "YER (N)", isActive: true, sortOrder: 3 },
 };
 
 let hydrated = false;
@@ -35,19 +35,29 @@ export async function hydrateCurrencies(force = false): Promise<void> {
         .order("sort_order", { ascending: true });
       if (error) throw error;
       if (Array.isArray(data)) {
-        // Clear and repopulate
-        for (const k of Object.keys(CURRENCY_RATES)) delete CURRENCY_RATES[k];
+        const nextRates: Record<string, CurrencyMeta> = {};
         for (const row of data as any[]) {
-          CURRENCY_RATES[row.code] = {
-            rate: Number(row.rate_to_base) || 1,
+          const code = String(row.code || "").trim();
+          const rate = Number(row.rate_to_base);
+          // Reject invalid and inactive rates rather than silently displaying a 1:1 conversion.
+          if (!code || !Number.isFinite(rate) || rate <= 0 || row.is_active === false) continue;
+          nextRates[code] = {
+            rate,
             symbol: row.symbol || "",
-            label: row.name_ar || row.code,
-            short: row.code,
+            label: row.name_ar || code,
+            short: code,
             isBase: !!row.is_base,
-            isActive: row.is_active !== false,
+            isActive: true,
             sortOrder: Number(row.sort_order) || 0,
           };
         }
+        nextRates.SAR = { rate: 1, symbol: "ر.س", label: "ريال سعودي", short: "SAR", isBase: true, isActive: true, sortOrder: 1 };
+        for (const k of Object.keys(CURRENCY_RATES)) delete CURRENCY_RATES[k];
+        Object.assign(CURRENCY_RATES, nextRates);
+        // Old sessions may carry modes from the deleted database (YER_SOUTH/YER_NORTH).
+        // Do not price an order in a currency that the live database does not recognize.
+        const currentMode = useStore.getState().currencyMode;
+        if (!CURRENCY_RATES[currentMode]) useStore.getState().setCurrencyMode("SAR");
         hydrated = true;
       }
     } catch (e) {
@@ -69,7 +79,7 @@ export function getRateSnapshot(mode: CurrencyMode): number {
 }
 
 export const convertPrice = (baseSAR: number, mode: CurrencyMode): number => {
-  const rate = CURRENCY_RATES[mode]?.rate ?? 1;
+  const rate = (CURRENCY_RATES[mode] ?? CURRENCY_RATES.SAR).rate;
   const value = Number(baseSAR || 0) * rate;
   if (mode === "SAR") return Math.round(value * 100) / 100;
   return Math.round(value);
@@ -77,7 +87,7 @@ export const convertPrice = (baseSAR: number, mode: CurrencyMode): number => {
 
 export const formatPrice = (baseSAR: number, mode: CurrencyMode): string => {
   const val = convertPrice(baseSAR, mode);
-  const symbol = CURRENCY_RATES[mode]?.symbol ?? "";
+  const symbol = (CURRENCY_RATES[mode] ?? CURRENCY_RATES.SAR).symbol;
   return `${val.toLocaleString("en-US")} ${symbol}`;
 };
 
