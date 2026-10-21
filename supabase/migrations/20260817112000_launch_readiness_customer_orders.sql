@@ -221,34 +221,34 @@ begin
 end;
 $function$;
 
-revoke all on function public.create_secure_order_v2(text,text,text,text,text,text,text,jsonb,text,text,text,text,uuid) from public;
+do $fn_guard$ begin if to_regprocedure('public.create_secure_order_v2(text,text,text,text,text,text,text,jsonb,text,text,text,text,uuid)') is not null then execute 'revoke all on function public.create_secure_order_v2(text,text,text,text,text,text,text,jsonb,text,text,text,text,uuid) from public;'; end if; end $fn_guard$;
 grant execute on function public.create_secure_order_v2(text,text,text,text,text,text,text,jsonb,text,text,text,text,uuid) to anon, authenticated, service_role;
 
 -- Stock is now reserved atomically when the order is created. Avoid a second decrement on status changes.
 drop trigger if exists decrement_stock_on_order_trg on public.orders;
-revoke execute on function public.decrement_stock_on_order() from public, anon, authenticated;
+do $fn_guard$ begin if to_regprocedure('public.decrement_stock_on_order()') is not null then execute 'revoke execute on function public.decrement_stock_on_order() from public, anon, authenticated;'; end if; end $fn_guard$;
 
 -- Trigger/event helpers are internal only and must not be exposed as RPC endpoints.
-revoke execute on function public.archive_order_on_insert() from public, anon, authenticated;
-revoke execute on function public.update_archive_on_order_update() from public, anon, authenticated;
-revoke execute on function public.inventory_skus_sync_product_trigger() from public, anon, authenticated;
-revoke execute on function public.sync_notification_read_status() from public, anon, authenticated;
-revoke execute on function public.handle_new_user() from public, anon, authenticated;
-revoke execute on function public.rls_auto_enable() from public, anon, authenticated;
-revoke execute on function public.sync_product_inventory_from_skus(uuid) from public, anon, authenticated;
-revoke execute on function public.rebuild_product_variant_stock(uuid) from public, anon, authenticated;
+do $fn_guard$ begin if to_regprocedure('public.archive_order_on_insert()') is not null then execute 'revoke execute on function public.archive_order_on_insert() from public, anon, authenticated;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.update_archive_on_order_update()') is not null then execute 'revoke execute on function public.update_archive_on_order_update() from public, anon, authenticated;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.inventory_skus_sync_product_trigger()') is not null then execute 'revoke execute on function public.inventory_skus_sync_product_trigger() from public, anon, authenticated;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.sync_notification_read_status()') is not null then execute 'revoke execute on function public.sync_notification_read_status() from public, anon, authenticated;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.handle_new_user()') is not null then execute 'revoke execute on function public.handle_new_user() from public, anon, authenticated;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.rls_auto_enable()') is not null then execute 'revoke execute on function public.rls_auto_enable() from public, anon, authenticated;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.sync_product_inventory_from_skus(uuid)') is not null then execute 'revoke execute on function public.sync_product_inventory_from_skus(uuid) from public, anon, authenticated;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.rebuild_product_variant_stock(uuid)') is not null then execute 'revoke execute on function public.rebuild_product_variant_stock(uuid) from public, anon, authenticated;'; end if; end $fn_guard$;
 
 -- Admin-only RPCs: anonymous callers never need EXECUTE. Authenticated callers are checked inside each function.
-revoke execute on function public.apply_inventory_adjustment(uuid,text,integer,text,text,text,uuid) from public, anon;
-revoke execute on function public.replace_product_inventory_skus(uuid,jsonb) from public, anon;
-revoke execute on function public.delete_product_from_inventory(uuid) from public, anon;
-revoke execute on function public.get_inventory_summary() from public, anon;
-revoke execute on function public.coupon_usage_summary() from public, anon;
-revoke execute on function public.delete_coupon_safe(uuid) from public, anon;
-revoke execute on function public.currency_usage_summary() from public, anon;
-revoke execute on function public.delete_currency_safe(text) from public, anon;
-revoke execute on function public.create_manual_journal_entry(date,text,text,text,jsonb) from public, anon;
-revoke execute on function public.reverse_journal_entry(uuid,date,text) from public, anon;
-revoke execute on function public.create_refund_request(uuid,text,uuid,text,text,numeric,text,text,text,jsonb,text,text) from public, anon;
-revoke execute on function public.delete_refund_safe(uuid) from public, anon;
-revoke execute on function public.update_refund_status(uuid,text,text) from public, anon;
+do $fn_guard$ begin if to_regprocedure('public.apply_inventory_adjustment(uuid,text,integer,text,text,text,uuid)') is not null then execute 'revoke execute on function public.apply_inventory_adjustment(uuid,text,integer,text,text,text,uuid) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.replace_product_inventory_skus(uuid,jsonb)') is not null then execute 'revoke execute on function public.replace_product_inventory_skus(uuid,jsonb) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.delete_product_from_inventory(uuid)') is not null then execute 'revoke execute on function public.delete_product_from_inventory(uuid) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.get_inventory_summary()') is not null then execute 'revoke execute on function public.get_inventory_summary() from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.coupon_usage_summary()') is not null then execute 'revoke execute on function public.coupon_usage_summary() from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.delete_coupon_safe(uuid)') is not null then execute 'revoke execute on function public.delete_coupon_safe(uuid) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.currency_usage_summary()') is not null then execute 'revoke execute on function public.currency_usage_summary() from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.delete_currency_safe(text)') is not null then execute 'revoke execute on function public.delete_currency_safe(text) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.create_manual_journal_entry(date,text,text,text,jsonb)') is not null then execute 'revoke execute on function public.create_manual_journal_entry(date,text,text,text,jsonb) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.reverse_journal_entry(uuid,date,text)') is not null then execute 'revoke execute on function public.reverse_journal_entry(uuid,date,text) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.create_refund_request(uuid,text,uuid,text,text,numeric,text,text,text,jsonb,text,text)') is not null then execute 'revoke execute on function public.create_refund_request(uuid,text,uuid,text,text,numeric,text,text,text,jsonb,text,text) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.delete_refund_safe(uuid)') is not null then execute 'revoke execute on function public.delete_refund_safe(uuid) from public, anon;'; end if; end $fn_guard$;
+do $fn_guard$ begin if to_regprocedure('public.update_refund_status(uuid,text,text)') is not null then execute 'revoke execute on function public.update_refund_status(uuid,text,text) from public, anon;'; end if; end $fn_guard$;
