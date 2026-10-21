@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2.112.0";
 
 type InvoiceBody = { action?: unknown; orderId?: unknown; trackingToken?: unknown; pdfBase64?: unknown };
-const DEFAULT_ORIGINS = ["http://localhost:5173", "http://localhost:8080"]; // Set ALLOWED_ORIGINS for the final Genan domain.
+const DEFAULT_ORIGINS = ["https://genan.pages.dev", "http://localhost:5173", "http://localhost:8080"]; // Set ALLOWED_ORIGINS for the final Genan domain.
 const MAX_BODY_BYTES = 8_100_000;
 const MAX_PDF_BYTES = 6_000_000;
 const allowedOrigins = () => new Set((Deno.env.get("ALLOWED_ORIGINS") || DEFAULT_ORIGINS.join(",")).split(",").map((origin) => origin.trim()).filter(Boolean));
