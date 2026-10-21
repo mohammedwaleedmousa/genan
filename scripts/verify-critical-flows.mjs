@@ -43,7 +43,7 @@ const checks = [
   },
   {
     file: "src/integrations/supabase/client.ts",
-    needles: ["mwwyvmyeqlgccsnztvkm.supabase.co", "VITE_SUPABASE_URL", "VITE_SUPABASE_PUBLISHABLE_KEY"],
+    needles: ["ydpvfsemhbrkhtjjjwqs.supabase.co", "VITE_SUPABASE_URL", "VITE_SUPABASE_PUBLISHABLE_KEY"],
     message: "The storefront must target the Genan Supabase project.",
   },
   {
