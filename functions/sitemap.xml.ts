@@ -46,23 +46,36 @@ const fetchRows = async (
   url.searchParams.set("select", `slug,${dateColumn}`);
   url.searchParams.set("is_active", "eq.true");
   url.searchParams.set("slug", "not.is.null");
-  url.searchParams.set("limit", "1000");
+  const pageSize = 1000;
+  const maxPages = 100;
+  const rows: SitemapRow[] = [];
 
-  const response = await fetch(url, {
-    headers: {
-      apikey: config.key,
-      authorization: `Bearer ${config.key}`,
-      accept: "application/json",
-    },
-  });
+  for (let page = 0; page < maxPages; page += 1) {
+    url.searchParams.set("limit", String(pageSize));
+    url.searchParams.set("offset", String(page * pageSize));
+    // Stable pagination avoids duplicates or skipped records between pages.
+    url.searchParams.set("order", "id.asc");
 
-  if (!response.ok) throw new Error(`${table} sitemap query failed: ${response.status}`);
+    const response = await fetch(url, {
+      headers: {
+        apikey: config.key,
+        authorization: `Bearer ${config.key}`,
+        accept: "application/json",
+      },
+    });
 
-  const rows = await response.json<Array<Record<string, unknown>>>();
-  return rows.map((row) => ({
-    slug: typeof row.slug === "string" ? row.slug : null,
-    updated_at: typeof row[dateColumn] === "string" ? String(row[dateColumn]) : null,
-  })) satisfies SitemapRow[];
+    if (!response.ok) throw new Error(`${table} sitemap query failed: ${response.status}`);
+
+    const batch = await response.json<Array<Record<string, unknown>>>();
+    rows.push(...batch.map((row) => ({
+      slug: typeof row.slug === "string" ? row.slug : null,
+      updated_at: typeof row[dateColumn] === "string" ? String(row[dateColumn]) : null,
+    })));
+
+    if (batch.length < pageSize) return rows;
+  }
+
+  throw new Error(`${table} sitemap exceeded ${maxPages * pageSize} rows; adjust sitemap partitioning`);
 };
 
 const entry = (siteUrl: string, path: string, updatedAt?: string | null, priority = "0.7", changefreq = "weekly") => {
