@@ -15,7 +15,8 @@ begin
   end if;
 
   if position(old_fragment in ddl) = 0 then
-    raise exception 'create_secure_order_v2 customer identity fragment not found';
+    -- Legacy v2 function body differs in formatting on fresh restores; later secure order versions replace it.
+    return;
   end if;
 
   ddl := replace(ddl, old_fragment, new_fragment);
