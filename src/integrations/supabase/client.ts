@@ -2,8 +2,19 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://ydpvfsemhbrkhtjjjwqs.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_qxG8kmwCkPI4Xnbp6EXinA_61fpyBVD';
+const GENAN_PROD_URL = 'https://ydpvfsemhbrkhtjjjwqs.supabase.co';
+const GENAN_PROD_PUBLISHABLE_KEY = 'sb_publishable_qxG8kmwCkPI4Xnbp6EXinA_61fpyBVD';
+
+// An old Cloudflare build setting may still reference the accidentally deleted project.
+// In that specific case discard BOTH old URL and key together, not just the URL.
+// Current / intentionally configured projects remain controlled by Vite environment.
+const configuredUrl = String(import.meta.env.VITE_SUPABASE_URL || '').trim();
+const oldProjectConfigured = configuredUrl.includes('mwwyvmyeqlgccsnztvkm.supabase.co');
+const SUPABASE_URL = !oldProjectConfigured && configuredUrl ? configuredUrl : GENAN_PROD_URL;
+const SUPABASE_PUBLISHABLE_KEY =
+  !oldProjectConfigured && import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+    ? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+    : GENAN_PROD_PUBLISHABLE_KEY;
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
