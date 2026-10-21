@@ -5,7 +5,7 @@
 
 CREATE SCHEMA IF NOT EXISTS private;
 
-CREATE TABLE IF NOT EXISTS private.checkout_request_idempotency (
+CREATE TABLE IF NOT EXISTS private.checkout_request_idempotency_v4 (
   request_id uuid PRIMARY KEY,
   request_hash text NOT NULL,
   phone_hash text NOT NULL,
@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS private.checkout_request_idempotency (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
-CREATE INDEX IF NOT EXISTS checkout_request_idempotency_phone_created_idx
-  ON private.checkout_request_idempotency (phone_hash, created_at DESC);
+CREATE INDEX IF NOT EXISTS checkout_request_idempotency_v4_phone_created_idx
+  ON private.checkout_request_idempotency_v4 (phone_hash, created_at DESC);
 
-REVOKE ALL ON TABLE private.checkout_request_idempotency FROM PUBLIC, anon, authenticated;
+REVOKE ALL ON TABLE private.checkout_request_idempotency_v4 FROM PUBLIC, anon, authenticated;
 
 CREATE OR REPLACE FUNCTION public.create_secure_order_v4(
   p_request_id uuid,
@@ -88,7 +88,7 @@ BEGIN
 
   SELECT request_hash, response
     INTO v_existing_hash, v_existing_response
-    FROM private.checkout_request_idempotency
+    FROM private.checkout_request_idempotency_v4
    WHERE request_id = p_request_id
    FOR UPDATE;
 
@@ -100,14 +100,14 @@ BEGIN
   END IF;
 
   -- Keep stored tracking responses bounded; clients only retain an idempotency key for a pending same-tab attempt.
-  DELETE FROM private.checkout_request_idempotency
+  DELETE FROM private.checkout_request_idempotency_v4
    WHERE created_at < pg_catalog.now() - interval '30 days';
 
   -- Limit successful new order submissions to five per normalized phone per hour.
   -- A retry with the same request ID is returned above and does not consume another slot.
   SELECT pg_catalog.count(*)::integer
     INTO v_recent_orders
-    FROM private.checkout_request_idempotency
+    FROM private.checkout_request_idempotency_v4
    WHERE phone_hash = v_phone_hash
      AND created_at >= pg_catalog.now() - interval '1 hour';
 
@@ -131,7 +131,7 @@ BEGIN
     p_delivery_company_id => p_delivery_company_id
   );
 
-  INSERT INTO private.checkout_request_idempotency (
+  INSERT INTO private.checkout_request_idempotency_v4 (
     request_id, request_hash, phone_hash, response
   ) VALUES (
     p_request_id, v_request_hash, v_phone_hash, v_response::jsonb
