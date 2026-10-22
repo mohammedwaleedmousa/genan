@@ -1,127 +1,122 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ArrowUpLeft } from "lucide-react";
-
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { isBannerCurrentlyVisible } from "@/lib/bannerSchedule";
 import { optimizeImage } from "@/lib/imageUrl";
 
-type HeroBanner = {
+type HeroItem = {
   image_url: string;
-  title_ar: string | null;
-  subtitle_ar: string | null;
-  cta_text_ar: string | null;
-  cta_link: string | null;
-  image_zoom: number | null;
-  image_position_x: number | null;
-  image_position_y: number | null;
+  title_ar?: string | null;
+  subtitle_ar?: string | null;
+  cta_text_ar?: string | null;
+  cta_link?: string | null;
+  image_zoom?: number | null;
+  image_position_x?: number | null;
+  image_position_y?: number | null;
 };
 
-const FALLBACK_HERO_IMAGE =
-  "https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=1800";
+const fallbackSlides: HeroItem[] = [
+  {
+    image_url: "https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=1800",
+    title_ar: "جمال يتجاوز الزمن",
+    subtitle_ar: "إطلالات وتفاصيل تعكس قوتك .. بأناقة عصرية",
+    cta_text_ar: "تسوقي الآن",
+    cta_link: "/products",
+  },
+  {
+    image_url: "https://images.pexels.com/photos/8989866/pexels-photo-8989866.jpeg?auto=compress&cs=tinysrgb&w=1800",
+    title_ar: "خطوات نحو الأناقة",
+    subtitle_ar: "اختيارات استثنائية لكل يوم",
+    cta_text_ar: "اكتشفي المجموعة",
+    cta_link: "/products",
+  },
+  {
+    image_url: "https://images.pexels.com/photos/769733/pexels-photo-769733.jpeg?auto=compress&cs=tinysrgb&w=1800",
+    title_ar: "تفاصيل تصنع الفرق",
+    subtitle_ar: "من التفاصيل الصغيرة تبدأ الحكاية",
+    cta_text_ar: "تصفحي الأقسام",
+    cta_link: "/categories",
+  },
+];
 
 const HeroSlider = () => {
-  const { data: banner } = useQuery({
-    queryKey: ["genan-emerald-editorial-hero-v1"],
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { data: banners = [] } = useQuery({
+    queryKey: ["genan-reference-banners-v2"],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data, error } = await supabase
         .from("banners")
-        .select("image_url,title_ar,subtitle_ar,cta_text_ar,cta_link,page_slug,image_zoom,image_position_x,image_position_y,starts_at,ends_at,title")
+        .select("image_url,title_ar,subtitle_ar,cta_text_ar,cta_link,page_slug,image_zoom,image_position_x,image_position_y,starts_at,ends_at,title,sort_order")
         .eq("is_active", true)
         .order("sort_order", { ascending: true })
-        .limit(20);
-
+        .limit(12);
       if (error) throw error;
-      const visible = (data || []).find(
-        (item: any) =>
-          !String(item.page_slug || "").startsWith("home-editorial") &&
-          String(item.title || "") !== "Between products banner" &&
-          Boolean(String(item.image_url || "").trim()) &&
-          isBannerCurrentlyVisible(item),
-      );
-      return (visible || null) as HeroBanner | null;
+      return (data || []).filter((item) =>
+        Boolean(item.image_url) &&
+        !String(item.page_slug || "").startsWith("home-editorial") &&
+        item.title !== "Between products banner" &&
+        isBannerCurrentlyVisible(item),
+      ) as HeroItem[];
     },
     staleTime: 10 * 60 * 1000,
-    refetchOnWindowFocus: false,
   });
-
-  const heroImage = banner?.image_url?.trim() || FALLBACK_HERO_IMAGE;
-  const imageSrc = heroImage.startsWith("/") ? heroImage : optimizeImage(heroImage, 1800, 84);
-  const headline = banner?.title_ar?.trim() || "جمالٌ يتجاوز المألوف";
-  const description =
-    banner?.subtitle_ar?.trim() || "تفاصيل مختارة بعناية، وأسلوب يعبر عنك في كل لحظة.";
-  const action = banner?.cta_text_ar?.trim() || "اكتشف المجموعة";
-  const link = banner?.cta_link?.trim() || "/products";
+  const slides = banners.length ? banners.slice(0, 3) : fallbackSlides;
+  const currentIndex = activeIndex % slides.length;
+  const slide = slides[currentIndex];
+  const img = slide.image_url.startsWith("/") ? slide.image_url : optimizeImage(slide.image_url, 1800, 86);
+  const previous = () => setActiveIndex((index) => (index + slides.length - 1) % slides.length);
+  const next = () => setActiveIndex((index) => (index + 1) % slides.length);
 
   return (
-    <section className="genan-hero mx-auto max-w-[1540px] px-3 pt-3 sm:px-5 sm:pt-5 lg:px-8 lg:pt-7" dir="rtl" aria-label="مجموعة جنان الرئيسية">
-      <div className="genan-hero-frame relative isolate overflow-hidden rounded-[24px] border border-white/15 sm:rounded-[30px] lg:rounded-[34px]">
+    <section className="genan-ref-hero" aria-label="المجموعة الرئيسية" dir="rtl">
+      <div className="genan-ref-hero-visual">
         <img
-          src={imageSrc}
-          alt={banner?.title_ar || "مختارات جنان"}
-          loading="eager"
-          decoding="async"
+          src={img}
+          alt={slide.title_ar || "إطلالات جنان"}
           fetchPriority="high"
-          className="genan-hero-photo absolute inset-0 h-full w-full object-cover"
+          decoding="async"
+          className="genan-ref-hero-img"
           style={{
-            objectPosition: `${Number(banner?.image_position_x ?? 46)}% ${Number(banner?.image_position_y ?? 35)}%`,
-            transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
+            objectPosition: `${Number(slide.image_position_x ?? 45)}% ${Number(slide.image_position_y ?? 35)}%`,
+            transform: `scale(${Number(slide.image_zoom ?? 1)})`,
           }}
         />
-        <div className="genan-hero-shade absolute inset-0" />
-        <div className="genan-hero-aura pointer-events-none absolute inset-0" />
+        <div className="genan-ref-hero-overlay" />
+      </div>
 
-        <div className="relative z-10 flex h-full flex-col justify-between gap-8 px-6 pb-24 pt-9 sm:px-10 sm:pt-10 lg:px-[8%] lg:pb-32 lg:pt-14">
-          <div className="flex items-start justify-between gap-5">
-            <div className="flex items-center gap-3 text-white/70" dir="ltr">
-              <span className="h-px w-7 bg-[#C4D7C9]/70" />
-              <span className="text-[10px] uppercase tracking-[.32em]">GENAN / EDITION 01</span>
-            </div>
-            <span className="hidden text-[10px] tracking-[.3em] text-white/55 sm:block" dir="ltr">
-              THE ART OF DETAILS
-            </span>
-          </div>
+      <div className="genan-ref-hero-heading">
+        <p className="genan-ref-small-heading">مجموعة جديدة</p>
+        <h1>{slide.title_ar || "جمال يتجاوز الزمن"}</h1>
+        <p className="genan-ref-hero-caption">
+          {slide.subtitle_ar || "إطلالات وتفاصيل تعكس قوتك .. بأناقة عصرية"}
+        </p>
+        <Link to={slide.cta_link || "/products"} className="genan-ref-outline-button">
+          <span>{slide.cta_text_ar || "تسوقي الآن"}</span>
+          <span className="genan-ref-button-circle"><ArrowLeft aria-hidden="true" size={17} /></span>
+        </Link>
+      </div>
 
-          <div className="max-w-[550px]">
-            <div className="mb-5 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#B3CBB7]" />
-              <span className="text-[11px] font-medium tracking-wide text-[#E8E8DD]">عالم جنان الجديد</span>
-            </div>
-            <h1 className="genan-hero-title text-[clamp(2.4rem,7.4vw,6.4rem)] font-medium leading-[1.16] !text-white">
-              {headline}
-            </h1>
-            <p className="mt-5 max-w-[380px] text-[14px] leading-[2] text-white/80 sm:text-[16px]">
-              {description}
-            </p>
-            <Link
-              to={link}
-              className="genan-hero-action mt-8 inline-flex min-h-[51px] items-center gap-4 rounded-full border border-white/50 bg-[#0E2822]/65 px-6 py-3 text-[13px] font-semibold text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-[#D6E6D2] hover:bg-[#153F31] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-            >
-              {action}
-              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/35">
-                <ArrowLeft className="h-4 w-4" strokeWidth={1.7} />
-              </span>
-            </Link>
-          </div>
-
-          <div className="flex items-end justify-between gap-3">
-            <div className="flex items-center gap-3 text-[11px] text-white/75" dir="ltr">
-              <span className="text-base font-semibold text-white">01</span>
-              <span className="h-px w-10 bg-white/40" />
-              <span>GENAN</span>
-            </div>
-            <Link
-              to="/categories"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/10"
-              aria-label="استعرض الأقسام"
-            >
-              <ArrowUpLeft className="h-5 w-5" strokeWidth={1.6} />
-            </Link>
-          </div>
+      <div className="genan-ref-hero-side" dir="ltr">
+        <div className="genan-ref-side-wordmark">GENAN</div>
+        <p>MORE<br />THAN<br />A LOOK</p>
+        <div className="genan-ref-side-rule" aria-hidden="true" />
+        <div className="genan-ref-slide-labels" aria-label="اختر صورة المجموعة">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              aria-current={currentIndex === index ? "true" : undefined}
+              aria-label={`الصورة ${index + 1}`}
+            >{String(index + 1).padStart(2, "0")}</button>
+          ))}
         </div>
-        <span className="genan-hero-watermark pointer-events-none absolute bottom-10 left-[4%] hidden text-[10px] uppercase tracking-[.45em] text-white/50 lg:block" dir="ltr">
-          ROOTED IN STYLE · MADE FOR YOUR MOMENTS
-        </span>
+        <div className="genan-ref-slider-arrows">
+          <button type="button" onClick={previous} aria-label="الصورة السابقة"><ChevronLeft size={16} /></button>
+          <button type="button" onClick={next} aria-label="الصورة التالية"><ChevronRight size={16} /></button>
+        </div>
       </div>
     </section>
   );
