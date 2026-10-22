@@ -2,24 +2,27 @@
    All rules are scoped to the storefront homepage; admin, checkout and other routes
    keep their existing CSS and behaviour. */
 .genan-reference-page {
-  --ref-white: #f6f2ec;
-  --ref-cream: #e4dbd1;
-  --ref-line: rgba(230,228,221,.23);
+  --ref-white: #FFFFFF;
+  --ref-cream: #F7F5F0;
+  --ref-line: rgba(199,167,111,.22);
+  --ref-gold: #B8975A;
+  --ref-turquoise: #A9D8D3;
   min-height:100vh;
-  padding:12px 16px 26px;
+  padding:0;
   color:var(--ref-white);
-  background:radial-gradient(ellipse at 35% 18%,#35312b 0%,#131512 47%,#080b0a 100%);
+  background:#0E0E0F;
+  overflow-x:clip;
   font-family:"SF Arabic","Geeza Pro",Tahoma,Arial,sans-serif;
 }
 .genan-reference-page *, .genan-reference-page *::before, .genan-reference-page *::after { box-sizing:border-box; }
 .genan-reference-page :focus-visible { outline:2px solid #d2e6d5;outline-offset:3px; }
 .genan-reference-shell {
-  width:100%; max-width:1122px; margin:0 auto;
-  border:1px solid rgba(233,224,212,.26);
-  border-radius:18px;
+  width:100%; max-width:1440px; margin:0 auto;
+  border:0;
+  border-radius:0;
   overflow:clip;
-  background:radial-gradient(ellipse at 29% 23%,#32312c 0%,#151715 48%,#0b0c0c 91%);
-  box-shadow:0 22px 80px #0009;
+  background:#111112;
+  box-shadow:none;
 }
 .genan-reference-page .genan-editorial-header {
   /* Visible from the first frame and detached from the clipped page shell. */
@@ -30,9 +33,9 @@
   width:min(1080px,calc(100vw - 38px));
   z-index:45 !important;
   transform:translate3d(-50%,0,0);
-  border:1px solid rgba(232,243,235,.44) !important;
+  border:1px solid rgba(200,170,113,.42) !important;
   border-radius:18px;
-  background:linear-gradient(115deg,rgba(17,29,24,.96),rgba(15,25,22,.93)) !important;
+  background:linear-gradient(115deg,rgba(12,12,13,.96),rgba(25,24,22,.94)) !important;
   color:#f7f7ee;
   box-shadow:0 10px 34px rgba(0,0,0,.37),inset 0 1px 0 rgba(255,255,255,.13);
   -webkit-backdrop-filter:blur(22px) saturate(150%);
@@ -42,9 +45,9 @@
 .genan-reference-page .genan-editorial-header--floating {
   top:16px !important;
   width:min(960px,calc(100vw - 42px));
-  border-color:rgba(223,243,229,.62) !important;
+  border-color:rgba(198,169,108,.54) !important;
   border-radius:999px;
-  background:linear-gradient(115deg,rgba(16,39,29,.76),rgba(12,23,20,.79)) !important;
+  background:linear-gradient(115deg,rgba(12,12,13,.82),rgba(27,26,24,.78)) !important;
   box-shadow:0 17px 48px rgba(0,0,0,.49),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.17);
   -webkit-backdrop-filter:blur(30px) saturate(175%);
   backdrop-filter:blur(30px) saturate(175%);
@@ -54,7 +57,7 @@
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav {gap:clamp(14px,2.5vw,32px);}
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a {height:58px;font-size:11px;color:#f4f2eecc !important;white-space:nowrap;}
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a:hover {color:#fff !important;}
-.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a span {height:1px;background:#f7f0e8;}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a span {height:2px;background:#B8975A;}
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > div:last-child {min-width:264px;gap:0;direction:ltr;}
 .genan-reference-page .genan-editorial-header .font-serif {font-family:Georgia,"Times New Roman",serif;letter-spacing:.29em !important;font-size:27px !important;font-weight:400;color:#fff;}
 .genan-reference-page .genan-editorial-header span[aria-label^="Genan"] { flex-direction:column;align-items:center;gap:1px; }
@@ -69,12 +72,12 @@
 .genan-reference-page .genan-editorial-header form input {color:#fff !important;}
 .genan-reference-page .genan-editorial-header form input::placeholder {color:#ccc;}
 .genan-reference-page .genan-editorial-header + div[aria-hidden="true"] {display:none !important;}
-.genan-ref-main {padding:83px 9px 0;}
+.genan-ref-main {padding:83px 12px 0;}
 .genan-ref-hero-composition {position:relative;padding-bottom:39px;}
 .genan-ref-hero {
   position:relative;height:361px;overflow:hidden;
   border:1px solid var(--ref-line);border-radius:15px;
-  background:linear-gradient(90deg,#362d23,#091612);
+  background:linear-gradient(90deg,#312C26,#111112);
 }
 .genan-ref-hero-visual, .genan-ref-hero-overlay {position:absolute;inset:0;}
 .genan-ref-hero-img {display:block;width:100%;height:100%;object-fit:cover;}
@@ -92,7 +95,7 @@
   font-size:12px;font-weight:500;transition:background .2s,border-color .2s;
   text-decoration:none;
 }
-.genan-ref-outline-button:hover {background:#143c2b;border-color:#fff;}
+.genan-ref-outline-button:hover {background:#29231b;border-color:#D1AE70;}
 .genan-ref-button-circle {display:grid;place-items:center;border:1px solid #ffffff9c;width:29px;height:29px;border-radius:50%;background:#08110d;}
 .genan-ref-hero-side {position:absolute;z-index:2;left:3.8%;top:18%;color:#fff;display:flex;flex-direction:column;align-items:flex-start;}
 .genan-ref-side-wordmark {font-family:Georgia,serif;font-size:18px;letter-spacing:.24em;margin-bottom:8px;}
@@ -103,28 +106,28 @@
 .genan-ref-slide-labels button[aria-current="true"]{color:white;font-weight:bold;}
 .genan-ref-slider-arrows {display:flex;gap:12px;margin-top:13px;}
 .genan-ref-slider-arrows button {display:grid;place-items:center;width:30px;height:30px;color:white;border:1px solid #fff9;background:#09120d77;border-radius:50%;transition:background .2s;}
-.genan-ref-slider-arrows button:hover {background:#195439;}
+.genan-ref-slider-arrows button:hover {background:#A58A5E;color:#0D0D0D;}
 .genan-ref-category-ribbon {
   position:absolute;z-index:5;bottom:0;inset-inline:19px;
-  display:flex;gap:7px;align-items:stretch;padding:7px;background:#cfcbc4bb;
+  display:flex;gap:7px;align-items:stretch;padding:7px;background:#E8E3DCc7;
   border:1px solid #ffffff85;border-radius:13px;box-shadow:0 9px 35px #0006;backdrop-filter:blur(16px);
 }
 .genan-ref-category-tile {
   position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
   flex:1;min-width:0;min-height:83px;padding:9px 7px 6px;border-radius:10px;
   border:1px solid #ffffff95;color:#1b1b19;text-decoration:none;
-  background:linear-gradient(155deg,#e6ddd5,#e8e0d8 70%,#dbd0c6);
+  background:linear-gradient(155deg,#FFFFFF,#F8F6F2 70%,#EBE6DF);
   box-shadow:inset 0 1px 0 #fff6;transition:transform .2s,border-color .2s;
 }
 .genan-ref-category-tile:hover {transform:translateY(-3px);}
 .genan-ref-category-icon {flex-shrink:0;}
 .genan-ref-category-name {font-size:11px;font-weight:650;white-space:nowrap;}
 .genan-ref-category-caption {display:none;}
-.genan-ref-category-tile.is-featured {align-items:flex-start;padding-inline:14px;background:linear-gradient(110deg,#141e18,#005135 70%,#14201b);color:#fff;overflow:visible;}
+.genan-ref-category-tile.is-featured {align-items:flex-start;padding-inline:14px;background:linear-gradient(110deg,#111112,#29231b 70%,#4B3D2C);color:#fff;overflow:visible;}
 .genan-ref-category-tile.is-featured .genan-ref-category-icon {display:none;}
 .genan-ref-category-feature-image {position:absolute;width:63px;height:63px;border:2px solid #d7cfc3;object-fit:cover;border-radius:16px;top:-13px;inset-inline-start:50%;transform:rotate(35deg);box-shadow:0 4px 18px #0005;}
 .genan-ref-category-tile.is-featured .genan-ref-category-name {margin-top:38px;}
-.genan-ref-category-arrow {position:absolute;inset-inline-end:10px;bottom:12px;display:grid;place-items:center;border:1px solid #dedbd4a8;width:27px;height:27px;border-radius:50%;background:#050d0a;}
+.genan-ref-category-arrow {position:absolute;inset-inline-end:10px;bottom:12px;display:grid;place-items:center;border:1px solid #d4bd92a8;width:27px;height:27px;border-radius:50%;background:#121212;}
 .genan-ref-popular {margin-top:4px;padding:4px 10px 14px;}
 .genan-ref-section-heading {display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:7px;}
 .genan-ref-section-heading h2 {font-size:27px;line-height:1.18;font-weight:500;margin:0;color:white;}
@@ -135,7 +138,7 @@
   overflow:hidden;border:1px solid #ffffff73;border-radius:12px;background:#f2ebe3;color:#171717;
   transition:transform .22s,border-color .22s;box-shadow:0 3px 10px #0005;
 }
-.genan-ref-products-grid > a:hover {transform:translateY(-3px);border-color:#d0e2d7;}
+.genan-ref-products-grid > a:hover {transform:translateY(-3px);border-color:#B8975A;}
 .genan-ref-products-grid > a article > div:first-child {height:158px;aspect-ratio:auto !important;background:#dbd2c9;}
 .genan-ref-products-grid > a article > div:last-child {height:42px;background:#f9f4ed;padding:4px 10px !important;margin:0;}
 .genan-ref-products-grid > a article > div:last-child h3 {font-size:11px !important;color:#171717 !important;line-height:1.2 !important;}
@@ -151,7 +154,7 @@
 .genan-ref-empty-state button,.genan-ref-empty-state a {font-size:13px;text-decoration:underline;color:#fff;}
 .genan-ref-collection {
   position:relative;height:205px;overflow:hidden;border-radius:13px;margin:0 1px 8px;
-  border:1px solid var(--ref-line);background:#15231d;
+  border:1px solid var(--ref-line);background:#191817;
 }
 .genan-ref-collection-photo {position:absolute;inset:0;background:url("https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=1700") 48% 36% /cover no-repeat;filter:saturate(.8);}
 .genan-ref-collection-shade {position:absolute;inset:0;background:linear-gradient(90deg,#070b0be0 0%,#0e15138a 23%,#10191512 55%,#0b1010d5 80%,#060b0af0 100%);}
@@ -165,7 +168,7 @@
 .genan-ref-collection-mark span {font:10px/1.5 Arial,sans-serif;letter-spacing:.25em;}
 .genan-ref-collection-mark small {margin-top:52px;font-size:11px;}
 .genan-ref-details {display:grid;grid-template-columns:2.9fr repeat(3,1fr);gap:10px;height:151px;direction:ltr;border:1px solid var(--ref-line);border-radius:12px;padding:8px;margin:0 1px 7px;overflow:hidden;}
-.genan-ref-detail-intro {position:relative;overflow:hidden;border-radius:8px;direction:rtl;background:#0b0d0c;}
+.genan-ref-detail-intro {position:relative;overflow:hidden;border-radius:8px;direction:rtl;background:#101010;}
 .genan-ref-detail-portrait {position:absolute;inset:0;background:url("https://images.pexels.com/photos/769733/pexels-photo-769733.jpeg?auto=compress&cs=tinysrgb&w=900") 20% center/cover;filter:brightness(.45) saturate(.8);}
 .genan-ref-detail-intro::after {content:"";position:absolute;inset:0;background:linear-gradient(270deg,#060807 0%,#090d0bdb 45%,transparent 100%);}
 .genan-ref-detail-intro-copy {position:absolute;z-index:2;right:5%;top:16%;color:white;text-align:right;}
@@ -175,7 +178,7 @@
 .genan-ref-detail-tile {position:relative;overflow:hidden;border-radius:8px;border:1px solid #ffffff30;background-size:cover;background-position:center;text-decoration:none;}
 .genan-ref-detail-tile::after {content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000a,transparent 70%);}
 .genan-ref-detail-tile span {position:absolute;z-index:2;bottom:11px;right:8px;left:6px;font-size:11px;text-align:right;color:#fff;}
-.genan-ref-detail-tile.is-fabric {background-image:repeating-linear-gradient(45deg,#153d31,#153d31 8px,#174532 12px,#0b1c19 19px);}
+.genan-ref-detail-tile.is-fabric {background-image:repeating-linear-gradient(45deg,#192020,#192020 8px,#253431 12px,#111819 19px);}
 .genan-ref-detail-tile.is-embroidery {background-image:radial-gradient(ellipse at 40% 48%,transparent 30%,#b38d42 33%,transparent 36%),repeating-linear-gradient(65deg,#181613,#171713 5px,#6e5127 7px,#1d1a18 11px);}
 .genan-ref-detail-tile.is-design {background-image:repeating-linear-gradient(127deg,#d9c7b5,#c8b29e 7px,#e9d8c9 10px,#aa8b70 17px);}
 .genan-ref-services {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));height:59px;gap:0;border:1px solid var(--ref-line);border-radius:10px;margin:0 1px 5px;overflow:hidden;}
@@ -185,7 +188,7 @@
 .genan-ref-service span {display:flex;flex-direction:column;gap:2px;}
 .genan-ref-service strong {font-size:10px;line-height:1.2;font-weight:500;color:#fff;}
 .genan-ref-service small {font-size:9px;line-height:1.2;color:#aaa;}
-.genan-ref-footer {margin:0;padding:0 11px;background:linear-gradient(180deg,#121413,#0a0b0b);color:#eee;font-size:11px;}
+.genan-ref-footer {margin:0;padding:0 11px;background:linear-gradient(180deg,#141414,#090909);color:#eee;font-size:11px;}
 .genan-ref-footer-main {display:grid;grid-template-columns:1.16fr 1.55fr .95fr;gap:19px;padding:17px 12px 18px;align-items:start;border-bottom:1px solid var(--ref-line);}
 .genan-ref-footer-newsletter h2 {font-size:14px;margin:0 0 5px;color:#fff;font-weight:600;}
 .genan-ref-footer-newsletter p {font-size:11px;line-height:1.7;color:#bdbdbb;margin:0;}
@@ -204,7 +207,7 @@
 .genan-ref-footer-bottom div {display:flex;gap:20px;}
 .genan-ref-footer-bottom a {color:#a2a4a0;text-decoration:none;}
 @media (max-width: 850px) {
-  .genan-reference-page {padding:8px;}
+  .genan-reference-page {padding:0;}
   .genan-reference-page .genan-editorial-header > .hidden.md\:block > div {padding:0 10px;}
   .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > a:first-child {min-width:110px;}
   .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > div:last-child {min-width:178px;}
@@ -217,13 +220,13 @@
   .genan-ref-category-name {font-size:10px;}
 }
 @media(max-width:767px) {
-  .genan-reference-page {padding:6px;}
-  .genan-reference-shell {border-radius:13px;}
+  .genan-reference-page {padding:0;}
+  .genan-reference-shell {border-radius:0;}
   .genan-reference-page .genan-editorial-header {height:60px;top:8px !important;width:calc(100vw - 24px);border-radius:17px;}
   .genan-reference-page .genan-editorial-header--floating {height:58px;top:12px !important;width:calc(100vw - 32px);border-radius:19px;}
   .genan-reference-page .genan-editorial-header--floating > div.md\:hidden > div:first-child {height:58px;}
   .genan-reference-page .genan-editorial-header > div.md\:hidden > div:first-child {height:60px;}
-  .genan-ref-main {padding:77px 5px 0;}
+  .genan-ref-main {padding:77px 0 0;}
   .genan-ref-hero-composition {padding-bottom:63px;}
   .genan-ref-hero {height:430px;border-radius:11px;}
   .genan-ref-hero-img {object-position:35% center !important;}
@@ -290,8 +293,8 @@
     height: auto !important;
     min-height: 66px;
     border-radius: 23px;
-    border: 1px solid rgba(232, 245, 234, .23) !important;
-    background: rgba(24, 47, 38, .94) !important;
+    border: 1px solid rgba(195, 162, 101, .32) !important;
+    background: rgba(13, 13, 14, .94) !important;
     color: #fff;
     box-shadow:
       0 10px 34px rgba(0, 0, 0, .22),
@@ -307,8 +310,8 @@
     height: auto !important;
     min-height: 62px;
     border-radius: 23px;
-    border-color: rgba(227, 245, 233, .36) !important;
-    background: rgba(22, 46, 36, .78) !important;
+    border-color: rgba(198, 166, 108, .38) !important;
+    background: rgba(16, 16, 17, .78) !important;
     box-shadow:
       0 16px 46px rgba(0, 0, 0, .34),
       0 0 0 1px rgba(255, 255, 255, .045),
@@ -421,8 +424,8 @@
   .genan-reference-page .genan-ref-mobile-actions button[aria-label="السلة"] > span {
     top: 0 !important;
     left: 1px !important;
-    background: #c0a073 !important;
-    color: #162b21 !important;
+    background: #B8975A !important;
+    color: #111111 !important;
     font-size: 9px;
     font-weight: 700;
     min-width: 17px;
@@ -436,16 +439,16 @@
     left: 0;
     width: 100%;
     padding: 13px !important;
-    border: 1px solid rgba(225,237,229,.3);
+    border: 1px solid rgba(196,168,113,.35);
     border-radius: 18px;
-    background: rgba(24,47,38,.96) !important;
+    background: rgba(17,17,18,.96) !important;
     box-shadow: 0 15px 36px rgba(0,0,0,.27);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
   }
 
   .genan-reference-page .genan-ref-mobile-search-panel input {
-    color: #18241d !important;
+    color: #181818 !important;
     font-size: 16px;
     background: #f5f3ee;
   }
@@ -461,4 +464,37 @@
 @media (prefers-reduced-motion: reduce) {
   .genan-reference-page .genan-editorial-header,
   .genan-reference-page .genan-ref-mobile-logo { transition: none !important; }
+}
+
+
+/* GENAN brand: black / white / gold, with restrained turquoise on keyboard focus only.
+   Preserve original layout and all live store logic. */
+.genan-reference-page :focus-visible {
+  outline:2px solid rgba(169,216,211,.78);
+  outline-offset:3px;
+}
+.genan-reference-page .genan-editorial-header .genan-ref-mobile-wordmark {
+  color:#FFFFFF;
+  text-shadow:0 1px 12px rgba(0,0,0,.25);
+}
+.genan-reference-page .genan-ref-mobile-menu-glyph span { background:#FFFFFF; }
+.genan-reference-page .genan-ref-mobile-actions button[aria-label="السلة"] > span {background:#B8975A !important;color:#101010 !important;}
+.genan-reference-page .genan-ref-outline-button {border-color:rgba(212,182,123,.7);background:rgba(14,14,14,.78);}
+.genan-reference-page .genan-ref-outline-button:hover {border-color:#D6B777;background:rgba(36,31,23,.94);}
+.genan-reference-page .genan-ref-category-tile.is-featured:hover {border-color:#D5B77E;}
+.genan-reference-page .genan-ref-view-all:hover,
+.genan-reference-page .genan-ref-footer a:hover {color:#D5B77E;}
+.genan-reference-page .genan-ref-category-tile:focus-visible,
+.genan-reference-page .genan-ref-products-grid > a:focus-visible {outline-color:rgba(169,216,211,.8);}
+@media (max-width:767px) {
+  /* Take back the mobile viewport used by the obsolete black outer frame. */
+  .genan-reference-page,
+  .genan-reference-shell {width:100%;max-width:100%;margin:0;border:0;border-radius:0;box-shadow:none;}
+  .genan-ref-main {width:100%;max-width:100%;padding-inline:0;}
+  .genan-ref-hero-composition {width:100%;}
+  .genan-ref-hero {border-radius:0;}
+  .genan-ref-category-ribbon {inset-inline:6px;}
+  .genan-ref-popular {padding-inline:12px;}
+  .genan-ref-collection {margin-inline:0;border-radius:12px;}
+  .genan-ref-details {margin-inline:0;}
 }
