@@ -90,7 +90,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
   const location = useLocation();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [desktopSearchOpen, setDesktopSearchOpen] = useState(false);
+  const [desktopSearchOpen, setDesktopSearchOpen] = useState(isEditorial);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchIndex, setSearchIndex] = useState<SearchSuggestion[]>(() => searchIndexCache || []);
@@ -159,7 +159,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
         <div className="md:hidden">
           <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4`}>
             <Link to="/home" aria-label="الرئيسية" className="flex items-center">
-              <Logo size="md" invert={isEditorial} />
+              <Logo size="md" invert={isEditorial} showArabic={isEditorial} />
             </Link>
 
             <div className="flex items-center gap-0.5">
@@ -206,7 +206,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                   className="w-[86vw] max-w-[340px] border-l border-[#EEEAE2] bg-[#FFFEFC] p-0 shadow-[-18px_0_45px_rgba(20,20,20,.08)]"
                 >
                   <div className="flex h-[72px] items-center justify-between border-b border-[#F0EDE7] px-5">
-                    <Logo size="md" invert={isEditorial} />
+                    <Logo size="md" invert={isEditorial} showArabic={isEditorial} />
 
                     <button
                       type="button"
@@ -409,7 +409,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
         <div className="hidden md:block">
           <div className="mx-auto flex h-[72px] max-w-[1600px] items-center px-6 lg:px-10 xl:px-14">
             <Link to="/home" aria-label="الرئيسية" className="flex min-w-[150px] items-center">
-              <Logo size="lg" invert={isEditorial} />
+              <Logo size="lg" invert={isEditorial} showArabic={isEditorial} />
             </Link>
 
             <nav className="flex flex-1 items-center justify-center gap-7 lg:gap-10">
