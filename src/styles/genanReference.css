@@ -498,3 +498,196 @@
   .genan-ref-collection {margin-inline:0;border-radius:12px;}
   .genan-ref-details {margin-inline:0;}
 }
+
+
+/* GENAN / Mobile Hero refinement (step 2).
+   This section intentionally affects the hero only: navbar, category tiles,
+   products, checkout and database behaviour remain unchanged.
+   Based on the approved simple black / white / gold visual direction.
+*/
+@media (max-width: 767px) {
+  .genan-reference-page .genan-ref-hero {
+    position: relative;
+    isolation: isolate;
+    height: clamp(340px, 93vw, 390px);
+    margin-inline: 10px;
+    border: 1px solid rgba(184, 151, 90, .28);
+    border-radius: 21px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 12% 20%, rgba(169, 216, 211, .07), transparent 45%),
+      radial-gradient(ellipse at 82% 12%, rgba(184, 151, 90, .15), transparent 60%),
+      linear-gradient(140deg, #252420 0%, #151616 44%, #0D0E0F 100%);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255, 255, 255, .045);
+  }
+
+  /* Keep the existing banner photo as a barely visible editorial texture.
+     The title must read clearly even if a client banner is very light. */
+  .genan-reference-page .genan-ref-hero-visual {
+    position: absolute;
+    inset: 0;
+    opacity: .22;
+    pointer-events: none;
+  }
+  .genan-reference-page .genan-ref-hero-img {
+    object-position: 45% 34% !important;
+    filter: grayscale(.35) contrast(.9) brightness(.55);
+  }
+  .genan-reference-page .genan-ref-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(270deg, rgba(12, 13, 14, .97) 2%, rgba(15, 16, 16, .87) 56%, rgba(12, 12, 13, .72) 100%),
+      linear-gradient(0deg, rgba(9, 9, 10, .72), transparent 46%);
+  }
+
+  .genan-reference-page .genan-ref-hero::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: -72px;
+    top: -96px;
+    width: 250px;
+    height: 250px;
+    border: 1px solid rgba(188, 158, 99, .13);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .genan-reference-page .genan-ref-hero-heading {
+    position: absolute;
+    z-index: 3;
+    top: auto;
+    right: 24px;
+    left: 24px;
+    bottom: 95px;
+    width: auto;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: right;
+    gap: 0;
+  }
+
+  .genan-reference-page .genan-ref-small-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 13px;
+    color: #D8C7A8 !important;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: .015em;
+  }
+  .genan-reference-page .genan-ref-small-heading::before {
+    content: "";
+    display: block;
+    flex-shrink: 0;
+    width: 19px;
+    height: 1px;
+    background: #B8975A;
+  }
+
+  .genan-reference-page .genan-ref-hero-heading h1 {
+    display: block;
+    max-width: 325px;
+    margin: 0;
+    font-size: clamp(30px, 8.2vw, 39px) !important;
+    font-weight: 650 !important;
+    line-height: 1.27;
+    letter-spacing: -.038em;
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, .19);
+    text-wrap: balance;
+  }
+
+  .genan-reference-page .genan-ref-hero-caption {
+    max-width: 320px;
+    margin: 11px 0 18px;
+    font-size: 12.5px !important;
+    line-height: 1.8;
+    font-weight: 400;
+    color: rgba(255, 255, 255, .82) !important;
+  }
+
+  .genan-reference-page .genan-ref-hero-heading .genan-ref-outline-button {
+    display: inline-flex;
+    gap: 16px;
+    min-height: 43px;
+    padding: 4px 17px 4px 4px;
+    font-size: 12px;
+    font-weight: 650;
+    color: #151515 !important;
+    background: #D4B77E !important;
+    border: 1px solid rgba(228, 205, 161, .9);
+    border-radius: 999px;
+    box-shadow: 0 7px 22px rgba(0, 0, 0, .2);
+  }
+  .genan-reference-page .genan-ref-hero-heading .genan-ref-outline-button:hover {
+    background: #E3C994 !important;
+    border-color: #E3C994;
+  }
+  .genan-reference-page .genan-ref-hero-heading .genan-ref-button-circle {
+    width: 33px;
+    height: 33px;
+    color: #F8F6F0;
+    background: #171717;
+    border: 0;
+  }
+
+  .genan-reference-page .genan-ref-hero-side {
+    position: absolute;
+    z-index: 3;
+    top: auto;
+    left: 18px;
+    right: auto;
+    bottom: 97px;
+    width: auto;
+    align-items: flex-start;
+  }
+  .genan-reference-page .genan-ref-side-wordmark,
+  .genan-reference-page .genan-ref-hero-side > p,
+  .genan-reference-page .genan-ref-side-rule,
+  .genan-reference-page .genan-ref-slider-arrows {
+    display: none;
+  }
+  .genan-reference-page .genan-ref-slide-labels {
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    align-items: center;
+    margin: 0;
+  }
+  .genan-reference-page .genan-ref-slide-labels button {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background: transparent;
+    color: rgba(255, 255, 255, .52);
+    font: 11px/1 Arial, sans-serif;
+    transition: color .18s, border-color .18s, background .18s;
+  }
+  .genan-reference-page .genan-ref-slide-labels button[aria-current="true"] {
+    background: rgba(184, 151, 90, .14);
+    border-color: rgba(184, 151, 90, .65);
+    color: #F0D6A1;
+  }
+  .genan-reference-page .genan-ref-slide-labels button:focus-visible {
+    outline: 2px solid #A9D8D3;
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 360px) {
+  .genan-reference-page .genan-ref-hero-heading {right: 18px;left: 18px;bottom: 93px;}
+  .genan-reference-page .genan-ref-hero-heading h1 {font-size: 29px !important;}
+  .genan-reference-page .genan-ref-hero-caption {font-size: 11.5px !important;max-width: 260px;}
+  .genan-reference-page .genan-ref-hero-side {left: 10px;bottom: 98px;}
+  .genan-reference-page .genan-ref-slide-labels button {width: 30px;height: 30px;}
+}
