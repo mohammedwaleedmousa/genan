@@ -171,6 +171,40 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
         {/* Mobile navbar */}
         <div className="md:hidden">
           <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4 ${isEditorial ? "genan-ref-mobile-nav-row" : ""}`}>
+            <Link
+              to="/home"
+              aria-label="الرئيسية"
+              className={`flex items-center ${isEditorial ? "genan-ref-mobile-logo" : ""}`}
+            >
+              {isEditorial ? <span className="genan-ref-mobile-wordmark" dir="ltr">GENAN</span> : <Logo size="md" />}
+            </Link>
+
+            <div className={`flex items-center gap-0.5 ${isEditorial ? "genan-ref-mobile-actions" : ""}`}>
+              {!isProduct && (
+                <button
+                  type="button"
+                  onClick={() => setMobileSearchOpen((value) => !value)}
+                  aria-label="بحث"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
+                >
+                  <MagnifyingGlass size={isEditorial ? 23 : 19} />
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={openCart}
+                aria-label="السلة"
+                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
+              >
+                <ShoppingBag size={isEditorial ? 22 : 19} />
+                {cartCount > 0 && (
+                  <span className="absolute left-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#B99A63] px-1 text-[8px] font-bold text-white">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                )}
+              </button>
+
               <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
                 <SheetTrigger asChild>
                   <button
@@ -336,46 +370,11 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                   </div>
                 </SheetContent>
               </Sheet>
-            <Link
-              to="/home"
-              aria-label="الرئيسية"
-              className={`flex items-center ${isEditorial ? "genan-ref-mobile-logo" : ""}`}
-            >
-              {isEditorial ? <span className="genan-ref-mobile-wordmark" dir="ltr">GENAN</span> : <Logo size="md" />}
-            </Link>
-
-            <div className={`flex items-center gap-0.5 ${isEditorial ? "genan-ref-mobile-actions" : ""}`}>
-              {!isProduct && (
-                <button
-                  type="button"
-                  onClick={() => setMobileSearchOpen((value) => !value)}
-                  aria-label="بحث"
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
-                >
-                  <MagnifyingGlass size={isEditorial ? 23 : 19} />
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={openCart}
-                aria-label="السلة"
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
-              >
-                <ShoppingBag size={isEditorial ? 22 : 19} />
-                {cartCount > 0 && (
-                  <span className="absolute left-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#B99A63] px-1 text-[8px] font-bold text-white">
-                    {cartCount > 99 ? "99+" : cartCount}
-                  </span>
-                )}
-              </button>
-
-
             </div>
           </div>
 
           {!isProduct && mobileSearchOpen && (
-            <div className="border-t border-[#F0EDE7] bg-[#FFFEFC] px-4 py-3">
+            <div className={`border-t border-[#F0EDE7] bg-[#FFFEFC] px-4 py-3 ${isEditorial ? "genan-ref-mobile-search-panel" : ""}`}>
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
