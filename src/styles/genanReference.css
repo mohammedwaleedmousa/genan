@@ -277,3 +277,188 @@
 @media(prefers-reduced-motion:reduce) {
  .genan-reference-page *, .genan-reference-page *::before {animation:none !important;transition:none !important;}
 }
+
+
+/* GENAN Mobile Navbar / reference-only pass.
+   All changes below affect the homepage navbar only — never hero, cards, or checkout. */
+@media (max-width: 767px) {
+  .genan-reference-page .genan-editorial-header {
+    top: max(10px, env(safe-area-inset-top)) !important;
+    left: 50% !important;
+    right: auto !important;
+    width: calc(100vw - 24px);
+    height: auto !important;
+    min-height: 66px;
+    border-radius: 23px;
+    border: 1px solid rgba(232, 245, 234, .23) !important;
+    background: rgba(24, 47, 38, .94) !important;
+    color: #fff;
+    box-shadow:
+      0 10px 34px rgba(0, 0, 0, .22),
+      inset 0 1px 0 rgba(255, 255, 255, .075);
+    -webkit-backdrop-filter: blur(20px) saturate(155%);
+    backdrop-filter: blur(20px) saturate(155%);
+    transition: top .3s ease, width .3s ease, background .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+
+  .genan-reference-page .genan-editorial-header--floating {
+    top: max(12px, env(safe-area-inset-top)) !important;
+    width: calc(100vw - 32px);
+    height: auto !important;
+    min-height: 62px;
+    border-radius: 23px;
+    border-color: rgba(227, 245, 233, .36) !important;
+    background: rgba(22, 46, 36, .78) !important;
+    box-shadow:
+      0 16px 46px rgba(0, 0, 0, .34),
+      0 0 0 1px rgba(255, 255, 255, .045),
+      inset 0 1px 0 rgba(255, 255, 255, .13);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    backdrop-filter: blur(28px) saturate(170%);
+  }
+
+  .genan-reference-page .genan-editorial-header .genan-ref-mobile-nav-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 66px !important;
+    min-height: 66px;
+    padding: 0 12px !important;
+    justify-content: flex-start;
+  }
+
+  .genan-reference-page .genan-editorial-header--floating .genan-ref-mobile-nav-row {
+    height: 62px !important;
+    min-height: 62px;
+  }
+
+  .genan-reference-page .genan-ref-mobile-logo {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 4px 8px;
+    text-decoration: none;
+  }
+
+  .genan-reference-page .genan-ref-mobile-wordmark {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(22px, 6.2vw, 27px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: .012em;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, .07);
+  }
+
+  .genan-reference-page .genan-ref-mobile-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    margin-inline-start: auto;
+  }
+
+  .genan-reference-page .genan-ref-mobile-actions > button[aria-label="بحث"],
+  .genan-reference-page .genan-ref-mobile-actions > button[aria-label="السلة"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 44px;
+    border-radius: 13px;
+    flex: none;
+    color: #fff !important;
+  }
+
+  .genan-reference-page .genan-ref-mobile-actions > button[aria-label="بحث"]:hover,
+  .genan-reference-page .genan-ref-mobile-actions > button[aria-label="السلة"]:hover {
+    background: rgba(255,255,255,.085) !important;
+  }
+
+  .genan-reference-page .genan-ref-mobile-menu-button {
+    position: absolute;
+    z-index: 3;
+    inset-inline-start: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 13px;
+    color: #fff !important;
+  }
+
+  .genan-reference-page .genan-ref-mobile-menu-glyph {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
+    width: 23px;
+    height: 23px;
+  }
+
+  .genan-reference-page .genan-ref-mobile-menu-glyph span {
+    display: block;
+    width: 23px;
+    height: 2px;
+    background: #f7f8f2;
+    border-radius: 999px;
+  }
+
+  .genan-reference-page .genan-ref-mobile-menu-glyph span:last-child {
+    width: 15px;
+  }
+
+  .genan-reference-page .genan-ref-mobile-actions button[aria-label="السلة"] > span {
+    top: 0 !important;
+    left: 1px !important;
+    background: #c0a073 !important;
+    color: #162b21 !important;
+    font-size: 9px;
+    font-weight: 700;
+    min-width: 17px;
+    height: 17px;
+    border-radius: 50%;
+  }
+
+  .genan-reference-page .genan-editorial-header .genan-ref-mobile-search-panel {
+    position: absolute;
+    top: calc(100% + 9px);
+    left: 0;
+    width: 100%;
+    padding: 13px !important;
+    border: 1px solid rgba(225,237,229,.3);
+    border-radius: 18px;
+    background: rgba(24,47,38,.96) !important;
+    box-shadow: 0 15px 36px rgba(0,0,0,.27);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+
+  .genan-reference-page .genan-ref-mobile-search-panel input {
+    color: #18241d !important;
+    font-size: 16px;
+    background: #f5f3ee;
+  }
+}
+
+@media (max-width: 350px) {
+  .genan-reference-page .genan-ref-mobile-wordmark { font-size: 21px; }
+  .genan-reference-page .genan-editorial-header .genan-ref-mobile-nav-row { padding: 0 8px !important; }
+  .genan-reference-page .genan-ref-mobile-actions > button[aria-label="بحث"],
+  .genan-reference-page .genan-ref-mobile-actions > button[aria-label="السلة"] { width: 39px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .genan-reference-page .genan-editorial-header,
+  .genan-reference-page .genan-ref-mobile-logo { transition: none !important; }
+}
