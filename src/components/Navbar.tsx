@@ -170,45 +170,17 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
       <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 border-b border-[#EEEAE2] bg-white/95 backdrop-blur-xl ${isEditorial ? `genan-editorial-header${isScrolled ? " genan-editorial-header--floating" : ""}` : ""}`}>
         {/* Mobile navbar */}
         <div className="md:hidden">
-          <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4`}>
-            <Link to="/home" aria-label="الرئيسية" className="flex items-center">
-              <Logo size="md" invert={isEditorial} showArabic={isEditorial} />
-            </Link>
-
-            <div className="flex items-center gap-0.5">
-              {!isProduct && (
-                <button
-                  type="button"
-                  onClick={() => setMobileSearchOpen((value) => !value)}
-                  aria-label="بحث"
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
-                >
-                  <MagnifyingGlass size={19} />
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={openCart}
-                aria-label="السلة"
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
-              >
-                <ShoppingBag size={19} />
-                {cartCount > 0 && (
-                  <span className="absolute left-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#B99A63] px-1 text-[8px] font-bold text-white">
-                    {cartCount > 99 ? "99+" : cartCount}
-                  </span>
-                )}
-              </button>
-
+          <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4 ${isEditorial ? "genan-ref-mobile-nav-row" : ""}`}>
               <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
                 <SheetTrigger asChild>
                   <button
                     type="button"
                     aria-label="فتح القائمة"
-                    className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
+                    className={`flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1] ${isEditorial ? "genan-ref-mobile-menu-button" : ""}`}
                   >
-                    <List size={21} />
+                    {isEditorial ? (
+                      <span aria-hidden="true" className="genan-ref-mobile-menu-glyph"><span /><span /></span>
+                    ) : <List size={21} />}
                   </button>
                 </SheetTrigger>
 
@@ -364,6 +336,41 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                   </div>
                 </SheetContent>
               </Sheet>
+            <Link
+              to="/home"
+              aria-label="الرئيسية"
+              className={`flex items-center ${isEditorial ? "genan-ref-mobile-logo" : ""}`}
+            >
+              {isEditorial ? <span className="genan-ref-mobile-wordmark" dir="ltr">GENAN</span> : <Logo size="md" />}
+            </Link>
+
+            <div className={`flex items-center gap-0.5 ${isEditorial ? "genan-ref-mobile-actions" : ""}`}>
+              {!isProduct && (
+                <button
+                  type="button"
+                  onClick={() => setMobileSearchOpen((value) => !value)}
+                  aria-label="بحث"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
+                >
+                  <MagnifyingGlass size={isEditorial ? 23 : 19} />
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={openCart}
+                aria-label="السلة"
+                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
+              >
+                <ShoppingBag size={isEditorial ? 22 : 19} />
+                {cartCount > 0 && (
+                  <span className="absolute left-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#B99A63] px-1 text-[8px] font-bold text-white">
+                    {cartCount > 99 ? "99+" : cartCount}
+                  </span>
+                )}
+              </button>
+
+
             </div>
           </div>
 
