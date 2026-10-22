@@ -89,6 +89,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
   const visibleNavLinks = isEditorial ? referenceNavLinks : navLinks;
   const location = useLocation();
 
+  const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [desktopSearchOpen, setDesktopSearchOpen] = useState(isEditorial);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
@@ -101,6 +102,18 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
 
   const cartCount = getCartCount();
   const currencies = getActiveCurrencies();
+
+  useEffect(() => {
+    if (!isEditorial) return;
+
+    // The reference homepage uses a prominent glass header on load,
+    // then a smaller floating pill as the visitor scrolls.
+    const updateScrollState = () => setIsScrolled(window.scrollY > 56);
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateScrollState);
+  }, [isEditorial]);
 
   useEffect(() => {
     const previousStorefront = document.body.dataset.storefront;
@@ -154,7 +167,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
 
   return (
     <>
-      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 border-b border-[#EEEAE2] bg-white/95 backdrop-blur-xl ${isEditorial ? "genan-editorial-header" : ""}`}>
+      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 border-b border-[#EEEAE2] bg-white/95 backdrop-blur-xl ${isEditorial ? `genan-editorial-header${isScrolled ? " genan-editorial-header--floating" : ""}` : ""}`}>
         {/* Mobile navbar */}
         <div className="md:hidden">
           <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4`}>
