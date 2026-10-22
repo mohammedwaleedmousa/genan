@@ -70,6 +70,13 @@ const navLinks = [
   { label: "الماركات", to: "/brands" },
   { label: "وصل حديثًا", to: "/new-arrivals" },
 ];
+const referenceNavLinks = [
+  { label: "الرئيسية", to: "/home" },
+  { label: "العبايات", to: "/products" },
+  { label: "الإكسسوارات", to: "/categories" },
+  { label: "المجموعات", to: "/brands" },
+  { label: "عروض خاصة", to: "/seasonal-offers" },
+];
 
 type NavbarProps = {
   variant?: "default" | "product" | "editorial";
@@ -79,6 +86,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
   const navigate = useNavigate();
   const isProduct = variant === "product";
   const isEditorial = variant === "editorial";
+  const visibleNavLinks = isEditorial ? referenceNavLinks : navLinks;
   const location = useLocation();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -250,7 +258,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
 
                     <div className="flex-1 overflow-y-auto px-3">
                       <nav aria-label="القائمة الرئيسية" className="space-y-1">
-                        {navLinks.map((item) => {
+                        {visibleNavLinks.map((item) => {
                           const active = isActive(item.to);
 
                           return (
@@ -405,7 +413,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
             </Link>
 
             <nav className="flex flex-1 items-center justify-center gap-7 lg:gap-10">
-              {navLinks.map((item) => {
+              {visibleNavLinks.map((item) => {
                 const active = isActive(item.to);
 
                 return (
