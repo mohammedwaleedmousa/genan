@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Flame, Grid2X2, Heart, Headphones, Menu, Package, Search, ShieldCheck, ShoppingBag, UserRound, X, Shirt, Bookmark, Truck } from "lucide-react";
@@ -25,7 +25,7 @@ const menuItems = [
   ["الإكسسوارات","/categories"],
   ["عروض خاصة","/seasonal-offers"],
 ];
-function Pill({to,children}:{to:string;children:React.ReactNode}) {
+function Pill({to,children}:{to:string;children:ReactNode}) {
   return <Link to={to} className="gr-pill"><span className="gr-pill-circle"><ArrowLeft size={16}/></span>{children}</Link>;
 }
 function Header() {
