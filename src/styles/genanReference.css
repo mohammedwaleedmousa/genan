@@ -32,13 +32,13 @@
   background:#0e1010ee !important;
   box-shadow:none;
 }
-.genan-reference-page .genan-editorial-header > .hidden.md\\:block > div {direction:ltr;height:58px;max-width:none;padding:0 22px;gap:12px;}
-.genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > a:first-child {min-width:158px;}
-.genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > nav {gap:clamp(14px,2.5vw,32px);}
-.genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > nav a {height:58px;font-size:11px;color:#f4f2eecc !important;white-space:nowrap;}
-.genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > nav a:hover {color:#fff !important;}
-.genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > nav a span {height:1px;background:#f7f0e8;}
-.genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > div:last-child {min-width:264px;gap:0;direction:ltr;}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div {direction:ltr;height:58px;max-width:none;padding:0 22px;gap:12px;}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > a:first-child {min-width:158px;}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav {gap:clamp(14px,2.5vw,32px);}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a {height:58px;font-size:11px;color:#f4f2eecc !important;white-space:nowrap;}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a:hover {color:#fff !important;}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a span {height:1px;background:#f7f0e8;}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > div:last-child {min-width:264px;gap:0;direction:ltr;}
 .genan-reference-page .genan-editorial-header .font-serif {font-family:Georgia,"Times New Roman",serif;letter-spacing:.29em !important;font-size:27px !important;font-weight:400;color:#fff;}
 .genan-reference-page .genan-editorial-header button,
 .genan-reference-page .genan-editorial-header a[aria-label] {color:#eee !important;}
@@ -183,10 +183,10 @@
 .genan-ref-footer-bottom a {color:#a2a4a0;text-decoration:none;}
 @media (max-width: 850px) {
   .genan-reference-page {padding:8px;}
-  .genan-reference-page .genan-editorial-header > .hidden.md\\:block > div {padding:0 10px;}
-  .genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > a:first-child {min-width:110px;}
-  .genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > div:last-child {min-width:178px;}
-  .genan-reference-page .genan-editorial-header > .hidden.md\\:block > div > nav {gap:11px;}
+  .genan-reference-page .genan-editorial-header > .hidden.md\:block > div {padding:0 10px;}
+  .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > a:first-child {min-width:110px;}
+  .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > div:last-child {min-width:178px;}
+  .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav {gap:11px;}
   .genan-ref-hero-heading {width:44%;}
   .genan-ref-hero-heading h1 {font-size:44px;}
   .genan-ref-hero-caption {font-size:12px;}
@@ -198,7 +198,7 @@
   .genan-reference-page {padding:6px;}
   .genan-reference-shell {border-radius:13px;}
   .genan-reference-page .genan-editorial-header {height:60px;}
-  .genan-reference-page .genan-editorial-header > div.md\\:hidden > div:first-child {height:60px;}
+  .genan-reference-page .genan-editorial-header > div.md\:hidden > div:first-child {height:60px;}
   .genan-ref-main {padding:0 5px;}
   .genan-ref-hero-composition {padding-bottom:63px;}
   .genan-ref-hero {height:430px;border-radius:11px;}
