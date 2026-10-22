@@ -72,12 +72,13 @@ const navLinks = [
 ];
 
 type NavbarProps = {
-  variant?: "default" | "product";
+  variant?: "default" | "product" | "editorial";
 };
 
 const Navbar = ({ variant = "default" }: NavbarProps) => {
   const navigate = useNavigate();
   const isProduct = variant === "product";
+  const isEditorial = variant === "editorial";
   const location = useLocation();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -145,12 +146,12 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
 
   return (
     <>
-      <header dir="rtl" className="fixed inset-x-0 top-0 z-50 border-b border-[#EEEAE2] bg-white/95 backdrop-blur-xl">
+      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 border-b border-[#EEEAE2] bg-white/95 backdrop-blur-xl ${isEditorial ? "genan-editorial-header" : ""}`}>
         {/* Mobile navbar */}
         <div className="md:hidden">
           <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4`}>
             <Link to="/home" aria-label="الرئيسية" className="flex items-center">
-              <Logo size="md" />
+              <Logo size="md" invert={isEditorial} />
             </Link>
 
             <div className="flex items-center gap-0.5">
@@ -197,7 +198,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
                   className="w-[86vw] max-w-[340px] border-l border-[#EEEAE2] bg-[#FFFEFC] p-0 shadow-[-18px_0_45px_rgba(20,20,20,.08)]"
                 >
                   <div className="flex h-[72px] items-center justify-between border-b border-[#F0EDE7] px-5">
-                    <Logo size="md" />
+                    <Logo size="md" invert={isEditorial} />
 
                     <button
                       type="button"
@@ -400,7 +401,7 @@ const Navbar = ({ variant = "default" }: NavbarProps) => {
         <div className="hidden md:block">
           <div className="mx-auto flex h-[72px] max-w-[1600px] items-center px-6 lg:px-10 xl:px-14">
             <Link to="/home" aria-label="الرئيسية" className="flex min-w-[150px] items-center">
-              <Logo size="lg" />
+              <Logo size="lg" invert={isEditorial} />
             </Link>
 
             <nav className="flex flex-1 items-center justify-center gap-7 lg:gap-10">
