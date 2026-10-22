@@ -40,6 +40,11 @@
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a span {height:1px;background:#f7f0e8;}
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > div:last-child {min-width:264px;gap:0;direction:ltr;}
 .genan-reference-page .genan-editorial-header .font-serif {font-family:Georgia,"Times New Roman",serif;letter-spacing:.29em !important;font-size:27px !important;font-weight:400;color:#fff;}
+.genan-reference-page .genan-editorial-header span[aria-label^="Genan"] { flex-direction:column;align-items:center;gap:1px; }
+.genan-reference-page .genan-editorial-header span[aria-label^="Genan"] > span:last-child {font-size:12px;letter-spacing:.2em;opacity:.92;}
+.genan-reference-page .genan-editorial-header form {height:34px;border:1px solid #ffffff48;background:#181a19 !important;border-radius:14px;}
+.genan-reference-page .genan-editorial-header form svg {color:#e4e4dc !important;}
+
 .genan-reference-page .genan-editorial-header button,
 .genan-reference-page .genan-editorial-header a[aria-label] {color:#eee !important;}
 .genan-reference-page .genan-editorial-header button:hover {background:#ffffff18 !important;}
