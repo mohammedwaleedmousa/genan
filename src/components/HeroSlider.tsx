@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft } from "phosphor-react";
+import { ArrowLeft, ArrowUpLeft } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { isBannerCurrentlyVisible } from "@/lib/bannerSchedule";
@@ -22,7 +22,7 @@ const FALLBACK_HERO_IMAGE =
 
 const HeroSlider = () => {
   const { data: banner } = useQuery({
-    queryKey: ["genan-home-hero-editorial-v4"],
+    queryKey: ["genan-emerald-editorial-hero-v1"],
     queryFn: async () => {
       const { data, error } = await (supabase as any)
         .from("banners")
@@ -32,88 +32,96 @@ const HeroSlider = () => {
         .limit(20);
 
       if (error) throw error;
-
-      const match = (data || []).find(
+      const visible = (data || []).find(
         (item: any) =>
           !String(item.page_slug || "").startsWith("home-editorial") &&
           String(item.title || "") !== "Between products banner" &&
           Boolean(String(item.image_url || "").trim()) &&
           isBannerCurrentlyVisible(item),
       );
-
-      return (match || null) as HeroBanner | null;
+      return (visible || null) as HeroBanner | null;
     },
     staleTime: 10 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
 
-  const image = banner?.image_url?.trim() || FALLBACK_HERO_IMAGE;
-  const imageSrc = image.startsWith("/") ? image : optimizeImage(image, 1800, 86);
-  const title = banner?.title_ar?.trim() || "أناقة عصرية، بتفاصيل تشبهك.";
+  const heroImage = banner?.image_url?.trim() || FALLBACK_HERO_IMAGE;
+  const imageSrc = heroImage.startsWith("/") ? heroImage : optimizeImage(heroImage, 1800, 84);
+  const headline = banner?.title_ar?.trim() || "جمالٌ يتجاوز المألوف";
   const description =
-    banner?.subtitle_ar?.trim() || "مختارات منتقاة بعناية لتكمّل إطلالتك بأسلوب هادئ وواثق.";
-  const cta = banner?.cta_text_ar?.trim() || "اكتشفي المجموعة";
+    banner?.subtitle_ar?.trim() || "تفاصيل مختارة بعناية، وأسلوب يعبر عنك في كل لحظة.";
+  const action = banner?.cta_text_ar?.trim() || "اكتشف المجموعة";
   const link = banner?.cta_link?.trim() || "/products";
 
   return (
-    <section dir="rtl" className="w-full bg-white px-3 pt-3 md:px-6 md:pt-6">
-      <div className="relative mx-auto h-[285px] max-w-[1500px] overflow-hidden border border-[#E6DED0] bg-[#F4F0E8] shadow-[0_25px_65px_-52px_rgba(15,15,15,.55)] sm:h-[330px] md:h-[500px] lg:h-[545px]">
-        <div className="absolute inset-0 md:left-0 md:right-auto md:w-[58%]">
-          <img
-            src={imageSrc}
-            alt={title}
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            className="h-full w-full object-cover"
-            style={{
-              objectPosition: `${Number(banner?.image_position_x ?? 50)}% ${Number(banner?.image_position_y ?? 42)}%`,
-              transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
-            }}
-          />
-        </div>
+    <section className="genan-hero mx-auto max-w-[1540px] px-3 pt-3 sm:px-5 sm:pt-5 lg:px-8 lg:pt-7" dir="rtl" aria-label="مجموعة جنان الرئيسية">
+      <div className="genan-hero-frame relative isolate overflow-hidden rounded-[24px] border border-white/15 sm:rounded-[30px] lg:rounded-[34px]">
+        <img
+          src={imageSrc}
+          alt={banner?.title_ar || "مختارات جنان"}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          className="genan-hero-photo absolute inset-0 h-full w-full object-cover"
+          style={{
+            objectPosition: `${Number(banner?.image_position_x ?? 46)}% ${Number(banner?.image_position_y ?? 35)}%`,
+            transform: `scale(${Number(banner?.image_zoom ?? 1)})`,
+          }}
+        />
+        <div className="genan-hero-shade absolute inset-0" />
+        <div className="genan-hero-aura pointer-events-none absolute inset-0" />
 
-        <div className="absolute inset-0 bg-gradient-to-l from-black/72 via-black/34 to-black/5 md:bg-gradient-to-l md:from-[#F4F0E8] md:from-[35%] md:via-[#F4F0E8]/90 md:via-[49%] md:to-transparent" />
-
-        <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full border border-[#7FAEA8]/35 md:right-[31%] md:top-[-92px] md:h-64 md:w-64" />
-        <div className="pointer-events-none absolute right-7 top-7 h-3 w-3 rotate-45 border border-[#D0B779]/80 md:right-[8%] md:top-12 md:h-4 md:w-4" />
-        <div className="pointer-events-none absolute bottom-[-70px] right-[35%] hidden h-52 w-52 rounded-full bg-[#7FAEA8]/10 blur-2xl md:block" />
-
-        <div className="relative z-10 flex h-full items-center px-5 sm:px-8 md:px-[7%]">
-          <div className="w-[82%] max-w-[520px] md:w-[40%]">
-            <div className="mb-2.5 flex items-center gap-2 md:mb-4">
-              <span className="h-px w-6 bg-[#D8C29A] md:w-9" />
-              <span className="text-[6px] font-semibold tracking-[.27em] text-[#E9D9B8] md:text-[9px] md:text-[#9A825B]">
-                GENAN / NEW COLLECTION
-              </span>
+        <div className="relative z-10 flex h-full flex-col justify-between gap-8 px-6 pb-24 pt-9 sm:px-10 sm:pt-10 lg:px-[8%] lg:pb-32 lg:pt-14">
+          <div className="flex items-start justify-between gap-5">
+            <div className="flex items-center gap-3 text-white/70" dir="ltr">
+              <span className="h-px w-7 bg-[#C4D7C9]/70" />
+              <span className="text-[10px] uppercase tracking-[.32em]">GENAN / EDITION 01</span>
             </div>
+            <span className="hidden text-[10px] tracking-[.3em] text-white/55 sm:block" dir="ltr">
+              THE ART OF DETAILS
+            </span>
+          </div>
 
-            <h1 className="max-w-[480px] text-[25px] font-semibold leading-[1.4] tracking-[-.035em] !text-white sm:text-[31px] md:text-[48px] md:!text-[#111111]">
-              {title}
+          <div className="max-w-[550px]">
+            <div className="mb-5 flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#B3CBB7]" />
+              <span className="text-[11px] font-medium tracking-wide text-[#E8E8DD]">عالم جنان الجديد</span>
+            </div>
+            <h1 className="genan-hero-title text-[clamp(2.4rem,7.4vw,6.4rem)] font-medium leading-[1.16] !text-white">
+              {headline}
             </h1>
-
-            <p className="mt-2.5 max-w-[400px] text-[8px] leading-5 text-white/75 sm:text-[9px] md:mt-4 md:text-[11px] md:leading-7 md:text-[#6D685F]">
+            <p className="mt-5 max-w-[380px] text-[14px] leading-[2] text-white/80 sm:text-[16px]">
               {description}
             </p>
-
             <Link
               to={link}
-              className="mt-4 inline-flex items-center gap-2 border-b border-[#D8C29A] pb-1.5 text-[8px] font-semibold text-white transition-all duration-300 hover:gap-3 md:mt-7 md:text-[10px] md:text-[#111111]"
+              className="genan-hero-action mt-8 inline-flex min-h-[51px] items-center gap-4 rounded-full border border-white/50 bg-[#0E2822]/65 px-6 py-3 text-[13px] font-semibold text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-[#D6E6D2] hover:bg-[#153F31] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              {cta}
-              <ArrowLeft size={14} weight="bold" />
+              {action}
+              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/35">
+                <ArrowLeft className="h-4 w-4" strokeWidth={1.7} />
+              </span>
+            </Link>
+          </div>
+
+          <div className="flex items-end justify-between gap-3">
+            <div className="flex items-center gap-3 text-[11px] text-white/75" dir="ltr">
+              <span className="text-base font-semibold text-white">01</span>
+              <span className="h-px w-10 bg-white/40" />
+              <span>GENAN</span>
+            </div>
+            <Link
+              to="/categories"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/10"
+              aria-label="استعرض الأقسام"
+            >
+              <ArrowUpLeft className="h-5 w-5" strokeWidth={1.6} />
             </Link>
           </div>
         </div>
-
-        <span className="pointer-events-none absolute -bottom-5 right-3 text-[62px] font-semibold tracking-[.11em] text-white/[.05] md:-bottom-11 md:right-[5%] md:text-[135px] md:text-[#111]/[.035]">
-          GENAN
+        <span className="genan-hero-watermark pointer-events-none absolute bottom-10 left-[4%] hidden text-[10px] uppercase tracking-[.45em] text-white/50 lg:block" dir="ltr">
+          ROOTED IN STYLE · MADE FOR YOUR MOMENTS
         </span>
-
-        <div className="absolute bottom-4 left-4 hidden items-center gap-2 md:flex">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#7FAEA8]" />
-          <span className="text-[7px] font-semibold tracking-[.22em] text-[#111]/35">GENAN / 2026</span>
-        </div>
       </div>
     </section>
   );

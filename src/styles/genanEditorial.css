@@ -1,0 +1,151 @@
+/* GENAN / EMERALD EDITORIAL — isolated storefront design, 2026-10-22.
+   Scope to the homepage and editorial navbar so admin, checkout and other views keep
+   their existing application styling. */
+.genan-editorial-home {
+  --editorial-ink: #101412;
+  --editorial-emerald: #173a2f;
+  --editorial-mist: #d0dfd3;
+  --editorial-ivory: #eeeae1;
+  background:
+    radial-gradient(ellipse 68% 40% at 80% -9%, rgba(53,102,74,.24), transparent 66%),
+    linear-gradient(180deg,#131917 0%,#101412 39%,#151815 78%,#0b100f 100%);
+  color: #f4f3ed;
+  overflow: clip;
+}
+.genan-editorial-home h1,
+.genan-editorial-home h2,
+.genan-editorial-home h3 {
+  font-family: "SF Arabic","Geeza Pro","Tahoma",system-ui,sans-serif;
+  letter-spacing: -.025em;
+}
+.genan-editorial-home :focus-visible {
+  outline: 2px solid #b7d6c0;
+  outline-offset: 4px;
+}
+.genan-editorial-header {
+  background: rgba(13,18,16,.95) !important;
+  border-bottom: 1px solid rgba(245,244,235,.15) !important;
+  color: #f3f1e9 !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.genan-editorial-header > div .font-serif { color: #f4f4eb !important; }
+.genan-editorial-header nav a { color: #d8dfd8 !important; }
+.genan-editorial-header nav a:hover { color: #fff !important; }
+.genan-editorial-header button,
+.genan-editorial-header > div a[aria-label] { color: #f1f3ed !important; }
+.genan-editorial-header button:hover { background: rgba(255,255,255,.08); }
+.genan-editorial-header input { color: #212720 !important; }
+.genan-editorial-header .relative > .flex.w-\[220px\] { background: #e7e7df; }
+.genan-editorial-header .relative > .flex.w-\[220px\] svg { color:#36463c; }
+.genan-editorial-header input::placeholder { color:#696f6b; }
+.genan-editorial-header a:focus-visible,
+.genan-editorial-header button:focus-visible { outline: 2px solid #b7d6c0; outline-offset: 2px; }
+.genan-hero-frame {
+  height: min(650px,75vw);
+  min-height: 490px;
+  background: #1a2922;
+  box-shadow: 0 26px 70px rgba(0,0,0,.25);
+}
+.genan-hero-photo { filter: saturate(.85) contrast(1.08); }
+.genan-hero-shade {
+  background:
+    linear-gradient(270deg,rgba(9,17,14,.94) 0%,rgba(10,25,18,.79) 37%,rgba(10,25,18,.28) 65%,rgba(5,9,6,.18) 100%),
+    linear-gradient(0deg,rgba(9,16,12,.8) 0%,transparent 34%);
+}
+.genan-hero-aura {
+  background: radial-gradient(circle at 57% 73%,rgba(16,94,62,.24),transparent 45%);
+  mix-blend-mode: screen;
+}
+.genan-hero-title { max-width: 620px; text-wrap: balance; text-shadow: 0 5px 34px rgba(0,0,0,.28); }
+.genan-category-overlap { margin-top: -56px; }
+.genan-category-dock {
+  background: rgba(220,219,210,.9);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.68), 0 20px 50px rgba(0,0,0,.26);
+}
+.genan-category-chip {
+  background: rgba(250,248,241,.89);
+  border-color: rgba(255,255,255,.65);
+  color: #1a2b24;
+}
+.genan-category-chip-first {
+  background: #173c30;
+  color: #faf9f1;
+  border-color: rgba(194,223,206,.38);
+}
+.genan-category-chip-first .genan-category-thumb { background: #2d5041; }
+.genan-category-chip:hover:not(.genan-category-chip-first) { background: #fff; }
+.genan-editorial-product-grid > a {
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #e9e4d8;
+  box-shadow: 0 8px 24px rgba(0,0,0,.14);
+  transition: transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+}
+.genan-editorial-product-grid > a:hover {
+  transform: translateY(-5px);
+  border-color: rgba(175,201,180,.7);
+  box-shadow: 0 22px 50px rgba(0,0,0,.28);
+}
+.genan-editorial-product-grid > a article > div:first-child {
+  aspect-ratio: 3/3.7;
+  background: #ebe6dc;
+}
+.genan-editorial-product-grid > a article > div:last-child {
+  padding: 13px 15px 16px;
+  min-height: 77px;
+  background: #f5f2eb;
+}
+.genan-editorial-product-grid > a article h3 { color: #17201a !important; font-size: 12px; }
+.genan-editorial-product-grid > a article .font-semibold { color: #17201a; }
+.genan-editorial-product-grid > a article .pt-3\.5 p:first-child {
+  color:#657a6b;
+  letter-spacing:.1em;
+  font-size:9px;
+}
+.genan-story-card { box-shadow: 0 26px 70px rgba(0,0,0,.17); }
+.genan-story-image {
+  background-image: url("https://images.pexels.com/photos/8989866/pexels-photo-8989866.jpeg?auto=compress&cs=tinysrgb&w=1400");
+  background-size: cover;
+  background-position: center 45%;
+  filter: grayscale(.18) saturate(.78);
+}
+.genan-story-overlay {
+  background:
+    linear-gradient(270deg,#11231d 0%,rgba(17,35,29,.96) 27%,rgba(17,35,29,.62) 57%,rgba(17,35,29,.14) 100%),
+    linear-gradient(0deg,rgba(9,18,13,.48),transparent 50%);
+}
+.genan-detail-card { box-shadow: inset 0 0 50px rgba(0,0,0,.14); }
+.genan-detail-card::before {
+  content: ""; position:absolute; inset:0; opacity:.34;
+  background: radial-gradient(circle at 85% 0%,rgba(255,255,255,.3),transparent 50%);
+  pointer-events:none;
+}
+.genan-detail-card-one { background: linear-gradient(135deg,#214538,#102019); }
+.genan-detail-card-two { background: linear-gradient(135deg,#554b3c,#252722); }
+.genan-detail-card-three { background: linear-gradient(135deg,#3b4a40,#161b19); }
+.genan-editorial-footer a:focus-visible,
+.genan-editorial-footer button:focus-visible { outline:2px solid #c6ddcd; outline-offset:4px; }
+
+@media (max-width: 767px) {
+  .genan-hero-frame { height: min(670px,112vw); min-height: 475px; }
+  .genan-hero-photo { object-position: 40% center !important; }
+  .genan-hero-shade {
+    background: linear-gradient(0deg,rgba(6,17,13,.98) 0%,rgba(9,24,17,.70) 41%,rgba(8,19,13,.25) 88%);
+  }
+  .genan-hero-title { font-size: clamp(2.15rem,9vw,3.8rem); max-width: 18rem; }
+  .genan-category-overlap { margin-top: -43px; }
+  .genan-category-dock { background: rgba(226,225,216,.95); }
+  .genan-category-chip { min-width: 125px; }
+  .genan-story-image { inset:0; background-position: 55% center; }
+  .genan-story-overlay {
+    background: linear-gradient(0deg,rgba(11,28,21,.95),rgba(9,20,15,.54) 67%,rgba(9,20,15,.16));
+  }
+  .genan-editorial-product-grid > a article > div:first-child { aspect-ratio: 3/4; }
+  .genan-editorial-product-grid > a article > div:last-child { padding: 10px 10px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .genan-editorial-home *,
+  .genan-editorial-header * { scroll-behavior: auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; }
+}
