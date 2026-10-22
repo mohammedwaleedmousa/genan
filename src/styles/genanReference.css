@@ -1,0 +1,205 @@
+/* Pixel-directed reconstruction of the user-approved 1122×1402 reference.
+ * Scoped to the home route; checkout/admin/other product pages are unchanged.
+ * All positions are fluid adaptations of this ONE reference, not a new concept. */
+.genan-reference-home {
+  --gr-ink:#0f100f; --gr-border:rgba(242,240,234,.21); --gr-ivory:#f0e9df;
+  --gr-emerald:#032c20;
+  color:#f8f7f2; background:#10110f; min-height:100vh;
+  padding:14px 20px 24px;
+  font-family: "Noto Kufi Arabic","IBM Plex Sans Arabic","Tahoma",sans-serif;
+  position:relative; isolation:isolate;
+}
+.genan-reference-home::before {
+  content:"";position:fixed;z-index:-1;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 60% 38%,rgba(69,58,47,.34),transparent 60%),
+  linear-gradient(105deg,#0c0e0c,#292923 36%,#080c0a 67%,#151715);
+}
+.genan-reference-home * {box-sizing:border-box;}
+.genan-reference-home a,.genan-reference-home button { -webkit-tap-highlight-color:transparent; }
+.genan-reference-home :focus-visible {outline:2px solid #dcf4e4;outline-offset:3px;}
+.genan-reference-home .gr-page {max-width:1440px;margin:0 auto;overflow:hidden;border:1px solid #3b3d38;border-radius:14px;box-shadow:0 28px 70px rgba(0,0,0,.7);background:rgba(12,14,12,.81);}
+.genan-reference-home .gr-header {height:56px;display:flex;justify-content:space-between;align-items:center;gap:20px;background:rgba(9,11,10,.85);padding:0 29px;position:relative;z-index:15;color:white;border-bottom:1px solid rgba(255,255,255,.16);}
+.genan-reference-home .gr-logo {color:white;display:flex;flex-direction:column;align-items:center;line-height:1;text-decoration:none;font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:.25em;font-size:26px;width:122px;flex-shrink:0;}
+.genan-reference-home .gr-logo small {font-family:Tahoma,sans-serif;letter-spacing:.15em;font-size:12px;margin-top:2px;}
+.genan-reference-home .gr-main-nav {display:flex;align-items:center;justify-content:center;gap:48px;min-width:0;white-space:nowrap;flex:1;}
+.genan-reference-home .gr-main-nav a {font-size:11px;font-weight:500;color:#e7e4dd;text-decoration:none;height:56px;display:flex;align-items:center;position:relative;transition:color .2s;}
+.genan-reference-home .gr-main-nav a:hover {color:#fff;}
+.genan-reference-home .gr-main-nav .gr-nav-current:after {content:"";position:absolute;bottom:10px;right:0;left:0;height:1px;background:#ebeae5;}
+.genan-reference-home .gr-header-tools {display:flex;align-items:center;gap:17px;flex-shrink:0;}
+.genan-reference-home .gr-search {height:33px;width:158px;display:flex;align-items:center;justify-content:space-between;border:1px solid #626660;border-radius:15px;overflow:hidden;color:#e6e6e3;}
+.genan-reference-home .gr-search input {width:100%;min-width:0;background:transparent;border:0;outline:0;color:#eee;font-size:9px;padding:0 11px;text-align:right;}
+.genan-reference-home .gr-search input::placeholder {color:#9e9f9d;}
+.genan-reference-home .gr-search button {display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#eee;width:36px;height:100%;cursor:pointer;}
+.genan-reference-home .gr-action {display:flex;align-items:center;justify-content:center;width:23px;height:38px;border:0;background:transparent;color:#ededeb;cursor:pointer;position:relative;text-decoration:none;}
+.genan-reference-home .gr-cart b {position:absolute;right:-10px;top:-3px;border-radius:999px;background:#456e5d;color:white;min-width:16px;height:16px;font-size:9px;display:grid;place-items:center;}
+.genan-reference-home .gr-language {display:inline-flex;align-items:center;gap:5px;color:#e7e5e1;font-size:11px;}
+.genan-reference-home .gr-mobile-menu-button,.genan-reference-home .gr-mobile-search-button,.genan-reference-home .gr-mobile-panel {display:none;}
+/* Hero, including its reference-only editorial left-side index */
+.genan-reference-home .gr-hero {height:359px;overflow:hidden;position:relative;margin:0 0 0;border:1px solid #68655a;border-top:0;border-radius:12px;background:#17231e;direction:rtl;}
+.genan-reference-home .gr-hero-photo {position:absolute;inset:0;background-size:cover;background-position:center 34%;filter:saturate(.72) contrast(1.1);}
+.genan-reference-home .gr-hero-filter {position:absolute;inset:0;background:linear-gradient(270deg,rgba(5,9,8,.97) 0%,rgba(8,13,11,.95) 19%,rgba(8,15,11,.82) 30%,rgba(10,14,12,.03) 53%,rgba(9,12,10,.38) 95%),linear-gradient(0deg,rgba(5,8,7,.34),transparent 35%);}
+.genan-reference-home .gr-hero-copy {position:absolute;right:4.3%;top:43px;z-index:2;text-align:right;max-width:42%;display:flex;align-items:flex-start;flex-direction:column;gap:10px;}
+.genan-reference-home .gr-overline {font-size:11px;font-weight:400;color:#e2ded8;line-height:1.6;}
+.genan-reference-home .gr-hero-copy h1 {font-size:clamp(34px,4.4vw,65px);font-weight:400;color:#f8f8f5;text-align:right;white-space:pre-line;letter-spacing:-.07em;line-height:1.25;margin:0;}
+.genan-reference-home .gr-hero-copy p {font-size:13px;color:#efeeec;line-height:2;margin:0 0 7px;}
+.genan-reference-home .gr-pill {min-height:40px;border:1px solid #cdd9cc;border-radius:50px;color:#fff;display:inline-flex;gap:13px;align-items:center;justify-content:space-between;padding:2px 15px 2px 2px;text-decoration:none;min-width:156px;background:rgba(3,22,16,.45);font-size:12px;font-weight:500;transition:background .25s;}
+.genan-reference-home .gr-pill:hover {background:rgba(12,67,45,.8);}
+.genan-reference-home .gr-pill-circle {height:33px;width:33px;display:grid;place-items:center;border-radius:50%;border:1px solid #a8d1b3;color:#fff;background:rgba(3,24,17,.78);}
+.genan-reference-home .gr-hero-index {position:absolute;top:56px;left:4%;z-index:3;display:flex;flex-direction:column;align-items:flex-start;color:white;}
+.genan-reference-home .gr-side-brand {font-family:Georgia,serif;font-size:20px;letter-spacing:.23em;line-height:1.4;}
+.genan-reference-home .gr-side-brand small {font-size:11px;font-family:Arial,sans-serif;line-height:1.35;letter-spacing:.25em;display:block;margin-top:9px;}
+.genan-reference-home .gr-slide-line {height:41px;border-left:1px solid #e7e1d3;margin:13px 0 8px 9px;}
+.genan-reference-home .gr-slide-index {font-size:11px;display:flex;flex-direction:column;gap:2px;margin-left:3px;}
+.genan-reference-home .gr-slide-index span {color:rgba(255,255,255,.58);}
+.genan-reference-home .gr-slide-arrows {display:flex;gap:9px;margin-top:10px;}
+.genan-reference-home .gr-slide-arrows button {width:33px;height:33px;border:1px solid #939b91;border-radius:50%;background:#111b16aa;color:#f3f3f0;display:grid;place-items:center;cursor:pointer;}
+/* Floating beige glass category bar, faithfully overlaying the hero */
+.genan-reference-home .gr-category-dock {position:relative;z-index:4;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:-55px 18px 11px;padding:8px;border-radius:16px;background:rgba(210,203,192,.72);border:1px solid #b8b0a3;backdrop-filter:blur(18px);box-shadow:0 10px 30px rgba(0,0,0,.35);height:104px;}
+.genan-reference-home .gr-category-tile {background:linear-gradient(135deg,#e1d6ca,#cfc5bb 55%,#e9ded5);border-radius:11px;color:#171714;text-decoration:none;position:relative;overflow:hidden;border:1px solid #e8e0d5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:0;}
+.genan-reference-home .gr-category-tile>span:not(.gr-category-arrow) {font-size:12px;font-weight:600;white-space:nowrap;}
+.genan-reference-home .gr-category-featured {background:linear-gradient(125deg,rgba(2,23,14,.98),rgba(5,66,42,.92));align-items:flex-start;justify-content:flex-end;padding:0 17px 13px;color:white;}
+.genan-reference-home .gr-category-featured img {position:absolute;inset:0;height:100%;width:100%;object-fit:cover;object-position:56% 33%;filter:saturate(.65) brightness(.52);}
+.genan-reference-home .gr-category-featured:after {content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,20,11,.7),transparent);}
+.genan-reference-home .gr-category-featured>span {z-index:1;}
+.genan-reference-home .gr-category-featured>span:not(.gr-category-arrow) {font-size:15px;}
+.genan-reference-home .gr-category-arrow {position:absolute;z-index:2;right:11px;top:10px;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:#020e0a;border:1px solid #718479;}
+/* Very compact product section, identical visual rhythm to reference */
+.genan-reference-home .gr-products {margin:0 18px 11px;}
+.genan-reference-home .gr-products-head {display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 8px;}
+.genan-reference-home .gr-products-head h2 {font-size:23px;font-weight:500;line-height:1.15;margin:0;color:#fff;}
+.genan-reference-home .gr-products-head p {font-size:11px;color:#c8c9c6;line-height:1.6;margin:3px 0 0;}
+.genan-reference-home .gr-products-head a {font-size:11px;color:#e7e8e3;text-decoration:none;display:inline-flex;gap:7px;align-items:center;white-space:nowrap;min-height:36px;}
+.genan-reference-home .gr-product-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
+.genan-reference-home .gr-product-grid > a {border-radius:10px;overflow:hidden;border:1px solid #d2cbc2;background:#f2eee8;color:#161918;box-shadow:0 5px 18px rgba(0,0,0,.28);}
+.genan-reference-home .gr-product-grid > a article>div:first-child {aspect-ratio:1.48!important;background:#d4c7b9;}
+.genan-reference-home .gr-product-grid > a article>div:last-child {padding:7px 10px 9px;min-height:46px;background:linear-gradient(135deg,#faf6f2,#d7cbc0);}
+.genan-reference-home .gr-product-grid > a article>div:last-child>div {gap:5px;}
+.genan-reference-home .gr-product-grid > a article>div:last-child h3 {font-size:11px;line-height:1.4;color:#141311;}
+.genan-reference-home .gr-product-grid > a article>div:last-child .font-semibold {font-size:10px;}
+.genan-reference-home .gr-product-grid > a article>div:last-child p {font-size:7px;color:#7d7266;}
+.genan-reference-home .gr-product-grid > a article>div:first-child button:first-of-type {background:transparent;color:white;}
+.genan-reference-home .gr-product-grid > a article>div:first-child span.bg-white\/88 {background:#151715;color:white;}
+.genan-reference-home .gr-skeleton {height:195px;background:rgba(255,255,255,.09);border-radius:10px;animation:gr-pulse 1.4s ease-in-out infinite alternate;}
+@keyframes gr-pulse {to{opacity:.4;}}
+.genan-reference-home .gr-empty {padding:55px 18px;text-align:center;border:1px solid #454943;border-radius:12px;color:#ddd;}
+.genan-reference-home .gr-empty a,.genan-reference-home .gr-empty button {color:#cfe8d4;text-decoration:underline;}
+.genan-reference-home .gr-demo-label {margin:7px 0 0;color:#aaa8a0;font-size:9px;text-align:center;}
+/* Full bleed campaign in the exact location below the four product tiles */
+.genan-reference-home .gr-campaign {height:207px;border:1px solid #404943;border-radius:12px;overflow:hidden;margin:10px 10px 9px;position:relative;background:#091611;}
+.genan-reference-home .gr-campaign-image {position:absolute;inset:0;background-size:cover;background-position:center 44%;}
+.genan-reference-home .gr-campaign-shade {position:absolute;inset:0;background:linear-gradient(90deg,#0c100e 0%,rgba(4,12,7,.64) 24%,transparent 49%,rgba(6,15,10,.55) 77%,#080d0b 100%);}
+.genan-reference-home .gr-campaign-copy {position:absolute;left:4.5%;top:23px;text-align:right;display:flex;flex-direction:column;align-items:flex-start;gap:5px;}
+.genan-reference-home .gr-campaign-copy h2 {font-size:43px;font-weight:400;line-height:1.04;margin:4px 0;color:white;letter-spacing:-.05em;}
+.genan-reference-home .gr-campaign-copy p {font-size:11px;margin:0 0 1px;}
+.genan-reference-home .gr-campaign .gr-pill {min-width:147px;min-height:34px;font-size:11px;}
+.genan-reference-home .gr-campaign .gr-pill-circle {width:29px;height:29px;}
+.genan-reference-home .gr-campaign-brand {position:absolute;right:4%;top:31px;z-index:1;display:flex;align-items:flex-start;flex-direction:column;font-family:Georgia,serif;font-size:23px;letter-spacing:.23em;}
+.genan-reference-home .gr-campaign-brand small {font-family:Arial,sans-serif;font-size:11px;line-height:1.4;margin-top:10px;}
+.genan-reference-home .gr-campaign-brand i {font-family:Arial,sans-serif;font-size:10px;font-style:normal;margin-top:62px;}
+/* Detail textile strip: three photos at right, copy center-left and portrait far left */
+.genan-reference-home .gr-details {height:155px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.24fr) minmax(0,1.73fr);gap:8px;border:1px solid #383d39;border-radius:11px;margin:0 10px 7px;padding:8px;overflow:hidden;background:#0a0d0b;}
+.genan-reference-home .gr-detail-photo {border:1px solid #56574c;border-radius:8px;background-position:center;background-size:cover;position:relative;text-decoration:none;color:white;overflow:hidden;}
+.genan-reference-home .gr-detail-photo:after {content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 65%);}
+.genan-reference-home .gr-detail-photo span {position:absolute;z-index:1;bottom:10px;right:10px;left:8px;text-align:right;font-size:12px;font-weight:500;}
+.genan-reference-home .gr-details-text {display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:6px 10px;color:white;}
+.genan-reference-home .gr-details-text h2 {font-size:20px;font-weight:400;white-space:nowrap;line-height:1.3;margin:0;}
+.genan-reference-home .gr-details-text p {font-size:10px;line-height:1.7;color:#d4d2ce;margin:7px 0;}
+.genan-reference-home .gr-details-text .gr-pill {min-width:129px;min-height:32px;font-size:10px;}
+.genan-reference-home .gr-details-text .gr-pill-circle {height:26px;width:26px;}
+.genan-reference-home .gr-details-face {background-size:cover;background-position:center 35%;border-radius:8px;filter:brightness(.66) saturate(.75);}
+/* Service strip + slim footer matching screenshot */
+.genan-reference-home .gr-benefits {height:53px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0 10px 7px;gap:0;}
+.genan-reference-home .gr-benefit {display:flex;align-items:center;justify-content:center;gap:13px;border:1px solid #313631;background:rgba(15,16,15,.75);padding:8px 10px;min-width:0;}
+.genan-reference-home .gr-benefit:first-child {border-radius:0 9px 9px 0;}
+.genan-reference-home .gr-benefit:last-child {border-radius:9px 0 0 9px;}
+.genan-reference-home .gr-benefit svg {color:#dcdfdb;flex-shrink:0;}
+.genan-reference-home .gr-benefit>div {display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
+.genan-reference-home .gr-benefit b {font-weight:500;font-size:11px;color:#f5f5f0;}
+.genan-reference-home .gr-benefit small {font-size:9px;color:#aaa9a5;}
+.genan-reference-home .gr-footer {border-top:1px solid #333c36;background:rgba(9,10,9,.95);}
+.genan-reference-home .gr-footer-body {display:grid;grid-template-columns:1.55fr repeat(3,.87fr) 1.25fr;gap:19px;padding:16px 22px 13px;min-height:131px;}
+.genan-reference-home .gr-news h3 {font-size:13px;margin:0;color:white;font-weight:500;}
+.genan-reference-home .gr-news p {font-size:9px;line-height:1.9;color:#c4c1bc;margin:10px 0;}
+.genan-reference-home .gr-news form {height:32px;border:1px solid #626a62;border-radius:50px;display:flex;align-items:center;overflow:hidden;width:min(100%,244px);}
+.genan-reference-home .gr-news input {border:0;outline:0;background:transparent;color:white;font-size:9px;padding:0 12px;flex:1;min-width:0;text-align:right;}
+.genan-reference-home .gr-news button {border:0;background:transparent;color:white;width:35px;height:100%;display:grid;place-items:center;}
+.genan-reference-home .gr-news small {font-size:9px;color:#c7dacc;}
+.genan-reference-home .gr-footer-col {display:flex;flex-direction:column;gap:7px;min-width:0;}
+.genan-reference-home .gr-footer-col h4 {font-size:11px;font-weight:600;margin:0 0 6px;color:#fff;}
+.genan-reference-home .gr-footer-col a {font-size:9px;color:#c2beb9;text-decoration:none;}
+.genan-reference-home .gr-footer-col a:hover {color:#fff;}
+.genan-reference-home .gr-footer-brand {text-align:center;display:flex;flex-direction:column;align-items:center;}
+.genan-reference-home .gr-footer-brand>a {font-family:Georgia,serif;letter-spacing:.27em;font-size:22px;color:#fff;text-decoration:none;}
+.genan-reference-home .gr-footer-brand>span {font-size:13px;color:white;}
+.genan-reference-home .gr-footer-brand>p {font-size:9px;line-height:1.9;color:#b2afaa;margin:10px 0;}
+.genan-reference-home .gr-socials {display:flex;gap:12px;font-size:15px;color:#fff;align-items:center;}
+.genan-reference-home .gr-footer-bottom {border-top:1px solid #3b3b36;min-height:39px;display:flex;align-items:center;justify-content:space-between;padding:0 23px;gap:10px;}
+.genan-reference-home .gr-footer-bottom span,.genan-reference-home .gr-footer-bottom a {font-size:9px;color:#babbb5;white-space:nowrap;}
+.genan-reference-home .gr-footer-bottom div {display:flex;gap:24px;}
+/* Separate responsive composition, still the same visual language/section order */
+@media (max-width:1050px){
+ .genan-reference-home {padding:10px;}
+ .genan-reference-home .gr-header {padding:0 17px;gap:8px;}
+ .genan-reference-home .gr-main-nav {gap:21px;}
+ .genan-reference-home .gr-header-tools {gap:12px;}
+ .genan-reference-home .gr-search {width:134px;}
+ .genan-reference-home .gr-logo {font-size:23px;width:101px;}
+ .genan-reference-home .gr-products-head h2 {font-size:21px;}
+ .genan-reference-home .gr-details-text h2 {font-size:17px;}
+}
+@media (max-width:767px){
+ .genan-reference-home {padding:0;background:#080a08;}
+ .genan-reference-home .gr-page {border-radius:0;border-left:0;border-right:0;}
+ .genan-reference-home .gr-header {height:60px;padding:0 17px;}
+ .genan-reference-home .gr-logo {font-size:25px;width:auto;}
+ .genan-reference-home .gr-main-nav,.genan-reference-home .gr-search,.genan-reference-home .gr-language {display:none;}
+ .genan-reference-home .gr-header-tools {gap:13px;}
+ .genan-reference-home .gr-header-tools .gr-action:nth-of-type(3) {display:none;}
+ .genan-reference-home .gr-mobile-menu-button,.genan-reference-home .gr-mobile-search-button {display:grid;place-items:center;color:white;background:transparent;border:0;height:40px;width:28px;}
+ .genan-reference-home .gr-mobile-panel {display:flex;flex-direction:column;padding:8px 19px 13px;background:#131612;position:relative;z-index:10;border-bottom:1px solid #434840;}
+ .genan-reference-home .gr-mobile-panel>a {display:flex;justify-content:space-between;align-items:center;min-height:46px;border-bottom:1px solid #292d2a;color:white;font-size:13px;}
+ .genan-reference-home .gr-mobile-panel form {display:flex;border:1px solid #6c746c;border-radius:50px;padding:8px;gap:5px;}
+ .genan-reference-home .gr-mobile-panel input {flex:1;min-width:0;background:transparent;color:white;padding:6px;border:0;outline:0;}
+ .genan-reference-home .gr-mobile-panel button {color:white;}
+ .genan-reference-home .gr-hero {height:450px;border-radius:0;}
+ .genan-reference-home .gr-hero-photo {background-position:43% 36%;}
+ .genan-reference-home .gr-hero-filter {background:linear-gradient(0deg,rgba(4,8,7,.94) 0%,rgba(3,11,8,.69) 38%,rgba(5,9,7,.08) 76%),linear-gradient(270deg,rgba(2,7,4,.4),transparent 70%);}
+ .genan-reference-home .gr-hero-copy {top:auto;right:24px;bottom:92px;max-width:calc(100% - 48px);gap:7px;}
+ .genan-reference-home .gr-hero-copy h1 {font-size:clamp(36px,10vw,58px);}
+ .genan-reference-home .gr-hero-copy p {font-size:12px;max-width:270px;}
+ .genan-reference-home .gr-hero-index {left:19px;top:22px;}
+ .genan-reference-home .gr-side-brand {font-size:14px;}
+ .genan-reference-home .gr-side-brand small {font-size:8px;}
+ .genan-reference-home .gr-slide-line,.genan-reference-home .gr-slide-index,.genan-reference-home .gr-slide-arrows {display:none;}
+ .genan-reference-home .gr-category-dock {display:flex;overflow-x:auto;height:98px;margin:-43px 10px 15px;gap:6px;padding:7px;scrollbar-width:none;}
+ .genan-reference-home .gr-category-tile {min-width:128px;flex:0 0 128px;}
+ .genan-reference-home .gr-category-featured {min-width:162px;flex-basis:162px;}
+ .genan-reference-home .gr-category-tile>span:not(.gr-category-arrow) {font-size:10px;}
+ .genan-reference-home .gr-products {margin:0 10px 14px;}
+ .genan-reference-home .gr-products-head h2 {font-size:21px;}
+ .genan-reference-home .gr-products-head p {font-size:10px;}
+ .genan-reference-home .gr-product-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+ .genan-reference-home .gr-product-grid>a article>div:first-child {aspect-ratio:3/3.8!important;}
+ .genan-reference-home .gr-campaign {height:275px;margin:13px 8px 8px;}
+ .genan-reference-home .gr-campaign-image {background-position:44% center;}
+ .genan-reference-home .gr-campaign-shade {background:linear-gradient(0deg,rgba(3,9,6,.91),rgba(3,9,6,.44) 60%,rgba(3,9,6,.04));}
+ .genan-reference-home .gr-campaign-copy {left:auto;right:20px;top:auto;bottom:24px;}
+ .genan-reference-home .gr-campaign-brand {right:auto;left:20px;top:17px;font-size:15px;}
+ .genan-reference-home .gr-campaign-brand small {font-size:8px;}
+ .genan-reference-home .gr-campaign-brand i {display:none;}
+ .genan-reference-home .gr-details {margin:8px;grid-template-columns:repeat(3,minmax(0,1fr));height:auto;grid-template-rows:150px 160px;gap:6px;}
+ .genan-reference-home .gr-details-text {grid-column:2/4;grid-row:2;padding:12px;}
+ .genan-reference-home .gr-details-face {grid-column:1/2;grid-row:2;}
+ .genan-reference-home .gr-details-text h2 {font-size:20px;}
+ .genan-reference-home .gr-detail-photo span {font-size:10px;}
+ .genan-reference-home .gr-benefits {height:auto;grid-template-columns:repeat(2,minmax(0,1fr));margin:8px;gap:5px;}
+ .genan-reference-home .gr-benefit {height:63px;border-radius:8px!important;}
+ .genan-reference-home .gr-benefit b {font-size:10px;}
+ .genan-reference-home .gr-footer-body {grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;padding:25px 20px;}
+ .genan-reference-home .gr-footer-brand {grid-column:1/-1;grid-row:1;}
+ .genan-reference-home .gr-news {grid-column:1/-1;grid-row:2;}
+ .genan-reference-home .gr-footer-col {grid-row:auto;}
+ .genan-reference-home .gr-footer-bottom {flex-wrap:wrap;justify-content:center;text-align:center;padding:12px 18px;gap:9px;}
+ .genan-reference-home .gr-footer-bottom div {justify-content:center;gap:14px;}
+}
+@media(prefers-reduced-motion:reduce){.genan-reference-home *, .genan-reference-home *::before,.genan-reference-home *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important;}}
