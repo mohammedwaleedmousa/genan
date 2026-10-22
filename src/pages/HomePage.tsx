@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, BadgeCheck, Boxes, Flame, Gem, Headphones, Package, ShieldCheck, Shirt, ShoppingBag, Truck } from "lucide-react";
+import { ArrowLeft, Boxes, Flame, Gem, Headphones, Package, ShieldCheck, Shirt, ShoppingBag, Truck } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
