@@ -9,6 +9,7 @@ import CartDrawer from "@/components/CartDrawer";
 import { useStore } from "@/store/useStore";
 import { useFavorites } from "@/hooks/useFavorites";
 import "@/styles/genanReference.css";
+import { genanReferenceEye } from "@/assets/genanReferenceEye";
 
 // Only the supplied 1122 × 1402 GENAN screenshot governs the composition.
 // Photography is a replaceable editorial asset; real product media always comes from Supabase.
@@ -104,7 +105,7 @@ function Details() {
   return <section className="gr-details" aria-label="تفاصيل تصنع الفرق" dir="rtl">
     {tiles.map(([title,image])=><Link key={title} to="/products" className="gr-detail-photo" style={{backgroundImage:'url("'+image+'")'}}><span>{title}</span></Link>)}
     <div className="gr-details-text"><h2>تفاصيل تصنع الفرق</h2><p>من الأقمشة الفاخرة إلى التفاصيل الدقيقة ..<br/>كل قطعة من جنان تحكي قصة.</p><Pill to="/products">اكتشفي المزيد</Pill></div>
-    <div className="gr-details-face" style={{backgroundImage:'url("'+art.story+'")'}}/>
+    <div className="gr-details-face" style={{backgroundImage:'url("'+genanReferenceEye+'")'}}/>
   </section>;
 }
 function Benefits() {
