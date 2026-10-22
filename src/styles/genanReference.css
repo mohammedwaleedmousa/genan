@@ -221,7 +221,7 @@
   .genan-reference-shell {border-radius:13px;}
   .genan-reference-page .genan-editorial-header {height:60px;top:8px !important;width:calc(100vw - 24px);border-radius:17px;}
   .genan-reference-page .genan-editorial-header--floating {height:58px;top:12px !important;width:calc(100vw - 32px);border-radius:19px;}
-  .genan-reference-page .genan-editorial-header--floating > div.md\\:hidden > div:first-child {height:58px;}
+  .genan-reference-page .genan-editorial-header--floating > div.md\:hidden > div:first-child {height:58px;}
   .genan-reference-page .genan-editorial-header > div.md\:hidden > div:first-child {height:60px;}
   .genan-ref-main {padding:77px 5px 0;}
   .genan-ref-hero-composition {padding-bottom:63px;}
