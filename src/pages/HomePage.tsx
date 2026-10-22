@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowUpLeft, Headphones, Package, ShieldCheck, Sparkles, Tru
 
 import Navbar from "@/components/Navbar";
 import EditorialFooter from "@/components/EditorialFooter";
+import EditorialMobileNav from "@/components/EditorialMobileNav";
 import CartDrawer from "@/components/CartDrawer";
 import HeroSlider from "@/components/HeroSlider";
 import ProductCard from "@/components/ProductCard";
@@ -149,6 +150,7 @@ const HomePage = () => {
     <div className="genan-editorial-home min-h-screen text-[#F5F4EF]" dir="rtl">
       <Navbar variant="editorial" />
       <CartDrawer />
+      <EditorialMobileNav />
 
       <main id="main-content" className="overflow-hidden">
         <HeroSlider />
