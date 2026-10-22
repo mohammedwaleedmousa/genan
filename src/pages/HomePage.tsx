@@ -71,8 +71,9 @@ const HomePage = () => {
 
   return (
     <div className="genan-reference-page" dir="rtl">
+      {/* Keep the floating navigation outside the clipped editorial frame. */}
+      <Navbar variant="editorial" />
       <div className="genan-reference-shell">
-        <Navbar variant="editorial" />
         <CartDrawer />
         <main id="main-content" className="genan-ref-main">
           <div className="genan-ref-hero-composition">
