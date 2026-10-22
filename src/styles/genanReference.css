@@ -22,15 +22,32 @@
   box-shadow:0 22px 80px #0009;
 }
 .genan-reference-page .genan-editorial-header {
-  position:relative !important;
-  inset:auto !important;
-  width:100%;
-  z-index:40;
-  border:0 !important;
-  border-bottom:1px solid #ffffff30 !important;
-  border-radius:0;
-  background:#0e1010ee !important;
-  box-shadow:none;
+  /* Visible from the first frame and detached from the clipped page shell. */
+  position:fixed !important;
+  top:12px !important;
+  left:50% !important;
+  right:auto !important;
+  width:min(1080px,calc(100vw - 38px));
+  z-index:45 !important;
+  transform:translate3d(-50%,0,0);
+  border:1px solid rgba(232,243,235,.44) !important;
+  border-radius:18px;
+  background:linear-gradient(115deg,rgba(17,29,24,.96),rgba(15,25,22,.93)) !important;
+  color:#f7f7ee;
+  box-shadow:0 10px 34px rgba(0,0,0,.37),inset 0 1px 0 rgba(255,255,255,.13);
+  -webkit-backdrop-filter:blur(22px) saturate(150%);
+  backdrop-filter:blur(22px) saturate(150%);
+  transition:top .3s ease,width .35s ease,border-radius .35s ease,background .35s ease,box-shadow .35s ease;
+}
+.genan-reference-page .genan-editorial-header--floating {
+  top:16px !important;
+  width:min(960px,calc(100vw - 42px));
+  border-color:rgba(223,243,229,.62) !important;
+  border-radius:999px;
+  background:linear-gradient(115deg,rgba(16,39,29,.76),rgba(12,23,20,.79)) !important;
+  box-shadow:0 17px 48px rgba(0,0,0,.49),0 0 0 1px rgba(255,255,255,.06),inset 0 1px 0 rgba(255,255,255,.17);
+  -webkit-backdrop-filter:blur(30px) saturate(175%);
+  backdrop-filter:blur(30px) saturate(175%);
 }
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div {direction:ltr;height:58px;max-width:none;padding:0 22px;gap:12px;}
 .genan-reference-page .genan-editorial-header > .hidden.md\:block > div > a:first-child {min-width:158px;}
@@ -52,7 +69,7 @@
 .genan-reference-page .genan-editorial-header form input {color:#fff !important;}
 .genan-reference-page .genan-editorial-header form input::placeholder {color:#ccc;}
 .genan-reference-page .genan-editorial-header + div[aria-hidden="true"] {display:none !important;}
-.genan-ref-main {padding:0 9px;}
+.genan-ref-main {padding:83px 9px 0;}
 .genan-ref-hero-composition {position:relative;padding-bottom:39px;}
 .genan-ref-hero {
   position:relative;height:361px;overflow:hidden;
@@ -202,9 +219,11 @@
 @media(max-width:767px) {
   .genan-reference-page {padding:6px;}
   .genan-reference-shell {border-radius:13px;}
-  .genan-reference-page .genan-editorial-header {height:60px;}
+  .genan-reference-page .genan-editorial-header {height:60px;top:8px !important;width:calc(100vw - 24px);border-radius:17px;}
+  .genan-reference-page .genan-editorial-header--floating {height:58px;top:12px !important;width:calc(100vw - 32px);border-radius:19px;}
+  .genan-reference-page .genan-editorial-header--floating > div.md\\:hidden > div:first-child {height:58px;}
   .genan-reference-page .genan-editorial-header > div.md\:hidden > div:first-child {height:60px;}
-  .genan-ref-main {padding:0 5px;}
+  .genan-ref-main {padding:77px 5px 0;}
   .genan-ref-hero-composition {padding-bottom:63px;}
   .genan-ref-hero {height:430px;border-radius:11px;}
   .genan-ref-hero-img {object-position:35% center !important;}
