@@ -691,3 +691,42 @@
   .genan-reference-page .genan-ref-hero-side {left: 10px;bottom: 98px;}
   .genan-reference-page .genan-ref-slide-labels button {width: 30px;height: 30px;}
 }
+
+/* Homepage-only layout adjustment: integrate the existing glass navbar with
+   the hero background and reclaim the unused header band. No visual restyling. */
+.genan-reference-page .genan-ref-main {
+  padding-top: 0;
+}
+.genan-reference-page .genan-ref-hero {
+  height: 345px;
+}
+.genan-reference-page .genan-ref-hero-heading {
+  top: 86px;
+}
+.genan-reference-page .genan-ref-hero-side {
+  top: 90px;
+}
+@media (max-width: 767px) {
+  .genan-reference-page .genan-ref-main {
+    padding-top: 0;
+  }
+  .genan-reference-page .genan-ref-hero {
+    height: clamp(375px, 96vw, 390px);
+  }
+  .genan-reference-page .genan-ref-hero-heading {
+    top: auto;
+    bottom: 70px;
+  }
+  .genan-reference-page .genan-ref-hero-side {
+    top: auto;
+    bottom: 72px;
+  }
+}
+@media (max-width: 360px) {
+  .genan-reference-page .genan-ref-hero-heading {
+    bottom: 70px;
+  }
+  .genan-reference-page .genan-ref-hero-side {
+    bottom: 72px;
+  }
+}
