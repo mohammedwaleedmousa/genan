@@ -698,7 +698,8 @@
   padding-top: 0;
 }
 .genan-reference-page .genan-ref-hero {
-  height: 345px;
+  /* Include the former header clearance inside the hero image instead of above it. */
+  height: 405px;
 }
 .genan-reference-page .genan-ref-hero-heading {
   top: 86px;
