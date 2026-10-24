@@ -145,7 +145,7 @@ const CustomerAuthPage = () => {
 
   const signInCompatible = async (phone: string, rawPassword: string) => {
     const authPassword = await authPasswordFor(phone, rawPassword);
-    const candidates = Array.from(new Set([authPassword, rawPassword]));
+    const candidates = Array.from(new Set([rawPassword, authPassword]));
     let lastError: unknown = null;
 
     for (const candidate of candidates) {
@@ -206,6 +206,10 @@ const CustomerAuthPage = () => {
       toast({ title: "كلمة المرور مطلوبة", description: "أدخل كلمة المرور.", variant: "destructive" });
       return;
     }
+    if (mode === "register" && (password.length < 8 || password.length > 72)) {
+      toast({ title: "كلمة المرور غير مناسبة", description: "استخدم كلمة مرور من 8 إلى 72 حرفاً.", variant: "destructive" });
+      return;
+    }
 
     if (mode === "register" && (!name || !selectedRegion)) {
       toast({ title: "البيانات غير مكتملة", description: "أدخل الاسم والمنطقة.", variant: "destructive" });
@@ -227,44 +231,22 @@ const CustomerAuthPage = () => {
       await supabase.auth.signOut({ scope: "local" }).catch(() => undefined);
 
       if (mode === "register") {
-        const authPassword = await authPasswordFor(phone, password);
         const country = phoneCountry;
         const region = selectedRegion || defaultRegionForCountry(country);
 
-        const { data, error } = await supabase.auth.signUp({
-          phone,
-          password: authPassword,
-          options: {
-            data: {
-              name,
-              full_name: name,
-              contact_phone: phone,
-              customer_signup: "genan_customer",
-              region,
-              country,
-            },
-          },
-        });
+        // Registration is handled on the server for the temporary no-OTP pilot.
+        // Passwords go to Supabase Auth (hashed at rest), never customers.password_hash.
+        const { data: registration, error: registrationError } = await supabase.functions.invoke(
+          "customer-password-register",
+          { body: { name, phone, password, country, region } },
+        );
+        if (registrationError) throw registrationError;
+        if (!registration?.ok) throw new Error(registration?.error || "تعذر إنشاء الحساب.");
 
-        if (error) throw error;
-        if (!data.user) throw new Error("تعذر إنشاء الحساب.");
-
-        let user = data.user;
-
-        // التسجيل المطلوب بدون OTP: إذا لم ترجع جلسة نحاول الدخول مباشرة بنفس كلمة المرور.
-        if (!data.session) {
-          const directLogin = await supabase.auth.signInWithPassword({ phone, password: authPassword });
-          if (directLogin.error || !directLogin.data.user) {
-            throw new Error("تعذر إكمال إنشاء الحساب الآن. حاول مرة أخرى أو تواصل معنا للمساعدة.");
-          }
-          user = directLogin.data.user;
-        }
-
-        let customer = await getOwnCustomer(user.id);
-        if (!customer) {
-          customer = await finalizeRegistration({ name, phone, region, country, channel: "none" });
-        }
-
+        const { data: signedIn, error: signInError } = await supabase.auth.signInWithPassword({ phone, password });
+        if (signInError || !signedIn.user) throw signInError || new Error("تم إنشاء الحساب، لكن تعذر تسجيل الدخول. حاول تسجيل الدخول بنفس الرقم.");
+        const customer = await getOwnCustomer(signedIn.user.id);
+        if (!customer) throw new Error("تم إنشاء الحساب، لكن تعذر تحميل بياناته الآن. حاول تسجيل الدخول.");
         persistCustomer(customer);
         toast({ title: "تم إنشاء الحساب", description: `أهلاً ${customer.name}` });
         navigate("/home", { replace: true });
@@ -456,7 +438,7 @@ const CustomerAuthPage = () => {
                   autoComplete={mode === "login" ? "current-password" : "new-password"}
                   value={formData.password}
                   onChange={(event) => updateField("password", event.target.value)}
-                  placeholder="كلمة المرور"
+                  placeholder={mode === "register" ? "8 أحرف على الأقل" : "كلمة المرور"}
                   dir="ltr"
                   className="h-[50px] w-full rounded-[12px] border border-[#E8DEDA] bg-white pr-11 pl-12 text-left text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]"
                 />
