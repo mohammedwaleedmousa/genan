@@ -1,0 +1,313 @@
+/*
+ * GENAN | Homepage visual system v1
+ * Single colour authority for /home. The underlying genanReference.css retains
+ * existing layout, mobile placement and commerce interactions.
+ * Palette: black #0E0E0E, white #FFFFFF, soft gold #D8C29A,
+ * subtle turquoise #A9D8D3. Neutral greys and darker shades of the same
+ * colours are used solely for readable body text and contrast.
+ *
+ * Intentionally scoped to .genan-reference-page: do not restyle product,
+ * checkout, account, or admin routes until their design review.
+ */
+.genan-reference-page {
+  --genan-home-black: #0E0E0E;
+  --genan-home-white: #FFFFFF;
+  --genan-home-gold: #D8C29A;
+  --genan-home-gold-deep: #88662C;
+  --genan-home-turquoise: #A9D8D3;
+  --genan-home-turquoise-deep: #356F69;
+  --genan-home-line: rgba(216, 194, 154, .38);
+  --genan-home-surface: #171717;
+  --genan-home-muted-light: #CDCDCD;
+  --genan-home-muted-dark: #626262;
+  --ref-white: var(--genan-home-white);
+  --ref-cream: var(--genan-home-white);
+  --ref-gold: var(--genan-home-gold);
+  --ref-turquoise: var(--genan-home-turquoise);
+  --ref-line: var(--genan-home-line);
+  color: var(--genan-home-white);
+  background: var(--genan-home-black);
+}
+.genan-reference-page .genan-reference-shell,
+.genan-reference-page .genan-ref-main {
+  background-color: var(--genan-home-black);
+}
+.genan-reference-page :focus-visible {
+  outline: 2px solid var(--genan-home-turquoise);
+  outline-offset: 3px;
+}
+
+/* Floating navigation: unchanged geometry, one consistent dark-glass finish. */
+.genan-reference-page .genan-editorial-header {
+  border-color: var(--genan-home-line) !important;
+  background: linear-gradient(115deg, rgba(14,14,14,.96), rgba(23,23,23,.93)) !important;
+  color: var(--genan-home-white);
+}
+.genan-reference-page .genan-editorial-header--floating {
+  border-color: rgba(216,194,154,.56) !important;
+  background: linear-gradient(115deg, rgba(14,14,14,.86), rgba(23,23,23,.82)) !important;
+}
+.genan-reference-page .genan-editorial-header > .hidden.md\:block > div > nav a span {
+  background: var(--genan-home-gold);
+}
+.genan-reference-page .genan-editorial-header form {
+  border-color: rgba(216,194,154,.28) !important;
+  background: rgba(14,14,14,.84) !important;
+}
+.genan-reference-page .genan-ref-mobile-wordmark,
+.genan-reference-page .genan-ref-mobile-menu-glyph span {
+  color: var(--genan-home-white);
+}
+.genan-reference-page .genan-ref-mobile-actions button[aria-label="السلة"] > span {
+  background: var(--genan-home-gold) !important;
+  color: var(--genan-home-black) !important;
+}
+
+/* Hero: the same photography and layout, but no brown/olive overlays. */
+.genan-reference-page .genan-ref-hero {
+  border-color: var(--genan-home-line);
+  background: linear-gradient(120deg, #171717, #0E0E0E);
+}
+.genan-reference-page .genan-ref-hero-overlay {
+  background:
+    linear-gradient(270deg,rgba(14,14,14,.96) 0%,rgba(14,14,14,.79) 27%,rgba(14,14,14,.24) 65%,rgba(14,14,14,.32) 100%),
+    linear-gradient(0deg,rgba(169,216,211,.09),transparent 48%);
+}
+.genan-reference-page .genan-ref-small-heading {
+  color: var(--genan-home-gold) !important;
+}
+.genan-reference-page .genan-ref-small-heading::before,
+.genan-reference-page .genan-ref-side-rule {
+  background: var(--genan-home-gold);
+}
+.genan-reference-page .genan-ref-hero-heading h1,
+.genan-reference-page .genan-ref-collection-copy h2 {
+  color: var(--genan-home-white) !important;
+}
+.genan-reference-page .genan-ref-hero-caption,
+.genan-reference-page .genan-ref-collection-copy > span {
+  color: rgba(255,255,255,.86) !important;
+}
+.genan-reference-page .genan-ref-outline-button,
+.genan-reference-page .genan-ref-hero-heading .genan-ref-outline-button {
+  border: 1px solid var(--genan-home-gold) !important;
+  background: var(--genan-home-gold) !important;
+  color: var(--genan-home-black) !important;
+  box-shadow: 0 5px 22px rgba(0,0,0,.18);
+}
+.genan-reference-page .genan-ref-outline-button:hover,
+.genan-reference-page .genan-ref-hero-heading .genan-ref-outline-button:hover {
+  background: #E8D8BA !important;
+  border-color: #E8D8BA !important;
+}
+.genan-reference-page .genan-ref-button-circle,
+.genan-reference-page .genan-ref-hero-heading .genan-ref-button-circle {
+  border: 1px solid var(--genan-home-black);
+  color: var(--genan-home-white);
+  background: var(--genan-home-black);
+}
+.genan-reference-page .genan-ref-slide-labels button[aria-current="true"] {
+  color: var(--genan-home-gold);
+}
+.genan-reference-page .genan-ref-slider-arrows button {
+  border-color: rgba(216,194,154,.65);
+  background: rgba(14,14,14,.55);
+}
+.genan-reference-page .genan-ref-slider-arrows button:hover {
+  background: var(--genan-home-gold);
+  color: var(--genan-home-black);
+}
+
+/* Category dock: crisp white tiles, one black feature tile, gold/turquoise details. */
+.genan-reference-page .genan-ref-category-ribbon {
+  border-color: rgba(216,194,154,.52);
+  background: rgba(255,255,255,.93);
+  box-shadow: 0 12px 34px rgba(0,0,0,.2);
+}
+.genan-reference-page .genan-ref-category-tile {
+  border-color: #E9E4DB;
+  background: var(--genan-home-white);
+  color: var(--genan-home-black);
+  box-shadow: 0 1px 6px rgba(14,14,14,.045);
+}
+.genan-reference-page .genan-ref-category-tile:hover {
+  border-color: var(--genan-home-gold);
+  background: #FEFCF8;
+}
+.genan-reference-page .genan-ref-category-tile.is-featured {
+  border-color: rgba(169,216,211,.65);
+  background: linear-gradient(120deg,#0E0E0E,#222222);
+  color: var(--genan-home-white);
+}
+.genan-reference-page .genan-ref-category-tile.is-featured:hover {
+  border-color: var(--genan-home-turquoise);
+}
+.genan-reference-page .genan-ref-category-feature-image {
+  border-color: var(--genan-home-gold);
+}
+.genan-reference-page .genan-ref-category-arrow {
+  border-color: var(--genan-home-gold);
+  background: var(--genan-home-black);
+  color: var(--genan-home-gold);
+}
+
+/* Products: a clean white island framed by the dark boutique storefront. */
+.genan-reference-page .genan-ref-popular {
+  margin: 13px 1px 14px;
+  padding: 22px 21px 24px;
+  border: 1px solid var(--genan-home-line);
+  border-radius: 17px;
+  background: var(--genan-home-white);
+  color: var(--genan-home-black);
+}
+.genan-reference-page .genan-ref-section-heading h2 {
+  color: var(--genan-home-black);
+}
+.genan-reference-page .genan-ref-section-heading p {
+  color: var(--genan-home-muted-dark);
+}
+.genan-reference-page .genan-ref-view-all {
+  color: var(--genan-home-black);
+  text-decoration: underline;
+  text-decoration-color: var(--genan-home-gold);
+  text-underline-offset: 5px;
+}
+.genan-reference-page .genan-ref-view-all:hover {
+  color: var(--genan-home-turquoise-deep);
+}
+.genan-reference-page .genan-ref-products-grid > a {
+  border-color: #E6E2D9;
+  background: var(--genan-home-white);
+  color: var(--genan-home-black);
+  box-shadow: 0 3px 16px rgba(14,14,14,.075);
+}
+.genan-reference-page .genan-ref-products-grid > a:hover {
+  border-color: var(--genan-home-gold);
+}
+.genan-reference-page .genan-ref-products-grid > a article > div:first-child,
+.genan-reference-page .genan-ref-products-grid > a article > div:last-child {
+  background: var(--genan-home-white);
+}
+.genan-reference-page .genan-ref-products-grid > a article > div:last-child h3 {
+  color: var(--genan-home-black) !important;
+}
+.genan-reference-page .genan-ref-products-grid > a article > div:last-child .font-semibold {
+  color: var(--genan-home-gold-deep) !important;
+}
+.genan-reference-page .genan-ref-product-skeleton {
+  background: rgba(216,194,154,.18);
+}
+.genan-reference-page .genan-ref-empty-state {
+  border-color: #E6E2D9;
+  background: #FFFFFF;
+  color: var(--genan-home-black);
+}
+.genan-reference-page .genan-ref-empty-state p {
+  color: var(--genan-home-muted-dark);
+}
+.genan-reference-page .genan-ref-empty-state button,
+.genan-reference-page .genan-ref-empty-state a {
+  color: var(--genan-home-black);
+  text-decoration-color: var(--genan-home-gold);
+}
+
+/* Collection / editorial story: charcoal base and warm gold accents. */
+.genan-reference-page .genan-ref-collection,
+.genan-reference-page .genan-ref-details {
+  border-color: var(--genan-home-line);
+  background: var(--genan-home-surface);
+}
+.genan-reference-page .genan-ref-collection-shade {
+  background: linear-gradient(90deg,rgba(14,14,14,.97),rgba(14,14,14,.33) 52%,rgba(14,14,14,.89));
+}
+.genan-reference-page .genan-ref-collection-copy p {
+  color: var(--genan-home-gold);
+}
+.genan-reference-page .genan-ref-collection-mark {
+  color: var(--genan-home-white);
+}
+.genan-reference-page .genan-ref-detail-intro {
+  background: var(--genan-home-black);
+}
+.genan-reference-page .genan-ref-detail-intro::after {
+  background: linear-gradient(270deg,rgba(14,14,14,.95),rgba(14,14,14,.69) 60%,transparent);
+}
+.genan-reference-page .genan-ref-detail-tile {
+  border-color: rgba(216,194,154,.32);
+}
+.genan-reference-page .genan-ref-detail-tile.is-fabric {
+  background-image: repeating-linear-gradient(45deg,#111717,#111717 8px,#264744 12px,#0E0E0E 19px);
+}
+.genan-reference-page .genan-ref-detail-tile.is-embroidery {
+  background-image: radial-gradient(ellipse at 40% 48%,transparent 30%,#D8C29A 33%,transparent 36%),
+    repeating-linear-gradient(65deg,#0E0E0E,#171717 5px,#9A814C 7px,#0E0E0E 11px);
+}
+.genan-reference-page .genan-ref-detail-tile.is-design {
+  background-image: repeating-linear-gradient(127deg,#A9D8D3,#8BBDB8 7px,#E9F5F3 10px,#467A74 17px);
+}
+
+/* Guarantees/service strip: white rather than a competing dark-grey block. */
+.genan-reference-page .genan-ref-services {
+  border-color: var(--genan-home-line);
+  background: var(--genan-home-white);
+}
+.genan-reference-page .genan-ref-service {
+  border-color: #E9E4DB;
+}
+.genan-reference-page .genan-ref-service svg {
+  color: var(--genan-home-turquoise-deep);
+}
+.genan-reference-page .genan-ref-service strong {
+  color: var(--genan-home-black);
+}
+.genan-reference-page .genan-ref-service small {
+  color: var(--genan-home-muted-dark);
+}
+
+/* Keep mobile design, glass navbar and hero dimensions unchanged. */
+@media (max-width: 767px) {
+  .genan-reference-page .genan-editorial-header,
+  .genan-reference-page .genan-editorial-header--floating {
+    border-color: var(--genan-home-line) !important;
+    background: rgba(14,14,14,.9) !important;
+  }
+  .genan-reference-page .genan-editorial-header .genan-ref-mobile-search-panel {
+    border-color: var(--genan-home-line);
+    background: rgba(14,14,14,.97) !important;
+  }
+  .genan-reference-page .genan-ref-mobile-search-panel input {
+    background: var(--genan-home-white);
+    color: var(--genan-home-black) !important;
+  }
+  .genan-reference-page .genan-ref-hero {
+    background: radial-gradient(circle at 70% 20%,rgba(169,216,211,.12),transparent 48%),
+      linear-gradient(140deg,#202020,#0E0E0E);
+  }
+  .genan-reference-page .genan-ref-hero-overlay {
+    background: linear-gradient(270deg,rgba(14,14,14,.95),rgba(14,14,14,.80) 53%,rgba(14,14,14,.67));
+  }
+  .genan-reference-page .genan-ref-slide-labels button[aria-current="true"] {
+    border-color: rgba(216,194,154,.7);
+    background: rgba(216,194,154,.14);
+    color: var(--genan-home-gold);
+  }
+  .genan-reference-page .genan-ref-popular {
+    margin: 9px 10px 13px;
+    padding: 17px 11px 20px;
+    border-radius: 15px;
+  }
+  .genan-reference-page .genan-ref-services {
+    margin-inline: 10px;
+  }
+  .genan-reference-page .genan-ref-service {
+    border-bottom-color: #E9E4DB;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .genan-reference-page .genan-ref-category-tile,
+  .genan-reference-page .genan-ref-products-grid > a {
+    transition: none;
+    transform: none;
+  }
+}
