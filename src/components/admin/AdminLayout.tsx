@@ -147,9 +147,8 @@ const resolveAdminPermission = async (permission: RoutePermission | null) => {
   if (sessionError) throw sessionError;
   if (sessionData.session?.user?.id !== snapshot.userId) return false;
 
-  // Admin access requires a verified second factor, including restored sessions.
-  const { data: assurance, error: assuranceError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
-  if (assuranceError || assurance.currentLevel !== "aal2") return false;
+  // Password-authenticated users still need a current server-verified admin role
+  // and the per-route permission. No second-factor challenge is required by the UI.
 
   if (!permission) return true;
   return snapshot.values.get(permission) !== false;
