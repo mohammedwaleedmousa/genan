@@ -1,0 +1,422 @@
+/*
+ * GENAN / Editorial storefront home v3
+ * The shared footer is the visual anchor: white canvas, #0E0E0E typography,
+ * muted gold #D8C29A and restrained turquoise #A9D8D3.
+ * Scoped exclusively to the /home page. Other storefront/admin routes untouched.
+ */
+.genan-v3-page {
+  --g-black: #0E0E0E;
+  --g-white: #FFFFFF;
+  --g-gold: #D8C29A;
+  --g-gold-ink: #8C6B32;
+  --g-turquoise: #A9D8D3;
+  --g-muted: #696969;
+  --g-border: #E8E6E2;
+  background: var(--g-white);
+  color: var(--g-black);
+  min-height: 100vh;
+  min-width: 0;
+  overflow-x: clip;
+  font-family: "Inter", "SF Arabic", "Geeza Pro", Tahoma, sans-serif;
+}
+.genan-v3-page *,
+.genan-v3-page *::before,
+.genan-v3-page *::after { box-sizing: border-box; }
+.genan-v3-page :focus-visible { outline: 2px solid #568D88; outline-offset: 3px; }
+.genan-v3-page h1,
+.genan-v3-page h2,
+.genan-v3-page h3 {
+  font-family: "SF Arabic", "Geeza Pro", Tahoma, Arial, sans-serif;
+  letter-spacing: -0.035em;
+}
+.genan-v3-main a { text-decoration: none; }
+.genan-v3-main { width: 100%; min-width: 0; overflow: hidden; }
+.genan-v3-container { width: min(100% - 80px, 1440px); margin-inline: auto; }
+
+.genan-v3-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  gap: 14px;
+  padding: 8px max(40px, calc((100vw - 1440px)/2));
+  background: var(--g-black);
+  color: white;
+  font-size: 11px;
+  letter-spacing: .012em;
+}
+.genan-v3-topline > span:first-child { color: var(--g-gold); letter-spacing: .16em; font-size: 10px; }
+.genan-v3-topline > span:nth-child(2) { opacity: .87; }
+.genan-v3-topline a { display: inline-flex; align-items: center; gap: 8px; color: white; font-weight: 600; }
+.genan-v3-topline a:hover { color: var(--g-turquoise); }
+
+/* Hero: editorial asymmetric image and oversized type. */
+.genan-v3-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  gap: 0;
+  width: min(100% - 80px, 1440px);
+  min-height: 610px;
+  margin: 28px auto 0;
+  background: #F7F7F6;
+  isolation: isolate;
+}
+.genan-v3-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  padding: 70px clamp(30px, 5vw, 83px) 70px 35px;
+  text-align: right;
+}
+.genan-v3-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  direction: ltr;
+  color: var(--g-gold-ink);
+  font: 600 10px/1.5 "Inter", Arial, sans-serif;
+  letter-spacing: .2em;
+}
+.genan-v3-eyebrow-line { width: 26px; height: 1px; background: var(--g-gold-ink); }
+.genan-v3-hero-seal {
+  display: inline-block;
+  margin-top: 45px;
+  margin-bottom: 20px;
+  color: #686868;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.genan-v3-hero-copy h1 {
+  max-width: 620px;
+  margin: 0;
+  font-size: clamp(48px, 5vw, 78px);
+  font-weight: 600;
+  line-height: 1.22;
+  text-wrap: balance;
+  color: var(--g-black);
+}
+.genan-v3-hero-subtitle {
+  max-width: 440px;
+  margin: 22px 0 0;
+  color: #656565;
+  font-size: clamp(14px, 1.18vw, 16px);
+  line-height: 2.1;
+}
+.genan-v3-hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 15px 22px; margin-top: 35px; }
+.genan-v3-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 50px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  transition: background .2s, color .2s, border-color .2s, transform .2s;
+}
+.genan-v3-btn-dark { background: var(--g-black); color: white !important; border-color: var(--g-black); }
+.genan-v3-btn-dark:hover { background: #292929; }
+.genan-v3-btn-gold { background: var(--g-gold); color: var(--g-black) !important; border-color: var(--g-gold); }
+.genan-v3-btn-gold:hover { background: #ECD9B7; }
+.genan-v3-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  border-bottom: 1px solid #BEA779;
+  color: var(--g-black);
+  font-size: 13px;
+  font-weight: 600;
+}
+.genan-v3-text-link:hover { color: var(--g-gold-ink); }
+.genan-v3-hero-footnote {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 60px;
+  font-size: 11px;
+  color: #747474;
+  line-height: 1.8;
+}
+.genan-v3-line-dot { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--g-turquoise); }
+.genan-v3-hero-visual { position: relative; min-width: 0; min-height: 610px; padding: 18px 18px 18px 0; }
+.genan-v3-hero-image-frame { position: absolute; inset: 18px 18px 18px 0; overflow: hidden; background: #D9D2C7; }
+.genan-v3-hero-image { display: block; width: 100%; height: 100%; object-fit: cover; transition: opacity .25s ease; }
+.genan-v3-hero-image-wash { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg,rgba(14,14,14,.42),transparent 40%); }
+.genan-v3-hero-photo-tag {
+  position: absolute;
+  left: 30px;
+  top: 27px;
+  color: white;
+  font: 600 10px/1.5 "Inter",sans-serif;
+  letter-spacing: .2em;
+  text-shadow: 0 1px 10px #0008;
+}
+.genan-v3-hero-turquoise {
+  position: absolute;
+  z-index: -1;
+  left: -14px;
+  top: -14px;
+  width: 100px;
+  height: 100px;
+  background: var(--g-turquoise);
+}
+.genan-v3-hero-controls {
+  position: absolute;
+  z-index: 2;
+  bottom: 37px;
+  left: 26px;
+  right: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  direction: ltr;
+}
+.genan-v3-slide-indicators, .genan-v3-slide-arrows { display: flex; align-items: center; gap: 7px; }
+.genan-v3-slide-indicators button { display: grid; place-items: center; width: 28px; min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.genan-v3-slide-indicators button span { width: 17px; height: 2px; background: #FFFFFF99; transition: width .2s, background .2s; }
+.genan-v3-slide-indicators button.is-current span { width: 29px; background: var(--g-gold); }
+.genan-v3-slide-count { font-size: 11px; font-weight: 600; color: white; letter-spacing: .11em; }
+.genan-v3-slide-count span { color: var(--g-gold); margin: 0 6px; }
+.genan-v3-slide-arrows button {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border: 1px solid #FFFFFFB0;
+  border-radius: 50%;
+  background: rgba(14,14,14,.35);
+  color: white;
+  cursor: pointer;
+}
+.genan-v3-slide-arrows button:hover { background: var(--g-gold); color: var(--g-black); border-color: var(--g-gold); }
+
+/* Shared editorial section headers. */
+.genan-v3-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.genan-v3-section-index {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--g-gold-ink);
+  font: 700 10px/1.6 "Inter",Arial,sans-serif;
+  letter-spacing: .2em;
+}
+.genan-v3-section-heading h2 {
+  margin: 11px 0 0;
+  font-size: clamp(28px, 3vw, 43px);
+  line-height: 1.35;
+  font-weight: 650;
+  color: var(--g-black);
+}
+.genan-v3-section-heading p { margin: 9px 0 0; font-size: 14px; line-height: 1.8; color: var(--g-muted); }
+.genan-v3-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--g-black);
+  border-bottom: 1px solid var(--g-gold);
+  font-size: 13px;
+  font-weight: 700;
+}
+.genan-v3-arrow-link:hover { color: var(--g-gold-ink); }
+
+/* Category image cards. */
+.genan-v3-categories { padding-top: 103px; padding-bottom: 100px; }
+.genan-v3-category-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; }
+.genan-v3-category-card { display: block; min-width: 0; color: var(--g-black); }
+.genan-v3-category-photo { position: relative; overflow: hidden; background: #F3F3F3; aspect-ratio: 4 / 5; }
+.genan-v3-category-photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+.genan-v3-category-card:hover .genan-v3-category-photo img { transform: scale(1.045); }
+.genan-v3-category-count {
+  position: absolute;
+  right: 18px;
+  top: 17px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--g-black);
+  background: #FFFFFFDE;
+  font: 700 11px/1 "Inter",sans-serif;
+}
+.genan-v3-category-icon {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: var(--g-white);
+  border-radius: 50%;
+  color: var(--g-black);
+  transition: background .2s, transform .2s;
+}
+.genan-v3-category-card:hover .genan-v3-category-icon { background: var(--g-gold); transform: translate(-2px,-2px); }
+.genan-v3-category-info { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 15px 1px 0; }
+.genan-v3-category-info h3 { margin: 0; font-size: 19px; line-height: 1.6; font-weight: 650; }
+.genan-v3-category-info > span { font-size: 9px; color: var(--g-gold-ink); letter-spacing: .13em; text-transform: uppercase; }
+
+/* Product wall visually shares the footer's clean white language. */
+.genan-v3-products { background: #F8F8F7; padding: 94px 0 76px; }
+.genan-v3-products-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 22px 16px; }
+.genan-v3-products-grid > a { min-width: 0; background: var(--g-white); padding: 0 0 14px; transition: transform .2s, box-shadow .2s; }
+.genan-v3-products-grid > a:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(14,14,14,.06); }
+.genan-v3-products-grid > a article { min-width: 0; }
+.genan-v3-products-grid > a article > div:first-child { background: #F0F0F0; }
+.genan-v3-products-grid > a article > div:last-child { padding: 14px 12px 0; }
+.genan-v3-products-grid > a article > div:last-child h3 { color: var(--g-black); font-size: 13px; }
+.genan-v3-products-grid > a article > div:last-child .font-semibold { color: var(--g-black); }
+.genan-v3-product-skeleton { aspect-ratio: 3 / 4.35; background: linear-gradient(110deg,#E9E9E9,#F4F4F4,#E9E9E9); animation: genan-v3-pulse 1.2s ease-in-out infinite alternate; }
+@keyframes genan-v3-pulse { to { opacity: .56; } }
+.genan-v3-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 270px; border: 1px solid #E8E6E2; background: var(--g-white); padding: 28px; text-align: center; }
+.genan-v3-empty-mark { color: #D8C29A; font: 500 42px/1.2 Georgia,serif; }
+.genan-v3-empty h3 { margin: 13px 0 0; font-size: 23px; }
+.genan-v3-empty p { max-width: 370px; color: #666; font-size: 13px; line-height: 1.9; }
+.genan-v3-empty .genan-v3-btn { margin-top: 13px; }
+.genan-v3-products-bottom { display: flex; justify-content: center; margin-top: 37px; }
+.genan-v3-products-bottom a { display: inline-flex; align-items: center; justify-content: center; gap: 11px; min-height: 48px; padding: 10px 28px; border: 1px solid #0E0E0E; color: var(--g-black); font-weight: 650; font-size: 13px; transition: background .2s, color .2s; }
+.genan-v3-products-bottom a:hover { background: var(--g-black); color: var(--g-white); }
+
+/* Black signature block echoing the footer base. */
+.genan-v3-story { display: grid; grid-template-columns: 1fr .95fr; min-height: 550px; margin-top: 110px; margin-bottom: 104px; background: var(--g-black); }
+.genan-v3-story-content { position: relative; min-width: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 72px clamp(30px,5vw,90px); color: var(--g-white); overflow: hidden; }
+.genan-v3-story-label { color: var(--g-gold); letter-spacing: .18em; font: 600 10px/1.8 "Inter",sans-serif; }
+.genan-v3-story-rule { display: block; width: 50px; height: 2px; margin: 23px 0; background: var(--g-gold); }
+.genan-v3-story-content h2 { max-width: 580px; margin: 0; font-size: clamp(37px,4.5vw,62px); font-weight: 600; line-height: 1.45; color: var(--g-white); }
+.genan-v3-story-content p { max-width: 445px; margin: 21px 0 31px; line-height: 2.1; font-size: 14px; color: #D5D5D5; }
+.genan-v3-story-signature { position: absolute; bottom: 16px; right: 30px; font: 500 clamp(44px,8vw,118px)/1 Georgia,serif; letter-spacing: .13em; color: #FFFFFF0D; pointer-events: none; user-select: none; }
+.genan-v3-story-image { position: relative; min-height: 550px; overflow: hidden; background: #D8C29A; }
+.genan-v3-story-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.genan-v3-story-image span { position: absolute; bottom: 25px; left: 25px; color: white; text-shadow: 0 1px 8px #0008; font: 600 10px/1.6 "Inter",sans-serif; letter-spacing: .19em; }
+
+/* Two large curated destinations. */
+.genan-v3-edits { padding-bottom: 105px; }
+.genan-v3-edits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.genan-v3-edit-card { display: block; position: relative; min-width: 0; overflow: hidden; height: clamp(330px,34vw,470px); background: #151515; color: white; }
+.genan-v3-edit-card img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.genan-v3-edit-card:hover img { transform: scale(1.045); }
+.genan-v3-edit-wash { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(14,14,14,.75),rgba(14,14,14,.02) 62%); pointer-events: none; }
+.genan-v3-edit-type { position: absolute; right: 24px; top: 24px; color: white; font: 650 10px/1.6 "Inter",sans-serif; letter-spacing: .17em; text-shadow: 0 1px 8px #0006; }
+.genan-v3-edit-bottom { position: absolute; inset-inline: 29px; bottom: 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.genan-v3-edit-bottom strong { display: block; font-size: clamp(24px,2.8vw,35px); color: white; }
+.genan-v3-edit-bottom small { display: block; margin-top: 4px; font-size: 13px; color: #F0F0F0; }
+.genan-v3-edit-bottom > svg { flex: none; display: block; background: white; color: #0E0E0E; box-sizing: content-box; padding: 14px; border-radius: 50%; }
+.genan-v3-edit-card:hover .genan-v3-edit-bottom > svg { background: var(--g-gold); }
+
+/* Service strip meets the existing footer without a competing colour. */
+.genan-v3-services { width: 100%; border-top: 1px solid var(--g-border); background: var(--g-white); }
+.genan-v3-services-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
+.genan-v3-service { display: flex; align-items: center; gap: 18px; min-width: 0; min-height: 155px; padding: 34px 28px; }
+.genan-v3-service:not(:last-child) { border-inline-end: 1px solid var(--g-border); }
+.genan-v3-service-icon { width: 55px; height: 55px; flex: none; display: grid; place-items: center; background: #EAF5F3; color: #356F69; border: 1px solid #D3E8E5; border-radius: 14px; }
+.genan-v3-service h3 { margin: 0; font-size: 16px; font-weight: 700; }
+.genan-v3-service p { margin: 5px 0 0; color: var(--g-muted); font-size: 12px; line-height: 1.8; }
+
+@media (max-width: 1100px) {
+  .genan-v3-container, .genan-v3-hero { width: min(100% - 48px, 1440px); }
+  .genan-v3-topline { padding-inline: 24px; }
+  .genan-v3-hero { min-height: 535px; }
+  .genan-v3-hero-visual { min-height: 535px; }
+  .genan-v3-hero-copy { padding: 45px 32px; }
+  .genan-v3-hero-copy h1 { font-size: clamp(41px,4.3vw,59px); }
+  .genan-v3-hero-footnote { margin-top: 42px; }
+  .genan-v3-category-grid { gap: 12px; }
+  .genan-v3-category-info > span { display: none; }
+  .genan-v3-products-grid { gap: 14px; }
+  .genan-v3-service { padding-inline: 14px; gap: 12px; }
+  .genan-v3-story-content { padding: 40px; }
+}
+
+@media (max-width: 767px) {
+  .genan-v3-container, .genan-v3-hero { width: min(100% - 28px, 1440px); }
+  .genan-v3-topline { min-height: 35px; padding: 7px 14px; justify-content: center; }
+  .genan-v3-topline > span:first-child, .genan-v3-topline a { display: none; }
+  .genan-v3-topline > span:nth-child(2) { font-size: 11px; }
+  .genan-v3-hero { display: flex; flex-direction: column; min-height: 0; margin-top: 14px; }
+  .genan-v3-hero-visual { order: -1; height: clamp(310px,85vw,445px); min-height: 0; padding: 0; }
+  .genan-v3-hero-image-frame { inset: 0; }
+  .genan-v3-hero-turquoise { z-index: 1; width: 78px; height: 6px; top: 0; left: 0; }
+  .genan-v3-hero-photo-tag { top: 19px; left: 19px; font-size: 9px; }
+  .genan-v3-hero-controls { bottom: 18px; left: 18px; right: 18px; }
+  .genan-v3-slide-arrows button { width: 38px; height: 38px; }
+  .genan-v3-hero-copy { align-items: flex-start; padding: 32px 23px 40px; }
+  .genan-v3-eyebrow { font-size: 9px; }
+  .genan-v3-hero-seal { margin-top: 24px; margin-bottom: 12px; font-size: 12px; }
+  .genan-v3-hero-copy h1 { font-size: clamp(34px,8.8vw,51px); line-height: 1.28; }
+  .genan-v3-hero-subtitle { margin-top: 11px; font-size: 13px; line-height: 1.95; }
+  .genan-v3-hero-actions { margin-top: 22px; gap: 12px; }
+  .genan-v3-hero-footnote { margin-top: 27px; font-size: 10px; }
+  .genan-v3-btn { min-height: 45px; padding: 11px 17px; font-size: 12px; }
+  .genan-v3-text-link { font-size: 12px; }
+  .genan-v3-categories { padding-top: 67px; padding-bottom: 69px; }
+  .genan-v3-section-heading { align-items: flex-start; margin-bottom: 22px; gap: 14px; }
+  .genan-v3-section-heading h2 { font-size: clamp(26px,6vw,34px); }
+  .genan-v3-section-heading p { font-size: 12px; }
+  .genan-v3-arrow-link { font-size: 11px; text-align: center; }
+  .genan-v3-category-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 21px 11px; }
+  .genan-v3-category-info { padding-top: 9px; }
+  .genan-v3-category-info h3 { font-size: 16px; }
+  .genan-v3-category-icon { width: 38px; height: 38px; left: 10px; bottom: 10px; }
+  .genan-v3-category-count { right: 10px; top: 10px; width: 30px; height: 30px; }
+  .genan-v3-products { padding-top: 64px; padding-bottom: 53px; }
+  .genan-v3-products-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 17px 11px; }
+  .genan-v3-products-grid > a article > div:last-child { padding: 10px 8px 0; }
+  .genan-v3-products-grid > a article > div:last-child h3 { font-size: 11px; }
+  .genan-v3-products-bottom { margin-top: 23px; }
+  .genan-v3-story { width: 100%; grid-template-columns: 1fr; min-height: 0; margin-top: 65px; margin-bottom: 69px; }
+  .genan-v3-story-image { order: -1; height: 285px; min-height: 0; }
+  .genan-v3-story-content { padding: 39px 25px 62px; min-height: 365px; }
+  .genan-v3-story-content h2 { font-size: clamp(34px,8vw,45px); }
+  .genan-v3-story-content p { font-size: 13px; }
+  .genan-v3-story-signature { font-size: 62px; }
+  .genan-v3-edits { padding-bottom: 72px; }
+  .genan-v3-edits-grid { gap: 12px; }
+  .genan-v3-edit-card { height: 335px; }
+  .genan-v3-edit-bottom { inset-inline: 16px; bottom: 14px; gap: 8px; }
+  .genan-v3-edit-bottom strong { font-size: 20px; }
+  .genan-v3-edit-bottom small { font-size: 10px; }
+  .genan-v3-edit-bottom > svg { padding: 10px; width: 16px; height: 16px; }
+  .genan-v3-edit-type { font-size: 8px; top: 15px; right: 15px; }
+  .genan-v3-services-grid { grid-template-columns: 1fr; padding-block: 15px; }
+  .genan-v3-service { min-height: 95px; padding: 15px 6px; }
+  .genan-v3-service:not(:last-child) { border-inline-end: 0; border-bottom: 1px solid var(--g-border); }
+  .genan-v3-service-icon { width: 47px; height: 47px; }
+}
+
+@media (max-width: 440px) {
+  .genan-v3-container, .genan-v3-hero { width: calc(100% - 24px); }
+  .genan-v3-section-heading { flex-wrap: wrap; }
+  .genan-v3-arrow-link { margin-top: 0; }
+  .genan-v3-edit-card { height: 260px; }
+  .genan-v3-edit-bottom strong { font-size: 17px; }
+  .genan-v3-edit-bottom small { font-size: 9px; }
+  .genan-v3-edit-bottom > svg { padding: 8px; }
+  .genan-v3-hero-actions { flex-wrap: wrap; }
+  .genan-v3-category-photo { aspect-ratio: 4 / 5.5; }
+  .genan-v3-hero-copy { padding: 28px 19px 35px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .genan-v3-page *,
+  .genan-v3-page *::before,
+  .genan-v3-page *::after { animation: none !important; scroll-behavior: auto !important; transition: none !important; }
+}

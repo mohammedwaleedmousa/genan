@@ -1,26 +1,47 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Boxes, Flame, Gem, Headphones, Package, ShieldCheck, Shirt, ShoppingBag, Truck } from "lucide-react";
+import { ArrowLeft, ArrowUpLeft, Headphones, ShieldCheck, Truck } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
-import HeroSlider from "@/components/HeroSlider";
+import GenanHomeHero from "@/components/GenanHomeHero";
 import ProductCard from "@/components/ProductCard";
-import ReferenceFooter from "@/components/ReferenceFooter";
+import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
-import "@/styles/genanReference.css";
-import "@/styles/genanHomeTheme.css";
+import { optimizeImage } from "@/lib/imageUrl";
+import "@/styles/genanHomeV3.css";
 
-const categories = [
-  { title: "أفكار وأناقة", caption: "GENAN IDEAS", to: "/categories", icon: Flame },
-  { title: "الإكسسوارات", caption: "ACCESSORIES", to: "/categories", icon: ShoppingBag },
-  { title: "الإطلالات اليومية", caption: "EVERYDAY EDIT", to: "/new-arrivals", icon: Shirt },
-  { title: "المجموعات الخاصة", caption: "SPECIAL COLLECTIONS", to: "/products", icon: Gem },
-  { title: "العبايات", caption: "GENAN COLLECTION", to: "/products", icon: Boxes, featured: true },
+type HomeCategory = {
+  id: string;
+  slug: string;
+  name_ar: string;
+  name: string;
+  image_url: string | null;
+};
+
+const categoryPlaceholders = [
+  {
+    title: "الحقائب",
+    caption: "BAGS",
+    image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=82",
+  },
+  {
+    title: "الملابس",
+    caption: "FASHION",
+    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=82",
+  },
+  {
+    title: "الأحذية",
+    caption: "SHOES",
+    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=82",
+  },
+  {
+    title: "الإكسسوارات",
+    caption: "ACCESSORIES",
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=82",
+  },
 ] as const;
-
-const productSelect = PRODUCT_CARD_SELECT;
 
 const HomePage = () => {
   const {
@@ -29,15 +50,15 @@ const HomePage = () => {
     isError: featuredError,
     refetch: refetchFeatured,
   } = useQuery({
-    queryKey: ["genan-reference-popular-products-v2"],
+    queryKey: ["genan-v3-featured-products"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("products")
-        .select(productSelect)
+        .select(PRODUCT_CARD_SELECT)
         .eq("is_active", true)
         .eq("in_stock", true)
         .order("sort_order", { ascending: true })
-        .limit(4);
+        .limit(8);
       if (error) throw error;
       return (data || []).map(mapProductCard);
     },
@@ -50,129 +71,195 @@ const HomePage = () => {
     isError: demoError,
     refetch: refetchDemo,
   } = useQuery({
-    queryKey: ["genan-reference-demo-products-v2"],
+    queryKey: ["genan-v3-demo-preview"],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("products")
-        .select(productSelect)
+        .select(PRODUCT_CARD_SELECT)
         .eq("is_active", true)
         .like("slug", "genan-demo-20261022-%")
         .order("sort_order", { ascending: true })
-        .limit(4);
+        .limit(8);
       if (error) throw error;
       return (data || []).map(mapProductCard);
     },
     staleTime: 2 * 60 * 1000,
+    enabled: featured.length === 0 && !featuredLoading && !featuredError,
   });
 
-  const products = featured.length > 0 ? featured : demoPreview;
+  const { data: categories = [] } = useQuery({
+    queryKey: ["genan-v3-home-categories"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("categories")
+        .select("id,slug,name_ar,name,image_url")
+        .eq("is_active", true)
+        .is("parent_id", null)
+        .order("sort_order", { ascending: true })
+        .limit(4);
+      if (error) throw error;
+      return (data || []) as HomeCategory[];
+    },
+    staleTime: 10 * 60 * 1000,
+  });
+
+  const products = featured.length ? featured : demoPreview;
   const displayingDemo = featured.length === 0 && demoPreview.length > 0;
-  const loading = featuredLoading || demoLoading;
-  const error = featuredError || demoError;
+  const loading = featuredLoading || (featured.length === 0 && !featuredError && demoLoading);
+  const error = featuredError || (featured.length === 0 && demoError);
+
+  const categoryCards = categories.length
+    ? categories.map((category, i) => ({
+        id: category.id,
+        title: category.name_ar || category.name,
+        caption: category.name,
+        image: category.image_url ? optimizeImage(category.image_url, 800, 82) : categoryPlaceholders[i % categoryPlaceholders.length].image,
+        to: `/products?category=${encodeURIComponent(category.slug)}`,
+      }))
+    : categoryPlaceholders.map((item, i) => ({ ...item, id: `preview-${i}`, to: "/categories" }));
 
   return (
-    <div className="genan-reference-page" dir="rtl">
-      {/* Keep the floating navigation outside the clipped editorial frame. */}
-      <Navbar variant="editorial" />
-      <div className="genan-reference-shell">
-        <CartDrawer />
-        <main id="main-content" className="genan-ref-main">
-          <div className="genan-ref-hero-composition">
-            <HeroSlider />
-            <nav aria-label="مجموعات جنان" className="genan-ref-category-ribbon">
-              {categories.map(({ title, caption, to, icon: Icon, ...rest }) => (
-                <Link
-                  to={to}
-                  key={title}
-                  className={`genan-ref-category-tile ${"featured" in rest && rest.featured ? "is-featured" : ""}`}
-                >
-                  {"featured" in rest && rest.featured && (
-                    <img src="https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=250" alt="" className="genan-ref-category-feature-image" loading="lazy" />
-                  )}
-                  <Icon className="genan-ref-category-icon" aria-hidden="true" size={25} strokeWidth={1.35} />
-                  <span className="genan-ref-category-name">{title}</span>
-                  <span className="genan-ref-category-caption">{caption}</span>
-                  {"featured" in rest && rest.featured && <span className="genan-ref-category-arrow"><ArrowLeft size={15} /></span>}
-                </Link>
-              ))}
-            </nav>
-          </div>
+    <div className="genan-v3-page" dir="rtl">
+      <Navbar />
+      <CartDrawer />
 
-          <section className="genan-ref-popular" aria-labelledby="genan-popular-heading">
-            <div className="genan-ref-section-heading">
-              <div>
-                <h2 id="genan-popular-heading">الأكثر رواجًا</h2>
-                <p>{displayingDemo ? "معاينة منتجات تجريبية — الأسعار والمخزون للعرض فقط، وليست متاحة للشراء" : "قطع مختارة بعناية .. لترافقك في كل لحظة"}</p>
-              </div>
-              <Link to="/products" className="genan-ref-view-all">عرض الكل <ArrowLeft size={16} aria-hidden="true" /></Link>
+      <main id="main-content" className="genan-v3-main">
+        <div className="genan-v3-topline">
+          <span dir="ltr">GENAN / CURATED STYLE</span>
+          <span>تفاصيل مختارة لأناقة كل يوم</span>
+          <Link to="/new-arrivals">شاهدي الجديد <ArrowLeft size={13} aria-hidden="true" /></Link>
+        </div>
+
+        <GenanHomeHero />
+
+        <section className="genan-v3-categories genan-v3-container" aria-labelledby="genan-v3-categories-title">
+          <div className="genan-v3-section-heading">
+            <div>
+              <span className="genan-v3-section-index" dir="ltr">01 / DISCOVER</span>
+              <h2 id="genan-v3-categories-title">عالم جنان، بأسلوبك</h2>
+              <p>من القطعة الأساسية إلى التفاصيل التي تكمل إطلالتك.</p>
             </div>
+            <Link className="genan-v3-arrow-link" to="/categories">كل الأقسام <ArrowUpLeft size={17} aria-hidden="true" /></Link>
+          </div>
+          <div className="genan-v3-category-grid">
+            {categoryCards.map((category, index) => (
+              <Link to={category.to} className="genan-v3-category-card" key={category.id}>
+                <div className="genan-v3-category-photo">
+                  <img src={category.image} alt={category.title} loading="lazy" decoding="async" />
+                  <span className="genan-v3-category-count" dir="ltr">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="genan-v3-category-icon"><ArrowUpLeft size={19} strokeWidth={1.5} aria-hidden="true" /></span>
+                </div>
+                <div className="genan-v3-category-info">
+                  <h3>{category.title}</h3>
+                  <span dir="ltr">{category.caption}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="genan-v3-products" aria-labelledby="genan-v3-products-title">
+          <div className="genan-v3-container">
+            <div className="genan-v3-section-heading">
+              <div>
+                <span className="genan-v3-section-index" dir="ltr">02 / THE SELECTION</span>
+                <h2 id="genan-v3-products-title">اختيارات تستحق الاكتشاف</h2>
+                <p>{displayingDemo ? "منتجات تجريبية للمعاينة فقط — ليست متاحة للشراء" : "تشكيلة مختارة من عالم الموضة والإكسسوارات."}</p>
+              </div>
+              <Link className="genan-v3-arrow-link" to="/products">تسوقي كل المنتجات <ArrowUpLeft size={17} aria-hidden="true" /></Link>
+            </div>
+
             {products.length > 0 ? (
-              <div className="genan-ref-products-grid">
-                {products.map((product, index) => <ProductCard product={product} index={index} key={product.id} />)}
+              <div className="genan-v3-products-grid">
+                {products.map((product, index) => (
+                  <ProductCard key={product.id} product={product} index={index} />
+                ))}
               </div>
             ) : loading ? (
-              <div className="genan-ref-products-grid" aria-label="جار تحميل المنتجات" role="status">
-                {[0, 1, 2, 3].map((x) => <div className="genan-ref-product-skeleton" key={x} />)}
+              <div className="genan-v3-products-grid" role="status" aria-label="جار تحميل المنتجات">
+                {Array.from({ length: 4 }, (_, i) => <div className="genan-v3-product-skeleton" key={i} />)}
               </div>
             ) : (
-              <div className="genan-ref-empty-state">
-                <h3>{error ? "تعذّر عرض المنتجات حاليًا" : "تشكيلتنا قيد التجهيز"}</h3>
-                <p>{error ? "يرجى التحقق من اتصال الإنترنت والمحاولة مجددًا" : "تصفحي الأقسام إلى حين إضافة التشكيلة الجديدة"}</p>
-                {error ? <button onClick={() => { void refetchFeatured(); void refetchDemo(); }} type="button">إعادة المحاولة</button> : <Link to="/categories">عرض الأقسام</Link>}
+              <div className="genan-v3-empty">
+                <span className="genan-v3-empty-mark" dir="ltr">G.</span>
+                <h3>{error ? "تعذّر تحميل التشكيلة" : "تشكيلتنا قيد التجهيز"}</h3>
+                <p>{error ? "يرجى المحاولة مرة أخرى لعرض المنتجات." : "ترقّبي قطعًا جديدة تُضاف إلى عالم جنان."}</p>
+                {error ? (
+                  <button type="button" onClick={() => { void refetchFeatured(); void refetchDemo(); }} className="genan-v3-btn genan-v3-btn-dark">إعادة المحاولة</button>
+                ) : (
+                  <Link to="/categories" className="genan-v3-btn genan-v3-btn-dark">تصفحي الأقسام <ArrowLeft size={16} aria-hidden="true" /></Link>
+                )}
               </div>
             )}
-          </section>
-
-          <section className="genan-ref-collection" aria-label="مجموعة جديدة">
-            <div className="genan-ref-collection-photo" aria-hidden="true" />
-            <div className="genan-ref-collection-shade" />
-            <div className="genan-ref-collection-copy">
-              <p>مجموعة جديدة</p>
-              <h2>خطوات<br />أعمق</h2>
-              <span>إلهام من الأرض .. بإطلالة نحو المستقبل</span>
-              <Link to="/products" className="genan-ref-outline-button">
-                اكتشفي المجموعة <span className="genan-ref-button-circle"><ArrowLeft size={16} /></span>
-              </Link>
+            <div className="genan-v3-products-bottom">
+              <Link to="/products">اكتشفي المزيد من جنان <ArrowLeft size={16} aria-hidden="true" /></Link>
             </div>
-            <div className="genan-ref-collection-mark" dir="ltr">
-              <strong>GENAN</strong>
-              <span>ROOTED<br />IN HER<br />EVOLVING</span>
-              <small>01 &nbsp; ━ &nbsp; 02 &nbsp; 03</small>
-            </div>
-          </section>
+          </div>
+        </section>
 
-          <section className="genan-ref-details" aria-label="تفاصيل جنان">
-            <div className="genan-ref-detail-intro">
-              <div className="genan-ref-detail-portrait" aria-hidden="true" />
-              <div className="genan-ref-detail-intro-copy">
-                <h2>تفاصيل تصنع الفرق</h2>
-                <p>من الأقمشة الفاخرة إلى التفاصيل الدقيقة ..<br />كل قطعة من جنان تحكي قصة</p>
-                <Link className="genan-ref-outline-button" to="/products">
-                  اكتشفي المزيد <span className="genan-ref-button-circle"><ArrowLeft size={15} /></span>
-                </Link>
-              </div>
-            </div>
-            <Link to="/products" className="genan-ref-detail-tile is-fabric"><span>أقمشة فاخرة</span></Link>
-            <Link to="/products" className="genan-ref-detail-tile is-embroidery"><span>حرفية عربية</span></Link>
-            <Link to="/products" className="genan-ref-detail-tile is-design"><span>تصاميم عصرية</span></Link>
-          </section>
+        <section className="genan-v3-story genan-v3-container" aria-labelledby="genan-v3-story-title">
+          <div className="genan-v3-story-content">
+            <div className="genan-v3-story-label" dir="ltr">THE GENAN POINT OF VIEW</div>
+            <span className="genan-v3-story-rule" aria-hidden="true" />
+            <h2 id="genan-v3-story-title">الأناقة ليست تفصيلًا عابرًا.</h2>
+            <p>هي اختياراتك التي تعبّر عنك. في جنان، نمنح القطع المميزة مساحة لتتألق بطريقتك الخاصة.</p>
+            <Link className="genan-v3-btn genan-v3-btn-gold" to="/store-info#about">
+              اكتشفي جنان <ArrowUpLeft size={18} aria-hidden="true" />
+            </Link>
+            <div className="genan-v3-story-signature" dir="ltr">GENAN</div>
+          </div>
+          <div className="genan-v3-story-image">
+            <img
+              src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1350&q=85"
+              alt="مجموعة أزياء بتنسيقات هادئة"
+              loading="lazy"
+              decoding="async"
+            />
+            <span dir="ltr">STYLE IS PERSONAL.</span>
+          </div>
+        </section>
 
-          <section className="genan-ref-services" aria-label="خدمات جنان">
+        <section className="genan-v3-edits genan-v3-container" aria-labelledby="genan-v3-edits-title">
+          <div className="genan-v3-section-heading">
+            <div>
+              <span className="genan-v3-section-index" dir="ltr">03 / EXPLORE MORE</span>
+              <h2 id="genan-v3-edits-title">وجهاتك القادمة</h2>
+              <p>مساحتان لاكتشاف المزيد من الاختيارات.</p>
+            </div>
+          </div>
+          <div className="genan-v3-edits-grid">
+            <Link className="genan-v3-edit-card genan-v3-edit-card--new" to="/new-arrivals">
+              <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1300&q=82" loading="lazy" decoding="async" alt="إطلالة أزياء حديثة" />
+              <span className="genan-v3-edit-wash" aria-hidden="true" />
+              <span className="genan-v3-edit-type" dir="ltr">JUST LANDED</span>
+              <span className="genan-v3-edit-bottom"><span><strong>وصل حديثًا</strong><small>جديد عالم جنان</small></span><ArrowUpLeft size={22} aria-hidden="true" /></span>
+            </Link>
+            <Link className="genan-v3-edit-card genan-v3-edit-card--brands" to="/brands">
+              <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1300&q=82" loading="lazy" decoding="async" alt="حقائب بتصاميم متنوعة" />
+              <span className="genan-v3-edit-wash" aria-hidden="true" />
+              <span className="genan-v3-edit-type" dir="ltr">THE BRAND EDIT</span>
+              <span className="genan-v3-edit-bottom"><span><strong>عالم الماركات</strong><small>اكتشفي تشكيلات متنوعة</small></span><ArrowUpLeft size={22} aria-hidden="true" /></span>
+            </Link>
+          </div>
+        </section>
+
+        <section className="genan-v3-services" aria-label="خدمات بوتيك جنان">
+          <div className="genan-v3-container genan-v3-services-grid">
             {[
-              { icon: Headphones, title: "خدمة عملاء مميزة", detail: "دائمًا معك" },
-              { icon: ShieldCheck, title: "الخصوصية أولًا", detail: "حماية معلوماتك" },
-              { icon: Package, title: "خيارات دفع متنوعة", detail: "بحسب المتاح في منطقتك" },
-              { icon: Truck, title: "خيارات توصيل", detail: "تُعرض عند إتمام الطلب" },
+              { icon: Headphones, title: "نحن معك", detail: "تواصلي معنا للاستفسار عن طلباتك." },
+              { icon: ShieldCheck, title: "خصوصيتك تهمّنا", detail: "تعرّفي على سياسة الخصوصية." },
+              { icon: Truck, title: "الشحن والتوصيل", detail: "التفاصيل المتاحة تظهر عند الطلب." },
             ].map(({ icon: Icon, title, detail }) => (
-              <div className="genan-ref-service" key={title}>
-                <Icon size={27} strokeWidth={1.35} aria-hidden="true" />
-                <span><strong>{title}</strong><small>{detail}</small></span>
+              <div className="genan-v3-service" key={title}>
+                <span className="genan-v3-service-icon"><Icon size={24} strokeWidth={1.35} aria-hidden="true" /></span>
+                <div><h3>{title}</h3><p>{detail}</p></div>
               </div>
             ))}
-          </section>
-        </main>
-        <ReferenceFooter />
-      </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
 };
