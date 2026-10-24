@@ -112,6 +112,28 @@ const walk = (dir) => {
 
 let failures = 0;
 
+// Password-only authentication regression checks for the current Genan prototype.
+// Admin authorization is still verified server-side via user_roles and RLS.
+const adminLoginSource = read("src/pages/admin/AdminLoginPage.tsx");
+const adminLayoutSource = read("src/components/admin/AdminLayout.tsx");
+const customerLoginSource = read("src/pages/CustomerAuthPage.tsx");
+if (!adminLoginSource.includes("signInWithPassword") || !adminLoginSource.includes("is_current_user_admin") ||
+    adminLoginSource.includes("auth.mfa.") || adminLoginSource.includes("QRCodeSVG")) {
+  console.error("FAIL admin login must use password auth, server-checked role, and no OTP/TOTP UI.");
+  failures += 1;
+}
+if (!adminLayoutSource.includes('supabase.rpc("is_current_user_admin")') ||
+    adminLayoutSource.includes("getAuthenticatorAssuranceLevel()")) {
+  console.error("FAIL admin routes must check server permissions without requiring a second factor.");
+  failures += 1;
+}
+if (!customerLoginSource.includes("supabase.auth.signUp({") ||
+    !customerLoginSource.includes("signInWithPassword") ||
+    customerLoginSource.includes("verifyOtp(")) {
+  console.error("FAIL customer accounts must support phone/password sign-up and sign-in without OTP UI.");
+  failures += 1;
+}
+
 for (const check of checks) {
   let source = "";
   try {
