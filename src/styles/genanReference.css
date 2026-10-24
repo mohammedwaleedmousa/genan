@@ -458,7 +458,6 @@
 .genan-reference-page .genan-ref-outline-button:hover {border-color:#D6B777;background:rgba(36,31,23,.94);}
 .genan-reference-page .genan-ref-category-tile.is-featured:hover {border-color:#D5B77E;}
 .genan-reference-page .genan-ref-view-all:hover,
-.genan-reference-page .genan-ref-footer a:hover {color:#D5B77E;}
 .genan-reference-page .genan-ref-category-tile:focus-visible,
 .genan-reference-page .genan-ref-products-grid > a:focus-visible {outline-color:rgba(169,216,211,.8);}
 @media (max-width:767px) {
