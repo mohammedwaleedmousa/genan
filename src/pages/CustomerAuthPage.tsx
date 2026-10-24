@@ -234,19 +234,33 @@ const CustomerAuthPage = () => {
         const country = phoneCountry;
         const region = selectedRegion || defaultRegionForCountry(country);
 
-        // Registration is handled on the server for the temporary no-OTP pilot.
-        // Passwords go to Supabase Auth (hashed at rest), never customers.password_hash.
-        const { data: registration, error: registrationError } = await supabase.functions.invoke(
-          "customer-password-register",
-          { body: { name, phone, password, country, region } },
-        );
-        if (registrationError) throw registrationError;
-        if (!registration?.ok) throw new Error(registration?.error || "تعذر إنشاء الحساب.");
+        // Use the managed Supabase Auth password flow. The project must have
+        // phone authentication enabled and phone confirmation disabled for
+        // temporary password-only registration (no OTP).
+        const { data, error } = await supabase.auth.signUp({
+          phone,
+          password,
+          options: {
+            data: {
+              name, full_name: name, contact_phone: phone,
+              customer_signup: "genan_customer", country, region,
+            },
+          },
+        });
+        if (error) throw error;
+        if (!data.user) throw new Error("تعذر إنشاء الحساب.");
 
-        const { data: signedIn, error: signInError } = await supabase.auth.signInWithPassword({ phone, password });
-        if (signInError || !signedIn.user) throw signInError || new Error("تم إنشاء الحساب، لكن تعذر تسجيل الدخول. حاول تسجيل الدخول بنفس الرقم.");
-        const customer = await getOwnCustomer(signedIn.user.id);
-        if (!customer) throw new Error("تم إنشاء الحساب، لكن تعذر تحميل بياناته الآن. حاول تسجيل الدخول.");
+        let user = data.user;
+        if (!data.session) {
+          const directLogin = await supabase.auth.signInWithPassword({ phone, password });
+          if (directLogin.error || !directLogin.data.user) {
+            throw new Error("تسجيل الحسابات دون OTP يحتاج تعطيل تأكيد رقم الهاتف من إعدادات Supabase Auth. لن نطلب رمز تحقق.");
+          }
+          user = directLogin.data.user;
+        }
+
+        let customer = await getOwnCustomer(user.id);
+        if (!customer) customer = await finalizeRegistration({ name, phone, region, country, channel: "none" });
         persistCustomer(customer);
         toast({ title: "تم إنشاء الحساب", description: `أهلاً ${customer.name}` });
         navigate("/home", { replace: true });
@@ -294,6 +308,8 @@ const CustomerAuthPage = () => {
         friendly = "رقم الهاتف مسجل مسبقاً. اختر تسجيل الدخول واستخدم نفس الرقم وكلمة المرور.";
       } else if (lower.includes("database error saving new user") || lower.includes("existing customer requires password migration")) {
         friendly = "هذا الرقم موجود كحساب سابق. اختر تسجيل الدخول وسيتم ربط الحساب القديم تلقائياً.";
+      } else if (lower.includes("phone provider is disabled") || lower.includes("phone signups are disabled")) {
+        friendly = "تسجيل الهاتف معطّل في Supabase. فعّله من Authentication → Providers.";
       } else if (lower.includes("invalid login credentials")) {
         friendly = "رقم الهاتف أو كلمة المرور غير صحيحة.";
       }
