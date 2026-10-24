@@ -1,34 +1,39 @@
-# Genan temporary password-only sign in (24 October 2026)
+# Genan: temporary phone + password login pilot (24 October 2026)
 
-## Routes
-- Customer: `/auth`
-- Admin: `/mohammedadmin77/login`
-- Passwords are managed and hashed by Supabase Auth (`auth.users`); **do not** store plaintext or a second password in `public.customers`.
-- Both flows use a phone number and password. The admin form additionally supports email and password.
-- A customer cannot become an admin by choosing a URL or changing user metadata. Only an authorized database administrator assigns `public.user_roles.role = 'admin'`.
+## Login routes
+- Customer: `/auth` (local phone + international dial code, password)
+- Admin: `/mohammedadmin77/login` (email **or** E.164 phone, password)
+- Supabase Auth manages the salted password hashes in its private `auth.users` data; no plaintext passwords are saved in `public.customers`.
+- No OTP forms or Google Authenticator challenge are required during this pilot. Admin users STILL require a trusted `public.user_roles` assignment.
 
-## One-time setup for an admin
-1. Create/sign in to a user with their personal phone at `/auth`, or create an email/password user under Supabase Dashboard → Authentication → Users. Do not add an admin role during public registration.
-2. Verify the intended user's identity outside the application.
-3. In Supabase SQL Editor, obtain the matching authenticated user ID by a trusted identifier, then assign the role using the SQL below. Replace the placeholder with the **verified** `auth.users.id`:
+## IMPORTANT: hosted Auth setting
+No server-side auto-confirm user creation endpoint is deployed. To use password-only phone registration, configure Genan Prod Supabase Dashboard → Authentication → Providers → Phone. Enable phone authentication and, **only while testing**, disable required SMS phone confirmation if the provider/settings support it. If a Supabase-managed project does not permit no-verification phone registration, signup must remain blocked rather than silently bypassing verification.
+
+The frontend will clearly explain when a new account needs server-side confirmation settings changed. The sign-in form itself never sends an OTP.
+
+## Create an administrator after identity verification
+The database was inspected on 2026-10-24: zero admin roles exist.
+1. First create a phone/password user on the customer page, **or** create an email/password user under Supabase Dashboard → Authentication → Users.
+2. Verify the identity of the intended admin out of band.
+3. Grant the `admin` role to the verified account ID from `auth.users`:
    ```sql
    insert into public.user_roles (user_id, role)
-   values ('<verified-auth-user-uuid>'::uuid, 'admin'::public.app_role)
+   values ('<VERIFIED_AUTH_USER_UUID>'::uuid, 'admin'::public.app_role)
    on conflict (user_id, role) do nothing;
    ```
-4. Sign out and sign in at the admin route with the same phone/email and password.
-5. Verify a normal customer user cannot open `/mohammedadmin77`, or call admin database operations.
+4. Log in via `/mohammedadmin77/login`. A normal customer must fail admin permission checks.
 
-## Pilot limitations
-- This **temporarily skips phone ownership proof**. An unverified user could register another person's phone number. **Do not open payments, orders containing personal information, or general public signups before replacing this with phone OTP or an alternative verification method.**
-- Supabase service-role key is used ONLY within a Supabase Edge Function, never shipped to browser, GitHub, or Cloudflare.
-- Signup is rate-limited per IP/phone, but IP throttling alone is not a substitute for CAPTCHA and verification.
-- `customer-password-register` requires `verify_jwt = false` because it is a public registration endpoint. Update `ALLOWED_ORIGINS` in the Supabase function secrets for any custom production domain; the default origin is `https://genan.pages.dev`.
-- For customers registered before this change, legacy migration remains available on login.
+Do not grant admin roles by trusting user-submitted metadata or client code.
 
-## Deployment
-1. Apply `supabase/migrations/20261024150000_genan_password_auth_pilot.sql` to Genan Prod only once.
-2. Deploy `customer-password-register` with JWT verification disabled.
-3. Build/deploy the frontend (Cloudflare Pages production branch: main).
-4. Test an ordinary customer signup, logout, login, invalid password, and an admin authorization denial. Then add an authorized admin and retest.
-5. Before launch: enable phone verification and require MFA for admins again.
+## Security and readiness
+- Skipping phone possession verification permits number spoofing / accidental number squatting. This is **not** safe as a public customer launch.
+- Require verified phone ownership and admin MFA before accepting live orders or sensitive personal information.
+- The SQL migration tightens an existing admin permission gate so a non-admin cannot pass admin-only RLS policies.
+- No Supabase service-role key is ever exposed in the frontend or GitHub.
+
+## Verification
+1. Open `/auth`; test new customer creation, correct password login, wrong password denial and logout.
+2. Open `/mohammedadmin77/login`; confirm a non-admin is refused.
+3. Grant the admin role to one *verified* user; confirm login with email/phone and password.
+4. Check admin data access is rejected when there is no admin role, and allowed for valid staff.
+5. Run `npm run verify:critical-flows`, `npm run build`, and Cloudflare preview smoke tests.
