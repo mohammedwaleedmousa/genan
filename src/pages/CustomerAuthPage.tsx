@@ -51,17 +51,6 @@ const arabicDigitsToLatin = (value: string) =>
 
 const defaultRegionForCountry = (country: string) => (country === "YE" ? "عدن" : "غير محدد");
 
-const authPasswordFor = async (phone: string, password: string) => {
-  if (password.length >= 6) return password;
-
-  const source = new TextEncoder().encode(`genan:v1:${phone}:${password}`);
-  const digest = await crypto.subtle.digest("SHA-256", source);
-
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-};
-
 const CustomerAuthPage = () => {
   const navigate = useNavigate();
   const { setCustomer, setRegion } = useStore();
@@ -143,32 +132,6 @@ const CustomerAuthPage = () => {
     return data.customer as CustomerRow;
   };
 
-  const signInCompatible = async (phone: string, rawPassword: string) => {
-    const authPassword = await authPasswordFor(phone, rawPassword);
-    const candidates = Array.from(new Set([authPassword, rawPassword]));
-    let lastError: unknown = null;
-
-    for (const candidate of candidates) {
-      const result = await supabase.auth.signInWithPassword({ phone, password: candidate });
-      if (!result.error && result.data.user) return result.data;
-      lastError = result.error;
-    }
-
-    throw lastError || new Error("رقم الهاتف أو كلمة المرور غير صحيحة");
-  };
-
-  const migrateLegacyCustomer = async (phone: string, rawPassword: string) => {
-    const { data, error } = await supabase.functions.invoke("legacy-customer-migrate", {
-      body: { phone, password: rawPassword },
-    });
-
-    if (error || !data?.ok) return null;
-
-    const login = await signInCompatible(phone, rawPassword).catch(() => null);
-    if (!login?.user) return null;
-    return getOwnCustomer(login.user.id);
-  };
-
   useEffect(() => {
     let active = true;
 
@@ -206,6 +169,10 @@ const CustomerAuthPage = () => {
       toast({ title: "كلمة المرور مطلوبة", description: "أدخل كلمة المرور.", variant: "destructive" });
       return;
     }
+    if (mode === "register" && (password.length < 8 || password.length > 72)) {
+      toast({ title: "كلمة المرور غير مناسبة", description: "استخدم كلمة مرور من 8 إلى 72 حرفاً.", variant: "destructive" });
+      return;
+    }
 
     if (mode === "register" && (!name || !selectedRegion)) {
       toast({ title: "البيانات غير مكتملة", description: "أدخل الاسم والمنطقة.", variant: "destructive" });
@@ -227,61 +194,44 @@ const CustomerAuthPage = () => {
       await supabase.auth.signOut({ scope: "local" }).catch(() => undefined);
 
       if (mode === "register") {
-        const authPassword = await authPasswordFor(phone, password);
         const country = phoneCountry;
         const region = selectedRegion || defaultRegionForCountry(country);
 
+        // Use the managed Supabase Auth password flow. The project must have
+        // phone authentication enabled and phone confirmation disabled for
+        // temporary password-only registration (no OTP).
         const { data, error } = await supabase.auth.signUp({
           phone,
-          password: authPassword,
+          password,
           options: {
             data: {
-              name,
-              full_name: name,
-              contact_phone: phone,
-              customer_signup: "genan_customer",
-              region,
-              country,
+              name, full_name: name, contact_phone: phone,
+              customer_signup: "genan_customer", country, region,
             },
           },
         });
-
         if (error) throw error;
         if (!data.user) throw new Error("تعذر إنشاء الحساب.");
 
         let user = data.user;
-
-        // التسجيل المطلوب بدون OTP: إذا لم ترجع جلسة نحاول الدخول مباشرة بنفس كلمة المرور.
         if (!data.session) {
-          const directLogin = await supabase.auth.signInWithPassword({ phone, password: authPassword });
+          const directLogin = await supabase.auth.signInWithPassword({ phone, password });
           if (directLogin.error || !directLogin.data.user) {
-            throw new Error("تعذر إكمال إنشاء الحساب الآن. حاول مرة أخرى أو تواصل معنا للمساعدة.");
+            throw new Error("تسجيل الحسابات دون OTP يحتاج تعطيل تأكيد رقم الهاتف من إعدادات Supabase Auth. لن نطلب رمز تحقق.");
           }
           user = directLogin.data.user;
         }
 
         let customer = await getOwnCustomer(user.id);
-        if (!customer) {
-          customer = await finalizeRegistration({ name, phone, region, country, channel: "none" });
-        }
-
+        if (!customer) customer = await finalizeRegistration({ name, phone, region, country, channel: "none" });
         persistCustomer(customer);
         toast({ title: "تم إنشاء الحساب", description: `أهلاً ${customer.name}` });
         navigate("/home", { replace: true });
         return;
       }
 
-      const loginData = await signInCompatible(phone, password).catch(() => null);
-
-      if (!loginData?.user) {
-        const migrated = await migrateLegacyCustomer(phone, password);
-        if (migrated) {
-          persistCustomer(migrated);
-          toast({ title: "تم تسجيل الدخول", description: `أهلاً ${migrated.name}` });
-          navigate("/home", { replace: true });
-          return;
-        }
-
+      const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ phone, password });
+      if (loginError || !loginData.user) {
         throw new Error("رقم الهاتف أو كلمة المرور غير صحيحة");
       }
 
@@ -294,7 +244,6 @@ const CustomerAuthPage = () => {
           region: defaultRegionForCountry(country),
           country,
           channel: "none",
-          legacyPassword: password,
         });
       }
 
@@ -310,8 +259,8 @@ const CustomerAuthPage = () => {
 
       if (lower.includes("already registered") || lower.includes("user already") || lower.includes("already exists")) {
         friendly = "رقم الهاتف مسجل مسبقاً. اختر تسجيل الدخول واستخدم نفس الرقم وكلمة المرور.";
-      } else if (lower.includes("database error saving new user") || lower.includes("existing customer requires password migration")) {
-        friendly = "هذا الرقم موجود كحساب سابق. اختر تسجيل الدخول وسيتم ربط الحساب القديم تلقائياً.";
+      } else if (lower.includes("phone provider is disabled") || lower.includes("phone signups are disabled")) {
+        friendly = "تسجيل الهاتف معطّل في Supabase. فعّله من Authentication → Providers.";
       } else if (lower.includes("invalid login credentials")) {
         friendly = "رقم الهاتف أو كلمة المرور غير صحيحة.";
       }
@@ -456,7 +405,7 @@ const CustomerAuthPage = () => {
                   autoComplete={mode === "login" ? "current-password" : "new-password"}
                   value={formData.password}
                   onChange={(event) => updateField("password", event.target.value)}
-                  placeholder="كلمة المرور"
+                  placeholder={mode === "register" ? "8 أحرف على الأقل" : "كلمة المرور"}
                   dir="ltr"
                   className="h-[50px] w-full rounded-[12px] border border-[#E8DEDA] bg-white pr-11 pl-12 text-left text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]"
                 />
