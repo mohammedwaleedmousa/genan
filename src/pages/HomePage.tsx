@@ -10,6 +10,7 @@ import ReferenceFooter from "@/components/ReferenceFooter";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 import "@/styles/genanReference.css";
+import "@/styles/genanHomeTheme.css";
 
 const categories = [
   { title: "أفكار وأناقة", caption: "GENAN IDEAS", to: "/categories", icon: Flame },
