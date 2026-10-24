@@ -1,39 +1,51 @@
-# GENAN — Homepage Design System v1
+# GENAN — Editorial Home Design v3
 
-**Status:** Approved implementation baseline for the homepage as of 24 October 2026. Future design changes should be deliberate updates to this baseline, not independent redesigns of each section.
+**Decision date:** 24 October 2026  
+**Status:** New homepage visual baseline. Replaces the older screenshot-based dark layout (v1/v2) on `/home`.  
+**Scope:** Homepage design only. Other store routes and admin keep their current implementation.
 
-## Visual identity
+## Brand authority
 
-| Role | Token | Value | Use |
-| --- | --- | --- | --- |
-| Primary dark | `--genan-home-black` | `#0E0E0E` | Page background, glass navigation, editorial banners, black brand surfaces |
-| Primary light | `--genan-home-white` | `#FFFFFF` | Product section, service strip, category cards, shared footer |
-| Premium accent | `--genan-home-gold` | `#D8C29A` | CTAs, borders, small accents, current slide and collection highlights |
-| Subtle accent | `--genan-home-turquoise` | `#A9D8D3` | Focus rings, selective highlights, contrast against black |
-| Contrast-safe gold text | `--genan-home-gold-deep` | `#88662C` | Prices on white backgrounds |
-| Contrast-safe turquoise text | `--genan-home-turquoise-deep` | `#356F69` | Small icons and hover text on white backgrounds |
+The shared `src/components/Footer.tsx` is the reference for the homepage's appearance: bright white fields, deep black text, soft gold detailing and very selective pale turquoise.
 
-Grey text shades and gold/turquoise tints are permitted for contrast and readability. Avoid pink, brown, olive or green as *interface* colours. Product photography and actual product swatches retain their real colours.
+| Token | Colour | Meaning |
+| --- | --- | --- |
+| Black | `#0E0E0E` | Typography, buttons, signature editorial panel, footer bottom bar |
+| White | `#FFFFFF` | Main site canvas, navigation, shopping cards and shared footer |
+| Soft gold | `#D8C29A` | Hairlines, highlighted CTAs, understated editorial typography |
+| Soft turquoise | `#A9D8D3` | Focus and tiny accents, small service icon tint |
+| Neutral tones | pale grey / dark grey | Legibility and photo-background contrast only |
 
-## Frozen homepage structure
+The interface does not add pink or unrelated hues. Photography is free to show real product colours.
 
-Keep the current responsive layout, mobile hero dimensions, dark floating/glass navbar, image slider, category ribbon, product grid, campaign/collection, editorial detail tiles, service strip, and shared branded footer. The homepage is **not being structurally redesigned** in this milestone.
+## New homepage composition
 
-Visual balance: dark black editorial surfaces + high-contrast white shopping panels + gold primary action buttons + sparing turquoise. Do not overuse turquoise or create additional accent colours.
+1. Shared **white customer navbar** (`Navbar` default variant; full search/cart/account/menu logic retained).
+2. Black mini brand strip below navigation.
+3. Asymmetric **split hero** with text on a light canvas, large campaign image, and working arrows/slide indicators. Dynamically displays active `banners` from Supabase, with existing filtered banners and a neutral fallback.
+4. **Four editorial category cards**. Real root `categories` from Supabase, linked to `/products?category=<slug>`; if the catalog is not configured yet, show representative category cards linked to the category directory rather than pretending the filters exist.
+5. **Curated product wall**. Live `products` through `PRODUCT_CARD_SELECT` and `mapProductCard`, existing add-to-cart ProductCard behavior and explicit demo-only disclosures. Empty, error and loading states included.
+6. **Black signature/brand story** beside fashion photography, linking to About.
+7. **Two visual destinations**: new arrivals and brands.
+8. White **customer-service strip**.
+9. The exact existing **shared footer**, unchanged.
 
-## Technical ownership and scope
+## Technical ownership
 
-- Layout/responsive placement: `src/styles/genanReference.css`.
-- **Single authoritative homepage palette and section appearance:** `src/styles/genanHomeTheme.css` (imported AFTER the reference layout stylesheet in `src/pages/HomePage.tsx`).
-- Shared footer: `src/components/Footer.tsx`.
-- Other routes (product listing, product details, checkout, account, admin) are **out of scope** for this phase; align their designs individually only when requested.
-- Do not change product data queries, customer account flows, permissions, ordering, pricing, or Supabase to deliver visual updates.
+- `src/pages/HomePage.tsx`: v3 page layout + queries.
+- `src/components/GenanHomeHero.tsx`: live banner integration, arrows and indicators.
+- `src/styles/genanHomeV3.css`: all v3 appearance and breakpoint rules, scoped to `.genan-v3-page`.
+- `src/components/Footer.tsx`: shared footer.
+- Old `src/styles/genanReference.css` and `src/styles/genanHomeTheme.css` are **not imported by v3** and may remain for historic references; do not re-import them into HomePage or place unscoped overrides there.
 
-## Acceptance criteria
+## Launch-quality checklist
 
-1. All four specified palette values are in the homepage stylesheet.
-2. Hero/navbar, category ribbon, product cards, editorial sections, service strip and footer feel like one store.
-3. Small text on white surfaces uses black or darker gold/turquoise contrast-safe shades.
-4. Mobile layout must not require horizontal page scrolling.
-5. All existing links, dynamic banner content, cart buttons, filters and checkout routes remain functional.
-6. Verify build, tablet/mobile/desktop rendering, RTL spacing, and Cloudflare deployment separately before declaring the homepage production-ready.
+- [x] Hero, categories, products, story, links and service sections rebuilt visually.
+- [x] Existing Supabase query fields and commerce ProductCard retained.
+- [x] RTL, responsive 4→2 product/category grids, smaller mobile hero, reduced motion supported in CSS.
+- [x] All home links target existing site routes.
+- [ ] Vite production compilation, visual viewport review at 390 / 768 / 1440 pixels, keyboard navigation review.
+- [ ] Cloudflare deployment verification.
+- [ ] Replace external editorial stock images with approved assets, ideally from store inventory and the client's own branding, before a public launch.
+
+**Do not call the homepage production verified until the unchecked items have been completed.**
