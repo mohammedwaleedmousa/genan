@@ -2,6 +2,3 @@ project_id = "ydpvfsemhbrkhtjjjwqs"
 
 [functions.customer-assistant]
 verify_jwt = false
-
-[functions.customer-password-register]
-verify_jwt = false
