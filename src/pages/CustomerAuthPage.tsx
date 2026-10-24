@@ -51,17 +51,6 @@ const arabicDigitsToLatin = (value: string) =>
 
 const defaultRegionForCountry = (country: string) => (country === "YE" ? "عدن" : "غير محدد");
 
-const authPasswordFor = async (phone: string, password: string) => {
-  if (password.length >= 6) return password;
-
-  const source = new TextEncoder().encode(`genan:v1:${phone}:${password}`);
-  const digest = await crypto.subtle.digest("SHA-256", source);
-
-  return Array.from(new Uint8Array(digest))
-    .map((byte) => byte.toString(16).padStart(2, "0"))
-    .join("");
-};
-
 const CustomerAuthPage = () => {
   const navigate = useNavigate();
   const { setCustomer, setRegion } = useStore();
@@ -141,32 +130,6 @@ const CustomerAuthPage = () => {
     if (error) throw error;
     if (!data?.customer) throw new Error(data?.error || "تعذر إنشاء ملف العميل");
     return data.customer as CustomerRow;
-  };
-
-  const signInCompatible = async (phone: string, rawPassword: string) => {
-    const authPassword = await authPasswordFor(phone, rawPassword);
-    const candidates = Array.from(new Set([rawPassword, authPassword]));
-    let lastError: unknown = null;
-
-    for (const candidate of candidates) {
-      const result = await supabase.auth.signInWithPassword({ phone, password: candidate });
-      if (!result.error && result.data.user) return result.data;
-      lastError = result.error;
-    }
-
-    throw lastError || new Error("رقم الهاتف أو كلمة المرور غير صحيحة");
-  };
-
-  const migrateLegacyCustomer = async (phone: string, rawPassword: string) => {
-    const { data, error } = await supabase.functions.invoke("legacy-customer-migrate", {
-      body: { phone, password: rawPassword },
-    });
-
-    if (error || !data?.ok) return null;
-
-    const login = await signInCompatible(phone, rawPassword).catch(() => null);
-    if (!login?.user) return null;
-    return getOwnCustomer(login.user.id);
   };
 
   useEffect(() => {
@@ -267,17 +230,8 @@ const CustomerAuthPage = () => {
         return;
       }
 
-      const loginData = await signInCompatible(phone, password).catch(() => null);
-
-      if (!loginData?.user) {
-        const migrated = await migrateLegacyCustomer(phone, password);
-        if (migrated) {
-          persistCustomer(migrated);
-          toast({ title: "تم تسجيل الدخول", description: `أهلاً ${migrated.name}` });
-          navigate("/home", { replace: true });
-          return;
-        }
-
+      const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ phone, password });
+      if (loginError || !loginData.user) {
         throw new Error("رقم الهاتف أو كلمة المرور غير صحيحة");
       }
 
@@ -290,7 +244,6 @@ const CustomerAuthPage = () => {
           region: defaultRegionForCountry(country),
           country,
           channel: "none",
-          legacyPassword: password,
         });
       }
 
@@ -306,8 +259,6 @@ const CustomerAuthPage = () => {
 
       if (lower.includes("already registered") || lower.includes("user already") || lower.includes("already exists")) {
         friendly = "رقم الهاتف مسجل مسبقاً. اختر تسجيل الدخول واستخدم نفس الرقم وكلمة المرور.";
-      } else if (lower.includes("database error saving new user") || lower.includes("existing customer requires password migration")) {
-        friendly = "هذا الرقم موجود كحساب سابق. اختر تسجيل الدخول وسيتم ربط الحساب القديم تلقائياً.";
       } else if (lower.includes("phone provider is disabled") || lower.includes("phone signups are disabled")) {
         friendly = "تسجيل الهاتف معطّل في Supabase. فعّله من Authentication → Providers.";
       } else if (lower.includes("invalid login credentials")) {
