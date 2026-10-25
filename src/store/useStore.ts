@@ -136,7 +136,7 @@ export const useStore = create<StoreState>()(
       setRegion: (region) => set({ region }),
 
       currencyMode: "SAR",
-      setCurrencyMode: (currencyMode) => set({ currencyMode }),
+      setCurrencyMode: () => set({ currencyMode: "SAR" }),
 
       setCustomer: (customer) => set({ customer }),
 
@@ -292,7 +292,14 @@ export const useStore = create<StoreState>()(
       partialize: (state) => ({
         customer: state.customer,
         cart: state.cart,
-        currencyMode: state.currencyMode,
+        currencyMode: "SAR",
+      }),
+      // Old localStorage snapshots can still hold YER_SOUTH/YER_NORTH.
+      // Force SAR during hydration before any customer price/order is rendered.
+      merge: (persisted, current) => ({
+        ...current,
+        ...(persisted as Partial<StoreState>),
+        currencyMode: "SAR",
       }),
     }
   )
