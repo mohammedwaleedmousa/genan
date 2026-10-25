@@ -91,7 +91,7 @@ const NavItem = ({
   <button
     type="button"
     onClick={onPress}
-    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F5FAF9] text-[#8C6B32]" : "text-[#0E0E0E] hover:bg-[#FAFAFA]"}`}
+    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F5FAF9] text-[#8C6B32]" : "text-[#0E0E0E]"}`}
   >
     {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#0E0E0E]" />}
     <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E9F6F4] text-[#8C6B32]" : "bg-[#FAFAFA] text-[#686868]"}`}>
@@ -274,7 +274,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             <div className="flex items-center">
               <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
                 <SheetTrigger asChild>
-                  <button type="button" aria-label="فتح القائمة" onClick={() => { if (mobileSearchOpen) closeSearch(); }} className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+                  <button type="button" aria-label="فتح القائمة" onClick={() => { if (mobileSearchOpen) closeSearch(); }} className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                     <List size={22} />
                   </button>
                 </SheetTrigger>
@@ -317,12 +317,12 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
                   <div className="border-t border-[#F7F7F7] bg-[#FAFAFA] p-4">
                     {customer ? (
-                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
                         <SignOut size={18} />
                         تسجيل الخروج
                       </button>
                     ) : (
-                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors hover:bg-[#282828]">
+                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors">
                         <SignIn size={18} />
                         تسجيل الدخول
                       </button>
@@ -330,7 +330,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                   </div>
                 </SheetContent>
               </Sheet>
-              <button type="button" onClick={() => { if (mobileSearchOpen) closeSearch(); else { setMenuOpen(false); setMobileSearchOpen(true); } }} aria-label={mobileSearchOpen ? "إغلاق البحث" : "فتح البحث"} aria-expanded={mobileSearchOpen} aria-controls="genan-mobile-nav-search" className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+              <button type="button" onClick={() => { if (mobileSearchOpen) closeSearch(); else { setMenuOpen(false); setMobileSearchOpen(true); } }} aria-label={mobileSearchOpen ? "إغلاق البحث" : "فتح البحث"} aria-expanded={mobileSearchOpen} aria-controls="genan-mobile-nav-search" className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                 <MagnifyingGlass size={22} weight="regular" />
               </button>
             </div>
@@ -341,11 +341,11 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
             <div className="flex shrink-0 items-center gap-1">
               {/* Bag occupies the former currency slot and always opens the full cart page. */}
-              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                 <ShoppingBag size={22} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
-              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-white/60 hover:text-[#8C6B32]">
+              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                 <ShoppingCart size={21} weight="regular" />
               </button>
             </div>
@@ -372,7 +372,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
               </label>
 
               {searchFocused && (
-                <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-1/2 z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[18px] font-light text-[#8C6B32] hover:bg-[#FAFAFA]">×</button>
+                <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-1/2 z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[18px] font-light text-[#8C6B32]">×</button>
               )}
 
               {searchPanelOpen && suggestions.length > 0 && (
@@ -389,18 +389,18 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </form>
 
             <div className="flex shrink-0 items-center gap-1.5">
-              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
                 <ShoppingBag size={20} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
-              <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+              <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
                 <Heart size={20} weight="regular" />
                 {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
               </Link>
-              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-white/65 hover:bg-white/60 hover:text-[#8C6B32]">
+              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-white/65 hover:text-[#8C6B32]">
                 <ShoppingCart size={20} weight="regular" />
               </button>
-              <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+              <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
                 <User size={17} />
                 <span className="hidden lg:inline">{customer ? "حسابي" : "تسجيل الدخول"}</span>
               </Link>
@@ -425,7 +425,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </label>
 
             {searchFocused && (
-              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-[22px] z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[20px] font-light leading-none text-[#8C6B32] transition-colors hover:bg-[#FAFAFA] hover:text-[#8C6B32] active:bg-[#F7F7F7]">×</button>
+              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-[22px] z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[20px] font-light leading-none text-[#8C6B32] transition-colors hover:text-[#8C6B32] active:bg-[#F7F7F7]">×</button>
             )}
 
             {searchPanelOpen && suggestions.length > 0 && (
