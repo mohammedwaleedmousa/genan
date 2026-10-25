@@ -1,129 +1,72 @@
-/* Genan unified storefront layer
-   Visual system only: preserves all storefront business logic. */
-
+/*
+ * Genan boutique palette over Flamingo's responsive storefront geometry.
+ * UI-only: keeps Genan catalogue, auth, checkout, inventory and admin logic.
+ * Unlike the previous square-corner layer, this preserves rounded cards,
+ * search controls, sheet dialogs and image treatment from the reference UI.
+ */
 body[data-storefront="genan"] {
-  --genan-black: #0e0e0e;
-  --genan-white: #ffffff;
-  --genan-paper: #fafafa;
-  --genan-line: #eaeaea;
-  --genan-gold: #d8c29a;
-  --genan-gold-light: #e6d7b8;
-  --genan-aqua: #a9d8d3;
-  --genan-muted: #707070;
+  --genan-black: #0E0E0E;
+  --genan-white: #FFFFFF;
+  --genan-paper: #FAFAFA;
+  --genan-gold: #D8C29A;
+  --genan-gold-ink: #8C6B32;
+  --genan-turquoise: #A9D8D3;
+  --genan-border: #EAEAEA;
+  --genan-muted: #686868;
   background: var(--genan-white);
   color: var(--genan-black);
 }
 
-body[data-storefront="genan"] main {
-  background: var(--genan-white);
-  color: var(--genan-black);
-}
-
-body[data-storefront="genan"] main :is(h1,h2,h3,h4) {
-  color: var(--genan-black);
-  letter-spacing: -0.035em;
-}
-
-body[data-storefront="genan"] main :is(input,select,textarea) {
-  border-radius: 0 !important;
-  border-color: #dddddd !important;
-  background: #ffffff !important;
-  color: var(--genan-black) !important;
-  box-shadow: none !important;
-}
-
-body[data-storefront="genan"] main :is(input,select,textarea):focus {
-  border-color: var(--genan-aqua) !important;
-  box-shadow: 0 0 0 1px var(--genan-aqua) !important;
-  outline: none !important;
-}
-
-body[data-storefront="genan"] main button,
-body[data-storefront="genan"] main a {
+body[data-storefront="genan"] :is(button, a) {
   -webkit-tap-highlight-color: transparent;
 }
 
-body[data-storefront="genan"] main button[class*="rounded"],
-body[data-storefront="genan"] main a[class*="rounded"] {
-  border-radius: 0 !important;
+body[data-storefront="genan"] :is(button, a, input, select, textarea):focus-visible {
+  outline: 2px solid #56948D;
+  outline-offset: 2px;
 }
 
-body[data-storefront="genan"] main :is(.shadow-sm,.shadow-md,.shadow-lg,.shadow-xl,.shadow-2xl) {
-  box-shadow: none !important;
+/* Consistent product-card dimensions and legible Genan pricing. */
+body[data-storefront="genan"] main a[href^="/product/"] > article {
+  background: #FFFFFF;
+  border-color: var(--genan-border);
 }
 
-body[data-storefront="genan"] main [class*="bg-[#FFFDFC]"],
-body[data-storefront="genan"] main [class*="bg-[#FFF9F7]"],
-body[data-storefront="genan"] main [class*="bg-[#F8F6F0]"],
-body[data-storefront="genan"] main [class*="bg-[#F6F3EA]"] {
-  background: #ffffff !important;
+body[data-storefront="genan"] main a[href^="/product/"] > article:hover {
+  border-color: #D8C29A;
+  box-shadow: 0 12px 32px rgba(14, 14, 14, 0.06);
 }
 
-body[data-storefront="genan"] main [class*="border-[#F0E6E2]"],
-body[data-storefront="genan"] main [class*="border-[#E5DED0]"],
-body[data-storefront="genan"] main [class*="border-[#DED8C9]"],
-body[data-storefront="genan"] main [class*="border-[#EADFDA]"] {
-  border-color: var(--genan-line) !important;
+body[data-storefront="genan"] main a[href^="/product/"] > article :is(h3, p) {
+  overflow-wrap: anywhere;
 }
 
-body[data-storefront="genan"] main [class*="text-[#20392E]"],
-body[data-storefront="genan"] main [class*="text-[#2D4136]"],
-body[data-storefront="genan"] main [class*="text-[#302725]"],
-body[data-storefront="genan"] main [class*="text-[#413432]"],
-body[data-storefront="genan"] main [class*="text-[#433634]"] {
-  color: var(--genan-black) !important;
-}
-
-body[data-storefront="genan"] main [class*="text-[#899289]"],
-body[data-storefront="genan"] main [class*="text-[#8A938B]"],
-body[data-storefront="genan"] main [class*="text-[#748078]"],
-body[data-storefront="genan"] main [class*="text-[#929A92]"] {
-  color: var(--genan-muted) !important;
-}
-
-body[data-storefront="genan"] main [class*="text-[#D8C29A]"] {
-  color: #9a825b !important;
-}
-
-body[data-storefront="genan"] main [class*="bg-[#0E0E0E]"] {
-  background: var(--genan-black) !important;
-}
-
-body[data-storefront="genan"] main [class*="bg-[#A9D8D3]"] {
-  background: var(--genan-aqua) !important;
-}
-
-body[data-storefront="genan"] main [role="dialog"],
-body[data-storefront="genan"] [data-radix-dialog-content],
-body[data-storefront="genan"] [data-radix-popover-content],
-body[data-storefront="genan"] [data-radix-menu-content] {
-  border-radius: 0 !important;
-  border-color: var(--genan-line) !important;
-  box-shadow: 0 24px 70px rgba(14,14,14,.12) !important;
+/* Turquoise only appears as a discreet focus/interaction accent. */
+body[data-storefront="genan"] main input:focus-visible,
+body[data-storefront="genan"] main select:focus-visible,
+body[data-storefront="genan"] main textarea:focus-visible {
+  border-color: var(--genan-turquoise);
 }
 
 body[data-storefront="genan"] .genan-surface {
+  border: 1px solid var(--genan-border);
+  border-radius: 18px;
   background: var(--genan-white);
-  border: 1px solid var(--genan-line);
-}
-
-body[data-storefront="genan"] .genan-eyebrow {
-  color: #9a825b;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .32em;
-}
-
-body[data-storefront="genan"] .genan-aqua-detail {
-  color: var(--genan-aqua);
 }
 
 @media (max-width: 767px) {
   body[data-storefront="genan"] main {
+    min-width: 0;
     overflow-x: clip;
   }
 
-  body[data-storefront="genan"] main :is(input,select,textarea) {
+  body[data-storefront="genan"] :is(input, select, textarea) {
     min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-storefront="genan"] main a[href^="/product/"] > article {
+    transition: none;
   }
 }

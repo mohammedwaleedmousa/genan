@@ -69,6 +69,35 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
     refetchOnReconnect: false,
   });
 
+  // Keep the storefront shoppable before the merchandiser publishes homepage_sections.
+  // Genan demo items are view-only; ProductCard retains their purchase guard.
+  const { data: fallbackProducts = [] } = useQuery({
+    queryKey: ["genan-home-fallback-products", "reference-layout-v1"],
+    enabled: sections.length === 0,
+    queryFn: async () => {
+      const { data: live, error: liveError } = await supabase
+        .from("products")
+        .select(PRODUCT_CARD_SELECT)
+        .eq("is_active", true)
+        .eq("in_stock", true)
+        .order("sort_order", { ascending: true })
+        .limit(12);
+      if (liveError) throw liveError;
+      if (live?.length) return live.map(mapProductCard);
+      const { data: demo, error: demoError } = await supabase
+        .from("products")
+        .select(PRODUCT_CARD_SELECT)
+        .eq("is_active", true)
+        .like("slug", "genan-demo-20261022-%")
+        .order("sort_order", { ascending: true })
+        .limit(12);
+      if (demoError) throw demoError;
+      return (demo || []).map(mapProductCard);
+    },
+    staleTime: HOME_CACHE_MS,
+    refetchOnWindowFocus: false,
+  });
+
   const sectionSignature = useMemo(
     () => sections.map((section) => `${section.id}:${getSectionFetchLimit(section)}`).join(","),
     [sections],
@@ -213,7 +242,28 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
     );
   };
 
-  if (!rendered.length) return null;
+  if (!rendered.length) {
+    return <>
+      {fallbackProducts.length > 0 && (
+        <section className="bg-white py-10 md:py-20" aria-label="مختارات جنان">
+          <div className="mx-auto max-w-[1500px] px-3 md:px-8">
+            <div className="mb-7 flex items-end justify-between gap-4 md:mb-10">
+              <div>
+                <span className="text-[10px] font-semibold tracking-[.24em] text-[#8C6B32]">GENAN EDIT</span>
+                <h2 className="mt-2 text-[24px] font-semibold tracking-tight text-[#0E0E0E] md:text-[38px]">مختارات جنان</h2>
+              </div>
+              <Link to="/products" className="inline-flex items-center gap-2 text-[10px] font-semibold text-[#0E0E0E] hover:text-[#8C6B32]">عرض الكل <ArrowLeft className="h-4 w-4" /></Link>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-5 lg:grid-cols-4">
+              {fallbackProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} />)}
+            </div>
+          </div>
+        </section>
+      )}
+      {betweenSections}
+      {afterSections}
+    </>;
+  }
 
   return (
     <>

@@ -1,264 +1,222 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ArrowUpLeft, Headphones, ShieldCheck, Truck } from "lucide-react";
+import { ArrowLeft, BadgePercent, Sparkles, TrendingUp } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
-import CartDrawer from "@/components/CartDrawer";
-import GenanHomeHero from "@/components/GenanHomeHero";
-import ProductCard from "@/components/ProductCard";
 import Footer from "@/components/Footer";
-import { supabase } from "@/integrations/supabase/client";
-import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
-import { optimizeImage } from "@/lib/imageUrl";
-import "@/styles/genanHomeV3.css";
+import CartDrawer from "@/components/CartDrawer";
+import HeroSlider from "@/components/HeroSlider";
+import BrandsStrip from "@/components/BrandsStrip";
+import GenanServices from "@/components/GenanServices";
+import HomeManagedSections from "@/components/HomeManagedSections";
 
-type HomeCategory = {
-  id: string;
-  slug: string;
-  name_ar: string;
-  name: string;
-  image_url: string | null;
+import { supabase } from "@/integrations/supabase/client";
+import { useNearViewport } from "@/hooks/useNearViewport";
+import { useCustomerExperience } from "@/hooks/useCustomerExperience";
+import { optimizeImage } from "@/lib/imageUrl";
+
+type FeaturedCategoryItem = {
+  title: string;
+  subtitle: string;
+  image: string;
+  link: string;
 };
 
-const categoryPlaceholders = [
-  {
-    title: "الحقائب",
-    caption: "BAGS",
-    image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "الملابس",
-    caption: "FASHION",
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "الأحذية",
-    caption: "SHOES",
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=900&q=82",
-  },
-  {
-    title: "الإكسسوارات",
-    caption: "ACCESSORIES",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=82",
-  },
-] as const;
+type EditorialBanner = {
+  image_url: string;
+  title_ar: string | null;
+  subtitle_ar: string | null;
+  cta_text_ar: string | null;
+  cta_link: string | null;
+  image_zoom: number | null;
+  image_position_x: number | null;
+  image_position_y: number | null;
+};
 
-const HomePage = () => {
-  const {
-    data: featured = [],
-    isLoading: featuredLoading,
-    isError: featuredError,
-    refetch: refetchFeatured,
-  } = useQuery({
-    queryKey: ["genan-v3-featured-products"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("products")
-        .select(PRODUCT_CARD_SELECT)
-        .eq("is_active", true)
-        .eq("in_stock", true)
-        .order("sort_order", { ascending: true })
-        .limit(8);
-      if (error) throw error;
-      return (data || []).map(mapProductCard);
-    },
-    staleTime: 3 * 60 * 1000,
-  });
+const isLingerieCategory = (category: { slug?: string | null; name?: string | null; name_ar?: string | null }) => {
+  const value = `${category.slug || ""} ${category.name || ""} ${category.name_ar || ""}`
+    .toLowerCase()
+    .replace(/[أإآ]/g, "ا")
+    .replace(/\s+/g, " ");
+  return /lingerie|لانجري|لانجيري|لانجيرى|ملابس داخليه|ملابس داخلية/.test(value);
+};
 
-  const {
-    data: demoPreview = [],
-    isLoading: demoLoading,
-    isError: demoError,
-    refetch: refetchDemo,
-  } = useQuery({
-    queryKey: ["genan-v3-demo-preview"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("products")
-        .select(PRODUCT_CARD_SELECT)
-        .eq("is_active", true)
-        .like("slug", "genan-demo-20261022-%")
-        .order("sort_order", { ascending: true })
-        .limit(8);
-      if (error) throw error;
-      return (data || []).map(mapProductCard);
-    },
-    staleTime: 2 * 60 * 1000,
-    enabled: featured.length === 0 && !featuredLoading && !featuredError,
-  });
+const DesktopDiscovery = () => (
+  <section className="hidden bg-background md:block" dir="rtl" aria-label="اكتشف جنان">
+    <div className="mx-auto grid w-full max-w-[1500px] grid-cols-3 gap-3 px-6 pb-3 pt-5 lg:px-8">
+      <Link to="/new-arrivals" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EAEAEA] bg-[#FAFAFA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D8C29A] hover:shadow-[0_14px_34px_rgba(14,14,14,0.08)]">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#8C6B32] shadow-sm"><Sparkles className="h-5 w-5" strokeWidth={1.5} /></span>
+        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#0E0E0E]">وصل حديثاً</span><span className="mt-1 block text-[9px] text-[#8C6B32]">اكتشف أحدث القطع فور وصولها</span></span>
+        <ArrowLeft className="h-4 w-4 text-[#8C6B32] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
+      </Link>
+      <Link to="/seasonal-offers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EAEAEA] bg-white px-5 transition-all hover:-translate-y-0.5 hover:border-[#D8C29A] hover:shadow-[0_14px_34px_rgba(14,14,14,0.08)]">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FAFAFA] text-[#8C6B32]"><BadgePercent className="h-5 w-5" strokeWidth={1.5} /></span>
+        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#0E0E0E]">العروض</span><span className="mt-1 block text-[9px] text-[#8C6B32]">اختيارات مميزة بأسعار أفضل</span></span>
+        <ArrowLeft className="h-4 w-4 text-[#8C6B32] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
+      </Link>
+      <Link to="/best-sellers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EAEAEA] bg-[#FAFAFA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D8C29A] hover:shadow-[0_14px_34px_rgba(14,14,14,0.08)]">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#8C6B32] shadow-sm"><TrendingUp className="h-5 w-5" strokeWidth={1.5} /></span>
+        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#0E0E0E]">الأكثر مبيعاً</span><span className="mt-1 block text-[9px] text-[#8C6B32]">القطع التي يختارها عملاؤنا أكثر</span></span>
+        <ArrowLeft className="h-4 w-4 text-[#8C6B32] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
+      </Link>
+    </div>
+  </section>
+);
 
-  const { data: categories = [] } = useQuery({
-    queryKey: ["genan-v3-home-categories"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("categories")
-        .select("id,slug,name_ar,name,image_url")
-        .eq("is_active", true)
-        .is("parent_id", null)
-        .order("sort_order", { ascending: true })
-        .limit(4);
-      if (error) throw error;
-      return (data || []) as HomeCategory[];
-    },
-    staleTime: 10 * 60 * 1000,
-  });
-
-  const products = featured.length ? featured : demoPreview;
-  const displayingDemo = featured.length === 0 && demoPreview.length > 0;
-  const loading = featuredLoading || (featured.length === 0 && !featuredError && demoLoading);
-  const error = featuredError || (featured.length === 0 && demoError);
-
-  const categoryCards = categories.length
-    ? categories.map((category, i) => ({
-        id: category.id,
-        title: category.name_ar || category.name,
-        caption: category.name,
-        image: category.image_url ? optimizeImage(category.image_url, 800, 82) : categoryPlaceholders[i % categoryPlaceholders.length].image,
-        to: `/products?category=${encodeURIComponent(category.slug)}`,
-      }))
-    : categoryPlaceholders.map((item, i) => ({ ...item, id: `preview-${i}`, to: "/categories" }));
+const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
+  if (!loading && items.length === 0) return null;
 
   return (
-    <div className="genan-v3-page" dir="rtl">
-      <Navbar />
-      <CartDrawer />
-
-      <main id="main-content" className="genan-v3-main">
-        <div className="genan-v3-topline">
-          <span dir="ltr">GENAN / CURATED STYLE</span>
-          <span>تفاصيل مختارة لأناقة كل يوم</span>
-          <Link to="/new-arrivals">شاهدي الجديد <ArrowLeft size={13} aria-hidden="true" /></Link>
+    <section className="w-full overflow-hidden bg-background py-5 md:py-10" dir="rtl" aria-label="الأقسام">
+      <div className="mx-auto w-full max-w-[1500px] px-3 md:px-6 lg:px-8">
+        <div className="mb-3 flex items-end justify-between gap-3 md:mb-7">
+          <div>
+            <div className="mb-1 flex items-center gap-2 md:mb-2">
+              <span className="h-[2px] w-4 rounded-full bg-[#0E0E0E] md:w-6" />
+              <span className="font-serif text-[6px] uppercase tracking-[0.2em] text-[#8C6B32] md:text-[8px]">CATEGORIES</span>
+            </div>
+            <h2 className="text-[16px] font-semibold tracking-[-0.02em] text-foreground md:text-[27px]">تسوق حسب القسم</h2>
+            <p className="mt-2 hidden text-[10px] text-[#8C6B32] md:block">ابدأ من القسم المناسب واختصر طريقك إلى ما تبحث عنه.</p>
+          </div>
+          <Link to="/categories" className="flex shrink-0 items-center gap-1 border-b border-border pb-0.5 text-[7px] font-medium text-[#8C6B32] transition-opacity active:opacity-60 md:gap-2 md:text-[10px]">
+            عرض كل الأقسام
+            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} />
+          </Link>
         </div>
 
-        <GenanHomeHero />
-
-        <section className="genan-v3-categories genan-v3-container" aria-labelledby="genan-v3-categories-title">
-          <div className="genan-v3-section-heading">
-            <div>
-              <span className="genan-v3-section-index" dir="ltr">01 / DISCOVER</span>
-              <h2 id="genan-v3-categories-title">عالم جنان، بأسلوبك</h2>
-              <p>من القطعة الأساسية إلى التفاصيل التي تكمل إطلالتك.</p>
-            </div>
-            <Link className="genan-v3-arrow-link" to="/categories">كل الأقسام <ArrowUpLeft size={17} aria-hidden="true" /></Link>
-          </div>
-          <div className="genan-v3-category-grid">
-            {categoryCards.map((category, index) => (
-              <Link to={category.to} className="genan-v3-category-card" key={category.id}>
-                <div className="genan-v3-category-photo">
-                  <img src={category.image} alt={category.title} loading="lazy" decoding="async" />
-                  <span className="genan-v3-category-count" dir="ltr">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="genan-v3-category-icon"><ArrowUpLeft size={19} strokeWidth={1.5} aria-hidden="true" /></span>
-                </div>
-                <div className="genan-v3-category-info">
-                  <h3>{category.title}</h3>
-                  <span dir="ltr">{category.caption}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="genan-v3-products" aria-labelledby="genan-v3-products-title">
-          <div className="genan-v3-container">
-            <div className="genan-v3-section-heading">
-              <div>
-                <span className="genan-v3-section-index" dir="ltr">02 / THE SELECTION</span>
-                <h2 id="genan-v3-products-title">اختيارات تستحق الاكتشاف</h2>
-                <p>{displayingDemo ? "منتجات تجريبية للمعاينة فقط — ليست متاحة للشراء" : "تشكيلة مختارة من عالم الموضة والإكسسوارات."}</p>
-              </div>
-              <Link className="genan-v3-arrow-link" to="/products">تسوقي كل المنتجات <ArrowUpLeft size={17} aria-hidden="true" /></Link>
-            </div>
-
-            {products.length > 0 ? (
-              <div className="genan-v3-products-grid">
-                {products.map((product, index) => (
-                  <ProductCard key={product.id} product={product} index={index} />
+        <div className="-mx-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
+          <div className="flex w-max gap-2.5 after:block after:w-3 after:shrink-0 after:content-[''] md:grid md:w-full md:grid-cols-4 md:gap-4 md:after:hidden lg:grid-cols-6 xl:grid-cols-8">
+            {loading
+              ? Array.from({ length: 8 }).map((_, index) => (
+                  <div key={index} className="block w-[78px] shrink-0 sm:w-[90px] md:w-auto" aria-hidden="true">
+                    <div className="aspect-square w-full animate-pulse rounded-[15px] bg-muted md:aspect-[4/5] md:rounded-[20px]" />
+                    <div className="mx-auto mt-2 h-2 w-10 animate-pulse rounded-full bg-muted" />
+                  </div>
+                ))
+              : items.slice(0, 8).map((item, index) => (
+                  <Link key={`${item.title}-${item.link}`} to={item.link} className="group block w-[78px] shrink-0 select-none [-webkit-tap-highlight-color:transparent] sm:w-[90px] md:w-auto">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-[15px] border border-border/60 bg-muted/40 md:aspect-[4/5] md:rounded-[20px] md:border-[#F7F7F7]">
+                      <img src={optimizeImage(item.image, 360, 78)} alt={item.title} loading={index < 5 ? "eager" : "lazy"} decoding="async" fetchPriority={index < 2 ? "high" : "auto"} width={360} height={450} className="h-full w-full object-cover object-center transition-transform duration-500 md:group-hover:scale-[1.045]" />
+                      <div className="absolute inset-x-0 bottom-0 hidden h-2/5 bg-gradient-to-t from-black/45 to-transparent md:block" />
+                      <div className="absolute inset-x-0 bottom-0 hidden p-3 text-white md:block">
+                        <p className="truncate text-[11px] font-semibold">{item.title}</p>
+                        <p className="mt-0.5 truncate font-serif text-[6px] uppercase tracking-[0.12em] text-white/75">{item.subtitle}</p>
+                      </div>
+                    </div>
+                    <div className="mt-1.5 text-center md:hidden">
+                      <p className="truncate text-[8px] font-semibold text-foreground">{item.title}</p>
+                      <p className="mt-0.5 truncate font-serif text-[5px] uppercase tracking-[0.08em] text-muted-foreground">{item.subtitle}</p>
+                    </div>
+                  </Link>
                 ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const EditorialSection = ({ banner }: { banner: EditorialBanner | null }) => {
+  const title = banner?.title_ar?.trim() || "الأناقة ليست ما ترتديه، بل ما يبقى في الذاكرة.";
+  const subtitle = banner?.subtitle_ar?.trim() || "مختارات منتقاة لمن يقدّر التفاصيل والجودة والتصميم الذي لا يحتاج إلى المبالغة.";
+  const ctaText = banner?.cta_text_ar?.trim() || "اكتشف المجموعة";
+  const ctaLink = banner?.cta_link?.trim() || "/products";
+  const hasImage = Boolean(banner?.image_url?.trim());
+
+  if (hasImage) {
+    return (
+      <section className="bg-[#FAFAFA] py-6 md:py-14">
+        <div className="mx-auto max-w-[1500px] px-0 md:px-6 lg:px-8">
+          <div className="relative min-h-[360px] overflow-hidden md:grid md:min-h-[500px] md:grid-cols-[1.35fr_0.85fr] md:rounded-[28px] md:border md:border-[#F7F7F7] md:bg-white md:shadow-[0_24px_70px_rgba(14,14,14,0.07)]">
+            <div className="absolute inset-0 md:relative md:inset-auto">
+              <img src={optimizeImage(banner!.image_url, 1400, 80)} alt="" loading="lazy" decoding="async" width={1400} height={900} className="h-full w-full object-cover" style={{ objectPosition: `${Number(banner?.image_position_x ?? 50)}% ${Number(banner?.image_position_y ?? 50)}%`, transform: `scale(${Number(banner?.image_zoom ?? 1)})` }} />
+              <div className="absolute inset-0 bg-black/35 md:bg-gradient-to-l md:from-black/10 md:via-transparent md:to-black/5" />
+            </div>
+            <div className="relative z-10 flex min-h-[360px] flex-col items-center justify-center px-5 py-12 text-center md:min-h-[500px] md:items-start md:px-12 md:text-right lg:px-16">
+              <div className="mb-4 flex items-center justify-center gap-2 md:justify-start">
+                <span className="h-px w-6 bg-white/55 md:bg-[#D8C29A]" />
+                <span className="font-serif text-[6px] uppercase tracking-[0.24em] text-white/85 md:text-[8px] md:text-[#8C6B32]">GENAN EDIT</span>
               </div>
-            ) : loading ? (
-              <div className="genan-v3-products-grid" role="status" aria-label="جار تحميل المنتجات">
-                {Array.from({ length: 4 }, (_, i) => <div className="genan-v3-product-skeleton" key={i} />)}
-              </div>
-            ) : (
-              <div className="genan-v3-empty">
-                <span className="genan-v3-empty-mark" dir="ltr">G.</span>
-                <h3>{error ? "تعذّر تحميل التشكيلة" : "تشكيلتنا قيد التجهيز"}</h3>
-                <p>{error ? "يرجى المحاولة مرة أخرى لعرض المنتجات." : "ترقّبي قطعًا جديدة تُضاف إلى عالم جنان."}</p>
-                {error ? (
-                  <button type="button" onClick={() => { void refetchFeatured(); void refetchDemo(); }} className="genan-v3-btn genan-v3-btn-dark">إعادة المحاولة</button>
-                ) : (
-                  <Link to="/categories" className="genan-v3-btn genan-v3-btn-dark">تصفحي الأقسام <ArrowLeft size={16} aria-hidden="true" /></Link>
-                )}
-              </div>
-            )}
-            <div className="genan-v3-products-bottom">
-              <Link to="/products">اكتشفي المزيد من جنان <ArrowLeft size={16} aria-hidden="true" /></Link>
+              <h2 className="max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-white drop-shadow-sm md:text-[34px] md:leading-[1.65] md:text-[#0E0E0E] md:drop-shadow-none">{title}</h2>
+              <p className="mt-4 max-w-[450px] text-[8px] leading-6 text-white/85 md:text-[11px] md:leading-8 md:text-[#8C6B32]">{subtitle}</p>
+              <Link to={ctaLink} className="mt-5 inline-flex items-center gap-1.5 border-b border-white/50 pb-1 text-[7px] font-semibold text-white md:mt-7 md:gap-2 md:border-[#D8C29A] md:text-[10px] md:text-[#8C6B32]">{ctaText}<ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} /></Link>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+    );
+  }
 
-        <section className="genan-v3-story genan-v3-container" aria-labelledby="genan-v3-story-title">
-          <div className="genan-v3-story-content">
-            <div className="genan-v3-story-label" dir="ltr">THE GENAN POINT OF VIEW</div>
-            <span className="genan-v3-story-rule" aria-hidden="true" />
-            <h2 id="genan-v3-story-title">الأناقة ليست تفصيلًا عابرًا.</h2>
-            <p>هي اختياراتك التي تعبّر عنك. في جنان، نمنح القطع المميزة مساحة لتتألق بطريقتك الخاصة.</p>
-            <Link className="genan-v3-btn genan-v3-btn-gold" to="/store-info#about">
-              اكتشفي جنان <ArrowUpLeft size={18} aria-hidden="true" />
-            </Link>
-            <div className="genan-v3-story-signature" dir="ltr">GENAN</div>
-          </div>
-          <div className="genan-v3-story-image">
-            <img
-              src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1350&q=85"
-              alt="مجموعة أزياء بتنسيقات هادئة"
-              loading="lazy"
-              decoding="async"
-            />
-            <span dir="ltr">STYLE IS PERSONAL.</span>
-          </div>
-        </section>
+  return (
+    <section className="bg-background px-4 py-11 md:py-20">
+      <div className="relative z-10 mx-auto flex max-w-[850px] flex-col items-center justify-center px-4 text-center">
+        <div className="mx-auto mb-4 flex items-center justify-center gap-2"><span className="h-px w-6 bg-border" /><span className="font-serif text-[6px] uppercase tracking-[0.24em] text-[#8C6B32]">GENAN EDIT</span><span className="h-px w-6 bg-border" /></div>
+        <h2 className="mx-auto max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-foreground md:text-[36px] md:leading-[1.7]">{title}</h2>
+        <p className="mx-auto mt-4 max-w-[450px] text-[8px] leading-6 text-muted-foreground md:text-[10px] md:leading-7">{subtitle}</p>
+        <Link to={ctaLink} className="mx-auto mt-5 inline-flex items-center gap-1.5 border-b border-border pb-1 text-[7px] font-semibold text-[#8C6B32] md:text-[8px]">{ctaText}<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
+      </div>
+    </section>
+  );
+};
 
-        <section className="genan-v3-edits genan-v3-container" aria-labelledby="genan-v3-edits-title">
-          <div className="genan-v3-section-heading">
-            <div>
-              <span className="genan-v3-section-index" dir="ltr">03 / EXPLORE MORE</span>
-              <h2 id="genan-v3-edits-title">وجهاتك القادمة</h2>
-              <p>مساحتان لاكتشاف المزيد من الاختيارات.</p>
-            </div>
-          </div>
-          <div className="genan-v3-edits-grid">
-            <Link className="genan-v3-edit-card genan-v3-edit-card--new" to="/new-arrivals">
-              <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1300&q=82" loading="lazy" decoding="async" alt="إطلالة أزياء حديثة" />
-              <span className="genan-v3-edit-wash" aria-hidden="true" />
-              <span className="genan-v3-edit-type" dir="ltr">JUST LANDED</span>
-              <span className="genan-v3-edit-bottom"><span><strong>وصل حديثًا</strong><small>جديد عالم جنان</small></span><ArrowUpLeft size={22} aria-hidden="true" /></span>
-            </Link>
-            <Link className="genan-v3-edit-card genan-v3-edit-card--brands" to="/brands">
-              <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1300&q=82" loading="lazy" decoding="async" alt="حقائب بتصاميم متنوعة" />
-              <span className="genan-v3-edit-wash" aria-hidden="true" />
-              <span className="genan-v3-edit-type" dir="ltr">THE BRAND EDIT</span>
-              <span className="genan-v3-edit-bottom"><span><strong>عالم الماركات</strong><small>اكتشفي تشكيلات متنوعة</small></span><ArrowUpLeft size={22} aria-hidden="true" /></span>
-            </Link>
-          </div>
-        </section>
+const HomePage = () => {
+  const { data: customerExperience } = useCustomerExperience();
+  const showHomeSection = (section: string) => customerExperience?.homeSections[section] !== false;
 
-        <section className="genan-v3-services" aria-label="خدمات بوتيك جنان">
-          <div className="genan-v3-container genan-v3-services-grid">
-            {[
-              { icon: Headphones, title: "نحن معك", detail: "تواصلي معنا للاستفسار عن طلباتك." },
-              { icon: ShieldCheck, title: "خصوصيتك تهمّنا", detail: "تعرّفي على سياسة الخصوصية." },
-              { icon: Truck, title: "الشحن والتوصيل", detail: "التفاصيل المتاحة تظهر عند الطلب." },
-            ].map(({ icon: Icon, title, detail }) => (
-              <div className="genan-v3-service" key={title}>
-                <span className="genan-v3-service-icon"><Icon size={24} strokeWidth={1.35} aria-hidden="true" /></span>
-                <div><h3>{title}</h3><p>{detail}</p></div>
-              </div>
-            ))}
-          </div>
-        </section>
+  const { data: categories = [], isLoading: categoriesLoading } = useQuery({
+    queryKey: ["categories-all-active-v4"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("categories").select("id,slug,name,name_ar,parent_id,image_url,sort_order").eq("is_active", true).order("sort_order", { ascending: true });
+      if (error) throw error;
+      return data || [];
+    },
+    staleTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+
+  const { data: editorialBanner = null } = useQuery({
+    queryKey: ["home-editorial-banner-v1"],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any).from("banners").select("image_url,title_ar,subtitle_ar,cta_text_ar,cta_link,image_zoom,image_position_x,image_position_y").eq("page_slug", "home-editorial").eq("is_active", true).maybeSingle();
+      if (error) throw error;
+      return (data || null) as EditorialBanner | null;
+    },
+    staleTime: 10 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+
+  const featuredCategories = useMemo<FeaturedCategoryItem[]>(() => categories
+    .filter((category: any) => !category.parent_id && !isLingerieCategory(category))
+    .map((category: any) => ({
+      title: category.name_ar || category.name || category.slug,
+      subtitle: category.name || category.name_ar || category.slug,
+      image: category.image_url || "/placeholder.svg",
+      link: `/categories?parent=${category.slug}`,
+    })), [categories]);
+
+  const brandsViewport = useNearViewport<HTMLDivElement>("120px");
+  const imageBanner = showHomeSection("services") ? <div className="bg-background"><GenanServices /></div> : null;
+  const textBanner = showHomeSection("editorial") ? <EditorialSection banner={editorialBanner} /> : null;
+
+  return (
+    <div className="relative min-h-screen bg-background" dir="rtl">
+      <Navbar /><CartDrawer />
+      <main id="main-content" className="overflow-hidden bg-background">
+        {showHomeSection("hero") && <HeroSlider />}
+        <DesktopDiscovery />
+        {showHomeSection("categories") && <CategoryCarousel items={featuredCategories} loading={categoriesLoading} />}
+        {showHomeSection("brands") && (
+          <div ref={brandsViewport.ref} className="bg-background" style={{ minHeight: 92 }}><BrandsStrip enabled={brandsViewport.isNearViewport} /></div>
+        )}
+        <HomeManagedSections betweenSections={imageBanner} afterSections={textBanner} />
       </main>
-
       <Footer />
     </div>
   );

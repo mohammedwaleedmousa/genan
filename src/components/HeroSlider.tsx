@@ -1,125 +1,69 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { Autoplay } from "swiper/modules";
+import { ArrowLeft } from "phosphor-react";
+
 import { supabase } from "@/integrations/supabase/client";
 import { isBannerCurrentlyVisible } from "@/lib/bannerSchedule";
-import { optimizeImage } from "@/lib/imageUrl";
+import { handleImageError, optimizeImage } from "@/lib/imageUrl";
 
-type HeroItem = {
-  image_url: string;
-  title_ar?: string | null;
-  subtitle_ar?: string | null;
-  cta_text_ar?: string | null;
-  cta_link?: string | null;
-  image_zoom?: number | null;
-  image_position_x?: number | null;
-  image_position_y?: number | null;
-};
+import "swiper/css";
 
-const fallbackSlides: HeroItem[] = [
-  {
-    image_url: "https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=1800",
-    title_ar: "جمال يتجاوز الزمن",
-    subtitle_ar: "إطلالات وتفاصيل تعكس قوتك .. بأناقة عصرية",
-    cta_text_ar: "تسوقي الآن",
-    cta_link: "/products",
-  },
-  {
-    image_url: "https://images.pexels.com/photos/8989866/pexels-photo-8989866.jpeg?auto=compress&cs=tinysrgb&w=1800",
-    title_ar: "خطوات نحو الأناقة",
-    subtitle_ar: "اختيارات استثنائية لكل يوم",
-    cta_text_ar: "اكتشفي المجموعة",
-    cta_link: "/products",
-  },
-  {
-    image_url: "https://images.pexels.com/photos/769733/pexels-photo-769733.jpeg?auto=compress&cs=tinysrgb&w=1800",
-    title_ar: "تفاصيل تصنع الفرق",
-    subtitle_ar: "من التفاصيل الصغيرة تبدأ الحكاية",
-    cta_text_ar: "تصفحي الأقسام",
-    cta_link: "/categories",
-  },
+type HeroSlide = { image: string; title: string; desc: string; cta: string; link: string; imageZoom: number; imagePositionX: number; imagePositionY: number; };
+
+// Genan photography is used until merchandising banners are published.
+const genanFallbackSlides: HeroSlide[] = [
+  { image: "https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=1800", title: "الأناقة تبدأ من هنا", desc: "حقائب وأزياء وإكسسوارات من ماركات عالمية مختارة", cta: "اكتشفي المجموعة", link: "/products", imageZoom: 1, imagePositionX: 50, imagePositionY: 50 },
+  { image: "https://images.pexels.com/photos/8989866/pexels-photo-8989866.jpeg?auto=compress&cs=tinysrgb&w=1800", title: "اختيارات تعكس ذوقك", desc: "تشكيلة مميزة لكل إطلالة", cta: "تصفحي الماركات", link: "/brands", imageZoom: 1, imagePositionX: 50, imagePositionY: 50 },
 ];
 
 const HeroSlider = () => {
+  const swiperRef = useRef<SwiperInstance | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const { data: banners = [] } = useQuery({
-    queryKey: ["genan-reference-banners-v2"],
+  const { data: managedSlides = [], isLoading } = useQuery({
+    queryKey: ["genan-home-hero-banners", "reference-layout-v1"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("banners")
-        .select("image_url,title_ar,subtitle_ar,cta_text_ar,cta_link,page_slug,image_zoom,image_position_x,image_position_y,starts_at,ends_at,title,sort_order")
-        .eq("is_active", true)
-        .order("sort_order", { ascending: true })
-        .limit(12);
+      const { data, error } = await (supabase as any).from("banners").select("image_url,title,title_ar,subtitle_ar,cta_text_ar,cta_link,page_slug,image_zoom,image_position_x,image_position_y,starts_at,ends_at").eq("is_active", true).neq("title", "Between products banner").order("sort_order", { ascending: true }).limit(20);
       if (error) throw error;
-      return (data || []).filter((item) =>
-        Boolean(item.image_url) &&
-        !String(item.page_slug || "").startsWith("home-editorial") &&
-        item.title !== "Between products banner" &&
-        isBannerCurrentlyVisible(item),
-      ) as HeroItem[];
-    },
-    staleTime: 10 * 60 * 1000,
+      return (data || []).filter((slide: any) => String(slide.page_slug || "") !== "home-editorial").filter((slide: any) => Boolean(String(slide.image_url || "").trim()) && isBannerCurrentlyVisible(slide)).slice(0, 5).map((slide: any) => ({ image: String(slide.image_url), title: String(slide.title_ar || ""), desc: String(slide.subtitle_ar || ""), cta: String(slide.cta_text_ar || "اكتشف المجموعة"), link: slide.page_slug ? `/banner/${slide.page_slug}` : slide.cta_link || "/products", imageZoom: Number(slide.image_zoom ?? 1), imagePositionX: Number(slide.image_position_x ?? 50), imagePositionY: Number(slide.image_position_y ?? 50) })) as HeroSlide[];
+    }, staleTime: 10 * 60 * 1000, gcTime: 30 * 60 * 1000, refetchOnMount: false, refetchOnWindowFocus: false, refetchOnReconnect: false,
   });
-  const slides = banners.length ? banners.slice(0, 3) : fallbackSlides;
-  const currentIndex = activeIndex % slides.length;
-  const slide = slides[currentIndex];
-  const img = slide.image_url.startsWith("/") ? slide.image_url : optimizeImage(slide.image_url, 1800, 86);
-  const previous = () => setActiveIndex((index) => (index + slides.length - 1) % slides.length);
-  const next = () => setActiveIndex((index) => (index + 1) % slides.length);
+  const slides = managedSlides.length > 0 ? managedSlides : genanFallbackSlides;
+  const heroImageWidth = typeof window !== "undefined" && window.innerWidth < 768 ? 640 : 1920;
 
   return (
-    <section className="genan-ref-hero" aria-label="المجموعة الرئيسية" dir="rtl">
-      <div className="genan-ref-hero-visual">
-        <img
-          src={img}
-          alt={slide.title_ar || "إطلالات جنان"}
-          fetchPriority="high"
-          decoding="async"
-          className="genan-ref-hero-img"
-          style={{
-            objectPosition: `${Number(slide.image_position_x ?? 45)}% ${Number(slide.image_position_y ?? 35)}%`,
-            transform: `scale(${Number(slide.image_zoom ?? 1)})`,
-          }}
-        />
-        <div className="genan-ref-hero-overlay" />
-      </div>
-
-      <div className="genan-ref-hero-heading">
-        <p className="genan-ref-small-heading">مجموعة جديدة</p>
-        <h1>{slide.title_ar || "جمال يتجاوز الزمن"}</h1>
-        <p className="genan-ref-hero-caption">
-          {slide.subtitle_ar || "إطلالات وتفاصيل تعكس قوتك .. بأناقة عصرية"}
-        </p>
-        <Link to={slide.cta_link || "/products"} className="genan-ref-outline-button">
-          <span>{slide.cta_text_ar || "تسوقي الآن"}</span>
-          <span className="genan-ref-button-circle"><ArrowLeft aria-hidden="true" size={17} /></span>
-        </Link>
-      </div>
-
-      <div className="genan-ref-hero-side" dir="ltr">
-        <div className="genan-ref-side-wordmark">GENAN</div>
-        <p>MORE<br />THAN<br />A LOOK</p>
-        <div className="genan-ref-side-rule" aria-hidden="true" />
-        <div className="genan-ref-slide-labels" aria-label="اختر صورة المجموعة">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              aria-current={currentIndex === index ? "true" : undefined}
-              aria-label={`الصورة ${index + 1}`}
-            >{String(index + 1).padStart(2, "0")}</button>
-          ))}
-        </div>
-        <div className="genan-ref-slider-arrows">
-          <button type="button" onClick={previous} aria-label="الصورة السابقة"><ChevronLeft size={16} /></button>
-          <button type="button" onClick={next} aria-label="الصورة التالية"><ChevronRight size={16} /></button>
+    <section dir="rtl" className="w-full bg-background px-3 pt-3 md:px-0 md:pt-0">
+      <div className="mx-auto w-full md:max-w-none">
+        <div className="relative overflow-hidden rounded-[18px] border border-border/60 bg-muted/30 md:rounded-none md:border-x-0 md:border-t-0 md:border-[#F7F7F7]">
+          {slides.length > 0 ? (
+            <Swiper modules={[Autoplay]} onSwiper={(swiper) => { swiperRef.current = swiper; }} onSlideChange={(swiper) => { setActiveIndex(swiper.realIndex); }} autoplay={{ delay: 5200, disableOnInteraction: false, pauseOnMouseEnter: true, waitForTransition: true }} speed={650} loop={slides.length > 1} loopPreventsSliding grabCursor touchRatio={1} resistance resistanceRatio={0.85} className="w-full">
+              {slides.map((slide, index) => (
+                <SwiperSlide key={`${slide.image}-${index}`}>
+                  <div className="relative h-[230px] w-full overflow-hidden bg-muted/30 sm:h-[285px] md:h-[500px] lg:h-[560px] xl:h-[620px] 2xl:h-[660px]">
+                    <img src={optimizeImage(slide.image, heroImageWidth, index === 0 ? 78 : 72)} alt={slide.title || "بوتيك جنان"} loading={index === 0 ? "eager" : "lazy"} decoding="async" fetchPriority={index === 0 ? "high" : "low"} width={heroImageWidth} height={1000} onError={handleImageError} className="absolute inset-0 h-full w-full object-cover object-center" style={{ objectPosition: `${slide.imagePositionX}% ${slide.imagePositionY}%`, transform: `scale(${slide.imageZoom})` }} />
+                    <div className="absolute inset-0 bg-gradient-to-l from-background/95 via-background/65 to-transparent sm:from-background/92 sm:via-background/52 md:bg-[linear-gradient(90deg,rgba(14,14,14,.08)_0%,rgba(14,14,14,.04)_38%,rgba(255,255,255,.15)_52%,rgba(255,255,255,.88)_76%,rgba(255,255,255,.98)_100%)]" />
+                    <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/[0.08] to-transparent md:h-40" />
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-[70%] px-5 sm:w-[60%] sm:px-8 md:mr-[7vw] md:w-[38%] md:max-w-[590px] md:px-0">
+                        <div className="mb-2 flex items-center gap-2 md:mb-5"><span className="h-[2px] w-5 rounded-full bg-[#0E0E0E] md:w-8" /><span className="font-serif text-[6px] uppercase tracking-[0.22em] text-[#8C6B32] sm:text-[7px] md:text-[10px]">GENAN</span></div>
+                        <h1 className="line-clamp-2 text-[22px] font-semibold leading-[1.45] tracking-[-0.025em] text-foreground sm:text-[29px] md:text-[44px] lg:text-[54px] xl:text-[64px] xl:leading-[1.25]">{slide.title}</h1>
+                        {slide.desc && <p className="mt-2 line-clamp-2 max-w-[440px] text-[8px] leading-5 text-muted-foreground sm:text-[10px] md:mt-5 md:text-[13px] md:leading-8 lg:text-[14px]">{slide.desc}</p>}
+                        <div className="mt-4 flex items-center gap-3 md:mt-8 md:gap-5"><Link to={slide.link} className="inline-flex h-[36px] items-center justify-center gap-1.5 rounded-[9px] bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#282828] hover:shadow-[0_12px_30px_rgba(14,14,14,.28)] sm:h-[40px] md:h-[50px] md:rounded-full md:px-8 md:text-[11px]">{slide.cta}<ArrowLeft size={14} weight="bold" /></Link><Link to="/products" className="hidden h-[48px] items-center border-b border-[#D8C29A] px-1 text-[11px] font-medium text-[#0E0E0E] transition-colors hover:text-[#8C6B32] md:inline-flex">تصفح جميع المنتجات</Link></div>
+                      </div>
+                    </div>
+                    {slides.length > 1 && <div className="absolute bottom-6 left-[4vw] z-20 hidden items-center gap-2 text-[9px] font-medium text-white md:flex"><span>{String(activeIndex + 1).padStart(2, "0")}</span><span className="h-px w-10 bg-white/70" /><span className="text-white/65">{String(slides.length).padStart(2, "0")}</span></div>}
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : <div className="h-[230px] w-full bg-muted/30 sm:h-[285px] md:h-[500px] lg:h-[560px] xl:h-[620px]" aria-busy={isLoading} />}
+          {!isLoading && slides.length > 1 && <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1.5 md:bottom-7">{slides.map((_, index) => <button key={index} type="button" aria-label={`الانتقال إلى العرض ${index + 1}`} onClick={() => swiperRef.current?.slideToLoop(index)} className={`h-[3px] rounded-full transition-all duration-300 ${activeIndex === index ? "w-7 bg-[#8C6B32] md:w-12" : "w-2.5 bg-white/70 md:w-5"}`} />)}</div>}
         </div>
       </div>
     </section>
   );
 };
-
 export default HeroSlider;
