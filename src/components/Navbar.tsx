@@ -142,7 +142,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { getCartCount, customer, setCustomer } = useStore();
+  const { openCart, getCartCount, customer, setCustomer } = useStore();
   const { favorites } = useFavorites();
   const { logout } = useAuthActions();
   const cartCount = getCartCount();
@@ -339,11 +339,15 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
               <Logo size="md" className="shrink-0" />
             </Link>
 
-            <div className="flex items-center gap-0.5">
-              <Link to="/cart" aria-label="حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
-                <ShoppingBag size={22} weight="regular" />
-                {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
+            <div className="flex shrink-0 items-center gap-1">
+              {/* Bag occupies the former currency slot and always opens the full cart page. */}
+              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[13px] border border-[#B8975A] bg-[#0E0E0E] text-white shadow-[0_3px_12px_rgba(14,14,14,0.20)] transition-transform hover:scale-[1.04] active:scale-[0.96]">
+                <ShoppingBag size={23} weight="bold" aria-hidden="true" />
+                {cartCount > 0 && <span className="absolute -left-1 -top-1 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full border border-white bg-[#B8975A] px-1 text-[9px] font-bold text-[#0E0E0E]">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
+              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-white/60 hover:text-[#8C6B32]">
+                <ShoppingCart size={21} weight="regular" />
+              </button>
             </div>
           </div>
 
@@ -385,14 +389,17 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </form>
 
             <div className="flex shrink-0 items-center gap-1.5">
+              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[13px] border border-[#B8975A] bg-[#0E0E0E] text-white shadow-[0_3px_12px_rgba(14,14,14,0.18)] transition-transform hover:scale-[1.04] active:scale-[0.96]">
+                <ShoppingBag size={23} weight="bold" aria-hidden="true" />
+                {cartCount > 0 && <span className="absolute -left-1 -top-1 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full border border-white bg-[#B8975A] px-1 text-[9px] font-bold text-[#0E0E0E]">{cartCount > 99 ? "99+" : cartCount}</span>}
+              </Link>
               <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
                 <Heart size={20} weight="regular" />
                 {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
               </Link>
-              <Link to="/cart" aria-label="حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
-                <ShoppingBag size={21} weight="regular" />
-                {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
-              </Link>
+              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-white/65 hover:bg-white/60 hover:text-[#8C6B32]">
+                <ShoppingCart size={20} weight="regular" />
+              </button>
               <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
                 <User size={17} />
                 <span className="hidden lg:inline">{customer ? "حسابي" : "تسجيل الدخول"}</span>
