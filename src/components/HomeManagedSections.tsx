@@ -41,6 +41,8 @@ const BEST_SELLER_LIMIT = 40;
 const DEFAULT_SECTION_FETCH_LIMIT = 48;
 const MAX_SECTION_FETCH_LIMIT = 64;
 const HOME_CACHE_MS = 5 * 60 * 1000;
+// Preview samples can be disabled for launch with VITE_GENAN_HOME_PREVIEW=false.
+const HOME_PREVIEW_ENABLED = import.meta.env.VITE_GENAN_HOME_PREVIEW !== "false";
 
 const getSectionFetchLimit = (section: ManagedSection) => {
   const configured = Number(section.max_products || 0);
@@ -242,8 +244,8 @@ const HomeManagedSections = ({ betweenSections, brandsSection, afterSections }: 
 
   const renderShelf = (shelf: (typeof shelves)[number], index: number) => {
     // Include one clearly labeled non-purchasable sample in each core row.
-    const real = shelf.products.slice(0, index < 3 ? 3 : 4);
-    const missing = Math.max(0, 4 - real.length);
+    const real = shelf.products.slice(0, HOME_PREVIEW_ENABLED && index < 3 ? 3 : 4);
+    const missing = HOME_PREVIEW_ENABLED ? Math.max(0, 4 - real.length) : 0;
     return (
       <section key={shelf.key} id={"home-section-" + shelf.key} aria-label={shelf.title}
         className={"scroll-mt-24 py-8 sm:py-10 md:py-14 " + (index % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]")}>
