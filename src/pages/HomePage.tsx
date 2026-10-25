@@ -66,54 +66,52 @@ const DesktopDiscovery = () => (
 
 const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
   if (!loading && items.length === 0) return null;
-  // A single compact fashion row, with no second line and no visible scrollbar.
+
   const featured = items.slice(0, 6);
 
   return (
-    <section className="w-full overflow-hidden bg-white py-[22px] sm:py-[28px] lg:py-[32px]" dir="rtl" aria-label="الأقسام">
+    <section className="w-full overflow-hidden bg-white py-4 sm:py-5 lg:py-6" dir="rtl" aria-label="الأقسام">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="mb-4 flex items-end justify-between gap-3 sm:mb-5">
+        <div className="mb-3 flex items-center justify-between gap-3 sm:mb-4">
           <div className="min-w-0">
-            <p className="mb-1.5 font-serif text-[8px] uppercase tracking-[0.2em] text-[#9B7A46] sm:text-[9px]">GENAN / EDIT</p>
-            <h2 className="text-[18px] font-semibold tracking-[-0.02em] text-[#0E0E0E] sm:text-[22px] lg:text-[24px]">تسوقي حسب القسم</h2>
+            <span className="mb-0.5 block font-serif text-[8px] uppercase tracking-[0.2em] text-[#9B7A46]">GENAN / CATEGORIES</span>
+            <h2 className="text-[16px] font-semibold leading-6 text-[#0E0E0E] sm:text-[19px]">تسوقي حسب القسم</h2>
           </div>
-          <Link to="/categories" className="inline-flex shrink-0 items-center gap-1 border-b border-[#D8C29A] pb-1 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:text-[#8C6B32] sm:text-[11px]">
+          <Link to="/categories" className="inline-flex shrink-0 items-center gap-1 text-[10px] font-medium text-[#8C6B32] transition-opacity hover:opacity-70">
             جميع الأقسام
-            <ArrowLeft aria-hidden="true" className="h-3 w-3" strokeWidth={1.7} />
+            <ArrowLeft aria-hidden="true" className="h-3 w-3" strokeWidth={1.6} />
           </Link>
         </div>
 
         <div className="-mx-4 overflow-x-auto overscroll-x-contain px-4 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:px-0">
-          <div className="flex w-max flex-nowrap items-start gap-3 snap-x snap-proximity sm:gap-3.5 lg:w-full lg:justify-between lg:gap-4 lg:snap-none">
+          <div className="flex w-max flex-nowrap items-start gap-2.5 snap-x snap-proximity sm:gap-3 lg:w-full lg:justify-between lg:gap-4 lg:snap-none">
             {loading
               ? Array.from({ length: 6 }).map((_, index) => (
-                  <div key={index} aria-hidden="true" className="w-[108px] shrink-0 snap-start sm:w-[125px] md:w-[136px] lg:w-[140px] xl:w-[148px]">
-                    <div className="aspect-[4/5] w-full animate-pulse rounded-[11px] bg-[#F0F0F0]" />
-                    <div className="mt-2 h-2.5 w-3/5 animate-pulse rounded-full bg-[#EFEFEF]" />
+                  <div key={index} aria-hidden="true" className="w-[68px] shrink-0 snap-start sm:w-[78px] md:w-[86px] lg:w-[94px] xl:w-[100px]">
+                    <div className="aspect-square w-full animate-pulse rounded-[9px] bg-[#F0F0F0]" />
+                    <div className="mx-auto mt-1.5 h-2 w-4/5 animate-pulse rounded-full bg-[#EFEFEF]" />
                   </div>
                 ))
               : featured.map((item, index) => (
                   <Link
                     key={item.link}
                     to={item.link}
-                    className="group block w-[108px] shrink-0 snap-start select-none text-right sm:w-[125px] md:w-[136px] lg:w-[140px] xl:w-[148px]"
+                    className="group block w-[68px] shrink-0 snap-start select-none sm:w-[78px] md:w-[86px] lg:w-[94px] xl:w-[100px]"
                   >
-                    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[11px] border border-[#EEEAE4] bg-[#F5F3F0]">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-[9px] bg-[#F5F3F0] ring-1 ring-[#EEEAE4] ring-inset">
                       <img
-                        src={optimizeImage(item.image, 320, 79)}
+                        src={optimizeImage(item.image, 240, 77)}
                         alt={item.title}
                         loading={index < 3 ? "eager" : "lazy"}
                         decoding="async"
-                        width={256}
-                        height={320}
-                        className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.045]"
+                        width={200}
+                        height={200}
+                        className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.06]"
                       />
-                      <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/[0.10] via-transparent to-transparent" />
                     </div>
-                    <div className="mt-2 flex min-w-0 items-center justify-between gap-1">
-                      <h3 className="min-w-0 truncate text-[11px] font-semibold leading-5 text-[#0E0E0E] sm:text-[12px]">{item.title}</h3>
-                      <ArrowLeft aria-hidden="true" className="h-3 w-3 shrink-0 text-[#987641] transition-transform group-hover:-translate-x-1" strokeWidth={1.65} />
-                    </div>
+                    <p className="mt-1.5 truncate text-center text-[10px] font-medium leading-4 text-[#0E0E0E] transition-colors group-hover:text-[#8C6B32] sm:text-[11px]">
+                      {item.title}
+                    </p>
                   </Link>
                 ))}
           </div>
