@@ -312,7 +312,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
   return (
     <>
-      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-b border-transparent bg-transparent" : "border-b border-[#F7F7F7] bg-white/95 shadow-[0_3px_14px_rgba(14,14,14,0.04)] backdrop-blur-xl"}`}>
+      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-b border-transparent bg-transparent shadow-none backdrop-blur-none" : "border-b border-white/60 bg-white/65 shadow-[0_6px_28px_rgba(14,14,14,0.09)] backdrop-blur-2xl backdrop-saturate-150"}`}>
         {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[56px] z-[55] touch-none bg-white/96 md:top-[120px]" />}
         <div className="mx-auto max-w-[1500px] px-4 md:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between md:hidden">
@@ -481,7 +481,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             )}
           </form>}
 
-          <nav className="hidden h-[48px] items-center justify-center gap-1 border-t border-[#FAFAFA] md:flex lg:gap-2">
+          <nav className={`hidden h-[48px] items-center justify-center gap-1 border-t md:flex lg:gap-2 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-transparent" : "border-white/45"}`}>
             {desktopLinks.map((item) => {
               const active = location.pathname === item.to || (item.to === "/products" && location.pathname.startsWith("/product/"));
               return (

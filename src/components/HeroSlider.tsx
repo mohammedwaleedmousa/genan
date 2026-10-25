@@ -44,8 +44,7 @@ const HeroSlider = () => {
                 <SwiperSlide key={`${slide.image}-${index}`}>
                   <div className="relative h-[285px] w-full overflow-hidden bg-[#F7F7F7] sm:h-[340px] md:h-[500px] lg:h-[560px] xl:h-[620px] 2xl:h-[660px]">
                     <img src={optimizeImage(slide.image, heroImageWidth, index === 0 ? 78 : 72)} alt={slide.title || "بوتيك جنان"} loading={index === 0 ? "eager" : "lazy"} decoding="async" fetchPriority={index === 0 ? "high" : "low"} width={heroImageWidth} height={1000} onError={handleImageError} className="absolute inset-0 h-full w-full object-cover object-center" style={{ objectPosition: `${slide.imagePositionX}% ${slide.imagePositionY}%`, transform: `scale(${slide.imageZoom})` }} />
-                    <div className="absolute inset-0 bg-gradient-to-l from-background/95 via-background/65 to-transparent sm:from-background/92 sm:via-background/52 md:bg-[linear-gradient(90deg,rgba(14,14,14,.08)_0%,rgba(14,14,14,.04)_38%,rgba(255,255,255,.15)_52%,rgba(255,255,255,.88)_76%,rgba(255,255,255,.98)_100%)]" />
-                    <div className="absolute inset-x-0 top-0 h-[115px] bg-gradient-to-b from-white/90 via-white/65 to-transparent md:h-[185px] md:from-white/85 md:via-white/45" />
+                    <div className="absolute inset-0 bg-gradient-to-l from-background/70 via-background/30 to-transparent sm:from-background/72 sm:via-background/35 md:bg-[linear-gradient(90deg,rgba(14,14,14,.08)_0%,rgba(14,14,14,.04)_38%,rgba(255,255,255,.12)_52%,rgba(255,255,255,.60)_76%,rgba(255,255,255,.80)_100%)]" />
                     <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/[0.08] to-transparent md:h-40" />
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-[76%] px-5 pt-12 sm:w-[60%] sm:px-8 sm:pt-14 md:mr-[7vw] md:w-[38%] md:max-w-[590px] md:px-0 md:pt-24">
