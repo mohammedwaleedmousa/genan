@@ -67,47 +67,66 @@ const DesktopDiscovery = () => (
 const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
   if (!loading && items.length === 0) return null;
 
+  // One fashion-editorial row only: six curated categories maximum. On narrow
+  // screens the cards swipe horizontally, without a second row or a scrollbar.
+  const featured = items.slice(0, 6);
+
   return (
-    <section className="w-full overflow-hidden bg-background py-5 md:py-10" dir="rtl" aria-label="الأقسام">
-      <div className="mx-auto w-full max-w-[1500px] px-3 md:px-6 lg:px-8">
-        <div className="mb-3 flex items-end justify-between gap-3 md:mb-7">
-          <div>
-            <div className="mb-1 flex items-center gap-2 md:mb-2">
-              <span className="h-[2px] w-4 rounded-full bg-[#0E0E0E] md:w-6" />
-              <span className="font-serif text-[6px] uppercase tracking-[0.2em] text-[#8C6B32] md:text-[8px]">CATEGORIES</span>
+    <section className="w-full overflow-hidden bg-white py-8 sm:py-10 lg:py-14" dir="rtl" aria-label="الأقسام">
+      <div className="mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-8">
+        <div className="mb-5 flex items-end justify-between gap-3 sm:mb-7 lg:mb-9">
+          <div className="min-w-0">
+            <div className="mb-2 flex items-center gap-2">
+              <span aria-hidden="true" className="h-px w-5 bg-[#D8C29A]" />
+              <span className="font-serif text-[9px] uppercase tracking-[0.23em] text-[#8C6B32]">GENAN / CATEGORIES</span>
             </div>
-            <h2 className="text-[16px] font-semibold tracking-[-0.02em] text-foreground md:text-[27px]">تسوق حسب القسم</h2>
-            <p className="mt-2 hidden text-[10px] text-[#8C6B32] md:block">ابدأ من القسم المناسب واختصر طريقك إلى ما تبحث عنه.</p>
+            <h2 className="text-[21px] font-semibold tracking-[-0.02em] text-[#0E0E0E] sm:text-[25px] lg:text-[29px]">اكتشفي الأقسام</h2>
+            <p className="mt-1 hidden text-[12px] leading-6 text-[#767676] sm:block">تشكيلات مختارة لكل إطلالة</p>
           </div>
-          <Link to="/categories" className="flex shrink-0 items-center gap-1 border-b border-border pb-0.5 text-[7px] font-medium text-[#8C6B32] transition-opacity active:opacity-60 md:gap-2 md:text-[10px]">
-            عرض كل الأقسام
-            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" strokeWidth={1.5} />
+          <Link
+            to="/categories"
+            className="inline-flex shrink-0 items-center gap-1.5 border-b border-[#D8C29A] pb-1 text-[11px] font-medium text-[#0E0E0E] transition-colors hover:text-[#8C6B32] sm:text-[12px]"
+          >
+            عرض الكل
+            <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.5} />
           </Link>
         </div>
 
-        <div className="-mx-3 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
-          <div className="flex w-max gap-2.5 after:block after:w-3 after:shrink-0 after:content-[''] md:grid md:w-full md:grid-cols-4 md:gap-4 md:after:hidden lg:grid-cols-6 xl:grid-cols-8">
+        <div className="-mx-4 overflow-x-auto overscroll-x-contain px-4 pb-2 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:px-0">
+          <div className="flex w-max flex-nowrap items-start gap-3 snap-x snap-mandatory sm:gap-4 lg:w-full lg:gap-5 lg:snap-none">
             {loading
-              ? Array.from({ length: 8 }).map((_, index) => (
-                  <div key={index} className="block w-[78px] shrink-0 sm:w-[90px] md:w-auto" aria-hidden="true">
-                    <div className="aspect-square w-full animate-pulse rounded-[15px] bg-muted md:aspect-[4/5] md:rounded-[20px]" />
-                    <div className="mx-auto mt-2 h-2 w-10 animate-pulse rounded-full bg-muted" />
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} aria-hidden="true" className="w-[148px] shrink-0 snap-start sm:w-[180px] md:w-[205px] lg:w-auto lg:min-w-0 lg:flex-1">
+                    <div className="aspect-[3/4] w-full animate-pulse rounded-[4px] bg-[#F0F0F0]" />
+                    <div className="mt-3 h-3 w-3/5 animate-pulse rounded-full bg-[#EFEFEF]" />
                   </div>
                 ))
-              : items.slice(0, 8).map((item, index) => (
-                  <Link key={`${item.title}-${item.link}`} to={item.link} className="group block w-[78px] shrink-0 select-none [-webkit-tap-highlight-color:transparent] sm:w-[90px] md:w-auto">
-                    <div className="relative aspect-square w-full overflow-hidden rounded-[15px] border border-border/60 bg-muted/40 md:aspect-[4/5] md:rounded-[20px] md:border-[#F7F7F7]">
-                      <img src={optimizeImage(item.image, 360, 78)} alt={item.title} loading={index < 5 ? "eager" : "lazy"} decoding="async" fetchPriority={index < 2 ? "high" : "auto"} width={360} height={450} className="h-full w-full object-cover object-center transition-transform duration-500 md:group-hover:scale-[1.045]" />
-                      <div className="absolute inset-x-0 bottom-0 hidden h-2/5 bg-gradient-to-t from-black/45 to-transparent md:block" />
-                      <div className="absolute inset-x-0 bottom-0 hidden p-3 text-white md:block">
-                        <p className="truncate text-[11px] font-semibold">{item.title}</p>
-                        <p className="mt-0.5 truncate font-serif text-[6px] uppercase tracking-[0.12em] text-white/75">{item.subtitle}</p>
+              : featured.map((item, index) => (
+                  <Link
+                    key={item.link}
+                    to={item.link}
+                    className="group block w-[148px] shrink-0 snap-start select-none text-right sm:w-[180px] md:w-[205px] lg:w-auto lg:min-w-0 lg:flex-1"
+                  >
+                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[4px] bg-[#F3F3F3]">
+                      <img
+                        src={optimizeImage(item.image, 480, 82)}
+                        alt={item.title}
+                        loading={index < 2 ? "eager" : "lazy"}
+                        decoding="async"
+                        width={360}
+                        height={480}
+                        className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.05]"
+                      />
+                      <span aria-hidden="true" className="absolute inset-0 border border-[#0E0E0E]/[0.04] transition-colors group-hover:border-[#D8C29A]/60" />
+                    </div>
+                    <div className="mt-3 flex min-w-0 items-start justify-between gap-1.5">
+                      <div className="min-w-0">
+                        <h3 className="truncate text-[13px] font-semibold leading-6 text-[#0E0E0E] sm:text-[15px]">{item.title}</h3>
+                        <p dir="auto" className="mt-0.5 truncate font-serif text-[9px] leading-4 tracking-[0.07em] text-[#898989] sm:text-[10px]">{item.subtitle}</p>
                       </div>
+                      <ArrowLeft aria-hidden="true" className="mt-1.5 h-3.5 w-3.5 shrink-0 text-[#8C6B32] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
                     </div>
-                    <div className="mt-1.5 text-center md:hidden">
-                      <p className="truncate text-[8px] font-semibold text-foreground">{item.title}</p>
-                      <p className="mt-0.5 truncate font-serif text-[5px] uppercase tracking-[0.08em] text-muted-foreground">{item.subtitle}</p>
-                    </div>
+                    <span aria-hidden="true" className="mt-2 block h-px w-7 bg-[#D8C29A]" />
                   </Link>
                 ))}
           </div>
