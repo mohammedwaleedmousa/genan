@@ -207,7 +207,7 @@ const HomePage = () => {
 
   return (
     <div className="relative min-h-screen bg-background" dir="rtl">
-      <Navbar /><CartDrawer />
+      <Navbar overlayHero={showHomeSection("hero")} /><CartDrawer />
       <main id="main-content" className="overflow-hidden bg-background">
         {showHomeSection("hero") && <HeroSlider />}
         <DesktopDiscovery />
