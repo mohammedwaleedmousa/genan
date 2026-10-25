@@ -10,6 +10,7 @@ import {
   MapPin,
   Package,
   QrCode,
+  ShoppingBag,
   ShoppingCart,
   SignIn,
   SignOut,
@@ -141,7 +142,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { openCart, getCartCount, customer, setCustomer } = useStore();
+  const { getCartCount, customer, setCustomer } = useStore();
   const { favorites } = useFavorites();
   const { logout } = useAuthActions();
   const cartCount = getCartCount();
@@ -263,16 +264,6 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
     window.requestAnimationFrame(() => setMenuOpen(false));
   };
 
-  // Single fixed storefront currency; there is deliberately no dropdown.
-  const currencyLabel = (
-    <span
-      aria-label="العملة: الريال السعودي"
-      title="العملة: الريال السعودي"
-      className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl px-1.5 text-[11px] font-semibold text-[#0E0E0E] md:px-3"
-    >
-      ر.س
-    </span>
-  );
 
   return (
     <>
@@ -349,11 +340,10 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </Link>
 
             <div className="flex items-center gap-0.5">
-              {currencyLabel}
-              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
-                <ShoppingCart size={21} weight="regular" />
+              <Link to="/cart" aria-label="حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+                <ShoppingBag size={22} weight="regular" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -395,15 +385,14 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </form>
 
             <div className="flex shrink-0 items-center gap-1.5">
-              {currencyLabel}
               <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
                 <Heart size={20} weight="regular" />
                 {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
               </Link>
-              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
-                <ShoppingCart size={20} weight="regular" />
+              <Link to="/cart" aria-label="حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+                <ShoppingBag size={21} weight="regular" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
-              </button>
+              </Link>
               <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
                 <User size={17} />
                 <span className="hidden lg:inline">{customer ? "حسابي" : "تسجيل الدخول"}</span>
