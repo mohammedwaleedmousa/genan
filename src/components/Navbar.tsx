@@ -112,9 +112,9 @@ const NavItem = ({
   </button>
 );
 
-type NavbarProps = { variant?: "default" | "product" | "editorial" };
+type NavbarProps = { variant?: "default" | "product" | "editorial"; overlayHero?: boolean };
 
-const Navbar = (_props: NavbarProps) => {
+const Navbar = ({ overlayHero = false }: NavbarProps) => {
   // Scope shared storefront treatments to Genan, not the admin dashboard.
   useEffect(() => {
     const previous = document.body.dataset.storefront;
@@ -125,6 +125,23 @@ const Navbar = (_props: NavbarProps) => {
     };
   }, []);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [headerScrolled, setHeaderScrolled] = useState(() => typeof window !== "undefined" && window.scrollY > 24);
+  const mobileSearchInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!overlayHero) return;
+    const update = () => setHeaderScrolled(window.scrollY > 24);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [overlayHero]);
+
+  useEffect(() => {
+    if (!mobileSearchOpen) return;
+    const frame = window.requestAnimationFrame(() => mobileSearchInputRef.current?.focus());
+    return () => window.cancelAnimationFrame(frame);
+  }, [mobileSearchOpen]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchIndex, setSearchIndex] = useState<SearchSuggestion[]>(() => searchIndexCache || []);
@@ -243,6 +260,7 @@ const Navbar = (_props: NavbarProps) => {
   const closeSearch = () => {
     restoreScrollOnUnlockRef.current = true;
     setSearchFocused(false);
+    setMobileSearchOpen(false);
     setSearchTerm("");
   };
 
@@ -253,6 +271,7 @@ const Navbar = (_props: NavbarProps) => {
     navigate(`/products?search=${encodeURIComponent(cleaned)}`);
     setSearchTerm("");
     setSearchFocused(false);
+    setMobileSearchOpen(false);
   };
 
   const submitSearch = (e: React.FormEvent) => {
@@ -293,14 +312,14 @@ const Navbar = (_props: NavbarProps) => {
 
   return (
     <>
-      <header dir="rtl" className="fixed inset-x-0 top-0 z-50 border-b border-[#F7F7F7] bg-white/95 backdrop-blur-xl">
-        {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[112px] z-[55] touch-none bg-white/96 md:top-[120px]" />}
+      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-b border-transparent bg-transparent" : "border-b border-[#F7F7F7] bg-white/95 shadow-[0_3px_14px_rgba(14,14,14,0.04)] backdrop-blur-xl"}`}>
+        {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[56px] z-[55] touch-none bg-white/96 md:top-[120px]" />}
         <div className="mx-auto max-w-[1500px] px-4 md:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between md:hidden">
             <div className="flex items-center">
               <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
                 <SheetTrigger asChild>
-                  <button type="button" aria-label="فتح القائمة" className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+                  <button type="button" aria-label="فتح القائمة" onClick={() => { if (mobileSearchOpen) closeSearch(); }} className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
                     <List size={22} />
                   </button>
                 </SheetTrigger>
@@ -308,7 +327,7 @@ const Navbar = (_props: NavbarProps) => {
                 <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-[#F7F7F7] bg-[#FAFAFA] p-0">
                   <div className="flex items-center justify-center border-b border-[#F7F7F7] px-5 py-5">
                     <button type="button" onClick={() => goFromMenu("/home")} className="flex items-center" aria-label="الرئيسية">
-                      <Logo size="lg" showArabic className="shrink-0" />
+                      <Logo size="lg" className="shrink-0" />
                     </button>
                   </div>
 
@@ -356,10 +375,13 @@ const Navbar = (_props: NavbarProps) => {
                   </div>
                 </SheetContent>
               </Sheet>
+              <button type="button" onClick={() => { if (mobileSearchOpen) closeSearch(); else { setMenuOpen(false); setMobileSearchOpen(true); } }} aria-label={mobileSearchOpen ? "إغلاق البحث" : "فتح البحث"} aria-expanded={mobileSearchOpen} aria-controls="genan-mobile-nav-search" className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+                <MagnifyingGlass size={22} weight="regular" />
+              </button>
             </div>
 
             <Link to="/home" aria-label="الرئيسية" className="absolute left-1/2 -translate-x-1/2">
-              <Logo size="lg" showArabic className="shrink-0" />
+              <Logo size="md" className="shrink-0" />
             </Link>
 
             <div className="flex items-center gap-0.5">
@@ -373,11 +395,7 @@ const Navbar = (_props: NavbarProps) => {
 
           <div className="hidden md:flex md:h-[72px] md:items-center md:gap-6 lg:gap-8">
             <Link to="/home" aria-label="الرئيسية" className="flex shrink-0 items-center gap-3">
-              <Logo size="lg" showArabic className="shrink-0" />
-              <div className="hidden xl:block">
-                <span className="block text-[13px] font-semibold tracking-[-0.02em] text-[#0E0E0E]">بوتيك جنان</span>
-                <span className="mt-0.5 block text-[8px] text-[#8C6B32]">تجربة تسوق مختارة بعناية</span>
-              </div>
+              <Logo size="lg" className="shrink-0" />
             </Link>
 
             <form onSubmit={submitSearch} className="relative z-[70] mx-auto w-full max-w-[620px]">
@@ -429,7 +447,7 @@ const Navbar = (_props: NavbarProps) => {
             </div>
           </div>
 
-          <form onSubmit={submitSearch} className="relative z-[70] pb-3 md:hidden">
+          {mobileSearchOpen && <form id="genan-mobile-nav-search" onSubmit={submitSearch} role="search" className="absolute inset-x-0 top-full z-[70] border-t border-[#F7F7F7] bg-white/95 px-4 pb-3 pt-3 shadow-[0_14px_30px_rgba(14,14,14,0.08)] md:hidden">
             <label className="relative block">
               <MagnifyingGlass size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#686868]" />
               <input
@@ -438,6 +456,7 @@ const Navbar = (_props: NavbarProps) => {
                 onFocus={() => setSearchFocused(true)}
                 placeholder="ابحث عن منتج، ماركة أو قسم..."
                 enterKeyHint="search"
+                 ref={mobileSearchInputRef}
                 autoComplete="off"
                 aria-autocomplete="list"
                 aria-expanded={searchPanelOpen && suggestions.length > 0}
@@ -460,7 +479,7 @@ const Navbar = (_props: NavbarProps) => {
                 ))}
               </div>
             )}
-          </form>
+          </form>}
 
           <nav className="hidden h-[48px] items-center justify-center gap-1 border-t border-[#FAFAFA] md:flex lg:gap-2">
             {desktopLinks.map((item) => {
@@ -479,7 +498,7 @@ const Navbar = (_props: NavbarProps) => {
           </nav>
         </div>
       </header>
-      <div aria-hidden="true" className="h-[112px] md:h-[120px]" />
+      {!overlayHero && <div aria-hidden="true" className="h-[56px] md:h-[120px]" />}
     </>
   );
 };
