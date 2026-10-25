@@ -1,27 +1,43 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import Logo from "@/components/Logo";
 import {
+  Bell,
+  CaretLeft,
+  Crown,
   Globe,
   Heart,
+  House,
   List,
   MagnifyingGlass,
-  ShoppingBag,
+  MapPin,
+  Package,
+  QrCode,
+  ShoppingCart,
+  SignIn,
+  SignOut,
+  SquaresFour,
+  Tag,
   User,
-  X,
 } from "phosphor-react";
+import type { Icon } from "phosphor-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import Logo from "@/components/Logo";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useStore } from "@/store/useStore";
+import { useFavorites } from "@/hooks/useFavorites";
+import { useAuthActions } from "@/hooks/useAuthActions";
+import { useCurrency, getActiveCurrencies } from "@/lib/currency";
+import { useCustomerNotifications } from "@/hooks/useCustomerNotifications";
+import { supabase } from "@/integrations/supabase/client";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { supabase } from "@/integrations/supabase/client";
-import { useFavorites } from "@/hooks/useFavorites";
-import { getActiveCurrencies, useCurrency } from "@/lib/currency";
-import { useStore } from "@/store/useStore";
 
 type SearchSuggestion = {
   value: string;
@@ -29,558 +45,441 @@ type SearchSuggestion = {
 };
 
 let searchIndexCache: SearchSuggestion[] | null = null;
+let searchIndexPromise: Promise<SearchSuggestion[]> | null = null;
 
 const normalizeSearch = (value: string) => value.trim().toLocaleLowerCase("ar");
 
 const loadSearchIndex = async () => {
   if (searchIndexCache) return searchIndexCache;
+  if (searchIndexPromise) return searchIndexPromise;
 
-  const [productsResult, brandsResult, categoriesResult] = await Promise.all([
-    supabase.from("products").select("name_ar,name").eq("is_active", true).limit(500),
-    supabase.from("brands").select("name").eq("is_active", true).limit(200),
-    supabase.from("categories").select("name_ar,name").eq("is_active", true).limit(200),
-  ]);
+  searchIndexPromise = (async () => {
+    const [productsResult, brandsResult, categoriesResult] = await Promise.all([
+      supabase.from("products").select("name_ar,name").eq("is_active", true).limit(1000),
+      supabase.from("brands").select("name").eq("is_active", true).limit(500),
+      supabase.from("categories").select("name_ar,name").eq("is_active", true).limit(500),
+    ]);
 
-  const raw: SearchSuggestion[] = [
-    ...((productsResult.data || []) as Array<{ name_ar: string | null; name: string | null }>).map((row) => ({
-      value: String(row.name_ar || row.name || "").trim(),
-      type: "منتج" as const,
-    })),
-    ...((brandsResult.data || []) as Array<{ name: string | null }>).map((row) => ({
-      value: String(row.name || "").trim(),
-      type: "ماركة" as const,
-    })),
-    ...((categoriesResult.data || []) as Array<{ name_ar: string | null; name: string | null }>).map((row) => ({
-      value: String(row.name_ar || row.name || "").trim(),
-      type: "قسم" as const,
-    })),
-  ].filter((item) => item.value);
+    const raw: SearchSuggestion[] = [
+      ...((productsResult.data || []) as Array<{ name_ar: string | null; name: string | null }>).map((row) => ({ value: String(row.name_ar || row.name || "").trim(), type: "منتج" as const })),
+      ...((brandsResult.data || []) as Array<{ name: string | null }>).map((row) => ({ value: String(row.name || "").trim(), type: "ماركة" as const })),
+      ...((categoriesResult.data || []) as Array<{ name_ar: string | null; name: string | null }>).map((row) => ({ value: String(row.name_ar || row.name || "").trim(), type: "قسم" as const })),
+    ].filter((item) => item.value);
 
-  searchIndexCache = Array.from(
-    new Map(raw.map((item) => [`${item.type}:${normalizeSearch(item.value)}`, item])).values(),
-  );
+    searchIndexCache = Array.from(new Map(raw.map((item) => [`${item.type}:${normalizeSearch(item.value)}`, item])).values());
+    return searchIndexCache;
+  })();
 
-  return searchIndexCache;
+  try {
+    return await searchIndexPromise;
+  } finally {
+    searchIndexPromise = null;
+  }
 };
 
-const navLinks = [
-  { label: "الرئيسية", to: "/home" },
-  { label: "المنتجات", to: "/products" },
-  { label: "الأقسام", to: "/categories" },
-  { label: "الماركات", to: "/brands" },
-  { label: "وصل حديثًا", to: "/new-arrivals" },
-];
-const referenceNavLinks = [
-  { label: "الرئيسية", to: "/home" },
-  { label: "العبايات", to: "/products" },
-  { label: "الإكسسوارات", to: "/categories" },
-  { label: "المجموعات", to: "/brands" },
-  { label: "عروض خاصة", to: "/seasonal-offers" },
-];
+const Section = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <section className="mt-6">
+    <p className="mb-2 px-2 text-[10px] font-semibold text-[#686868]">{label}</p>
+    <div className="space-y-1">{children}</div>
+  </section>
+);
 
-type NavbarProps = {
-  variant?: "default" | "product" | "editorial";
-};
+const NavItem = ({
+  icon: Icon,
+  label,
+  badge,
+  isActive,
+  onPress,
+}: {
+  icon: Icon;
+  label: string;
+  badge?: number | string;
+  isActive?: boolean;
+  onPress: () => void;
+}) => (
+  <button
+    type="button"
+    onClick={onPress}
+    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F5FAF9] text-[#8C6B32]" : "text-[#0E0E0E] hover:bg-[#FAFAFA]"}`}
+  >
+    {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#0E0E0E]" />}
+    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E9F6F4] text-[#8C6B32]" : "bg-[#FAFAFA] text-[#686868]"}`}>
+      <Icon size={19} weight="regular" />
+    </span>
+    <span className={`flex-1 text-right text-[13px] ${isActive ? "font-semibold" : "font-medium"}`}>{label}</span>
+    {!!badge && <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#0E0E0E] px-1.5 text-[9px] font-bold text-white">{badge}</span>}
+    <CaretLeft size={14} className={isActive ? "text-[#8C6B32]" : "text-[#D8C29A]"} />
+  </button>
+);
 
-const Navbar = ({ variant = "default" }: NavbarProps) => {
-  const navigate = useNavigate();
-  const isProduct = variant === "product";
-  const isEditorial = variant === "editorial";
-  const visibleNavLinks = isEditorial ? referenceNavLinks : navLinks;
-  const location = useLocation();
+type NavbarProps = { variant?: "default" | "product" | "editorial" };
 
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [desktopSearchOpen, setDesktopSearchOpen] = useState(isEditorial);
-  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchIndex, setSearchIndex] = useState<SearchSuggestion[]>(() => searchIndexCache || []);
-
-  const { openCart, getCartCount, customer } = useStore();
-  const favorites = useFavorites((state) => state.favorites);
-  const { mode, setMode, short } = useCurrency();
-
-  const cartCount = getCartCount();
-  const currencies = getActiveCurrencies();
-
+const Navbar = (_props: NavbarProps) => {
+  // Scope shared storefront treatments to Genan, not the admin dashboard.
   useEffect(() => {
-    if (!isEditorial) return;
-
-    // The reference homepage uses a prominent glass header on load,
-    // then a smaller floating pill as the visitor scrolls.
-    const updateScrollState = () => setIsScrolled(window.scrollY > 56);
-    updateScrollState();
-    window.addEventListener("scroll", updateScrollState, { passive: true });
-
-    return () => window.removeEventListener("scroll", updateScrollState);
-  }, [isEditorial]);
-
-  useEffect(() => {
-    const previousStorefront = document.body.dataset.storefront;
+    const previous = document.body.dataset.storefront;
     document.body.dataset.storefront = "genan";
-
     return () => {
-      if (previousStorefront) document.body.dataset.storefront = previousStorefront;
+      if (previous) document.body.dataset.storefront = previous;
       else delete document.body.dataset.storefront;
     };
   }, []);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
+  const [searchIndex, setSearchIndex] = useState<SearchSuggestion[]>(() => searchIndexCache || []);
+  const restoreScrollOnUnlockRef = useRef(true);
+  const searchResultsRef = useRef<HTMLDivElement | null>(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { openCart, getCartCount, customer, setCustomer } = useStore();
+  const { favorites } = useFavorites();
+  const { logout } = useAuthActions();
+  const cartCount = getCartCount();
+
+  const { unreadCount } = useCustomerNotifications({ enabled: menuOpen, enableToasts: false });
+  const { mode, setMode, short } = useCurrency();
+  const searchPanelOpen = searchFocused && searchTerm.trim().length > 0;
+
+  const goFromMenu = (to: string) => {
+    if (location.pathname + location.search !== to) navigate(to);
+    window.requestAnimationFrame(() => setMenuOpen(false));
+  };
+
+  const desktopLinks = [
+    { label: "الرئيسية", to: "/home" },
+    { label: "الأقسام", to: "/categories" },
+    { label: "جميع المنتجات", to: "/products" },
+    { label: "العروض", to: "/seasonal-offers" },
+    { label: "وصل حديثاً", to: "/new-arrivals" },
+    { label: "الأكثر مبيعاً", to: "/best-sellers" },
+    { label: "معلومات المتجر", to: "/store-info" },
+    { label: "باركود المتجر", to: "/qr-code" },
+  ];
 
   useEffect(() => {
-    let active = true;
-
+    let cancelled = false;
     void loadSearchIndex().then((index) => {
-      if (active) setSearchIndex(index);
+      if (!cancelled) setSearchIndex(index);
     });
-
     return () => {
-      active = false;
+      cancelled = true;
     };
   }, []);
 
   const suggestions = useMemo(() => {
     const value = normalizeSearch(searchTerm);
     if (!value) return [];
-
     return searchIndex
       .filter((item) => normalizeSearch(item.value).includes(value))
       .sort((a, b) => {
-        const av = normalizeSearch(a.value);
-        const bv = normalizeSearch(b.value);
-        return Number(!av.startsWith(value)) - Number(!bv.startsWith(value)) || a.value.localeCompare(b.value, "ar");
+        const aValue = normalizeSearch(a.value);
+        const bValue = normalizeSearch(b.value);
+        const aStarts = aValue.startsWith(value) ? 0 : 1;
+        const bStarts = bValue.startsWith(value) ? 0 : 1;
+        return aStarts - bStarts || a.value.localeCompare(b.value, "ar");
       })
-      .slice(0, 6);
+      .slice(0, 20);
   }, [searchIndex, searchTerm]);
 
-  const submitSearch = (value = searchTerm) => {
-    const cleaned = value.trim();
-    if (!cleaned) return;
+  useEffect(() => {
+    if (!searchFocused) return;
 
-    navigate(`/products?search=${encodeURIComponent(cleaned)}`);
-    setSearchTerm("");
-    setDesktopSearchOpen(false);
-    setMobileSearchOpen(false);
-    setMenuOpen(false);
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const html = document.documentElement;
+    const previousBody = { position: body.style.position, top: body.style.top, left: body.style.left, right: body.style.right, width: body.style.width, overflow: body.style.overflow };
+    const previousHtml = { overflow: html.style.overflow, overscrollBehavior: html.style.overscrollBehavior };
+
+    const preventBackgroundScroll = (event: Event) => {
+      const target = event.target as Node | null;
+      if (target && searchResultsRef.current?.contains(target)) return;
+      event.preventDefault();
+    };
+
+    restoreScrollOnUnlockRef.current = true;
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    html.style.overflow = "hidden";
+    html.style.overscrollBehavior = "none";
+
+    document.addEventListener("touchmove", preventBackgroundScroll, { passive: false });
+    document.addEventListener("wheel", preventBackgroundScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("touchmove", preventBackgroundScroll);
+      document.removeEventListener("wheel", preventBackgroundScroll);
+      body.style.position = previousBody.position;
+      body.style.top = previousBody.top;
+      body.style.left = previousBody.left;
+      body.style.right = previousBody.right;
+      body.style.width = previousBody.width;
+      body.style.overflow = previousBody.overflow;
+      html.style.overflow = previousHtml.overflow;
+      html.style.overscrollBehavior = previousHtml.overscrollBehavior;
+      if (restoreScrollOnUnlockRef.current) window.scrollTo(0, scrollY);
+      restoreScrollOnUnlockRef.current = true;
+    };
+  }, [searchFocused]);
+
+  const staticLabels: Record<string, { label: string; flag: string }> = {
+    SAR: { label: "ريال سعودي", flag: "🇸🇦" },
+    YER_SOUTH: { label: "ريال يمني - جنوبي", flag: "🇾🇪" },
+    YER_NORTH: { label: "ريال يمني - شمالي", flag: "🇾🇪" },
   };
 
-  const isActive = (to: string) =>
-    location.pathname === to || (to === "/products" && location.pathname.startsWith("/product/"));
+  const currencies = getActiveCurrencies().map((currency) => ({
+    key: currency.code as typeof mode,
+    label: staticLabels[currency.code]?.label ?? currency.meta.label,
+    flag: staticLabels[currency.code]?.flag ?? "💱",
+  }));
+
+  const closeSearch = () => {
+    restoreScrollOnUnlockRef.current = true;
+    setSearchFocused(false);
+    setSearchTerm("");
+  };
+
+  const runSearch = (value: string) => {
+    const cleaned = value.trim();
+    if (!cleaned) return;
+    restoreScrollOnUnlockRef.current = false;
+    navigate(`/products?search=${encodeURIComponent(cleaned)}`);
+    setSearchTerm("");
+    setSearchFocused(false);
+  };
+
+  const submitSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    runSearch(searchTerm);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    setCustomer(null);
+    navigate("/home");
+    window.requestAnimationFrame(() => setMenuOpen(false));
+  };
+
+  const currencyMenu = (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button type="button" aria-label="العملة" className="flex h-10 items-center gap-1 rounded-xl px-2 text-[11px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32] md:h-10 md:px-3">
+          <Globe size={17} />
+          <span>{short}</span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-60 rounded-[14px] border-[#D8C29A] bg-white">
+        <DropdownMenuLabel className="text-xs text-[#0E0E0E]">اختر العملة</DropdownMenuLabel>
+        <DropdownMenuSeparator className="bg-[#F7F7F7]" />
+        {currencies.map((currency) => (
+          <DropdownMenuItem key={currency.key} onClick={() => setMode(currency.key)} className={`cursor-pointer justify-between rounded-[9px] focus:bg-[#FAFAFA] ${mode === currency.key ? "bg-[#FAFAFA]" : ""}`}>
+            <span className="flex items-center gap-2 text-sm text-[#0E0E0E]">
+              <span>{currency.flag}</span>
+              {currency.label}
+            </span>
+            {mode === currency.key && <span className="h-2 w-2 rounded-full bg-[#0E0E0E]" />}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 
   return (
     <>
-      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 border-b border-[#EEEAE2] bg-white/95 backdrop-blur-xl ${isEditorial ? `genan-editorial-header${isScrolled ? " genan-editorial-header--floating" : ""}` : ""}`}>
-        {/* Mobile navbar */}
-        <div className="md:hidden">
-          <div className={`flex ${isProduct ? "h-14" : "h-16"} items-center justify-between px-4 ${isEditorial ? "genan-ref-mobile-nav-row" : ""}`}>
-            <Link
-              to="/home"
-              aria-label="الرئيسية"
-              className={`flex items-center ${isEditorial ? "genan-ref-mobile-logo" : ""}`}
-            >
-              {isEditorial ? <span className="genan-ref-mobile-wordmark" dir="ltr">GENAN</span> : <Logo size="md" />}
-            </Link>
-
-            <div className={`flex items-center gap-0.5 ${isEditorial ? "genan-ref-mobile-actions" : ""}`}>
-              {!isProduct && (
-                <button
-                  type="button"
-                  onClick={() => setMobileSearchOpen((value) => !value)}
-                  aria-label="بحث"
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
-                >
-                  <MagnifyingGlass size={isEditorial ? 23 : 19} />
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={openCart}
-                aria-label="السلة"
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1]"
-              >
-                <ShoppingBag size={isEditorial ? 22 : 19} />
-                {cartCount > 0 && (
-                  <span className="absolute left-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#B99A63] px-1 text-[8px] font-bold text-white">
-                    {cartCount > 99 ? "99+" : cartCount}
-                  </span>
-                )}
-              </button>
-
+      <header dir="rtl" className="fixed inset-x-0 top-0 z-50 border-b border-[#F7F7F7] bg-white/95 backdrop-blur-xl">
+        {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[112px] z-[55] touch-none bg-white/96 md:top-[120px]" />}
+        <div className="mx-auto max-w-[1500px] px-4 md:px-6 lg:px-8">
+          <div className="relative flex h-14 items-center justify-between md:hidden">
+            <div className="flex items-center">
               <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
                 <SheetTrigger asChild>
-                  <button
-                    type="button"
-                    aria-label="فتح القائمة"
-                    className={`flex h-10 w-10 items-center justify-center rounded-full text-[#222] transition-colors hover:bg-[#F7F5F1] ${isEditorial ? "genan-ref-mobile-menu-button" : ""}`}
-                  >
-                    {isEditorial ? (
-                      <span aria-hidden="true" className="genan-ref-mobile-menu-glyph"><span /><span /></span>
-                    ) : <List size={21} />}
+                  <button type="button" aria-label="فتح القائمة" className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+                    <List size={22} />
                   </button>
                 </SheetTrigger>
 
-                <SheetContent
-                  side="right"
-                  dir="rtl"
-                  hideCloseButton
-                  className="w-[86vw] max-w-[340px] border-l border-[#EEEAE2] bg-[#FFFEFC] p-0 shadow-[-18px_0_45px_rgba(20,20,20,.08)]"
-                >
-                  <div className="flex h-[72px] items-center justify-between border-b border-[#F0EDE7] px-5">
-                    <Logo size="md" invert={isEditorial} showArabic={isEditorial} />
-
-                    <button
-                      type="button"
-                      onClick={() => setMenuOpen(false)}
-                      aria-label="إغلاق القائمة"
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F6F3ED] text-[#555] transition-colors hover:bg-[#EEE9E0] hover:text-[#111]"
-                    >
-                      <X size={16} />
+                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-[#F7F7F7] bg-[#FAFAFA] p-0">
+                  <div className="flex items-center justify-center border-b border-[#F7F7F7] px-5 py-5">
+                    <button type="button" onClick={() => goFromMenu("/home")} className="flex items-center" aria-label="الرئيسية">
+                      <Logo size="lg" showArabic className="shrink-0" />
                     </button>
                   </div>
 
-                  <div className="flex h-[calc(100dvh-72px)] flex-col">
-                    <div className="px-5 pb-4 pt-5">
-                      <form
-                        onSubmit={(event) => {
-                          event.preventDefault();
-                          submitSearch();
-                        }}
-                        className="relative"
-                      >
-                        <MagnifyingGlass
-                          size={17}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8D887F]"
-                        />
-                        <input
-                          value={searchTerm}
-                          onChange={(event) => setSearchTerm(event.target.value)}
-                          placeholder="ابحث في جنان"
-                          className="h-12 w-full rounded-xl border border-[#E9E4DB] bg-white pr-11 pl-4 text-[12px] outline-none transition-colors placeholder:text-[#AAA49A] focus:border-[#CDB98F]"
-                        />
-                      </form>
+                  <nav className="flex-1 overflow-y-auto px-3 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    {unreadCount > 0 && (
+                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mt-4 flex w-full items-center gap-3 rounded-[14px] border border-[#EAF6F4] bg-[#F5FAF9] px-4 py-3 text-right">
+                        <Bell size={19} className="text-[#8C6B32]" />
+                        <span className="flex-1 text-xs font-medium text-[#8C6B32]">لديك {unreadCount} إشعار جديد</span>
+                      </button>
+                    )}
 
-                      {suggestions.length > 0 && (
-                        <div className="mt-2 overflow-hidden rounded-xl border border-[#EEEAE2] bg-white">
-                          {suggestions.slice(0, 4).map((item) => (
-                            <button
-                              key={`sidebar-${item.type}-${item.value}`}
-                              type="button"
-                              onClick={() => submitSearch(item.value)}
-                              className="flex w-full items-center justify-between border-b border-[#F3F0EA] px-4 py-3 text-right last:border-b-0 hover:bg-[#FAF8F4]"
-                            >
-                              <span className="truncate text-[11px] font-medium text-[#333]">{item.value}</span>
-                              <span className="text-[8px] text-[#A39D93]">{item.type}</span>
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    <Section label="التسوق">
+                      <NavItem icon={House} label="الرئيسية" isActive={location.pathname === "/home"} onPress={() => goFromMenu("/home")} />
+                      <NavItem icon={SquaresFour} label="الأقسام" isActive={location.pathname === "/categories"} onPress={() => goFromMenu("/categories")} />
+                      <NavItem icon={Package} label="جميع المنتجات" isActive={location.pathname === "/products"} onPress={() => goFromMenu("/products")} />
+                      <NavItem icon={Tag} label="العروض" isActive={location.pathname === "/seasonal-offers"} onPress={() => goFromMenu("/seasonal-offers")} />
+                      <NavItem icon={Package} label="وصل حديثاً" isActive={location.pathname === "/new-arrivals"} onPress={() => goFromMenu("/new-arrivals")} />
+                      <NavItem icon={Crown} label="الأكثر مبيعاً" isActive={location.pathname === "/best-sellers"} onPress={() => goFromMenu("/best-sellers")} />
+                    </Section>
 
-                    <div className="flex-1 overflow-y-auto px-3">
-                      <nav aria-label="القائمة الرئيسية" className="space-y-1">
-                        {visibleNavLinks.map((item) => {
-                          const active = isActive(item.to);
+                    <Section label="الحساب">
+                      <NavItem icon={ShoppingCart} label="السلة" badge={cartCount || undefined} isActive={location.pathname === "/cart"} onPress={() => goFromMenu("/cart")} />
+                      <NavItem icon={Heart} label="المفضلة" badge={favorites.length || undefined} isActive={location.pathname === "/favorites"} onPress={() => goFromMenu("/favorites")} />
+                      <NavItem icon={User} label="حسابي" isActive={location.pathname === "/account"} onPress={() => goFromMenu("/account")} />
+                    </Section>
 
-                          return (
-                            <SheetClose asChild key={item.to}>
-                              <Link
-                                to={item.to}
-                                className={`flex h-12 items-center rounded-xl px-4 text-[12px] transition-colors ${
-                                  active
-                                    ? "bg-[#F3EFE6] font-semibold text-[#171717]"
-                                    : "font-medium text-[#66615A] hover:bg-[#F8F6F2] hover:text-[#171717]"
-                                }`}
-                              >
-                                {item.label}
-                              </Link>
-                            </SheetClose>
-                          );
-                        })}
-                      </nav>
+                    <Section label="المتجر">
+                      <NavItem icon={MapPin} label="معلومات المتجر" isActive={location.pathname === "/store-info"} onPress={() => goFromMenu("/store-info")} />
+                      <NavItem icon={QrCode} label="باركود المتجر" isActive={location.pathname === "/qr-code"} onPress={() => goFromMenu("/qr-code")} />
+                    </Section>
+                  </nav>
 
-                      <div className="my-5 h-px bg-[#EFECE6]" />
-
-                      <div className="space-y-1">
-                        <SheetClose asChild>
-                          <Link
-                            to={customer ? "/account" : "/auth"}
-                            className="flex h-11 items-center gap-3 rounded-xl px-4 text-[11px] font-medium text-[#5E5952] transition-colors hover:bg-[#F8F6F2] hover:text-[#171717]"
-                          >
-                            <User size={17} />
-                            {customer ? "حسابي" : "تسجيل الدخول"}
-                          </Link>
-                        </SheetClose>
-
-                        <SheetClose asChild>
-                          <Link
-                            to="/favorites"
-                            className="flex h-11 items-center justify-between rounded-xl px-4 text-[11px] font-medium text-[#5E5952] transition-colors hover:bg-[#F8F6F2] hover:text-[#171717]"
-                          >
-                            <span className="flex items-center gap-3">
-                              <Heart size={17} />
-                              المفضلة
-                            </span>
-                            {favorites.length > 0 && (
-                              <span className="text-[9px] font-semibold text-[#A18451]">{favorites.length}</span>
-                            )}
-                          </Link>
-                        </SheetClose>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            openCart();
-                            setMenuOpen(false);
-                          }}
-                          className="flex h-11 w-full items-center justify-between rounded-xl px-4 text-[11px] font-medium text-[#5E5952] transition-colors hover:bg-[#F8F6F2] hover:text-[#171717]"
-                        >
-                          <span className="flex items-center gap-3">
-                            <ShoppingBag size={17} />
-                            السلة
-                          </span>
-                          {cartCount > 0 && (
-                            <span className="text-[9px] font-semibold text-[#A18451]">{cartCount > 99 ? "99+" : cartCount}</span>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="border-t border-[#EFECE6] px-5 py-4">
-                      <p className="mb-3 text-[9px] font-medium text-[#999188]">العملة</p>
-                      <div className="grid grid-cols-3 gap-2">
-                        {currencies.map((currency) => {
-                          const activeCurrency = mode === currency.code;
-
-                          return (
-                            <button
-                              key={currency.code}
-                              type="button"
-                              onClick={() => setMode(currency.code as typeof mode)}
-                              className={`h-9 rounded-lg border text-[9px] font-medium transition-colors ${
-                                activeCurrency
-                                  ? "border-[#CDB98F] bg-[#F6F1E7] text-[#2A2723]"
-                                  : "border-[#EDE9E2] bg-white text-[#77716A] hover:bg-[#F8F6F2]"
-                              }`}
-                            >
-                              {currency.meta.label}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
+                  <div className="border-t border-[#F7F7F7] bg-[#FAFAFA] p-4">
+                    {customer ? (
+                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+                        <SignOut size={18} />
+                        تسجيل الخروج
+                      </button>
+                    ) : (
+                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors hover:bg-[#282828]">
+                        <SignIn size={18} />
+                        تسجيل الدخول
+                      </button>
+                    )}
                   </div>
                 </SheetContent>
               </Sheet>
             </div>
+
+            <Link to="/home" aria-label="الرئيسية" className="absolute left-1/2 -translate-x-1/2">
+              <Logo size="lg" showArabic className="shrink-0" />
+            </Link>
+
+            <div className="flex items-center gap-0.5">
+              {currencyMenu}
+              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
+                <ShoppingCart size={21} weight="regular" />
+                {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
+              </button>
+            </div>
           </div>
 
-          {!isProduct && mobileSearchOpen && (
-            <div className={`border-t border-[#F0EDE7] bg-[#FFFEFC] px-4 py-3 ${isEditorial ? "genan-ref-mobile-search-panel" : ""}`}>
-              <form
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  submitSearch();
-                }}
-                className="relative"
-              >
-                <MagnifyingGlass
-                  size={17}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8D887F]"
-                />
-                <input
-                  autoFocus
-                  value={searchTerm}
-                  onChange={(event) => setSearchTerm(event.target.value)}
-                  placeholder="ابحث في جنان"
-                  className="h-11 w-full rounded-xl border border-[#E9E4DB] bg-white pr-11 pl-10 text-[12px] outline-none focus:border-[#CDB98F]"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileSearchOpen(false);
-                    setSearchTerm("");
-                  }}
-                  className="absolute left-1 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center text-[#8D887F]"
-                >
-                  <X size={14} />
-                </button>
-              </form>
+          <div className="hidden md:flex md:h-[72px] md:items-center md:gap-6 lg:gap-8">
+            <Link to="/home" aria-label="الرئيسية" className="flex shrink-0 items-center gap-3">
+              <Logo size="lg" showArabic className="shrink-0" />
+              <div className="hidden xl:block">
+                <span className="block text-[13px] font-semibold tracking-[-0.02em] text-[#0E0E0E]">genan Park</span>
+                <span className="mt-0.5 block text-[8px] text-[#8C6B32]">تجربة تسوق مختارة بعناية</span>
+              </div>
+            </Link>
 
-              {suggestions.length > 0 && (
-                <div className="mt-2 overflow-hidden rounded-xl border border-[#EEEAE2] bg-white">
-                  {suggestions.slice(0, 4).map((item) => (
-                    <button
-                      key={`mobile-${item.type}-${item.value}`}
-                      type="button"
-                      onClick={() => submitSearch(item.value)}
-                      className="flex w-full items-center justify-between border-b border-[#F3F0EA] px-4 py-3 text-right last:border-b-0"
-                    >
-                      <span className="truncate text-[11px] font-medium text-[#333]">{item.value}</span>
-                      <span className="text-[8px] text-[#A39D93]">{item.type}</span>
+            <form onSubmit={submitSearch} className="relative z-[70] mx-auto w-full max-w-[620px]">
+              <label className="relative block">
+                <MagnifyingGlass size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#686868]" />
+                <input
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onFocus={() => setSearchFocused(true)}
+                  placeholder="ابحث عن منتج، ماركة أو قسم..."
+                  autoComplete="off"
+                  aria-autocomplete="list"
+                  aria-expanded={searchPanelOpen && suggestions.length > 0}
+                  className="h-[44px] w-full rounded-full border border-[#F7F7F7] bg-[#FAFAFA] pr-11 pl-11 text-[12px] text-[#0E0E0E] outline-none transition-all placeholder:text-[#686868] focus:border-[#D8C29A] focus:bg-white focus:shadow-[0_8px_28px_rgba(14,14,14,0.08)]"
+                />
+              </label>
+
+              {searchFocused && (
+                <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-1/2 z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[18px] font-light text-[#8C6B32] hover:bg-[#FAFAFA]">×</button>
+              )}
+
+              {searchPanelOpen && suggestions.length > 0 && (
+                <div ref={searchResultsRef} role="listbox" className="absolute inset-x-0 top-[52px] z-[75] max-h-[360px] overflow-y-auto rounded-[18px] border border-[#D8C29A] bg-white shadow-[0_18px_50px_rgba(14,14,14,0.12)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {suggestions.map((suggestion, index) => (
+                    <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#FAFAFA] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#FAFAFA]">
+                      <MagnifyingGlass size={15} className="shrink-0 text-[#8C6B32]" />
+                      <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-[#0E0E0E]">{suggestion.value}</span>
+                      <span className="shrink-0 rounded-full bg-[#FAFAFA] px-2 py-1 text-[8px] text-[#8C6B32]">{suggestion.type}</span>
                     </button>
                   ))}
                 </div>
               )}
-            </div>
-          )}
-        </div>
+            </form>
 
-        {/* Desktop navbar */}
-        <div className="hidden md:block">
-          <div className="mx-auto flex h-[72px] max-w-[1600px] items-center px-6 lg:px-10 xl:px-14">
-            <Link to="/home" aria-label="الرئيسية" className="flex min-w-[150px] items-center">
-              <Logo size="lg" invert={isEditorial} showArabic={isEditorial} />
-            </Link>
-
-            <nav className="flex flex-1 items-center justify-center gap-7 lg:gap-10">
-              {visibleNavLinks.map((item) => {
-                const active = isActive(item.to);
-
-                return (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    className={`relative flex h-[72px] items-center text-[11px] font-medium transition-colors ${
-                      active ? "text-[#161616]" : "text-[#6F6A63] hover:text-[#161616]"
-                    }`}
-                  >
-                    {item.label}
-                    {active && (
-                      <span className="absolute bottom-0 right-0 h-[2px] w-full rounded-full bg-[#B99A63]" />
-                    )}
-                  </Link>
-                );
-              })}
-            </nav>
-
-            <div className="flex min-w-[230px] items-center justify-end gap-1">
-              <div className="relative">
-                {desktopSearchOpen ? (
-                  <form
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      submitSearch();
-                    }}
-                    className="relative flex h-10 w-[220px] items-center rounded-full border border-[#E8E3DB] bg-[#FAF8F4] px-3"
-                  >
-                    <MagnifyingGlass size={16} className="shrink-0 text-[#7C766E]" />
-                    <input
-                      autoFocus
-                      value={searchTerm}
-                      onChange={(event) => setSearchTerm(event.target.value)}
-                      placeholder="ابحث في جنان"
-                      className="h-full min-w-0 flex-1 bg-transparent px-2 text-[11px] outline-none"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setDesktopSearchOpen(false);
-                        setSearchTerm("");
-                      }}
-                      className="flex h-7 w-7 items-center justify-center text-[#807A72]"
-                    >
-                      <X size={13} />
-                    </button>
-
-                    {suggestions.length > 0 && (
-                      <div className="absolute left-0 right-0 top-12 overflow-hidden rounded-xl border border-[#EEEAE2] bg-white shadow-[0_16px_40px_rgba(20,20,20,.09)]">
-                        {suggestions.map((item) => (
-                          <button
-                            key={`desktop-${item.type}-${item.value}`}
-                            type="button"
-                            onClick={() => submitSearch(item.value)}
-                            className="flex w-full items-center justify-between border-b border-[#F3F0EA] px-4 py-3 text-right last:border-b-0 hover:bg-[#FAF8F4]"
-                          >
-                            <span className="truncate text-[10px] font-medium text-[#292929]">{item.value}</span>
-                            <span className="text-[8px] text-[#A39D93]">{item.type}</span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </form>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => setDesktopSearchOpen(true)}
-                    aria-label="بحث"
-                    className="flex h-10 w-10 items-center justify-center rounded-full text-[#252525] transition-colors hover:bg-[#F6F3ED]"
-                  >
-                    <MagnifyingGlass size={18} />
-                  </button>
-                )}
-              </div>
-
-              <Link
-                to="/favorites"
-                aria-label="المفضلة"
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#252525] transition-colors hover:bg-[#F6F3ED]"
-              >
-                <Heart size={18} />
-                {favorites.length > 0 && (
-                  <span className="absolute left-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#B99A63]" />
-                )}
+            <div className="flex shrink-0 items-center gap-1.5">
+              {currencyMenu}
+              <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+                <Heart size={20} weight="regular" />
+                {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
               </Link>
-
-              <button
-                type="button"
-                onClick={openCart}
-                aria-label="السلة"
-                className="relative flex h-10 w-10 items-center justify-center rounded-full text-[#252525] transition-colors hover:bg-[#F6F3ED]"
-              >
-                <ShoppingBag size={18} />
-                {cartCount > 0 && (
-                  <span className="absolute -left-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#B99A63] px-1 text-[8px] font-bold text-white">
-                    {cartCount > 99 ? "99+" : cartCount}
-                  </span>
-                )}
+              <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+                <ShoppingCart size={20} weight="regular" />
+                {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </button>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button
-                    type="button"
-                    aria-label="اختيار العملة"
-                    className="hidden h-10 items-center gap-1.5 rounded-full px-3 text-[9px] font-medium text-[#625D56] transition-colors hover:bg-[#F6F3ED] lg:flex"
-                  >
-                    <Globe size={15} />
-                    {short}
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48 rounded-xl border-[#EAE5DD] bg-white p-1.5">
-                  {currencies.map((currency) => (
-                    <DropdownMenuItem
-                      key={currency.code}
-                      onClick={() => setMode(currency.code as typeof mode)}
-                      className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2 text-[10px]"
-                    >
-                      <span>{currency.meta.label}</span>
-                      {mode === currency.code && <span className="h-1.5 w-1.5 rounded-full bg-[#B99A63]" />}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <Link
-                to={customer ? "/account" : "/auth"}
-                aria-label={customer ? "حسابي" : "تسجيل الدخول"}
-                className="flex h-10 w-10 items-center justify-center rounded-full text-[#252525] transition-colors hover:bg-[#F6F3ED]"
-              >
-                <User size={18} />
+              <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+                <User size={17} />
+                <span className="hidden lg:inline">{customer ? "حسابي" : "تسجيل الدخول"}</span>
               </Link>
             </div>
           </div>
+
+          <form onSubmit={submitSearch} className="relative z-[70] pb-3 md:hidden">
+            <label className="relative block">
+              <MagnifyingGlass size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#686868]" />
+              <input
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                placeholder="ابحث عن منتج، ماركة أو قسم..."
+                enterKeyHint="search"
+                autoComplete="off"
+                aria-autocomplete="list"
+                aria-expanded={searchPanelOpen && suggestions.length > 0}
+                className="h-11 w-full rounded-2xl border border-[#F7F7F7] bg-[#FAFAFA] pr-11 pl-11 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#686868] focus:border-[#D8C29A] focus:bg-white"
+              />
+            </label>
+
+            {searchFocused && (
+              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-[22px] z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[20px] font-light leading-none text-[#8C6B32] transition-colors hover:bg-[#FAFAFA] hover:text-[#8C6B32] active:bg-[#F7F7F7]">×</button>
+            )}
+
+            {searchPanelOpen && suggestions.length > 0 && (
+              <div ref={searchResultsRef} role="listbox" className="absolute inset-x-0 top-[calc(100%-8px)] z-[75] max-h-[calc(100dvh-135px)] touch-pan-y overflow-y-auto overscroll-contain rounded-2xl border border-[#D8C29A] bg-white shadow-[0_14px_35px_rgba(14,14,14,0.12)] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {suggestions.map((suggestion, index) => (
+                  <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#FAFAFA] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#FAFAFA] active:bg-[#F7F7F7]">
+                    <MagnifyingGlass size={15} className="shrink-0 text-[#8C6B32]" />
+                    <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-[#0E0E0E]">{suggestion.value}</span>
+                    <span className="shrink-0 rounded-full bg-[#FAFAFA] px-2 py-1 text-[8px] text-[#8C6B32]">{suggestion.type}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </form>
+
+          <nav className="hidden h-[48px] items-center justify-center gap-1 border-t border-[#FAFAFA] md:flex lg:gap-2">
+            {desktopLinks.map((item) => {
+              const active = location.pathname === item.to || (item.to === "/products" && location.pathname.startsWith("/product/"));
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`relative flex h-full items-center px-3 text-[10px] font-medium transition-colors lg:px-4 lg:text-[11px] ${active ? "text-[#8C6B32]" : "text-[#0E0E0E] hover:text-[#8C6B32]"}`}
+                >
+                  {item.label}
+                  {active && <span className="absolute inset-x-3 bottom-0 h-[2px] rounded-full bg-[#0E0E0E] lg:inset-x-4" />}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
       </header>
-
-      <div
-        aria-hidden="true"
-        className={
-          !isProduct && mobileSearchOpen
-            ? "h-[125px] md:h-[72px]"
-            : isProduct
-              ? "h-14 md:h-[72px]"
-              : "h-16 md:h-[72px]"
-        }
-      />
+      <div aria-hidden="true" className="h-[112px] md:h-[120px]" />
     </>
   );
 };
