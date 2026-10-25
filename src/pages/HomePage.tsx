@@ -136,7 +136,7 @@ const EditorialSection = ({ banner }: { banner: EditorialBanner | null }) => {
             <div className="relative z-10 flex min-h-[360px] flex-col items-center justify-center px-5 py-12 text-center md:min-h-[500px] md:items-start md:px-12 md:text-right lg:px-16">
               <div className="mb-4 flex items-center justify-center gap-2 md:justify-start">
                 <span className="h-px w-6 bg-white/55 md:bg-[#D8C29A]" />
-                <span className="font-serif text-[6px] uppercase tracking-[0.24em] text-white/85 md:text-[8px] md:text-[#8C6B32]">genan EDIT</span>
+                <span className="font-serif text-[6px] uppercase tracking-[0.24em] text-white/85 md:text-[8px] md:text-[#8C6B32]">GENAN EDIT</span>
               </div>
               <h2 className="max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-white drop-shadow-sm md:text-[34px] md:leading-[1.65] md:text-[#0E0E0E] md:drop-shadow-none">{title}</h2>
               <p className="mt-4 max-w-[450px] text-[8px] leading-6 text-white/85 md:text-[11px] md:leading-8 md:text-[#8C6B32]">{subtitle}</p>
@@ -151,7 +151,7 @@ const EditorialSection = ({ banner }: { banner: EditorialBanner | null }) => {
   return (
     <section className="bg-background px-4 py-11 md:py-20">
       <div className="relative z-10 mx-auto flex max-w-[850px] flex-col items-center justify-center px-4 text-center">
-        <div className="mx-auto mb-4 flex items-center justify-center gap-2"><span className="h-px w-6 bg-border" /><span className="font-serif text-[6px] uppercase tracking-[0.24em] text-[#8C6B32]">genan EDIT</span><span className="h-px w-6 bg-border" /></div>
+        <div className="mx-auto mb-4 flex items-center justify-center gap-2"><span className="h-px w-6 bg-border" /><span className="font-serif text-[6px] uppercase tracking-[0.24em] text-[#8C6B32]">GENAN EDIT</span><span className="h-px w-6 bg-border" /></div>
         <h2 className="mx-auto max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-foreground md:text-[36px] md:leading-[1.7]">{title}</h2>
         <p className="mx-auto mt-4 max-w-[450px] text-[8px] leading-6 text-muted-foreground md:text-[10px] md:leading-7">{subtitle}</p>
         <Link to={ctaLink} className="mx-auto mt-5 inline-flex items-center gap-1.5 border-b border-border pb-1 text-[7px] font-semibold text-[#8C6B32] md:text-[8px]">{ctaText}<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
