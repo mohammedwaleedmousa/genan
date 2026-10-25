@@ -375,7 +375,7 @@ const Navbar = (_props: NavbarProps) => {
             <Link to="/home" aria-label="الرئيسية" className="flex shrink-0 items-center gap-3">
               <Logo size="lg" showArabic className="shrink-0" />
               <div className="hidden xl:block">
-                <span className="block text-[13px] font-semibold tracking-[-0.02em] text-[#0E0E0E]">genan Park</span>
+                <span className="block text-[13px] font-semibold tracking-[-0.02em] text-[#0E0E0E]">بوتيك جنان</span>
                 <span className="mt-0.5 block text-[8px] text-[#8C6B32]">تجربة تسوق مختارة بعناية</span>
               </div>
             </Link>
