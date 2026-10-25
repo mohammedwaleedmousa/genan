@@ -3,7 +3,6 @@ import {
   Bell,
   CaretLeft,
   Crown,
-  Globe,
   Heart,
   House,
   List,
@@ -25,19 +24,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/useStore";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuthActions } from "@/hooks/useAuthActions";
-import { useCurrency, getActiveCurrencies } from "@/lib/currency";
 import { useCustomerNotifications } from "@/hooks/useCustomerNotifications";
 import { supabase } from "@/integrations/supabase/client";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 type SearchSuggestion = {
   value: string;
@@ -157,7 +147,6 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
   const cartCount = getCartCount();
 
   const { unreadCount } = useCustomerNotifications({ enabled: menuOpen, enableToasts: false });
-  const { mode, setMode, short } = useCurrency();
   const searchPanelOpen = searchFocused && searchTerm.trim().length > 0;
 
   const goFromMenu = (to: string) => {
@@ -245,18 +234,6 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
     };
   }, [searchFocused]);
 
-  const staticLabels: Record<string, { label: string; flag: string }> = {
-    SAR: { label: "ريال سعودي", flag: "🇸🇦" },
-    YER_SOUTH: { label: "ريال يمني - جنوبي", flag: "🇾🇪" },
-    YER_NORTH: { label: "ريال يمني - شمالي", flag: "🇾🇪" },
-  };
-
-  const currencies = getActiveCurrencies().map((currency) => ({
-    key: currency.code as typeof mode,
-    label: staticLabels[currency.code]?.label ?? currency.meta.label,
-    flag: staticLabels[currency.code]?.flag ?? "💱",
-  }));
-
   const closeSearch = () => {
     restoreScrollOnUnlockRef.current = true;
     setSearchFocused(false);
@@ -286,28 +263,15 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
     window.requestAnimationFrame(() => setMenuOpen(false));
   };
 
-  const currencyMenu = (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button type="button" aria-label="العملة" className="flex h-10 items-center gap-1 rounded-xl px-2 text-[11px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32] md:h-10 md:px-3">
-          <Globe size={17} />
-          <span>{short}</span>
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-60 rounded-[14px] border-[#D8C29A] bg-white">
-        <DropdownMenuLabel className="text-xs text-[#0E0E0E]">اختر العملة</DropdownMenuLabel>
-        <DropdownMenuSeparator className="bg-[#F7F7F7]" />
-        {currencies.map((currency) => (
-          <DropdownMenuItem key={currency.key} onClick={() => setMode(currency.key)} className={`cursor-pointer justify-between rounded-[9px] focus:bg-[#FAFAFA] ${mode === currency.key ? "bg-[#FAFAFA]" : ""}`}>
-            <span className="flex items-center gap-2 text-sm text-[#0E0E0E]">
-              <span>{currency.flag}</span>
-              {currency.label}
-            </span>
-            {mode === currency.key && <span className="h-2 w-2 rounded-full bg-[#0E0E0E]" />}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+  // Single fixed storefront currency; there is deliberately no dropdown.
+  const currencyLabel = (
+    <span
+      aria-label="العملة: الريال السعودي"
+      title="العملة: الريال السعودي"
+      className="inline-flex h-10 shrink-0 items-center justify-center rounded-xl px-1.5 text-[11px] font-semibold text-[#0E0E0E] md:px-3"
+    >
+      ر.س
+    </span>
   );
 
   return (
@@ -385,7 +349,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </Link>
 
             <div className="flex items-center gap-0.5">
-              {currencyMenu}
+              {currencyLabel}
               <button type="button" onClick={openCart} aria-label="السلة" className="relative flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:bg-[#F5FAF9] hover:text-[#8C6B32]">
                 <ShoppingCart size={21} weight="regular" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
@@ -431,7 +395,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </form>
 
             <div className="flex shrink-0 items-center gap-1.5">
-              {currencyMenu}
+              {currencyLabel}
               <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
                 <Heart size={20} weight="regular" />
                 {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
