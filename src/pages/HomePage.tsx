@@ -195,7 +195,7 @@ const HomePage = () => {
   const imageBanner = showHomeSection("services") ? <GenanServices /> : null;
   const textBanner = showHomeSection("editorial") ? <EditorialSection banner={editorialBanner} /> : null;
   const brandsSection = showHomeSection("brands") ? (
-    <div ref={brandsViewport.ref} className="bg-white"><BrandsStrip enabled={brandsViewport.isNearViewport} /></div>
+    <div ref={brandsViewport.ref} className="bg-white" style={{ minHeight: 92 }}><BrandsStrip enabled={brandsViewport.isNearViewport} /></div>
   ) : null;
 
   return (
