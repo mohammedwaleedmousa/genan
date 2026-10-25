@@ -1,8 +1,9 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
+import HomeDemoProductCard, { HOME_DEMO_PRODUCTS } from "@/components/HomeDemoProductCard";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 
@@ -32,14 +33,16 @@ type BestSellerStat = {
 type HomeManagedSectionsProps = {
   betweenSections?: ReactNode;
   afterSections?: ReactNode;
+  brandsSection?: ReactNode;
 };
 
 const INITIAL_VISIBLE = 8;
-const LOAD_MORE_STEP = 8;
 const BEST_SELLER_LIMIT = 40;
 const DEFAULT_SECTION_FETCH_LIMIT = 48;
 const MAX_SECTION_FETCH_LIMIT = 64;
 const HOME_CACHE_MS = 5 * 60 * 1000;
+// Preview samples can be disabled for launch with VITE_GENAN_HOME_PREVIEW=false.
+const HOME_PREVIEW_ENABLED = import.meta.env.VITE_GENAN_HOME_PREVIEW !== "false";
 
 const getSectionFetchLimit = (section: ManagedSection) => {
   const configured = Number(section.max_products || 0);
@@ -47,8 +50,7 @@ const getSectionFetchLimit = (section: ManagedSection) => {
   return Math.min(Math.max(configured, INITIAL_VISIBLE), MAX_SECTION_FETCH_LIMIT);
 };
 
-const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSectionsProps) => {
-  const [visibleCounts, setVisibleCounts] = useState<Record<string, number>>({});
+const HomeManagedSections = ({ betweenSections, brandsSection, afterSections }: HomeManagedSectionsProps) => {
 
   const { data: sections = [] } = useQuery({
     queryKey: ["home-managed-sections"],
@@ -72,16 +74,16 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
   // Keep the storefront shoppable before the merchandiser publishes homepage_sections.
   // Genan demo items are view-only; ProductCard retains their purchase guard.
   const { data: fallbackProducts = [] } = useQuery({
-    queryKey: ["genan-home-fallback-products", "reference-layout-v1"],
-    enabled: sections.length === 0,
+    queryKey: ["genan-home-latest-products", "editorial-v1"],
+    enabled: true,
     queryFn: async () => {
       const { data: live, error: liveError } = await supabase
         .from("products")
         .select(PRODUCT_CARD_SELECT)
         .eq("is_active", true)
         .eq("in_stock", true)
-        .order("sort_order", { ascending: true })
-        .limit(12);
+        .order("created_at", { ascending: false })
+        .limit(16);
       if (liveError) throw liveError;
       if (live?.length) return live.map(mapProductCard);
       const { data: demo, error: demoError } = await supabase
@@ -224,137 +226,59 @@ const HomeManagedSections = ({ betweenSections, afterSections }: HomeManagedSect
     [rows, sections, bestSellerStats, soldRows],
   );
 
-  const loadMore = (id: string, total: number) =>
-    setVisibleCounts((current) => ({
-      ...current,
-      [id]: Math.min((current[id] || INITIAL_VISIBLE) + LOAD_MORE_STEP, total),
-    }));
+  // Always show the three editorial rows so layout can be reviewed before launch.
+  // Real featured/best-seller products still come from the admin-managed sections.
+  const featuredSection = rendered.find((entry) => entry.section.filter_type === "featured");
+  const bestSection = rendered.find((entry) => entry.section.filter_type === "best_seller");
+  const extras = rendered.filter((entry) => entry.section.id !== featuredSection?.section.id && entry.section.id !== bestSection?.section.id);
+  const shelves = [
+    { key: "new-arrivals", title: "وصل حديثاً", eyebrow: "JUST LANDED", subtitle: "قطع جديدة تستحق الاكتشاف", url: "/new-arrivals", products: fallbackProducts.slice(0, 4), sample: 0 },
+    { key: "best-sellers", title: "الأكثر مبيعاً", eyebrow: "MOST LOVED", subtitle: "تشكيلات لاقت إعجاب عملائنا", url: "/best-sellers", products: bestSection?.products || [], sample: 4 },
+    { key: "genan-edit", title: "مختارات جنان", eyebrow: "GENAN EDIT", subtitle: "تفاصيل منتقاة لأسلوب مختلف", url: "/products", products: featuredSection?.products.length ? featuredSection.products : fallbackProducts.slice(4, 8), sample: 2 },
+    ...extras.map((entry, i) => ({
+      key: "managed-" + entry.section.id, title: entry.section.title_ar, eyebrow: entry.section.title || "COLLECTION",
+      subtitle: "تشكيلات أخرى تستحق الاكتشاف", url: entry.section.view_all_link || "/products",
+      products: entry.products, sample: i,
+    })),
+  ];
 
-  const collapse = (id: string, count: number) => {
-    const next = Math.max(INITIAL_VISIBLE, count - LOAD_MORE_STEP);
-    setVisibleCounts((current) => ({ ...current, [id]: next }));
-    window.requestAnimationFrame(() =>
-      window.requestAnimationFrame(() =>
-        document
-          .getElementById(`home-section-${id}-product-${next - 1}`)
-          ?.scrollIntoView({ behavior: "smooth", block: "center" }),
-      ),
+  const renderShelf = (shelf: (typeof shelves)[number], index: number) => {
+    // Include one clearly labeled non-purchasable sample in each core row.
+    const real = shelf.products.slice(0, HOME_PREVIEW_ENABLED && index < 3 ? 3 : 4);
+    const missing = HOME_PREVIEW_ENABLED ? Math.max(0, 4 - real.length) : 0;
+    return (
+      <section key={shelf.key} id={"home-section-" + shelf.key} aria-label={shelf.title}
+        className={"scroll-mt-24 py-8 sm:py-10 md:py-14 " + (index % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]")}>
+        <div className="mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-8">
+          <div className="mb-5 flex items-end justify-between gap-3 sm:mb-7">
+            <div className="min-w-0">
+              <span className="mb-1.5 block font-serif text-[9px] font-medium uppercase tracking-[0.2em] text-[#8C6B32]">{shelf.eyebrow}</span>
+              <h2 className="text-[21px] font-semibold tracking-[-0.025em] text-[#0E0E0E] sm:text-[26px] lg:text-[31px]">{shelf.title}</h2>
+              <p className="mt-1 text-[10px] text-[#777777] sm:text-[12px]">{shelf.subtitle}</p>
+            </div>
+            <Link to={shelf.url} className="inline-flex shrink-0 items-center gap-1.5 border-b border-[#D8C29A] pb-1 text-[10px] font-semibold text-[#0E0E0E] hover:text-[#8C6B32] sm:text-[12px]">
+              عرض الكل <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-4 sm:gap-4 lg:gap-6">
+            {real.map((product, i) => <ProductCard key={product.id} product={product} index={index * 4 + i} />)}
+            {Array.from({ length: missing }, (_, i) => (
+              <HomeDemoProductCard key={shelf.key + "-sample-" + i} product={HOME_DEMO_PRODUCTS[(shelf.sample + i) % HOME_DEMO_PRODUCTS.length]} />
+            ))}
+          </div>
+        </div>
+      </section>
     );
   };
 
-  if (!rendered.length) {
-    return <>
-      {fallbackProducts.length > 0 && (
-        <section className="bg-white py-10 md:py-20" aria-label="مختارات جنان">
-          <div className="mx-auto max-w-[1500px] px-3 md:px-8">
-            <div className="mb-7 flex items-end justify-between gap-4 md:mb-10">
-              <div>
-                <span className="text-[10px] font-semibold tracking-[.24em] text-[#8C6B32]">GENAN EDIT</span>
-                <h2 className="mt-2 text-[24px] font-semibold tracking-tight text-[#0E0E0E] md:text-[38px]">مختارات جنان</h2>
-              </div>
-              <Link to="/products" className="inline-flex items-center gap-2 text-[10px] font-semibold text-[#0E0E0E] hover:text-[#8C6B32]">عرض الكل <ArrowLeft className="h-4 w-4" /></Link>
-            </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-5 lg:grid-cols-4">
-              {fallbackProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} />)}
-            </div>
-          </div>
-        </section>
-      )}
-      {betweenSections}
-      {afterSections}
-    </>;
-  }
-
   return (
     <>
-      {rendered.map(({ section, products }, sectionIndex) => {
-        const visibleCount = Math.min(visibleCounts[section.id] || INITIAL_VISIBLE, products.length);
-        const visibleProducts = products.slice(0, visibleCount);
-        const hasMore = visibleCount < products.length;
-        const canCollapse = visibleCount > INITIAL_VISIBLE;
-
-        return (
-          <div key={section.id}>
-            <section
-              id={`home-section-${section.id}`}
-              className={`scroll-mt-20 py-12 md:py-24 ${sectionIndex % 2 === 0 ? "bg-[#FFFFFF]" : "bg-[#F7F7F7]"}`}
-            >
-              <div className="mx-auto w-full max-w-[1680px] px-4 md:px-7 lg:px-10">
-                <div className="mb-8 flex items-end justify-between gap-6 md:mb-12">
-                  <div>
-                    <div className="mb-3 flex items-center gap-3">
-                      <span className="h-px w-10 bg-[#D8C29A]/60" />
-                      <span className="text-[7px] font-semibold uppercase tracking-[.28em] text-[#D8C29A] md:text-[8px]">
-                        {section.title || "GENAN EDIT"}
-                      </span>
-                    </div>
-                    <h2 className="max-w-[720px] text-[27px] font-medium leading-[1.4] tracking-[-0.045em] text-[#0E0E0E] md:text-[42px]">
-                      {section.title_ar}
-                    </h2>
-                    <p className="mt-3 hidden max-w-[520px] text-[11px] leading-7 text-[#6F6F6F] md:block">
-                      اختيارات مميزة، مرتبة لتصل إلى ما يناسبك بسرعة.
-                    </p>
-                  </div>
-
-                  {section.view_all_link && (
-                    <Link
-                      to={section.view_all_link}
-                      className="hidden items-center gap-3 border-b border-[#D8C29A]/55 pb-1 text-[10px] font-semibold text-[#0E0E0E] transition-colors hover:text-[#A9D8D3] md:flex"
-                    >
-                      عرض الكل
-                      <ArrowLeft className="h-4 w-4" />
-                    </Link>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-4 md:grid-cols-3 md:gap-x-5 md:gap-y-12 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-6">
-                  {visibleProducts.map((product, index) => (
-                    <div
-                      key={product.id}
-                      id={`home-section-${section.id}-product-${index}`}
-                      className="min-w-0"
-                    >
-                      <ProductCard product={product} index={sectionIndex * INITIAL_VISIBLE + index} />
-                    </div>
-                  ))}
-                </div>
-
-                {(hasMore || canCollapse) && section.show_view_all !== false && (
-                  <div className="mt-10 flex flex-wrap items-center justify-center gap-3 md:mt-16">
-                    {hasMore && (
-                      <button
-                        type="button"
-                        onClick={() => loadMore(section.id, products.length)}
-                        className="inline-flex h-11 items-center gap-2 border border-[#0E0E0E] bg-transparent px-7 text-[8px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#0E0E0E] hover:text-white md:h-12 md:px-9 md:text-[10px]"
-                      >
-                        عرض المزيد
-                        <ChevronDown className="h-4 w-4" />
-                      </button>
-                    )}
-
-                    {canCollapse && (
-                      <button
-                        type="button"
-                        onClick={() => collapse(section.id, visibleCount)}
-                        className="inline-flex h-11 items-center gap-2 border border-[#DADADA] bg-transparent px-6 text-[8px] font-semibold text-[#6F6F6F] md:h-12 md:px-8 md:text-[10px]"
-                      >
-                        تقليص
-                        <ChevronUp className="h-4 w-4" />
-                      </button>
-                    )}
-
-                    <span className="w-full text-center text-[7px] tracking-[0.08em] text-[#888888] md:text-[8px]">
-                      يظهر {visibleCount} من {products.length} منتج
-                    </span>
-                  </div>
-                )}
-              </div>
-            </section>
-
-            {sectionIndex === 0 && rendered.length > 1 ? betweenSections : null}
-          </div>
-        );
-      })}
+      {renderShelf(shelves[0], 0)}
+      {betweenSections}
+      {renderShelf(shelves[1], 1)}
+      {brandsSection}
+      {renderShelf(shelves[2], 2)}
+      {shelves.slice(3).map((shelf, index) => renderShelf(shelf, index + 3))}
       {afterSections}
     </>
   );

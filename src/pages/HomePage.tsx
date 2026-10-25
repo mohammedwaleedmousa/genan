@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, BadgePercent, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -41,28 +41,6 @@ const isLingerieCategory = (category: { slug?: string | null; name?: string | nu
     .replace(/\s+/g, " ");
   return /lingerie|لانجري|لانجيري|لانجيرى|ملابس داخليه|ملابس داخلية/.test(value);
 };
-
-const DesktopDiscovery = () => (
-  <section className="hidden bg-background md:block" dir="rtl" aria-label="اكتشف جنان">
-    <div className="mx-auto grid w-full max-w-[1500px] grid-cols-3 gap-3 px-6 pb-3 pt-5 lg:px-8">
-      <Link to="/new-arrivals" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EAEAEA] bg-[#FAFAFA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D8C29A] hover:shadow-[0_14px_34px_rgba(14,14,14,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#8C6B32] shadow-sm"><Sparkles className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#0E0E0E]">وصل حديثاً</span><span className="mt-1 block text-[9px] text-[#8C6B32]">اكتشف أحدث القطع فور وصولها</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#8C6B32] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
-      </Link>
-      <Link to="/seasonal-offers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EAEAEA] bg-white px-5 transition-all hover:-translate-y-0.5 hover:border-[#D8C29A] hover:shadow-[0_14px_34px_rgba(14,14,14,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FAFAFA] text-[#8C6B32]"><BadgePercent className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#0E0E0E]">العروض</span><span className="mt-1 block text-[9px] text-[#8C6B32]">اختيارات مميزة بأسعار أفضل</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#8C6B32] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
-      </Link>
-      <Link to="/best-sellers" className="group flex min-h-[86px] items-center gap-4 rounded-[20px] border border-[#EAEAEA] bg-[#FAFAFA] px-5 transition-all hover:-translate-y-0.5 hover:border-[#D8C29A] hover:shadow-[0_14px_34px_rgba(14,14,14,0.08)]">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#8C6B32] shadow-sm"><TrendingUp className="h-5 w-5" strokeWidth={1.5} /></span>
-        <span className="min-w-0 flex-1"><span className="block text-[13px] font-semibold text-[#0E0E0E]">الأكثر مبيعاً</span><span className="mt-1 block text-[9px] text-[#8C6B32]">القطع التي يختارها عملاؤنا أكثر</span></span>
-        <ArrowLeft className="h-4 w-4 text-[#8C6B32] transition-transform group-hover:-translate-x-1" strokeWidth={1.5} />
-      </Link>
-    </div>
-  </section>
-);
 
 const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
   if (!loading && items.length === 0) return null;
@@ -153,12 +131,20 @@ const EditorialSection = ({ banner }: { banner: EditorialBanner | null }) => {
   }
 
   return (
-    <section className="bg-background px-4 py-11 md:py-20">
-      <div className="relative z-10 mx-auto flex max-w-[850px] flex-col items-center justify-center px-4 text-center">
-        <div className="mx-auto mb-4 flex items-center justify-center gap-2"><span className="h-px w-6 bg-border" /><span className="font-serif text-[6px] uppercase tracking-[0.24em] text-[#8C6B32]">GENAN EDIT</span><span className="h-px w-6 bg-border" /></div>
-        <h2 className="mx-auto max-w-[700px] whitespace-pre-line text-[21px] font-light leading-[1.8] tracking-[-0.025em] text-foreground md:text-[36px] md:leading-[1.7]">{title}</h2>
-        <p className="mx-auto mt-4 max-w-[450px] text-[8px] leading-6 text-muted-foreground md:text-[10px] md:leading-7">{subtitle}</p>
-        <Link to={ctaLink} className="mx-auto mt-5 inline-flex items-center gap-1.5 border-b border-border pb-1 text-[7px] font-semibold text-[#8C6B32] md:text-[8px]">{ctaText}<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
+    <section className="bg-white px-4 py-8 sm:px-6 md:py-14" aria-label="بانر مختارات جنان">
+      <div className="mx-auto grid w-full max-w-[1450px] overflow-hidden bg-[#F5F1EA] md:min-h-[360px] md:grid-cols-[1.05fr_0.95fr] md:rounded-[18px]">
+        <div className="order-2 flex flex-col items-start justify-center px-6 py-9 text-right sm:px-10 md:order-1 md:px-14 md:py-12">
+          <span className="font-serif text-[10px] uppercase tracking-[0.23em] text-[#8C6B32]">THE GENAN EDIT</span>
+          <h2 className="mt-3 max-w-[540px] text-[23px] font-light leading-[1.65] tracking-[-0.025em] text-[#0E0E0E] md:text-[35px]">{title}</h2>
+          <p className="mt-3 max-w-[440px] text-[11px] leading-7 text-[#65615B] md:text-[13px]">{subtitle}</p>
+          <Link to={ctaLink} className="mt-5 inline-flex items-center gap-2 border-b border-[#8C6B32] pb-1 text-[11px] font-semibold text-[#0E0E0E]">
+            {ctaText}<ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
+          </Link>
+        </div>
+        <div className="order-1 h-[245px] overflow-hidden bg-[#EDE8E0] sm:h-[310px] md:order-2 md:h-full">
+          <img src="/products/demo/dress.webp" alt="تشكيلة أزياء تجريبية من جنان" width={740} height={610}
+            loading="lazy" decoding="async" className="h-full w-full object-cover object-center" />
+        </div>
       </div>
     </section>
   );
@@ -206,20 +192,19 @@ const HomePage = () => {
     })), [categories]);
 
   const brandsViewport = useNearViewport<HTMLDivElement>("120px");
-  const imageBanner = showHomeSection("services") ? <div className="bg-background"><GenanServices /></div> : null;
+  const imageBanner = showHomeSection("services") ? <GenanServices /> : null;
   const textBanner = showHomeSection("editorial") ? <EditorialSection banner={editorialBanner} /> : null;
+  const brandsSection = showHomeSection("brands") ? (
+    <div ref={brandsViewport.ref} className="bg-white" style={{ minHeight: 92 }}><BrandsStrip enabled={brandsViewport.isNearViewport} /></div>
+  ) : null;
 
   return (
     <div className="relative min-h-screen bg-background" dir="rtl">
       <Navbar overlayHero={showHomeSection("hero")} /><CartDrawer />
       <main id="main-content" className="overflow-hidden bg-background">
         {showHomeSection("hero") && <HeroSlider />}
-        <DesktopDiscovery />
         {showHomeSection("categories") && <CategoryCarousel items={featuredCategories} loading={categoriesLoading} />}
-        {showHomeSection("brands") && (
-          <div ref={brandsViewport.ref} className="bg-background" style={{ minHeight: 92 }}><BrandsStrip enabled={brandsViewport.isNearViewport} /></div>
-        )}
-        <HomeManagedSections betweenSections={imageBanner} afterSections={textBanner} />
+        <HomeManagedSections betweenSections={imageBanner} brandsSection={brandsSection} afterSections={textBanner} />
       </main>
       <Footer />
     </div>
