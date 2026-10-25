@@ -91,7 +91,7 @@ const NavItem = ({
   <button
     type="button"
     onClick={onPress}
-    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F5FAF9] text-[#8C6B32]" : "text-[#0E0E0E] hover:bg-[#FAFAFA]"}`}
+    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F5FAF9] text-[#8C6B32]" : "text-[#0E0E0E]"}`}
   >
     {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#0E0E0E]" />}
     <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E9F6F4] text-[#8C6B32]" : "bg-[#FAFAFA] text-[#686868]"}`}>
@@ -317,12 +317,12 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
                   <div className="border-t border-[#F7F7F7] bg-[#FAFAFA] p-4">
                     {customer ? (
-                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:bg-[#FAFAFA] hover:text-[#8C6B32]">
+                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
                         <SignOut size={18} />
                         تسجيل الخروج
                       </button>
                     ) : (
-                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors hover:bg-[#282828]">
+                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors">
                         <SignIn size={18} />
                         تسجيل الدخول
                       </button>
@@ -372,7 +372,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
               </label>
 
               {searchFocused && (
-                <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-1/2 z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[18px] font-light text-[#8C6B32] hover:bg-[#FAFAFA]">×</button>
+                <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-1/2 z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[18px] font-light text-[#8C6B32]">×</button>
               )}
 
               {searchPanelOpen && suggestions.length > 0 && (
@@ -425,7 +425,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </label>
 
             {searchFocused && (
-              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-[22px] z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[20px] font-light leading-none text-[#8C6B32] transition-colors hover:bg-[#FAFAFA] hover:text-[#8C6B32] active:bg-[#F7F7F7]">×</button>
+              <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={closeSearch} aria-label="إغلاق البحث" className="absolute left-3 top-[22px] z-[80] flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full text-[20px] font-light leading-none text-[#8C6B32] transition-colors hover:text-[#8C6B32] active:bg-[#F7F7F7]">×</button>
             )}
 
             {searchPanelOpen && suggestions.length > 0 && (
