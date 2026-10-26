@@ -59,6 +59,7 @@ const FooterLinkColumn = ({ title, links }: FooterColumn) => (
 
 const Footer = () => (
   <footer dir="rtl" aria-label="تذييل متجر جنان" className="w-full bg-white text-[#0E0E0E]">
+    <div aria-hidden="true" className="h-[3px] w-full bg-[linear-gradient(90deg,#A9D8D3_0%,#D8C29A_64%,#0E0E0E_100%)]" />
     {/* Wordmark, boutique description and contact card mirror the second photo. */}
     <section aria-label="عن جنان" className="mx-auto w-full max-w-[1080px] px-5 pb-12 pt-11 sm:px-8 sm:pb-14 sm:pt-16">
       <div className="flex items-baseline justify-end gap-3" dir="ltr">
