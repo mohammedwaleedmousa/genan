@@ -808,8 +808,8 @@ const ProductDetailPage = () => {
       <Navbar variant="product" />
       <CartDrawer />
 
-      <main className="bg-white pb-[82px] md:pb-20">
-        <div className="mx-auto w-full max-w-[1600px] px-3 pt-0 md:px-7 md:pt-0 lg:px-10">
+      <main className="bg-[#FCFBF9] pb-[82px] md:pb-20">
+        <div className="mx-auto w-full max-w-[1450px] px-3 pt-0 md:px-7 md:pt-0 lg:px-10">
           {/* =================================================
               BREADCRUMB
           ================================================= */}
@@ -834,12 +834,12 @@ const ProductDetailPage = () => {
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="genan-product-stage grid grid-cols-1 gap-0 bg-white lg:grid-cols-[minmax(0,1.08fr)_minmax(390px,0.92fr)] lg:gap-10 xl:gap-12">
+          <div className="genan-product-stage grid grid-cols-1 items-start gap-5 bg-transparent lg:grid-cols-[minmax(0,1.24fr)_minmax(360px,0.76fr)] lg:gap-8 xl:gap-12">
             {/* ===============================================
                 GALLERY
             =============================================== */}
 
-            <section className="genan-product-gallery min-w-0 overflow-hidden rounded-xl border border-[#E7E2D9] bg-[#F7F7F7]">
+            <section className="genan-product-gallery min-w-0 overflow-hidden rounded-2xl border border-[#E7E2D9] bg-[#F7F5F0]">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -937,7 +937,7 @@ const ProductDetailPage = () => {
                 DETAILS
             =============================================== */}
 
-            <section className="genan-product-info min-w-0 border-t border-[#E7E2D9] bg-white lg:self-start lg:border-t-0 lg:border-r lg:border-[#E7E2D9] lg:px-8 lg:py-2 xl:px-10">
+            <section className="genan-product-info min-w-0 overflow-hidden rounded-2xl border border-[#E9E4DA] bg-white shadow-[0_14px_40px_rgba(30,25,15,0.04)] lg:self-start lg:px-6 lg:py-5 xl:px-8">
               {/* =============================================
                   PRODUCT SUMMARY
               ============================================= */}
@@ -1148,26 +1148,6 @@ const ProductDetailPage = () => {
               </div>
 
               {/* =============================================
-                  FEATURES
-              ============================================= */}
-
-              {features.length > 0 && <div className="grid grid-cols-3 border-b border-[#E7E2D9] bg-white">
-                {features.map((feature, index) => {
-                  const Icon = getFeatureIcon(feature.icon);
-
-                  return (
-                    <div key={`${feature.title}-${index}`} className={`flex min-h-[72px] flex-col items-center justify-center px-1.5 py-2.5 text-center ${index !== features.length - 1 ? "border-l border-[#0E0E0E]/12" : ""}`}>
-                      <Icon className="mb-1 h-4 w-4 text-[#D8C29A]" strokeWidth={1.4} />
-
-                      <span className="text-[8px] font-semibold leading-4 text-[#222222]">{feature.title}</span>
-
-                      <span className="text-[7px] leading-4 text-[#777777]">{feature.desc}</span>
-                    </div>
-                  );
-                })}
-              </div>}
-
-              {/* =============================================
                   ACCESSORIES
               ============================================= */}
 
@@ -1315,11 +1295,29 @@ const ProductDetailPage = () => {
             </section>
           </div>
 
+          {/* GENAN signature product highlights - deliberately separate from purchase controls */}
+          {features.length > 0 && (
+            <section aria-label="مميزات المنتج" className="mt-9 rounded-2xl bg-[#F7F5F0] px-4 py-6 sm:px-8 md:mt-14">
+              <div className="mb-5"><span className="text-[10px] font-semibold tracking-[0.16em] text-[#8C6B32]">THE GENAN EXPERIENCE</span><h2 className="mt-1 text-[20px] font-semibold text-[#171717]">تفاصيل تصنع الفرق</h2></div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {features.map((feature, index) => {
+                  const Icon = getFeatureIcon(feature.icon);
+                  return (
+                    <div key={`${feature.title}-${index}`} className="flex items-start gap-3 rounded-xl bg-white p-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F1EADB]"><Icon className="h-5 w-5 text-[#8C6B32]" strokeWidth={1.6}/></span>
+                      <div><h3 className="text-[12px] font-semibold text-[#171717]">{feature.title}</h3><p className="mt-1 text-[11px] leading-5 text-[#777]">{feature.desc}</p></div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
           {/* =================================================
               STORE + QA + REVIEWS
           ================================================= */}
 
-          <div className="mt-8 border-t border-[#E7E2D9] bg-white px-3.5 pt-7 sm:px-5 md:mt-12 md:px-0 md:pt-10">
+          <div className="mt-8 rounded-2xl border border-[#E9E4DA] bg-white px-4 py-7 sm:px-7 md:mt-12 md:py-10">
             <section className="mb-8 flex items-center justify-between border-b border-[#E7E2D9] pb-5">
               <div>
                 <div className="flex items-center gap-2">
@@ -1352,7 +1350,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {relatedProducts.length > 0 && (
-            <section className="mt-6 bg-white px-3 py-6 sm:px-5 md:mt-10 md:border-t md:border-[#E7E2D9] md:px-0 md:py-9">
+            <section className="mt-8 rounded-2xl bg-white px-3 py-7 sm:px-6 md:mt-12 md:py-10">
               <div className="mb-4 flex items-end justify-between px-0.5">
                 <div>
                   <div className="mb-1 flex items-center gap-2">
@@ -1381,7 +1379,7 @@ const ProductDetailPage = () => {
           ================================================= */}
 
           {recentItems.filter((item) => item.id !== product.id).length > 0 && (
-            <section className="mt-6 bg-white px-3 py-6 sm:px-5 md:mt-10 md:border-t md:border-[#E7E2D9] md:px-0 md:py-9">
+            <section className="mt-8 rounded-2xl bg-white px-3 py-7 sm:px-6 md:mt-12 md:py-10">
               <div className="mb-4">
                 <div className="mb-1 flex items-center gap-2">
                   <span className="h-[2px] w-4 bg-[#0E0E0E]" />
