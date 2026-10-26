@@ -50,6 +50,64 @@ const getSectionFetchLimit = (section: ManagedSection) => {
   return Math.min(Math.max(configured, INITIAL_VISIBLE), MAX_SECTION_FETCH_LIMIT);
 };
 
+const SpecialCollections = () => {
+  const promotions = [
+    {
+      eyebrow: "GENAN PICKS",
+      title: "تشكيلات تستحق الاكتشاف",
+      action: "اكتشفي الآن",
+      url: "/products",
+      image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700&q=80",
+      background: "#E8E3D8",
+    },
+    {
+      eyebrow: "SHOE EDIT",
+      title: "خطوة جديدة للأناقة",
+      action: "تسوقي الآن",
+      url: "/categories?parent=shoes",
+      image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&q=80",
+      background: "#DCECE7",
+    },
+    {
+      eyebrow: "THE DETAILS",
+      title: "إكسسواراتك المفضلة",
+      action: "تسوقي الآن",
+      url: "/categories?parent=accessories",
+      image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80",
+      background: "#EEE6DF",
+    },
+  ];
+
+  return (
+    <section aria-label="عروض ومجموعات خاصة" className="bg-[#FAFAFA] py-8 sm:py-10 md:py-14" dir="rtl">
+      <div className="mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-8">
+        <div className="mb-4 sm:mb-6">
+          <span className="mb-1.5 block font-serif text-[9px] font-medium uppercase tracking-[0.2em] text-[#8C6B32]">GENAN COLLECTIONS</span>
+          <h2 className="text-[21px] font-semibold tracking-[-0.025em] text-[#0E0E0E] sm:text-[26px] lg:text-[31px]">عروض ومجموعات خاصة</h2>
+          <p className="mt-1 text-[10px] text-[#777777] sm:text-[12px]">اكتشفي ما يميز جنان هذا الأسبوع</p>
+        </div>
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-[1.2fr_1fr_1fr]">
+          {promotions.map((item, index) => (
+            <Link key={item.eyebrow} to={item.url}
+              className={`group relative flex min-h-[155px] flex-col justify-between overflow-hidden rounded-xl p-4 text-[#171717] transition-shadow hover:shadow-md sm:min-h-[190px] sm:p-5 lg:min-h-[205px] ${index === 0 ? "col-span-2 lg:col-span-1" : ""}`}
+              style={{ backgroundColor: item.background }}>
+              <img src={item.image} alt="" loading="lazy" decoding="async"
+                className="pointer-events-none absolute inset-y-0 left-0 h-full w-[55%] object-cover [mask-image:linear-gradient(to_right,black_45%,transparent)] transition-transform duration-500 group-hover:scale-105" />
+              <span className="relative z-10 text-[9px] font-medium tracking-[0.12em] sm:text-[10px]">{item.eyebrow}</span>
+              <div className="relative z-10 max-w-[75%]">
+                <h3 className="text-[15px] font-semibold leading-snug sm:text-[19px] lg:text-[21px]">{item.title}</h3>
+                <span className="mt-3 inline-flex items-center gap-1 border-b border-current pb-0.5 text-[10px] font-medium sm:text-[11px]">
+                  {item.action}<ArrowLeft aria-hidden="true" className="h-3 w-3" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const HomeManagedSections = ({ betweenSections, brandsSection, afterSections }: HomeManagedSectionsProps) => {
 
   const { data: sections = [] } = useQuery({
@@ -274,6 +332,7 @@ const HomeManagedSections = ({ betweenSections, brandsSection, afterSections }: 
   return (
     <>
       {renderShelf(shelves[0], 0)}
+      <SpecialCollections />
       {betweenSections}
       {renderShelf(shelves[1], 1)}
       {brandsSection}
