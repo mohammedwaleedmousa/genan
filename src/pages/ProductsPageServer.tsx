@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Check, ChevronDown, SlidersHorizontal, X } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigationType, useSearchParams } from "react-router-dom";
 
 import CartDrawer from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import { restoreCatalogScroll, catalogScrollKey } from "@/lib/catalogScroll";
 
 type ProductAudience = "men" | "women" | "kids" | "unisex";
 
@@ -104,6 +105,9 @@ const getFinalPrice = (row: RawProduct) => {
 
 const ProductsPageServer = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const restoredPath = useRef<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
@@ -342,6 +346,40 @@ const ProductsPageServer = () => {
 
   const visibleProducts = filtered.slice(0, visibleCount);
 
+  // Preserve the browsing position when returning from a product detail page.
+  useEffect(() => {
+    if (isLoading || isError || navigationType !== "POP") return;
+    const path = `${location.pathname}${location.search}`;
+    if (restoredPath.current === path || !sessionStorage.getItem(catalogScrollKey(path))) return;
+    restoredPath.current = path;
+    restoreCatalogScroll(path);
+  }, [isLoading, isError, navigationType, location.pathname, location.search]);
+
+  // Prevent the background catalog from moving while the mobile drawers are open.
+  useEffect(() => {
+    if (!filtersOpen && !sortOpen) return;
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const original = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    return () => {
+      body.style.position = original.position;
+      body.style.top = original.top;
+      body.style.width = original.width;
+      body.style.overflow = original.overflow;
+      window.scrollTo({ top: scrollY, behavior: "auto" });
+    };
+  }, [filtersOpen, sortOpen]);
+
+
   const activeFilterCount =
     (categorySlug ? 1 : 0) +
     (brandFilter !== "all" ? 1 : 0) +
@@ -554,7 +592,7 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1500px] px-3 pt-5 sm:px-6 sm:pt-7 lg:px-8">
+        <section id="products-grid" className="mx-auto max-w-[1500px] px-3 pt-5 sm:px-6 sm:pt-7 lg:px-8">
           {isLoading ? (
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
