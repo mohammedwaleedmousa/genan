@@ -1079,7 +1079,7 @@ const ProductDetailPage = () => {
               {product.colorVariants?.length > 0 && (
                 <div className="border-b border-[#E7E2D9] px-3.5 py-3 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center gap-1.5">
-                    <span className="text-[10px] font-semibold text-[#0E0E0E]">اللون</span>
+                    <span className="text-[12px] font-semibold text-[#0E0E0E]">اللون</span>
                     <span className="text-[8px] text-[#777777]">— {selectedColorIdx !== null ? product.colorVariants[selectedColorIdx]?.name : "اختر اللون"}</span>
                   </div>
 
@@ -1088,8 +1088,8 @@ const ProductDetailPage = () => {
                       const active = selectedColorIdx === index;
 
                       return (
-                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-8 w-8 items-center justify-center rounded-none ${active ? "ring-2 ring-[#0E0E0E] ring-offset-[3px]" : "ring-1 ring-[#D8D2C7]"}`}>
-                          <span className="h-full w-full rounded-none border border-black/[0.06]" style={variant.hex2 ? { background: `linear-gradient(135deg, ${variant.hex} 0%, ${variant.hex} 50%, ${variant.hex2} 50%, ${variant.hex2} 100%)` } : { backgroundColor: variant.hex }} />
+                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-10 w-10 items-center justify-center rounded-full ${active ? "ring-2 ring-[#0E0E0E] ring-offset-[3px]" : "ring-1 ring-[#D8D2C7]"}`}>
+                          <span className="h-full w-full rounded-full border border-black/[0.08]" style={variant.hex2 ? { background: `linear-gradient(135deg, ${variant.hex} 0%, ${variant.hex} 50%, ${variant.hex2} 50%, ${variant.hex2} 100%)` } : { backgroundColor: variant.hex }} />
 
                           {active && <Check className="absolute h-3 w-3 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,.75)]" strokeWidth={3} />}
                         </button>
@@ -1106,7 +1106,7 @@ const ProductDetailPage = () => {
               {sizesToShow.length > 0 && (
                 <div className="border-b border-[#E7E2D9] px-3.5 py-3 sm:px-5 lg:px-0">
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="text-[10px] font-semibold text-[#0E0E0E]">المقاس</span>
+                    <span className="text-[12px] font-semibold text-[#0E0E0E]">المقاس</span>
 
                     {selectedSize && <span className="text-[8px] text-[#777777]">المختار: {selectedSize}</span>}
                   </div>
@@ -1134,8 +1134,8 @@ const ProductDetailPage = () => {
                   <span className="mt-1 block text-[7px] text-[#777777]">حدد العدد المطلوب</span>
                 </div>
 
-                <div className="flex h-10 items-center overflow-hidden border border-[#0E0E0E]/20">
-                  <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="إنقاص الكمية" className="flex h-full w-9 items-center justify-center active:bg-[#F3F0E9]">
+                <div className="flex h-11 items-center overflow-hidden rounded-lg border border-[#0E0E0E]/20">
+                  <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="إنقاص الكمية" className="flex h-full w-11 items-center justify-center active:bg-[#F3F0E9]">
                     <Minus className="h-3 w-3" strokeWidth={1.6} />
                   </button>
 
@@ -1360,15 +1360,15 @@ const ProductDetailPage = () => {
                     <span className="font-serif text-[6px] tracking-[0.22em] text-[#D8C29A]">FOR YOU</span>
                   </div>
 
-                  <h2 className="text-[15px] font-semibold text-[#0E0E0E] md:text-[19px]">قد يعجبك أيضاً</h2>
+                  <h2 className="text-[19px] font-semibold text-[#0E0E0E] md:text-[24px]">قد يعجبك أيضاً</h2>
                 </div>
 
-                <button type="button" onClick={() => navigate("/products")} className="text-[7px] font-semibold text-[#0E0E0E]">
+                <button type="button" onClick={() => navigate("/products")} className="border-b border-[#D8C29A] pb-1 text-[11px] font-semibold text-[#8C6B32]">
                   عرض الكل
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:grid-cols-3 md:gap-x-4 md:gap-y-7 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 sm:grid-cols-3 md:gap-x-4 md:gap-y-8 lg:grid-cols-4">
                 {relatedProducts.map((item, index) => (
                   <ProductCard key={item.id} product={item} index={index} />
                 ))}
