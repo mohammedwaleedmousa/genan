@@ -1295,24 +1295,6 @@ const ProductDetailPage = () => {
             </section>
           </div>
 
-          {/* GENAN signature product highlights - deliberately separate from purchase controls */}
-          {features.length > 0 && (
-            <section aria-label="مميزات المنتج" className="mt-9 rounded-2xl bg-[#F7F5F0] px-4 py-6 sm:px-8 md:mt-14">
-              <div className="mb-5"><span className="text-[10px] font-semibold tracking-[0.16em] text-[#8C6B32]">THE GENAN EXPERIENCE</span><h2 className="mt-1 text-[20px] font-semibold text-[#171717]">تفاصيل تصنع الفرق</h2></div>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {features.map((feature, index) => {
-                  const Icon = getFeatureIcon(feature.icon);
-                  return (
-                    <div key={`${feature.title}-${index}`} className="flex items-start gap-3 rounded-xl bg-white p-4">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F1EADB]"><Icon className="h-5 w-5 text-[#8C6B32]" strokeWidth={1.6}/></span>
-                      <div><h3 className="text-[12px] font-semibold text-[#171717]">{feature.title}</h3><p className="mt-1 text-[11px] leading-5 text-[#777]">{feature.desc}</p></div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
           {/* =================================================
               STORE + QA + REVIEWS
           ================================================= */}
