@@ -449,33 +449,33 @@ const ProductsPageServer = () => {
       <Navbar />
       <CartDrawer />
 
-      <main className="pb-24">
-        <section className="border-b border-[#EAEAEA] bg-white px-5 pb-10 pt-14 sm:px-8 md:px-[6vw] md:pb-14 md:pt-20">
-          <div className="mx-auto grid max-w-[1760px] gap-8 md:grid-cols-[1.2fr_.8fr] md:items-end">
+      <main id="main-content" className="pb-20">
+        <section className="bg-[#FAFAFA] px-4 pb-7 pt-8 sm:px-6 sm:pb-9 sm:pt-11 lg:px-8 lg:pt-12">
+          <div className="mx-auto grid max-w-[1500px] gap-3 md:grid-cols-[1.2fr_.8fr] md:items-end md:gap-8">
             <div>
-              <div className="mb-4 flex items-center gap-3">
-                <span className="h-px w-12 bg-[#D8C29A]" />
+              <div className="mb-2 flex items-center gap-2">
+                <span className="h-px w-7 bg-[#D8C29A]" />
                 <span className="text-[8px] font-semibold tracking-[.34em] text-[#9A825B]">GENAN / CATALOG</span>
               </div>
 
-              <h1 className="text-[40px] font-medium leading-[1.22] tracking-[-.055em] sm:text-[52px] md:text-[70px]">
+              <h1 className="text-[28px] font-semibold leading-[1.3] tracking-[-.025em] sm:text-[35px] lg:text-[42px]">
                 {currentCategory?.name_ar || (searchQuery ? `نتائج “${searchParams.get("search")}”` : "كل المنتجات")}
               </h1>
             </div>
 
             <div className="md:text-left">
-              <p className="text-[11px] leading-7 text-[#707070] md:text-[13px]">
+              <p className="text-[11px] leading-6 text-[#707070] sm:text-[12px] md:leading-7">
                 اكتشف تشكيلتنا من الأزياء والإكسسوارات المختارة بعناية، واعثر على القطعة التي تكمل أسلوبك.
               </p>
-              <p className="mt-4 text-[8px] font-semibold tracking-[.22em] text-[#A9D8D3]">{filtered.length} PRODUCTS</p>
+              <p className="mt-2 text-[11px] font-semibold text-[#8C6B32]">{filtered.length} منتج متاح للتصفح</p>
             </div>
           </div>
         </section>
 
-        <section className="border-b border-[#EEEAE3] bg-white px-4 py-4 sm:px-8 md:px-[6vw] md:py-5">
-          <div className="mx-auto max-w-[1760px]">
+        <section className="border-b border-[#EEEAE3] bg-white px-4 py-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-[1500px]">
             <div className="mb-2.5 flex items-center justify-between gap-4">
-              <span className="text-[8px] font-medium text-[#8A847C]">تصفح حسب القسم</span>
+              <span className="text-[11px] font-semibold text-[#39342F]">تسوقي حسب القسم</span>
 
               {categorySlug && (
                 <button
@@ -492,7 +492,7 @@ const ProductsPageServer = () => {
               <button
                 type="button"
                 onClick={() => setParam("category", null)}
-                className={`h-9 shrink-0 rounded-full border px-4 text-[9px] font-semibold transition-colors md:h-10 md:px-5 md:text-[10px] ${
+                className={`min-h-10 shrink-0 rounded-full border px-4 text-[11px] font-medium transition-colors md:px-5 ${
                   !categorySlug
                     ? "border-[#171717] bg-[#171717] text-white"
                     : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
@@ -519,11 +519,11 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="border-b border-[#EEEAE3] bg-white px-4 py-3 sm:px-8 md:px-[6vw] md:py-4">
-          <div className="mx-auto flex max-w-[1760px] items-center justify-between gap-3">
-            <p className="hidden text-[9px] text-[#77716A] sm:block">{filtered.length} منتج</p>
+        <section className="sticky top-0 z-20 border-b border-[#EEEAE3] bg-white/95 px-4 py-3 backdrop-blur-md sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-3">
+            <p className="hidden text-[11px] text-[#77716A] sm:block">النتائج: {filtered.length} منتج</p>
 
-            <div className="grid w-full grid-cols-2 gap-2 sm:mr-auto sm:w-auto sm:min-w-[300px]">
+            <div className="grid w-full grid-cols-2 gap-2 sm:mr-auto sm:w-auto sm:min-w-[320px]">
               <button
                 type="button"
                 onClick={openFilters}
@@ -554,7 +554,7 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1760px] px-3 pt-8 sm:px-5 md:px-[6vw] md:pt-12">
+        <section className="mx-auto max-w-[1500px] px-3 pt-5 sm:px-6 sm:pt-7 lg:px-8">
           {isLoading ? (
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
@@ -592,7 +592,7 @@ const ProductsPageServer = () => {
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-x-3 gap-y-9 sm:gap-x-4 md:grid-cols-3 md:gap-x-5 md:gap-y-12 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 sm:gap-x-4 sm:gap-y-8 md:grid-cols-3 lg:grid-cols-4">
               {visibleProducts.map((product, index) => (
                 <ProductCard key={product.id} product={product} index={index} />
               ))}
