@@ -839,7 +839,7 @@ const ProductDetailPage = () => {
                 GALLERY
             =============================================== */}
 
-            <section className="genan-product-gallery min-w-0 border-y border-[#E7E2D9] bg-[#F7F7F7] md:border">
+            <section className="genan-product-gallery min-w-0 overflow-hidden rounded-xl border border-[#E7E2D9] bg-[#F7F7F7]">
               <div className="lg:sticky lg:top-[126px]">
                 {/* ===========================================
                     MAIN IMAGE
@@ -923,7 +923,7 @@ const ProductDetailPage = () => {
                   <div className="border-b border-[#0E0E0E]/12 bg-[#FFFFFF]">
                     <div className="flex gap-2 overflow-x-auto px-2.5 py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-4 md:py-3">
                       {displayImages.map((image, index) => (
-                        <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} className={`relative h-[58px] w-[58px] shrink-0 overflow-hidden rounded-none bg-[#F3F0E9] transition md:h-[68px] md:w-[68px] ${safeSelectedImage === index ? "ring-1 ring-[#D8C29A] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
+                        <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} className={`relative h-[58px] w-[58px] shrink-0 overflow-hidden rounded-lg bg-[#F3F0E9] transition md:h-[68px] md:w-[68px] ${safeSelectedImage === index ? "ring-1 ring-[#D8C29A] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
                           <img src={optimizeImage(image, 220, 78)} alt="" loading="lazy" decoding="async" onError={handleImageError} className="h-full w-full object-cover object-center" />
                         </button>
                       ))}
@@ -1115,7 +1115,7 @@ const ProductDetailPage = () => {
                     {sizesToShow.map((size: string) => {
                       const adjustment = getSizePriceAdjustment(size);
                       return (
-                        <button type="button" key={size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] rounded-none border px-3 py-2 text-[9px] font-semibold ${selectedSize === size ? "border-[#0E0E0E] bg-[#F3F0E9] text-[#0E0E0E]" : "border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#5F5F5F]"}`}>
+                        <button type="button" key={size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] min-h-10 rounded-lg border px-3 py-2 text-[11px] font-semibold ${selectedSize === size ? "border-[#0E0E0E] bg-[#F3F0E9] text-[#0E0E0E]" : "border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#5F5F5F]"}`}>
                           {size}{adjustment > 0 ? ` +${formatCurrency(adjustment)}` : ""}
                         </button>
                       );
@@ -1296,12 +1296,12 @@ const ProductDetailPage = () => {
 
               <div className="hidden border-t border-[#0E0E0E]/12 pt-5 lg:block">
                 <div className="flex gap-2">
-                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 border border-[#0E0E0E] bg-transparent px-5 text-[10px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#F7F5F0] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 rounded-lg border border-[#0E0E0E] bg-transparent px-5 text-[12px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#F7F5F0] disabled:cursor-not-allowed disabled:opacity-40">
                     <ShoppingBag className="h-4 w-4" strokeWidth={1.5} />
                     أضف إلى السلة
                   </button>
 
-                  <button type="button" onClick={handleBuyNow} disabled={!available} className="h-[48px] flex-1 bg-[#0E0E0E] px-5 text-[10px] font-semibold text-white transition-colors hover:bg-[#1A1A1A] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleBuyNow} disabled={!available} className="h-[48px] flex-1 rounded-lg bg-[#0E0E0E] px-5 text-[12px] font-semibold text-white transition-colors hover:bg-[#1A1A1A] disabled:cursor-not-allowed disabled:opacity-40">
                     اشتري الآن
                   </button>
 
@@ -1408,7 +1408,7 @@ const ProductDetailPage = () => {
           MOBILE BUY BAR
       ===================================================== */}
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E7E2D9] bg-white px-2.5 pt-2 lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E7E2D9] bg-white/95 px-3 pt-2 shadow-[0_-8px_24px_rgba(14,14,14,0.07)] backdrop-blur-md lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
         <div className="flex h-[49px] gap-2">
           {WHATSAPP_URL && (
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="واتساب" className="flex h-full w-[46px] shrink-0 items-center justify-center rounded-none border border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#25D366]">
@@ -1416,12 +1416,12 @@ const ProductDetailPage = () => {
             </a>
           )}
 
-          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 border border-[#0E0E0E] bg-white px-2 text-[9px] font-semibold text-[#0E0E0E] active:bg-[#F3F0E9] disabled:opacity-40">
+          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 rounded-lg border border-[#0E0E0E] bg-white px-2 text-[12px] font-semibold text-[#0E0E0E] active:bg-[#F3F0E9] disabled:opacity-40">
             <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.6} />
             <span>{available ? "أضف للسلة" : "غير متوفر"}</span>
           </button>
 
-          <button type="button" onClick={handleBuyNow} disabled={!available} className="h-full flex-1 bg-[#0E0E0E] px-2 text-[9px] font-semibold text-white active:bg-[#1A1A1A] disabled:opacity-40">
+          <button type="button" onClick={handleBuyNow} disabled={!available} className="h-full flex-1 rounded-lg bg-[#0E0E0E] px-2 text-[12px] font-semibold text-white active:bg-[#1A1A1A] disabled:opacity-40">
             اشتري الآن
           </button>
         </div>
