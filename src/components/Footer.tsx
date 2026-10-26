@@ -1,31 +1,8 @@
 import { Link } from "react-router-dom";
-import { ArrowUp, ArrowUpLeft, Headphones, ShieldCheck, Truck } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowUp, ArrowUpLeft, Headphones } from "lucide-react";
 
 type FooterLink = { label: string; href: string };
 type FooterColumn = { title: string; links: FooterLink[] };
-type Assurance = { title: string; detail: string; href: string; icon: LucideIcon };
-
-const assurances: Assurance[] = [
-  {
-    title: "نحن معك",
-    detail: "تواصلي معنا للاستفسار عن طلباتك.",
-    href: "/store-info#contact",
-    icon: Headphones,
-  },
-  {
-    title: "خصوصيتك تهمّنا",
-    detail: "تعرّفي على سياسة الخصوصية.",
-    href: "/privacy-policy",
-    icon: ShieldCheck,
-  },
-  {
-    title: "الشحن والتوصيل",
-    detail: "التفاصيل المتاحة تظهر عند الطلب.",
-    href: "/shipping-policy",
-    icon: Truck,
-  },
-];
 
 const customerService: FooterColumn = {
   title: "خدمة العملاء",
@@ -82,38 +59,6 @@ const FooterLinkColumn = ({ title, links }: FooterColumn) => (
 
 const Footer = () => (
   <footer dir="rtl" aria-label="تذييل متجر جنان" className="w-full bg-white text-[#0E0E0E]">
-    {/* The three service rows follow the supplied mobile reference. */}
-    <section aria-label="مساعدة ومعلومات التسوق" className="mx-auto w-full max-w-[1160px] px-3 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-10">
-        {assurances.map(({ title, detail, href, icon: Icon }, index) => (
-          <Link
-            to={href}
-            key={href}
-            className={
-              "group flex min-h-[119px] items-center gap-3 border-b border-[#E8E6E3] px-0 py-6 text-right transition-colors hover:bg-[#FCFDFC] sm:min-h-[126px] sm:gap-5 lg:border-b-0 lg:py-9 " +
-              (index > 0 ? "lg:border-r lg:border-[#E8E6E3] lg:pr-6" : "")
-            }
-          >
-            <span
-              aria-hidden="true"
-              className="flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-[16px] border border-[#D2E7E3] bg-[#EAF6F4] text-[#406F6B] sm:h-[56px] sm:w-[56px]"
-            >
-              <Icon className="h-[25px] w-[25px] sm:h-[28px] sm:w-[28px]" strokeWidth={1.55} />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[18px] font-bold leading-8 text-[#0E0E0E] sm:text-[20px]">{title}</span>
-              <span className="mt-1 block text-[13px] leading-7 text-[#737373] sm:text-[14px]">{detail}</span>
-            </span>
-          </Link>
-        ))}
-      </div>
-    </section>
-
-    <div
-      aria-hidden="true"
-      className="h-[3px] w-full bg-[linear-gradient(90deg,#A9D8D3_0%,#D8C29A_64%,#0E0E0E_100%)]"
-    />
-
     {/* Wordmark, boutique description and contact card mirror the second photo. */}
     <section aria-label="عن جنان" className="mx-auto w-full max-w-[1080px] px-5 pb-12 pt-11 sm:px-8 sm:pb-14 sm:pt-16">
       <div className="flex items-baseline justify-end gap-3" dir="ltr">
