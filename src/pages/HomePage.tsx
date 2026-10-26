@@ -45,7 +45,7 @@ const isLingerieCategory = (category: { slug?: string | null; name?: string | nu
 const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
   if (!loading && items.length === 0) return null;
 
-  const featured = items.slice(0, 6);
+  const featured = items.slice(0, 4);
 
   return (
     <section className="w-full overflow-hidden bg-white py-4 sm:py-5 lg:py-6" dir="rtl" aria-label="الأقسام">
@@ -64,7 +64,7 @@ const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryI
         <div className="-mx-4 overflow-x-auto overscroll-x-contain px-4 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:px-0">
           <div className="flex w-max flex-nowrap items-start gap-2.5 snap-x snap-proximity sm:gap-3 lg:w-full lg:justify-between lg:gap-4 lg:snap-none">
             {loading
-              ? Array.from({ length: 6 }).map((_, index) => (
+              ? Array.from({ length: 4 }).map((_, index) => (
                   <div key={index} aria-hidden="true" className="w-[68px] shrink-0 snap-start sm:w-[78px] md:w-[86px] lg:w-[94px] xl:w-[100px]">
                     <div className="aspect-square w-full animate-pulse rounded-[9px] bg-[#F0F0F0]" />
                     <div className="mx-auto mt-1.5 h-2 w-4/5 animate-pulse rounded-full bg-[#EFEFEF]" />
@@ -182,14 +182,28 @@ const HomePage = () => {
     refetchOnReconnect: false,
   });
 
-  const featuredCategories = useMemo<FeaturedCategoryItem[]>(() => categories
-    .filter((category: any) => !category.parent_id && !isLingerieCategory(category))
-    .map((category: any) => ({
-      title: category.name_ar || category.name || category.slug,
-      subtitle: category.name || category.name_ar || category.slug,
-      image: category.image_url || "/placeholder.svg",
-      link: `/categories?parent=${category.slug}`,
-    })), [categories]);
+  const featuredCategories = useMemo<FeaturedCategoryItem[]>(() => {
+    const primaryCategories = categories.filter((category: any) => !category.parent_id && !isLingerieCategory(category));
+    const requested = [
+      { title: "أحذية", slug: "shoes", pattern: /shoes?|footwear|sneakers?|heels?|احذيه|احذية|حذاء|جزم/ },
+      { title: "شنط", slug: "bags", pattern: /bags?|handbags?|purses?|شنط|شنطة|شنطه|حقائب|حقيبة/ },
+      { title: "إكسسوارات", slug: "accessories", pattern: /accessor|اكسسوار|إكسسوار|اكسسوارات|إكسسوارات/ },
+      { title: "هوم", slug: "home", pattern: /home|homedecor|homeware|منزل|منزلي|ديكور|هوم/ },
+    ];
+    return requested.map(({ title, slug, pattern }) => {
+      const match = primaryCategories.find((category: any) => {
+        const searchable = `${category.slug || ""} ${category.name || ""} ${category.name_ar || ""}`
+          .toLowerCase().replace(/[أإآ]/g, "ا");
+        return pattern.test(searchable);
+      });
+      return {
+        title,
+        subtitle: match?.name || title,
+        image: match?.image_url || "/placeholder.svg",
+        link: `/categories?parent=${encodeURIComponent(match?.slug || slug)}`,
+      };
+    });
+  }, [categories]);
 
   const brandsViewport = useNearViewport<HTMLDivElement>("120px");
   const imageBanner = showHomeSection("services") ? <GenanServices /> : null;
