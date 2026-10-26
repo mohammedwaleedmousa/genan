@@ -32,7 +32,6 @@ type BestSellerStat = {
 
 type HomeManagedSectionsProps = {
   betweenSections?: ReactNode;
-  afterSections?: ReactNode;
   brandsSection?: ReactNode;
 };
 
@@ -108,7 +107,7 @@ const SpecialCollections = () => {
   );
 };
 
-const HomeManagedSections = ({ betweenSections, brandsSection, afterSections }: HomeManagedSectionsProps) => {
+const HomeManagedSections = ({ betweenSections, brandsSection }: HomeManagedSectionsProps) => {
 
   const { data: sections = [] } = useQuery({
     queryKey: ["home-managed-sections"],
@@ -333,12 +332,11 @@ const HomeManagedSections = ({ betweenSections, brandsSection, afterSections }: 
     <>
       {renderShelf(shelves[0], 0)}
       <SpecialCollections />
+      {renderShelf(shelves[2], 1)}
       {betweenSections}
-      {renderShelf(shelves[1], 1)}
+      {renderShelf(shelves[1], 2)}
       {brandsSection}
-      {renderShelf(shelves[2], 2)}
       {shelves.slice(3).map((shelf, index) => renderShelf(shelf, index + 3))}
-      {afterSections}
     </>
   );
 };
