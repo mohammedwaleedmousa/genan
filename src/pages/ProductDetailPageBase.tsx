@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Heart, Minus, Package, Plus, RotateCcw, Share2, Shield, ShoppingBag, Star, Truck } from "lucide-react";
+import { Check, ClipboardList, ChevronDown, ChevronLeft, ChevronRight, Heart, Minus, Package, Plus, RotateCcw, Share2, Shield, ShoppingBag, Star, Truck } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 import Navbar from "@/components/Navbar";
@@ -809,7 +809,7 @@ const ProductDetailPage = () => {
       <CartDrawer />
 
       <main className="bg-[#FCFBF9] pb-[82px] md:pb-20">
-        <div className="mx-auto w-full max-w-[1450px] px-3 pt-0 md:px-7 md:pt-0 lg:px-10">
+        <div className="mx-auto w-full max-w-[1450px] px-3 pt-3 md:px-7 md:pt-4 lg:px-10">
           {/* =================================================
               BREADCRUMB
           ================================================= */}
@@ -1178,7 +1178,7 @@ const ProductDetailPage = () => {
                 {product.specs?.length > 0 && (
                   <div>
                     <button type="button" onClick={() => setOpenSection(openSection === "specs" ? null : "specs")} className="flex w-full items-center justify-between px-3.5 py-4 text-right sm:px-5 lg:px-0">
-                      <span className="text-[10px] font-semibold text-[#0E0E0E]">المواصفات</span>
+                      <span className="flex items-center gap-2"><ClipboardList className="h-3.5 w-3.5 text-[#D8C29A]" strokeWidth={1.4} /><span className="text-[10px] font-semibold text-[#0E0E0E]">المواصفات</span></span>
 
                       <ChevronDown className={`h-3.5 w-3.5 text-[#0E0E0E] transition-transform ${openSection === "specs" ? "rotate-180" : ""}`} strokeWidth={1.5} />
                     </button>
