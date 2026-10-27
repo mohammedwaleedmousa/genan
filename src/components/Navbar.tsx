@@ -68,34 +68,6 @@ const loadSearchIndex = async () => {
   }
 };
 
-const NavItem = ({
-  icon: Icon,
-  label,
-  badge,
-  isActive,
-  onPress,
-}: {
-  icon: Icon;
-  label: string;
-  badge?: number | string;
-  isActive?: boolean;
-  onPress: () => void;
-}) => (
-  <button
-    type="button"
-    onClick={onPress}
-    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-2xl px-3 text-right transition-colors ${isActive ? "bg-[#F4EEE4] text-[#171717]" : "text-[#171717] hover:bg-[#F8F6F2]"}`}
-  >
-    {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#0E0E0E]" />}
-    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E9DDC9] text-[#735729]" : "bg-[#F7F5F1] text-[#77716A]"}`}>
-      <Icon size={19} weight="regular" />
-    </span>
-    <span className={`flex-1 text-right text-[13px] ${isActive ? "font-semibold" : "font-medium"}`}>{label}</span>
-    {!!badge && <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#0E0E0E] px-1.5 text-[9px] font-bold text-white">{badge}</span>}
-    <CaretLeft size={14} className={isActive ? "text-[#8C6B32]" : "text-[#D8C29A]"} />
-  </button>
-);
-
 type NavbarProps = { variant?: "default" | "product" | "editorial"; overlayHero?: boolean };
 
 const Navbar = ({ overlayHero = false }: NavbarProps) => {
@@ -272,56 +244,54 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" dir="rtl" className="flex h-full w-[88vw] max-w-[370px] flex-col overflow-hidden border-l-0 bg-[#FBF9F5] p-0">
-                  <div className="relative isolate shrink-0 overflow-hidden bg-gradient-to-br from-[#E8D3A3] via-[#D5B574] to-[#B68B4A] px-6 pb-7 pt-9">
-                    <div aria-hidden="true" className="pointer-events-none absolute -left-16 -top-20 h-56 w-56 rounded-full border border-white/35" />
-                    <div aria-hidden="true" className="pointer-events-none absolute -left-6 -top-10 h-40 w-40 rounded-full border border-white/25" />
-                    <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -right-14 h-56 w-56 rotate-[-25deg] rounded-[38%] border-[22px] border-white/10" />
-                    <div aria-hidden="true" className="pointer-events-none absolute bottom-1 left-10 h-20 w-40 -rotate-12 rounded-[100%] border-t border-white/40" />
-                    <div className="relative z-10 flex items-start justify-between gap-3">
-                      <button type="button" onClick={() => goFromMenu("/home")} aria-label="الرئيسية" className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm">
-                        <Logo size="lg" className="shrink-0" />
-                      </button>
-                      <button type="button" onClick={() => setMenuOpen(false)} aria-label="إغلاق القائمة" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/45 bg-white/30 text-[#382A16] backdrop-blur-sm">
-                        <span aria-hidden="true" className="text-2xl leading-none">×</span>
+                <SheetContent side="right" dir="rtl" className="flex h-full w-[80vw] max-w-[390px] flex-col overflow-hidden border-0 bg-[#AB9878] p-0 text-white [&>button]:hidden">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 opacity-[0.16]"
+                    style={{ backgroundImage: "repeating-linear-gradient(30deg, transparent 0px, transparent 53px, rgba(255,255,255,.42) 54px, transparent 55px, transparent 108px), repeating-linear-gradient(150deg, transparent 0px, transparent 53px, rgba(255,255,255,.42) 54px, transparent 55px, transparent 108px), repeating-linear-gradient(90deg, transparent 0px, transparent 93px, rgba(255,255,255,.26) 94px, transparent 95px, transparent 188px)" }}
+                  />
+                  <div className="relative z-10 flex shrink-0 items-start justify-between px-7 pb-5 pt-9">
+                    <div className="flex flex-col items-end gap-1">
+                      <button type="button" onClick={() => goFromMenu(customer ? "/account" : "/auth")} className="flex flex-col items-center gap-2 text-[#353636]" aria-label={customer ? "حسابي" : "تسجيل الدخول"}>
+                        <User size={42} weight="thin" />
+                        <span className="text-[14px] font-semibold">{customer ? "حسابي" : "تسجيل الدخول"}</span>
                       </button>
                     </div>
-                    <p className="relative z-10 mt-6 text-[10px] font-semibold tracking-[0.24em] text-[#4C391D]">GENAN BOUTIQUE</p>
-                    <p className="relative z-10 mt-1 text-[19px] font-semibold text-[#282019]">اكتشف أناقتك</p>
+                    <button type="button" aria-label="إغلاق القائمة" onClick={() => setMenuOpen(false)} className="flex h-9 w-9 items-center justify-center text-white/90">
+                      <span aria-hidden="true" className="text-[38px] font-light leading-none">×</span>
+                    </button>
                   </div>
 
-                  <nav aria-label="قائمة المتجر" className="min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-contain px-4 py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                    {unreadCount > 0 && (
-                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mb-3 flex w-full items-center gap-2 rounded-2xl bg-[#F1E7D2] px-4 py-3 text-right text-[12px] font-medium text-[#735729]">
-                        <Bell size={18} /> لديك {unreadCount} إشعار جديد
+                  <nav aria-label="قائمة جنان" className="relative z-10 min-h-0 flex-1 overflow-y-auto overscroll-contain px-7 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div className="space-y-2">
+                      <button type="button" onClick={() => goFromMenu("/home")} className="flex min-h-[58px] w-full items-center justify-between text-right text-[27px] font-bold text-white transition-opacity hover:opacity-75">الرئيسية</button>
+                      <button type="button" onClick={() => goFromMenu("/products")} className="flex min-h-[58px] w-full items-center justify-between text-right text-[27px] font-bold text-white transition-opacity hover:opacity-75">تسوق</button>
+                      <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[58px] w-full items-center justify-between text-right text-[27px] font-bold text-white transition-opacity hover:opacity-75">
+                        <span>الأقسام</span><CaretLeft size={22} className="rotate-[-90deg] opacity-85" />
                       </button>
-                    )}
-                    <NavItem icon={House} label="الرئيسية" isActive={location.pathname === "/home"} onPress={() => goFromMenu("/home")} />
-                    <NavItem icon={ShoppingBag} label="جميع المنتجات" isActive={location.pathname === "/products"} onPress={() => goFromMenu("/products")} />
-                    <NavItem icon={SquaresFour} label="الأقسام" isActive={location.pathname === "/categories"} onPress={() => goFromMenu("/categories")} />
-                    <NavItem icon={Package} label="وصل حديثًا" isActive={location.pathname === "/new-arrivals"} onPress={() => goFromMenu("/new-arrivals")} />
-                    <NavItem icon={Tag} label="العروض" isActive={location.pathname === "/seasonal-offers"} onPress={() => goFromMenu("/seasonal-offers")} />
-                    <div className="my-3 h-px bg-[#E9E0D0]" />
-                    <NavItem icon={Heart} label="المفضلة" badge={favorites.length || undefined} isActive={location.pathname === "/favorites"} onPress={() => goFromMenu("/favorites")} />
-                    <NavItem icon={ShoppingCart} label="حقيبتي" badge={cartCount || undefined} isActive={location.pathname === "/cart"} onPress={() => goFromMenu("/cart")} />
-                    <NavItem icon={User} label="حسابي" isActive={location.pathname === "/account"} onPress={() => goFromMenu("/account")} />
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 pt-5 text-[11px] text-[#8B7858]">
-                      <button type="button" onClick={() => goFromMenu("/best-sellers")} className="hover:text-[#171717]">الأكثر مبيعًا</button>
-                      <button type="button" onClick={() => goFromMenu("/store-info")} className="hover:text-[#171717]">عن المتجر</button>
-                      <button type="button" onClick={() => goFromMenu("/qr-code")} className="hover:text-[#171717]">باركود المتجر</button>
+                      <div className="space-y-1 pb-2">
+                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-[#343735]"><span>ملابس</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
+                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-white"><span>الحقائب</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
+                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-white"><span>الأحذية</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
+                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-white"><span>الإكسسوارات</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
+                      </div>
+                    </div>
+                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 border-t border-white/20 pt-5 text-[13px] font-medium text-white/90">
+                      <button type="button" onClick={() => goFromMenu("/new-arrivals")}>وصل حديثًا</button>
+                      <button type="button" onClick={() => goFromMenu("/seasonal-offers")}>العروض</button>
+                      <button type="button" onClick={() => goFromMenu("/favorites")}>المفضلة{favorites.length > 0 ? ` (${favorites.length})` : ""}</button>
+                      <button type="button" onClick={() => goFromMenu("/cart")}>حقيبتي{cartCount > 0 ? ` (${cartCount})` : ""}</button>
+                      <button type="button" onClick={() => goFromMenu("/best-sellers")}>الأكثر مبيعًا</button>
+                      <button type="button" onClick={() => goFromMenu("/store-info")}>عن المتجر</button>
                     </div>
                   </nav>
-
-                  <div className="shrink-0 border-t border-[#E9E0D0] bg-[#FBF9F5] px-5 py-4">
-                    {customer ? (
-                      <button type="button" onClick={handleLogout} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#D9C59E] bg-white text-[13px] font-semibold text-[#392E1E]">
-                        <SignOut size={18} /> تسجيل الخروج
-                      </button>
-                    ) : (
-                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white">
-                        <SignIn size={18} /> تسجيل الدخول
-                      </button>
-                    )}
+                  <div className="relative z-10 shrink-0 px-7 pb-8 pt-3">
+                    {unreadCount > 0 && <button type="button" onClick={() => goFromMenu("/notifications")} className="mb-3 text-[12px] text-white">لديك {unreadCount} إشعار جديد</button>}
+                    <div className="flex items-center justify-center gap-7 border-t border-white/20 pt-5 text-white/90">
+                      <button type="button" onClick={() => goFromMenu("/qr-code")} aria-label="باركود المتجر"><QrCode size={23} /></button>
+                      <button type="button" onClick={() => goFromMenu("/account")} aria-label="حسابي"><User size={23} /></button>
+                      {customer && <button type="button" onClick={handleLogout} aria-label="تسجيل الخروج"><SignOut size={23} /></button>}
+                    </div>
                   </div>
                 </SheetContent>
               </Sheet>
