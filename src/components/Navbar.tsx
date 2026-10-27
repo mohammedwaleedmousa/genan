@@ -254,26 +254,20 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                   </div>
 
                   <nav aria-label="قائمة جنان" className="relative z-10 min-h-0 flex-1 overflow-y-auto overscroll-contain px-7 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                    <div className="space-y-2">
-                      <button type="button" onClick={() => goFromMenu("/home")} className="flex min-h-[58px] w-full items-center justify-between text-right text-[27px] font-bold text-white transition-opacity hover:opacity-75">الرئيسية</button>
-                      <button type="button" onClick={() => goFromMenu("/products")} className="flex min-h-[58px] w-full items-center justify-between text-right text-[27px] font-bold text-white transition-opacity hover:opacity-75">تسوق</button>
-                      <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[58px] w-full items-center justify-between text-right text-[27px] font-bold text-white transition-opacity hover:opacity-75">
-                        <span>الأقسام</span><CaretLeft size={22} className="rotate-[-90deg] opacity-85" />
-                      </button>
-                      <div className="space-y-1 pb-2">
-                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-[#343735]"><span>ملابس</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
-                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-white"><span>الحقائب</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
-                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-white"><span>الأحذية</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
-                        <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[50px] w-full items-center justify-between text-right text-[23px] font-semibold text-white"><span>الإكسسوارات</span><CaretLeft size={20} className="rotate-[-90deg]" /></button>
-                      </div>
+                    <div className="space-y-1">
+                      <button type="button" onClick={() => goFromMenu("/home")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">الرئيسية</button>
+                      <button type="button" onClick={() => goFromMenu("/products")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">جميع المنتجات</button>
+                      <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">الأقسام</button>
+                      <button type="button" onClick={() => goFromMenu("/seasonal-offers")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">العروض</button>
+                      <button type="button" onClick={() => goFromMenu("/new-arrivals")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">وصل حديثًا</button>
+                      <button type="button" onClick={() => goFromMenu("/best-sellers")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">الأكثر مبيعًا</button>
                     </div>
-                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 border-t border-white/20 pt-5 text-[13px] font-medium text-white/90">
-                      <button type="button" onClick={() => goFromMenu("/new-arrivals")}>وصل حديثًا</button>
-                      <button type="button" onClick={() => goFromMenu("/seasonal-offers")}>العروض</button>
+                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 border-t border-white/25 pt-5 text-[14px] font-semibold text-white/95">
                       <button type="button" onClick={() => goFromMenu("/favorites")}>المفضلة{favorites.length > 0 ? ` (${favorites.length})` : ""}</button>
                       <button type="button" onClick={() => goFromMenu("/cart")}>حقيبتي{cartCount > 0 ? ` (${cartCount})` : ""}</button>
-                      <button type="button" onClick={() => goFromMenu("/best-sellers")}>الأكثر مبيعًا</button>
-                      <button type="button" onClick={() => goFromMenu("/store-info")}>عن المتجر</button>
+                      <button type="button" onClick={() => goFromMenu("/account")}>حسابي</button>
+                      <button type="button" onClick={() => goFromMenu("/store-info")}>معلومات المتجر</button>
+                      <button type="button" onClick={() => goFromMenu("/qr-code")}>باركود المتجر</button>
                     </div>
                   </nav>
                   <div className="relative z-10 shrink-0 px-7 pb-8 pt-3">
