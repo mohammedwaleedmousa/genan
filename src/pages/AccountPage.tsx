@@ -853,20 +853,20 @@ const AccountPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-[#302725]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF9F7] text-[#302725]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main className="pb-20 md:pt-24">
+      <main className="px-3 pb-20 pt-4 sm:px-5 md:px-7 md:pt-24">
         <div className="mx-auto w-full max-w-[1050px]">
           {/* =====================================================
               PROFILE
           ===================================================== */}
 
-          <section className="border-b border-[#E5DED0] bg-[#FFF8F6] px-4 pb-5 pt-6 md:mx-6 md:mt-6 md:rounded-[20px] md:border md:px-6 md:py-6">
+          <section className="mx-0 rounded-3xl bg-[#F6F3EA] px-4 pb-5 pt-6 shadow-sm md:mx-6 md:mt-6 md:px-6 md:py-6">
             <div className="flex items-center gap-4">
               <div className="relative shrink-0">
-                <div className="flex h-[70px] w-[70px] items-center justify-center overflow-hidden rounded-full border border-[#E5DED0] bg-[#FAE7E5] md:h-[82px] md:w-[82px]">
+                <div className="flex h-[70px] w-[70px] items-center justify-center overflow-hidden rounded-full border border-[#E5DED0] bg-[#EFE3CD] md:h-[82px] md:w-[82px]">
                   {customer?.avatar_url ? (
                     <img src={customer.avatar_url} alt={customer?.name || "الصورة الشخصية"} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                   ) : (
