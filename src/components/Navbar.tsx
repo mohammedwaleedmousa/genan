@@ -68,13 +68,6 @@ const loadSearchIndex = async () => {
   }
 };
 
-const Section = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <section className="mt-5">
-    <p className="mb-2 px-3 text-[11px] font-semibold text-[#8C6B32]">{label}</p>
-    <div className="space-y-1 rounded-3xl bg-white p-1.5">{children}</div>
-  </section>
-);
-
 const NavItem = ({
   icon: Icon,
   label,
@@ -279,52 +272,54 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-[#EAE5DA] bg-[#FAF9F7] p-0">
-                  <div className="flex items-center justify-center border-b border-[#EAE5DA] bg-white px-5 py-5">
-                    <button type="button" onClick={() => goFromMenu("/home")} className="flex items-center" aria-label="الرئيسية">
-                      <Logo size="lg" className="shrink-0" />
-                    </button>
+                <SheetContent side="right" dir="rtl" className="flex h-full w-[88vw] max-w-[370px] flex-col overflow-hidden border-l-0 bg-[#FBF9F5] p-0">
+                  <div className="relative isolate shrink-0 overflow-hidden bg-gradient-to-br from-[#E8D3A3] via-[#D5B574] to-[#B68B4A] px-6 pb-7 pt-9">
+                    <div aria-hidden="true" className="pointer-events-none absolute -left-16 -top-20 h-56 w-56 rounded-full border border-white/35" />
+                    <div aria-hidden="true" className="pointer-events-none absolute -left-6 -top-10 h-40 w-40 rounded-full border border-white/25" />
+                    <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -right-14 h-56 w-56 rotate-[-25deg] rounded-[38%] border-[22px] border-white/10" />
+                    <div aria-hidden="true" className="pointer-events-none absolute bottom-1 left-10 h-20 w-40 -rotate-12 rounded-[100%] border-t border-white/40" />
+                    <div className="relative z-10 flex items-start justify-between gap-3">
+                      <button type="button" onClick={() => goFromMenu("/home")} aria-label="الرئيسية" className="rounded-2xl bg-white/90 px-3 py-2 shadow-sm">
+                        <Logo size="lg" className="shrink-0" />
+                      </button>
+                      <button type="button" onClick={() => setMenuOpen(false)} aria-label="إغلاق القائمة" className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/45 bg-white/30 text-[#382A16] backdrop-blur-sm">
+                        <span aria-hidden="true" className="text-2xl leading-none">×</span>
+                      </button>
+                    </div>
+                    <p className="relative z-10 mt-6 text-[10px] font-semibold tracking-[0.24em] text-[#4C391D]">GENAN BOUTIQUE</p>
+                    <p className="relative z-10 mt-1 text-[19px] font-semibold text-[#282019]">اكتشف أناقتك</p>
                   </div>
 
-                  <nav className="flex-1 overflow-y-auto overscroll-contain px-4 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <nav aria-label="قائمة المتجر" className="min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-contain px-4 py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {unreadCount > 0 && (
-                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mt-4 flex w-full items-center gap-3 rounded-2xl border border-[#EAE5DA] bg-white px-4 py-3 text-right">
-                        <Bell size={19} className="text-[#8C6B32]" />
-                        <span className="flex-1 text-xs font-medium text-[#8C6B32]">لديك {unreadCount} إشعار جديد</span>
+                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mb-3 flex w-full items-center gap-2 rounded-2xl bg-[#F1E7D2] px-4 py-3 text-right text-[12px] font-medium text-[#735729]">
+                        <Bell size={18} /> لديك {unreadCount} إشعار جديد
                       </button>
                     )}
-
-                    <Section label="التسوق">
-                      <NavItem icon={House} label="الرئيسية" isActive={location.pathname === "/home"} onPress={() => goFromMenu("/home")} />
-                      <NavItem icon={SquaresFour} label="الأقسام" isActive={location.pathname === "/categories"} onPress={() => goFromMenu("/categories")} />
-                      <NavItem icon={Package} label="جميع المنتجات" isActive={location.pathname === "/products"} onPress={() => goFromMenu("/products")} />
-                      <NavItem icon={Tag} label="العروض" isActive={location.pathname === "/seasonal-offers"} onPress={() => goFromMenu("/seasonal-offers")} />
-                      <NavItem icon={Package} label="وصل حديثاً" isActive={location.pathname === "/new-arrivals"} onPress={() => goFromMenu("/new-arrivals")} />
-                      <NavItem icon={Crown} label="الأكثر مبيعاً" isActive={location.pathname === "/best-sellers"} onPress={() => goFromMenu("/best-sellers")} />
-                    </Section>
-
-                    <Section label="الحساب">
-                      <NavItem icon={ShoppingCart} label="السلة" badge={cartCount || undefined} isActive={location.pathname === "/cart"} onPress={() => goFromMenu("/cart")} />
-                      <NavItem icon={Heart} label="المفضلة" badge={favorites.length || undefined} isActive={location.pathname === "/favorites"} onPress={() => goFromMenu("/favorites")} />
-                      <NavItem icon={User} label="حسابي" isActive={location.pathname === "/account"} onPress={() => goFromMenu("/account")} />
-                    </Section>
-
-                    <Section label="المتجر">
-                      <NavItem icon={MapPin} label="معلومات المتجر" isActive={location.pathname === "/store-info"} onPress={() => goFromMenu("/store-info")} />
-                      <NavItem icon={QrCode} label="باركود المتجر" isActive={location.pathname === "/qr-code"} onPress={() => goFromMenu("/qr-code")} />
-                    </Section>
+                    <NavItem icon={House} label="الرئيسية" isActive={location.pathname === "/home"} onPress={() => goFromMenu("/home")} />
+                    <NavItem icon={ShoppingBag} label="جميع المنتجات" isActive={location.pathname === "/products"} onPress={() => goFromMenu("/products")} />
+                    <NavItem icon={SquaresFour} label="الأقسام" isActive={location.pathname === "/categories"} onPress={() => goFromMenu("/categories")} />
+                    <NavItem icon={Package} label="وصل حديثًا" isActive={location.pathname === "/new-arrivals"} onPress={() => goFromMenu("/new-arrivals")} />
+                    <NavItem icon={Tag} label="العروض" isActive={location.pathname === "/seasonal-offers"} onPress={() => goFromMenu("/seasonal-offers")} />
+                    <div className="my-3 h-px bg-[#E9E0D0]" />
+                    <NavItem icon={Heart} label="المفضلة" badge={favorites.length || undefined} isActive={location.pathname === "/favorites"} onPress={() => goFromMenu("/favorites")} />
+                    <NavItem icon={ShoppingCart} label="حقيبتي" badge={cartCount || undefined} isActive={location.pathname === "/cart"} onPress={() => goFromMenu("/cart")} />
+                    <NavItem icon={User} label="حسابي" isActive={location.pathname === "/account"} onPress={() => goFromMenu("/account")} />
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 pt-5 text-[11px] text-[#8B7858]">
+                      <button type="button" onClick={() => goFromMenu("/best-sellers")} className="hover:text-[#171717]">الأكثر مبيعًا</button>
+                      <button type="button" onClick={() => goFromMenu("/store-info")} className="hover:text-[#171717]">عن المتجر</button>
+                      <button type="button" onClick={() => goFromMenu("/qr-code")} className="hover:text-[#171717]">باركود المتجر</button>
+                    </div>
                   </nav>
 
-                  <div className="border-t border-[#EAE5DA] bg-white p-4">
+                  <div className="shrink-0 border-t border-[#E9E0D0] bg-[#FBF9F5] px-5 py-4">
                     {customer ? (
-                      <button type="button" onClick={handleLogout} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
-                        <SignOut size={18} />
-                        تسجيل الخروج
+                      <button type="button" onClick={handleLogout} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#D9C59E] bg-white text-[13px] font-semibold text-[#392E1E]">
+                        <SignOut size={18} /> تسجيل الخروج
                       </button>
                     ) : (
-                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors">
-                        <SignIn size={18} />
-                        تسجيل الدخول
+                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white">
+                        <SignIn size={18} /> تسجيل الدخول
                       </button>
                     )}
                   </div>
