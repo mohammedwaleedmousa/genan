@@ -25,8 +25,8 @@ const CartPage = () => {
       <CartDrawer />
 
       <main id="main-content" className="px-3 pb-14 sm:px-5 md:px-7 md:pb-20">
-        <header className="mx-auto mt-4 w-full max-w-[1100px] rounded-3xl bg-white px-4 py-4 sm:px-6 md:mt-7 md:py-5">
-          <span className="text-[10px] font-medium tracking-[0.18em] text-[#A38960]">GENAN</span>
+        <header className="mx-auto mt-4 w-full max-w-[1100px] rounded-3xl bg-[#F6F3EA] px-5 py-6 sm:px-7 md:mt-7 md:py-8">
+          <span className="text-[10px] font-semibold tracking-[0.18em] text-[#A38960]">GENAN / BAG</span>
           <h1 className="text-[20px] font-bold text-[#171717] md:text-[24px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1>
         </header>
 
@@ -57,7 +57,7 @@ const CartPage = () => {
         ) : (
           <section className="mx-auto grid w-full max-w-[1100px] gap-5 py-5 md:py-7 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8">
             <div>
-              <div className="divide-y divide-[#EEEAE3] rounded-3xl bg-white px-4 sm:px-5">
+              <div className="grid gap-3">
                 {cart.map((item, index) => {
                   const variant =
                     item.variantId && item.product.variants
@@ -86,12 +86,12 @@ const CartPage = () => {
                   return (
                     <article
                       key={`${item.product.id}-${item.variantId || "base"}-${item.selectedSize || ""}-${index}`}
-                      className="bg-white py-5 first:pt-1 last:pb-3 sm:py-6"
+                      className="rounded-3xl bg-white p-3 shadow-sm sm:p-5"
                     >
                       <div className="flex gap-3.5 md:gap-5">
                         <Link
                           to={`/product/${item.product.slug}`}
-                          className="relative h-[142px] w-[105px] shrink-0 overflow-hidden rounded-xl bg-[#F5F3EF] sm:h-[160px] sm:w-[122px]"
+                          className="relative h-[148px] w-[110px] shrink-0 overflow-hidden rounded-2xl bg-[#F5F3EF] sm:h-[176px] sm:w-[132px]"
                         >
                           {image ? (
                             <img
@@ -181,7 +181,7 @@ const CartPage = () => {
                           </div>
 
                           <div className="mt-4 flex items-end justify-between gap-3 md:mt-6">
-                            <div className="flex h-[38px] items-center overflow-hidden rounded-full border border-[#EAE5DA] bg-[#FAF9F7] md:h-[38px]">
+                            <div className="flex h-10 items-center overflow-hidden rounded-2xl border border-[#EAE5DA] bg-[#FAF9F7]">
                               <button
                                 type="button"
                                 onClick={() => {
@@ -212,7 +212,7 @@ const CartPage = () => {
                             </div>
 
                             <div className="text-left">
-                              <span className="block text-[6px] text-[#888888]">الإجمالي</span>
+                              
                               <span className="mt-1 block text-[11px] font-semibold leading-none text-[#8C6B32] md:text-[13px]">
                                 {formatCurrency(itemTotal)}
                               </span>
@@ -227,9 +227,9 @@ const CartPage = () => {
             </div>
 
             <aside className="lg:relative">
-              <div className="rounded-3xl bg-white p-5 shadow-sm lg:sticky lg:top-28 lg:p-6">
+              <div className="rounded-3xl bg-[#F6F3EA] p-5 lg:sticky lg:top-28 lg:p-6">
                 <h2 className="mb-4 text-[16px] font-semibold text-[#171717]">{getSiteText(content, "cart_summary_title", "ملخص الطلب")}</h2>
-                <div className="border-y border-[#EAE5DA] py-4">
+                <div className="border-b border-[#E4D8C4] pb-4">
                   <div className="flex items-center justify-between">
                     <span className="text-[9px] text-[#777777]">
                       {getSiteText(content, "cart_subtotal_label", "المجموع الفرعي")}
@@ -266,7 +266,7 @@ const CartPage = () => {
 
                 <Link
                   to="/products"
-                  className="mt-3 flex h-[46px] w-full items-center justify-center gap-1.5 rounded-2xl border border-[#EAE5DA] bg-white text-[12px] font-medium text-[#5F5A53]"
+                  className="mt-3 flex h-[46px] w-full items-center justify-center gap-1.5 rounded-2xl border border-[#E4D8C4] bg-white text-[12px] font-medium text-[#5F5A53]"
                 >
                   {getSiteText(content, "cart_continue_cta", "متابعة التسوق")}
                   <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
