@@ -1,4 +1,5 @@
-import {
+import { ShieldCheck,
+
   Activity,
   BarChart3,
   BadgePercent,
@@ -165,6 +166,7 @@ const primaryItems: NavItem[] = [
   { title: "الطلبات", url: "/admin/orders", icon: ShoppingBag, tone: "coral", counter: "orders" },
   { title: "المنتجات", url: "/admin/products", icon: Package, tone: "blue" },
   { title: "العملاء", url: "/admin/customers", icon: Users, tone: "teal" },
+  { title: "استعادة كلمات المرور", url: "/admin/password-recovery", icon: ShieldCheck, tone: "teal" },
 ];
 
 const sections: NavSection[] = [
