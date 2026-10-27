@@ -93,6 +93,7 @@ const AdminProductFormPage = lazy(() => import("./pages/admin/AdminProductFormPa
 const AdminSizePriceRulesPage = lazy(() => import("./pages/admin/AdminSizePriceRulesPage"));
 const AdminOrdersPage = lazy(() => import("./pages/admin/AdminOrdersWithNotesPage"));
 const AdminCustomersPage = lazy(() => import("./pages/admin/AdminCustomersPage"));
+const AdminPasswordRecoveryPage = lazy(() => import("./pages/admin/AdminPasswordRecoveryPage"));
 const AdminBannersPage = lazy(() => import("./pages/admin/AdminBannersPage"));
 const AdminSettingsPage = lazy(() => import("./pages/admin/AdminSettingsPage"));
 const AdminCustomerExperiencePage = lazy(() => import("./pages/admin/AdminCustomerExperiencePage"));
@@ -297,6 +298,7 @@ const App = () => {
               <Route path="size-price-rules" element={<AdminSizePriceRulesPage />} />
               <Route path="orders" element={<AdminOrdersPage />} />
               <Route path="customers" element={<AdminCustomersPage />} />
+              <Route path="password-recovery" element={<AdminPasswordRecoveryPage />} />
               <Route path="banners" element={<AdminBannersPage />} />
               <Route path="campaigns" element={<AdminCampaignsPage />} />
               <Route path="brands" element={<AdminBrandsPage />} />
