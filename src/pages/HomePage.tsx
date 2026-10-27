@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingSocialLinks from "@/components/FloatingSocialLinks";
 import CartDrawer from "@/components/CartDrawer";
 import HeroSlider from "@/components/HeroSlider";
 import BrandsStrip from "@/components/BrandsStrip";
@@ -144,6 +145,7 @@ const HomePage = () => {
         <HomeManagedSections betweenSections={imageBanner} brandsSection={brandsSection} />
       </main>
       <Footer />
+      <FloatingSocialLinks />
     </div>
   );
 };
