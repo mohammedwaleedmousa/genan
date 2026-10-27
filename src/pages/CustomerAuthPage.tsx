@@ -311,7 +311,7 @@ const CustomerAuthPage = () => {
             </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 rounded-2xl bg-[#F6F3EA] p-1">
+          <div className="mt-6 grid grid-cols-2 rounded-xl border border-[#E8DEC9] bg-[#F6F3EA] p-1">
             <button type="button" onClick={() => changeMode("login")} className={`h-[44px] rounded-xl text-[12px] font-semibold ${mode === "login" ? "bg-white text-[#443936] shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
               تسجيل الدخول
             </button>
@@ -348,30 +348,30 @@ const CustomerAuthPage = () => {
               )}
               <button type="button" onClick={()=>changeMode("login")} className="h-11 w-full text-[12px] text-[#8C6B32]">العودة لتسجيل الدخول</button>
             </div>
-          ) : <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+          ) : <form onSubmit={handleSubmit} className="mt-6 space-y-5">
             {mode === "register" && (
               <div>
-                <label htmlFor="auth-name" className="mb-1.5 block px-1 text-[9px] font-medium text-[#746761]">الاسم الكامل</label>
+                <label htmlFor="auth-name" className="mb-2 block text-[12px] font-semibold text-[#39342F]">الاسم الكامل</label>
                 <div className="relative">
-                  <UserRound className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A99D98]" strokeWidth={1.5} />
-                  <input id="auth-name" value={formData.name} onChange={(event) => updateField("name", event.target.value)} autoComplete="name" placeholder="أدخل اسمك الكامل" className="h-[50px] w-full rounded-2xl border border-[#E8DEDA] bg-[#FCFAF7] pr-11 pl-4 text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]" />
+                  <UserRound className="pointer-events-none absolute right-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#AA8B59]" strokeWidth={1.5} />
+                  <input id="auth-name" value={formData.name} onChange={(event) => updateField("name", event.target.value)} autoComplete="name" placeholder="أدخل اسمك الكامل" className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] pr-12 pl-4 text-[14px] text-[#171717] outline-none transition-colors placeholder:text-[#9B9387] focus:border-[#A88955] focus:bg-[#F3EBDD]" />
                 </div>
               </div>
             )}
 
             {mode === "register" && (
               <div>
-                <label htmlFor="auth-region" className="mb-1.5 block px-1 text-[9px] font-medium text-[#746761]">المدينة / المنطقة</label>
+                <label htmlFor="auth-region" className="mb-2 block text-[12px] font-semibold text-[#39342F]">المدينة / المنطقة</label>
                 <div className="relative">
-                  <MapPin className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A99D98]" strokeWidth={1.5} />
-                  <input id="auth-region" value={formData.region} onChange={(event) => updateField("region", event.target.value)} autoComplete="address-level2" placeholder="مثال: عدن، الرياض" className="h-[50px] w-full rounded-2xl border border-[#E8DEDA] bg-[#FCFAF7] pr-11 pl-4 text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]" />
+                  <MapPin className="pointer-events-none absolute right-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#AA8B59]" strokeWidth={1.5} />
+                  <input id="auth-region" value={formData.region} onChange={(event) => updateField("region", event.target.value)} autoComplete="address-level2" placeholder="مثال: عدن، الرياض" className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] pr-12 pl-4 text-[14px] text-[#171717] outline-none transition-colors placeholder:text-[#9B9387] focus:border-[#A88955] focus:bg-[#F3EBDD]" />
                 </div>
               </div>
             )}
 
             <div>
-              <label htmlFor="auth-phone" className="mb-1.5 block px-1 text-[9px] font-medium text-[#746761]">الدولة ورقم الهاتف</label>
-              <div className="grid grid-cols-[150px_1fr] gap-2" dir="ltr">
+              <label htmlFor="auth-phone" className="mb-2 block text-[12px] font-semibold text-[#39342F]">الدولة ورقم الهاتف</label>
+              <div className="grid grid-cols-[115px_minmax(0,1fr)] gap-2 sm:grid-cols-[145px_minmax(0,1fr)]" dir="ltr">
                 <select
                   aria-label="الدولة"
                   value={phoneCountry}
@@ -388,7 +388,7 @@ const CustomerAuthPage = () => {
                           : previous.region,
                     }));
                   }}
-                  className="h-[50px] rounded-2xl border border-[#E8DEDA] bg-[#FCFAF7] px-2 text-[11px] text-[#443936] outline-none focus:border-[#D8C29A]"
+                  className="h-[56px] min-w-0 rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-3 text-[12px] text-[#39342F] outline-none focus:border-[#A88955]"
                   dir="rtl"
                 >
                   {PHONE_COUNTRIES.map((country) => (
@@ -397,7 +397,7 @@ const CustomerAuthPage = () => {
                 </select>
 
                 <div className="relative">
-                  <Phone className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A99D98]" strokeWidth={1.5} />
+                  <Phone className="pointer-events-none absolute right-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#AA8B59]" strokeWidth={1.5} />
                   <input
                     id="auth-phone"
                     type="tel"
@@ -407,19 +407,19 @@ const CustomerAuthPage = () => {
                     onChange={(event) => updateField("phone", arabicDigitsToLatin(event.target.value).replace(/\D/g, "").slice(0, 15))}
                     placeholder={selectedPhoneCountry.placeholder}
                     dir="ltr"
-                    className="h-[50px] w-full rounded-2xl border border-[#E8DEDA] bg-[#FCFAF7] pr-11 pl-4 text-left text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]"
+                    className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-4 text-left text-[14px] text-[#171717] outline-none focus:border-[#A88955] focus:bg-[#F3EBDD]"
                   />
                 </div>
               </div>
-              <p className="mt-1.5 px-1 text-[8px] leading-4 text-[#A19590]">
+              <p className="mt-1.5 px-1 text-[10px] leading-5 text-[#8A847C]">
                 رمز الدولة {selectedPhoneCountry.dial} يضاف تلقائياً. اكتب الرقم المحلي فقط، ويمكن كتابة الصفر الأول أو بدونه.
               </p>
             </div>
 
             <div>
-              <label htmlFor="auth-password" className="mb-1.5 block px-1 text-[9px] font-medium text-[#746761]">كلمة المرور</label>
+              <label htmlFor="auth-password" className="mb-2 block text-[12px] font-semibold text-[#39342F]">كلمة المرور</label>
               <div className="relative">
-                <LockKeyhole className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A99D98]" strokeWidth={1.5} />
+                <LockKeyhole className="pointer-events-none absolute right-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#AA8B59]" strokeWidth={1.5} />
                 <input
                   id="auth-password"
                   type={showPassword ? "text" : "password"}
@@ -428,7 +428,7 @@ const CustomerAuthPage = () => {
                   onChange={(event) => updateField("password", event.target.value)}
                   placeholder={mode === "register" ? "8 أحرف على الأقل" : "كلمة المرور"}
                   dir="ltr"
-                  className="h-[50px] w-full rounded-2xl border border-[#E8DEDA] bg-[#FCFAF7] pr-11 pl-12 text-left text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]"
+                  className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-12 text-left text-[14px] text-[#171717] outline-none focus:border-[#A88955] focus:bg-[#F3EBDD]"
                 />
                 <button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"} className="absolute left-2.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-[#A99D98]">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
