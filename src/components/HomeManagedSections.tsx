@@ -294,7 +294,7 @@ const HomeManagedSections = ({ betweenSections, brandsSection }: HomeManagedSect
     { key: "genan-edit", title: "مختارات جنان", eyebrow: "GENAN EDIT", subtitle: "تفاصيل منتقاة لأسلوب مختلف", url: "/products", products: featuredSection?.products.length ? featuredSection.products : fallbackProducts.slice(4, 8), sample: 2 },
     ...extras.map((entry, i) => ({
       key: "managed-" + entry.section.id, title: entry.section.title_ar, eyebrow: entry.section.title || "COLLECTION",
-      subtitle: "تشكيلات أخرى تستحق الاكتشاف", url: entry.section.view_all_link || "/products",
+      subtitle: "تشكيلات أخرى تستحق الاكتشاف", url: /عروض|خصومات|offers|sale/i.test(`${entry.section.title_ar || ""} ${entry.section.title || ""}`) ? "/seasonal-offers" : entry.section.view_all_link || "/products",
       products: entry.products, sample: i,
     })),
   ];
