@@ -25,12 +25,9 @@ const CartPage = () => {
       <CartDrawer />
 
       <main id="main-content" className="pb-14 md:pb-20">
-        <header className="mx-auto mt-4 flex w-full max-w-[1100px] items-center justify-between gap-3 rounded-3xl bg-white px-4 py-4 sm:px-6 md:mt-7 md:py-5">
-          <div className="flex items-center gap-3">
-            <Link to="/products" aria-label="العودة للتسوق" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#F6F4F0]"><ArrowLeft className="h-5 w-5 text-[#171717]" /></Link>
-            <div><span className="text-[10px] font-medium tracking-[0.18em] text-[#A38960]">GENAN</span><h1 className="text-[20px] font-bold text-[#171717] md:text-[24px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1></div>
-          </div>
-          {cart.length > 0 && <div className="rounded-2xl bg-[#F7F4EE] px-3 py-2 text-left"><span className="block text-[10px] text-[#8C6B32]">المجموع</span><strong className="text-[15px] text-[#171717] sm:text-[18px]">{formatCurrency(total)}</strong></div>}
+        <header className="mx-auto mt-4 w-full max-w-[1100px] rounded-3xl bg-white px-4 py-4 sm:px-6 md:mt-7 md:py-5">
+          <span className="text-[10px] font-medium tracking-[0.18em] text-[#A38960]">GENAN</span>
+          <h1 className="text-[20px] font-bold text-[#171717] md:text-[24px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1>
         </header>
 
         {cart.length === 0 ? (
