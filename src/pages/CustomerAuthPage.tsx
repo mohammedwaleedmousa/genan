@@ -197,40 +197,31 @@ const CustomerAuthPage = () => {
         const country = phoneCountry;
         const region = selectedRegion || defaultRegionForCountry(country);
 
-        // Use the managed Supabase Auth password flow. The project must have
-        // phone authentication enabled and phone confirmation disabled for
-        // temporary password-only registration (no OTP).
-        const { data, error } = await supabase.auth.signUp({
-          phone,
-          password,
-          options: {
-            data: {
-              name, full_name: name, contact_phone: phone,
-              customer_signup: "genan_customer", country, region,
-            },
-          },
+        const { data: registration, error: registrationError } = await supabase.functions.invoke("genan-password-register", {
+          body: { name, phone, password, region, country },
         });
-        if (error) throw error;
-        if (!data.user) throw new Error("تعذر إنشاء الحساب.");
-
-        let user = data.user;
-        if (!data.session) {
-          const directLogin = await supabase.auth.signInWithPassword({ phone, password });
-          if (directLogin.error || !directLogin.data.user) {
-            throw new Error("تسجيل الحسابات دون OTP يحتاج تعطيل تأكيد رقم الهاتف من إعدادات Supabase Auth. لن نطلب رمز تحقق.");
-          }
-          user = directLogin.data.user;
+        if (registrationError || !registration?.ok) {
+          throw new Error(registration?.error || "تعذر إنشاء الحساب. حاول مجددًا.");
         }
-
-        let customer = await getOwnCustomer(user.id);
-        if (!customer) customer = await finalizeRegistration({ name, phone, region, country, channel: "none" });
+        const email = phone.slice(1) + "@accounts.genan.invalid";
+        const { data: loginResult, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+        if (loginError || !loginResult.user) throw new Error("تم إنشاء الحساب، ولكن تعذر تسجيل الدخول. حاول تسجيل الدخول مرة أخرى.");
+        const customer = await getOwnCustomer(loginResult.user.id);
+        if (!customer) throw new Error("تم إنشاء الحساب ولكن تعذر تحميل الملف الشخصي.");
         persistCustomer(customer);
         toast({ title: "تم إنشاء الحساب", description: `أهلاً ${customer.name}` });
         navigate("/home", { replace: true });
         return;
       }
 
-      const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ phone, password });
+      const email = phone.slice(1) + "@accounts.genan.invalid";
+      let { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+      // Preserve access for customers created with the original phone-password flow.
+      if (loginError || !loginData.user) {
+        const legacy = await supabase.auth.signInWithPassword({ phone, password });
+        loginData = legacy.data;
+        loginError = legacy.error;
+      }
       if (loginError || !loginData.user) {
         throw new Error("رقم الهاتف أو كلمة المرور غير صحيحة");
       }
@@ -259,8 +250,6 @@ const CustomerAuthPage = () => {
 
       if (lower.includes("already registered") || lower.includes("user already") || lower.includes("already exists")) {
         friendly = "رقم الهاتف مسجل مسبقاً. اختر تسجيل الدخول واستخدم نفس الرقم وكلمة المرور.";
-      } else if (lower.includes("phone provider is disabled") || lower.includes("phone signups are disabled")) {
-        friendly = "تسجيل الهاتف معطّل في Supabase. فعّله من Authentication → Providers.";
       } else if (lower.includes("invalid login credentials")) {
         friendly = "رقم الهاتف أو كلمة المرور غير صحيحة.";
       }
