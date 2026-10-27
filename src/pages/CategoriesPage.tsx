@@ -35,12 +35,12 @@ const CategoriesPage = () => {
   });
 
   return (
-    <div dir="rtl" className="min-h-screen bg-white text-[#0E0E0E]">
+    <div dir="rtl" className="min-h-screen bg-[#FAF9F7] text-[#0E0E0E]">
       <Navbar />
       <CartDrawer />
 
-      <main>
-        <section className="border-b border-[#EAEAEA] px-5 py-14 sm:px-8 md:px-[6vw] md:py-20">
+      <main className="space-y-4 px-3 pb-12 pt-4 sm:px-5 sm:pt-7 lg:px-7">
+        <section className="mx-auto max-w-[1760px] rounded-3xl bg-white px-5 py-10 shadow-sm sm:px-8 md:px-[6vw] md:py-16">
           <div className="mx-auto grid max-w-[1760px] gap-8 md:grid-cols-[1.2fr_.8fr] md:items-end">
             <div>
               <div className="mb-4 flex items-center gap-3">
@@ -57,7 +57,7 @@ const CategoriesPage = () => {
           </div>
         </section>
 
-        <section className="px-4 py-10 sm:px-6 md:px-[5vw] md:py-16">
+        <section className="mx-auto max-w-[1760px] rounded-3xl bg-white px-3 py-7 shadow-sm sm:px-6 sm:py-10 md:px-[5vw] md:py-14">
           <div className="mx-auto max-w-[1760px]">
             {isLoading ? (
               <div className="grid grid-cols-4 gap-2 md:gap-4">
