@@ -69,9 +69,9 @@ const loadSearchIndex = async () => {
 };
 
 const Section = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <section className="mt-6">
-    <p className="mb-2 px-2 text-[10px] font-semibold text-[#686868]">{label}</p>
-    <div className="space-y-1">{children}</div>
+  <section className="mt-5">
+    <p className="mb-2 px-3 text-[11px] font-semibold text-[#8C6B32]">{label}</p>
+    <div className="space-y-1 rounded-3xl bg-white p-1.5">{children}</div>
   </section>
 );
 
@@ -91,10 +91,10 @@ const NavItem = ({
   <button
     type="button"
     onClick={onPress}
-    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F5FAF9] text-[#8C6B32]" : "text-[#0E0E0E]"}`}
+    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-2xl px-3 text-right transition-colors ${isActive ? "bg-[#F4EEE4] text-[#171717]" : "text-[#171717] hover:bg-[#F8F6F2]"}`}
   >
     {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#0E0E0E]" />}
-    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E9F6F4] text-[#8C6B32]" : "bg-[#FAFAFA] text-[#686868]"}`}>
+    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E9DDC9] text-[#735729]" : "bg-[#F7F5F1] text-[#77716A]"}`}>
       <Icon size={19} weight="regular" />
     </span>
     <span className={`flex-1 text-right text-[13px] ${isActive ? "font-semibold" : "font-medium"}`}>{label}</span>
@@ -279,16 +279,16 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-[#F7F7F7] bg-[#FAFAFA] p-0">
-                  <div className="flex items-center justify-center border-b border-[#F7F7F7] px-5 py-5">
+                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-[#EAE5DA] bg-[#FAF9F7] p-0">
+                  <div className="flex items-center justify-center border-b border-[#EAE5DA] bg-white px-5 py-5">
                     <button type="button" onClick={() => goFromMenu("/home")} className="flex items-center" aria-label="الرئيسية">
                       <Logo size="lg" className="shrink-0" />
                     </button>
                   </div>
 
-                  <nav className="flex-1 overflow-y-auto px-3 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <nav className="flex-1 overflow-y-auto overscroll-contain px-4 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {unreadCount > 0 && (
-                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mt-4 flex w-full items-center gap-3 rounded-[14px] border border-[#EAF6F4] bg-[#F5FAF9] px-4 py-3 text-right">
+                      <button type="button" onClick={() => goFromMenu("/notifications")} className="mt-4 flex w-full items-center gap-3 rounded-2xl border border-[#EAE5DA] bg-white px-4 py-3 text-right">
                         <Bell size={19} className="text-[#8C6B32]" />
                         <span className="flex-1 text-xs font-medium text-[#8C6B32]">لديك {unreadCount} إشعار جديد</span>
                       </button>
@@ -315,14 +315,14 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                     </Section>
                   </nav>
 
-                  <div className="border-t border-[#F7F7F7] bg-[#FAFAFA] p-4">
+                  <div className="border-t border-[#EAE5DA] bg-white p-4">
                     {customer ? (
-                      <button type="button" onClick={handleLogout} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
+                      <button type="button" onClick={handleLogout} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#D8C29A] bg-white text-sm font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
                         <SignOut size={18} />
                         تسجيل الخروج
                       </button>
                     ) : (
-                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors">
+                      <button type="button" onClick={() => goFromMenu("/auth")} className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#0E0E0E] text-sm font-semibold text-white transition-colors">
                         <SignIn size={18} />
                         تسجيل الدخول
                       </button>
