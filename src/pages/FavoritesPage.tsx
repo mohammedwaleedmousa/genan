@@ -131,12 +131,12 @@ const FavoritesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#0E0E0E]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF9F7] text-[#0E0E0E]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main>
-        <section className="border-b border-[#E7E2D9] bg-white">
+      <main className="space-y-4 px-3 pb-16 pt-4 sm:px-5 md:px-7 md:pt-24">
+        <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-[#F6F3EA] shadow-sm">
           <div className="mx-auto grid max-w-[1500px] gap-8 px-4 py-10 md:grid-cols-[1fr_260px] md:px-6 md:py-14">
             <div>
               <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ const FavoritesPage = () => {
 
         {favorites.length > 0 ? (
           <>
-            <section className="border-b border-[#E7E2D9] bg-[#FAF9F6]">
+            <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white shadow-sm">
               <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-3 md:px-6">
                 <div className="flex items-center gap-3">
                   <span className="text-[7px] font-semibold tracking-[.2em] text-[#9A825B]">SAVED PIECES</span>
@@ -185,7 +185,7 @@ const FavoritesPage = () => {
               </div>
             </section>
 
-            <section className="mx-auto w-full max-w-[1500px] px-3 py-6 md:px-6 md:py-10">
+            <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white px-3 py-6 shadow-sm sm:px-5 md:px-6 md:py-10">
               <div className="mb-6 flex items-center justify-between border-b border-[#E7E2D9] pb-3">
                 <div>
                   <span className="text-[7px] font-semibold tracking-[.2em] text-[#9A825B]">MY EDIT</span>
@@ -244,7 +244,7 @@ const FavoritesPage = () => {
             </section>
           </>
         ) : (
-          <section className="mx-auto flex min-h-[58vh] max-w-[1500px] items-center px-6 py-14">
+          <section className="mx-auto flex min-h-[58vh] max-w-[1500px] items-center rounded-3xl bg-white px-6 py-14 shadow-sm">
             <div className="max-w-[460px] border-r-2 border-[#D8C29A] pr-5">
               <span className="text-[7px] font-semibold tracking-[.25em] text-[#9A825B]">EMPTY WISHLIST</span>
               <h2 className="mt-3 text-[26px] font-medium tracking-[-.035em]">
