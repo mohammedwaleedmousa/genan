@@ -37,12 +37,12 @@ const BestSellersPage = () => {
   const hasMore = products.length < total;
 
   return (
-    <div className="min-h-screen bg-[#FFFDFC] text-[#302725]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF9F7] text-[#302725]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main className="pb-20 md:pt-24">
-        <section className="border-b border-[#F0E6E2] bg-[#F6F3EA]">
+      <main className="space-y-4 px-3 pb-20 pt-4 sm:px-5 md:px-7 md:pt-24">
+        <section className="mx-auto w-full max-w-[1500px] overflow-hidden rounded-3xl bg-[#F6F3EA]">
           <div className="mx-auto w-full max-w-[1500px] px-4 pb-5 pt-6 md:px-6 md:pb-7 md:pt-8">
             <div className="flex items-end justify-between gap-5">
               <div>
@@ -64,7 +64,7 @@ const BestSellersPage = () => {
           </div>
         </section>
 
-        <section className="border-b border-[#EFE6E2] bg-white">
+        <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white shadow-sm">
           <div className="mx-auto flex h-[42px] w-full max-w-[1500px] items-center justify-between px-3 md:h-[46px] md:px-6">
             <div className="flex items-center gap-1.5">
               <Heart className="h-3.5 w-3.5 fill-[#F7F7F7] stroke-[1.5] text-[#D8C29A]" />
@@ -77,7 +77,7 @@ const BestSellersPage = () => {
           </div>
         </section>
 
-        <section className="mx-auto w-full max-w-[1500px] px-2.5 pt-4 md:px-6 md:pt-6">
+        <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white px-3 py-5 shadow-sm sm:px-5 md:px-6 md:py-7">
           {isLoading ? (
             <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-5">
               {Array.from({ length: 10 }).map((_, index) => <ProductCardSkeleton key={index} />)}
@@ -110,7 +110,7 @@ const BestSellersPage = () => {
         </section>
 
         {!isLoading && products.length > 0 && (
-          <section className="mx-auto w-full max-w-[1500px] px-3 py-9 md:px-6 md:py-12">
+          <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white px-3 py-9 shadow-sm sm:px-5 md:px-6 md:py-12">
             <div className="border-t border-[#EADFDA] pt-6 text-center">
               <div className="mb-2 flex items-center justify-center gap-2">
                 <span className="h-px w-5 bg-[#C6B17F]" />
