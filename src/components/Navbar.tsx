@@ -253,21 +253,34 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                     </button>
                   </div>
 
-                  <nav aria-label="قائمة جنان" className="relative z-10 min-h-0 flex-1 overflow-y-auto overscroll-contain px-7 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                    <div className="space-y-1">
-                      <button type="button" onClick={() => goFromMenu("/home")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">الرئيسية</button>
-                      <button type="button" onClick={() => goFromMenu("/products")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">جميع المنتجات</button>
-                      <button type="button" onClick={() => goFromMenu("/categories")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">الأقسام</button>
-                      <button type="button" onClick={() => goFromMenu("/seasonal-offers")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">العروض</button>
-                      <button type="button" onClick={() => goFromMenu("/new-arrivals")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">وصل حديثًا</button>
-                      <button type="button" onClick={() => goFromMenu("/best-sellers")} className="flex min-h-[58px] w-full items-center text-right text-[26px] font-bold text-white transition-opacity hover:opacity-75">الأكثر مبيعًا</button>
+                  <nav aria-label="قائمة جنان" className="relative z-10 min-h-0 flex-1 overflow-y-auto overscroll-contain px-7 pb-6 pt-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div className="space-y-0.5">
+                      {[
+                        { label: "الرئيسية", path: "/home" },
+                        { label: "جميع المنتجات", path: "/products" },
+                        { label: "الأقسام", path: "/categories" },
+                        { label: "وصل حديثًا", path: "/new-arrivals" },
+                        { label: "العروض", path: "/seasonal-offers" },
+                        { label: "الأكثر مبيعًا", path: "/best-sellers" },
+                      ].map((link) => (
+                        <button key={link.path} type="button" onClick={() => goFromMenu(link.path)}
+                          aria-current={location.pathname === link.path ? "page" : undefined}
+                          className={`flex min-h-[48px] w-full items-center rounded-xl px-3 text-right text-[18px] font-semibold transition-colors ${location.pathname === link.path ? "bg-white/15 text-white" : "text-white/95 hover:bg-white/10"}`}>
+                          {link.label}
+                        </button>
+                      ))}
                     </div>
-                    <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 border-t border-white/25 pt-5 text-[14px] font-semibold text-white/95">
-                      <button type="button" onClick={() => goFromMenu("/favorites")}>المفضلة{favorites.length > 0 ? ` (${favorites.length})` : ""}</button>
-                      <button type="button" onClick={() => goFromMenu("/cart")}>حقيبتي{cartCount > 0 ? ` (${cartCount})` : ""}</button>
-                      <button type="button" onClick={() => goFromMenu("/account")}>حسابي</button>
-                      <button type="button" onClick={() => goFromMenu("/store-info")}>معلومات المتجر</button>
-                      <button type="button" onClick={() => goFromMenu("/qr-code")}>باركود المتجر</button>
+                    <div className="mt-5 border-t border-white/25 pt-4">
+                      <p className="mb-2 px-3 text-[11px] font-medium text-white/70">حسابي وتسوقي</p>
+                      <div className="grid grid-cols-2 gap-x-2 gap-y-1">
+                        <button type="button" onClick={() => goFromMenu("/favorites")} className="min-h-10 rounded-xl px-3 text-right text-[13px] font-medium text-white/95 hover:bg-white/10">المفضلة{favorites.length > 0 ? ` (${favorites.length})` : ""}</button>
+                        <button type="button" onClick={() => goFromMenu("/cart")} className="min-h-10 rounded-xl px-3 text-right text-[13px] font-medium text-white/95 hover:bg-white/10">حقيبتي{cartCount > 0 ? ` (${cartCount})` : ""}</button>
+                        <button type="button" onClick={() => goFromMenu("/account")} className="min-h-10 rounded-xl px-3 text-right text-[13px] font-medium text-white/95 hover:bg-white/10">حسابي</button>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-x-5 gap-y-3 border-t border-white/20 px-3 pt-4 text-[12px] font-medium text-white/75">
+                      <button type="button" onClick={() => goFromMenu("/store-info")} className="hover:text-white">معلومات المتجر</button>
+                      <button type="button" onClick={() => goFromMenu("/qr-code")} className="hover:text-white">باركود المتجر</button>
                     </div>
                   </nav>
                   <div className="relative z-10 shrink-0 px-7 pb-8 pt-3">
