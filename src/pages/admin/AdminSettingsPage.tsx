@@ -33,6 +33,7 @@ const AdminSettingsPage = () => {
   const [socialLinks, setSocialLinks] = useState({
     whatsapp: "",
     instagram: "",
+    snapchat: "",
   });
 
   const [whatsapp, setWhatsapp] = useState("");
@@ -98,6 +99,9 @@ const AdminSettingsPage = () => {
             case "social_whatsapp":
               setSocialLinks((prev) => ({ ...prev, whatsapp: typeof value === "string" ? value : "" }));
               break;
+            case "social_snapchat":
+              setSocialLinks((prev) => ({ ...prev, snapchat: typeof value === "string" ? value : "" }));
+              break;
             case "social_instagram":
               setSocialLinks((prev) => ({ ...prev, instagram: typeof value === "string" ? value : "" }));
               break;
@@ -152,6 +156,7 @@ const AdminSettingsPage = () => {
         updateSetting("certification_pdf_url", certPdfUrl),
         updateSetting("social_whatsapp", socialLinks.whatsapp),
         updateSetting("social_instagram", socialLinks.instagram),
+        updateSetting("social_snapchat", socialLinks.snapchat),
         updateSetting("chatbot_config", chatbotConfig),
       ]);
 
@@ -350,6 +355,10 @@ const AdminSettingsPage = () => {
               placeholder="https://instagram.com/..."
               dir="ltr"
             />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm text-muted-foreground">رابط سناب شات</label>
+            <Input value={socialLinks.snapchat} onChange={(e) => setSocialLinks({ ...socialLinks, snapchat: e.target.value })} placeholder="https://www.snapchat.com/add/..." dir="ltr" />
           </div>
         </div>
       </div>
