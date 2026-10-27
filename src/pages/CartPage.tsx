@@ -24,7 +24,7 @@ const CartPage = () => {
       <Navbar />
       <CartDrawer />
 
-      <main id="main-content" className="pb-14 md:pb-20">
+      <main id="main-content" className="px-3 pb-14 sm:px-5 md:px-7 md:pb-20">
         <header className="mx-auto mt-4 w-full max-w-[1100px] rounded-3xl bg-white px-4 py-4 sm:px-6 md:mt-7 md:py-5">
           <span className="text-[10px] font-medium tracking-[0.18em] text-[#A38960]">GENAN</span>
           <h1 className="text-[20px] font-bold text-[#171717] md:text-[24px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1>
@@ -55,7 +55,7 @@ const CartPage = () => {
             </Link>
           </section>
         ) : (
-          <section className="mx-auto grid w-full max-w-[1100px] gap-8 px-4 py-6 sm:px-6 md:px-7 md:py-9 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
+          <section className="mx-auto grid w-full max-w-[1100px] gap-5 py-5 md:py-7 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8">
             <div>
               <div className="divide-y divide-[#EEEAE3] rounded-3xl bg-white px-4 sm:px-5">
                 {cart.map((item, index) => {
