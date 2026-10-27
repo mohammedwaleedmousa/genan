@@ -128,10 +128,13 @@ const CustomerAuthPage = () => {
     return data as CustomerRow | null;
   };
 
-  const finalizeRegistration = async (body: Record<string, unknown>) => {
-    const { data, error } = await supabase.functions.invoke("customer-registration-finalize", { body });
-    if (error) throw error;
-    if (!data?.customer) throw new Error(data?.error || "تعذر إنشاء ملف العميل");
+  const loadCustomerSecurely = async (userId: string): Promise<CustomerRow> => {
+    const own = await getOwnCustomer(userId).catch(() => null);
+    if (own) return own;
+    const { data, error } = await supabase.functions.invoke("genan-password-register", { body: { action: "profile" } });
+    if (error || !data?.customer || data.customer.user_id !== userId) {
+      throw new Error("تعذر تحميل بيانات حسابك، حاول تسجيل الدخول مجددًا.");
+    }
     return data.customer as CustomerRow;
   };
 
@@ -143,7 +146,7 @@ const CustomerAuthPage = () => {
       if (!active || !session?.user) return;
 
       try {
-        const customer = await getOwnCustomer(session.user.id);
+        const customer = await loadCustomerSecurely(session.user.id);
         if (!active || !customer) return;
         persistCustomer(customer);
         navigate("/home", { replace: true });
@@ -203,14 +206,24 @@ const CustomerAuthPage = () => {
         const { data: registration, error: registrationError } = await supabase.functions.invoke("genan-password-register", {
           body: { name, phone, password, region, country },
         });
-        if (registrationError || !registration?.ok) {
-          throw new Error(registration?.error || "تعذر إنشاء الحساب. حاول مجددًا.");
-        }
         const email = phone.slice(1) + "@accounts.genan.invalid";
+        if (registrationError || !registration?.ok) {
+          // A previous attempt may have created the account before the page reported an error.
+          const existing = await supabase.auth.signInWithPassword({ email, password });
+          if (existing.error || !existing.data.user) {
+            throw new Error(registration?.error || "تعذر إنشاء الحساب. إذا سبق إنشاء الحساب، جرّب تسجيل الدخول.");
+          }
+          const previousCustomer = await loadCustomerSecurely(existing.data.user.id);
+          persistCustomer(previousCustomer);
+          toast({ title: "حسابك موجود بالفعل", description: "تم تسجيل الدخول بنجاح." });
+          navigate("/home", { replace: true });
+          return;
+        }
         const { data: loginResult, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
-        if (loginError || !loginResult.user) throw new Error("تم إنشاء الحساب، ولكن تعذر تسجيل الدخول. حاول تسجيل الدخول مرة أخرى.");
-        const customer = await getOwnCustomer(loginResult.user.id);
-        if (!customer) throw new Error("تم إنشاء الحساب ولكن تعذر تحميل الملف الشخصي.");
+        if (loginError || !loginResult.user) throw new Error("تم إنشاء الحساب بنجاح. اختر تسجيل الدخول واستخدم نفس الرقم وكلمة المرور.");
+        const customer = registration.customer?.user_id === loginResult.user.id
+          ? registration.customer as CustomerRow
+          : await loadCustomerSecurely(loginResult.user.id);
         persistCustomer(customer);
         toast({ title: "تم إنشاء الحساب", description: `أهلاً ${customer.name}` });
         navigate("/home", { replace: true });
@@ -229,17 +242,7 @@ const CustomerAuthPage = () => {
         throw new Error("رقم الهاتف أو كلمة المرور غير صحيحة");
       }
 
-      let customer = await getOwnCustomer(loginData.user.id);
-      if (!customer) {
-        const country = phoneCountry;
-        customer = await finalizeRegistration({
-          name: "عميل جنان",
-          phone,
-          region: defaultRegionForCountry(country),
-          country,
-          channel: "none",
-        });
-      }
+      const customer = await loadCustomerSecurely(loginData.user.id);
 
       persistCustomer(customer);
       toast({ title: "مرحباً بعودتك", description: `أهلاً ${customer.name}` });
