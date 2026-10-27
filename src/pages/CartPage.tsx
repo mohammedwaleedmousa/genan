@@ -56,7 +56,7 @@ const CartPage = () => {
 
         {cart.length === 0 ? (
           <section className="mx-auto flex min-h-[55vh] max-w-md flex-col items-center justify-center px-6 text-center">
-            <div className="flex h-[78px] w-[78px] items-center justify-center border border-[#EAE5DA] bg-white">
+            <div className="flex h-[78px] w-[78px] items-center justify-center rounded-2xl border border-[#EAE5DA] bg-white">
               <ShoppingBag className="h-6 w-6 stroke-[1.25] text-[#8C6B32]" />
             </div>
 
@@ -125,12 +125,12 @@ const CartPage = () => {
                   return (
                     <article
                       key={`${item.product.id}-${item.variantId || "base"}-${item.selectedSize || ""}-${index}`}
-                      className="py-4 md:py-5"
+                      className="rounded-2xl border border-[#EAE5DA] bg-white p-3 shadow-[0_8px_24px_rgba(20,20,20,0.025)] sm:p-4 md:p-5"
                     >
                       <div className="flex gap-3.5 md:gap-5">
                         <Link
                           to={`/product/${item.product.slug}`}
-                          className="relative h-[132px] w-[100px] shrink-0 overflow-hidden bg-[#F1EFEA] md:h-[162px] md:w-[124px]"
+                          className="relative h-[138px] w-[100px] shrink-0 overflow-hidden rounded-xl bg-[#F5F3EF] md:h-[168px] md:w-[126px]"
                         >
                           {image ? (
                             <img
@@ -172,7 +172,7 @@ const CartPage = () => {
                               type="button"
                               onClick={() => removeFromCart(item.product.id, item.variantId)}
                               aria-label="حذف المنتج"
-                              className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#EAE5DA] bg-white text-[#777777] active:bg-[#F4F1EC]"
+                              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#EAE5DA] bg-white text-[#777777] active:bg-[#F4F1EC]"
                             >
                               <Trash2 className="h-3.5 w-3.5 stroke-[1.4]" />
                             </button>
