@@ -20,17 +20,17 @@ const CartPage = () => {
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-[#171717]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF9F7] text-[#171717]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
       <main id="main-content" className="pb-14 md:pb-20">
-        <header className="mx-auto mt-5 flex w-full max-w-[1100px] items-center justify-between gap-3 border-b border-[#F0EDE8] px-4 pb-5 sm:px-6 md:mt-8 md:px-7">
+        <header className="mx-auto mt-4 flex w-full max-w-[1100px] items-center justify-between gap-3 rounded-3xl bg-white px-4 py-4 sm:px-6 md:mt-7 md:py-5">
           <div className="flex items-center gap-3">
-            <Link to="/products" aria-label="العودة للتسوق" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F6F4F0]"><ArrowLeft className="h-5 w-5 text-[#171717]" /></Link>
-            <div><span className="text-[10px] font-medium tracking-[0.18em] text-[#A38960]">GENAN</span><h1 className="text-[20px] font-bold text-[#171717] md:text-[24px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1><p className="mt-0.5 text-[11px] text-[#777]">{totalQuantity > 0 ? `${totalQuantity} ${totalQuantity === 1 ? "قطعة" : "قطع"} في حقيبتك` : "اختياراتك ستظهر هنا"}</p></div>
+            <Link to="/products" aria-label="العودة للتسوق" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#F6F4F0]"><ArrowLeft className="h-5 w-5 text-[#171717]" /></Link>
+            <div><span className="text-[10px] font-medium tracking-[0.18em] text-[#A38960]">GENAN</span><h1 className="text-[20px] font-bold text-[#171717] md:text-[24px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1></div>
           </div>
-          {cart.length > 0 && <div className="text-left"><span className="block text-[10px] text-[#8C6B32]">المجموع</span><strong className="text-[15px] text-[#171717] sm:text-[18px]">{formatCurrency(total)}</strong></div>}
+          {cart.length > 0 && <div className="rounded-2xl bg-[#F7F4EE] px-3 py-2 text-left"><span className="block text-[10px] text-[#8C6B32]">المجموع</span><strong className="text-[15px] text-[#171717] sm:text-[18px]">{formatCurrency(total)}</strong></div>}
         </header>
 
         {cart.length === 0 ? (
@@ -60,22 +60,7 @@ const CartPage = () => {
         ) : (
           <section className="mx-auto grid w-full max-w-[1100px] gap-8 px-4 py-6 sm:px-6 md:px-7 md:py-9 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
             <div>
-              <div className="mb-4 flex items-center justify-between border-b border-[#EDEAE4] pb-4">
-                <div>
-                  <h2 className="text-[17px] font-bold text-[#171717] md:text-[20px]">منتجات الحقيبة</h2>
-                  <p className="mt-1 text-[11px] text-[#777777]">{cart.length} منتج</p>
-                </div>
-
-                <Link
-                  to="/products"
-                  className="flex items-center gap-1 text-[11px] font-semibold text-[#8C6B32]"
-                >
-                  متابعة التسوق
-                  <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
-                </Link>
-              </div>
-
-              <div className="divide-y divide-[#EEEAE3]">
+              <div className="divide-y divide-[#EEEAE3] rounded-3xl bg-white px-4 sm:px-5">
                 {cart.map((item, index) => {
                   const variant =
                     item.variantId && item.product.variants
@@ -245,18 +230,8 @@ const CartPage = () => {
             </div>
 
             <aside className="lg:relative">
-              <div className="rounded-2xl bg-[#F8F6F2] p-5 lg:sticky lg:top-28 lg:p-6">
-                <div className="mb-5 flex items-center justify-between">
-                  <div>
-                    <p className="text-[10px] font-medium tracking-[0.16em] text-[#8C6B32]">GENAN CHECKOUT</p>
-                    <h2 className="mt-1 text-[19px] font-semibold text-[#171717]">
-                      {getSiteText(content, "cart_summary_title", "ملخص الطلب")}
-                    </h2>
-                  </div>
-
-                  <ShoppingBag className="h-5 w-5 stroke-[1.35] text-[#8C6B32]" />
-                </div>
-
+              <div className="rounded-3xl bg-white p-5 shadow-sm lg:sticky lg:top-28 lg:p-6">
+                <h2 className="mb-4 text-[16px] font-semibold text-[#171717]">{getSiteText(content, "cart_summary_title", "ملخص الطلب")}</h2>
                 <div className="border-y border-[#EAE5DA] py-4">
                   <div className="flex items-center justify-between">
                     <span className="text-[9px] text-[#777777]">
@@ -273,7 +248,7 @@ const CartPage = () => {
                     <span className="block text-[10px] font-semibold text-[#171717]">
                       {getSiteText(content, "cart_total_label", "الإجمالي")}
                     </span>
-                    <span className="mt-1 block text-[7px] text-[#888888]">شامل المنتجات الحالية</span>
+                    
                   </div>
 
                   <div className="text-left">
@@ -286,7 +261,7 @@ const CartPage = () => {
                 <button
                   type="button"
                   onClick={() => navigate("/checkout")}
-                  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#171717] text-[13px] font-semibold text-white active:bg-[#303030]"
+                  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white active:bg-[#303030]"
                 >
                   <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
                   {getSiteText(content, "cart_checkout_cta", "إتمام الطلب")}
@@ -294,15 +269,12 @@ const CartPage = () => {
 
                 <Link
                   to="/products"
-                  className="mt-3 flex h-[46px] w-full items-center justify-center gap-1.5 rounded-2xl border border-[#EAE5DA] bg-white text-[9px] font-medium text-[#5F5A53]"
+                  className="mt-3 flex h-[46px] w-full items-center justify-center gap-1.5 rounded-2xl border border-[#EAE5DA] bg-white text-[12px] font-medium text-[#5F5A53]"
                 >
                   {getSiteText(content, "cart_continue_cta", "متابعة التسوق")}
                   <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
                 </Link>
 
-                <p className="mt-3 text-center text-[7px] leading-5 text-[#777777]">
-                  يمكنك تطبيق رمز الخصم أثناء إتمام الطلب.
-                </p>
               </div>
             </aside>
           </section>
