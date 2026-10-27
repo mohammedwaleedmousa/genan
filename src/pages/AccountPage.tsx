@@ -863,14 +863,14 @@ const AccountPage = () => {
               PROFILE
           ===================================================== */}
 
-          <section className="mx-0 rounded-3xl bg-[#F6F3EA] px-4 pb-5 pt-6 shadow-sm md:mx-6 md:mt-6 md:px-6 md:py-6">
+          <section className="relative overflow-hidden rounded-3xl bg-gradient-to-bl from-[#E9DAC0] via-[#F6F0E4] to-white px-5 pb-5 pt-7 shadow-sm md:mx-6 md:mt-6 md:px-7 md:py-8">
             <div className="flex items-center gap-4">
               <div className="relative shrink-0">
-                <div className="flex h-[70px] w-[70px] items-center justify-center overflow-hidden rounded-full border border-[#E5DED0] bg-[#EFE3CD] md:h-[82px] md:w-[82px]">
+                <div className="flex h-[76px] w-[76px] items-center justify-center overflow-hidden rounded-2xl border border-white/80 bg-white/65 shadow-sm md:h-[82px] md:w-[82px]">
                   {customer?.avatar_url ? (
                     <img src={customer.avatar_url} alt={customer?.name || "الصورة الشخصية"} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                   ) : (
-                    <User className="h-7 w-7 stroke-[1.4] text-[#D8C29A]" />
+                    <User className="h-7 w-7 stroke-[1.4] text-[#8C6B32]" />
                   )}
                 </div>
 
@@ -885,7 +885,7 @@ const AccountPage = () => {
                   <span className="font-serif text-[6px] tracking-[0.22em] text-[#D8C29A]">MY GENAN</span>
                 </div>
 
-                <h1 className="truncate text-[21px] font-semibold tracking-[-0.03em] text-[#403230] md:text-[27px]">{customer?.name || "أهلاً بك"}</h1>
+                <h1 className="truncate text-[23px] font-bold tracking-[-0.03em] text-[#171717] md:text-[29px]">{customer?.name || "أهلاً بك"}</h1>
 
                 <div className="mt-1 flex items-center gap-1.5 text-[#8F807B]">
                   <Phone className="h-3 w-3 stroke-[1.4]" />
@@ -906,8 +906,8 @@ const AccountPage = () => {
               </button>
             </div>
 
-            <div className="mt-5 grid grid-cols-3 divide-x divide-x-reverse divide-[#E8D8D4] border-t border-[#E9DDD9] pt-4">
-              <div className="text-center">
+            <div className="mt-6 grid grid-cols-3 gap-2">
+              <div className="rounded-2xl bg-white/70 px-2 py-3 text-center">
                 <span className="block text-[15px] font-semibold leading-none text-[#D8C29A]">{favorites.length}</span>
                 <span className="mt-1.5 block text-[6px] text-[#9E8E89]">المفضلة</span>
               </div>
@@ -955,15 +955,15 @@ const AccountPage = () => {
               <h2 className="mt-1 text-[15px] font-semibold text-[#0E0E0E] md:text-[18px]">حسابي</h2>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-3 gap-3">
               {mainItems.map((item) => (
-                <Link key={item.to} to={item.to} className="flex min-w-0 flex-col items-center rounded-[14px] border border-[#EBE1DD] bg-white px-2 py-4 text-center active:bg-[#FAFAFA]">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F5F5F5] text-[#C56C72]">
+                <Link key={item.to} to={item.to} className="flex min-w-0 flex-col items-center rounded-3xl bg-white px-2 py-5 text-center shadow-sm transition-transform active:scale-[0.98]">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F4EEE4] text-[#8C6B32]">
                     <item.icon className="h-4 w-4 stroke-[1.5]" />
                   </span>
 
-                  <span className="mt-2 text-[9px] font-semibold text-[#4D403C]">{item.label}</span>
-                  <span className="mt-1 max-w-full truncate text-[6px] text-[#A1948F]">{item.desc}</span>
+                  <span className="mt-3 text-[12px] font-semibold text-[#171717]">{item.label}</span>
+                  <span className="mt-1 max-w-full truncate text-[9px] text-[#8A847C]">{item.desc}</span>
                 </Link>
               ))}
             </div>
