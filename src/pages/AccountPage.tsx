@@ -146,25 +146,42 @@ const AccountPage = () => {
 
     const loadCustomer = async () => {
       try {
-        const { data: authData } = await supabase.auth.getUser();
+        const { data: sessionData } = await supabase.auth.getSession();
+        const session = sessionData.session;
         if (!active) return;
-        if (!authData.user) {
-          localStorage.removeItem("customer");
+        if (!session?.user) {
           navigate("/auth", { replace: true });
           return;
         }
 
-        const { data: fresh, error } = await (supabase as any).from("customers").select("id,user_id,name,phone,country,region,avatar_url,created_at").eq("user_id", authData.user.id).maybeSingle();
-        if (error) throw error;
+        const authUser = session.user;
+        let fresh: any = null;
+        const { data: directCustomer, error: directError } = await (supabase as any)
+          .from("customers")
+          .select("id,user_id,name,phone,country,region,avatar_url,created_at")
+          .eq("user_id", authUser.id)
+          .maybeSingle();
+        if (!directError) fresh = directCustomer;
+
+        // An RLS or temporarily stale profile read must not block the entire account page.
         if (!fresh) {
-          navigate("/auth", { replace: true });
+          const { data: profileResult, error: profileError } = await supabase.functions.invoke(
+            "genan-password-register",
+            { body: { action: "profile" } },
+          );
+          if (!profileError && profileResult?.customer?.user_id === authUser.id) {
+            fresh = profileResult.customer;
+          }
+        }
+        if (!fresh) {
+          setNotification({ type: "error", message: "تعذر تحميل ملف حسابك. حاول تحديث الصفحة أو سجل الدخول مجددًا." });
           return;
         }
 
         const customerData = { ...fresh, region: fresh.region || fresh.country || "عدن" };
         if (!active) return;
         setCustomer(customerData);
-        setUser({ id: customerData.id, auth_user_id: authData.user.id, user_metadata: { full_name: customerData.name, phone_number: customerData.phone, region: customerData.region, avatar_url: customerData.avatar_url }, created_at: customerData.created_at || authData.user.created_at });
+        setUser({ id: customerData.id, auth_user_id: authUser.id, user_metadata: { full_name: customerData.name, phone_number: customerData.phone, region: customerData.region, avatar_url: customerData.avatar_url }, created_at: customerData.created_at || authUser.created_at });
         localStorage.setItem("customer", JSON.stringify(customerData));
         localStorage.setItem("customer_phone", customerData.phone || "");
       } catch (error) {
