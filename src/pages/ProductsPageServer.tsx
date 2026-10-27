@@ -483,20 +483,20 @@ const ProductsPageServer = () => {
   };
 
   return (
-    <div dir="rtl" className="min-h-screen bg-white text-[#0E0E0E]">
+    <div dir="rtl" className="min-h-screen bg-[#FAF9F7] text-[#0E0E0E]">
       <Navbar />
       <CartDrawer />
 
       <main id="main-content" className="pb-20">
-        <section className="bg-[#FAFAFA] px-4 pb-7 pt-8 sm:px-6 sm:pb-9 sm:pt-11 lg:px-8 lg:pt-12">
-          <div className="mx-auto grid max-w-[1500px] gap-3 md:grid-cols-[1.2fr_.8fr] md:items-end md:gap-8">
+        <section className="mx-auto mt-4 max-w-[1120px] rounded-3xl bg-white px-5 pb-6 pt-6 shadow-sm sm:mt-7 sm:px-7 sm:pb-8 lg:px-8">
+          <div className="mx-auto grid max-w-[1120px] gap-3 md:grid-cols-[1.2fr_.8fr] md:items-end md:gap-8">
             <div>
               <div className="mb-2 flex items-center gap-2">
                 <span className="h-px w-7 bg-[#D8C29A]" />
                 <span className="text-[8px] font-semibold tracking-[.34em] text-[#9A825B]">GENAN / CATALOG</span>
               </div>
 
-              <h1 className="text-[28px] font-semibold leading-[1.3] tracking-[-.025em] sm:text-[35px] lg:text-[42px]">
+              <h1 className="text-[25px] font-bold leading-[1.3] tracking-[-.025em] sm:text-[31px] lg:text-[36px]">
                 {currentCategory?.name_ar || (searchQuery ? `نتائج “${searchParams.get("search")}”` : "كل المنتجات")}
               </h1>
             </div>
@@ -510,8 +510,8 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="border-b border-[#EEEAE3] bg-white px-4 py-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-[1500px]">
+        <section className="mx-auto mt-4 max-w-[1120px] rounded-3xl bg-white px-4 py-5 shadow-sm sm:px-6">
+          <div className="mx-auto max-w-[1120px]">
             <div className="mb-2.5 flex items-center justify-between gap-4">
               <span className="text-[11px] font-semibold text-[#39342F]">تسوقي حسب القسم</span>
 
@@ -530,7 +530,7 @@ const ProductsPageServer = () => {
               <button
                 type="button"
                 onClick={() => setParam("category", null)}
-                className={`min-h-10 shrink-0 rounded-full border px-4 text-[11px] font-medium transition-colors md:px-5 ${
+                className={`min-h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-medium transition-colors md:px-5 ${
                   !categorySlug
                     ? "border-[#171717] bg-[#171717] text-white"
                     : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
@@ -544,7 +544,7 @@ const ProductsPageServer = () => {
                   type="button"
                   key={category.id}
                   onClick={() => setParam("category", category.slug)}
-                  className={`h-9 shrink-0 rounded-full border px-4 text-[9px] font-semibold transition-colors md:h-10 md:px-5 md:text-[10px] ${
+                  className={`h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-semibold transition-colors md:h-10 md:px-5 md:text-[10px] ${
                     categorySlug === category.slug
                       ? "border-[#171717] bg-[#171717] text-white"
                       : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
@@ -557,15 +557,15 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="sticky top-0 z-20 border-b border-[#EEEAE3] bg-white/95 px-4 py-3 backdrop-blur-md sm:px-6 lg:px-8">
-          <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-3">
+        <section className="sticky top-[56px] z-20 mx-auto mt-4 max-w-[1120px] rounded-3xl border border-[#EAE5DA] bg-white/95 px-3 py-3 shadow-sm backdrop-blur-md sm:px-5 md:top-[120px]">
+          <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-3">
             <p className="hidden text-[11px] text-[#77716A] sm:block">النتائج: {filtered.length} منتج</p>
 
             <div className="grid w-full grid-cols-2 gap-2 sm:mr-auto sm:w-auto sm:min-w-[320px]">
               <button
                 type="button"
                 onClick={openFilters}
-                className={`flex h-10 items-center justify-center gap-2 rounded-xl border px-4 text-[10px] font-semibold transition-colors ${
+                className={`flex h-12 items-center justify-center gap-2 rounded-2xl border px-4 text-[12px] font-semibold transition-colors ${
                   activeFilterCount > 0
                     ? "border-[#CDB98F] bg-[#F7F3EA] text-[#27231F]"
                     : "border-[#E5E0D8] bg-white text-[#39342F] hover:border-[#CDB98F]"
@@ -583,7 +583,7 @@ const ProductsPageServer = () => {
               <button
                 type="button"
                 onClick={() => setSortOpen(true)}
-                className="flex h-10 items-center justify-center gap-2 rounded-xl border border-[#E5E0D8] bg-white px-4 text-[10px] font-semibold text-[#39342F] transition-colors hover:border-[#CDB98F]"
+                className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-[#E5E0D8] bg-[#FAF9F7] px-4 text-[12px] font-semibold text-[#39342F] transition-colors hover:border-[#CDB98F]"
               >
                 {sortLabel}
                 <ChevronDown className="h-3.5 w-3.5" strokeWidth={1.6} />
@@ -592,7 +592,7 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section id="products-grid" className="mx-auto max-w-[1500px] px-3 pt-5 sm:px-6 sm:pt-7 lg:px-8">
+        <section id="products-grid" className="mx-auto max-w-[1120px] px-3 pt-6 sm:px-5 sm:pt-7 lg:px-7">
           {isLoading ? (
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
@@ -692,7 +692,7 @@ const ProductsPageServer = () => {
                   <button
                     type="button"
                     onClick={() => setDraft((value) => ({ ...value, category: "" }))}
-                    className={`h-9 shrink-0 rounded-full border px-4 text-[9px] font-semibold ${
+                    className={`h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-semibold ${
                       !draft.category
                         ? "border-[#171717] bg-[#171717] text-white"
                         : "border-[#E5E0D8] bg-white text-[#5F5A53]"
@@ -706,7 +706,7 @@ const ProductsPageServer = () => {
                       type="button"
                       key={category.id}
                       onClick={() => setDraft((value) => ({ ...value, category: category.slug }))}
-                      className={`h-9 shrink-0 rounded-full border px-4 text-[9px] font-semibold ${
+                      className={`h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-semibold ${
                         draft.category === category.slug
                           ? "border-[#171717] bg-[#171717] text-white"
                           : "border-[#E5E0D8] bg-white text-[#5F5A53]"
@@ -957,14 +957,14 @@ const ProductsPageServer = () => {
         >
           <div
             onClick={(event) => event.stopPropagation()}
-            className="w-full bg-white p-6 md:max-w-[430px]"
+            className="w-full rounded-t-3xl bg-white p-6 md:max-w-[430px] md:rounded-3xl"
           >
             <div className="mb-5 flex items-center justify-between">
               <h3 className="text-[24px] font-medium">ترتيب المنتجات</h3>
               <button
                 type="button"
                 onClick={() => setSortOpen(false)}
-                className="flex h-10 w-10 items-center justify-center border border-[#EAEAEA]"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#EAEAEA]"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -984,7 +984,7 @@ const ProductsPageServer = () => {
                   setParam("sort", value);
                   setSortOpen(false);
                 }}
-                className={`mb-px w-full border border-[#EAEAEA] p-4 text-right text-[10px] font-semibold ${
+                className={`mb-2 w-full rounded-2xl border border-[#EAEAEA] p-4 text-right text-[12px] font-semibold ${
                   sortBy === value ? "bg-[#0E0E0E] text-white" : "bg-white"
                 }`}
               >
