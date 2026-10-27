@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { clearCustomerSession, setCustomerSession } from "@/lib/customerSession";
 
-type AuthMode = "login" | "register";
+type AuthMode = "login" | "register" | "recovery";
 
 type CustomerRow = {
   id: string;
@@ -281,10 +281,10 @@ const CustomerAuthPage = () => {
   };
 
   return (
-    <main className="min-h-[100svh] bg-background" dir="rtl">
-      <div className="mx-auto flex min-h-[100svh] w-full max-w-[520px] flex-col px-5 pb-7 pt-5 sm:px-7 md:justify-center md:py-10">
+    <main className="min-h-[100svh] bg-[#FAF9F7] text-[#171717]" dir="rtl">
+      <div className="mx-auto flex min-h-[100svh] w-full max-w-[560px] flex-col px-3 pb-7 pt-7 sm:px-6 md:justify-center md:py-10">
         <div className="flex justify-center">
-          <button type="button" onClick={() => navigate("/home")} aria-label="العودة إلى المتجر" className="flex h-[78px] w-[78px] items-center justify-center">
+          <button type="button" onClick={() => navigate("/home")} aria-label="العودة إلى المتجر" className="flex h-[72px] w-[72px] items-center justify-center">
             <img src="/icons/app-icon-1024.png" alt="Genan" width={78} height={78} fetchPriority="high" className="h-[78px] w-[78px] object-contain" />
           </button>
         </div>
@@ -295,20 +295,21 @@ const CustomerAuthPage = () => {
           <span className="h-px w-5 bg-[#C6B17F]" />
         </div>
 
-        <section className="mt-8 rounded-[22px] border border-[#E5DED0] bg-[#FFFFFF] px-4 pb-5 pt-6 sm:px-6 sm:pb-6 sm:pt-7">
-          <div className="text-center">
-            <h1 className="text-[25px] font-semibold tracking-[-0.035em] text-[#382F2C] sm:text-[28px]">
-              {mode === "login" ? "مرحباً بعودتك" : "إنشاء حساب جديد"}
+        <section className="mt-6 overflow-hidden rounded-3xl bg-white p-5 shadow-[0_12px_38px_rgba(25,20,12,0.06)] sm:p-8">
+          <div className="rounded-2xl bg-[#F6F3EA] px-5 py-6 text-center">
+            <span className="text-[9px] font-semibold tracking-[0.22em] text-[#9A825B]">GENAN / YOUR ACCOUNT</span>
+            <h1 className="mt-2 text-[25px] font-semibold tracking-[-0.035em] text-[#171717] sm:text-[30px]">
+              {mode === "login" ? "أهلًا بعودتك" : mode === "register" ? "انضمي إلى جنان" : "استعادة حسابك"}
             </h1>
             <p className="mx-auto mt-2 max-w-[350px] text-[10px] leading-5 text-[#958883] sm:text-[11px] sm:leading-6">
               {mode === "login"
-                ? "سجّل الدخول برقم هاتفك وكلمة المرور للعودة إلى حسابك."
-                : "أنشئ حسابك برقم هاتفك وكلمة المرور لتسوق أسرع ومتابعة طلباتك بسهولة."}
+                ? "اختياراتك المفضلة وطلباتك كلها في مكان واحد."
+                : mode === "register" ? "حساب واحد لتجربة تسوق أكثر سهولة." : "نساعدك على استعادة الوصول لحسابك بطريقة آمنة."}
             </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 rounded-[13px] bg-[#F7F3F1] p-1">
-            <button type="button" onClick={() => changeMode("login")} className={`h-[42px] rounded-[10px] text-[11px] font-medium ${mode === "login" ? "bg-white text-[#443936] shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
+          <div className="mt-6 grid grid-cols-2 rounded-2xl bg-[#F6F3EA] p-1">
+            <button type="button" onClick={() => changeMode("login")} className={`h-[44px] rounded-xl text-[12px] font-semibold ${mode === "login" ? "bg-white text-[#443936] shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
               تسجيل الدخول
             </button>
             <button type="button" onClick={() => changeMode("register")} className={`h-[42px] rounded-[10px] text-[11px] font-medium ${mode === "register" ? "bg-white text-[#443936] shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
@@ -316,13 +317,23 @@ const CustomerAuthPage = () => {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-5 space-y-3">
+          {mode === "recovery" ? (
+            <div className="mt-6 space-y-4">
+              <div className="rounded-2xl border border-[#E8DDCB] bg-[#FCFAF6] p-5">
+                <LockKeyhole className="mb-3 h-6 w-6 text-[#9A825B]" strokeWidth={1.5} />
+                <h2 className="text-[15px] font-semibold text-[#171717]">حماية حسابك أولًا</h2>
+                <p className="mt-2 text-[12px] leading-7 text-[#77716A]">لأن رقم الهاتف غير موثّق حاليًا برسالة تحقق، لا يمكن تغيير كلمة المرور بمجرد إدخال الرقم. تواصلي مع إدارة المتجر للتحقق من ملكية الحساب ومساعدتك.</p>
+              </div>
+              <button type="button" onClick={() => navigate("/store-info")} className="flex h-12 w-full items-center justify-center rounded-2xl bg-[#171717] text-[12px] font-semibold text-white">معلومات التواصل مع المتجر</button>
+              <button type="button" onClick={() => changeMode("login")} className="flex h-11 w-full items-center justify-center rounded-2xl border border-[#E5DED0] bg-white text-[12px] font-medium text-[#5F5A53]">العودة لتسجيل الدخول</button>
+            </div>
+          ) : <form onSubmit={handleSubmit} className="mt-5 space-y-4">
             {mode === "register" && (
               <div>
                 <label htmlFor="auth-name" className="mb-1.5 block px-1 text-[9px] font-medium text-[#746761]">الاسم الكامل</label>
                 <div className="relative">
                   <UserRound className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A99D98]" strokeWidth={1.5} />
-                  <input id="auth-name" value={formData.name} onChange={(event) => updateField("name", event.target.value)} autoComplete="name" placeholder="أدخل اسمك الكامل" className="h-[50px] w-full rounded-[12px] border border-[#E8DEDA] bg-white pr-11 pl-4 text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]" />
+                  <input id="auth-name" value={formData.name} onChange={(event) => updateField("name", event.target.value)} autoComplete="name" placeholder="أدخل اسمك الكامل" className="h-[50px] w-full rounded-2xl border border-[#E8DEDA] bg-[#FCFAF7] pr-11 pl-4 text-[12px] text-[#443936] outline-none focus:border-[#D8C29A]" />
                 </div>
               </div>
             )}
@@ -356,7 +367,7 @@ const CustomerAuthPage = () => {
                           : previous.region,
                     }));
                   }}
-                  className="h-[50px] rounded-[12px] border border-[#E8DEDA] bg-white px-2 text-[11px] text-[#443936] outline-none focus:border-[#D8C29A]"
+                  className="h-[50px] rounded-2xl border border-[#E8DEDA] bg-[#FCFAF7] px-2 text-[11px] text-[#443936] outline-none focus:border-[#D8C29A]"
                   dir="rtl"
                 >
                   {PHONE_COUNTRIES.map((country) => (
@@ -404,13 +415,16 @@ const CustomerAuthPage = () => {
               </div>
             </div>
 
-            <button type="submit" disabled={isLoading} className="mt-2 flex h-[50px] w-full items-center justify-center gap-2 rounded-[12px] bg-[#0E0E0E] text-[11px] font-semibold text-white disabled:opacity-60">
+            <button type="submit" disabled={isLoading} className="mt-2 flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white disabled:opacity-60">
               {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               {mode === "login" ? "تسجيل الدخول" : "إنشاء الحساب"}
             </button>
-          </form>
+            {mode === "login" && (
+              <button type="button" onClick={() => changeMode("recovery")} className="block w-full py-2 text-left text-[12px] font-semibold text-[#8C6B32] hover:underline">نسيت كلمة المرور؟</button>
+            )}
+          </form>}
 
-          <button type="button" onClick={handleGuest} disabled={isGuestLoading || isLoading} className="mt-3 flex h-[46px] w-full items-center justify-center gap-2 rounded-[12px] border border-[#E8DEDA] bg-white text-[10px] font-medium text-[#746761] disabled:opacity-60">
+          <button type="button" onClick={handleGuest} disabled={isGuestLoading || isLoading} className="mt-3 flex h-[48px] w-full items-center justify-center gap-2 rounded-2xl border border-[#E8DEDA] bg-white text-[12px] font-medium text-[#746761] disabled:opacity-60">
             {isGuestLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             الدخول كضيف
           </button>
