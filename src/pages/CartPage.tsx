@@ -20,17 +20,17 @@ const CartPage = () => {
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F7] text-[#171717]" dir="rtl">
+    <div className="min-h-screen bg-[#FFFFFF] text-[#171717]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
       <main id="main-content" className="pb-14 md:pb-20">
-        <header className="mx-auto mt-4 flex w-full max-w-[1120px] items-center justify-between gap-3 px-3 sm:px-5 md:mt-7 md:px-7">
+        <header className="mx-auto mt-5 flex w-full max-w-[1100px] items-center justify-between gap-3 border-b border-[#F0EDE8] px-4 pb-5 sm:px-6 md:mt-8 md:px-7">
           <div className="flex items-center gap-3">
-            <Link to="/products" aria-label="العودة للتسوق" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm"><ArrowLeft className="h-5 w-5 text-[#171717]" /></Link>
+            <Link to="/products" aria-label="العودة للتسوق" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F6F4F0]"><ArrowLeft className="h-5 w-5 text-[#171717]" /></Link>
             <div><span className="text-[10px] font-medium tracking-[0.18em] text-[#A38960]">GENAN</span><h1 className="text-[20px] font-bold text-[#171717] md:text-[24px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1><p className="mt-0.5 text-[11px] text-[#777]">{totalQuantity > 0 ? `${totalQuantity} ${totalQuantity === 1 ? "قطعة" : "قطع"} في حقيبتك` : "اختياراتك ستظهر هنا"}</p></div>
           </div>
-          {cart.length > 0 && <div className="rounded-2xl bg-white px-3 py-2.5 text-left shadow-sm"><span className="block text-[10px] text-[#8C6B32]">المجموع</span><strong className="text-[15px] text-[#171717] sm:text-[18px]">{formatCurrency(total)}</strong></div>}
+          {cart.length > 0 && <div className="text-left"><span className="block text-[10px] text-[#8C6B32]">المجموع</span><strong className="text-[15px] text-[#171717] sm:text-[18px]">{formatCurrency(total)}</strong></div>}
         </header>
 
         {cart.length === 0 ? (
@@ -58,9 +58,9 @@ const CartPage = () => {
             </Link>
           </section>
         ) : (
-          <section className="mx-auto grid w-full max-w-[1120px] gap-5 px-3 py-5 sm:px-5 md:px-7 md:py-7 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-7">
+          <section className="mx-auto grid w-full max-w-[1100px] gap-8 px-4 py-6 sm:px-6 md:px-7 md:py-9 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-12">
             <div>
-              <div className="mb-4 flex items-center justify-between rounded-3xl bg-white px-4 py-4 shadow-sm sm:px-5">
+              <div className="mb-4 flex items-center justify-between border-b border-[#EDEAE4] pb-4">
                 <div>
                   <h2 className="text-[17px] font-bold text-[#171717] md:text-[20px]">منتجات الحقيبة</h2>
                   <p className="mt-1 text-[11px] text-[#777777]">{cart.length} منتج</p>
@@ -75,7 +75,7 @@ const CartPage = () => {
                 </Link>
               </div>
 
-              <div className="space-y-3">
+              <div className="divide-y divide-[#EEEAE3]">
                 {cart.map((item, index) => {
                   const variant =
                     item.variantId && item.product.variants
@@ -104,12 +104,12 @@ const CartPage = () => {
                   return (
                     <article
                       key={`${item.product.id}-${item.variantId || "base"}-${item.selectedSize || ""}-${index}`}
-                      className="rounded-[28px] border border-[#EAE5DA] bg-white p-3.5 shadow-[0_12px_35px_rgba(20,20,20,0.035)] sm:p-5 md:p-6"
+                      className="bg-white py-5 first:pt-1 last:pb-3 sm:py-6"
                     >
                       <div className="flex gap-3.5 md:gap-5">
                         <Link
                           to={`/product/${item.product.slug}`}
-                          className="relative h-[145px] w-[108px] shrink-0 overflow-hidden rounded-2xl bg-[#F5F3EF] md:h-[176px] md:w-[132px]"
+                          className="relative h-[142px] w-[105px] shrink-0 overflow-hidden rounded-xl bg-[#F5F3EF] sm:h-[160px] sm:w-[122px]"
                         >
                           {image ? (
                             <img
@@ -137,12 +137,12 @@ const CartPage = () => {
                           <div className="flex items-start justify-between gap-3">
                             <Link to={`/product/${item.product.slug}`} className="min-w-0 flex-1">
                               {item.product.brand && (
-                                <p className="mb-1 truncate text-[7px] tracking-[0.05em] text-[#92958F] md:text-[8px]">
+                                <p className="mb-1.5 truncate text-[10px] tracking-[0.05em] text-[#968268]">
                                   {item.product.brand}
                                 </p>
                               )}
 
-                              <h3 className="line-clamp-2 text-[11px] font-semibold leading-[1.6] text-[#171717] md:text-[13px]">
+                              <h3 className="line-clamp-2 text-[13px] font-semibold leading-[1.6] text-[#171717] md:text-[15px]">
                                 {item.product.nameAr}
                               </h3>
                             </Link>
@@ -151,14 +151,14 @@ const CartPage = () => {
                               type="button"
                               onClick={() => removeFromCart(item.product.id, item.variantId)}
                               aria-label="حذف المنتج"
-                              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#EAE5DA] bg-white text-[#777777] active:bg-[#F4F1EC]"
+                              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#999] hover:bg-[#F6F4F0] hover:text-[#171717]"
                             >
                               <Trash2 className="h-3.5 w-3.5 stroke-[1.4]" />
                             </button>
                           </div>
 
                           {(item.selectedSize || item.selectedColor) && (
-                            <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[7px] text-[#7D827D]">
+                            <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-[#777]">
                               {item.selectedSize && (
                                 <span>
                                   <span className="text-[#888888]">المقاس:</span> {item.selectedSize}
@@ -174,7 +174,7 @@ const CartPage = () => {
                           )}
 
                           {item.selectedAccessories && item.selectedAccessories.length > 0 && (
-                            <p className="mt-2 line-clamp-1 text-[7px] text-[#777777]">
+                            <p className="mt-2 line-clamp-1 text-[10px] text-[#777777]">
                               +{" "}
                               {item.selectedAccessories.map((accessory, accessoryIndex) => (
                                 <span key={`${accessory.name_ar}-${accessoryIndex}`}>
@@ -199,7 +199,7 @@ const CartPage = () => {
                           </div>
 
                           <div className="mt-4 flex items-end justify-between gap-3 md:mt-6">
-                            <div className="flex h-[40px] items-center overflow-hidden rounded-xl border border-[#EAE5DA] bg-white md:h-[35px]">
+                            <div className="flex h-[38px] items-center overflow-hidden rounded-full border border-[#EAE5DA] bg-[#FAF9F7] md:h-[38px]">
                               <button
                                 type="button"
                                 onClick={() => {
@@ -245,11 +245,11 @@ const CartPage = () => {
             </div>
 
             <aside className="lg:relative">
-              <div className="rounded-[28px] border border-[#EAE5DA] bg-white p-5 shadow-[0_14px_36px_rgba(28,22,12,0.055)] lg:sticky lg:top-28 lg:p-6">
+              <div className="rounded-2xl bg-[#F8F6F2] p-5 lg:sticky lg:top-28 lg:p-6">
                 <div className="mb-5 flex items-center justify-between">
                   <div>
-                    <p className="font-serif text-[6px] tracking-[0.22em] text-[#8C6B32]">GENAN CHECKOUT</p>
-                    <h2 className="mt-1 text-[17px] font-semibold text-[#171717]">
+                    <p className="text-[10px] font-medium tracking-[0.16em] text-[#8C6B32]">GENAN CHECKOUT</p>
+                    <h2 className="mt-1 text-[19px] font-semibold text-[#171717]">
                       {getSiteText(content, "cart_summary_title", "ملخص الطلب")}
                     </h2>
                   </div>
@@ -286,7 +286,7 @@ const CartPage = () => {
                 <button
                   type="button"
                   onClick={() => navigate("/checkout")}
-                  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white active:bg-[#303030]"
+                  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#171717] text-[13px] font-semibold text-white active:bg-[#303030]"
                 >
                   <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
                   {getSiteText(content, "cart_checkout_cta", "إتمام الطلب")}
