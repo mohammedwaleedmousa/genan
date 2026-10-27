@@ -47,12 +47,12 @@ const NewArrivalsPage = () => {
   const hasMore = products.length < total;
 
   return (
-    <div className="min-h-screen bg-white text-[#0E0E0E]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF9F7] text-[#0E0E0E]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main>
-        <section className="border-b border-[#EEEAE3] bg-white">
+      <main className="space-y-4 px-3 pb-16 pt-4 sm:px-5 md:px-7">
+        <section className="mx-auto max-w-[1500px] rounded-3xl bg-white shadow-sm">
           <div className="mx-auto max-w-[1500px] px-4 py-10 md:px-6 md:py-14">
             <div className="flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
               <div>
@@ -86,7 +86,7 @@ const NewArrivalsPage = () => {
           </div>
         </section>
 
-        <section className="mx-auto w-full max-w-[1500px] px-3 py-7 md:px-6 md:py-12">
+        <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white px-3 py-7 shadow-sm sm:px-5 md:px-6 md:py-12">
           {isLoading ? (
             <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
               {Array.from({ length: 10 }).map((_, index) => (
