@@ -3,6 +3,7 @@ import { ArrowLeft, Minus, Plus, ShoppingBag, Tag, Trash2 } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
+import Footer from "@/components/Footer";
 
 import { useStore } from "@/store/useStore";
 import { useSiteContent, getSiteText } from "@/hooks/useSiteContent";
@@ -19,24 +20,24 @@ const CartPage = () => {
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#FCFBF8] text-[#2E3430]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF9F7] text-[#171717]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main className="pb-20 md:pt-24">
-        <section className="border-b border-[#E8E4DC] bg-[#FEFDFB]">
-          <div className="mx-auto flex w-full max-w-[1200px] items-end justify-between gap-5 px-4 pb-5 pt-6 md:px-6 md:pb-7 md:pt-8">
+      <main id="main-content" className="pb-14 md:pb-20">
+        <section className="border-b border-[#EAE5DA] bg-white">
+          <div className="mx-auto flex w-full max-w-[1350px] items-end justify-between gap-5 px-4 pb-5 pt-6 md:px-6 md:pb-7 md:pt-8">
             <div>
               <div className="mb-2 flex items-center gap-2">
-                <span className="h-px w-4 bg-[#71654F]" />
-                <span className="font-serif text-[7px] tracking-[0.24em] text-[#92836A]">GENAN BAG</span>
+                <span className="h-px w-4 bg-[#D8C29A]" />
+                <span className="font-serif text-[7px] tracking-[0.24em] text-[#8C6B32]">GENAN BAG</span>
               </div>
 
-              <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#28312C] md:text-[36px]">
+              <h1 className="text-[25px] font-semibold leading-tight tracking-[-0.035em] text-[#171717] md:text-[36px]">
                 {getSiteText(content, "cart_title", "حقيبتي")}
               </h1>
 
-              <p className="mt-1.5 text-[8px] text-[#8E938E] md:text-[10px]">
+              <p className="mt-1.5 text-[8px] text-[#777777] md:text-[10px]">
                 {totalQuantity > 0
                   ? `${totalQuantity} ${totalQuantity === 1 ? "قطعة" : "قطع"} في السلة`
                   : "اختياراتك ستظهر هنا"}
@@ -45,7 +46,7 @@ const CartPage = () => {
 
             {cart.length > 0 && (
               <div className="shrink-0 text-left">
-                <span className="block text-[18px] font-semibold leading-none text-[#313733] md:text-[22px]">
+                <span className="block text-[18px] font-semibold leading-none text-[#171717] md:text-[22px]">
                   {formatCurrency(total)}
                 </span>
               </div>
@@ -55,40 +56,40 @@ const CartPage = () => {
 
         {cart.length === 0 ? (
           <section className="mx-auto flex min-h-[55vh] max-w-md flex-col items-center justify-center px-6 text-center">
-            <div className="flex h-[78px] w-[78px] items-center justify-center border border-[#DDD8CF] bg-white">
-              <ShoppingBag className="h-6 w-6 stroke-[1.25] text-[#969A95]" />
+            <div className="flex h-[78px] w-[78px] items-center justify-center border border-[#EAE5DA] bg-white">
+              <ShoppingBag className="h-6 w-6 stroke-[1.25] text-[#8C6B32]" />
             </div>
 
-            <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#92836A]">GENAN</span>
+            <span className="mt-5 font-serif text-[6px] tracking-[0.25em] text-[#8C6B32]">GENAN</span>
 
-            <h2 className="mt-2 text-[18px] font-semibold text-[#2C3530]">
+            <h2 className="mt-2 text-[18px] font-semibold text-[#171717]">
               {getSiteText(content, "cart_empty_text", "حقيبتك فارغة")}
             </h2>
 
-            <p className="mt-1.5 max-w-[260px] text-[9px] leading-5 text-[#858A85]">
+            <p className="mt-1.5 max-w-[260px] text-[9px] leading-5 text-[#777777]">
               اكتشف المنتجات وأضف القطع التي تحبها إلى حقيبتك.
             </p>
 
             <Link
               to="/products"
-              className="mt-5 inline-flex h-[44px] items-center justify-center gap-2 border border-[#2C3932] bg-[#2C3932] px-7 text-[10px] font-semibold text-white active:bg-[#202A25]"
+              className="mt-5 inline-flex h-[44px] items-center justify-center gap-2 border border-[#2C3932] bg-[#171717] px-7 text-[10px] font-semibold text-white active:bg-[#303030]"
             >
               {getSiteText(content, "cart_start_shopping", "ابدأ التسوق")}
               <ArrowLeft className="h-3.5 w-3.5 stroke-[1.6]" />
             </Link>
           </section>
         ) : (
-          <section className="mx-auto grid w-full max-w-[1200px] gap-6 px-4 py-5 md:px-6 md:py-8 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-10">
+          <section className="mx-auto grid w-full max-w-[1350px] gap-6 px-4 py-5 md:px-6 md:py-8 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-10">
             <div>
-              <div className="mb-3 flex items-center justify-between border-b border-[#E8E4DC] pb-3">
+              <div className="mb-3 flex items-center justify-between border-b border-[#EAE5DA] pb-3">
                 <div>
-                  <h2 className="text-[15px] font-semibold text-[#343A36] md:text-[18px]">منتجات الحقيبة</h2>
-                  <p className="mt-1 text-[7px] text-[#929792] md:text-[8px]">{cart.length} منتج</p>
+                  <h2 className="text-[15px] font-semibold text-[#171717] md:text-[18px]">منتجات الحقيبة</h2>
+                  <p className="mt-1 text-[7px] text-[#777777] md:text-[8px]">{cart.length} منتج</p>
                 </div>
 
                 <Link
                   to="/products"
-                  className="flex items-center gap-1 text-[8px] font-medium text-[#6B716D] md:text-[9px]"
+                  className="flex items-center gap-1 text-[8px] font-medium text-[#8C6B32] md:text-[9px]"
                 >
                   متابعة التسوق
                   <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
@@ -162,7 +163,7 @@ const CartPage = () => {
                                 </p>
                               )}
 
-                              <h3 className="line-clamp-2 text-[11px] font-semibold leading-[1.6] text-[#303632] md:text-[13px]">
+                              <h3 className="line-clamp-2 text-[11px] font-semibold leading-[1.6] text-[#171717] md:text-[13px]">
                                 {item.product.nameAr}
                               </h3>
                             </Link>
@@ -171,7 +172,7 @@ const CartPage = () => {
                               type="button"
                               onClick={() => removeFromCart(item.product.id, item.variantId)}
                               aria-label="حذف المنتج"
-                              className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#E3DFD8] bg-white text-[#8E8175] active:bg-[#F4F1EC]"
+                              className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#EAE5DA] bg-white text-[#777777] active:bg-[#F4F1EC]"
                             >
                               <Trash2 className="h-3.5 w-3.5 stroke-[1.4]" />
                             </button>
@@ -181,20 +182,20 @@ const CartPage = () => {
                             <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[7px] text-[#7D827D]">
                               {item.selectedSize && (
                                 <span>
-                                  <span className="text-[#A0A39E]">المقاس:</span> {item.selectedSize}
+                                  <span className="text-[#888888]">المقاس:</span> {item.selectedSize}
                                 </span>
                               )}
 
                               {item.selectedColor && (
                                 <span>
-                                  <span className="text-[#A0A39E]">اللون:</span> {item.selectedColor}
+                                  <span className="text-[#888888]">اللون:</span> {item.selectedColor}
                                 </span>
                               )}
                             </div>
                           )}
 
                           {item.selectedAccessories && item.selectedAccessories.length > 0 && (
-                            <p className="mt-2 line-clamp-1 text-[7px] text-[#8D918C]">
+                            <p className="mt-2 line-clamp-1 text-[7px] text-[#777777]">
                               +{" "}
                               {item.selectedAccessories.map((accessory, accessoryIndex) => (
                                 <span key={`${accessory.name_ar}-${accessoryIndex}`}>
@@ -207,7 +208,7 @@ const CartPage = () => {
                           )}
 
                           <div className="mt-2.5 flex items-end gap-2">
-                            <span className="text-[14px] font-semibold leading-none text-[#343A36] md:text-[16px]">
+                            <span className="text-[14px] font-semibold leading-none text-[#171717] md:text-[16px]">
                               {formatCurrency(unitTotal)}
                             </span>
 
@@ -219,7 +220,7 @@ const CartPage = () => {
                           </div>
 
                           <div className="mt-4 flex items-end justify-between gap-3 md:mt-6">
-                            <div className="flex h-[32px] items-center border border-[#DCD8D0] bg-white md:h-[35px]">
+                            <div className="flex h-[36px] items-center overflow-hidden rounded-lg border border-[#EAE5DA] bg-white md:h-[35px]">
                               <button
                                 type="button"
                                 onClick={() => {
@@ -227,12 +228,12 @@ const CartPage = () => {
                                   updateQuantity(item.product.id, item.quantity - 1, item.variantId);
                                 }}
                                 disabled={item.quantity <= 1}
-                                className="flex h-full w-8 items-center justify-center text-[#555B57] disabled:opacity-25 md:w-9"
+                                className="flex h-full w-8 items-center justify-center text-[#171717] disabled:opacity-25 md:w-9"
                               >
                                 <Minus className="h-3 w-3 stroke-[1.5]" />
                               </button>
 
-                              <span className="flex h-full min-w-[30px] items-center justify-center border-x border-[#E5E1DA] px-1 text-[9px] font-semibold text-[#343A36] md:min-w-[34px]">
+                              <span className="flex h-full min-w-[30px] items-center justify-center border-x border-[#EAE5DA] px-1 text-[9px] font-semibold text-[#171717] md:min-w-[34px]">
                                 {item.quantity}
                               </span>
 
@@ -243,15 +244,15 @@ const CartPage = () => {
                                   updateQuantity(item.product.id, item.quantity + 1, item.variantId);
                                 }}
                                 disabled={maxQuantityReached}
-                                className="flex h-full w-8 items-center justify-center text-[#555B57] disabled:opacity-25 md:w-9"
+                                className="flex h-full w-8 items-center justify-center text-[#171717] disabled:opacity-25 md:w-9"
                               >
                                 <Plus className="h-3 w-3 stroke-[1.5]" />
                               </button>
                             </div>
 
                             <div className="text-left">
-                              <span className="block text-[6px] text-[#A0A39E]">الإجمالي</span>
-                              <span className="mt-1 block text-[11px] font-semibold leading-none text-[#4A504C] md:text-[13px]">
+                              <span className="block text-[6px] text-[#888888]">الإجمالي</span>
+                              <span className="mt-1 block text-[11px] font-semibold leading-none text-[#8C6B32] md:text-[13px]">
                                 {formatCurrency(itemTotal)}
                               </span>
                             </div>
@@ -265,24 +266,24 @@ const CartPage = () => {
             </div>
 
             <aside className="lg:relative">
-              <div className="border-t border-[#DDD9D1] pt-5 lg:sticky lg:top-28 lg:border lg:border-[#E4E0D8] lg:bg-[#FEFDFB] lg:p-5">
+              <div className="rounded-2xl border border-[#EAE5DA] bg-white p-5 shadow-[0_12px_30px_rgba(20,20,20,0.04)] lg:sticky lg:top-28 lg:p-6">
                 <div className="mb-5 flex items-center justify-between">
                   <div>
-                    <p className="font-serif text-[6px] tracking-[0.22em] text-[#92836A]">GENAN CHECKOUT</p>
-                    <h2 className="mt-1 text-[17px] font-semibold text-[#303732]">
+                    <p className="font-serif text-[6px] tracking-[0.22em] text-[#8C6B32]">GENAN CHECKOUT</p>
+                    <h2 className="mt-1 text-[17px] font-semibold text-[#171717]">
                       {getSiteText(content, "cart_summary_title", "ملخص الطلب")}
                     </h2>
                   </div>
 
-                  <ShoppingBag className="h-5 w-5 stroke-[1.35] text-[#858B86]" />
+                  <ShoppingBag className="h-5 w-5 stroke-[1.35] text-[#8C6B32]" />
                 </div>
 
-                <div className="border-y border-[#E9E5DE] py-4">
+                <div className="border-y border-[#EAE5DA] py-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-[9px] text-[#7F857F]">
+                    <span className="text-[9px] text-[#777777]">
                       {getSiteText(content, "cart_subtotal_label", "المجموع الفرعي")}
                     </span>
-                    <span className="text-[10px] font-semibold text-[#3B423E]">
+                    <span className="text-[10px] font-semibold text-[#171717]">
                       {formatCurrency(total)}
                     </span>
                   </div>
@@ -290,14 +291,14 @@ const CartPage = () => {
 
                 <div className="flex items-end justify-between py-5">
                   <div>
-                    <span className="block text-[10px] font-semibold text-[#363D39]">
+                    <span className="block text-[10px] font-semibold text-[#171717]">
                       {getSiteText(content, "cart_total_label", "الإجمالي")}
                     </span>
-                    <span className="mt-1 block text-[7px] text-[#9A9E99]">شامل المنتجات الحالية</span>
+                    <span className="mt-1 block text-[7px] text-[#888888]">شامل المنتجات الحالية</span>
                   </div>
 
                   <div className="text-left">
-                    <span className="text-[23px] font-semibold leading-none text-[#2C332F]">
+                    <span className="text-[23px] font-semibold leading-none text-[#171717]">
                       {formatCurrency(total)}
                     </span>
                   </div>
@@ -306,7 +307,7 @@ const CartPage = () => {
                 <button
                   type="button"
                   onClick={() => navigate("/checkout")}
-                  className="flex h-[48px] w-full items-center justify-center gap-2 bg-[#2C3932] text-[11px] font-semibold text-white active:bg-[#202A25]"
+                  className="flex h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-[#171717] text-[11px] font-semibold text-white active:bg-[#303030]"
                 >
                   <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
                   {getSiteText(content, "cart_checkout_cta", "إتمام الطلب")}
@@ -314,13 +315,13 @@ const CartPage = () => {
 
                 <Link
                   to="/products"
-                  className="mt-2.5 flex h-[41px] w-full items-center justify-center gap-1.5 border border-[#DEDAD2] bg-white text-[9px] font-medium text-[#59615C]"
+                  className="mt-2.5 flex h-[41px] w-full items-center justify-center gap-1.5 rounded-xl border border-[#EAE5DA] bg-white text-[9px] font-medium text-[#5F5A53]"
                 >
                   {getSiteText(content, "cart_continue_cta", "متابعة التسوق")}
                   <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
                 </Link>
 
-                <p className="mt-3 text-center text-[7px] leading-5 text-[#919691]">
+                <p className="mt-3 text-center text-[7px] leading-5 text-[#777777]">
                   يمكنك تطبيق رمز الخصم أثناء إتمام الطلب.
                 </p>
               </div>
@@ -328,6 +329,7 @@ const CartPage = () => {
           </section>
         )}
       </main>
+      <Footer />
     </div>
   );
 };
