@@ -487,7 +487,7 @@ const ProductsPageServer = () => {
       <Navbar />
       <CartDrawer />
 
-      <main id="main-content" className="pb-20">
+      <main id="main-content" className="px-3 pb-20 sm:px-5 lg:px-7">
         <section className="mx-auto mt-4 max-w-[1120px] rounded-3xl bg-white px-5 pb-6 pt-6 shadow-sm sm:mt-7 sm:px-7 sm:pb-8 lg:px-8">
           <div className="mx-auto grid max-w-[1120px] gap-3 md:grid-cols-[1.2fr_.8fr] md:items-end md:gap-8">
             <div>
@@ -592,7 +592,7 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section id="products-grid" className="relative z-0 mx-auto max-w-[1120px] px-3 pt-6 sm:px-5 sm:pt-7 lg:px-7">
+        <section id="products-grid" className="relative z-0 mx-auto max-w-[1120px] pt-6 sm:pt-7">
           {isLoading ? (
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
