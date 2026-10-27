@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { clearCustomerSession, setCustomerSession } from "@/lib/customerSession";
 
-type AuthMode = "login" | "register" | "recovery";
+type AuthMode = "login" | "register" | "recovery" | "reset";
 
 type CustomerRow = {
   id: string;
@@ -58,6 +58,9 @@ const CustomerAuthPage = () => {
   const [mode, setMode] = useState<AuthMode>("login");
   const [phoneCountry, setPhoneCountry] = useState<PhoneCountryCode>("YE");
   const [showPassword, setShowPassword] = useState(false);
+  const [recoveryCode, setRecoveryCode] = useState("");
+  const [recoveryPassword, setRecoveryPassword] = useState("");
+  const [recoveryPending, setRecoveryPending] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isGuestLoading, setIsGuestLoading] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", password: "", region: "عدن" });
@@ -317,15 +320,33 @@ const CustomerAuthPage = () => {
             </button>
           </div>
 
-          {mode === "recovery" ? (
+          {(mode === "recovery" || mode === "reset") ? (
             <div className="mt-6 space-y-4">
-              <div className="rounded-2xl border border-[#E8DDCB] bg-[#FCFAF6] p-5">
-                <LockKeyhole className="mb-3 h-6 w-6 text-[#9A825B]" strokeWidth={1.5} />
-                <h2 className="text-[15px] font-semibold text-[#171717]">حماية حسابك أولًا</h2>
-                <p className="mt-2 text-[12px] leading-7 text-[#77716A]">لأن رقم الهاتف غير موثّق حاليًا برسالة تحقق، لا يمكن تغيير كلمة المرور بمجرد إدخال الرقم. تواصلي مع إدارة المتجر للتحقق من ملكية الحساب ومساعدتك.</p>
-              </div>
-              <button type="button" onClick={() => navigate("/store-info")} className="flex h-12 w-full items-center justify-center rounded-2xl bg-[#171717] text-[12px] font-semibold text-white">معلومات التواصل مع المتجر</button>
-              <button type="button" onClick={() => changeMode("login")} className="flex h-11 w-full items-center justify-center rounded-2xl border border-[#E5DED0] bg-white text-[12px] font-medium text-[#5F5A53]">العودة لتسجيل الدخول</button>
+              {mode === "recovery" ? (
+                <>
+                  <p className="text-[12px] leading-7 text-[#77716A]">أدخلي رقم الهاتف المرتبط بحسابك. ستراجع إدارة جنان الطلب وتتواصل معك بعد التحقق من ملكية الحساب.</p>
+                  <div className="grid grid-cols-[130px_1fr] gap-2" dir="ltr">
+                    <select value={phoneCountry} onChange={(event) => setPhoneCountry(event.target.value as PhoneCountryCode)} className="h-12 min-w-0 rounded-xl border border-[#E8DEDA] bg-white px-2 text-[11px]">
+                      {PHONE_COUNTRIES.map((c) => <option key={c.iso} value={c.iso}>{c.flag} {c.dial}</option>)}
+                    </select>
+                    <input type="tel" dir="ltr" aria-label="رقم الهاتف" value={formData.phone} onChange={(event)=>updateField("phone",arabicDigitsToLatin(event.target.value).replace(/\D/g,"").slice(0,15))} className="h-12 min-w-0 rounded-xl border border-[#E8DEDA] bg-white px-3" placeholder="رقم الهاتف" />
+                  </div>
+                  <button type="button" disabled={recoveryPending} onClick={async()=>{
+                    try { const phone=buildPhone();setRecoveryPending(true);const {data,error}=await supabase.functions.invoke("genan-password-recovery",{body:{action:"request",phone}});if(error||data?.error) throw new Error(data?.error||"تعذر إرسال الطلب");toast({title:"تم استلام الطلب",description:"إذا كان الرقم مرتبطًا بحساب، ستراجعه الإدارة وتتواصل معك."});}catch(e:any){toast({title:"تعذر إرسال الطلب",description:e?.message,variant:"destructive"});}finally{setRecoveryPending(false);}
+                  }} className="h-12 w-full rounded-2xl bg-[#171717] text-[12px] font-semibold text-white disabled:opacity-50">إرسال طلب استعادة الحساب</button>
+                  <button type="button" onClick={()=>changeMode("reset")} className="h-11 w-full rounded-2xl border border-[#D8C29A] text-[12px]">معي رمز إعادة التعيين</button>
+                </>
+              ) : (
+                <>
+                  <p className="text-[12px] leading-7 text-[#77716A]">أدخلي الرمز الذي حصلت عليه من إدارة جنان بعد الموافقة على طلبك، ثم اختاري كلمة مرور جديدة.</p>
+                  <input type="text" dir="ltr" autoComplete="off" aria-label="رمز إعادة التعيين" value={recoveryCode} onChange={e=>setRecoveryCode(e.target.value.trim())} placeholder="رمز إعادة التعيين" className="h-12 w-full rounded-xl border border-[#E8DEDA] px-3" />
+                  <input type="password" autoComplete="new-password" aria-label="كلمة المرور الجديدة" value={recoveryPassword} onChange={e=>setRecoveryPassword(e.target.value)} placeholder="كلمة المرور الجديدة (8 أحرف على الأقل)" className="h-12 w-full rounded-xl border border-[#E8DEDA] px-3" />
+                  <button type="button" disabled={recoveryPending} onClick={async()=>{
+                    try {setRecoveryPending(true);const {data,error}=await supabase.functions.invoke("genan-password-recovery",{body:{action:"redeem",code:recoveryCode,password:recoveryPassword}});if(error||data?.error)throw new Error(data?.error||"تعذر التحديث");setRecoveryCode("");setRecoveryPassword("");changeMode("login");toast({title:"تم تحديث كلمة المرور",description:"يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة."});}catch(e:any){toast({title:"تعذر تحديث كلمة المرور",description:e?.message,variant:"destructive"});}finally{setRecoveryPending(false);}
+                  }} className="h-12 w-full rounded-2xl bg-[#171717] text-[12px] font-semibold text-white disabled:opacity-50">تعيين كلمة المرور الجديدة</button>
+                </>
+              )}
+              <button type="button" onClick={()=>changeMode("login")} className="h-11 w-full text-[12px] text-[#8C6B32]">العودة لتسجيل الدخول</button>
             </div>
           ) : <form onSubmit={handleSubmit} className="mt-5 space-y-4">
             {mode === "register" && (
