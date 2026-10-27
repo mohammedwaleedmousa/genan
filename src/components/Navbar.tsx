@@ -91,10 +91,10 @@ const NavItem = ({
   <button
     type="button"
     onClick={onPress}
-    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-[14px] px-3 text-right transition-colors ${isActive ? "bg-[#F5FAF9] text-[#8C6B32]" : "text-[#0E0E0E]"}`}
+    className={`relative flex min-h-[48px] w-full items-center gap-3 rounded-2xl px-3 text-right transition-colors ${isActive ? "bg-[#F4EEE4] text-[#8C6B32]" : "text-[#0E0E0E]"}`}
   >
     {isActive && <span className="absolute right-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-[#0E0E0E]" />}
-    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#E9F6F4] text-[#8C6B32]" : "bg-[#FAFAFA] text-[#686868]"}`}>
+    <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${isActive ? "bg-[#EDE3D2] text-[#8C6B32]" : "bg-[#F5F3EF] text-[#686868]"}`}>
       <Icon size={19} weight="regular" />
     </span>
     <span className={`flex-1 text-right text-[13px] ${isActive ? "font-semibold" : "font-medium"}`}>{label}</span>
@@ -267,19 +267,19 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
   return (
     <>
-      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-b border-transparent bg-transparent shadow-none backdrop-blur-none" : "border-b border-white/60 bg-white/65 shadow-[0_6px_28px_rgba(14,14,14,0.09)] backdrop-blur-2xl backdrop-saturate-150"}`}>
+      <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-b border-transparent bg-transparent shadow-none backdrop-blur-none" : "border-b border-[#EAE5DA]/70 bg-white/90 shadow-[0_8px_24px_rgba(20,20,20,0.055)] backdrop-blur-2xl backdrop-saturate-150"}`}>
         {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[56px] z-[55] touch-none bg-white/96 md:top-[120px]" />}
         <div className="mx-auto max-w-[1500px] px-4 md:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between md:hidden">
             <div className="flex items-center">
               <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
                 <SheetTrigger asChild>
-                  <button type="button" aria-label="فتح القائمة" onClick={() => { if (mobileSearchOpen) closeSearch(); }} className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
+                  <button type="button" aria-label="فتح القائمة" onClick={() => { if (mobileSearchOpen) closeSearch(); }} className="flex h-10 w-10 items-center justify-center rounded-2xl text-[#0E0E0E] transition-colors hover:bg-[#F4EEE4]/70 hover:text-[#8C6B32]">
                     <List size={22} />
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-[#F7F7F7] bg-[#FAFAFA] p-0">
+                <SheetContent side="right" dir="rtl" className="flex h-full w-[86vw] max-w-[355px] flex-col border-l border-[#EEE9E0] bg-[#FAF9F7] p-0">
                   <div className="flex items-center justify-center border-b border-[#F7F7F7] px-5 py-5">
                     <button type="button" onClick={() => goFromMenu("/home")} className="flex items-center" aria-label="الرئيسية">
                       <Logo size="lg" className="shrink-0" />
@@ -330,7 +330,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                   </div>
                 </SheetContent>
               </Sheet>
-              <button type="button" onClick={() => { if (mobileSearchOpen) closeSearch(); else { setMenuOpen(false); setMobileSearchOpen(true); } }} aria-label={mobileSearchOpen ? "إغلاق البحث" : "فتح البحث"} aria-expanded={mobileSearchOpen} aria-controls="genan-mobile-nav-search" className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
+              <button type="button" onClick={() => { if (mobileSearchOpen) closeSearch(); else { setMenuOpen(false); setMobileSearchOpen(true); } }} aria-label={mobileSearchOpen ? "إغلاق البحث" : "فتح البحث"} aria-expanded={mobileSearchOpen} aria-controls="genan-mobile-nav-search" className="flex h-10 w-10 items-center justify-center rounded-2xl text-[#0E0E0E] transition-colors hover:bg-[#F4EEE4]/70 hover:text-[#8C6B32]">
                 <MagnifyingGlass size={22} weight="regular" />
               </button>
             </div>
@@ -341,11 +341,11 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
             <div className="flex shrink-0 items-center gap-1">
               {/* Bag occupies the former currency slot and always opens the full cart page. */}
-              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
+              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl text-[#0E0E0E] transition-colors hover:bg-[#F4EEE4]/70 hover:text-[#8C6B32]">
                 <ShoppingBag size={22} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
-              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
+              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl text-[#0E0E0E] transition-colors hover:bg-[#F4EEE4]/70 hover:text-[#8C6B32]">
                 <ShoppingCart size={21} weight="regular" />
               </button>
             </div>
@@ -367,7 +367,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                   autoComplete="off"
                   aria-autocomplete="list"
                   aria-expanded={searchPanelOpen && suggestions.length > 0}
-                  className="h-[44px] w-full rounded-full border border-[#F7F7F7] bg-[#FAFAFA] pr-11 pl-11 text-[12px] text-[#0E0E0E] outline-none transition-all placeholder:text-[#686868] focus:border-[#D8C29A] focus:bg-white focus:shadow-[0_8px_28px_rgba(14,14,14,0.08)]"
+                  className="h-[46px] w-full rounded-2xl border border-[#EAE5DA] bg-[#FAF9F7] pr-11 pl-11 text-[12px] text-[#0E0E0E] outline-none transition-all placeholder:text-[#686868] focus:border-[#D8C29A] focus:bg-white focus:shadow-[0_8px_28px_rgba(14,14,14,0.08)]"
                 />
               </label>
 
@@ -389,18 +389,18 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </form>
 
             <div className="flex shrink-0 items-center gap-1.5">
-              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
+              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-transparent text-[#0E0E0E] transition-colors hover:border-[#EAE5DA] hover:bg-[#F4EEE4]/60 hover:text-[#8C6B32]">
                 <ShoppingBag size={20} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
-              <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
+              <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-transparent text-[#0E0E0E] transition-colors hover:border-[#EAE5DA] hover:bg-[#F4EEE4]/60 hover:text-[#8C6B32]">
                 <Heart size={20} weight="regular" />
                 {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
               </Link>
-              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-white/65 hover:text-[#8C6B32]">
+              <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 items-center justify-center rounded-2xl border border-transparent text-[#0E0E0E] transition-colors hover:border-[#EAE5DA] hover:bg-[#F4EEE4]/60 hover:text-[#8C6B32]">
                 <ShoppingCart size={20} weight="regular" />
               </button>
-              <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
+              <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-2xl border border-[#E1D5BF] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
                 <User size={17} />
                 <span className="hidden lg:inline">{customer ? "حسابي" : "تسجيل الدخول"}</span>
               </Link>
@@ -420,7 +420,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                 autoComplete="off"
                 aria-autocomplete="list"
                 aria-expanded={searchPanelOpen && suggestions.length > 0}
-                className="h-11 w-full rounded-2xl border border-[#F7F7F7] bg-[#FAFAFA] pr-11 pl-11 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#686868] focus:border-[#D8C29A] focus:bg-white"
+                className="h-12 w-full rounded-2xl border border-[#EAE5DA] bg-[#FAF9F7] pr-11 pl-11 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#686868] focus:border-[#D8C29A] focus:bg-white"
               />
             </label>
 
@@ -441,7 +441,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             )}
           </form>}
 
-          <nav className={`hidden h-[48px] items-center justify-center gap-1 border-t md:flex lg:gap-2 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-transparent" : "border-white/45"}`}>
+          <nav className={`hidden h-[48px] items-center justify-center gap-1 border-t md:flex lg:gap-2 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-transparent" : "border-[#EAE5DA]/55"}`}>
             {desktopLinks.map((item) => {
               const active = location.pathname === item.to || (item.to === "/products" && location.pathname.startsWith("/product/"));
               return (
