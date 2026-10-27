@@ -1,24 +1,15 @@
 import Logo from "@/components/Logo";
 import {
-  Bell,
   CaretLeft,
-  Crown,
   Heart,
-  House,
   List,
   MagnifyingGlass,
-  MapPin,
-  Package,
   QrCode,
   ShoppingBag,
   ShoppingCart,
-  SignIn,
   SignOut,
-  SquaresFour,
-  Tag,
   User,
 } from "phosphor-react";
-import type { Icon } from "phosphor-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
