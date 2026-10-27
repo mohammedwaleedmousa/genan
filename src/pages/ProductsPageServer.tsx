@@ -655,24 +655,24 @@ const ProductsPageServer = () => {
 
       {filtersOpen && (
         <div
-          className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-[1px]"
+          className="fixed inset-0 z-[100] bg-black/45 backdrop-blur-[2px]"
           onClick={() => setFiltersOpen(false)}
         >
           <aside
             onClick={(event) => event.stopPropagation()}
-            className="absolute inset-y-0 right-0 flex w-full max-w-[420px] flex-col bg-[#FFFEFC] shadow-[-18px_0_45px_rgba(20,20,20,.10)]"
+            className="absolute inset-y-0 right-0 flex w-full max-w-[450px] flex-col bg-[#F8F7F4] shadow-[-18px_0_45px_rgba(20,20,20,.14)]"
           >
-            <div className="flex items-center justify-between border-b border-[#EEEAE3] px-5 py-5">
+            <div className="flex items-center justify-between border-b border-[#EEEAE3] bg-white px-5 py-5">
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[22px] font-semibold text-[#171717]">فلترة المنتجات</h2>
+                  <h2 className="text-[22px] font-bold text-[#171717]">فلترة المنتجات</h2>
                   {draftFilterCount > 0 && (
                     <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#171717] px-1 text-[8px] font-bold text-white">
                       {draftFilterCount}
                     </span>
                   )}
                 </div>
-                <p className="mt-1 text-[9px] text-[#8A847C]">حدد المواصفات التي تبحث عنها</p>
+                <p className="mt-1 text-[11px] text-[#8A847C]">حدد المواصفات التي تبحث عنها</p>
               </div>
 
               <button
@@ -685,9 +685,9 @@ const ProductsPageServer = () => {
               </button>
             </div>
 
-            <div className="flex-1 space-y-7 overflow-y-auto px-5 py-6">
-              <div>
-                <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">القسم</p>
+            <div className="flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 py-5 sm:px-5">
+              <div className="rounded-3xl bg-white p-4 shadow-sm">
+                <p className="mb-3 text-[13px] font-bold text-[#2A2723]">القسم</p>
                 <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   <button
                     type="button"
@@ -718,13 +718,13 @@ const ProductsPageServer = () => {
                 </div>
               </div>
 
-              <div>
-                <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">الماركة</p>
+              <div className="rounded-3xl bg-white p-4 shadow-sm">
+                <p className="mb-3 text-[13px] font-bold text-[#2A2723]">الماركة</p>
                 <div className="relative">
                   <select
                     value={draft.brand}
                     onChange={(event) => setDraft((value) => ({ ...value, brand: event.target.value }))}
-                    className="h-11 w-full appearance-none rounded-xl border border-[#E5E0D8] bg-white px-4 text-[10px] text-[#44403A] outline-none focus:border-[#CDB98F]"
+                    className="h-12 w-full appearance-none rounded-2xl border border-[#E5E0D8] bg-[#FAF9F7] px-4 text-[12px] text-[#44403A] outline-none focus:border-[#CDB98F]"
                   >
                     <option value="all">كل الماركات</option>
                     {brands.map((brand) => (
@@ -735,8 +735,8 @@ const ProductsPageServer = () => {
                 </div>
               </div>
 
-              <div>
-                <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">لمن</p>
+              <div className="rounded-3xl bg-white p-4 shadow-sm">
+                <p className="mb-3 text-[13px] font-bold text-[#2A2723]">لمن</p>
                 <div className="grid grid-cols-2 gap-2">
                   {AUDIENCE_OPTIONS.map((option) => {
                     const active = draft.audience === option.value;
@@ -751,7 +751,7 @@ const ProductsPageServer = () => {
                             audience: active ? "all" : option.value,
                           }))
                         }
-                        className={`h-10 rounded-xl border text-[9px] font-semibold ${
+                        className={`h-12 rounded-2xl border text-[12px] font-semibold ${
                           active
                             ? "border-[#171717] bg-[#171717] text-white"
                             : "border-[#E5E0D8] bg-white text-[#5F5A53]"
@@ -765,8 +765,8 @@ const ProductsPageServer = () => {
               </div>
 
               {colors.length > 0 && (
-                <div>
-                  <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">اللون</p>
+                <div className="rounded-3xl bg-white p-4 shadow-sm">
+                  <p className="mb-3 text-[13px] font-bold text-[#2A2723]">اللون</p>
 
                   <div className="relative">
                     <select
@@ -774,7 +774,7 @@ const ProductsPageServer = () => {
                       onChange={(event) =>
                         setDraft((value) => ({ ...value, color: event.target.value }))
                       }
-                      className="h-11 w-full appearance-none rounded-xl border border-[#E5E0D8] bg-white px-4 pr-11 text-[10px] text-[#44403A] outline-none focus:border-[#CDB98F]"
+                      className="h-12 w-full appearance-none rounded-2xl border border-[#E5E0D8] bg-[#FAF9F7] px-4 pr-11 text-[12px] text-[#44403A] outline-none focus:border-[#CDB98F]"
                     >
                       <option value="all">كل الألوان</option>
                       {colors.map((color) => (
@@ -812,7 +812,7 @@ const ProductsPageServer = () => {
               {sizes.length > 0 && (
                 <div>
                   <div className="mb-3 flex items-center justify-between">
-                    <p className="text-[10px] font-semibold text-[#2A2723]">المقاس</p>
+                    <p className="text-[13px] font-bold text-[#2A2723]">المقاس</p>
                     {draft.size !== "all" && (
                       <button
                         type="button"
@@ -838,7 +838,7 @@ const ProductsPageServer = () => {
                               size: active ? "all" : size,
                             }))
                           }
-                          className={`min-w-11 rounded-xl border px-3 py-2.5 text-[9px] font-semibold ${
+                          className={`min-w-12 rounded-2xl border px-4 py-3 text-[12px] font-semibold ${
                             active
                               ? "border-[#171717] bg-[#171717] text-white"
                               : "border-[#E5E0D8] bg-white text-[#5F5A53]"
@@ -852,9 +852,9 @@ const ProductsPageServer = () => {
                 </div>
               )}
 
-              <div>
+              <div className="rounded-3xl bg-white p-4 shadow-sm">
                 <div className="mb-3 flex items-center justify-between">
-                  <p className="text-[10px] font-semibold text-[#2A2723]">السعر</p>
+                  <p className="text-[13px] font-bold text-[#2A2723]">السعر</p>
                   <span className="text-[8px] text-[#9A958E]">
                     {priceRange.min} — {priceRange.max}
                   </span>
@@ -870,7 +870,7 @@ const ProductsPageServer = () => {
                       value={draft.minPrice}
                       onChange={(event) => setDraft((value) => ({ ...value, minPrice: event.target.value }))}
                       placeholder={String(priceRange.min)}
-                      className="h-12 w-full rounded-xl border border-[#E5E0D8] bg-white px-3 pt-3 text-[10px] outline-none focus:border-[#CDB98F]"
+                      className="h-14 w-full rounded-2xl border border-[#E5E0D8] bg-[#FAF9F7] px-3 pt-3 text-[12px] outline-none focus:border-[#CDB98F]"
                     />
                   </label>
 
@@ -883,14 +883,14 @@ const ProductsPageServer = () => {
                       value={draft.maxPrice}
                       onChange={(event) => setDraft((value) => ({ ...value, maxPrice: event.target.value }))}
                       placeholder={String(priceRange.max)}
-                      className="h-12 w-full rounded-xl border border-[#E5E0D8] bg-white px-3 pt-3 text-[10px] outline-none focus:border-[#CDB98F]"
+                      className="h-14 w-full rounded-2xl border border-[#E5E0D8] bg-[#FAF9F7] px-3 pt-3 text-[12px] outline-none focus:border-[#CDB98F]"
                     />
                   </label>
                 </div>
               </div>
 
-              <div>
-                <p className="mb-3 text-[10px] font-semibold text-[#2A2723]">التوفر والعروض</p>
+              <div className="rounded-3xl bg-white p-4 shadow-sm">
+                <p className="mb-3 text-[13px] font-bold text-[#2A2723]">التوفر والعروض</p>
 
                 <div className="space-y-2">
                   {[
@@ -909,7 +909,7 @@ const ProductsPageServer = () => {
                       type="button"
                       key={item.label}
                       onClick={item.toggle}
-                      className={`flex h-11 w-full items-center justify-between rounded-xl border px-4 text-[10px] font-medium ${
+                      className={`flex h-12 w-full items-center justify-between rounded-2xl border px-4 text-[12px] font-medium ${
                         item.active
                           ? "border-[#CDB98F] bg-[#F7F3EA] text-[#27231F]"
                           : "border-[#E5E0D8] bg-white text-[#5F5A53]"
@@ -929,11 +929,11 @@ const ProductsPageServer = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-[.8fr_1.4fr] gap-2 border-t border-[#EEEAE3] bg-white px-5 py-4">
+            <div className="grid grid-cols-[.8fr_1.4fr] gap-3 border-t border-[#EEEAE3] bg-white px-5 py-4">
               <button
                 type="button"
                 onClick={clearDraft}
-                className="h-11 rounded-xl border border-[#E1DCD4] bg-white text-[10px] font-semibold text-[#5F5A53]"
+                className="h-12 rounded-2xl border border-[#E1DCD4] bg-white text-[12px] font-semibold text-[#5F5A53]"
               >
                 مسح
               </button>
@@ -941,7 +941,7 @@ const ProductsPageServer = () => {
               <button
                 type="button"
                 onClick={applyFilters}
-                className="h-11 rounded-xl bg-[#171717] text-[10px] font-semibold text-white"
+                className="h-12 rounded-2xl bg-[#171717] text-[12px] font-semibold text-white"
               >
                 عرض {draftResultCount} منتج
               </button>
