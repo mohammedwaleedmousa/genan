@@ -557,7 +557,7 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section className="sticky top-[56px] z-20 mx-auto mt-4 max-w-[1120px] rounded-3xl border border-[#EAE5DA] bg-white/95 px-3 py-3 shadow-sm backdrop-blur-md sm:px-5 md:top-[120px]">
+        <section className="sticky top-[64px] z-40 isolate mx-auto mt-4 max-w-[1120px] rounded-3xl border border-[#EAE5DA] bg-white px-3 py-3 shadow-[0_8px_24px_rgba(20,20,20,0.10)] sm:px-5 md:top-[128px]">
           <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-3">
             <p className="hidden text-[11px] text-[#77716A] sm:block">النتائج: {filtered.length} منتج</p>
 
@@ -592,7 +592,7 @@ const ProductsPageServer = () => {
           </div>
         </section>
 
-        <section id="products-grid" className="mx-auto max-w-[1120px] px-3 pt-6 sm:px-5 sm:pt-7 lg:px-7">
+        <section id="products-grid" className="relative z-0 mx-auto max-w-[1120px] px-3 pt-6 sm:px-5 sm:pt-7 lg:px-7">
           {isLoading ? (
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, index) => (
