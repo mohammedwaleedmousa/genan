@@ -136,37 +136,23 @@ const FavoritesPage = () => {
       <CartDrawer />
 
       <main className="space-y-4 px-3 pb-16 pt-4 sm:px-5 md:px-7 md:pt-24">
-        <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-[#F6F3EA] shadow-sm">
-          <div className="mx-auto grid max-w-[1500px] gap-8 px-4 py-10 md:grid-cols-[1fr_260px] md:px-6 md:py-14">
+        <section className="mx-auto w-full max-w-[1120px] rounded-3xl bg-[#F6F3EA] px-5 py-6 sm:px-7 sm:py-8">
+          <span className="text-[10px] font-semibold tracking-[0.18em] text-[#9A825B]">GENAN / WISHLIST</span>
+          <div className="mt-2 flex items-center justify-between gap-4">
             <div>
-              <div className="flex items-center gap-3">
-                <span className="h-px w-10 bg-[#D8C29A]" />
-                <span className="text-[7px] font-semibold tracking-[.3em] text-[#9A825B]">GENAN / WISHLIST</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-[#A9D8D3]" />
-              </div>
-
-              <h1 className="mt-5 text-[34px] font-medium leading-[1.18] tracking-[-.045em] md:text-[54px]">
-                اختيارات احتفظت بها.
-              </h1>
-
-              <p className="mt-4 max-w-[520px] text-[9px] leading-6 text-[#777] md:text-[10px]">
-                {heroText}
-              </p>
+              <h1 className="text-[25px] font-bold text-[#171717] sm:text-[30px]">المفضلة</h1>
+              <p className="mt-1 text-[12px] text-[#77716A]">{heroText}</p>
             </div>
-
-            <div className="flex items-end justify-between border-t border-[#E7E2D9] pt-5 md:flex-col md:items-start md:justify-end md:border-r md:border-t-0 md:pr-7 md:pt-0">
-              <Heart className="h-5 w-5 text-[#0E0E0E]" strokeWidth={1.3} />
-              <div>
-                <span className="text-[42px] font-medium leading-none">{String(favorites.length).padStart(2, "0")}</span>
-                <span className="mr-2 text-[7px] text-[#777]">محفوظ</span>
-              </div>
+            <div className="flex shrink-0 items-center gap-2 rounded-2xl bg-white/75 px-3 py-2.5">
+              <Heart className="h-4 w-4 text-[#9A825B]" />
+              <span className="text-[17px] font-semibold text-[#171717]">{favorites.length}</span>
             </div>
           </div>
         </section>
 
         {favorites.length > 0 ? (
           <>
-            <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white shadow-sm">
+            <section className="mx-auto w-full max-w-[1120px] rounded-3xl bg-white shadow-sm">
               <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-3 md:px-6">
                 <div className="flex items-center gap-3">
                   <span className="text-[7px] font-semibold tracking-[.2em] text-[#9A825B]">SAVED PIECES</span>
@@ -177,7 +163,7 @@ const FavoritesPage = () => {
                 <button
                   type="button"
                   onClick={handleAddAllToCart}
-                  className="flex h-9 items-center gap-2 border-b border-[#D8C29A] px-1 text-[8px] font-semibold text-[#0E0E0E]"
+                  className="flex h-11 items-center gap-2 rounded-2xl bg-[#171717] px-4 text-[11px] font-semibold text-white"
                 >
                   <Plus className="h-3 w-3" />
                   إضافة المتاح للسلة
@@ -185,7 +171,7 @@ const FavoritesPage = () => {
               </div>
             </section>
 
-            <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white px-3 py-6 shadow-sm sm:px-5 md:px-6 md:py-10">
+            <section className="mx-auto w-full max-w-[1120px] rounded-3xl bg-white px-3 py-6 shadow-sm sm:px-5 md:px-6 md:py-10">
               <div className="mb-6 flex items-center justify-between border-b border-[#E7E2D9] pb-3">
                 <div>
                   <span className="text-[7px] font-semibold tracking-[.2em] text-[#9A825B]">MY EDIT</span>
@@ -196,7 +182,7 @@ const FavoritesPage = () => {
                   <button
                     type="button"
                     onClick={() => setSortOpen((current) => !current)}
-                    className="flex h-9 min-w-[116px] items-center justify-between gap-3 border-b border-[#CFC6B8] px-1 text-right"
+                    className="flex h-11 min-w-[130px] items-center justify-between gap-3 rounded-2xl border border-[#E5DED0] bg-[#FAF9F7] px-3 text-right"
                   >
                     <div>
                       <span className="block text-[6px] text-[#999]">ترتيب</span>
@@ -206,7 +192,7 @@ const FavoritesPage = () => {
                   </button>
 
                   {sortOpen && (
-                    <div className="absolute left-0 top-[42px] z-50 w-[205px] border border-[#E7E2D9] bg-white p-1 shadow-[0_14px_35px_rgba(14,14,14,.08)]">
+                    <div className="absolute left-0 top-[48px] z-50 w-[205px] rounded-2xl border border-[#E7E2D9] bg-white p-1 shadow-[0_14px_35px_rgba(14,14,14,.08)]">
                       {sortOptions.map((option) => {
                         const active = sortBy === option.value;
                         return (
@@ -234,7 +220,7 @@ const FavoritesPage = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-x-2.5 gap-y-7 md:grid-cols-4 md:gap-x-5 md:gap-y-10">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
                 {sortedFavorites.map((product, index) => (
                   <div key={product.id} className="min-w-0">
                     <ProductCard product={product} index={index} />
@@ -244,8 +230,8 @@ const FavoritesPage = () => {
             </section>
           </>
         ) : (
-          <section className="mx-auto flex min-h-[58vh] max-w-[1500px] items-center rounded-3xl bg-white px-6 py-14 shadow-sm">
-            <div className="max-w-[460px] border-r-2 border-[#D8C29A] pr-5">
+          <section className="mx-auto flex min-h-[58vh] max-w-[1120px] items-center rounded-3xl bg-white px-6 py-14 shadow-sm">
+            <div className="mx-auto max-w-[460px] text-center">
               <span className="text-[7px] font-semibold tracking-[.25em] text-[#9A825B]">EMPTY WISHLIST</span>
               <h2 className="mt-3 text-[26px] font-medium tracking-[-.035em]">
                 {getSiteText(content, "favorites_empty_title", "قائمة المفضلة فارغة")}
@@ -260,7 +246,7 @@ const FavoritesPage = () => {
 
               <Link
                 to="/products"
-                className="mt-6 inline-flex h-11 items-center gap-2 bg-[#0E0E0E] px-6 text-[9px] font-semibold text-white"
+                className="mt-6 inline-flex h-12 items-center gap-2 rounded-2xl bg-[#0E0E0E] px-6 text-[12px] font-semibold text-white"
               >
                 <ShoppingBag className="h-3.5 w-3.5" />
                 {getSiteText(content, "favorites_browse_cta", "تصفح المنتجات")}
