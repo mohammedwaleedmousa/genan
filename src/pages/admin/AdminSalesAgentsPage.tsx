@@ -136,9 +136,9 @@ const statusLabel = (status?: string | null) => {
 
 const tones: Record<Tone, { line: string; icon: string }> = {
   indigo: { line: "#675CBA", icon: "bg-[#EEEBFF] text-[#675CBA]" },
-  green: { line: "#629067", icon: "bg-[#EAF7EE] text-[#57906A]" },
-  coral: { line: "#D06A5E", icon: "bg-[#FFF0ED] text-[#C9685D]" },
-  blue: { line: "#5680CF", icon: "bg-[#EDF4FF] text-[#567BC5]" },
+  green: { line: "#629067", icon: "bg-[#EAF7EE] text-[#457557]" },
+  coral: { line: "#D06A5E", icon: "bg-[#FFF0ED] text-[#A2564B]" },
+  blue: { line: "#5680CF", icon: "bg-[#EDF4FF] text-[#4C6CAF]" },
 };
 
 function calculateStats(orders: SalesOrder[], costMap: Map<string, number>): AgentStats {
@@ -586,7 +586,7 @@ export default function AdminSalesAgentsPage() {
         <div className="rounded-[16px] border border-[#E5E9EF] bg-white p-[14px]">
           <h2 className="text-[12px] font-semibold text-[#303640]">ملاحظة الأرباح</h2>
           <p className="mt-2 text-[9px] leading-6 text-[#7F8792]">الربح هنا هو الربح الإجمالي للطلبات المنسوبة للموظف: قيمة المبيعات ناقص تكلفة المنتجات المسجلة في النظام. الطلبات الملغاة لا تدخل في المبيعات أو الأرباح.</p>
-          <div className="mt-3 rounded-[11px] bg-[#F8F6FF] p-3 text-[8.5px] leading-5 text-[#756DA2]">اضغط «تفاصيل» بجانب أي موظف لرؤية كل طلباته وإيراداته، ويمكنك حذف الطلبات التجريبية من نفس الشاشة.</div>
+          <div className="mt-3 rounded-[11px] bg-[#F8F6FF] p-3 text-[8.5px] leading-5 text-[#6F679A]">اضغط «تفاصيل» بجانب أي موظف لرؤية كل طلباته وإيراداته، ويمكنك حذف الطلبات التجريبية من نفس الشاشة.</div>
         </div>
       </section>
 
@@ -604,7 +604,7 @@ export default function AdminSalesAgentsPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1180px] text-right text-[10px]">
-            <thead className="bg-[#FAFBFC] text-[#7C838D]">
+            <thead className="bg-[#FAFBFC] text-[#6A717B]">
               <tr>
                 <th className="px-4 py-3">الموظف</th>
                 <th className="px-4 py-3">الكود الحالي</th>
@@ -749,7 +749,7 @@ export default function AdminSalesAgentsPage() {
                                 <td dir="ltr" className="px-3 py-3 text-right font-mono font-semibold text-[#6259A9]">{order.order_number || "—"}</td>
                                 <td className="px-3 py-3"><p className="font-semibold text-[#3F4650]">{order.customer_name || "عميل"}</p><p dir="ltr" className="mt-1 text-right text-[7.5px] text-[#9AA1AA]">{order.customer_phone || ""}</p></td>
                                 <td className="px-3 py-3 text-[#7B838D]">{displayDateTime(order.created_at)}</td>
-                                <td className="px-3 py-3"><span className={`rounded-[7px] px-2 py-1 text-[8px] ${CANCELLED.has(String(order.status || "").toLowerCase()) ? "bg-[#FFF0F0] text-[#B85F5F]" : "bg-[#F1F6F2] text-[#57906A]"}`}>{statusLabel(order.status)}</span></td>
+                                <td className="px-3 py-3"><span className={`rounded-[7px] px-2 py-1 text-[8px] ${CANCELLED.has(String(order.status || "").toLowerCase()) ? "bg-[#FFF0F0] text-[#A45555]" : "bg-[#F1F6F2] text-[#477859]"}`}>{statusLabel(order.status)}</span></td>
                                 <td className="px-3 py-3 font-semibold text-[#343A44]">{money(orderBase(order))}</td>
                                 <td dir="ltr" className="px-3 py-3 text-right font-mono text-[#737A85]">{order.sales_agent_code || "—"}</td>
                                 <td className="px-3 py-3">
@@ -789,7 +789,7 @@ export default function AdminSalesAgentsPage() {
                 {editing && <Button type="button" variant="outline" size="icon" onClick={() => void copyCode(form.code)}><Copy className="h-4 w-4" /></Button>}
               </div>
               {editing && editing.code !== form.code.trim().toUpperCase() && (
-                <p className="rounded-[8px] bg-[#FFF8E8] px-2.5 py-2 text-[8.5px] leading-5 text-[#9A7130]">بعد الحفظ سيتوقف الكود القديم ويعمل الكود الجديد، بينما تبقى جميع المبيعات السابقة محسوبة لهذا الموظف.</p>
+                <p className="rounded-[8px] bg-[#FFF8E8] px-2.5 py-2 text-[8.5px] leading-5 text-[#8E682D]">بعد الحفظ سيتوقف الكود القديم ويعمل الكود الجديد، بينما تبقى جميع المبيعات السابقة محسوبة لهذا الموظف.</p>
               )}
             </div>
             <div className="space-y-2">

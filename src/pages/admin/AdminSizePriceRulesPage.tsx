@@ -213,7 +213,7 @@ const AdminSizePriceRulesPage = () => {
             <span className="flex h-8 w-8 items-center justify-center rounded-[9px] bg-[#F1EFFF] text-[#675CBA]"><BadgeDollarSign className="h-4 w-4" /></span>
             <div>
               <h2 className="text-[12px] font-semibold text-[#3F4650]">إعداد القاعدة</h2>
-              <p className="text-[8px] text-[#969DA7]">الزيادة تضاف إلى سعر المنتج الأساسي</p>
+              <p className="text-[8px] text-[#626E63]">الزيادة تضاف إلى سعر المنتج الأساسي</p>
             </div>
           </div>
 
@@ -246,7 +246,7 @@ const AdminSizePriceRulesPage = () => {
                   <Button type="button" variant="ghost" size="icon" onClick={() => setAdjustments((current) => current.length === 1 ? [{ size: "", amount: "0" }] : current.filter((_, i) => i !== index))} className="h-9 w-9"><Trash2 className="h-3.5 w-3.5 text-[#C86B6B]" /></Button>
                 </div>
               ))}
-              <p className="text-[8px] leading-5 text-[#969DA7]">مثال: XL = 0، XXL = 10، 3XL = 20. المقاس غير الموجود في القاعدة يأخذ السعر الأساسي بدون زيادة.</p>
+              <p className="text-[8px] leading-5 text-[#626E63]">مثال: XL = 0، XXL = 10، 3XL = 20. المقاس غير الموجود في القاعدة يأخذ السعر الأساسي بدون زيادة.</p>
             </div>
 
             <label className="flex items-center gap-2 rounded-[9px] border border-[#E7EAEF] bg-[#FAFBFC] px-3 py-2">
@@ -265,7 +265,7 @@ const AdminSizePriceRulesPage = () => {
           <div className="flex flex-col gap-3 border-b border-[#EEF1F4] pb-3 md:flex-row md:items-end md:justify-between">
             <div>
               <h2 className="text-[12px] font-semibold text-[#3F4650]">تطبيق جماعي على المنتجات</h2>
-              <p className="mt-1 text-[8px] text-[#969DA7]">حدد المنتجات مرة واحدة ثم طبّق القاعدة عليها جميعاً</p>
+              <p className="mt-1 text-[8px] text-[#626E63]">حدد المنتجات مرة واحدة ثم طبّق القاعدة عليها جميعاً</p>
             </div>
             <div className="flex flex-col gap-2 sm:flex-row">
               <Select value={bulkRuleId} onValueChange={setBulkRuleId}>
@@ -288,7 +288,7 @@ const AdminSizePriceRulesPage = () => {
           </div>
 
           <div className="mt-3 overflow-hidden rounded-[11px] border border-[#E8EBEF]">
-            <div className="grid grid-cols-[36px_minmax(0,1fr)_90px_150px] items-center gap-2 bg-[#F8FAFC] px-3 py-2 text-[8px] font-semibold text-[#737B86]">
+            <div className="grid grid-cols-[36px_minmax(0,1fr)_90px_150px] items-center gap-2 bg-[#F8FAFC] px-3 py-2 text-[8px] font-semibold text-[#6A727D]">
               <Checkbox checked={allVisibleSelected} onCheckedChange={(checked) => toggleAllVisible(Boolean(checked))} aria-label="تحديد الكل" />
               <span>المنتج</span>
               <span>السعر</span>
@@ -298,7 +298,7 @@ const AdminSizePriceRulesPage = () => {
             {productsLoading ? (
               <div className="flex h-32 items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-[#675CBA]" /></div>
             ) : filteredProducts.length === 0 ? (
-              <div className="p-8 text-center text-[9px] text-[#969DA7]">لا توجد منتجات بمقاسات مطابقة للبحث.</div>
+              <div className="p-8 text-center text-[9px] text-[#626E63]">لا توجد منتجات بمقاسات مطابقة للبحث.</div>
             ) : (
               <div className="max-h-[600px] overflow-y-auto">
                 {filteredProducts.map((product) => {
@@ -320,7 +320,7 @@ const AdminSizePriceRulesPage = () => {
             )}
           </div>
 
-          <p className="mt-2 text-[8px] text-[#969DA7]">المنتجات غير المرتبطة بقاعدة تستمر بالسعر الأساسي كما هي. تعطيل القاعدة يجعل زياداتها صفراً فوراً دون حذف الربط.</p>
+          <p className="mt-2 text-[8px] text-[#626E63]">المنتجات غير المرتبطة بقاعدة تستمر بالسعر الأساسي كما هي. تعطيل القاعدة يجعل زياداتها صفراً فوراً دون حذف الربط.</p>
         </section>
       </div>
     </div>

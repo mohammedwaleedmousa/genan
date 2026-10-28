@@ -153,14 +153,14 @@ const AdminProductToolsPage = ({ embedded = false }: AdminProductToolsPageProps)
             </div>
             <div>
               <p className="text-[10px] font-semibold text-[#444B55]">البحث والتعديل السريع</p>
-              <p className="mt-[2px] text-[7px] text-[#9BA2AC]">آخر 150 منتجًا مع أدوات الحفظ والنسخ</p>
+              <p className="mt-[2px] text-[7px] text-[#626E63]">آخر 150 منتجًا مع أدوات الحفظ والنسخ</p>
             </div>
           </div>
 
           <div className="flex w-full gap-[7px] sm:w-auto">
             <div className="relative min-w-0 flex-1 sm:w-[300px]">
               <Search className="pointer-events-none absolute right-[11px] top-1/2 h-[12px] w-[12px] -translate-y-1/2 text-[#969EA8]" />
-              <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="اسم المنتج، الرابط أو الماركة" className="h-[36px] rounded-[9px] border-[#E3E7EC] bg-[#F8FAFC] pr-[32px] text-[9px] shadow-none placeholder:text-[#A4ABB4] focus-visible:ring-0" />
+              <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="اسم المنتج، الرابط أو الماركة" className="h-[36px] rounded-[9px] border-[#E3E7EC] bg-[#F8FAFC] pr-[32px] text-[9px] shadow-none placeholder:text-[#626E63] focus-visible:ring-0" />
             </div>
             <Button variant="outline" onClick={() => void load()} disabled={loading} className="h-[36px] rounded-[9px] border-[#E3E7EC] px-[10px] text-[8px] shadow-none">
               {loading ? <Loader2 className="ml-[5px] h-[12px] w-[12px] animate-spin" /> : <RefreshCw className="ml-[5px] h-[12px] w-[12px]" />}
@@ -169,7 +169,7 @@ const AdminProductToolsPage = ({ embedded = false }: AdminProductToolsPageProps)
           </div>
         </div>
 
-        <div className="flex items-start gap-[7px] border-b border-[#EDF0F3] bg-[#FBFCFD] px-[14px] py-[9px] text-[7.5px] text-[#7D8590]">
+        <div className="flex items-start gap-[7px] border-b border-[#EDF0F3] bg-[#FBFCFD] px-[14px] py-[9px] text-[7.5px] text-[#6B737E]">
           <ShieldAlert className="mt-[1px] h-[12px] w-[12px] shrink-0 text-[#9A8052]" />
           <p>مخزون المنتجات التي تستخدم مقاسات أو SKU يُعدّل من نظام المخزون الحالي فقط. السعر والحالة والنسخ متاحة هنا بأمان.</p>
         </div>
@@ -197,13 +197,13 @@ const AdminProductToolsPage = ({ embedded = false }: AdminProductToolsPageProps)
                     <tr key={product.id} className="border-b border-[#F0F2F4] last:border-0 hover:bg-[#FCFDFD]">
                       <td className="px-4 py-[10px]">
                         <Link to={`/admin/products/${product.id}`} className="text-[9.5px] font-semibold text-[#424A54] hover:underline">{product.name_ar || product.name}</Link>
-                        <p className="mt-[2px] text-[7px] text-[#9BA2AC]">{[product.brand, product.category].filter(Boolean).join(" • ") || product.slug}</p>
+                        <p className="mt-[2px] text-[7px] text-[#626E63]">{[product.brand, product.category].filter(Boolean).join(" • ") || product.slug}</p>
                       </td>
                       <td className="px-4 py-[10px]"><Input className="h-[32px] w-28 rounded-[8px] border-[#E3E7EC] bg-[#F9FAFB] text-[8.5px] shadow-none focus-visible:ring-0" inputMode="decimal" value={draft?.price ?? ""} onChange={(e) => setDrafts((current) => ({ ...current, [product.id]: { ...current[product.id], price: e.target.value } }))} /></td>
                       <td className="px-4 py-[10px]">
                         <div className="flex items-center gap-[6px]">
                           <Input className="h-[32px] w-24 rounded-[8px] border-[#E3E7EC] bg-[#F9FAFB] text-[8.5px] shadow-none focus-visible:ring-0 disabled:opacity-55" inputMode="numeric" disabled={isSku} value={draft?.stock ?? "0"} onChange={(e) => setDrafts((current) => ({ ...current, [product.id]: { ...current[product.id], stock: e.target.value } }))} />
-                          {isSku && <span className="rounded-[6px] bg-[#F1F3F5] px-[6px] py-[3px] text-[6.5px] font-semibold text-[#858D98]">SKU</span>}
+                          {isSku && <span className="rounded-[6px] bg-[#F1F3F5] px-[6px] py-[3px] text-[6.5px] font-semibold text-[#656C75]">SKU</span>}
                         </div>
                       </td>
                       <td className="px-4 py-[10px]"><Checkbox checked={draft?.is_active ?? false} onCheckedChange={(value) => setDrafts((current) => ({ ...current, [product.id]: { ...current[product.id], is_active: value === true } }))} /></td>

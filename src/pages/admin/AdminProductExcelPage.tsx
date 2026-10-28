@@ -91,12 +91,12 @@ const AdminProductExcelPage = ({ embedded = false }: AdminProductExcelPageProps)
       <section className="overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white">
         <div className="border-b border-[#EDF0F3] px-[14px] py-[11px]">
           <div className="flex items-center gap-[8px]">
-            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#EEF5FF] text-[#557CA9]">
+            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#EEF5FF] text-[#4D7099]">
               <FileSpreadsheet className="h-[13px] w-[13px]" strokeWidth={1.8} />
             </div>
             <div>
               <p className="text-[10px] font-semibold text-[#444B55]">نوع الملف</p>
-              <p className="mt-[2px] text-[7px] text-[#9BA2AC]">اختر البيانات التي تريد تصديرها أو تحديثها</p>
+              <p className="mt-[2px] text-[7px] text-[#626E63]">اختر البيانات التي تريد تصديرها أو تحديثها</p>
             </div>
           </div>
         </div>
@@ -157,9 +157,9 @@ const AdminProductExcelPage = ({ embedded = false }: AdminProductExcelPageProps)
             <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[14px] py-[11px]">
               <div>
                 <p className="text-[10px] font-semibold text-[#444B55]">معاينة التغييرات</p>
-                <p className="mt-[2px] text-[7px] text-[#9BA2AC]">راجع النتائج قبل التنفيذ النهائي</p>
+                <p className="mt-[2px] text-[7px] text-[#626E63]">راجع النتائج قبل التنفيذ النهائي</p>
               </div>
-              <span className={cn("rounded-full px-[8px] py-[4px] text-[7px] font-semibold", errorCount > 0 ? "bg-[#FFF0F1] text-[#B96670]" : "bg-[#EEF7F0] text-[#4D7A57]")}>{errorCount > 0 ? `${errorCount.toLocaleString("ar-EG")} خطأ` : "جاهز للمراجعة"}</span>
+              <span className={cn("rounded-full px-[8px] py-[4px] text-[7px] font-semibold", errorCount > 0 ? "bg-[#FFF0F1] text-[#9D585F]" : "bg-[#EEF7F0] text-[#4D7A57]")}>{errorCount > 0 ? `${errorCount.toLocaleString("ar-EG")} خطأ` : "جاهز للمراجعة"}</span>
             </div>
 
             <div className="overflow-x-auto">
@@ -206,10 +206,10 @@ const AdminProductExcelPage = ({ embedded = false }: AdminProductExcelPageProps)
 };
 
 const STAT_TONES = {
-  neutral: "bg-[#F1F3F5] text-[#747D87]",
+  neutral: "bg-[#F1F3F5] text-[#646B75]",
   green: "bg-[#EEF7F0] text-[#4D7A57]",
-  blue: "bg-[#EEF5FF] text-[#557CA9]",
-  rose: "bg-[#FFF0F1] text-[#B96670]",
+  blue: "bg-[#EEF5FF] text-[#4D7099]",
+  rose: "bg-[#FFF0F1] text-[#9D585F]",
 } as const;
 
 const ExcelStatCard = ({ label, value, tone }: { label: string; value: number; tone: keyof typeof STAT_TONES }) => (

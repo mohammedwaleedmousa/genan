@@ -38,10 +38,10 @@ const bannerStatus = (banner: Pick<BannerSchedule, "is_active" | "starts_at" | "
 };
 
 const STATUS_META: Record<Status, { label: string; className: string }> = {
-  draft: { label: "مسودة / مخفي", className: "bg-[#F3F4F6] text-[#747C86]" },
-  scheduled: { label: "مجدول", className: "bg-[#EEF5FF] text-[#557CA9]" },
-  live: { label: "منشور الآن", className: "bg-[#EEF7F0] text-[#568468]" },
-  expired: { label: "منتهي", className: "bg-[#FFF0F1] text-[#B96670]" },
+  draft: { label: "مسودة / مخفي", className: "bg-[#F3F4F6] text-[#666D77]" },
+  scheduled: { label: "مجدول", className: "bg-[#EEF5FF] text-[#4D7099]" },
+  live: { label: "منشور الآن", className: "bg-[#EEF7F0] text-[#4C755E]" },
+  expired: { label: "منتهي", className: "bg-[#FFF0F1] text-[#9D585F]" },
 };
 
 const AdminPublishingWorkspacePage = () => {
@@ -221,7 +221,7 @@ const AdminPublishingWorkspacePage = () => {
                 <img src={previewBanner.image_url} alt={previewBanner.title_ar || previewBanner.title} className="absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/15 to-transparent" />
                 <div className="absolute inset-y-0 right-0 flex w-[62%] items-center px-6 text-white md:px-10">
-                  <div><p className="text-[7px] tracking-[0.2em] text-white/75">FLAMINGO PREVIEW</p><h2 className="mt-2 text-[24px] font-semibold leading-[1.45] md:text-[38px]">{previewBanner.title_ar || previewBanner.title}</h2><span className={cn("mt-4 inline-flex rounded-full bg-white/90 px-3 py-1.5 text-[7px] font-semibold", STATUS_META[bannerStatus(previewBanner)].className)}>{STATUS_META[bannerStatus(previewBanner)].label}</span></div>
+                  <div><p className="text-[7px] tracking-[0.2em] text-white/75">GENAN PREVIEW</p><h2 className="mt-2 text-[24px] font-semibold leading-[1.45] md:text-[38px]">{previewBanner.title_ar || previewBanner.title}</h2><span className={cn("mt-4 inline-flex rounded-full bg-white/90 px-3 py-1.5 text-[7px] font-semibold", STATUS_META[bannerStatus(previewBanner)].className)}>{STATUS_META[bannerStatus(previewBanner)].label}</span></div>
                 </div>
               </div>
             </div>

@@ -156,7 +156,7 @@ const AdminOrderPreparationPage = () => {
 
       <div className="hidden print:block">
         <div className="mb-5 border-b border-black pb-3">
-          <h1 className="text-xl font-bold">Flamingo Park — قائمة تجهيز الطلبات</h1>
+          <h1 className="text-xl font-bold">بوتيك جنان — قائمة تجهيز الطلبات</h1>
           <p className="mt-1 text-xs">تاريخ الطباعة: {new Date().toLocaleString("ar-EG")}</p>
           <p className="mt-1 text-xs">عدد الطلبات: {visible.length} • عدد القطع: {visible.reduce((sum, order) => sum + itemsCount(order), 0)}</p>
         </div>
@@ -178,14 +178,14 @@ const AdminOrderPreparationPage = () => {
                   <div>
                     <div className="flex flex-wrap items-center gap-[6px]">
                       <strong dir="ltr" className="text-[10px] text-[#3F4650] print:text-sm print:text-black">#{order.order_number}</strong>
-                      <span className="rounded-full bg-[#F3F4F6] px-[7px] py-[3px] text-[6.5px] font-semibold text-[#747C86] print:border print:border-black print:bg-transparent print:text-black">{STATUS_LABELS[order.status] || order.status}</span>
+                      <span className="rounded-full bg-[#F3F4F6] px-[7px] py-[3px] text-[6.5px] font-semibold text-[#666D77] print:border print:border-black print:bg-transparent print:text-black">{STATUS_LABELS[order.status] || order.status}</span>
                     </div>
                     <p className="mt-[3px] text-[8px] text-[#69717C] print:text-xs print:text-black">{order.customer_name} • <span dir="ltr">{order.customer_phone}</span></p>
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-[6px] text-[7px] text-[#8F97A2] print:text-xs print:text-black">
                   <span className="flex items-center gap-1"><CalendarDays className="h-3 w-3" />{new Date(order.created_at).toLocaleString("ar-EG")}</span>
-                  <span className="rounded-full bg-[#FFF6E7] px-2 py-1 text-[#A9782F] print:bg-transparent print:text-black">الانتظار: {ageLabel(order.created_at)}</span>
+                  <span className="rounded-full bg-[#FFF6E7] px-2 py-1 text-[#916629] print:bg-transparent print:text-black">الانتظار: {ageLabel(order.created_at)}</span>
                   <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{order.customer_region || order.customer_city || order.customer_address || order.country}</span>
                 </div>
               </div>

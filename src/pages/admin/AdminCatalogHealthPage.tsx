@@ -113,12 +113,12 @@ const AdminCatalogHealthPage = () => {
                   active ? "bg-[#F3F5F1] text-[#4F5A45]" : "text-[#6E7681] hover:bg-[#F8F9FA]",
                 )}
               >
-                <span className={cn("flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px]", active ? "bg-white text-[#647057]" : "bg-[#F5F7F9] text-[#8E96A1]")}>
+                <span className={cn("flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px]", active ? "bg-white text-[#647057]" : "bg-[#F5F7F9] text-[#676D76]")}>
                   <Icon className="h-[15px] w-[15px]" strokeWidth={1.8} />
                 </span>
                 <span className="min-w-0">
                   <span className="block text-[10px] font-semibold">{label}</span>
-                  <span className="mt-[2px] block truncate text-[7px] text-[#9BA2AC]">{helper}</span>
+                  <span className="mt-[2px] block truncate text-[7px] text-[#626E63]">{helper}</span>
                 </span>
               </button>
             );
@@ -137,12 +137,12 @@ const AdminCatalogHealthPage = () => {
           <section className="overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white">
             <div className="flex flex-col gap-[10px] border-b border-[#EDF0F3] px-[14px] py-[11px] sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-[8px]">
-                <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#FFF6E7] text-[#B57A23]">
+                <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#FFF6E7] text-[#95641B]">
                   <AlertTriangle className="h-[13px] w-[13px]" strokeWidth={1.8} />
                 </div>
                 <div>
                   <p className="text-[10px] font-semibold text-[#444B55]">المنتجات التي تحتاج مراجعة</p>
-                  <p className="mt-[2px] text-[7px] text-[#9BA2AC]">{visibleRows.length.toLocaleString("ar-EG")} نتيجة من أصل {summary.total_products.toLocaleString("ar-EG")} منتج</p>
+                  <p className="mt-[2px] text-[7px] text-[#626E63]">{visibleRows.length.toLocaleString("ar-EG")} نتيجة من أصل {summary.total_products.toLocaleString("ar-EG")} منتج</p>
                 </div>
               </div>
 
@@ -153,7 +153,7 @@ const AdminCatalogHealthPage = () => {
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
                     placeholder="ابحث بالمنتج أو المشكلة"
-                    className="h-[36px] rounded-[9px] border-[#E3E7EC] bg-[#F8FAFC] pr-[32px] text-[9px] shadow-none placeholder:text-[#A4ABB4] focus-visible:ring-0"
+                    className="h-[36px] rounded-[9px] border-[#E3E7EC] bg-[#F8FAFC] pr-[32px] text-[9px] shadow-none placeholder:text-[#626E63] focus-visible:ring-0"
                   />
                 </div>
                 <Button variant="outline" size="icon" onClick={() => void load()} disabled={loading} title="إعادة الفحص" className="h-[36px] w-[36px] rounded-[9px] border-[#E3E7EC] shadow-none">
@@ -168,7 +168,7 @@ const AdminCatalogHealthPage = () => {
               <div className="grid min-h-56 place-items-center px-4 text-center">
                 <div>
                   <p className="text-[11px] font-semibold text-[#4A515B]">لا توجد نتائج تحتاج مراجعة</p>
-                  <p className="mt-1 text-[8px] text-[#9BA2AC]">الكتالوج مطابق للفحوص الحالية.</p>
+                  <p className="mt-1 text-[8px] text-[#626E63]">الكتالوج مطابق للفحوص الحالية.</p>
                 </div>
               </div>
             ) : (
@@ -187,19 +187,19 @@ const AdminCatalogHealthPage = () => {
                       <tr key={row.id} className="border-b border-[#F0F2F4] last:border-0 hover:bg-[#FCFDFD]">
                         <td className="px-4 py-[11px]">
                           <p className="text-[9.5px] font-semibold text-[#424A54]">{row.name_ar || row.name || "منتج بدون اسم"}</p>
-                          <p className="mt-[2px] text-[7px] text-[#9BA2AC]">{row.name || row.slug}</p>
+                          <p className="mt-[2px] text-[7px] text-[#626E63]">{row.name || row.slug}</p>
                         </td>
                         <td className="px-4 py-[11px]">
                           <div className="flex flex-wrap gap-[5px]">
                             {row.issues.map((issue) => (
-                              <span key={issue} className="rounded-[7px] border border-[#E7EAEF] bg-[#F8F9FA] px-[7px] py-[4px] text-[7px] font-medium text-[#6D7580]">
+                              <span key={issue} className="rounded-[7px] border border-[#E7EAEF] bg-[#F8F9FA] px-[7px] py-[4px] text-[7px] font-medium text-[#676F7A]">
                                 {CATALOG_ISSUE_LABELS[issue] || issue}
                               </span>
                             ))}
                           </div>
                         </td>
                         <td className="px-4 py-[11px]">
-                          <span className={cn("inline-flex rounded-full px-[7px] py-[4px] text-[7px] font-semibold", row.is_active ? "bg-[#EEF7F0] text-[#4D7A57]" : "bg-[#F3F4F6] text-[#858D98]")}>{row.is_active ? "نشط" : "غير نشط"}</span>
+                          <span className={cn("inline-flex rounded-full px-[7px] py-[4px] text-[7px] font-semibold", row.is_active ? "bg-[#EEF7F0] text-[#4D7A57]" : "bg-[#F3F4F6] text-[#656C75]")}>{row.is_active ? "نشط" : "غير نشط"}</span>
                         </td>
                         <td className="px-4 py-[11px]">
                           <Button asChild variant="outline" size="sm" className="h-[30px] rounded-[8px] border-[#E1E5EA] px-[9px] text-[8px] shadow-none">
@@ -224,10 +224,10 @@ const AdminCatalogHealthPage = () => {
 };
 
 const TONE_CLASSES = {
-  amber: { icon: "bg-[#FFF6E7] text-[#B57A23]", bar: "bg-[#E2B45F]" },
-  rose: { icon: "bg-[#FFF0F1] text-[#B96670]", bar: "bg-[#D88B94]" },
+  amber: { icon: "bg-[#FFF6E7] text-[#95641B]", bar: "bg-[#E2B45F]" },
+  rose: { icon: "bg-[#FFF0F1] text-[#9D585F]", bar: "bg-[#D88B94]" },
   violet: { icon: "bg-[#F2F0FF] text-[#675CBA]", bar: "bg-[#8C83C8]" },
-  blue: { icon: "bg-[#EEF5FF] text-[#557CA9]", bar: "bg-[#7EA1C7]" },
+  blue: { icon: "bg-[#EEF5FF] text-[#4D7099]", bar: "bg-[#7EA1C7]" },
 } as const;
 
 const HealthStatCard = ({ title, helper, value, icon: Icon, tone }: { title: string; helper: string; value: number; icon: typeof AlertTriangle; tone: keyof typeof TONE_CLASSES }) => {
