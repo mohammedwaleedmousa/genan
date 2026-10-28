@@ -8,6 +8,7 @@ import { ADMIN_LOGIN_PATH, adminPath, legacyAdminPathToCurrent, normalizeAdminPa
 
 import AdminSidebar from "./AdminSidebar";
 import "@/admin-refresh.css";
+import "@/admin-studio.css";
 import NotificationsDropdown from "./NotificationsDropdown";
 
 /* =========================================================
@@ -482,56 +483,43 @@ const AdminLayout = () => {
               TOP BAR
           ===================================================== */}
 
-          <header className="relative z-40 flex h-[64px] shrink-0 items-center border-b border-[#E7E0D4] bg-white px-3 sm:px-4 lg:px-5">
-            <div className="flex w-full min-w-0 items-center gap-3">
-              <div className="flex min-w-0 shrink-0 items-center gap-2.5">
-                <SidebarTrigger className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[10px] border border-[#E4DACA] bg-[#FBF9F5] text-[#69717C] shadow-none transition-colors duration-150 hover:border-[#D9DEE5] hover:bg-white hover:text-[#4D5560]" />
-
-                <div className="hidden h-[26px] w-px bg-[#E9ECF0] sm:block" />
-
-                <div className="hidden min-w-0 sm:block">
-                  <div className="flex items-center gap-[6px]">
-                    <span className="text-[11px] font-medium text-[#9A8B77]">{currentPageMeta.section}</span>
-                    <ChevronLeft className="h-[9px] w-[9px] text-[#C0C5CC]" strokeWidth={1.8} />
-                    <span className="max-w-[180px] truncate text-[12px] font-semibold text-[#374438]">{currentPageMeta.title}</span>
+          <header className="genan-studio-topbar relative z-40 flex h-[78px] shrink-0 items-center border-b border-[#D7CEBF] bg-[#F3F0E8] px-3 sm:px-5 lg:px-8">
+            <div className="flex w-full min-w-0 items-center gap-3 lg:gap-6">
+              <div className="flex min-w-0 shrink-0 items-center gap-3">
+                <SidebarTrigger aria-label="فتح وإغلاق القائمة الجانبية" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-none border border-[#C8BBA8] bg-[#FAF8F2] text-[#344337] shadow-none transition-colors hover:bg-[#EAE2D5]" />
+                <div className="hidden min-w-0 border-r-2 border-[#AD8C5F] pr-3 sm:block">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-semibold text-[#816B4D]">{currentPageMeta.section}</span>
+                    <ChevronLeft className="h-3 w-3 text-[#9B8B73]" strokeWidth={1.5} />
+                    <span className="max-w-[190px] truncate text-[13px] font-semibold text-[#24342A]">{currentPageMeta.title}</span>
                   </div>
-
-                  <p className="mt-[3px] text-[9px] font-semibold tracking-[0.1em] text-[#A08C6A]">GENAN ADMIN</p>
+                  <p className="mt-1 text-[9px] font-semibold tracking-[.19em] text-[#8D836F]" dir="ltr">GENAN STUDIO</p>
                 </div>
               </div>
 
-              <div className="relative mx-auto hidden w-full max-w-[500px] md:block">
+              <div className="genan-toolbar-search relative mx-auto hidden w-full max-w-[470px] border border-[#D1C7B7] bg-[#FFFEFA] md:block">
                 <SearchBox searchRef={searchRef} query={searchQuery} focused={searchFocused} results={searchResults} onQueryChange={setSearchQuery} onFocus={() => setSearchFocused(true)} onBlur={() => window.setTimeout(() => setSearchFocused(false), 120)} onSelect={openSearchResult} />
               </div>
 
-              <div className="mr-auto flex shrink-0 items-center gap-[6px]">
-                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" className="flex h-[42px] w-[42px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#737B86] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#4E5661] md:hidden">
-                  {mobileSearchOpen ? <X className="h-[15px] w-[15px]" strokeWidth={1.8} /> : <Search className="h-[15px] w-[15px]" strokeWidth={1.8} />}
+              <div className="mr-auto flex shrink-0 items-center gap-2">
+                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" aria-expanded={mobileSearchOpen} className="flex h-11 w-11 items-center justify-center border border-[#D1C7B7] bg-[#FFFEFA] text-[#3C4C3E] transition-colors hover:bg-[#EAE3D8] md:hidden">
+                  {mobileSearchOpen ? <X className="h-[18px] w-[18px]" /> : <Search className="h-[18px] w-[18px]" />}
                 </button>
-
-                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-[42px] items-center gap-[6px] rounded-[10px] border border-[#E4DACA] bg-white px-[10px] text-[9px] font-semibold text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#3F4650] xl:flex">
-                  <ExternalLink className="h-[12px] w-[12px]" strokeWidth={1.8} />
+                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-11 items-center gap-2 border border-[#CDBFA9] px-4 text-[12px] font-semibold text-[#37493A] transition-colors hover:bg-[#EAE3D8] xl:flex">
+                  <ExternalLink className="h-4 w-4" strokeWidth={1.75} />
                   عرض المتجر
                 </button>
-
-                <div className="flex h-[42px] w-[42px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5]">
+                <div className="flex h-11 w-11 items-center justify-center border border-[#CDBFA9] bg-[#FFFEFA] text-[#37493A]">
                   <NotificationsDropdown />
                 </div>
-
-                <div className="mx-[3px] hidden h-[25px] w-px bg-[#E8EBEF] lg:block" />
-
-                <button type="button" onClick={() => navigate(adminPath("settings"))} className="group flex min-w-0 items-center gap-[8px] rounded-[11px] px-[3px] py-[2px] transition-colors hover:bg-[#F7F9FB]">
-                  <div className="relative flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[11px] bg-[linear-gradient(135deg,#F1E1C6_0%,#E4F1EB_100%)] text-[11px] font-bold uppercase text-[#94703D]">
-                    {userName ? userName.charAt(0).toUpperCase() : <UserRound className="h-[14px] w-[14px]" strokeWidth={1.7} />}
-                    <span className="absolute bottom-0 left-0 h-[9px] w-[9px] rounded-full border-2 border-white bg-[#65A77C]" />
-                  </div>
-
-                  <div className="hidden min-w-0 text-right lg:block">
-                    <p className="max-w-[120px] truncate text-[10px] font-semibold leading-none text-[#353B44]">{userName}</p>
-                    <p dir="ltr" className="mt-[4px] max-w-[120px] truncate text-left text-[10px] font-medium leading-none text-[#9CA3AC]">{userEmail || "مدير النظام"}</p>
-                  </div>
-
-                  <ChevronLeft className="hidden h-[11px] w-[11px] shrink-0 text-[#A1A8B1] lg:block" strokeWidth={1.8} />
+                <button type="button" onClick={() => navigate(adminPath("settings"))} aria-label="الانتقال إلى إعدادات الحساب" className="group flex min-h-11 min-w-11 items-center gap-2 border-r border-[#CCC1B1] pr-2 text-right transition-colors hover:bg-[#EDE6DB] sm:pr-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#283D31] text-[15px] font-bold text-[#F5E9D3]">
+                    {userName ? userName.charAt(0).toUpperCase() : <UserRound className="h-5 w-5" strokeWidth={1.7} />}
+                  </span>
+                  <span className="hidden max-w-[140px] lg:block">
+                    <span className="block truncate text-[12px] font-semibold text-[#233329]">{userName || "مدير المتجر"}</span>
+                    <span dir="ltr" className="mt-1 block max-w-[135px] truncate text-left text-[10px] text-[#777F72]">{userEmail || "إدارة جنان"}</span>
+                  </span>
                 </button>
               </div>
             </div>
@@ -551,8 +539,8 @@ const AdminLayout = () => {
               PAGE
           ===================================================== */}
 
-          <main className="relative min-h-0 min-w-0 flex-1 overflow-hidden bg-[#F7F6F2]">
-            <div className="admin-page-scroll h-full w-full overflow-x-hidden overflow-y-auto overscroll-contain [scrollbar-gutter:stable]">
+          <main className="genan-admin-canvas relative min-h-0 min-w-0 flex-1 overflow-hidden bg-[#F3F0E8]">
+            <div className="admin-page-scroll h-full w-full overflow-x-hidden overflow-y-auto overscroll-contain">
               <div className="mx-auto min-h-full w-full max-w-[1600px] px-4 py-5 lg:px-6 lg:py-6 xl:px-7">
                 <Outlet />
               </div>

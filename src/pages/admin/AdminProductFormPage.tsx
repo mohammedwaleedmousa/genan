@@ -538,7 +538,7 @@ const AdminProductFormPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4 pb-8" dir="rtl">
+    <div className="genan-studio-page genan-product-editor w-full space-y-6 pb-8" dir="rtl" data-genan-screen="products-editor">
       <AdminPageHeader category="الكتالوج والمخزون" title={isEditing ? "تعديل المنتج" : "إضافة منتج جديد"} description="إدارة معلومات المنتج، التسعير، الصور، المخزون والتفاصيل من مكان واحد" actions={[{ label: isSaving ? "جاري الحفظ..." : isEditing ? "حفظ التعديلات" : "حفظ المنتج", icon: Save, onClick: () => (document.getElementById('product-editor-form') as HTMLFormElement | null)?.requestSubmit(), variant: "primary" }, { label: "العودة للمنتجات", icon: ArrowRight, onClick: () => navigate('/admin/products'), variant: "outline" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">

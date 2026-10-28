@@ -62,14 +62,34 @@ const AdminDashboard = () => {
   return <AdminOverviewHome />;
 };
 
-const WorkspaceNav = () => (
-  <div className="print:hidden flex flex-wrap items-center gap-[6px]">
-    <Link to={adminPath()} className="inline-flex h-[31px] items-center gap-[6px] rounded-[8px] border border-[#E3E7EC] bg-white px-[9px] text-[7.5px] font-semibold text-[#747C86] transition hover:bg-[#F8FAFC] hover:text-[#4D5560]"><ArrowRight className="h-[11px] w-[11px]" />لوحة التحكم</Link>
-    <Link to={adminPath() + "?workspace=analytics"} className="inline-flex h-[31px] items-center gap-[6px] rounded-[8px] border border-[#E2D5BC] bg-[#F6EDDD] px-[9px] text-[10px] font-semibold text-[#755A33]"><Sparkles className="h-[11px] w-[11px]" />المؤشرات</Link>
-    <Link to={`${adminPath()}?workspace=command-center`} className="inline-flex h-[31px] items-center gap-[6px] rounded-[8px] border border-[#E4D7C0] bg-white px-[9px] text-[7.5px] font-semibold text-[#926D3E] transition hover:bg-[#FAF3E7]"><Sparkles className="h-[11px] w-[11px]" />مركز الأدمن</Link>
-    <Link to={`${adminPath()}?workspace=publishing`} className="inline-flex h-[31px] items-center gap-[6px] rounded-[8px] border border-[#E3E7EC] bg-white px-[9px] text-[7.5px] font-semibold text-[#747C86] transition hover:bg-[#F8FAFC] hover:text-[#557CA9]"><CalendarClock className="h-[11px] w-[11px]" />النشر والجدولة</Link>
-    <Link to={`${adminPath()}?workspace=team`} className="inline-flex h-[31px] items-center gap-[6px] rounded-[8px] border border-[#E3E7EC] bg-white px-[9px] text-[7.5px] font-semibold text-[#747C86] transition hover:bg-[#F8FAFC] hover:text-[#568468]"><ShieldCheck className="h-[11px] w-[11px]" />الفريق والصلاحيات</Link>
-  </div>
-);
+const WorkspaceNav = () => {
+  const [params] = useSearchParams();
+  const current = params.get("workspace");
+  const tabs = [
+    { title: "الرئيسية", to: adminPath(), key: null, icon: ArrowRight },
+    { title: "المؤشرات", to: adminPath() + "?workspace=analytics", key: "analytics", icon: Sparkles },
+    { title: "مركز الإدارة", to: adminPath() + "?workspace=command-center", key: "command-center", icon: Sparkles },
+    { title: "النشر", to: adminPath() + "?workspace=publishing", key: "publishing", icon: CalendarClock },
+    { title: "الصلاحيات", to: adminPath() + "?workspace=team", key: "team", icon: ShieldCheck },
+  ];
+  return (
+    <nav aria-label="التنقل بين مساحات الإدارة" className="flex max-w-full items-center gap-0 overflow-x-auto border-y border-[#CFC5B7] bg-[#EEE9E1] [scrollbar-width:thin] print:hidden">
+      {tabs.map(tab => {
+        const Icon = tab.icon;
+        const selected = current === tab.key;
+        return (
+          <Link key={tab.title} to={tab.to} aria-current={selected ? "page" : undefined}
+            className={selected
+              ? "flex min-h-[48px] shrink-0 items-center gap-2 border-b-[3px] border-[#80623C] bg-[#26392F] px-5 text-[12px] font-semibold text-white"
+              : "flex min-h-[48px] shrink-0 items-center gap-2 border-b-[3px] border-transparent px-5 text-[12px] font-medium text-[#586357] transition-colors hover:bg-[#E2DACD]"}
+          >
+            <Icon className="h-[15px] w-[15px]" />
+            <span>{tab.title}</span>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+};
 
 export default AdminDashboard;

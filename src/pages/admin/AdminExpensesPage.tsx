@@ -451,7 +451,7 @@ const AdminExpensesPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="expenses">
       <AdminPageHeader category="المالية" title="المصروفات التشغيلية" description="تسجيل ومراجعة وتحليل مصروفات التشغيل مع العملات والتصنيفات وطرق الدفع والإيصالات" actions={[{ label: "مصروف جديد", icon: Plus, onClick: openCreate, variant: "primary" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">

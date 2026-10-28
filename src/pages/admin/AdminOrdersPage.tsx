@@ -672,7 +672,7 @@ const AdminOrdersPage = () => {
   )?.orderId;
 
   return (
-    <div dir="rtl" className="w-full">
+    <div dir="rtl" className="genan-studio-page w-full" data-genan-screen="orders">
       <div className="w-full space-y-4">
 
         {/* =====================================================

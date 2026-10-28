@@ -523,7 +523,7 @@ const AdminRefundsPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="refunds">
       <AdminPageHeader category="المالية" title="المرتجعات والاسترجاع" description="إدارة دورة استرجاع الأموال من المراجعة حتى التحويل والاكتمال" actions={[{ label: "مرتجع جديد", icon: Plus, onClick: openCreate, variant: "primary" }, ...(selectedIds.length > 0 ? [{ label: `حذف ${selectedIds.length}`, icon: Trash2, onClick: () => deleteSelectedMutation.mutate(), variant: "destructive" as const }] : [])]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">

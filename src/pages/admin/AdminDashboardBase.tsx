@@ -857,7 +857,7 @@ const AdminDashboard = () => {
   const totalStatusOrders = Object.values(statusCounts).reduce((sum, value) => sum + value, 0);
 
   return (
-    <div dir="rtl" className="w-full space-y-4">
+    <div dir="rtl" className="genan-studio-page w-full space-y-6" data-genan-screen="analytics">
       {/* =====================================================
           HEADER
       ===================================================== */}

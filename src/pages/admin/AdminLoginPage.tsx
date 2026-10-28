@@ -2,7 +2,6 @@ import { useEffect, useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Loader2, Lock, LogIn, UserRound } from "lucide-react";
-import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
@@ -83,44 +82,68 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[#F7F6F2] p-5 sm:p-6" dir="rtl">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="w-full max-w-[420px]">
-        <div className="space-y-7 rounded-[24px] border border-[#E3D6C4] bg-white p-7 shadow-[0_24px_70px_rgba(29,38,28,.08)] sm:p-9">
-          <div className="flex justify-center"><Logo size="xl" /></div>
-          <div className="text-center">
-            <p className="text-muted-foreground text-sm">لوحة التحكم</p>
-            <h1 className="mt-2 font-heading text-lg text-foreground">تسجيل دخول الأدمن</h1>
-            <p className="mt-2 text-xs text-muted-foreground">برقم الهاتف أو البريد الإلكتروني وكلمة المرور، دون OTP.</p>
+    <main className="min-h-[100dvh] bg-[#EFEAE1] text-[#243228]" dir="rtl">
+      <div className="grid min-h-[100dvh] lg:grid-cols-[minmax(0,1fr)_minmax(0,.9fr)]">
+        <section className="flex min-h-[100dvh] flex-col justify-between px-6 py-8 sm:px-12 lg:min-h-[100dvh] lg:px-[clamp(42px,6vw,110px)] lg:py-12">
+          <div className="flex items-center justify-between gap-4 border-b border-[#CFC4B4] pb-6">
+            <div className="flex items-center gap-3">
+              <span className="h-8 w-[2px] bg-[#9B7B4F]" />
+              <div>
+                <span className="block text-[12px] font-bold tracking-[.22em] text-[#293D31]" dir="ltr">GENAN STUDIO</span>
+                <span className="mt-1 block text-[11px] text-[#7C7C6D]">منطقة الإدارة</span>
+              </div>
+            </div>
+            <a href="/home" className="text-[12px] font-semibold text-[#5A6658] underline underline-offset-4 hover:text-[#896E4B]">العودة للمتجر</a>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
-              <label htmlFor="admin-identifier" className="block text-sm text-muted-foreground">البريد الإلكتروني أو رقم الهاتف</label>
-              <div className="relative">
-                <UserRound className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input id="admin-identifier" type="text" value={identifier} onChange={e => setIdentifier(e.target.value)}
-                  autoComplete="username" placeholder="البريد أو +967..." dir="ltr"
-                  className="bg-background/50 border-0 ring-1 ring-border/50 focus:ring-2 focus:ring-primary pr-10 rounded-xl h-12" />
-              </div>
+
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="mx-auto w-full max-w-[460px] py-16">
+            <div className="mb-9">
+              <span className="text-[11px] font-semibold tracking-[.08em] text-[#8C7149]">مساحة خاصة بمديري المتجر</span>
+              <h1 className="mt-4 text-[35px] font-semibold leading-[1.2] text-[#202F25] sm:text-[44px]">مرحبًا بعودتك.</h1>
+              <p className="mt-4 max-w-sm text-[13px] leading-7 text-[#667063]">ادخل إلى مكتب إدارة جنان لمتابعة المنتجات والطلبات والعملاء.</p>
             </div>
-            <div className="space-y-2">
-              <label htmlFor="admin-password" className="block text-sm text-muted-foreground">كلمة المرور</label>
-              <div className="relative">
-                <Lock className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input id="admin-password" type="password" value={password} onChange={e => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                  className="bg-background/50 border-0 ring-1 ring-border/50 focus:ring-2 focus:ring-primary pr-10 rounded-xl h-12" />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="admin-identifier" className="mb-2 block text-[12px] font-semibold text-[#3A493C]">البريد الإلكتروني أو رقم الهاتف</label>
+                <div className="relative">
+                  <UserRound className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#806C4D]" />
+                  <Input id="admin-identifier" type="text" value={identifier} onChange={e => setIdentifier(e.target.value)}
+                    autoComplete="username" placeholder="البريد الإلكتروني أو +967..." dir="ltr"
+                    className="h-[54px] rounded-none border border-[#CFC5B4] bg-[#FAF9F5] pr-12 text-[14px] text-[#26352B] shadow-none focus-visible:border-[#896D46] focus-visible:ring-1 focus-visible:ring-[#896D46]" />
+                </div>
               </div>
-            </div>
-            <Button type="submit" disabled={isLoading} className="w-full rounded-xl bg-[#24382D] py-6 text-base font-semibold text-white hover:bg-[#364B3C]">
-              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><LogIn className="w-5 h-5 ml-2" />دخول</>}
-            </Button>
-          </form>
-          <p className="text-center text-muted-foreground text-xs">الدخول متاح فقط للحسابات التي لديها صلاحية الإدارة في قاعدة البيانات.</p>
-        </div>
-        <div className="text-center mt-6">
-          <a href="/home" className="text-muted-foreground hover:text-primary text-sm transition-colors">العودة للمتجر</a>
-        </div>
-      </motion.div>
+              <div>
+                <label htmlFor="admin-password" className="mb-2 block text-[12px] font-semibold text-[#3A493C]">كلمة المرور</label>
+                <div className="relative">
+                  <Lock className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#806C4D]" />
+                  <Input id="admin-password" type="password" value={password} onChange={e => setPassword(e.target.value)}
+                    autoComplete="current-password" className="h-[54px] rounded-none border border-[#CFC5B4] bg-[#FAF9F5] pr-12 text-[14px] text-[#26352B] shadow-none focus-visible:border-[#896D46] focus-visible:ring-1 focus-visible:ring-[#896D46]" />
+                </div>
+              </div>
+              <Button type="submit" disabled={isLoading} className="flex min-h-[54px] w-full items-center justify-center gap-3 rounded-none bg-[#25382D] px-5 text-[14px] font-semibold text-white hover:bg-[#3F5343]">
+                {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <><LogIn className="h-5 w-5" />دخول لوحة الإدارة</>}
+              </Button>
+            </form>
+            <p className="mt-7 text-[11px] leading-6 text-[#70786B]">هذه المساحة مخصصة للحسابات التي لديها صلاحيات الإدارة فقط.</p>
+          </motion.div>
+          <div className="border-t border-[#CFC4B4] pt-5 text-[11px] tracking-[.14em] text-[#97846B]" dir="ltr">GENAN BOUTIQUE · MANAGEMENT</div>
+        </section>
+        <aside className="relative hidden min-h-[100dvh] flex-col justify-between overflow-hidden bg-[#253A2E] p-12 text-[#F5ECE0] lg:flex">
+          <div className="absolute -bottom-20 -left-24 h-[530px] w-[530px] rounded-full border border-[#D2BC95]/20" aria-hidden="true" />
+          <div className="absolute bottom-10 left-10 h-[380px] w-[380px] rounded-full border border-[#D2BC95]/15" aria-hidden="true" />
+          <div className="relative flex items-center justify-between border-b border-[#9EA48C]/30 pb-6">
+            <span className="font-serif text-[28px] tracking-[.17em] text-[#F1E6D4]" dir="ltr">GENAN</span>
+            <span className="text-[10px] tracking-[.2em] text-[#D3B98D]" dir="ltr">THE ATELIER</span>
+          </div>
+          <div className="relative">
+            <span className="font-serif text-[clamp(125px,17vw,300px)] leading-none tracking-[-.09em] text-[#CBB184]" dir="ltr">G.</span>
+            <div className="mb-8 mt-4 h-[1px] w-20 bg-[#CBB184]" />
+            <h2 className="max-w-md text-[34px] font-normal leading-[1.5] text-[#F0E9DF]">تفاصيل دقيقة.<br />إدارة أكثر هدوءًا.</h2>
+            <p className="mt-5 max-w-sm text-[14px] leading-8 text-[#BFCFC1]">مساحة عمل صُممت لتليق بهوية بوتيك جنان، وتُبقي ما يهمك قريبًا.</p>
+          </div>
+          <div className="relative border-t border-[#9EA48C]/30 pt-6 text-[11px] text-[#B6BFB4]" dir="ltr">CURATED COMMERCE · GENAN</div>
+        </aside>
+      </div>
     </main>
   );
 };

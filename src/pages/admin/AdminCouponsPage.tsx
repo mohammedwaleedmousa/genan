@@ -284,7 +284,7 @@ const AdminCouponsPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="coupons">
       <AdminPageHeader category="التسويق" title="الكوبونات" description="إدارة أكواد الخصم ومتابعة استخدامها داخل الطلبات" actions={[{ label: "كوبون جديد", icon: Plus, onClick: openCreate, variant: "primary" }, { label: "التقارير", icon: BarChart3, href: "/admin/reports/overview", variant: "outline" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">

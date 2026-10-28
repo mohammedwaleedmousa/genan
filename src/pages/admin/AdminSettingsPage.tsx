@@ -286,7 +286,7 @@ const AdminSettingsPage = () => {
   }
 
   return (
-    <div className="space-y-6 max-w-[1400px] mx-auto" dir="rtl">
+    <div className="genan-studio-page genan-settings-workspace w-full max-w-[1480px] space-y-6" dir="rtl" data-genan-screen="settings">
       <AdminPageHeader
         category="الإدارة"
         title="الإعدادات"
@@ -301,7 +301,9 @@ const AdminSettingsPage = () => {
         ]}
       />
 
-      <nav aria-label="أقسام إعدادات جنان" className="flex flex-wrap gap-2 rounded-[18px] border border-[#E8DDCD] bg-white p-2 shadow-[0_6px_22px_rgba(33,36,28,.035)]" role="tablist">
+      <div className="genan-settings-studio">
+        <div className="genan-settings-rail">
+          <nav aria-label="أقسام إعدادات جنان" className="flex flex-wrap gap-2 rounded-[18px] border border-[#E8DDCD] bg-white p-2 shadow-[0_6px_22px_rgba(33,36,28,.035)]" role="tablist">
         {([
           { id: "general", label: "معلومات المتجر" },
           { id: "assistant", label: "مساعد العملاء" },
@@ -319,6 +321,8 @@ const AdminSettingsPage = () => {
           </button>
         ))}
       </nav>
+        </div>
+        <div className="genan-settings-main space-y-5">
       <p className="-mt-3 text-[12px] text-[#655C4F]">يمكنك التنقل بين الأقسام، ثم الضغط على «حفظ التغييرات» لحفظ الإعدادات.</p>
 
       {activeSettingsTab === "general" && (
@@ -515,6 +519,8 @@ const AdminSettingsPage = () => {
           {isSaving ? <Loader2 className="ml-2 h-4 w-4 animate-spin" /> : <Save className="ml-2 h-4 w-4" />}
           {isSaving ? "جاري الحفظ..." : "حفظ التغييرات"}
         </Button>
+      </div>
+        </div>
       </div>
     </div>
   );

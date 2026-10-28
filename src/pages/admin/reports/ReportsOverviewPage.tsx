@@ -179,7 +179,7 @@ export default function ReportsOverviewPage() {
   };
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="reports">
       <AdminPageHeader category="التقارير والتحليلات" title="نظرة عامة والإيرادات" description="ملخص أداء المتجر والمبيعات وسلوك الزوار خلال الفترة المحددة" />
 
       <section className="rounded-[14px] border border-[#E8E0D4] bg-white p-[10px]">

@@ -384,7 +384,7 @@ const AdminInvoicesPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="invoices">
       <AdminPageHeader category="المالية" title="مركز إدارة الفواتير" description="إنشاء ومراجعة واعتماد ورفض وإرجاع وأرشفة فواتير الطلبات من مكان واحد" actions={[{ label: "فاتورة جديدة", icon: Plus, onClick: () => setShowNewInvoice(true), variant: "primary" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] xl:grid-cols-6">

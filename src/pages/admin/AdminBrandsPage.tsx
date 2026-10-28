@@ -598,7 +598,7 @@ const AdminBrandsPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="brands">
       <AdminPageHeader category="الكتالوج" title="إدارة الماركات" description={`${stats.total.toLocaleString("ar-EG")} ماركة مسجلة في المتجر`} actions={[{ label: "إضافة ماركة", icon: Plus, onClick: openCreate, variant: "primary" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">

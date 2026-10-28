@@ -408,7 +408,7 @@ const AdminProductsPage = () => {
   const lastResult = Math.min(page * PAGE_SIZE, total);
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="products">
       {/* =====================================================
           HEADER
       ===================================================== */}

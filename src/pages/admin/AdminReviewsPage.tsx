@@ -398,7 +398,7 @@ const AdminReviewsPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="reviews">
       <AdminPageHeader category="المحتوى والثقة" title="التقييمات" description="مراجعة تقييمات العملاء واعتماد المحتوى الذي يظهر في صفحات المنتجات" actions={[{ label: "إضافة تقييم", icon: Plus, onClick: openCreate, variant: "primary" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">

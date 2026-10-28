@@ -478,7 +478,7 @@ const AdminOffersPage = () => {
   }
 
   return (
-    <div className="w-full space-y-4" dir="rtl">
+    <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="offers">
       <AdminPageHeader category="التسويق" title="العروض" description="إدارة العروض والخصومات وجدولة ظهورها وربطها بالمنتجات" actions={[{ label: "عرض جديد", icon: Plus, onClick: openNew, variant: "primary" }, { label: "الكوبونات", icon: TicketSlash, href: "/admin/coupons", variant: "outline" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">
