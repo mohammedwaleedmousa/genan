@@ -548,9 +548,25 @@ const AdminProductFormPage = () => {
         <ProductEditorStat title="حالة المنتج" value={formData.is_active ? "نشط" : "معطل"} helper={formData.in_stock && previewStockQty > 0 ? "متاح للبيع" : "غير متاح للبيع حاليًا"} icon={Eye} tone={formData.is_active ? "green" : "coral"} />
       </section>
 
+      <nav aria-label="التنقل بين أقسام المنتج" className="genan-editor-chapters sticky top-0 z-20 flex max-w-full items-center gap-1 overflow-x-auto border-y border-[#D4C9B8] bg-[#F1EDE5]/95 px-2 py-2 shadow-sm backdrop-blur-md [scrollbar-width:thin]">
+        {([
+          ["genan-editor-basic", "01 / البيانات"],
+          ["genan-editor-visibility", "02 / الظهور"],
+          ["genan-editor-accessories", "03 / الملحقات"],
+          ["genan-editor-variants", "04 / الألوان"],
+          ["genan-editor-specifications", "05 / المواصفات"],
+          ["genan-editor-materials", "06 / الخامات"],
+        ] as const).map(([id, label]) => (
+          <button key={id} type="button" onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            className="min-h-[39px] shrink-0 border border-transparent px-3 text-[11px] font-semibold text-[#4B584B] transition-colors hover:border-[#BFA986] hover:bg-white focus-visible:outline-[#80623C]">
+            {label}
+          </button>
+        ))}
+      </nav>
+
       <form id="product-editor-form" onSubmit={handleSubmit} className="space-y-[12px]">
         {/* Basic Info */}
-        <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
+        <div id="genan-editor-basic" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
           <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#F1EFFF] text-[#675CBA]"><Package className="h-[12px] w-[12px]" /></span>المعلومات الأساسية</h2>
           
           <div className="grid grid-cols-1 gap-[10px] md:grid-cols-2 xl:grid-cols-3">
@@ -793,7 +809,7 @@ const AdminProductFormPage = () => {
         </div>
 
         {/* Settings */}
-        <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
+        <div id="genan-editor-visibility" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
           <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#486BB0]"><Settings2 className="h-[12px] w-[12px]" /></span>الإعدادات والظهور</h2>
 
           <div className="flex flex-wrap gap-[8px]">
@@ -899,7 +915,7 @@ const AdminProductFormPage = () => {
         </div>
 
         {/* Accessories Section */}
-        <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
+        <div id="genan-editor-accessories" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
           <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#FFF0ED] text-[#A5564A]"><Plus className="h-[12px] w-[12px]" /></span>الملحقات الإضافية</h2>
           <p className="text-[9px] text-[#8D959F]">
             أضف ملحقات اختيارية للمنتج. عند اختيار أي ملحق سيُضاف سعره للسعر الأساسي.
@@ -1057,7 +1073,7 @@ const AdminProductFormPage = () => {
         
         {/* Inventory without colors */}
         {formData.color_variants.length === 0 && (
-          <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
+          <div id="genan-editor-inventory" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
             <div>
               <h2 className="flex items-center gap-[7px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EAF7EE] text-[#507555]"><Boxes className="h-[12px] w-[12px]" /></span>المقاسات والمخزون</h2>
               <p className="text-[9px] text-[#8D959F] mt-[4px]">يمكنك استخدام مخزون عام، أو إضافة كل مقاس وتحديد كميته. نفس البيانات تظهر للعميل وتُخصم تلقائيًا عند تأكيد الطلب.</p>
@@ -1089,7 +1105,7 @@ const AdminProductFormPage = () => {
             {standaloneSizes.length > 0 && <button type="button" onClick={() => { setStandaloneSizes([]); setFormData((current) => ({ ...current, stock_quantity: String(standaloneSizes.reduce((sum, item) => sum + Number(item.stock || 0), 0)) })); }} className="text-[8px] text-[#626E63] underline underline-offset-4">العودة إلى مخزون عام بدون مقاسات</button>}
           </div>
         )}
-        <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#5680CF]">
+        <div id="genan-editor-variants" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#5680CF]">
           <div className="mb-[11px] flex items-center justify-between gap-3 border-b border-[#EEF1F4] pb-[10px]">
             <div className="flex items-center gap-[7px]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#486BB0]"><Layers3 className="h-[12px] w-[12px]" /></span><div><h2 className="text-[12px] font-semibold text-[#3F4650]">الصور والألوان والمقاسات</h2><p className="mt-[2px] text-[7px] text-[#626E63]">إدارة خيارات المنتج والمخزون لكل لون ومقاس</p></div></div>
             <span className="rounded-[7px] bg-[#F6F7F9] px-[7px] py-[4px] text-[6px] font-semibold text-[#686E76]">VARIANTS</span>
@@ -1103,7 +1119,7 @@ const AdminProductFormPage = () => {
         </div>
 
         {/* Specifications */}
-        <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
+        <div id="genan-editor-specifications" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
           <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#486BB0]"><ClipboardList className="h-[12px] w-[12px]" /></span>المواصفات التفصيلية</h2>
           <p className="text-[8px] text-[#626E63]">أضف مواصفات المنتج (مثل: المادة، الوزن، البلد، إلخ). تُعرض كجدول قابل للطي في صفحة المنتج.</p>
           <div className="grid grid-cols-1 gap-[7px] md:grid-cols-[1fr_1fr_auto]">
@@ -1141,7 +1157,7 @@ const AdminProductFormPage = () => {
         </div>
 
         {/* Quality Variants */}
-        <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
+        <div id="genan-editor-materials" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="flex items-center gap-[7px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#FFF5E5] text-[#91642B]"><Shield className="h-[12px] w-[12px]" /></span>جودات / خامات متعددة</h2>

@@ -348,3 +348,32 @@
     font-size: 16px !important;
   }
 }
+
+/* Quick chapter navigation belongs to the product editor only. */
+.genan-admin-canvas .genan-product-editor .genan-editor-chapters {
+  border-radius: 0;
+  scrollbar-color: #B3A38A transparent;
+}
+.genan-admin-canvas .genan-product-editor .genan-editor-chapters button {
+  border-radius: 0 !important;
+  min-height: 42px;
+}
+.genan-admin-canvas .genan-product-editor [id^="genan-editor-"] {
+  scroll-margin-top: 80px;
+}
+/* Data content keeps its own semantic status palette, but action areas have
+   editorial spacing and predictable alignment. */
+.genan-admin-canvas .genan-studio-page > section:not(.grid) + section:not(.grid),
+.genan-admin-canvas .genan-studio-page > div > section:not(.grid) + section:not(.grid) {
+  margin-top: 20px;
+}
+.genan-admin-canvas .genan-studio-page [data-state="open"][role="combobox"] {
+  border-color: #8C6D44 !important;
+  box-shadow: 0 0 0 1px #8C6D44;
+}
+@media (max-width: 767px) {
+  .genan-admin-canvas .genan-product-editor .genan-editor-chapters {
+    margin-inline: -13px;
+    padding-inline: 13px;
+  }
+}
