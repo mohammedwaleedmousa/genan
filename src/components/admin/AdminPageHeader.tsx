@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { legacyAdminPathToCurrent } from "@/lib/adminRoutes";
 import { LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -30,7 +31,7 @@ const AdminPageHeader: React.FC<AdminPageHeaderProps> = ({ title, description, c
 
         <h1 className="font-heading text-[25px] font-bold leading-tight tracking-[-0.45px] text-[#222821] md:text-[28px]">{title}</h1>
 
-        {description && <p className="mt-[6px] max-w-[680px] text-[12px] font-medium leading-[1.75] text-[#888F84] md:text-[11px]">{description}</p>}
+        {description && <p className="mt-[6px] max-w-[680px] text-[12px] font-medium leading-[1.75] text-[#888F84] md:text-[12px]">{description}</p>}
       </div>
 
       {actions.length > 0 && (
@@ -48,7 +49,7 @@ const AdminHeaderAction = ({ action }: { action: NonNullable<AdminPageHeaderProp
   const Icon = action.icon;
 
   const className = cn(
-    "inline-flex h-[38px] items-center justify-center gap-[7px] rounded-[10px] border px-[12px] text-[10px] font-semibold transition-colors duration-150",
+    "inline-flex min-h-[42px] items-center justify-center gap-[7px] rounded-[10px] border px-[12px] text-[12px] font-semibold transition-colors duration-150",
     action.variant === "primary" && "border-[#99784D] bg-[#99784D] text-white hover:border-[#7E6037] hover:bg-[#7E6037]",
     action.variant === "secondary" && "border-[#D9E3F3] bg-[#EFF4FC] text-[#506A91] hover:bg-[#E8F0FA]",
     action.variant === "destructive" && "border-[#F0D5D1] bg-[#FFF3F1] text-[#C15F56] hover:bg-[#FFEDEA]",
@@ -64,7 +65,7 @@ const AdminHeaderAction = ({ action }: { action: NonNullable<AdminPageHeaderProp
 
   if (action.href) {
     return (
-      <Link to={action.href} className={className}>
+      <Link to={legacyAdminPathToCurrent(action.href)} className={className}>
         {content}
       </Link>
     );

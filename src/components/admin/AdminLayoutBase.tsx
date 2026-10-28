@@ -105,10 +105,10 @@ const adminThemeVariables = {
   /* Compatibility with old admin pages */
   "--admin-olive": ADMIN_THEME.primary,
   "--admin-olive-dark": ADMIN_THEME.primaryDark,
-  "--admin-olive-deep": "#4D4497",
+  "--admin-olive-deep": "#5B4529",
   "--admin-olive-soft": ADMIN_THEME.primarySoft,
-  "--admin-olive-soft-2": "#F7F5FF",
-  "--admin-olive-soft-3": "#FBFAFF",
+  "--admin-olive-soft-2": "#F6EDDC",
+  "--admin-olive-soft-3": "#FCFAF6",
   "--admin-white": ADMIN_THEME.surface,
 } as CSSProperties;
 
@@ -472,7 +472,7 @@ const AdminLayout = () => {
 
   return (
     <SidebarProvider defaultOpen={true} style={{ "--sidebar-width": "276px", "--sidebar-width-icon": "70px" } as CSSProperties} className="h-[100dvh] min-h-0 overflow-hidden bg-[#F7F6F2]">
-      <div dir="rtl" style={adminThemeVariables} className="admin-workspace flex h-[100dvh] w-full overflow-hidden bg-[#F7F6F2] font-admin text-[#20242D]">
+      <div dir="rtl" style={adminThemeVariables} className="admin-workspace flex h-[100dvh] w-full overflow-hidden bg-[#F7F6F2] font-admin text-[#283129]">
         <AdminSidebar />
 
         <SidebarInset className="relative flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[#F7F6F2]">
@@ -489,12 +489,12 @@ const AdminLayout = () => {
 
                 <div className="hidden min-w-0 sm:block">
                   <div className="flex items-center gap-[6px]">
-                    <span className="text-[8px] font-medium text-[#9BA2AC]">{currentPageMeta.section}</span>
+                    <span className="text-[11px] font-medium text-[#9A8B77]">{currentPageMeta.section}</span>
                     <ChevronLeft className="h-[9px] w-[9px] text-[#C0C5CC]" strokeWidth={1.8} />
-                    <span className="max-w-[180px] truncate text-[9px] font-semibold text-[#4F5762]">{currentPageMeta.title}</span>
+                    <span className="max-w-[180px] truncate text-[12px] font-semibold text-[#374438]">{currentPageMeta.title}</span>
                   </div>
 
-                  <p className="mt-[3px] text-[6.5px] font-semibold tracking-[0.1em] text-[#B4BAC2]">GENAN ADMIN</p>
+                  <p className="mt-[3px] text-[9px] font-semibold tracking-[0.1em] text-[#A08C6A]">GENAN ADMIN</p>
                 </div>
               </div>
 
@@ -526,7 +526,7 @@ const AdminLayout = () => {
 
                   <div className="hidden min-w-0 text-right lg:block">
                     <p className="max-w-[120px] truncate text-[10px] font-semibold leading-none text-[#353B44]">{userName}</p>
-                    <p dir="ltr" className="mt-[4px] max-w-[120px] truncate text-left text-[7.5px] font-medium leading-none text-[#9CA3AC]">{userEmail || "مدير النظام"}</p>
+                    <p dir="ltr" className="mt-[4px] max-w-[120px] truncate text-left text-[10px] font-medium leading-none text-[#9CA3AC]">{userEmail || "مدير النظام"}</p>
                   </div>
 
                   <ChevronLeft className="hidden h-[11px] w-[11px] shrink-0 text-[#A1A8B1] lg:block" strokeWidth={1.8} />

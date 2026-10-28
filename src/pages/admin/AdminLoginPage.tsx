@@ -83,10 +83,10 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <main className="min-h-screen bg-background flex flex-col items-center justify-center p-6" dir="rtl">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="w-full max-w-sm">
-        <div className="bg-card rounded-2xl shadow-2xl shadow-primary/10 p-8 space-y-7 border border-primary/40">
-          <div className="flex justify-center"><Logo size="lg" /></div>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#F7F6F2] p-5 sm:p-6" dir="rtl">
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="w-full max-w-[420px]">
+        <div className="space-y-7 rounded-[24px] border border-[#E3D6C4] bg-white p-7 shadow-[0_24px_70px_rgba(29,38,28,.08)] sm:p-9">
+          <div className="flex justify-center"><Logo size="xl" /></div>
           <div className="text-center">
             <p className="text-muted-foreground text-sm">لوحة التحكم</p>
             <h1 className="mt-2 font-heading text-lg text-foreground">تسجيل دخول الأدمن</h1>
@@ -111,7 +111,7 @@ const AdminLoginPage = () => {
                   className="bg-background/50 border-0 ring-1 ring-border/50 focus:ring-2 focus:ring-primary pr-10 rounded-xl h-12" />
               </div>
             </div>
-            <Button type="submit" disabled={isLoading} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 rounded-xl text-base">
+            <Button type="submit" disabled={isLoading} className="w-full rounded-xl bg-[#24382D] py-6 text-base font-semibold text-white hover:bg-[#364B3C]">
               {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <><LogIn className="w-5 h-5 ml-2" />دخول</>}
             </Button>
           </form>

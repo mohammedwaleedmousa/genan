@@ -439,21 +439,21 @@ const AdminProductsPage = () => {
           FILTER PANEL
       ===================================================== */}
 
-      <section className="overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white">
-        <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[14px] py-[11px]">
+      <section className="overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white">
+        <div className="flex items-center justify-between border-b border-[#EFE8DE] px-[14px] py-[11px]">
           <div className="flex items-center gap-[8px]">
-            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F1EFFF] text-[#675CBA]">
+            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[#98774B]">
               <Filter className="h-[13px] w-[13px]" strokeWidth={1.8} />
             </div>
 
             <div>
-              <p className="text-[10px] font-semibold text-[#444B55]">البحث والتصفية</p>
-              <p className="mt-[2px] text-[7px] text-[#9BA2AC]">اعثر على المنتج المطلوب بسرعة</p>
+              <p className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</p>
+              <p className="mt-[2px] text-[10px] text-[#9BA2AC]">اعثر على المنتج المطلوب بسرعة</p>
             </div>
           </div>
 
           {hasFilters && (
-            <button type="button" onClick={clearFilters} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[8px] font-semibold text-[#8A919B] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
+            <button type="button" onClick={clearFilters} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[10px] font-semibold text-[#8A919B] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
               <X className="h-[10px] w-[10px]" strokeWidth={1.8} />
               مسح الكل
             </button>
@@ -466,8 +466,8 @@ const AdminProductsPage = () => {
           {parentCategories.length > 0 && (
             <div>
               <div className="mb-[7px] flex items-center justify-between">
-                <span className="text-[7.5px] font-semibold text-[#969DA7]">التصنيف</span>
-                <span className="text-[6.5px] text-[#A8AEB6]">{parentCategories.length} قسم رئيسي</span>
+                <span className="text-[10px] font-semibold text-[#969DA7]">التصنيف</span>
+                <span className="text-[10px] text-[#A8AEB6]">{parentCategories.length} قسم رئيسي</span>
               </div>
 
               <div className="-mx-[2px] flex items-center gap-[5px] overflow-x-auto px-[2px] pb-[2px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -487,8 +487,8 @@ const AdminProductsPage = () => {
           {categoryFilter !== "all" && availableBrandNames.length > 0 && (
             <div className="border-t border-[#EFF1F4] pt-[10px]">
               <div className="mb-[7px] flex items-center justify-between">
-                <span className="text-[7.5px] font-semibold text-[#969DA7]">الماركات</span>
-                <span className="text-[6.5px] text-[#A8AEB6]">{availableBrandNames.length} ماركة</span>
+                <span className="text-[10px] font-semibold text-[#969DA7]">الماركات</span>
+                <span className="text-[10px] text-[#A8AEB6]">{availableBrandNames.length} ماركة</span>
               </div>
 
               <div className="-mx-[2px] flex items-center gap-[5px] overflow-x-auto px-[2px] pb-[2px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -507,7 +507,7 @@ const AdminProductsPage = () => {
             <div className="relative">
               <Search className="pointer-events-none absolute right-[12px] top-1/2 h-[13px] w-[13px] -translate-y-1/2 text-[#969EA8]" strokeWidth={1.7} />
 
-              <Input value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder="ابحث باسم المنتج أو slug..." className="h-[40px] rounded-[10px] border-[#E3E7EC] bg-[#F8FAFC] pr-[35px] pl-[34px] text-[10px] font-medium shadow-none placeholder:text-[#A4ABB4] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
+              <Input value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder="ابحث باسم المنتج أو slug..." className="h-[40px] rounded-[10px] border-[#E8DED0] bg-[#FBF9F5] pr-[35px] pl-[34px] text-[11px] font-medium shadow-none placeholder:text-[#A4ABB4] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
 
               {searchInput && (
                 <button type="button" onClick={() => setSearchInput("")} aria-label="مسح البحث" className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#9AA1AB] transition-colors hover:bg-white hover:text-[#5C6470]">
@@ -517,7 +517,7 @@ const AdminProductsPage = () => {
             </div>
 
             <Select value={status} onValueChange={(value) => setStatus(value as typeof status)}>
-              <SelectTrigger className="h-[40px] rounded-[10px] border-[#E3E7EC] bg-[#F8FAFC] px-[10px] text-[9px] shadow-none focus:ring-0">
+              <SelectTrigger className="h-[40px] rounded-[10px] border-[#E8DED0] bg-[#FBF9F5] px-[10px] text-[11px] shadow-none focus:ring-0">
                 <SelectValue placeholder="حالة المنتج" />
               </SelectTrigger>
 
@@ -529,7 +529,7 @@ const AdminProductsPage = () => {
             </Select>
 
             <Select value={stock} onValueChange={(value) => setStock(value as typeof stock)}>
-              <SelectTrigger className="h-[40px] rounded-[10px] border-[#E3E7EC] bg-[#F8FAFC] px-[10px] text-[9px] shadow-none focus:ring-0">
+              <SelectTrigger className="h-[40px] rounded-[10px] border-[#E8DED0] bg-[#FBF9F5] px-[10px] text-[11px] shadow-none focus:ring-0">
                 <SelectValue placeholder="المخزون" />
               </SelectTrigger>
 
@@ -546,19 +546,19 @@ const AdminProductsPage = () => {
           ================================================= */}
 
           {selected.size > 0 && (
-            <div className="flex flex-col gap-[10px] rounded-[12px] border border-[#DED9F1] bg-[#F8F6FF] p-[10px] sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-[10px] rounded-[12px] border border-[#E9DAC2] bg-[#FCF8EE] p-[10px] sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-[9px]">
-                <div className="flex h-[31px] min-w-[31px] items-center justify-center rounded-[9px] bg-[#675CBA] px-[7px] text-[9px] font-bold text-white">{selected.size}</div>
+                <div className="flex h-[31px] min-w-[31px] items-center justify-center rounded-[9px] bg-[#98774B] px-[7px] text-[11px] font-bold text-white">{selected.size}</div>
 
                 <div>
-                  <p className="text-[9px] font-semibold text-[#544D7D]">منتجات محددة</p>
-                  <p className="mt-[2px] text-[6.5px] text-[#918AAE]">يمكن تطبيق إجراء جماعي على العناصر المحددة</p>
+                  <p className="text-[11px] font-semibold text-[#695637]">منتجات محددة</p>
+                  <p className="mt-[2px] text-[10px] text-[#90816A]">يمكن تطبيق إجراء جماعي على العناصر المحددة</p>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-[6px]">
                 <Select value={bulkCategoryId} onValueChange={setBulkCategoryId}>
-                  <SelectTrigger className="h-[34px] w-[160px] rounded-[8px] border-[#DED9EB] bg-white text-[8px] shadow-none">
+                  <SelectTrigger className="h-[34px] w-[160px] rounded-[8px] border-[#DED9EB] bg-white text-[10px] shadow-none">
                     <SelectValue placeholder="اختيار قسم" />
                   </SelectTrigger>
 
@@ -569,24 +569,24 @@ const AdminProductsPage = () => {
                   </SelectContent>
                 </Select>
 
-                <button type="button" disabled={bulkBusy || !bulkCategoryId} onClick={() => void bulkAssignCategory()} className="flex h-[34px] items-center rounded-[8px] border border-[#DDD9EA] bg-white px-[9px] text-[8px] font-semibold text-[#655D80] transition-colors hover:bg-[#FDFDFF] disabled:cursor-not-allowed disabled:opacity-40">تعيين القسم</button>
+                <button type="button" disabled={bulkBusy || !bulkCategoryId} onClick={() => void bulkAssignCategory()} className="flex h-[34px] items-center rounded-[8px] border border-[#DDD9EA] bg-white px-[9px] text-[10px] font-semibold text-[#655D80] transition-colors hover:bg-[#FDFDFF] disabled:cursor-not-allowed disabled:opacity-40">تعيين القسم</button>
 
-                <button type="button" disabled={bulkBusy} onClick={() => void bulkSetActive(true)} className="flex h-[34px] items-center gap-[5px] rounded-[8px] border border-[#D9E7DD] bg-white px-[9px] text-[8px] font-semibold text-[#568468] transition-colors hover:bg-[#F5FAF6] disabled:opacity-40">
+                <button type="button" disabled={bulkBusy} onClick={() => void bulkSetActive(true)} className="flex h-[34px] items-center gap-[5px] rounded-[8px] border border-[#D9E7DD] bg-white px-[9px] text-[10px] font-semibold text-[#568468] transition-colors hover:bg-[#F5FAF6] disabled:opacity-40">
                   <Eye className="h-[10px] w-[10px]" />
                   تفعيل
                 </button>
 
-                <button type="button" disabled={bulkBusy} onClick={() => void bulkSetActive(false)} className="flex h-[34px] items-center gap-[5px] rounded-[8px] border border-[#E3E6EA] bg-white px-[9px] text-[8px] font-semibold text-[#717984] transition-colors hover:bg-[#F7F9FB] disabled:opacity-40">
+                <button type="button" disabled={bulkBusy} onClick={() => void bulkSetActive(false)} className="flex h-[34px] items-center gap-[5px] rounded-[8px] border border-[#E3E6EA] bg-white px-[9px] text-[10px] font-semibold text-[#717984] transition-colors hover:bg-[#F7F9FB] disabled:opacity-40">
                   <EyeOff className="h-[10px] w-[10px]" />
                   تعطيل
                 </button>
 
-                <button type="button" disabled={bulkBusy} onClick={() => setConfirmDelete({ bulk: true })} className="flex h-[34px] items-center gap-[5px] rounded-[8px] border border-[#F0D7D4] bg-white px-[9px] text-[8px] font-semibold text-[#C15F56] transition-colors hover:bg-[#FFF3F1] disabled:opacity-40">
+                <button type="button" disabled={bulkBusy} onClick={() => setConfirmDelete({ bulk: true })} className="flex h-[34px] items-center gap-[5px] rounded-[8px] border border-[#F0D7D4] bg-white px-[9px] text-[10px] font-semibold text-[#C15F56] transition-colors hover:bg-[#FFF3F1] disabled:opacity-40">
                   <Trash2 className="h-[10px] w-[10px]" />
                   حذف
                 </button>
 
-                <button type="button" onClick={() => setSelected(new Set())} className="flex h-[34px] items-center rounded-[8px] px-[8px] text-[8px] font-semibold text-[#8A919B] transition-colors hover:bg-white">إلغاء</button>
+                <button type="button" onClick={() => setSelected(new Set())} className="flex h-[34px] items-center rounded-[8px] px-[8px] text-[10px] font-semibold text-[#8A919B] transition-colors hover:bg-white">إلغاء</button>
               </div>
             </div>
           )}
@@ -604,10 +604,10 @@ const AdminProductsPage = () => {
           <EmptyProducts />
         ) : (
           products.map((product) => (
-            <article key={product.id} data-product-id={product.id} className={cn("overflow-hidden rounded-[14px] border bg-white transition-colors", selected.has(product.id) ? "border-[#CFC9EC] bg-[#FBFAFF]" : "border-[#E5E9EF]")}>
+            <article key={product.id} data-product-id={product.id} className={cn("overflow-hidden rounded-[14px] border bg-white transition-colors", selected.has(product.id) ? "border-[#CFC9EC] bg-[#FBFAFF]" : "border-[#E8E0D4]")}>
               <div className="p-[11px]">
                 <div className="flex items-start gap-[10px]">
-                  <Checkbox checked={selected.has(product.id)} onCheckedChange={() => toggleSelect(product.id)} className="mt-[3px] h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#675CBA] data-[state=checked]:bg-[#675CBA]" />
+                  <Checkbox checked={selected.has(product.id)} onCheckedChange={() => toggleSelect(product.id)} className="mt-[3px] h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#98774B] data-[state=checked]:bg-[#98774B]" />
 
                   <div className="flex h-[72px] w-[58px] shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-[#EAEDF1] bg-[#F6F7F8]">
                     <img loading="lazy" decoding="async" src={optimizeImage(getProductImage(product), 180, 76)} alt={product.name_ar || product.name} onError={(event) => { event.currentTarget.src = "/placeholder.svg"; }} className="h-full w-full object-contain" />
@@ -617,7 +617,7 @@ const AdminProductsPage = () => {
                     <div className="flex items-start justify-between gap-[7px]">
                       <div className="min-w-0">
                         <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{product.name_ar || product.name}</h3>
-                        <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#A0A6AF]">{product.slug}</p>
+                        <p dir="ltr" className="mt-[3px] truncate text-right text-[10px] text-[#A0A6AF]">{product.slug}</p>
                       </div>
 
                       <ProductStatus active={product.is_active} />
@@ -631,7 +631,7 @@ const AdminProductsPage = () => {
                     <div className="mt-[8px] flex items-end justify-between gap-2">
                       <div>
                         <p dir="ltr" className="text-right text-[12px] font-semibold text-[#353C46]">{formatPrice(product)}</p>
-                        {(product.discount ?? 0) > 0 && <p className="mt-[2px] text-[6.5px] font-semibold text-[#C76161]">خصم {product.discount}%</p>}
+                        {(product.discount ?? 0) > 0 && <p className="mt-[2px] text-[10px] font-semibold text-[#C76161]">خصم {product.discount}%</p>}
                       </div>
 
                       <StockStatus inStock={product.in_stock} />
@@ -640,13 +640,13 @@ const AdminProductsPage = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-[1fr_1fr_36px] gap-[5px] border-t border-[#EDF0F3] bg-[#FAFBFC] p-[7px]">
-                <button type="button" onClick={() => void toggleActive(product.id, product.is_active)} className="flex h-[34px] items-center justify-center gap-[5px] rounded-[8px] border border-[#E3E7EC] bg-white text-[8px] font-semibold text-[#69717C]">
+              <div className="grid grid-cols-[1fr_1fr_36px] gap-[5px] border-t border-[#EFE8DE] bg-[#FAFBFC] p-[7px]">
+                <button type="button" onClick={() => void toggleActive(product.id, product.is_active)} className="flex h-[34px] items-center justify-center gap-[5px] rounded-[8px] border border-[#E8DED0] bg-white text-[10px] font-semibold text-[#69717C]">
                   {product.is_active ? <EyeOff className="h-[11px] w-[11px]" /> : <Eye className="h-[11px] w-[11px]" />}
                   {product.is_active ? "تعطيل" : "تفعيل"}
                 </button>
 
-                <Link to={`/admin/products/${product.id}`} onClick={() => rememberProductPosition(product.id)} className="flex h-[34px] items-center justify-center gap-[5px] rounded-[8px] border border-[#E3E7EC] bg-white text-[8px] font-semibold text-[#69717C]">
+                <Link to={`/admin/products/${product.id}`} onClick={() => rememberProductPosition(product.id)} className="flex h-[34px] items-center justify-center gap-[5px] rounded-[8px] border border-[#E8DED0] bg-white text-[10px] font-semibold text-[#69717C]">
                   <Edit className="h-[11px] w-[11px]" />
                   تعديل
                 </Link>
@@ -659,7 +659,7 @@ const AdminProductsPage = () => {
           ))
         )}
 
-        <div className="overflow-hidden rounded-[13px] border border-[#E5E9EF] bg-white px-[8px]">
+        <div className="overflow-hidden rounded-[13px] border border-[#E8E0D4] bg-white px-[8px]">
           <AdminPagination page={page} pageSize={PAGE_SIZE} total={total} onPageChange={setPage} />
         </div>
       </section>
@@ -668,19 +668,19 @@ const AdminProductsPage = () => {
           DESKTOP TABLE
       ===================================================== */}
 
-      <section className="hidden overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white md:block">
+      <section className="hidden overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white md:block">
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[14px] py-[11px]">
           <div>
             <div className="flex items-center gap-[7px]">
-              <Layers3 className="h-[13px] w-[13px] text-[#675CBA]" strokeWidth={1.8} />
-              <h2 className="text-[10px] font-semibold text-[#454C56]">قائمة المنتجات</h2>
+              <Layers3 className="h-[13px] w-[13px] text-[#98774B]" strokeWidth={1.8} />
+              <h2 className="text-[11px] font-semibold text-[#454C56]">قائمة المنتجات</h2>
             </div>
 
-            <p className="mt-[4px] text-[7px] text-[#9CA3AC]">عرض {firstResult.toLocaleString("ar-EG")} - {lastResult.toLocaleString("ar-EG")} من أصل {total.toLocaleString("ar-EG")}</p>
+            <p className="mt-[4px] text-[10px] text-[#9CA3AC]">عرض {firstResult.toLocaleString("ar-EG")} - {lastResult.toLocaleString("ar-EG")} من أصل {total.toLocaleString("ar-EG")}</p>
           </div>
 
           {isLoading && (
-            <span className="flex items-center gap-[5px] text-[7px] font-medium text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[10px] font-medium text-[#969DA7]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -690,9 +690,9 @@ const AdminProductsPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1050px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[7.5px] font-semibold text-[#9299A3]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#9299A3]">
                 <th className="w-[42px] px-[10px] text-center">
-                  <Checkbox checked={allSelected} onCheckedChange={toggleSelectAll} className="h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#675CBA] data-[state=checked]:bg-[#675CBA]" />
+                  <Checkbox checked={allSelected} onCheckedChange={toggleSelectAll} className="h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#98774B] data-[state=checked]:bg-[#98774B]" />
                 </th>
 
                 <th className="px-[10px] text-right font-semibold">المنتج</th>
@@ -721,7 +721,7 @@ const AdminProductsPage = () => {
                 products.map((product) => (
                   <tr key={product.id} data-product-id={product.id} className={cn("h-[72px] border-b border-[#F0F2F5] transition-colors last:border-b-0 hover:bg-[#FCFDFE]", selected.has(product.id) && "bg-[#FAF9FF]")}>
                     <td className="px-[10px] text-center">
-                      <Checkbox checked={selected.has(product.id)} onCheckedChange={() => toggleSelect(product.id)} className="h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#675CBA] data-[state=checked]:bg-[#675CBA]" />
+                      <Checkbox checked={selected.has(product.id)} onCheckedChange={() => toggleSelect(product.id)} className="h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#98774B] data-[state=checked]:bg-[#98774B]" />
                     </td>
 
                     <td className="px-[10px]">
@@ -731,23 +731,23 @@ const AdminProductsPage = () => {
                         </div>
 
                         <div className="min-w-0">
-                          <Link to={`/admin/products/${product.id}`} onClick={() => rememberProductPosition(product.id)} className="block max-w-[250px] truncate text-[10px] font-semibold text-[#424A54] transition-colors hover:text-[#675CBA]">{product.name_ar || product.name}</Link>
+                          <Link to={`/admin/products/${product.id}`} onClick={() => rememberProductPosition(product.id)} className="block max-w-[250px] truncate text-[11px] font-semibold text-[#424A54] transition-colors hover:text-[#98774B]">{product.name_ar || product.name}</Link>
 
-                          <p dir="ltr" className="mt-[4px] max-w-[250px] truncate text-right text-[6.8px] text-[#A1A7B0]">{product.slug}</p>
+                          <p dir="ltr" className="mt-[4px] max-w-[250px] truncate text-right text-[10px] text-[#A1A7B0]">{product.slug}</p>
 
-                          {product.brand && <p className="mt-[3px] max-w-[250px] truncate text-[7px] font-medium text-[#9A7181]">{product.brand}</p>}
+                          {product.brand && <p className="mt-[3px] max-w-[250px] truncate text-[10px] font-medium text-[#9A7181]">{product.brand}</p>}
                         </div>
                       </div>
                     </td>
 
                     <td className="px-[10px]">
-                      {product.category ? <InfoTag>{product.category}</InfoTag> : <span className="text-[7px] text-[#A4AAB2]">غير مصنف</span>}
+                      {product.category ? <InfoTag>{product.category}</InfoTag> : <span className="text-[10px] text-[#A4AAB2]">غير مصنف</span>}
                     </td>
 
                     <td className="px-[10px]">
-                      <p dir="ltr" className="text-right text-[10px] font-semibold text-[#3E454F]">{formatPrice(product)}</p>
+                      <p dir="ltr" className="text-right text-[11px] font-semibold text-[#3E454F]">{formatPrice(product)}</p>
 
-                      {(product.discount ?? 0) > 0 && <span className="mt-[4px] inline-flex rounded-[6px] bg-[#FFF0F0] px-[5px] py-[2px] text-[6.5px] font-semibold text-[#C76161]">-{product.discount}%</span>}
+                      {(product.discount ?? 0) > 0 && <span className="mt-[4px] inline-flex rounded-[6px] bg-[#FFF0F0] px-[5px] py-[2px] text-[10px] font-semibold text-[#C76161]">-{product.discount}%</span>}
                     </td>
 
                     <td className="px-[10px]">
@@ -764,7 +764,7 @@ const AdminProductsPage = () => {
                           {product.is_active ? <EyeOff className="h-[12px] w-[12px]" /> : <Eye className="h-[12px] w-[12px]" />}
                         </ActionButton>
 
-                        <Link to={`/admin/products/${product.id}`} onClick={() => rememberProductPosition(product.id)} aria-label="تعديل المنتج" className="flex h-[30px] w-[30px] items-center justify-center rounded-[8px] border border-[#E3E7EC] bg-white text-[#707884] transition-colors hover:border-[#D7DCE3] hover:bg-[#F7F9FB] hover:text-[#675CBA]">
+                        <Link to={`/admin/products/${product.id}`} onClick={() => rememberProductPosition(product.id)} aria-label="تعديل المنتج" className="flex h-[30px] w-[30px] items-center justify-center rounded-[8px] border border-[#E8DED0] bg-white text-[#707884] transition-colors hover:border-[#D7DCE3] hover:bg-[#F7F9FB] hover:text-[#98774B]">
                           <Edit className="h-[12px] w-[12px]" strokeWidth={1.7} />
                         </Link>
 
@@ -790,7 +790,7 @@ const AdminProductsPage = () => {
       ===================================================== */}
 
       <AlertDialog open={Boolean(confirmDelete)} onOpenChange={(open) => { if (!open) setConfirmDelete(null); }}>
-        <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
+        <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E7DFD3] bg-white p-5">
           <AlertDialogHeader>
             <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]">
               <Trash2 className="h-[16px] w-[16px]" strokeWidth={1.7} />
@@ -798,15 +798,15 @@ const AdminProductsPage = () => {
 
             <AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">تأكيد الحذف</AlertDialogTitle>
 
-            <AlertDialogDescription className="text-[10px] leading-6 text-[#858D97]">
+            <AlertDialogDescription className="text-[11px] leading-6 text-[#858D97]">
               {confirmDelete?.bulk ? `سيتم حذف ${selected.size} منتج نهائيًا من النظام. لا يمكن التراجع عن هذه العملية.` : "سيتم حذف هذا المنتج نهائيًا من النظام. لا يمكن التراجع عن هذه العملية."}
             </AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter className="mt-2 gap-2">
-            <AlertDialogCancel className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[9px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel>
+            <AlertDialogCancel className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[11px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel>
 
-            <AlertDialogAction className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[9px] font-semibold text-white hover:bg-[#B65555]" onClick={() => {
+            <AlertDialogAction className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[11px] font-semibold text-white hover:bg-[#B65555]" onClick={() => {
               if (confirmDelete?.bulk) {
                 void bulkDelete();
                 return;
@@ -834,14 +834,14 @@ const AdminProductsPage = () => {
 
 const ProductStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: typeof Package; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const styles = {
-    indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
+    indigo: { icon: "bg-[#F5EAD7] text-[#98774B]", line: "bg-[#98774B]" },
     green: { icon: "bg-[#EAF7EE] text-[#57906A]", line: "bg-[#629067]" },
     blue: { icon: "bg-[#EDF4FF] text-[#567BC5]", line: "bg-[#5680CF]" },
     coral: { icon: "bg-[#FFF0ED] text-[#C9685D]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
-    <div className="relative min-h-[116px] overflow-hidden rounded-[15px] border border-[#E5E9EF] bg-white p-[13px]">
+    <div className="relative min-h-[116px] overflow-hidden rounded-[15px] border border-[#E8E0D4] bg-white p-[13px]">
       <span className={cn("absolute inset-x-0 top-0 h-[3px]", styles.line)} />
 
       <div className="flex items-start justify-between">
@@ -849,12 +849,12 @@ const ProductStatCard = ({ title, value, helper, icon: Icon, tone }: { title: st
           <Icon className="h-[14px] w-[14px]" strokeWidth={1.7} />
         </div>
 
-        <span className="text-[6.5px] font-medium text-[#A2A8B1]">CATALOG</span>
+        <span className="text-[10px] font-medium text-[#A2A8B1]">CATALOG</span>
       </div>
 
-      <p className="mt-[12px] text-[8px] font-medium text-[#8D949E]">{title}</p>
+      <p className="mt-[12px] text-[10px] font-medium text-[#8D949E]">{title}</p>
       <p dir="ltr" className="mt-[4px] text-right text-[20px] font-semibold leading-none tracking-[-0.035em] text-[#303741]">{value.toLocaleString("en-US")}</p>
-      <p className="mt-[5px] text-[6.5px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[5px] text-[10px] text-[#A0A6AF]">{helper}</p>
     </div>
   );
 };
@@ -867,7 +867,7 @@ const FilterChip = ({ children, active, tone = "indigo", onClick }: { children: 
   const activeClass = tone === "rose" ? "border-[#E6D5DC] bg-[#FFF1F5] text-[#A95E70]" : tone === "amber" ? "border-[#EADCBF] bg-[#FFF7E8] text-[#A9782F]" : "border-[#DCD7F1] bg-[#F3F1FF] text-[#6258AE]";
 
   return (
-    <button type="button" onClick={onClick} className={cn("h-[30px] shrink-0 rounded-[8px] border px-[10px] text-[7.5px] font-semibold transition-colors", active ? activeClass : "border-[#E7EAEF] bg-white text-[#7D858F] hover:border-[#DDE1E7] hover:bg-[#F8FAFC] hover:text-[#515964]")}>{children}</button>
+    <button type="button" onClick={onClick} className={cn("h-[30px] shrink-0 rounded-[8px] border px-[10px] text-[10px] font-semibold transition-colors", active ? activeClass : "border-[#E7EAEF] bg-white text-[#7D858F] hover:border-[#DDE1E7] hover:bg-[#FBF9F5] hover:text-[#515964]")}>{children}</button>
   );
 };
 
@@ -876,12 +876,12 @@ const FilterChip = ({ children, active, tone = "indigo", onClick }: { children: 
 ========================================================= */
 
 const InfoTag = ({ children, tone = "blue" }: { children: React.ReactNode; tone?: "blue" | "rose" }) => {
-  return <span className={cn("inline-flex max-w-[150px] truncate rounded-[6px] px-[6px] py-[3px] text-[6.5px] font-medium", tone === "rose" ? "bg-[#FFF1F5] text-[#A76474]" : "bg-[#EFF5FD] text-[#5C78A3]")}>{children}</span>;
+  return <span className={cn("inline-flex max-w-[150px] truncate rounded-[6px] px-[6px] py-[3px] text-[10px] font-medium", tone === "rose" ? "bg-[#FFF1F5] text-[#A76474]" : "bg-[#EFF5FD] text-[#5C78A3]")}>{children}</span>;
 };
 
 const ProductStatus = ({ active }: { active: boolean }) => {
   return (
-    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[7px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E2E5E9] bg-[#F5F6F8] text-[#7B838E]")}>
+    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E2E5E9] bg-[#F5F6F8] text-[#7B838E]")}>
       <span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />
       {active ? "نشط" : "معطل"}
     </span>
@@ -890,7 +890,7 @@ const ProductStatus = ({ active }: { active: boolean }) => {
 
 const StockStatus = ({ inStock }: { inStock: boolean }) => {
   return (
-    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[7px] font-semibold", inStock ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]")}>
+    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", inStock ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]")}>
       <span className={cn("h-[5px] w-[5px] rounded-full", inStock ? "bg-[#5680CF]" : "bg-[#D06A5E]")} />
       {inStock ? "متوفر" : "نفد"}
     </span>
@@ -903,7 +903,7 @@ const StockStatus = ({ inStock }: { inStock: boolean }) => {
 
 const ActionButton = ({ children, label, destructive = false, onClick }: { children: React.ReactNode; label: string; destructive?: boolean; onClick: () => void }) => {
   return (
-    <button type="button" aria-label={label} title={label} onClick={onClick} className={cn("flex h-[30px] w-[30px] items-center justify-center rounded-[8px] border bg-white transition-colors", destructive ? "border-[#F0D7D4] text-[#C15F56] hover:bg-[#FFF3F1]" : "border-[#E3E7EC] text-[#707884] hover:border-[#D7DCE3] hover:bg-[#F7F9FB] hover:text-[#675CBA]")}>{children}</button>
+    <button type="button" aria-label={label} title={label} onClick={onClick} className={cn("flex h-[30px] w-[30px] items-center justify-center rounded-[8px] border bg-white transition-colors", destructive ? "border-[#F0D7D4] text-[#C15F56] hover:bg-[#FFF3F1]" : "border-[#E8DED0] text-[#707884] hover:border-[#D7DCE3] hover:bg-[#F7F9FB] hover:text-[#98774B]")}>{children}</button>
   );
 };
 
@@ -918,18 +918,18 @@ const EmptyProducts = () => {
         <Package className="h-[19px] w-[19px]" strokeWidth={1.5} />
       </div>
 
-      <h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد منتجات</h3>
-      <p className="mt-[4px] text-[7.5px] leading-5 text-[#9BA2AC]">لم نجد منتجات مطابقة للبحث أو الفلاتر الحالية.</p>
+      <h3 className="mt-3 text-[11px] font-semibold text-[#535B65]">لا توجد منتجات</h3>
+      <p className="mt-[4px] text-[10px] leading-5 text-[#9BA2AC]">لم نجد منتجات مطابقة للبحث أو الفلاتر الحالية.</p>
     </div>
   );
 };
 
 const LoadingProducts = () => {
   return (
-    <div className="flex h-[230px] items-center justify-center rounded-[14px] border border-[#E5E9EF] bg-white">
+    <div className="flex h-[230px] items-center justify-center rounded-[14px] border border-[#E8E0D4] bg-white">
       <div className="text-center">
-        <Loader2 className="mx-auto h-[20px] w-[20px] animate-spin text-[#675CBA]" />
-        <p className="mt-2 text-[7.5px] font-medium text-[#969DA7]">جاري تحميل المنتجات...</p>
+        <Loader2 className="mx-auto h-[20px] w-[20px] animate-spin text-[#98774B]" />
+        <p className="mt-2 text-[10px] font-medium text-[#969DA7]">جاري تحميل المنتجات...</p>
       </div>
     </div>
   );

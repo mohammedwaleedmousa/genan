@@ -291,7 +291,7 @@ const ChangeBadge = ({ value }: { value: number }) => {
   const clean = Math.abs(value);
 
   return (
-    <span className={`inline-flex h-[22px] items-center gap-1 rounded-[7px] px-2 text-[8.5px] font-semibold ${positive ? "bg-[#EAF7EE] text-[#57906A]" : "bg-[#FFF0F0] text-[#C76161]"}`}>
+    <span className={`inline-flex h-[22px] items-center gap-1 rounded-[7px] px-2 text-[10px] font-semibold ${positive ? "bg-[#EAF7EE] text-[#57906A]" : "bg-[#FFF0F0] text-[#C76161]"}`}>
       {positive ? <TrendingUp className="h-[10px] w-[10px]" strokeWidth={1.8} /> : <TrendingDown className="h-[10px] w-[10px]" strokeWidth={1.8} />}
       {clean.toFixed(clean >= 10 ? 0 : 1)}%
     </span>
@@ -302,7 +302,7 @@ const MetricCard = ({ title, value, delta, suffix, loading, icon: Icon, tone }: 
   const palette = tones[tone];
 
   return (
-    <article className="group relative min-h-[126px] overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] transition-colors duration-150 hover:border-[#DCE1E8]">
+    <article className="group relative min-h-[126px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] transition-colors duration-150 hover:border-[#DCE1E8]">
       <span className="absolute inset-x-0 top-0 h-[3px]" style={{ backgroundColor: palette.line }} />
 
       <div className="flex items-start justify-between gap-3">
@@ -314,14 +314,14 @@ const MetricCard = ({ title, value, delta, suffix, loading, icon: Icon, tone }: 
       </div>
 
       <div className="mt-4">
-        <p className="text-[9.5px] font-medium text-[#7F8792]">{title}</p>
+        <p className="text-[11px] font-medium text-[#7F8792]">{title}</p>
 
         {loading ? (
           <div className="mt-[7px] h-[24px] w-[90px] animate-pulse rounded-[7px] bg-[#EEF1F4]" />
         ) : (
           <div className="mt-[6px] flex items-end gap-[5px]">
             <span dir="ltr" className="text-[23px] font-semibold leading-none tracking-[-0.045em] text-[#252A33]">{value}</span>
-            {suffix && <span className="mb-[2px] text-[8px] font-medium text-[#959CA6]">{suffix}</span>}
+            {suffix && <span className="mb-[2px] text-[10px] font-medium text-[#959CA6]">{suffix}</span>}
           </div>
         )}
       </div>
@@ -342,11 +342,11 @@ const MiniMetric = ({ title, value, delta, suffix, icon: Icon, tone }: { title: 
         <ChangeBadge value={delta} />
       </div>
 
-      <p className="mt-3 text-[8.5px] font-medium text-[#8B929C]">{title}</p>
+      <p className="mt-3 text-[10px] font-medium text-[#8B929C]">{title}</p>
 
       <div className="mt-[5px] flex items-end gap-1">
         <span dir="ltr" className="text-[17px] font-semibold leading-none tracking-[-0.03em] text-[#303640]">{value}</span>
-        {suffix && <span className="mb-[1px] text-[7px] text-[#989FA9]">{suffix}</span>}
+        {suffix && <span className="mb-[1px] text-[10px] text-[#989FA9]">{suffix}</span>}
       </div>
     </div>
   );
@@ -366,7 +366,7 @@ const CardHeader = ({ title, description, icon: Icon, tone = "indigo", action }:
 
         <div className="min-w-0">
           <h2 className="text-[11.5px] font-semibold text-[#343A44]">{title}</h2>
-          {description && <p className="mt-[3px] text-[7.5px] leading-4 text-[#9AA1AB]">{description}</p>}
+          {description && <p className="mt-[3px] text-[10px] leading-4 text-[#9AA1AB]">{description}</p>}
         </div>
       </div>
 
@@ -381,7 +381,7 @@ const SessionGauge = ({ sessions, previousSessions }: { sessions: number; previo
   const dash = (percentage / 100) * circumference;
 
   return (
-    <section className="flex h-full min-h-[238px] flex-col rounded-[16px] border border-[#E5E9EF] bg-white p-[14px]">
+    <section className="flex h-full min-h-[238px] flex-col rounded-[16px] border border-[#E8E0D4] bg-white p-[14px]">
       <CardHeader title="الجلسات" description="الجلسات الفريدة خلال الفترة" icon={Users} tone="indigo" />
 
       <div className="relative flex flex-1 items-center justify-center py-3">
@@ -392,13 +392,13 @@ const SessionGauge = ({ sessions, previousSessions }: { sessions: number; previo
 
         <div className="absolute text-center">
           <div dir="ltr" className="text-[24px] font-semibold tracking-[-0.04em] text-[#2A303A]">{fmt(sessions)}</div>
-          <div className="mt-1 text-[7.5px] font-medium text-[#9AA1AB]">جلسة فريدة</div>
+          <div className="mt-1 text-[10px] font-medium text-[#9AA1AB]">جلسة فريدة</div>
         </div>
       </div>
 
       <div className="flex items-center justify-between border-t border-[#EEF1F4] pt-[10px]">
-        <span className="text-[7.5px] text-[#969DA7]">الفترة السابقة</span>
-        <span dir="ltr" className="text-[9px] font-semibold text-[#59616C]">{fmt(previousSessions)}</span>
+        <span className="text-[10px] text-[#969DA7]">الفترة السابقة</span>
+        <span dir="ltr" className="text-[11px] font-semibold text-[#59616C]">{fmt(previousSessions)}</span>
       </div>
     </section>
   );
@@ -411,11 +411,11 @@ const FunnelStep = ({ label, value, percentage, tone }: { label: string; value: 
     <div className="rounded-[12px] border border-[#E8EBF0] bg-[#FAFBFC] p-[10px]">
       <div className="flex items-end justify-between gap-2">
         <div>
-          <p className="text-[8px] font-medium text-[#8F96A0]">{label}</p>
+          <p className="text-[10px] font-medium text-[#8F96A0]">{label}</p>
           <p dir="ltr" className="mt-[4px] text-[16px] font-semibold leading-none text-[#343A44]">{fmt(value)}</p>
         </div>
 
-        <span className={`text-[9px] font-semibold ${palette.text}`}>{Math.round(percentage)}%</span>
+        <span className={`text-[11px] font-semibold ${palette.text}`}>{Math.round(percentage)}%</span>
       </div>
 
       <div className="mt-3 h-[4px] overflow-hidden rounded-full bg-[#ECEFF3]">
@@ -862,28 +862,28 @@ const AdminDashboard = () => {
           HEADER
       ===================================================== */}
 
-      <header className="flex flex-col gap-4 border-b border-[#E4E8ED] pb-5 sm:flex-row sm:items-end sm:justify-between">
+      <header className="flex flex-col gap-4 border-b border-[#E7DFD3] pb-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="min-w-0">
           <div className="mb-[7px] flex items-center gap-[7px]">
             <span className="h-[6px] w-[6px] rounded-full bg-[#99784D]" />
-            <span className="text-[7.5px] font-bold tracking-[0.07em] text-[#989FA9]">OVERVIEW</span>
+            <span className="text-[10px] font-bold tracking-[0.07em] text-[#989FA9]">OVERVIEW</span>
           </div>
 
-          <h1 className="text-[23px] font-bold leading-none tracking-[-0.5px] text-[#20252E] md:text-[25px]">المؤشرات العامة</h1>
-          <p className="mt-[7px] text-[10px] font-medium text-[#8F97A2]">نظرة موحدة على المبيعات والعملاء والعمليات في Flamingo Park</p>
+          <h1 className="text-[23px] font-bold leading-none tracking-[-0.5px] text-[#283129] md:text-[25px]">المؤشرات العامة</h1>
+          <p className="mt-[7px] text-[11px] font-medium text-[#8F97A2]">نظرة موحدة على المبيعات والعملاء والعمليات في جنان</p>
 
-          <div className="mt-[8px] flex items-center gap-[5px] text-[7.5px] text-[#A0A7B0]">
+          <div className="mt-[8px] flex items-center gap-[5px] text-[10px] text-[#A0A7B0]">
             <CalendarDays className="h-[10px] w-[10px]" strokeWidth={1.7} />
             <span>{rangeText}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-[7px]">
-          <div className="[&_button]:!h-[38px] [&_button]:!rounded-[10px] [&_button]:!border-[#E2E6EB] [&_button]:!bg-white [&_button]:!px-3 [&_button]:!text-[9px] [&_button]:!font-medium [&_button]:!text-[#59616C] [&_button]:!shadow-none">
+          <div className="[&_button]:!h-[38px] [&_button]:!rounded-[10px] [&_button]:!border-[#E2E6EB] [&_button]:!bg-white [&_button]:!px-3 [&_button]:!text-[11px] [&_button]:!font-medium [&_button]:!text-[#59616C] [&_button]:!shadow-none">
             <DateRangePicker />
           </div>
 
-          <Link to="/admin/reports" className="hidden h-[38px] items-center gap-[7px] rounded-[10px] border border-[#E2E6EB] bg-white px-3 text-[9px] font-semibold text-[#5F6772] transition-colors hover:bg-[#F8FAFC] sm:flex">
+          <Link to="/admin/reports" className="hidden h-[38px] items-center gap-[7px] rounded-[10px] border border-[#E2E6EB] bg-white px-3 text-[11px] font-semibold text-[#5F6772] transition-colors hover:bg-[#FBF9F5] sm:flex">
             <BarChart3 className="h-[12px] w-[12px] text-[#99784D]" strokeWidth={1.8} />
             التقارير
           </Link>
@@ -909,7 +909,7 @@ const AdminDashboard = () => {
             <AlertTriangle className="h-[13px] w-[13px]" strokeWidth={1.7} />
           </div>
 
-          <p className="text-[8.5px] font-medium text-[#8C7048]">تم تحميل بعض أجزاء لوحة التحكم جزئيًا: {issues.join("، ")}</p>
+          <p className="text-[10px] font-medium text-[#8C7048]">تم تحميل بعض أجزاء لوحة التحكم جزئيًا: {issues.join("، ")}</p>
         </div>
       )}
 
@@ -918,7 +918,7 @@ const AdminDashboard = () => {
       ===================================================== */}
 
       <section className="grid grid-cols-1 gap-[10px] xl:grid-cols-12">
-        <div className="min-h-[330px] rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] xl:col-span-8">
+        <div className="min-h-[330px] rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] xl:col-span-8">
           <CardHeader
             title="المبيعات والأداء"
             description="حركة الإيرادات خلال الفترة المحددة"
@@ -929,24 +929,24 @@ const AdminDashboard = () => {
                 <div>
                   <div className="flex items-center gap-[5px]">
                     <span className="h-[6px] w-[6px] rounded-full bg-[#99784D]" />
-                    <span className="text-[7.5px] text-[#939AA4]">الإيرادات</span>
+                    <span className="text-[10px] text-[#939AA4]">الإيرادات</span>
                   </div>
 
                   <div className="mt-[5px] flex items-end gap-[5px]">
                     <span dir="ltr" className="text-[19px] font-semibold leading-none text-[#2C323C]">{compact(currentKpi.revenue)}</span>
-                    <span className="text-[7px] text-[#999FA9]">ر.س</span>
+                    <span className="text-[10px] text-[#999FA9]">ر.س</span>
                   </div>
                 </div>
 
                 <div>
                   <div className="flex items-center gap-[5px]">
                     <span className="h-[6px] w-[6px] rounded-full bg-[#D8DDE5]" />
-                    <span className="text-[7.5px] text-[#939AA4]">صافي الربح</span>
+                    <span className="text-[10px] text-[#939AA4]">صافي الربح</span>
                   </div>
 
                   <div className="mt-[5px] flex items-end gap-[5px]">
                     <span dir="ltr" className="text-[19px] font-semibold leading-none text-[#2C323C]">{compact(currentKpi.profit)}</span>
-                    <span className="text-[7px] text-[#999FA9]">ر.س</span>
+                    <span className="text-[10px] text-[#999FA9]">ر.س</span>
                   </div>
                 </div>
               </div>
@@ -977,7 +977,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="min-h-[330px] rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] xl:col-span-4">
+        <div className="min-h-[330px] rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] xl:col-span-4">
           <CardHeader
             title="مسار المبيعات"
             description="رحلة العميل حتى إتمام الطلب"
@@ -985,11 +985,11 @@ const AdminDashboard = () => {
             tone="coral"
             action={
               <div className="text-left">
-                <p className="text-[7.5px] text-[#9AA1AB]">التحويل</p>
+                <p className="text-[10px] text-[#9AA1AB]">التحويل</p>
 
                 <div className="mt-[3px] flex items-center gap-[5px]">
                   <span dir="ltr" className="text-[19px] font-semibold leading-none text-[#2B313B]">{conversionRate.toFixed(1)}%</span>
-                  <span className="rounded-[6px] bg-[#EAF7EE] px-[5px] py-[2px] text-[6.5px] font-semibold text-[#57906A]">مباشر</span>
+                  <span className="rounded-[6px] bg-[#EAF7EE] px-[5px] py-[2px] text-[10px] font-semibold text-[#57906A]">مباشر</span>
                 </div>
               </div>
             }
@@ -1006,7 +1006,7 @@ const AdminDashboard = () => {
       ===================================================== */}
 
       <section className="grid grid-cols-1 gap-[10px] xl:grid-cols-12">
-        <div className="min-h-[238px] rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] xl:col-span-4">
+        <div className="min-h-[238px] rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] xl:col-span-4">
           <CardHeader title="ملخص اليوم" description="أداء اليوم مقارنة بيوم أمس" icon={CalendarDays} tone="blue" />
 
           <div className="mt-4 grid grid-cols-2 gap-[8px]">
@@ -1021,7 +1021,7 @@ const AdminDashboard = () => {
           <SessionGauge sessions={sessions} previousSessions={previousSessions} />
         </div>
 
-        <div className="min-h-[238px] rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] xl:col-span-5">
+        <div className="min-h-[238px] rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] xl:col-span-5">
           <CardHeader title="الإيرادات حسب العملة" description="توزيع المبيعات حسب عملة الطلب" icon={CircleDollarSign} tone="green" />
 
           <div className="mt-5 grid grid-cols-3 gap-[8px]">
@@ -1029,15 +1029,15 @@ const AdminDashboard = () => {
               <div key={row.mode} className="rounded-[12px] border border-[#E9ECF1] bg-[#FAFBFC] p-[10px]">
                 <div className="flex items-center gap-[5px]">
                   <span className="h-[6px] w-[6px] rounded-full" style={{ backgroundColor: CURRENCY_COLORS[index] }} />
-                  <span className="truncate text-[7.5px] font-medium text-[#8F96A0]">{row.label}</span>
+                  <span className="truncate text-[10px] font-medium text-[#8F96A0]">{row.label}</span>
                 </div>
 
                 <div className="mt-[9px] flex items-baseline gap-[4px]">
                   <span dir="ltr" className="text-[15px] font-semibold text-[#343A44]">{compact(row.nativeRevenue)}</span>
-                  <span className="text-[6.5px] text-[#969DA7]">{row.symbol}</span>
+                  <span className="text-[10px] text-[#969DA7]">{row.symbol}</span>
                 </div>
 
-                <p className="mt-[3px] text-[7px] text-[#A0A6AF]">{fmt(row.orders)} طلب</p>
+                <p className="mt-[3px] text-[10px] text-[#A0A6AF]">{fmt(row.orders)} طلب</p>
               </div>
             ))}
           </div>
@@ -1050,11 +1050,11 @@ const AdminDashboard = () => {
             {currencyRows.map((row, index) => (
               <div key={row.mode} className="flex items-center gap-[7px]">
                 <span className="h-[7px] w-[7px] rounded-full" style={{ backgroundColor: CURRENCY_COLORS[index] }} />
-                <span className="text-[7.5px] text-[#828A95]">{row.label}</span>
+                <span className="text-[10px] text-[#828A95]">{row.label}</span>
 
                 <div className="mr-auto flex items-center gap-3">
-                  <span dir="ltr" className="text-[7.5px] font-semibold text-[#5D6570]">{row.percentage.toFixed(0)}%</span>
-                  <span dir="ltr" className="w-[60px] text-left text-[7px] text-[#A0A6AF]">{compact(row.convertedRevenue)} ر.س</span>
+                  <span dir="ltr" className="text-[10px] font-semibold text-[#5D6570]">{row.percentage.toFixed(0)}%</span>
+                  <span dir="ltr" className="w-[60px] text-left text-[10px] text-[#A0A6AF]">{compact(row.convertedRevenue)} ر.س</span>
                 </div>
               </div>
             ))}
@@ -1067,7 +1067,7 @@ const AdminDashboard = () => {
       ===================================================== */}
 
       <section className="grid grid-cols-1 gap-[10px] xl:grid-cols-12">
-        <div className="min-h-[250px] rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] xl:col-span-4">
+        <div className="min-h-[250px] rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] xl:col-span-4">
           <CardHeader title="حالة الطلبات" description="توزيع الطلبات حسب المرحلة الحالية" icon={Package} tone="blue" action={<span dir="ltr" className="text-[17px] font-semibold text-[#343A44]">{fmt(totalStatusOrders)}</span>} />
 
           <div className="mt-4 grid grid-cols-2 gap-[7px]">
@@ -1085,7 +1085,7 @@ const AdminDashboard = () => {
                     </div>
 
                     <div className="min-w-0">
-                      <p className="truncate text-[7.5px] text-[#8C939D]">{item.label}</p>
+                      <p className="truncate text-[10px] text-[#8C939D]">{item.label}</p>
                       <p dir="ltr" className="mt-[2px] text-[13px] font-semibold text-[#3C424C]">{fmt(statusCounts[key])}</p>
                     </div>
                   </div>
@@ -1095,24 +1095,24 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="min-h-[250px] rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] xl:col-span-4">
+        <div className="min-h-[250px] rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] xl:col-span-4">
           <CardHeader title="المبيعات حسب المنطقة" description="أفضل المناطق حسب صافي الإيرادات" icon={BarChart3} tone="cyan" />
 
           <div className="mt-4">
             {regions.length > 0 ? (
               <div className="space-y-[4px]">
                 {regions.map((region, index) => (
-                  <div key={region.region} className="flex items-center gap-[9px] rounded-[10px] px-[7px] py-[7px] transition-colors hover:bg-[#F8FAFC]">
-                    <span className="flex h-[24px] w-[24px] shrink-0 items-center justify-center rounded-[8px] bg-[#EFF6F9] text-[7.5px] font-semibold text-[#4A90A6]">{index + 1}</span>
+                  <div key={region.region} className="flex items-center gap-[9px] rounded-[10px] px-[7px] py-[7px] transition-colors hover:bg-[#FBF9F5]">
+                    <span className="flex h-[24px] w-[24px] shrink-0 items-center justify-center rounded-[8px] bg-[#EFF6F9] text-[10px] font-semibold text-[#4A90A6]">{index + 1}</span>
 
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-[8.5px] font-medium text-[#515964]">{region.region}</p>
-                      <p className="mt-[2px] text-[6.5px] text-[#A0A6AF]">{fmt(region.orders)} طلب</p>
+                      <p className="truncate text-[10px] font-medium text-[#515964]">{region.region}</p>
+                      <p className="mt-[2px] text-[10px] text-[#A0A6AF]">{fmt(region.orders)} طلب</p>
                     </div>
 
                     <div className="text-left">
-                      <p dir="ltr" className="text-[9px] font-semibold text-[#3F4650]">{compact(region.revenue)}</p>
-                      <p className="mt-[1px] text-[6px] text-[#A1A7B0]">ر.س</p>
+                      <p dir="ltr" className="text-[11px] font-semibold text-[#3F4650]">{compact(region.revenue)}</p>
+                      <p className="mt-[1px] text-[10px] text-[#A1A7B0]">ر.س</p>
                     </div>
                   </div>
                 ))}
@@ -1120,13 +1120,13 @@ const AdminDashboard = () => {
             ) : (
               <div className="flex h-[160px] flex-col items-center justify-center gap-[8px] text-center">
                 <BarChart3 className="h-[21px] w-[21px] text-[#C4C9D0]" strokeWidth={1.5} />
-                <p className="text-[8px] text-[#A0A6AF]">لا توجد مبيعات في الفترة المحددة</p>
+                <p className="text-[10px] text-[#A0A6AF]">لا توجد مبيعات في الفترة المحددة</p>
               </div>
             )}
           </div>
         </div>
 
-        <div className="min-h-[250px] rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] xl:col-span-4">
+        <div className="min-h-[250px] rounded-[16px] border border-[#E8E0D4] bg-white p-[14px] xl:col-span-4">
           <CardHeader title="تحتاج انتباهك" description="أهم الأمور التي تستحق المتابعة" icon={AlertTriangle} tone="amber" />
 
           <div className="mt-4 space-y-[8px]">
@@ -1136,7 +1136,7 @@ const AdminDashboard = () => {
               </div>
 
               <div className="min-w-0 flex-1">
-                <p className="text-[8px] font-medium text-[#85745A]">طلبات تنتظر المعالجة</p>
+                <p className="text-[10px] font-medium text-[#85745A]">طلبات تنتظر المعالجة</p>
                 <p className="mt-[3px] text-[13px] font-semibold text-[#393F48]">{fmt(pendingCount)} طلب</p>
               </div>
 
@@ -1149,7 +1149,7 @@ const AdminDashboard = () => {
               </div>
 
               <div className="min-w-0 flex-1">
-                <p className="text-[8px] font-medium text-[#8C6E6E]">منتجات منخفضة المخزون</p>
+                <p className="text-[10px] font-medium text-[#8C6E6E]">منتجات منخفضة المخزون</p>
                 <p className="mt-[3px] text-[13px] font-semibold text-[#393F48]">{fmt(lowStock.length)} منتج</p>
               </div>
 
@@ -1164,7 +1164,7 @@ const AdminDashboard = () => {
       ===================================================== */}
 
       <section className="grid grid-cols-1 gap-[10px] xl:grid-cols-12">
-        <div className="min-h-[330px] overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white xl:col-span-8">
+        <div className="min-h-[330px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white xl:col-span-8">
           <div className="border-b border-[#EBEEF2] p-[14px]">
             <CardHeader
               title="آخر الطلبات"
@@ -1172,7 +1172,7 @@ const AdminDashboard = () => {
               icon={Receipt}
               tone="coral"
               action={
-                <Link to="/admin/orders" className="flex h-[30px] items-center gap-[5px] rounded-[8px] border border-[#E5E9EE] bg-white px-[9px] text-[7.5px] font-semibold text-[#727A85] transition-colors hover:bg-[#F8FAFC]">
+                <Link to="/admin/orders" className="flex h-[30px] items-center gap-[5px] rounded-[8px] border border-[#E5E9EE] bg-white px-[9px] text-[10px] font-semibold text-[#727A85] transition-colors hover:bg-[#FBF9F5]">
                   عرض الكل
                   <ArrowUpLeft className="h-[10px] w-[10px]" />
                 </Link>
@@ -1182,7 +1182,7 @@ const AdminDashboard = () => {
 
           <div className="overflow-x-auto">
             <div className="min-w-[720px]">
-              <div className="grid grid-cols-[1fr_1.35fr_.8fr_.9fr_1fr_.4fr] items-center border-b border-[#EDF0F3] bg-[#FAFBFC] px-[14px] py-[9px] text-[7.5px] font-semibold text-[#969DA7]">
+              <div className="grid grid-cols-[1fr_1.35fr_.8fr_.9fr_1fr_.4fr] items-center border-b border-[#EFE8DE] bg-[#FAFBFC] px-[14px] py-[9px] text-[10px] font-semibold text-[#969DA7]">
                 <span>الطلب</span>
                 <span>العميل</span>
                 <span>القيمة</span>
@@ -1201,20 +1201,20 @@ const AdminDashboard = () => {
                   const meta = STATUS_META[safeStatus];
 
                   return (
-                    <div key={order?.id || orderNameOf(order)} className="grid grid-cols-[1fr_1.35fr_.8fr_.9fr_1fr_.4fr] items-center border-b border-[#F0F2F5] px-[14px] py-[11px] text-[8.5px] last:border-b-0 hover:bg-[#FCFDFE]">
+                    <div key={order?.id || orderNameOf(order)} className="grid grid-cols-[1fr_1.35fr_.8fr_.9fr_1fr_.4fr] items-center border-b border-[#F0F2F5] px-[14px] py-[11px] text-[10px] last:border-b-0 hover:bg-[#FCFDFE]">
                       <span dir="ltr" className="text-right font-semibold text-[#454C56]">{orderNameOf(order)}</span>
                       <span className="truncate text-[#666E79]">{customerNameOf(order)}</span>
 
                       <span dir="ltr" className="text-right font-semibold text-[#3C434D]">
                         {fmt(toSar(Number(order?.total || 0), order))}
-                        <span className="mr-[3px] text-[6.5px] font-normal text-[#A0A6AF]">ر.س</span>
+                        <span className="mr-[3px] text-[10px] font-normal text-[#A0A6AF]">ر.س</span>
                       </span>
 
                       <span>
-                        <span className={`inline-flex rounded-[7px] px-[7px] py-[4px] text-[7px] font-semibold ${meta.bg} ${meta.text}`}>{meta.label}</span>
+                        <span className={`inline-flex rounded-[7px] px-[7px] py-[4px] text-[10px] font-semibold ${meta.bg} ${meta.text}`}>{meta.label}</span>
                       </span>
 
-                      <span className="text-[7.5px] text-[#8D949E]">{safeDate(order?.created_at)}</span>
+                      <span className="text-[10px] text-[#8D949E]">{safeDate(order?.created_at)}</span>
 
                       <Link to="/admin/orders" className="flex h-[28px] w-[28px] items-center justify-center rounded-[8px] border border-[#E7EAEF] bg-white text-[#8B929C] transition-colors hover:border-[#DDE1E7] hover:bg-[#F7F9FB] hover:text-[#99784D]">
                         <Eye className="h-[12px] w-[12px]" strokeWidth={1.7} />
@@ -1225,7 +1225,7 @@ const AdminDashboard = () => {
               ) : (
                 <div className="flex h-[220px] flex-col items-center justify-center gap-[8px]">
                   <Receipt className="h-[22px] w-[22px] text-[#C6CBD2]" strokeWidth={1.5} />
-                  <p className="text-[8px] text-[#A0A6AF]">لا توجد طلبات حديثة</p>
+                  <p className="text-[10px] text-[#A0A6AF]">لا توجد طلبات حديثة</p>
                 </div>
               )}
             </div>
@@ -1235,7 +1235,7 @@ const AdminDashboard = () => {
         <div className="space-y-[10px] xl:col-span-4">
           {/* QUICK ACTIONS */}
 
-          <div className="rounded-[16px] border border-[#E5E9EF] bg-white p-[14px]">
+          <div className="rounded-[16px] border border-[#E8E0D4] bg-white p-[14px]">
             <CardHeader title="إجراءات سريعة" description="اختصارات لأكثر المهام استخدامًا" icon={PackagePlus} tone="blue" />
 
             <div className="mt-4 grid grid-cols-2 gap-[7px]">
@@ -1248,31 +1248,31 @@ const AdminDashboard = () => {
 
           {/* LOW STOCK */}
 
-          <div className="rounded-[16px] border border-[#E5E9EF] bg-white p-[14px]">
+          <div className="rounded-[16px] border border-[#E8E0D4] bg-white p-[14px]">
             <CardHeader
               title="المخزون المنخفض"
               description="منتجات تحتاج لإعادة التزويد"
               icon={Boxes}
               tone="rose"
-              action={<span className="flex min-w-[25px] items-center justify-center rounded-[7px] bg-[#FFF0F0] px-[6px] py-[4px] text-[7.5px] font-semibold text-[#C76161]">{fmt(lowStock.length)}</span>}
+              action={<span className="flex min-w-[25px] items-center justify-center rounded-[7px] bg-[#FFF0F0] px-[6px] py-[4px] text-[10px] font-semibold text-[#C76161]">{fmt(lowStock.length)}</span>}
             />
 
             <div className="mt-3 space-y-[2px]">
               {lowStock.length > 0 ? (
                 lowStock.slice(0, 4).map((product: any) => (
-                  <div key={product?.id || product?.sku || productNameOf(product)} className="flex items-center gap-[9px] rounded-[10px] px-[6px] py-[7px] transition-colors hover:bg-[#F8FAFC]">
+                  <div key={product?.id || product?.sku || productNameOf(product)} className="flex items-center gap-[9px] rounded-[10px] px-[6px] py-[7px] transition-colors hover:bg-[#FBF9F5]">
                     <div className="flex h-[31px] w-[31px] shrink-0 items-center justify-center rounded-[9px] bg-[#FFF0F4] text-[#BC6377]">
                       <Package className="h-[13px] w-[13px]" strokeWidth={1.6} />
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-[8px] font-medium text-[#535B65]">{productNameOf(product)}</p>
-                      <p className="mt-[2px] truncate text-[6.5px] text-[#9DA4AD]">{product?.sku ? `SKU: ${product.sku}` : "مخزون منخفض"}</p>
+                      <p className="truncate text-[10px] font-medium text-[#535B65]">{productNameOf(product)}</p>
+                      <p className="mt-[2px] truncate text-[10px] text-[#9DA4AD]">{product?.sku ? `SKU: ${product.sku}` : "مخزون منخفض"}</p>
                     </div>
 
                     <div className="text-left">
-                      <p dir="ltr" className="text-[10px] font-semibold text-[#C76161]">{fmt(stockOf(product))}</p>
-                      <p className="text-[6px] text-[#A3A9B1]">متبقي</p>
+                      <p dir="ltr" className="text-[11px] font-semibold text-[#C76161]">{fmt(stockOf(product))}</p>
+                      <p className="text-[10px] text-[#A3A9B1]">متبقي</p>
                     </div>
                   </div>
                 ))
@@ -1282,13 +1282,13 @@ const AdminDashboard = () => {
                     <CheckCircle2 className="h-[16px] w-[16px]" strokeWidth={1.7} />
                   </div>
 
-                  <p className="text-[8px] font-medium text-[#7F8791]">المخزون بحالة جيدة</p>
+                  <p className="text-[10px] font-medium text-[#7F8791]">المخزون بحالة جيدة</p>
                 </div>
               )}
             </div>
 
             {lowStock.length > 4 && (
-              <Link to="/admin/products" className="mt-3 flex h-[32px] items-center justify-center rounded-[9px] border border-[#E6E9EE] bg-[#FAFBFC] text-[7.5px] font-semibold text-[#727A84] transition-colors hover:bg-white">
+              <Link to="/admin/products" className="mt-3 flex h-[32px] items-center justify-center rounded-[9px] border border-[#E6E9EE] bg-[#FAFBFC] text-[10px] font-semibold text-[#727A84] transition-colors hover:bg-white">
                 عرض جميع المنتجات
               </Link>
             )}
@@ -1300,8 +1300,8 @@ const AdminDashboard = () => {
           FOOTER
       ===================================================== */}
 
-      <div className="flex items-center justify-between border-t border-[#E7EAEF] px-[2px] pt-3 text-[6.5px] font-medium text-[#A2A8B1]">
-        <span>Flamingo Park Analytics</span>
+      <div className="flex items-center justify-between border-t border-[#E7EAEF] px-[2px] pt-3 text-[10px] font-medium text-[#A2A8B1]">
+        <span>جنان Analytics</span>
 
         <span className="flex items-center gap-[4px]">
           <CalendarDays className="h-[9px] w-[9px]" strokeWidth={1.5} />
@@ -1326,8 +1326,8 @@ const QuickLink = ({ to, title, subtitle, icon: Icon, tone }: { to: string; titl
       </div>
 
       <div>
-        <p className="text-[8.5px] font-semibold text-[#505862]">{title}</p>
-        <p className="mt-[2px] text-[6.5px] text-[#9CA3AC]">{subtitle}</p>
+        <p className="text-[10px] font-semibold text-[#505862]">{title}</p>
+        <p className="mt-[2px] text-[10px] text-[#9CA3AC]">{subtitle}</p>
       </div>
     </Link>
   );

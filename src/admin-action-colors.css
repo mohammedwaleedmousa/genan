@@ -1,41 +1,41 @@
 .admin-normalized-pink-action {
-  border-color: #675CBA !important;
-  background: #675CBA !important;
+  border-color: #98774B !important;
+  background: #98774B !important;
   color: #FFFFFF !important;
   box-shadow: none !important;
 }
 
 .admin-normalized-pink-action:hover {
-  border-color: #594FAB !important;
-  background: #594FAB !important;
+  border-color: #77592F !important;
+  background: #77592F !important;
   color: #FFFFFF !important;
 }
 
 .admin-normalized-pink-soft-action {
-  border-color: #DAD6F1 !important;
-  background: #F1EFFF !important;
-  color: #5F55A9 !important;
+  border-color: #E4D8C3 !important;
+  background: #F5EAD7 !important;
+  color: #7D6037 !important;
   box-shadow: none !important;
 }
 
 .admin-normalized-pink-soft-action:hover {
   border-color: #CBC5E9 !important;
-  background: #EAE7FA !important;
+  background: #F4EAD8 !important;
   color: #51479C !important;
 }
 
 .admin-normalized-pink-text-action {
-  color: #675CBA !important;
+  color: #98774B !important;
 }
 
 .admin-normalized-pink-text-action:hover {
-  color: #594FAB !important;
+  color: #77592F !important;
 }
 
 .admin-normalized-pink-action:focus-visible,
 .admin-normalized-pink-soft-action:focus-visible,
 .admin-normalized-pink-text-action:focus-visible {
-  outline: 2px solid #CBC5ED !important;
+  outline: 2px solid #BFA579 !important;
   outline-offset: 2px !important;
 }
 
@@ -51,11 +51,11 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  border: 1px solid #DAD6F1;
+  border: 1px solid #E4D8C3;
   border-radius: 10px;
   background: #F5F3FF;
   padding: 0 10px;
-  color: #5F55A9;
+  color: #7D6037;
   font-size: 9px;
   font-weight: 700;
   white-space: nowrap;
@@ -63,8 +63,8 @@
 }
 
 .admin-global-excel-export:hover {
-  border-color: #CFC9EA;
-  background: #EEEAFE;
+  border-color: #D9C5A4;
+  background: #F3E8D2;
   color: #51479C;
 }
 

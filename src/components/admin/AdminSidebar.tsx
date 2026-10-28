@@ -253,7 +253,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <Sidebar side="right" collapsible="icon" style={{ "--sidebar-width": "288px", "--sidebar-width-icon": "70px" } as CSSProperties} className="genan-admin-sidebar h-[100dvh] border-l border-[#E3D9C8] bg-[#FCFAF6] font-admin text-[#252820] shadow-none">
+    <Sidebar side="right" collapsible="icon" style={{ "--sidebar-width": "276px", "--sidebar-width-icon": "70px" } as CSSProperties} className="genan-admin-sidebar h-[100dvh] border-l border-[#E3D9C8] bg-[#FCFAF6] font-admin text-[#252820] shadow-none">
       <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-[#FCFAF6]">
         {/* COLOR BAR */}
 
@@ -275,7 +275,7 @@ const AdminSidebar = () => {
 
                   <div className="mt-[5px] flex items-center gap-[5px]">
                     <Activity className="h-[9px] w-[9px] text-[#9DA4AE]" strokeWidth={1.7} />
-                    <span className="truncate text-[8px] font-medium text-[#9AA1AB]">إدارة متجر جنان</span>
+                    <span className="truncate text-[10px] font-medium text-[#837D70]">إدارة متجر جنان</span>
                   </div>
                 </div>
 
@@ -330,7 +330,7 @@ const AdminSidebar = () => {
                       <>
                         <div className="min-w-0 flex-1 text-right">
                           <p className={cn("truncate text-[12px] leading-none", active ? "font-semibold" : "font-medium")}>{section.title}</p>
-                          <p className="mt-[4px] truncate text-[7px] font-medium text-[#918B7E]">{section.subtitle}</p>
+                          <p className="mt-[4px] truncate text-[10px] font-medium text-[#918B7E]">{section.subtitle}</p>
                         </div>
 
                         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={ACCORDION_TRANSITION} className="flex h-[20px] w-[20px] shrink-0 items-center justify-center text-[#9DA4AD]">
@@ -422,7 +422,7 @@ const MainItem = ({ item, active, collapsed, count, onNavigate }: { item: NavIte
 
       {!collapsed && (
         <>
-          <span className={cn("min-w-0 flex-1 truncate text-right text-[11px]", active ? "font-semibold" : "font-medium")}>{item.title}</span>
+          <span className={cn("min-w-0 flex-1 truncate text-right text-[12px]", active ? "font-semibold" : "font-medium")}>{item.title}</span>
 
           {displayCount !== null && <span className={cn("flex min-w-[26px] items-center justify-center rounded-full px-[7px] py-[3px] text-[8px] font-bold leading-none", tone.badge)}>{displayCount}</span>}
         </>

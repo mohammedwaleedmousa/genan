@@ -16,16 +16,17 @@ type ChatbotConfig = {
 
 const defaultChatbotConfig: ChatbotConfig = {
   enabled: true,
-  greeting: "أهلاً بك. أنا دليل فلامنجو الافتراضي، ويسعدني مساعدتك في اختيار المنتجات ومعرفة الأسعار والتوفر والشحن.",
+  greeting: "أهلاً بك. أنا مساعد بوتيك جنان، ويسعدني مساعدتك في اختيار المنتجات ومعرفة الأسعار والتوفر والشحن.",
   faqs: [],
 };
 
 const AdminSettingsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [activeSettingsTab, setActiveSettingsTab] = useState<"general" | "assistant" | "finance" | "documents">("general");
 
   const [storeInfo, setStoreInfo] = useState({
-    name: "Flamingo",
+    name: "جنان",
     email: "",
     phone: "",
   });
@@ -38,7 +39,7 @@ const AdminSettingsPage = () => {
 
   const [whatsapp, setWhatsapp] = useState("");
 
-  const [bankAccounts, setBankAccounts] = useState([{ bank: "", account: "", name: "Flamingo" }]);
+  const [bankAccounts, setBankAccounts] = useState([{ bank: "", account: "", name: "جنان" }]);
 
   const [certPdfUrl, setCertPdfUrl] = useState("");
   const [certImages, setCertImages] = useState<string[]>([]);
@@ -69,7 +70,7 @@ const AdminSettingsPage = () => {
               if (value && typeof value === "object") {
                 const info = value as Record<string, string>;
                 setStoreInfo({
-                  name: info.name || "Flamingo",
+                  name: info.name || "جنان",
                   email: info.email || "",
                   phone: info.phone || info.phone_ye || info.phone_sa || "",
                 });
@@ -265,7 +266,7 @@ const AdminSettingsPage = () => {
   };
 
   const addBankAccount = () => {
-    setBankAccounts((prev) => [...prev, { bank: "", account: "", name: "Flamingo" }]);
+    setBankAccounts((prev) => [...prev, { bank: "", account: "", name: "جنان" }]);
   };
 
   const updateBankAccount = (index: number, field: string, value: string) => {
@@ -289,7 +290,7 @@ const AdminSettingsPage = () => {
       <AdminPageHeader
         category="الإدارة"
         title="الإعدادات"
-        description="إدارة إعدادات المتجر والمعلومات الأساسية"
+        description="إعدادات منظمة لتسهيل إدارة المتجر والتواصل والحسابات"
         actions={[
           {
             label: "حفظ التغييرات",
@@ -300,8 +301,30 @@ const AdminSettingsPage = () => {
         ]}
       />
 
+      <nav aria-label="أقسام إعدادات جنان" className="flex flex-wrap gap-2 rounded-[18px] border border-[#E8DDCD] bg-white p-2 shadow-[0_6px_22px_rgba(33,36,28,.035)]" role="tablist">
+        {([
+          { id: "general", label: "معلومات المتجر" },
+          { id: "assistant", label: "مساعد العملاء" },
+          { id: "finance", label: "الحسابات البنكية" },
+          { id: "documents", label: "التوثيق والشهادات" },
+        ] as const).map((tab) => (
+          <button key={tab.id} type="button" role="tab" id={"genan-settings-tab-" + tab.id}
+            aria-selected={activeSettingsTab === tab.id}
+            aria-controls={"genan-settings-panel-" + tab.id}
+            onClick={() => setActiveSettingsTab(tab.id)}
+            className={activeSettingsTab === tab.id
+              ? "min-h-[43px] rounded-xl bg-[#27382E] px-4 text-[12px] font-semibold text-white"
+              : "min-h-[43px] rounded-xl bg-[#FAF7F1] px-4 text-[12px] font-semibold text-[#71685B] transition-colors hover:bg-[#EEE3D1]"}>
+            {tab.label}
+          </button>
+        ))}
+      </nav>
+      <p className="-mt-3 text-[12px] text-[#867A69]">يمكنك التنقل بين الأقسام، ثم الضغط على «حفظ التغييرات» لحفظ الإعدادات.</p>
+
+      {activeSettingsTab === "general" && (
+        <div id="genan-settings-panel-general" role="tabpanel" aria-labelledby="genan-settings-tab-general" className="space-y-5">
       {/* Store Info */}
-      <div className="bg-card border border-border rounded p-6 space-y-4">
+      <div className="rounded-[20px] border border-[#E8DED0] bg-white p-5 shadow-[0_7px_26px_rgba(31,37,29,.035)] space-y-4 sm:p-6">
         <h2 className="font-heading text-lg text-foreground">معلومات المتجر</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -321,7 +344,7 @@ const AdminSettingsPage = () => {
       </div>
 
       {/* WhatsApp */}
-      <div className="bg-card border border-border rounded p-6 space-y-4">
+      <div className="rounded-[20px] border border-[#E8DED0] bg-white p-5 shadow-[0_7px_26px_rgba(31,37,29,.035)] space-y-4 sm:p-6">
         <h2 className="font-heading text-lg text-foreground">رقم واتساب</h2>
         <div>
           <label className="block text-sm text-muted-foreground mb-2">رقم واتساب المتجر</label>
@@ -335,7 +358,7 @@ const AdminSettingsPage = () => {
       </div>
 
       {/* Social Links */}
-      <div className="bg-card border border-border rounded p-6 space-y-4">
+      <div className="rounded-[20px] border border-[#E8DED0] bg-white p-5 shadow-[0_7px_26px_rgba(31,37,29,.035)] space-y-4 sm:p-6">
         <h2 className="font-heading text-lg text-foreground">روابط التواصل الاجتماعي (الفوتر)</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -363,8 +386,13 @@ const AdminSettingsPage = () => {
         </div>
       </div>
 
+        </div>
+      )}
+
+      {activeSettingsTab === "assistant" && (
+        <div id="genan-settings-panel-assistant" role="tabpanel" aria-labelledby="genan-settings-tab-assistant">
       {/* Customer Assistant */}
-      <div className="bg-card border border-border rounded p-6 space-y-5">
+      <div className="rounded-[20px] border border-[#E8DED0] bg-white p-5 shadow-[0_7px_26px_rgba(31,37,29,.035)] space-y-5 sm:p-6">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary"><MessageCircle className="h-5 w-5" /></span>
@@ -379,7 +407,7 @@ const AdminSettingsPage = () => {
         <div className="space-y-3">
           <div className="flex items-center justify-between"><label className="text-sm text-muted-foreground">أسئلة وأجوبة المساعد</label><Button type="button" size="sm" variant="outline" onClick={() => setChatbotConfig((current) => ({ ...current, faqs: [...current.faqs, { question: "", answer: "" }] }))}><Plus className="w-4 h-4 ml-1" />إضافة سؤال</Button></div>
           {chatbotConfig.faqs.map((faq, index) => (
-            <div key={index} className="grid gap-3 border border-border p-3 md:grid-cols-[1fr_1fr_auto]">
+            <div key={index} className="grid gap-3 rounded-xl border border-[#E9E0D2] p-3 md:grid-cols-[1fr_1fr_auto]">
               <Input value={faq.question} onChange={(event) => setChatbotConfig((current) => ({ ...current, faqs: current.faqs.map((item, itemIndex) => itemIndex === index ? { ...item, question: event.target.value } : item) }))} placeholder="سؤال العميل" />
               <Textarea value={faq.answer} onChange={(event) => setChatbotConfig((current) => ({ ...current, faqs: current.faqs.map((item, itemIndex) => itemIndex === index ? { ...item, answer: event.target.value } : item) }))} placeholder="إجابة المساعد" rows={2} />
               <Button type="button" size="icon" variant="ghost" className="text-destructive" onClick={() => setChatbotConfig((current) => ({ ...current, faqs: current.faqs.filter((_, itemIndex) => itemIndex !== index) }))}><X className="w-4 h-4" /></Button>
@@ -389,8 +417,13 @@ const AdminSettingsPage = () => {
         </div>
       </div>
 
+        </div>
+      )}
+
+      {activeSettingsTab === "finance" && (
+        <div id="genan-settings-panel-finance" role="tabpanel" aria-labelledby="genan-settings-tab-finance">
       {/* Bank Accounts */}
-      <div className="bg-card border border-border rounded p-6 space-y-4">
+      <div className="rounded-[20px] border border-[#E8DED0] bg-white p-5 shadow-[0_7px_26px_rgba(31,37,29,.035)] space-y-4 sm:p-6">
         <div className="flex items-center justify-between">
           <h2 className="font-heading text-lg text-foreground">الحسابات البنكية</h2>
           <Button variant="outline" size="sm" onClick={() => addBankAccount()}>
@@ -398,7 +431,7 @@ const AdminSettingsPage = () => {
           </Button>
         </div>
         {bankAccounts.map((acc, index) => (
-          <div key={index} className="grid grid-cols-3 gap-4 items-end">
+          <div key={index} className="grid grid-cols-1 gap-3 rounded-xl bg-[#FAF8F3] p-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
             <div>
               <label className="block text-sm text-muted-foreground mb-2">البنك</label>
               <Input
@@ -423,14 +456,19 @@ const AdminSettingsPage = () => {
         ))}
       </div>
 
+        </div>
+      )}
+
+      {activeSettingsTab === "documents" && (
+        <div id="genan-settings-panel-documents" role="tabpanel" aria-labelledby="genan-settings-tab-documents">
       {/* Certifications */}
-      <div className="bg-card border border-border rounded p-6 space-y-4">
+      <div className="rounded-[20px] border border-[#E8DED0] bg-white p-5 shadow-[0_7px_26px_rgba(31,37,29,.035)] space-y-4 sm:p-6">
         <h2 className="font-heading text-lg text-foreground">التوثيق والشهادات</h2>
 
         <div>
           <label className="block text-sm text-muted-foreground mb-2">ملف PDF للتوثيق</label>
           {certPdfUrl ? (
-            <div className="flex items-center gap-4 p-4 bg-muted rounded">
+            <div className="flex items-center gap-4 rounded-xl bg-[#F6F0E5] p-4">
               <FileText className="w-8 h-8 text-gold" />
               <span className="flex-1 text-sm truncate">{certPdfUrl}</span>
               <Button variant="ghost" size="icon" onClick={() => setCertPdfUrl("")}>
@@ -438,7 +476,7 @@ const AdminSettingsPage = () => {
               </Button>
             </div>
           ) : (
-            <label className="block w-full p-8 border-2 border-dashed border-border rounded text-center cursor-pointer hover:border-gold">
+            <label className="block w-full cursor-pointer rounded-2xl border-2 border-dashed border-[#D8C9AF] p-8 text-center transition-colors hover:border-[#A78956]">
               <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
               <span className="text-sm text-muted-foreground">اختر ملف PDF</span>
               <input type="file" accept=".pdf" onChange={(e) => handleFileUpload(e, "pdf")} className="hidden" />
@@ -461,13 +499,22 @@ const AdminSettingsPage = () => {
                 </button>
               </div>
             ) : (
-              <label className="w-32 h-32 border-2 border-dashed border-border rounded flex items-center justify-center cursor-pointer hover:border-gold">
+              <label className="flex h-32 w-32 cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-[#D8C9AF] transition-colors hover:border-[#A78956]">
                 <Upload className="w-6 h-6 text-muted-foreground" />
                 <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, "image")} className="hidden" />
               </label>
             )}
           </div>
         </div>
+      </div>
+        </div>
+      )}
+
+      <div className="sticky bottom-3 z-20 flex justify-end rounded-xl border border-[#E8DAC5] bg-[#FFFDFA]/95 p-2 shadow-[0_10px_35px_rgba(39,38,30,.10)] backdrop-blur-md">
+        <Button type="button" onClick={handleSave} disabled={isSaving} className="min-h-[43px] w-full rounded-xl bg-[#26382D] px-6 text-[12px] font-semibold text-white hover:bg-[#3A4E3F] sm:w-auto">
+          {isSaving ? <Loader2 className="ml-2 h-4 w-4 animate-spin" /> : <Save className="ml-2 h-4 w-4" />}
+          {isSaving ? "جاري الحفظ..." : "حفظ التغييرات"}
+        </Button>
       </div>
     </div>
   );
