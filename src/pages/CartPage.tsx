@@ -20,46 +20,55 @@ const CartPage = () => {
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="genan-editorial-bag min-h-screen bg-[#FAF9F6] text-[#171717]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF9F7] text-[#171717]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main id="main-content" className="genan-bag-main px-3 pb-14 sm:px-5 md:px-7 md:pb-20">
-        <header className="genan-bag-hero mx-auto mt-4 w-full max-w-[1100px] rounded-2xl bg-[#171717] px-5 py-7 text-white sm:px-7 md:mt-7 md:py-10">
-          <span className="text-[11px] font-semibold tracking-[0.22em] text-[#D4B889]">GENAN / BAG</span>
-          <h1 className="mt-2 text-[27px] font-semibold text-white md:text-[36px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1>
-          <p className="genan-bag-hero-subtitle">{totalQuantity > 0 ? `${totalQuantity} قطعة مختارة بعناية` : "المساحة الخاصة باختياراتك من جنان"}</p>
-          <span className="genan-bag-hero-seal" aria-hidden="true">G.</span>
+      <main id="main-content" className="px-3 pb-14 pt-4 sm:px-5 md:px-7 md:pb-20 md:pt-7">
+        <header className="mx-auto mb-5 flex w-full max-w-[1120px] items-center justify-between gap-3 rounded-3xl bg-white px-4 py-4 shadow-sm sm:px-6">
+          <div className="flex min-w-0 items-center gap-3">
+            <Link to="/products" aria-label="العودة إلى المنتجات" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#F5F3EF] text-[#171717] transition-colors hover:bg-[#EDE7DC]">
+              <ArrowLeft className="h-5 w-5" strokeWidth={1.6} />
+            </Link>
+            <div className="min-w-0">
+              <span className="text-[10px] font-medium tracking-[0.17em] text-[#A38960]">GENAN</span>
+              <h1 className="text-[19px] font-bold text-[#171717] sm:text-[23px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-[#F7F4EE] px-3 py-2 text-left">
+            <span className="block text-[10px] text-[#8C6B32]">المنتجات</span>
+            <strong className="text-[16px] text-[#171717] sm:text-[18px]">{totalQuantity}</strong>
+          </div>
         </header>
 
         {cart.length === 0 ? (
-          <section className="genan-bag-empty mx-auto flex min-h-[55vh] max-w-md flex-col items-center justify-center px-6 text-center">
-            <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full border border-[#EAE0D2] bg-[#F2EAE0]">
+          <section className="mx-auto flex min-h-[55vh] max-w-[1120px] flex-col items-center justify-center rounded-3xl bg-white px-6 py-14 text-center shadow-sm">
+            <div className="flex h-[88px] w-[88px] items-center justify-center rounded-2xl border border-[#EAE5DA] bg-[#F6F3EA]">
               <ShoppingBag className="h-6 w-6 stroke-[1.25] text-[#8C6B32]" />
             </div>
 
             <span className="mt-5 font-serif text-[10px] tracking-[0.25em] text-[#8C6B32]">GENAN</span>
 
-            <h2 className="mt-2 text-[18px] font-semibold text-[#171717]">
+            <h2 className="mt-2 text-[21px] font-semibold text-[#171717]">
               {getSiteText(content, "cart_empty_text", "حقيبتك فارغة")}
             </h2>
 
-            <p className="mt-2 max-w-[280px] text-[12px] leading-6 text-[#777777]">
+            <p className="mt-3 max-w-[320px] text-[13px] leading-6 text-[#777777]">
               اكتشف المنتجات وأضف القطع التي تحبها إلى حقيبتك.
             </p>
 
             <Link
               to="/products"
-              className="mt-6 inline-flex h-[50px] items-center justify-center gap-2 rounded-xl border border-[#171717] bg-[#171717] px-7 text-[13px] font-semibold text-white active:bg-[#303030]"
+              className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#171717] px-7 text-[13px] font-semibold text-white transition-colors hover:bg-[#333333]"
             >
               {getSiteText(content, "cart_start_shopping", "ابدأ التسوق")}
               <ArrowLeft className="h-3.5 w-3.5 stroke-[1.6]" />
             </Link>
           </section>
         ) : (
-          <section className="genan-bag-layout mx-auto grid w-full max-w-[1100px] gap-5 py-5 md:py-7 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8">
+          <section className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-start gap-5 py-1 md:py-2 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-7">
             <div>
-              <div className="genan-bag-items grid gap-3">
+              <div className="overflow-hidden rounded-3xl bg-white shadow-sm">
                 {cart.map((item, index) => {
                   const variant =
                     item.variantId && item.product.variants
@@ -87,14 +96,13 @@ const CartPage = () => {
 
                   return (
                     <article
-                      data-look={String(index + 1).padStart(2, "0")}
-                      key={`${item.product.id}-${item.variantId || "base"}-${item.selectedSize || ""}-${index}`}
-                      className="genan-bag-item rounded-2xl border border-[#E9E0D3] bg-white p-3 sm:p-5"
+                        key={`${item.product.id}-${item.variantId || "base"}-${item.selectedSize || ""}-${index}`}
+                      className="border-b border-[#E7E2D9] bg-white p-4 last:border-b-0 sm:p-6"
                     >
                       <div className="flex gap-3.5 md:gap-5">
                         <Link
                           to={`/product/${item.product.slug}`}
-                          className="genan-bag-image relative h-[148px] w-[110px] shrink-0 overflow-hidden rounded-xl bg-[#F5F0E9] sm:h-[176px] sm:w-[132px]"
+                          className="relative h-[132px] w-[98px] shrink-0 overflow-hidden rounded-2xl bg-[#F5F3EF] sm:h-[168px] sm:w-[126px]"
                         >
                           {image ? (
                             <img
@@ -127,7 +135,7 @@ const CartPage = () => {
                                 </p>
                               )}
 
-                              <h3 className="genan-bag-name line-clamp-2 text-[13px] font-semibold leading-[1.6] text-[#171717] md:text-[15px]">
+                              <h3 className="line-clamp-2 text-[14px] font-semibold leading-[1.6] text-[#171717] md:text-[15px]">
                                 {item.product.nameAr}
                               </h3>
                             </Link>
@@ -136,7 +144,7 @@ const CartPage = () => {
                               type="button"
                               onClick={() => removeFromCart(item.product.id, item.variantId)}
                               aria-label="حذف المنتج"
-                              className="genan-bag-remove flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[#999] hover:bg-[#F6F4F0] hover:text-[#171717]"
+                              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[#FAF9F7] text-[#928477] transition-colors hover:bg-[#FFF1ED] hover:text-[#A34A3D]"
                             >
                               <Trash2 className="h-3.5 w-3.5 stroke-[1.4]" />
                             </button>
@@ -184,7 +192,7 @@ const CartPage = () => {
                           </div>
 
                           <div className="mt-4 flex items-end justify-between gap-3 md:mt-6">
-                            <div className="genan-bag-qty flex h-10 items-center overflow-hidden rounded-2xl border border-[#EAE5DA] bg-[#FAF9F7]">
+                            <div className="flex h-10 items-center overflow-hidden rounded-2xl border border-[#E8DFD2] bg-[#F7F4EE]">
                               <button
                                 type="button"
                                 onClick={() => {
@@ -230,9 +238,9 @@ const CartPage = () => {
             </div>
 
             <aside className="lg:relative">
-              <div className="genan-bag-summary rounded-2xl border border-[#E9E0D3] bg-white p-5 lg:sticky lg:top-28 lg:p-6">
-                <h2 className="genan-bag-summary-title mb-4 text-[16px] font-semibold text-[#171717]">{getSiteText(content, "cart_summary_title", "ملخص الطلب")}</h2>
-                <div className="border-b border-[#E4D8C4] pb-4">
+              <div className="overflow-hidden rounded-3xl border border-[#E8DFD2] bg-white p-5 shadow-[0_14px_36px_rgba(28,22,12,0.055)] lg:sticky lg:top-24 lg:p-6">
+                <h2 className="mb-5 text-[18px] font-semibold text-[#171717]">{getSiteText(content, "cart_summary_title", "ملخص الطلب")}</h2>
+                <div className="border-b border-[#E7E2D9] pb-4">
                   <div className="flex items-center justify-between">
                     <span className="text-[12px] text-[#777777]">
                       {getSiteText(content, "cart_subtotal_label", "المجموع الفرعي")}
@@ -261,7 +269,7 @@ const CartPage = () => {
                 <button
                   type="button"
                   onClick={() => navigate("/checkout")}
-                  className="genan-bag-checkout flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#171717] text-[13px] font-semibold text-white active:bg-[#303030]"
+                  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white shadow-[0_8px_20px_rgba(14,14,14,0.12)] transition-colors hover:bg-[#303030]"
                 >
                   <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
                   {getSiteText(content, "cart_checkout_cta", "إتمام الطلب")}
@@ -269,7 +277,7 @@ const CartPage = () => {
 
                 <Link
                   to="/products"
-                  className="genan-bag-continue mt-3 flex h-[46px] w-full items-center justify-center gap-1.5 rounded-xl border border-[#E4D8C4] bg-white text-[12px] font-medium text-[#5F5A53]"
+                  className="mt-3 flex h-[46px] w-full items-center justify-center gap-1.5 rounded-2xl border border-[#E4D8C4] bg-[#FAF9F7] text-[12px] font-medium text-[#5F5A53] transition-colors hover:bg-[#F1ECE3]"
                 >
                   {getSiteText(content, "cart_continue_cta", "متابعة التسوق")}
                   <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
