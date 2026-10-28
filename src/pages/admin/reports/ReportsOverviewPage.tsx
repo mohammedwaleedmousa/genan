@@ -239,7 +239,7 @@ export default function ReportsOverviewPage() {
               <div className="flex flex-wrap items-center gap-[13px] border-t border-[#EFE8DE] px-[13px] py-[9px]">
                 <LegendDot color="#98774B" label="الإيرادات" />
                 <LegendDot color="#5680CF" label="الطلبات" />
-                <span className="mr-auto text-[11px] text-[#A0A6AF]">المقارنة في البطاقات مع الفترة السابقة بنفس المدة</span>
+                <span className="mr-auto text-[11px] text-[#606C62]">المقارنة في البطاقات مع الفترة السابقة بنفس المدة</span>
               </div>
             </section>
 
@@ -250,7 +250,7 @@ export default function ReportsOverviewPage() {
                 {funnel.map((row, index) => (
                   <div key={row.label}>
                     <div className="mb-[6px] flex items-center justify-between gap-[8px]">
-                      <div className="flex items-center gap-[7px]"><span className="flex h-[22px] w-[22px] items-center justify-center rounded-[7px] bg-[#F5EAD7] text-[11px] font-semibold text-[#98774B]">{index + 1}</span><span className="text-[11px] font-semibold text-[#59616B]">{row.label}</span></div>
+                      <div className="flex items-center gap-[7px]"><span className="flex h-[22px] w-[22px] items-center justify-center rounded-[7px] bg-[#F5EAD7] text-[11px] font-semibold text-[#80633E]">{index + 1}</span><span className="text-[11px] font-semibold text-[#59616B]">{row.label}</span></div>
                       <div className="text-left"><p className="text-[11px] font-semibold text-[#404751]">{row.value.toLocaleString("en-US")}</p><p className="mt-[1px] text-[10px] text-[#9AA2AC]">{row.percent.toFixed(1)}%</p></div>
                     </div>
                     <div className="h-[7px] overflow-hidden rounded-full bg-[#F0F2F5]"><div className="h-full rounded-full bg-[#98774B]" style={{ width: `${Math.max(0, Math.min(100, row.percent))}%` }} /></div>
@@ -275,11 +275,11 @@ export default function ReportsOverviewPage() {
                 <>
                   <div className="hidden overflow-x-auto sm:block">
                     <table className="w-full min-w-[560px]">
-                      <thead><tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[11px] font-semibold text-[#858D97]"><th className="w-[46px] px-[12px] text-center">#</th><th className="px-[12px] text-right">المنتج</th><th className="px-[12px] text-right">الكمية</th><th className="px-[12px] text-right">الإيراد</th></tr></thead>
+                      <thead><tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[11px] font-semibold text-[#6A727C]"><th className="w-[46px] px-[12px] text-center">#</th><th className="px-[12px] text-right">المنتج</th><th className="px-[12px] text-right">الكمية</th><th className="px-[12px] text-right">الإيراد</th></tr></thead>
                       <tbody>
                         {topProducts.map((product, index) => (
                           <tr key={product.key} className="h-[54px] border-b border-[#F0F2F5] last:border-b-0 hover:bg-[#FCFDFE]">
-                            <td className="px-[12px] text-center"><span className="inline-flex h-[24px] w-[24px] items-center justify-center rounded-[7px] bg-[#F4F2FF] text-[11px] font-semibold text-[#98774B]">{index + 1}</span></td>
+                            <td className="px-[12px] text-center"><span className="inline-flex h-[24px] w-[24px] items-center justify-center rounded-[7px] bg-[#F4F2FF] text-[11px] font-semibold text-[#866740]">{index + 1}</span></td>
                             <td className="max-w-[280px] px-[12px]"><p className="truncate text-[11px] font-semibold text-[#555D67]">{product.name}</p></td>
                             <td className="px-[12px] text-[11px] font-semibold text-[#69717B]">{product.qty.toLocaleString("en-US")}</td>
                             <td className="px-[12px] text-[11px] font-semibold text-[#59616B]">{fmtMoney(product.revenue, currency)}</td>
@@ -292,7 +292,7 @@ export default function ReportsOverviewPage() {
                   <div className="space-y-[7px] p-[8px] sm:hidden">
                     {topProducts.map((product, index) => (
                       <div key={product.key} className="rounded-[10px] border border-[#E8EBEF] bg-white p-[9px]">
-                        <div className="flex items-start gap-[8px]"><span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[7px] bg-[#F4F2FF] text-[11px] font-semibold text-[#98774B]">{index + 1}</span><div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold text-[#555D67]">{product.name}</p><div className="mt-[5px] flex items-center justify-between gap-[8px] text-[11px] text-[#8D959F]"><span>{product.qty.toLocaleString("en-US")} قطعة</span><span className="font-semibold text-[#59616B]">{fmtMoney(product.revenue, currency)}</span></div></div></div>
+                        <div className="flex items-start gap-[8px]"><span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[7px] bg-[#F4F2FF] text-[11px] font-semibold text-[#866740]">{index + 1}</span><div className="min-w-0 flex-1"><p className="truncate text-[11px] font-semibold text-[#555D67]">{product.name}</p><div className="mt-[5px] flex items-center justify-between gap-[8px] text-[11px] text-[#606C62]"><span>{product.qty.toLocaleString("en-US")} قطعة</span><span className="font-semibold text-[#59616B]">{fmtMoney(product.revenue, currency)}</span></div></div></div>
                       </div>
                     ))}
                   </div>
@@ -309,7 +309,7 @@ export default function ReportsOverviewPage() {
                 <>
                   <div className="hidden overflow-x-auto sm:block">
                     <table className="w-full min-w-[620px]">
-                      <thead><tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[11px] font-semibold text-[#858D97]"><th className="px-[12px] text-right">المصدر</th><th className="px-[12px] text-right">الجلسات</th><th className="px-[12px] text-right">أضافوا للسلة</th><th className="px-[12px] text-right">شراء</th><th className="px-[12px] text-right">التحويل</th></tr></thead>
+                      <thead><tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[11px] font-semibold text-[#6A727C]"><th className="px-[12px] text-right">المصدر</th><th className="px-[12px] text-right">الجلسات</th><th className="px-[12px] text-right">أضافوا للسلة</th><th className="px-[12px] text-right">شراء</th><th className="px-[12px] text-right">التحويل</th></tr></thead>
                       <tbody>
                         {trafficSources.map((source) => (
                           <tr key={source.source} className="h-[54px] border-b border-[#F0F2F5] last:border-b-0 hover:bg-[#FCFDFE]">
@@ -317,7 +317,7 @@ export default function ReportsOverviewPage() {
                             <td className="px-[12px] text-[11px] font-semibold text-[#59616B]">{source.sessions.toLocaleString("en-US")}</td>
                             <td className="px-[12px] text-[11px] text-[#69717B]">{source.addToCart.toLocaleString("en-US")}</td>
                             <td className="px-[12px] text-[11px] text-[#69717B]">{source.purchases.toLocaleString("en-US")}</td>
-                            <td className="px-[12px]"><span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[7px] text-[11px] font-semibold text-[#568468]">{source.conversion.toFixed(2)}%</span></td>
+                            <td className="px-[12px]"><span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[7px] text-[11px] font-semibold text-[#4E7860]">{source.conversion.toFixed(2)}%</span></td>
                           </tr>
                         ))}
                       </tbody>
@@ -370,12 +370,12 @@ const DateControls = ({ range, setRange }: { range: { start: string; end: string
 
 const KpiCard = ({ title, value, helper, icon: Icon, tone, delta }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "blue" | "amber" | "violet" | "teal" | "green"; delta: { value: number; label: string; positive: boolean; neutral: boolean } }) => {
   const style = {
-    indigo: { icon: "bg-[#F5EAD7] text-[#98774B]", line: "bg-[#98774B]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    amber: { icon: "bg-[#FFF5E6] text-[#C38838]", line: "bg-[#C38838]" },
-    violet: { icon: "bg-[#F4ECFF] text-[#8F63C1]", line: "bg-[#8F63C1]" },
-    teal: { icon: "bg-[#EAF8F4] text-[#4C9687]", line: "bg-[#4C9687]" },
-    green: { icon: "bg-[#ECF7EC] text-[#629067]", line: "bg-[#629067]" },
+    indigo: { icon: "bg-[#F5EAD7] text-[#80633E]", line: "bg-[#98774B]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    amber: { icon: "bg-[#FFF5E6] text-[#94662C]", line: "bg-[#C38838]" },
+    violet: { icon: "bg-[#F4ECFF] text-[#8059AD]", line: "bg-[#8F63C1]" },
+    teal: { icon: "bg-[#EAF8F4] text-[#3C786A]", line: "bg-[#4C9687]" },
+    green: { icon: "bg-[#ECF7EC] text-[#507555]", line: "bg-[#629067]" },
   }[tone];
 
   return (
@@ -387,24 +387,24 @@ const KpiCard = ({ title, value, helper, icon: Icon, tone, delta }: { title: str
       </div>
       <p className="mt-[11px] text-[11px] text-[#8D949E]">{title}</p>
       <p className="mt-[4px] truncate text-[16px] font-semibold leading-none text-[#303741]">{value}</p>
-      <p className="mt-[7px] truncate text-[11px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[7px] truncate text-[11px] text-[#606C62]">{helper}</p>
     </article>
   );
 };
 
 const DeltaBadge = ({ delta }: { delta: { value: number; label: string; positive: boolean; neutral: boolean } }) => {
-  if (delta.neutral) return <span className="inline-flex h-[24px] items-center rounded-[7px] border border-[#E5E8EC] bg-[#F7F8FA] px-[6px] text-[10px] font-semibold text-[#9299A3]">—</span>;
+  if (delta.neutral) return <span className="inline-flex h-[24px] items-center rounded-[7px] border border-[#E5E8EC] bg-[#F7F8FA] px-[6px] text-[10px] font-semibold text-[#6B7179]">—</span>;
 
-  return <span className={cn("inline-flex h-[24px] items-center gap-[3px] rounded-[7px] border px-[6px] text-[10px] font-semibold", delta.positive ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]")}>{delta.positive ? <TrendingUp className="h-[8px] w-[8px]" /> : <TrendingDown className="h-[8px] w-[8px]" />}{delta.label}</span>;
+  return <span className={cn("inline-flex h-[24px] items-center gap-[3px] rounded-[7px] border px-[6px] text-[10px] font-semibold", delta.positive ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4E7860]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#AD554C]")}>{delta.positive ? <TrendingUp className="h-[8px] w-[8px]" /> : <TrendingDown className="h-[8px] w-[8px]" />}{delta.label}</span>;
 };
 
-const SectionHeader = ({ title, description, icon: Icon }: { title: string; description: string; icon: LucideIcon }) => <div className="flex items-center gap-[8px] border-b border-[#EFE8DE] px-[13px] py-[11px]"><div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[#98774B]"><Icon className="h-[12px] w-[12px]" /></div><div><h2 className="text-[11.5px] font-semibold text-[#4A525C]">{title}</h2><p className="mt-[2px] text-[11px] text-[#9AA2AC]">{description}</p></div></div>;
+const SectionHeader = ({ title, description, icon: Icon }: { title: string; description: string; icon: LucideIcon }) => <div className="flex items-center gap-[8px] border-b border-[#EFE8DE] px-[13px] py-[11px]"><div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[#80633E]"><Icon className="h-[12px] w-[12px]" /></div><div><h2 className="text-[11.5px] font-semibold text-[#4A525C]">{title}</h2><p className="mt-[2px] text-[11px] text-[#9AA2AC]">{description}</p></div></div>;
 
 const LegendDot = ({ color, label }: { color: string; label: string }) => <span className="inline-flex items-center gap-[5px] text-[11px] font-medium text-[#7E8690]"><span className="h-[6px] w-[6px] rounded-full" style={{ backgroundColor: color }} />{label}</span>;
 
 const MiniStat = ({ label, value }: { label: string; value: string }) => <div className="rounded-[9px] bg-[#FBF9F5] p-[8px]"><p className="text-[10px] text-[#9AA2AC]">{label}</p><p className="mt-[3px] truncate text-[11px] font-semibold text-[#59616B]">{value}</p></div>;
 
-const SourceBadge = ({ source }: { source: string }) => <span className="inline-flex h-[25px] max-w-[180px] items-center rounded-[7px] border border-[#E2DEF3] bg-[#F8F7FF] px-[7px] text-[11px] font-semibold text-[#98774B]"><span className="truncate">{formatSource(source)}</span></span>;
+const SourceBadge = ({ source }: { source: string }) => <span className="inline-flex h-[25px] max-w-[180px] items-center rounded-[7px] border border-[#E2DEF3] bg-[#F8F7FF] px-[7px] text-[11px] font-semibold text-[#896941]"><span className="truncate">{formatSource(source)}</span></span>;
 
 const SmallEmpty = ({ text }: { text: string }) => <div className="flex min-h-[220px] flex-col items-center justify-center px-5 text-center"><Package className="h-[20px] w-[20px] text-[#B0B6BD]" /><p className="mt-2 text-[11px] text-[#9199A3]">{text}</p></div>;
 

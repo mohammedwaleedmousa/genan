@@ -391,7 +391,7 @@ const AdminReviewsPage = () => {
           <div className="mx-auto flex h-[48px] w-[48px] items-center justify-center rounded-[14px] border border-[#E5E9EF] bg-white">
             <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" />
           </div>
-          <p className="mt-3 text-[10px] font-medium text-[#969DA7]">جاري تحميل التقييمات...</p>
+          <p className="mt-3 text-[10px] font-medium text-[#626E63]">جاري تحميل التقييمات...</p>
         </div>
       </div>
     );
@@ -424,7 +424,7 @@ const AdminReviewsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[9px] text-[#9BA2AC]">ابحث بالعميل أو المنتج أو محتوى التقييم</p>
+            <p className="mt-[3px] text-[9px] text-[#626E63]">ابحث بالعميل أو المنتج أو محتوى التقييم</p>
           </div>
 
           {hasFilters && (
@@ -484,11 +484,11 @@ const AdminReviewsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">قائمة التقييمات</h2>
-            <p className="mt-[3px] text-[9px] text-[#9CA3AC]">{filteredReviews.length.toLocaleString("ar-EG")} تقييم ظاهر</p>
+            <p className="mt-[3px] text-[9px] text-[#626E63]">{filteredReviews.length.toLocaleString("ar-EG")} تقييم ظاهر</p>
           </div>
 
           {isFetching && (
-            <span className="flex items-center gap-[5px] text-[9px] text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[9px] text-[#626E63]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -498,7 +498,7 @@ const AdminReviewsPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1180px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#858D97]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#6A727C]">
                 <th className="px-[12px] text-right">العميل</th>
                 <th className="px-[12px] text-right">المنتج</th>
                 <th className="px-[12px] text-right">التقييم</th>
@@ -558,12 +558,12 @@ const AdminReviewsPage = () => {
 
                       <td className="px-[12px]">
                         {images.length > 0 ? (
-                          <button type="button" onClick={() => setImagePreview({ images, index: 0 })} className="inline-flex h-[27px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9px] font-semibold text-[#5679A4]">
+                          <button type="button" onClick={() => setImagePreview({ images, index: 0 })} className="inline-flex h-[27px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9px] font-semibold text-[#507098]">
                             <ImageIcon className="h-[9px] w-[9px]" />
                             {images.length} صور
                           </button>
                         ) : (
-                          <span className="text-[9px] text-[#A0A6AF]">—</span>
+                          <span className="text-[9px] text-[#626E63]">—</span>
                         )}
                       </td>
 
@@ -616,7 +616,7 @@ const AdminReviewsPage = () => {
 
                       <div className="min-w-0">
                         <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{product?.name_ar || product?.name || "منتج غير متاح"}</h3>
-                        <p className="mt-[3px] truncate text-[9px] text-[#9299A3]">{review.customer_name}</p>
+                        <p className="mt-[3px] truncate text-[9px] text-[#626E63]">{review.customer_name}</p>
                       </div>
                     </div>
 
@@ -631,7 +631,7 @@ const AdminReviewsPage = () => {
                   <p className="mt-[9px] line-clamp-3 text-[10px] leading-6 text-[#68717B]">{review.comment || "بدون تعليق نصي"}</p>
 
                   {images.length > 0 && (
-                    <button type="button" onClick={() => setImagePreview({ images, index: 0 })} className="mt-[8px] inline-flex h-[28px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9px] font-semibold text-[#5679A4]">
+                    <button type="button" onClick={() => setImagePreview({ images, index: 0 })} className="mt-[8px] inline-flex h-[28px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9px] font-semibold text-[#507098]">
                       <ImageIcon className="h-[10px] w-[10px]" />
                       عرض {images.length} صور
                     </button>
@@ -663,7 +663,7 @@ const AdminReviewsPage = () => {
 
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editingReview ? "تعديل التقييم" : "إضافة تقييم جديد"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[9px] text-[#9299A3]">اختر المنتج وأدخل تقييم العميل ثم حدد ما إذا كان سيظهر مباشرة في المتجر.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[9px] text-[#626E63]">اختر المنتج وأدخل تقييم العميل ثم حدد ما إذا كان سيظهر مباشرة في المتجر.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -673,7 +673,7 @@ const AdminReviewsPage = () => {
               <FormSection title="المنتج" icon={Package}>
                 <Field label="بحث عن المنتج" required>
                   <div className="relative">
-                    <Search className="pointer-events-none absolute right-[11px] top-1/2 h-[12px] w-[12px] -translate-y-1/2 text-[#9AA1AB]" />
+                    <Search className="pointer-events-none absolute right-[11px] top-1/2 h-[12px] w-[12px] -translate-y-1/2 text-[#626E63]" />
                     <Input value={productSearch} onChange={(event) => setProductSearch(event.target.value)} placeholder="اكتب اسم المنتج..." className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] pr-[34px] text-[10px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
                     {productSearchLoading && <Loader2 className="absolute left-[11px] top-1/2 h-[11px] w-[11px] -translate-y-1/2 animate-spin text-[#675CBA]" />}
                   </div>
@@ -688,7 +688,7 @@ const AdminReviewsPage = () => {
                     <ProductOption key={product.id} product={product} selected={formData.product_id === product.id} onSelect={() => setFormData((current) => ({ ...current, product_id: product.id }))} />
                   ))}
 
-                  {!productSearchLoading && productOptions.length === 0 && <p className="py-8 text-center text-[9px] text-[#9BA2AC]">لا توجد منتجات مطابقة.</p>}
+                  {!productSearchLoading && productOptions.length === 0 && <p className="py-8 text-center text-[9px] text-[#626E63]">لا توجد منتجات مطابقة.</p>}
                 </div>
               </FormSection>
 
@@ -704,13 +704,13 @@ const AdminReviewsPage = () => {
                 <Field label="عدد النجوم" required>
                   <div className="grid grid-cols-5 gap-[6px]" dir="ltr">
                     {[1, 2, 3, 4, 5].map((rating) => (
-                      <button key={rating} type="button" onClick={() => setFormData((current) => ({ ...current, rating }))} className={cn("flex h-[42px] items-center justify-center rounded-[9px] border transition-colors", rating <= formData.rating ? "border-[#E9D59C] bg-[#FFF8E8] text-[#C79632]" : "border-[#E3E7EC] bg-white text-[#C3C8CE] hover:bg-[#FAFBFC]")}>
+                      <button key={rating} type="button" onClick={() => setFormData((current) => ({ ...current, rating }))} className={cn("flex h-[42px] items-center justify-center rounded-[9px] border transition-colors", rating <= formData.rating ? "border-[#E9D59C] bg-[#FFF8E8] text-[#8D6A23]" : "border-[#E3E7EC] bg-white text-[#C3C8CE] hover:bg-[#FAFBFC]")}>
                         <Star className={cn("h-[15px] w-[15px]", rating <= formData.rating && "fill-current")} />
                       </button>
                     ))}
                   </div>
 
-                  <p className="mt-[5px] text-[9px] text-[#9299A3]">{ratingLabel(formData.rating)}</p>
+                  <p className="mt-[5px] text-[9px] text-[#626E63]">{ratingLabel(formData.rating)}</p>
                 </Field>
               </FormSection>
 
@@ -718,7 +718,7 @@ const AdminReviewsPage = () => {
                 <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
                   <div>
                     <p className="text-[10px] font-semibold text-[#555D67]">اعتماد التقييم</p>
-                    <p className="mt-[3px] text-[9px] text-[#9BA2AC]">{formData.is_approved ? "سيظهر التقييم للعميل في صفحة المنتج" : "سيبقى التقييم في قائمة المراجعة"}</p>
+                    <p className="mt-[3px] text-[9px] text-[#626E63]">{formData.is_approved ? "سيظهر التقييم للعميل في صفحة المنتج" : "سيبقى التقييم في قائمة المراجعة"}</p>
                   </div>
 
                   <Switch checked={formData.is_approved} onCheckedChange={(checked) => setFormData((current) => ({ ...current, is_approved: checked }))} />
@@ -735,7 +735,7 @@ const AdminReviewsPage = () => {
                     ))}
                   </div>
 
-                  <p className="text-[9px] leading-5 text-[#9BA2AC]">صور العميل محفوظة كما هي. هذه الصفحة لا تحذف الصور من التقييم أثناء تعديل النص أو حالة الاعتماد.</p>
+                  <p className="text-[9px] leading-5 text-[#626E63]">صور العميل محفوظة كما هي. هذه الصفحة لا تحذف الصور من التقييم أثناء تعديل النص أو حالة الاعتماد.</p>
                 </FormSection>
               ) : null}
             </div>
@@ -785,12 +785,12 @@ const AdminReviewsPage = () => {
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]">
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]">
               <Trash2 className="h-[16px] w-[16px]" />
             </div>
 
             <AlertDialogTitle className="text-[14px] font-semibold text-[#343A44]">حذف التقييم</AlertDialogTitle>
-            <AlertDialogDescription className="text-[10px] leading-6 text-[#858D97]">سيتم حذف تقييم "{deleteTarget?.customer_name || ""}" نهائيًا. إذا كان معتمدًا فسيتوقف ظهوره في صفحة المنتج فور تحديث البيانات.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[10px] leading-6 text-[#626E63]">سيتم حذف تقييم "{deleteTarget?.customer_name || ""}" نهائيًا. إذا كان معتمدًا فسيتوقف ظهوره في صفحة المنتج فور تحديث البيانات.</AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter className="mt-2 gap-2">
@@ -826,9 +826,9 @@ const ratingLabel = (rating: number) => {
 const ReviewStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -837,13 +837,13 @@ const ReviewStatCard = ({ title, value, helper, icon: Icon, tone }: { title: str
       <div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div>
       <p className="mt-[12px] text-[10px] text-[#8D949E]">{title}</p>
       <p className="mt-[4px] truncate text-[19px] font-semibold leading-none text-[#303741]">{value}</p>
-      <p className="mt-[6px] text-[9px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[6px] text-[9px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
 
 const ReviewStatus = ({ approved }: { approved: boolean }) => {
-  return <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[9px] font-semibold", approved ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#EEDFC4] bg-[#FFF7E8] text-[#A9782F]")}><span className={cn("h-[5px] w-[5px] rounded-full", approved ? "bg-[#629067]" : "bg-[#C49446]")} />{approved ? "معتمد" : "معلق"}</span>;
+  return <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[9px] font-semibold", approved ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#EEDFC4] bg-[#FFF7E8] text-[#926829]")}><span className={cn("h-[5px] w-[5px] rounded-full", approved ? "bg-[#629067]" : "bg-[#C49446]")} />{approved ? "معتمد" : "معلق"}</span>;
 };
 
 const RatingStars = ({ rating }: { rating: number }) => {
@@ -858,7 +858,7 @@ const ProductImage = ({ product, mobile = false }: { product?: ProductRow; mobil
   const image = product?.images?.find(Boolean) || "";
   const size = mobile ? "h-[52px] w-[46px] rounded-[9px]" : "h-[42px] w-[38px] rounded-[8px]";
 
-  return <div className={cn("flex shrink-0 items-center justify-center overflow-hidden border border-[#E7EAEF] bg-[#F5F6F8]", size)}>{image ? <img src={image} alt={product?.name_ar || product?.name || ""} loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[12px] w-[12px] text-[#A0A6AF]" />}</div>;
+  return <div className={cn("flex shrink-0 items-center justify-center overflow-hidden border border-[#E7EAEF] bg-[#F5F6F8]", size)}>{image ? <img src={image} alt={product?.name_ar || product?.name || ""} loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[12px] w-[12px] text-[#626E63]" />}</div>;
 };
 
 const ProductOption = ({ product, selected, onSelect }: { product: ProductRow; selected: boolean; onSelect: () => void }) => {
@@ -868,7 +868,7 @@ const ProductOption = ({ product, selected, onSelect }: { product: ProductRow; s
 
       <div className="min-w-0 flex-1">
         <p className="truncate text-[9.5px] font-semibold text-[#555D67]">{product.name_ar || product.name}</p>
-        <p className="mt-[2px] truncate text-[8px] text-[#9BA2AC]">{product.name}</p>
+        <p className="mt-[2px] truncate text-[8px] text-[#626E63]">{product.name}</p>
       </div>
 
       {selected && <span className="flex h-[24px] w-[24px] items-center justify-center rounded-[7px] bg-[#675CBA] text-white"><Check className="h-[10px] w-[10px]" /></span>}
@@ -885,7 +885,7 @@ const Field = ({ label, children, required = false }: { label: string; children:
 };
 
 const ReviewsEmpty = () => {
-  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><MessageSquareText className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11px] font-semibold text-[#535B65]">لا توجد تقييمات</h3><p className="mt-[4px] text-[9px] text-[#9BA2AC]">غيّر البحث أو الفلاتر، أو أضف تقييمًا جديدًا.</p></div>;
+  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><MessageSquareText className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11px] font-semibold text-[#535B65]">لا توجد تقييمات</h3><p className="mt-[4px] text-[9px] text-[#626E63]">غيّر البحث أو الفلاتر، أو أضف تقييمًا جديدًا.</p></div>;
 };
 
 export default AdminReviewsPage;

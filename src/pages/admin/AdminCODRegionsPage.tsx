@@ -322,7 +322,7 @@ const AdminCODRegionsPage = () => {
           <div className="mx-auto flex h-[48px] w-[48px] items-center justify-center rounded-[14px] border border-[#E5E9EF] bg-white">
             <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" />
           </div>
-          <p className="mt-3 text-[10px] font-medium text-[#969DA7]">جاري تحميل مناطق الدفع عند الاستلام...</p>
+          <p className="mt-3 text-[10px] font-medium text-[#626E63]">جاري تحميل مناطق الدفع عند الاستلام...</p>
         </div>
       </div>
     );
@@ -355,7 +355,7 @@ const AdminCODRegionsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[9px] text-[#9BA2AC]">ابحث بالعربي أو الإنجليزي وفلتر حسب حالة التغطية</p>
+            <p className="mt-[3px] text-[9px] text-[#626E63]">ابحث بالعربي أو الإنجليزي وفلتر حسب حالة التغطية</p>
           </div>
 
           {hasFilters && (
@@ -400,11 +400,11 @@ const AdminCODRegionsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">تغطية الدفع عند الاستلام</h2>
-            <p className="mt-[3px] text-[9px] text-[#9CA3AC]">{filteredRegions.length.toLocaleString("ar-EG")} منطقة ظاهرة</p>
+            <p className="mt-[3px] text-[9px] text-[#626E63]">{filteredRegions.length.toLocaleString("ar-EG")} منطقة ظاهرة</p>
           </div>
 
           {isFetching && (
-            <span className="flex items-center gap-[5px] text-[9px] text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[9px] text-[#626E63]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -414,7 +414,7 @@ const AdminCODRegionsPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[900px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#858D97]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#6A727C]">
                 <th className="px-[12px] text-right">المنطقة</th>
                 <th className="px-[12px] text-right">الاسم الإنجليزي</th>
                 <th className="px-[12px] text-right">النطاق</th>
@@ -451,7 +451,7 @@ const AdminCODRegionsPage = () => {
                     </td>
 
                     <td className="px-[12px]">
-                      <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9px] font-semibold text-[#5679A4]">
+                      <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9px] font-semibold text-[#507098]">
                         <Globe2 className="h-[9px] w-[9px]" />
                         المتجر الموحد
                       </span>
@@ -498,7 +498,7 @@ const AdminCODRegionsPage = () => {
 
                     <div className="min-w-0">
                       <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{region.region_name_ar}</h3>
-                      <p dir="ltr" className="mt-[3px] truncate text-right text-[9px] text-[#9299A3]">{region.region_name}</p>
+                      <p dir="ltr" className="mt-[3px] truncate text-right text-[9px] text-[#626E63]">{region.region_name}</p>
                     </div>
                   </div>
 
@@ -533,7 +533,7 @@ const AdminCODRegionsPage = () => {
 
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editingRegion ? "تعديل منطقة الدفع عند الاستلام" : "إضافة منطقة جديدة"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[9px] text-[#9299A3]">إدارة الاسم العربي والإنجليزي وحالة توفر الدفع عند الاستلام.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[9px] text-[#626E63]">إدارة الاسم العربي والإنجليزي وحالة توفر الدفع عند الاستلام.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -554,7 +554,7 @@ const AdminCODRegionsPage = () => {
                     </button>
                   </div>
 
-                  <p className="mt-[5px] text-[9px] leading-5 text-[#9BA2AC]">إذا تركته فارغًا سيُستخدم الاسم العربي تلقائيًا.</p>
+                  <p className="mt-[5px] text-[9px] leading-5 text-[#626E63]">إذا تركته فارغًا سيُستخدم الاسم العربي تلقائيًا.</p>
                 </Field>
               </FormSection>
 
@@ -562,7 +562,7 @@ const AdminCODRegionsPage = () => {
                 <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
                   <div>
                     <p className="text-[10px] font-semibold text-[#555D67]">السماح بالدفع عند الاستلام</p>
-                    <p className="mt-[3px] text-[9px] text-[#9BA2AC]">{form.is_active ? "المنطقة متاحة للعملاء" : "المنطقة محفوظة لكن الدفع عند الاستلام متوقف فيها"}</p>
+                    <p className="mt-[3px] text-[9px] text-[#626E63]">{form.is_active ? "المنطقة متاحة للعملاء" : "المنطقة محفوظة لكن الدفع عند الاستلام متوقف فيها"}</p>
                   </div>
 
                   <Switch checked={form.is_active} onCheckedChange={(checked) => setForm((current) => ({ ...current, is_active: checked }))} />
@@ -591,9 +591,9 @@ const AdminCODRegionsPage = () => {
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div>
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div>
             <AlertDialogTitle className="text-[14px] font-semibold text-[#343A44]">حذف منطقة الدفع عند الاستلام</AlertDialogTitle>
-            <AlertDialogDescription className="text-[10px] leading-6 text-[#858D97]">سيتم التحقق أولًا من سجل الطلبات. إذا استُخدمت منطقة "{deleteTarget?.region_name_ar || ""}" في طلبات سابقة فسيتم منع الحذف، ويمكنك تعطيلها بدلًا من ذلك.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[10px] leading-6 text-[#626E63]">سيتم التحقق أولًا من سجل الطلبات. إذا استُخدمت منطقة "{deleteTarget?.region_name_ar || ""}" في طلبات سابقة فسيتم منع الحذف، ويمكنك تعطيلها بدلًا من ذلك.</AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter className="mt-2 gap-2">
@@ -613,9 +613,9 @@ const AdminCODRegionsPage = () => {
 const RegionStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -624,13 +624,13 @@ const RegionStatCard = ({ title, value, helper, icon: Icon, tone }: { title: str
       <div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div>
       <p className="mt-[12px] text-[10px] text-[#8D949E]">{title}</p>
       <p className="mt-[4px] truncate text-[19px] font-semibold leading-none text-[#303741]">{value}</p>
-      <p className="mt-[6px] text-[9px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[6px] text-[9px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
 
 const RegionStatus = ({ active }: { active: boolean }) => {
-  return <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[9px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "مفعلة" : "معطلة"}</span>;
+  return <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[9px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "مفعلة" : "معطلة"}</span>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -642,7 +642,7 @@ const Field = ({ label, children, required = false }: { label: string; children:
 };
 
 const RegionsEmpty = () => {
-  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><MapPin className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11px] font-semibold text-[#535B65]">لا توجد مناطق</h3><p className="mt-[4px] text-[9px] text-[#9BA2AC]">أضف منطقة جديدة أو غيّر البحث والفلاتر الحالية.</p></div>;
+  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><MapPin className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11px] font-semibold text-[#535B65]">لا توجد مناطق</h3><p className="mt-[4px] text-[9px] text-[#626E63]">أضف منطقة جديدة أو غيّر البحث والفلاتر الحالية.</p></div>;
 };
 
 export default AdminCODRegionsPage;

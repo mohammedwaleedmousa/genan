@@ -377,7 +377,7 @@ const AdminBannersPage = () => {
 
   return (
     <div className="w-full space-y-4" dir="rtl">
-      <AdminPageHeader category="واجهة المتجر" title="إدارة البانرات" description={`${stats.total.toLocaleString("ar-EG")} بانر داخل واجهة Flamingo Park`} actions={[{ label: "إضافة بانر", icon: Plus, onClick: () => openDialog(), variant: "primary" }]} />
+      <AdminPageHeader category="واجهة المتجر" title="إدارة البانرات" description={`${stats.total.toLocaleString("ar-EG")} بانر داخل واجهة بوتيك جنان`} actions={[{ label: "إضافة بانر", icon: Plus, onClick: () => openDialog(), variant: "primary" }]} />
 
       <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">
         <BannerStatCard title="إجمالي البانرات" value={stats.total} helper="جميع البانرات المسجلة" icon={LayoutTemplate} tone="indigo" />
@@ -390,7 +390,7 @@ const AdminBannersPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[8px] text-[#9BA2AC]">ابحث بالعنوان أو رابط الصفحة الخاصة</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">ابحث بالعنوان أو رابط الصفحة الخاصة</p>
           </div>
 
           {(search || statusFilter !== "all") && (
@@ -419,7 +419,7 @@ const AdminBannersPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">قائمة البانرات</h2>
-            <p className="mt-[3px] text-[8px] text-[#9CA3AC]">{filteredBanners.length.toLocaleString("ar-EG")} بانر ظاهر في القائمة</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">{filteredBanners.length.toLocaleString("ar-EG")} بانر ظاهر في القائمة</p>
           </div>
         </div>
 
@@ -442,7 +442,7 @@ const AdminBannersPage = () => {
                       <ChevronUp className="h-[11px] w-[11px]" />
                     </button>
 
-                    <div className="flex items-center gap-[3px] text-[7px] font-semibold text-[#9BA2AC]">
+                    <div className="flex items-center gap-[3px] text-[7px] font-semibold text-[#626E63]">
                       {isMoving ? <Loader2 className="h-[9px] w-[9px] animate-spin" /> : <GripVertical className="h-[9px] w-[9px]" />}
                       {originalIndex + 1}
                     </div>
@@ -461,14 +461,14 @@ const AdminBannersPage = () => {
                     <div className="flex flex-wrap items-center gap-[6px]">
                       <h3 className="max-w-[360px] truncate text-[11px] font-semibold text-[#3F4751]">{banner.title_ar}</h3>
 
-                      <span className={cn("inline-flex h-[23px] items-center rounded-[7px] border px-[7px] text-[6.5px] font-semibold", banner.is_active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E2E6EA] bg-[#F5F6F8] text-[#818994]")}>{banner.is_active ? "نشط" : "معطل"}</span>
+                      <span className={cn("inline-flex h-[23px] items-center rounded-[7px] border px-[7px] text-[6.5px] font-semibold", banner.is_active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E2E6EA] bg-[#F5F6F8] text-[#686E79]")}>{banner.is_active ? "نشط" : "معطل"}</span>
 
-                      {banner.page_slug && <span className="inline-flex h-[23px] items-center gap-[4px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[6.5px] font-semibold text-[#5679A4]"><Link2 className="h-[8px] w-[8px]" />صفحة خاصة</span>}
+                      {banner.page_slug && <span className="inline-flex h-[23px] items-center gap-[4px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[6.5px] font-semibold text-[#507098]"><Link2 className="h-[8px] w-[8px]" />صفحة خاصة</span>}
                     </div>
 
-                    <p className="mt-[5px] max-w-[640px] truncate text-[8px] text-[#858D97]">{banner.subtitle_ar || "لا يوجد عنوان فرعي"}</p>
+                    <p className="mt-[5px] max-w-[640px] truncate text-[8px] text-[#626E63]">{banner.subtitle_ar || "لا يوجد عنوان فرعي"}</p>
 
-                    <div className="mt-[8px] flex flex-wrap items-center gap-x-[12px] gap-y-[5px] text-[7px] text-[#9BA2AC]">
+                    <div className="mt-[8px] flex flex-wrap items-center gap-x-[12px] gap-y-[5px] text-[7px] text-[#626E63]">
                       <span>الترتيب #{originalIndex + 1}</span>
 
                       {banner.cta_text_ar && <span>الزر: {banner.cta_text_ar}</span>}
@@ -481,7 +481,7 @@ const AdminBannersPage = () => {
 
                   <div className="flex items-center justify-between gap-[8px] md:justify-end">
                     <div className="flex items-center gap-[7px]">
-                      <span className="text-[7px] font-semibold text-[#858D97]">الظهور</span>
+                      <span className="text-[7px] font-semibold text-[#626E63]">الظهور</span>
                       <Switch checked={banner.is_active ?? true} disabled={togglingBannerId === banner.id} onCheckedChange={(checked) => void toggleActive(banner, checked)} />
                     </div>
 
@@ -518,7 +518,7 @@ const AdminBannersPage = () => {
 
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editingBanner ? "تعديل البانر" : "إضافة بانر جديد"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#9299A3]">إدارة النص والصورة والرابط وطريقة ظهور البانر داخل المتجر.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#626E63]">إدارة النص والصورة والرابط وطريقة ظهور البانر داخل المتجر.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -548,7 +548,7 @@ const AdminBannersPage = () => {
               <FormSection title="الصفحة الخاصة" icon={Link2}>
                 <Field label="رابط الصفحة">
                   <div className="relative">
-                    <span dir="ltr" className="absolute left-[10px] top-1/2 -translate-y-1/2 text-[6.5px] text-[#A0A6AF]">/banner/</span>
+                    <span dir="ltr" className="absolute left-[10px] top-1/2 -translate-y-1/2 text-[6.5px] text-[#626E63]">/banner/</span>
                     <Input value={formData.page_slug} onChange={(event) => setFormData((current) => ({ ...current, page_slug: normalizePageSlug(event.target.value) }))} placeholder="summer-sale" dir="ltr" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] pl-[62px] text-[9px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
                   </div>
                 </Field>
@@ -571,7 +571,7 @@ const AdminBannersPage = () => {
                   <div className="flex min-h-[63px] items-center justify-between rounded-[10px] border border-[#E5E9EF] bg-[#F8FAFC] px-[10px]">
                     <div>
                       <p className="text-[8.5px] font-semibold text-[#555D67]">حالة البانر</p>
-                      <p className="mt-[2px] text-[6.5px] text-[#9BA2AC]">{formData.is_active ? "ظاهر للعملاء" : "مخفي عن المتجر"}</p>
+                      <p className="mt-[2px] text-[6.5px] text-[#626E63]">{formData.is_active ? "ظاهر للعملاء" : "مخفي عن المتجر"}</p>
                     </div>
 
                     <Switch checked={formData.is_active} onCheckedChange={(checked) => setFormData((current) => ({ ...current, is_active: checked }))} />
@@ -621,7 +621,7 @@ const AdminBannersPage = () => {
                     {isUploading ? (
                       <>
                         <Loader2 className="h-[20px] w-[20px] animate-spin text-[#675CBA]" />
-                        <span className="mt-2 text-[7px] text-[#858D97]">جاري رفع الصورة...</span>
+                        <span className="mt-2 text-[7px] text-[#626E63]">جاري رفع الصورة...</span>
                       </>
                     ) : (
                       <>
@@ -629,7 +629,7 @@ const AdminBannersPage = () => {
                           <Upload className="h-[15px] w-[15px]" />
                         </div>
                         <span className="mt-[8px] text-[8px] font-semibold text-[#606873]">رفع صورة البانر</span>
-                        <span className="mt-[3px] text-[6px] text-[#A0A6AF]">JPG · PNG · WEBP · HEIC</span>
+                        <span className="mt-[3px] text-[6px] text-[#626E63]">JPG · PNG · WEBP · HEIC</span>
                       </>
                     )}
 
@@ -654,12 +654,12 @@ const AdminBannersPage = () => {
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]">
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]">
               <Trash2 className="h-[16px] w-[16px]" />
             </div>
 
             <AlertDialogTitle className="text-[14px] font-semibold text-[#343A44]">حذف البانر</AlertDialogTitle>
-            <AlertDialogDescription className="text-[9px] leading-6 text-[#858D97]">سيتم حذف بانر "{deleteTarget?.title_ar || ""}" نهائيًا من واجهة المتجر.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[9px] leading-6 text-[#626E63]">سيتم حذف بانر "{deleteTarget?.title_ar || ""}" نهائيًا من واجهة المتجر.</AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter className="mt-2 gap-2">
@@ -675,9 +675,9 @@ const AdminBannersPage = () => {
 const BannerStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "coral" | "blue" }) => {
   const styles = {
     indigo: ["bg-[#F1EFFF] text-[#675CBA]", "bg-[#675CBA]"],
-    green: ["bg-[#EAF7EE] text-[#629067]", "bg-[#629067]"],
-    coral: ["bg-[#FFF0ED] text-[#D06A5E]", "bg-[#D06A5E]"],
-    blue: ["bg-[#EDF4FF] text-[#5680CF]", "bg-[#5680CF]"],
+    green: ["bg-[#EAF7EE] text-[#507555]", "bg-[#629067]"],
+    coral: ["bg-[#FFF0ED] text-[#A5564A]", "bg-[#D06A5E]"],
+    blue: ["bg-[#EDF4FF] text-[#486BB0]", "bg-[#5680CF]"],
   }[tone];
 
   return (
@@ -686,7 +686,7 @@ const BannerStatCard = ({ title, value, helper, icon: Icon, tone }: { title: str
       <div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", styles[0])}><Icon className="h-[14px] w-[14px]" /></div>
       <p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p>
       <p className="mt-[4px] text-[20px] font-semibold leading-none text-[#303741]">{value.toLocaleString("en-US")}</p>
-      <p className="mt-[6px] text-[7px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[6px] text-[7px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
@@ -720,9 +720,9 @@ const ImageControl = ({ icon: Icon, label, children }: { icon: LucideIcon; label
 
 const EmptyBanners = () => (
   <div className="flex min-h-[230px] flex-col items-center justify-center text-center">
-    <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><ImageIcon className="h-[18px] w-[18px]" /></div>
+    <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><ImageIcon className="h-[18px] w-[18px]" /></div>
     <h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد بانرات</h3>
-    <p className="mt-[4px] text-[7px] text-[#9BA2AC]">أضف أول بانر ليظهر في واجهة المتجر.</p>
+    <p className="mt-[4px] text-[7px] text-[#626E63]">أضف أول بانر ليظهر في واجهة المتجر.</p>
   </div>
 );
 

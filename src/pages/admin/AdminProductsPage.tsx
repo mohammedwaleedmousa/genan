@@ -442,18 +442,18 @@ const AdminProductsPage = () => {
       <section className="overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white">
         <div className="flex items-center justify-between border-b border-[#EFE8DE] px-[14px] py-[11px]">
           <div className="flex items-center gap-[8px]">
-            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[#98774B]">
+            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[#80633E]">
               <Filter className="h-[13px] w-[13px]" strokeWidth={1.8} />
             </div>
 
             <div>
               <p className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</p>
-              <p className="mt-[2px] text-[10px] text-[#9BA2AC]">اعثر على المنتج المطلوب بسرعة</p>
+              <p className="mt-[2px] text-[10px] text-[#606C62]">اعثر على المنتج المطلوب بسرعة</p>
             </div>
           </div>
 
           {hasFilters && (
-            <button type="button" onClick={clearFilters} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[10px] font-semibold text-[#8A919B] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
+            <button type="button" onClick={clearFilters} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[10px] font-semibold text-[#606C62] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
               <X className="h-[10px] w-[10px]" strokeWidth={1.8} />
               مسح الكل
             </button>
@@ -466,8 +466,8 @@ const AdminProductsPage = () => {
           {parentCategories.length > 0 && (
             <div>
               <div className="mb-[7px] flex items-center justify-between">
-                <span className="text-[10px] font-semibold text-[#969DA7]">التصنيف</span>
-                <span className="text-[10px] text-[#A8AEB6]">{parentCategories.length} قسم رئيسي</span>
+                <span className="text-[10px] font-semibold text-[#606C62]">التصنيف</span>
+                <span className="text-[10px] text-[#606C62]">{parentCategories.length} قسم رئيسي</span>
               </div>
 
               <div className="-mx-[2px] flex items-center gap-[5px] overflow-x-auto px-[2px] pb-[2px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -487,8 +487,8 @@ const AdminProductsPage = () => {
           {categoryFilter !== "all" && availableBrandNames.length > 0 && (
             <div className="border-t border-[#EFF1F4] pt-[10px]">
               <div className="mb-[7px] flex items-center justify-between">
-                <span className="text-[10px] font-semibold text-[#969DA7]">الماركات</span>
-                <span className="text-[10px] text-[#A8AEB6]">{availableBrandNames.length} ماركة</span>
+                <span className="text-[10px] font-semibold text-[#606C62]">الماركات</span>
+                <span className="text-[10px] text-[#606C62]">{availableBrandNames.length} ماركة</span>
               </div>
 
               <div className="-mx-[2px] flex items-center gap-[5px] overflow-x-auto px-[2px] pb-[2px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -505,12 +505,12 @@ const AdminProductsPage = () => {
 
           <div className="grid grid-cols-1 gap-[7px] border-t border-[#EFF1F4] pt-[11px] lg:grid-cols-[minmax(0,1fr)_165px_165px]">
             <div className="relative">
-              <Search className="pointer-events-none absolute right-[12px] top-1/2 h-[13px] w-[13px] -translate-y-1/2 text-[#969EA8]" strokeWidth={1.7} />
+              <Search className="pointer-events-none absolute right-[12px] top-1/2 h-[13px] w-[13px] -translate-y-1/2 text-[#606C62]" strokeWidth={1.7} />
 
-              <Input value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder="ابحث باسم المنتج أو slug..." className="h-[40px] rounded-[10px] border-[#E8DED0] bg-[#FBF9F5] pr-[35px] pl-[34px] text-[11px] font-medium shadow-none placeholder:text-[#A4ABB4] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
+              <Input value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder="ابحث باسم المنتج أو slug..." className="h-[40px] rounded-[10px] border-[#E8DED0] bg-[#FBF9F5] pr-[35px] pl-[34px] text-[11px] font-medium shadow-none placeholder:text-[#606C62] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
 
               {searchInput && (
-                <button type="button" onClick={() => setSearchInput("")} aria-label="مسح البحث" className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#9AA1AB] transition-colors hover:bg-white hover:text-[#5C6470]">
+                <button type="button" onClick={() => setSearchInput("")} aria-label="مسح البحث" className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#606C62] transition-colors hover:bg-white hover:text-[#5C6470]">
                   <X className="h-[11px] w-[11px]" />
                 </button>
               )}
@@ -586,7 +586,7 @@ const AdminProductsPage = () => {
                   حذف
                 </button>
 
-                <button type="button" onClick={() => setSelected(new Set())} className="flex h-[34px] items-center rounded-[8px] px-[8px] text-[10px] font-semibold text-[#8A919B] transition-colors hover:bg-white">إلغاء</button>
+                <button type="button" onClick={() => setSelected(new Set())} className="flex h-[34px] items-center rounded-[8px] px-[8px] text-[10px] font-semibold text-[#606C62] transition-colors hover:bg-white">إلغاء</button>
               </div>
             </div>
           )}
@@ -617,7 +617,7 @@ const AdminProductsPage = () => {
                     <div className="flex items-start justify-between gap-[7px]">
                       <div className="min-w-0">
                         <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{product.name_ar || product.name}</h3>
-                        <p dir="ltr" className="mt-[3px] truncate text-right text-[10px] text-[#A0A6AF]">{product.slug}</p>
+                        <p dir="ltr" className="mt-[3px] truncate text-right text-[10px] text-[#606C62]">{product.slug}</p>
                       </div>
 
                       <ProductStatus active={product.is_active} />
@@ -676,11 +676,11 @@ const AdminProductsPage = () => {
               <h2 className="text-[11px] font-semibold text-[#454C56]">قائمة المنتجات</h2>
             </div>
 
-            <p className="mt-[4px] text-[10px] text-[#9CA3AC]">عرض {firstResult.toLocaleString("ar-EG")} - {lastResult.toLocaleString("ar-EG")} من أصل {total.toLocaleString("ar-EG")}</p>
+            <p className="mt-[4px] text-[10px] text-[#606C62]">عرض {firstResult.toLocaleString("ar-EG")} - {lastResult.toLocaleString("ar-EG")} من أصل {total.toLocaleString("ar-EG")}</p>
           </div>
 
           {isLoading && (
-            <span className="flex items-center gap-[5px] text-[10px] font-medium text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[10px] font-medium text-[#606C62]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -690,7 +690,7 @@ const AdminProductsPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1050px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#9299A3]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#6B7179]">
                 <th className="w-[42px] px-[10px] text-center">
                   <Checkbox checked={allSelected} onCheckedChange={toggleSelectAll} className="h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#98774B] data-[state=checked]:bg-[#98774B]" />
                 </th>
@@ -747,7 +747,7 @@ const AdminProductsPage = () => {
                     <td className="px-[10px]">
                       <p dir="ltr" className="text-right text-[11px] font-semibold text-[#3E454F]">{formatPrice(product)}</p>
 
-                      {(product.discount ?? 0) > 0 && <span className="mt-[4px] inline-flex rounded-[6px] bg-[#FFF0F0] px-[5px] py-[2px] text-[10px] font-semibold text-[#C76161]">-{product.discount}%</span>}
+                      {(product.discount ?? 0) > 0 && <span className="mt-[4px] inline-flex rounded-[6px] bg-[#FFF0F0] px-[5px] py-[2px] text-[10px] font-semibold text-[#AA5353]">-{product.discount}%</span>}
                     </td>
 
                     <td className="px-[10px]">
@@ -792,13 +792,13 @@ const AdminProductsPage = () => {
       <AlertDialog open={Boolean(confirmDelete)} onOpenChange={(open) => { if (!open) setConfirmDelete(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E7DFD3] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]">
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]">
               <Trash2 className="h-[16px] w-[16px]" strokeWidth={1.7} />
             </div>
 
             <AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">تأكيد الحذف</AlertDialogTitle>
 
-            <AlertDialogDescription className="text-[11px] leading-6 text-[#858D97]">
+            <AlertDialogDescription className="text-[11px] leading-6 text-[#606C62]">
               {confirmDelete?.bulk ? `سيتم حذف ${selected.size} منتج نهائيًا من النظام. لا يمكن التراجع عن هذه العملية.` : "سيتم حذف هذا المنتج نهائيًا من النظام. لا يمكن التراجع عن هذه العملية."}
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -834,10 +834,10 @@ const AdminProductsPage = () => {
 
 const ProductStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: typeof Package; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const styles = {
-    indigo: { icon: "bg-[#F5EAD7] text-[#98774B]", line: "bg-[#98774B]" },
-    green: { icon: "bg-[#EAF7EE] text-[#57906A]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#567BC5]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#C9685D]", line: "bg-[#D06A5E]" },
+    indigo: { icon: "bg-[#F5EAD7] text-[#80633E]", line: "bg-[#98774B]" },
+    green: { icon: "bg-[#EAF7EE] text-[#47785A]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#4C6CB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A3564B]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -854,7 +854,7 @@ const ProductStatCard = ({ title, value, helper, icon: Icon, tone }: { title: st
 
       <p className="mt-[12px] text-[10px] font-medium text-[#8D949E]">{title}</p>
       <p dir="ltr" className="mt-[4px] text-right text-[20px] font-semibold leading-none tracking-[-0.035em] text-[#303741]">{value.toLocaleString("en-US")}</p>
-      <p className="mt-[5px] text-[10px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[5px] text-[10px] text-[#606C62]">{helper}</p>
     </div>
   );
 };
@@ -864,7 +864,7 @@ const ProductStatCard = ({ title, value, helper, icon: Icon, tone }: { title: st
 ========================================================= */
 
 const FilterChip = ({ children, active, tone = "indigo", onClick }: { children: React.ReactNode; active: boolean; tone?: "indigo" | "rose" | "amber"; onClick: () => void }) => {
-  const activeClass = tone === "rose" ? "border-[#E6D5DC] bg-[#FFF1F5] text-[#A95E70]" : tone === "amber" ? "border-[#EADCBF] bg-[#FFF7E8] text-[#A9782F]" : "border-[#DCD7F1] bg-[#F3F1FF] text-[#6258AE]";
+  const activeClass = tone === "rose" ? "border-[#E6D5DC] bg-[#FFF1F5] text-[#9D5868]" : tone === "amber" ? "border-[#EADCBF] bg-[#FFF7E8] text-[#926829]" : "border-[#DCD7F1] bg-[#F3F1FF] text-[#6258AE]";
 
   return (
     <button type="button" onClick={onClick} className={cn("h-[30px] shrink-0 rounded-[8px] border px-[10px] text-[10px] font-semibold transition-colors", active ? activeClass : "border-[#E7EAEF] bg-white text-[#7D858F] hover:border-[#DDE1E7] hover:bg-[#FBF9F5] hover:text-[#515964]")}>{children}</button>
@@ -876,12 +876,12 @@ const FilterChip = ({ children, active, tone = "indigo", onClick }: { children: 
 ========================================================= */
 
 const InfoTag = ({ children, tone = "blue" }: { children: React.ReactNode; tone?: "blue" | "rose" }) => {
-  return <span className={cn("inline-flex max-w-[150px] truncate rounded-[6px] px-[6px] py-[3px] text-[10px] font-medium", tone === "rose" ? "bg-[#FFF1F5] text-[#A76474]" : "bg-[#EFF5FD] text-[#5C78A3]")}>{children}</span>;
+  return <span className={cn("inline-flex max-w-[150px] truncate rounded-[6px] px-[6px] py-[3px] text-[10px] font-medium", tone === "rose" ? "bg-[#FFF1F5] text-[#975C69]" : "bg-[#EFF5FD] text-[#566F97]")}>{children}</span>;
 };
 
 const ProductStatus = ({ active }: { active: boolean }) => {
   return (
-    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E2E5E9] bg-[#F5F6F8] text-[#7B838E]")}>
+    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4E7860]" : "border-[#E2E5E9] bg-[#F5F6F8] text-[#686E79]")}>
       <span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />
       {active ? "نشط" : "معطل"}
     </span>
@@ -890,7 +890,7 @@ const ProductStatus = ({ active }: { active: boolean }) => {
 
 const StockStatus = ({ inStock }: { inStock: boolean }) => {
   return (
-    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", inStock ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]")}>
+    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", inStock ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#AD554C]")}>
       <span className={cn("h-[5px] w-[5px] rounded-full", inStock ? "bg-[#5680CF]" : "bg-[#D06A5E]")} />
       {inStock ? "متوفر" : "نفد"}
     </span>
@@ -914,12 +914,12 @@ const ActionButton = ({ children, label, destructive = false, onClick }: { child
 const EmptyProducts = () => {
   return (
     <div className="flex min-h-[240px] flex-col items-center justify-center px-6 text-center">
-      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]">
+      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]">
         <Package className="h-[19px] w-[19px]" strokeWidth={1.5} />
       </div>
 
       <h3 className="mt-3 text-[11px] font-semibold text-[#535B65]">لا توجد منتجات</h3>
-      <p className="mt-[4px] text-[10px] leading-5 text-[#9BA2AC]">لم نجد منتجات مطابقة للبحث أو الفلاتر الحالية.</p>
+      <p className="mt-[4px] text-[10px] leading-5 text-[#606C62]">لم نجد منتجات مطابقة للبحث أو الفلاتر الحالية.</p>
     </div>
   );
 };
@@ -929,7 +929,7 @@ const LoadingProducts = () => {
     <div className="flex h-[230px] items-center justify-center rounded-[14px] border border-[#E8E0D4] bg-white">
       <div className="text-center">
         <Loader2 className="mx-auto h-[20px] w-[20px] animate-spin text-[#98774B]" />
-        <p className="mt-2 text-[10px] font-medium text-[#969DA7]">جاري تحميل المنتجات...</p>
+        <p className="mt-2 text-[10px] font-medium text-[#606C62]">جاري تحميل المنتجات...</p>
       </div>
     </div>
   );

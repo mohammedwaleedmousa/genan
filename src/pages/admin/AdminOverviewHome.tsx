@@ -61,7 +61,7 @@ const AdminOverviewHome = () => {
                 <p className="text-[12px] font-medium text-[#7F877C]">{item.title}</p>
                 <p className="mt-2 text-[28px] font-bold tabular-nums text-[#253128]">{isLoading ? "…" : typeof item.value === "number" ? item.value.toLocaleString("en-US") : "—"}</p>
               </div>
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F3EBDE] text-[#957345]"><Icon className="h-[22px] w-[22px]" strokeWidth={1.75} /></span>
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F3EBDE] text-[#83643D]"><Icon className="h-[22px] w-[22px]" strokeWidth={1.75} /></span>
             </Link>
           );
         })}
@@ -80,8 +80,8 @@ const AdminOverviewHome = () => {
             const Icon = item.icon;
             return (
               <Link key={item.href} to={item.href} className="group flex min-h-[102px] items-center gap-4 rounded-[18px] border border-[#E9E1D5] bg-white p-4 transition-colors hover:border-[#CCB187] hover:bg-[#FFFDF9]">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F2E9D9] text-[#957548] group-hover:bg-[#E9D9BD]"><Icon className="h-[21px] w-[21px]" /></span>
-                <span className="min-w-0 flex-1"><span className="block text-[14px] font-semibold text-[#253128]">{item.title}</span><span className="mt-1 block text-[11px] leading-5 text-[#858B80]">{item.subtitle}</span></span>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F2E9D9] text-[#7D623C] group-hover:bg-[#E9D9BD]"><Icon className="h-[21px] w-[21px]" /></span>
+                <span className="min-w-0 flex-1"><span className="block text-[14px] font-semibold text-[#253128]">{item.title}</span><span className="mt-1 block text-[11px] leading-5 text-[#606C62]">{item.subtitle}</span></span>
                 <ArrowLeft className="h-4 w-4 shrink-0 text-[#BCA786]" />
               </Link>
             );

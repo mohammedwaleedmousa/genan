@@ -226,7 +226,7 @@ const AdminBrandPageEditor = () => {
           <div className="mx-auto flex h-[48px] w-[48px] items-center justify-center rounded-[14px] border border-[#E5E9EF] bg-white">
             <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" />
           </div>
-          <p className="mt-3 text-[9px] font-medium text-[#969DA7]">جاري تحميل صفحة الماركة...</p>
+          <p className="mt-3 text-[9px] font-medium text-[#626E63]">جاري تحميل صفحة الماركة...</p>
         </div>
       </div>
     );
@@ -271,10 +271,10 @@ const AdminBrandPageEditor = () => {
 
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[10px] font-semibold text-[#454D57]">{selectedBrand.name}</p>
-                  <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#9299A3]">{selectedBrand.slug ? `/brands/${selectedBrand.slug}` : "بدون رابط عام"}</p>
+                  <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#626E63]">{selectedBrand.slug ? `/brands/${selectedBrand.slug}` : "بدون رابط عام"}</p>
                 </div>
 
-                <span className={cn("inline-flex h-[24px] items-center rounded-[7px] border px-[7px] text-[6.5px] font-semibold", selectedBrand.is_active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}>{selectedBrand.is_active ? "ماركة نشطة" : "ماركة معطلة"}</span>
+                <span className={cn("inline-flex h-[24px] items-center rounded-[7px] border px-[7px] text-[6.5px] font-semibold", selectedBrand.is_active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}>{selectedBrand.is_active ? "ماركة نشطة" : "ماركة معطلة"}</span>
               </div>
             )}
           </FormSection>
@@ -293,7 +293,7 @@ const AdminBrandPageEditor = () => {
             <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
               <div>
                 <p className="text-[9px] font-semibold text-[#555D67]">حالة الصفحة</p>
-                <p className="mt-[3px] text-[7px] text-[#9BA2AC]">{form.is_active ? "الصفحة مفعلة ويمكن عرضها للعملاء" : "الصفحة محفوظة ولكنها مخفية عن العملاء"}</p>
+                <p className="mt-[3px] text-[7px] text-[#626E63]">{form.is_active ? "الصفحة مفعلة ويمكن عرضها للعملاء" : "الصفحة محفوظة ولكنها مخفية عن العملاء"}</p>
               </div>
 
               <Switch checked={form.is_active} onCheckedChange={(value) => setForm((current) => ({ ...current, is_active: value }))} />
@@ -331,7 +331,7 @@ const AdminBrandPageEditor = () => {
                 {uploading ? (
                   <>
                     <Loader2 className="h-[19px] w-[19px] animate-spin text-[#675CBA]" />
-                    <span className="mt-[7px] text-[7px] text-[#858D97]">جاري رفع الصورة...</span>
+                    <span className="mt-[7px] text-[7px] text-[#626E63]">جاري رفع الصورة...</span>
                   </>
                 ) : (
                   <>
@@ -339,7 +339,7 @@ const AdminBrandPageEditor = () => {
                       <Upload className="h-[15px] w-[15px]" />
                     </div>
                     <span className="mt-[8px] text-[8px] font-semibold text-[#626A74]">رفع الصورة الرئيسية</span>
-                    <span className="mt-[3px] text-[6px] text-[#A0A6AF]">JPG · PNG · WEBP · HEIC</span>
+                    <span className="mt-[3px] text-[6px] text-[#626E63]">JPG · PNG · WEBP · HEIC</span>
                   </>
                 )}
 
@@ -357,7 +357,7 @@ const AdminBrandPageEditor = () => {
                   <img src={selectedBrand.hero_image} alt="" className="h-full w-full object-cover opacity-60" />
                 ) : (
                   <div className="flex h-full items-center justify-center">
-                    <ImageIcon className="h-[20px] w-[20px] text-[#A0A6AF]" />
+                    <ImageIcon className="h-[20px] w-[20px] text-[#626E63]" />
                   </div>
                 )}
 
@@ -377,7 +377,7 @@ const AdminBrandPageEditor = () => {
       </div>
 
       <div className="sticky bottom-0 z-20 flex items-center justify-between gap-3 rounded-[14px] border border-[#E5E9EF] bg-white px-[12px] py-[10px] shadow-[0_-8px_24px_rgba(31,41,55,0.04)]">
-        <p className="hidden text-[7px] text-[#9299A3] sm:block">{pageExists ? "سيتم تحديث صفحة الماركة الحالية." : "سيتم إنشاء صفحة جديدة لهذه الماركة عند الحفظ."}</p>
+        <p className="hidden text-[7px] text-[#626E63] sm:block">{pageExists ? "سيتم تحديث صفحة الماركة الحالية." : "سيتم إنشاء صفحة جديدة لهذه الماركة عند الحفظ."}</p>
 
         <div className="mr-auto flex items-center gap-[7px]">
           <Button type="button" variant="outline" disabled={save.isPending || uploading} onClick={() => navigate("/admin/brand-pages")} className="h-[36px] rounded-[9px] border-[#E1E5EA] bg-white px-4 text-[8px] font-semibold text-[#707883] shadow-none">إلغاء</Button>
@@ -395,9 +395,9 @@ const AdminBrandPageEditor = () => {
 const EditorStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -406,7 +406,7 @@ const EditorStatCard = ({ title, value, helper, icon: Icon, tone }: { title: str
       <div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div>
       <p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p>
       <p className="mt-[4px] truncate text-[15px] font-semibold text-[#303741]">{value}</p>
-      <p className="mt-[5px] truncate text-[7px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[5px] truncate text-[7px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
@@ -414,7 +414,7 @@ const EditorStatCard = ({ title, value, helper, icon: Icon, tone }: { title: str
 const BrandLogo = ({ brand }: { brand: BrandPickerRow }) => {
   return (
     <div className="flex h-[46px] w-[46px] shrink-0 items-center justify-center overflow-hidden rounded-[9px] border border-[#E7EAEF] bg-white p-[6px]">
-      {brand.logo_url ? <img src={brand.logo_url} alt={brand.name} loading="lazy" className="h-full w-full object-contain" /> : <Tag className="h-[13px] w-[13px] text-[#9AA1AB]" />}
+      {brand.logo_url ? <img src={brand.logo_url} alt={brand.name} loading="lazy" className="h-full w-full object-contain" /> : <Tag className="h-[13px] w-[13px] text-[#626E63]" />}
     </div>
   );
 };

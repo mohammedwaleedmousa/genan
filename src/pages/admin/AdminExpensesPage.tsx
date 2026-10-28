@@ -465,7 +465,7 @@ const AdminExpensesPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11.5px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[10px] text-[#9BA2AC]">فلترة السجل حسب التصنيف وطريقة الدفع والعملة والفترة</p>
+            <p className="mt-[3px] text-[10px] text-[#626E63]">فلترة السجل حسب التصنيف وطريقة الدفع والعملة والفترة</p>
           </div>
 
           {hasFilters && <button type="button" onClick={clearFilters} className="flex h-[32px] items-center gap-[5px] rounded-[8px] px-[9px] text-[10px] font-semibold text-[#7E8690] hover:bg-[#F7F8FA]"><X className="h-[10px] w-[10px]" />مسح الفلاتر</button>}
@@ -487,7 +487,7 @@ const AdminExpensesPage = () => {
 
       <section className="overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white">
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
-          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">سجل المصروفات</h2><p className="mt-[3px] text-[10px] text-[#9CA3AC]">{filteredExpenses.length.toLocaleString("ar-EG")} مصروف ظاهر من أصل {expenses.length.toLocaleString("ar-EG")}</p></div>
+          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">سجل المصروفات</h2><p className="mt-[3px] text-[10px] text-[#626E63]">{filteredExpenses.length.toLocaleString("ar-EG")} مصروف ظاهر من أصل {expenses.length.toLocaleString("ar-EG")}</p></div>
           {isFetching && <Loader2 className="h-[12px] w-[12px] animate-spin text-[#8E959F]" />}
         </div>
 
@@ -497,7 +497,7 @@ const AdminExpensesPage = () => {
           <>
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[1180px]">
-                <thead><tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#858D97]"><th className="px-[12px] text-right">المصروف</th><th className="px-[12px] text-right">التصنيف</th><th className="px-[12px] text-right">المورد</th><th className="px-[12px] text-right">طريقة الدفع</th><th className="px-[12px] text-right">المبلغ</th><th className="px-[12px] text-right">القيمة الأساسية</th><th className="px-[12px] text-right">التاريخ</th><th className="px-[12px] text-right">الإيصال</th><th className="w-[100px] px-[12px] text-center">الإجراءات</th></tr></thead>
+                <thead><tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#6A727C]"><th className="px-[12px] text-right">المصروف</th><th className="px-[12px] text-right">التصنيف</th><th className="px-[12px] text-right">المورد</th><th className="px-[12px] text-right">طريقة الدفع</th><th className="px-[12px] text-right">المبلغ</th><th className="px-[12px] text-right">القيمة الأساسية</th><th className="px-[12px] text-right">التاريخ</th><th className="px-[12px] text-right">الإيصال</th><th className="w-[100px] px-[12px] text-center">الإجراءات</th></tr></thead>
                 <tbody>
                   {filteredExpenses.map((expense) => {
                     const currency = getExpenseCurrency(expense);
@@ -505,14 +505,14 @@ const AdminExpensesPage = () => {
 
                     return (
                       <tr key={expense.id} className="h-[74px] border-b border-[#F0F2F5] transition-colors last:border-b-0 hover:bg-[#FCFDFE]">
-                        <td className="px-[12px]"><div className="flex min-w-[220px] items-center gap-[9px]"><div className="flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[9px] bg-[#FFF0ED] text-[#D06A5E]"><Receipt className="h-[14px] w-[14px]" /></div><div className="min-w-0"><p className="max-w-[260px] truncate text-[11px] font-semibold text-[#444C56]">{expense.description}</p><p className="mt-[3px] max-w-[260px] truncate text-[9.5px] text-[#969DA7]">{expense.notes || "بدون ملاحظات"}</p></div></div></td>
+                        <td className="px-[12px]"><div className="flex min-w-[220px] items-center gap-[9px]"><div className="flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[9px] bg-[#FFF0ED] text-[#A5564A]"><Receipt className="h-[14px] w-[14px]" /></div><div className="min-w-0"><p className="max-w-[260px] truncate text-[11px] font-semibold text-[#444C56]">{expense.description}</p><p className="mt-[3px] max-w-[260px] truncate text-[9.5px] text-[#626E63]">{expense.notes || "بدون ملاحظات"}</p></div></div></td>
                         <td className="px-[12px]"><span className="text-[10.5px] font-medium text-[#68717B]">{expense.expense_categories?.name_ar || "غير مصنف"}</span></td>
                         <td className="px-[12px]"><span className="max-w-[160px] truncate text-[10.5px] text-[#68717B]">{expense.vendor || "—"}</span></td>
                         <td className="px-[12px]"><span className="text-[10.5px] text-[#68717B]">{expense.payment_methods?.name_ar || "—"}</span></td>
-                        <td className="px-[12px]"><div><p className="text-[11px] font-semibold text-[#C15F56]">{formatNativeMoney(expense.amount, currency.symbol)}</p><p className="mt-[2px] text-[9.5px] text-[#9AA1AB]">{currency.name_ar}</p></div></td>
+                        <td className="px-[12px]"><div><p className="text-[11px] font-semibold text-[#C15F56]">{formatNativeMoney(expense.amount, currency.symbol)}</p><p className="mt-[2px] text-[9.5px] text-[#626E63]">{currency.name_ar}</p></div></td>
                         <td className="px-[12px]"><span className="text-[10.5px] font-semibold text-[#59616B]">{formatBaseMoney(baseAmount, baseCurrency.symbol)}</span></td>
                         <td className="px-[12px]"><span className="text-[10.5px] text-[#7E8690]">{formatDate(expense.expense_date)}</span></td>
-                        <td className="px-[12px]">{expense.receipt_url ? <button type="button" onClick={() => void openReceipt(expense.receipt_url!)} className="inline-flex h-[29px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[10px] font-semibold text-[#5679A4]"><ExternalLink className="h-[10px] w-[10px]" />عرض</button> : <span className="text-[10px] text-[#A0A6AF]">—</span>}</td>
+                        <td className="px-[12px]">{expense.receipt_url ? <button type="button" onClick={() => void openReceipt(expense.receipt_url!)} className="inline-flex h-[29px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[10px] font-semibold text-[#507098]"><ExternalLink className="h-[10px] w-[10px]" />عرض</button> : <span className="text-[10px] text-[#626E63]">—</span>}</td>
                         <td className="px-[12px]"><div className="flex items-center justify-center gap-[4px]"><button type="button" onClick={() => openEdit(expense)} className="flex h-[31px] w-[31px] items-center justify-center rounded-[8px] border border-[#E2DEF3] bg-white text-[#675CBA] hover:bg-[#F5F3FF]" title="تعديل"><Pencil className="h-[11px] w-[11px]" /></button><button type="button" onClick={() => setDeleteTarget(expense)} className="flex h-[31px] w-[31px] items-center justify-center rounded-[8px] border border-[#F0D7D4] bg-white text-[#C15F56] hover:bg-[#FFF3F1]" title="حذف"><Trash2 className="h-[11px] w-[11px]" /></button></div></td>
                       </tr>
                     );
@@ -529,16 +529,16 @@ const AdminExpensesPage = () => {
                 return (
                   <article key={expense.id} className="overflow-hidden rounded-[13px] border border-[#E5E9EF] bg-white">
                     <div className="p-[11px]">
-                      <div className="flex items-start justify-between gap-[8px]"><div className="flex min-w-0 gap-[9px]"><div className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFF0ED] text-[#D06A5E]"><Receipt className="h-[15px] w-[15px]" /></div><div className="min-w-0"><h3 className="line-clamp-2 text-[11.5px] font-semibold text-[#3B424C]">{expense.description}</h3><p className="mt-[3px] text-[10px] text-[#9299A3]">{formatDate(expense.expense_date)}</p></div></div><p className="shrink-0 text-[11px] font-semibold text-[#C15F56]">{formatNativeMoney(expense.amount, currency.symbol)}</p></div>
+                      <div className="flex items-start justify-between gap-[8px]"><div className="flex min-w-0 gap-[9px]"><div className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFF0ED] text-[#A5564A]"><Receipt className="h-[15px] w-[15px]" /></div><div className="min-w-0"><h3 className="line-clamp-2 text-[11.5px] font-semibold text-[#3B424C]">{expense.description}</h3><p className="mt-[3px] text-[10px] text-[#626E63]">{formatDate(expense.expense_date)}</p></div></div><p className="shrink-0 text-[11px] font-semibold text-[#C15F56]">{formatNativeMoney(expense.amount, currency.symbol)}</p></div>
 
                       <div className="mt-[10px] grid grid-cols-2 gap-[6px]"><InfoBox label="التصنيف" value={expense.expense_categories?.name_ar || "غير مصنف"} /><InfoBox label="القيمة الأساسية" value={formatBaseMoney(baseAmount, baseCurrency.symbol)} /></div>
                       <div className="mt-[6px] grid grid-cols-2 gap-[6px]"><InfoBox label="المورد" value={expense.vendor || "—"} /><InfoBox label="طريقة الدفع" value={expense.payment_methods?.name_ar || "—"} /></div>
 
-                      {expense.notes && <p className="mt-[8px] rounded-[8px] bg-[#F8FAFC] p-[8px] text-[10px] leading-5 text-[#7E8690]">{expense.notes}</p>}
+                      {expense.notes && <p className="mt-[8px] rounded-[8px] bg-[#F8FAFC] p-[8px] text-[10px] leading-5 text-[#6A717B]">{expense.notes}</p>}
                     </div>
 
                     <div className="grid grid-cols-3 gap-[5px] border-t border-[#EDF0F3] bg-[#FAFBFC] p-[7px]">
-                      {expense.receipt_url ? <button type="button" onClick={() => void openReceipt(expense.receipt_url!)} className="flex h-[35px] items-center justify-center gap-[5px] rounded-[8px] border border-[#DCE7F4] bg-white text-[10px] font-semibold text-[#5679A4]"><ExternalLink className="h-[10px] w-[10px]" />الإيصال</button> : <div className="flex h-[35px] items-center justify-center rounded-[8px] border border-[#E3E7EC] bg-white text-[10px] text-[#A0A6AF]">بدون إيصال</div>}
+                      {expense.receipt_url ? <button type="button" onClick={() => void openReceipt(expense.receipt_url!)} className="flex h-[35px] items-center justify-center gap-[5px] rounded-[8px] border border-[#DCE7F4] bg-white text-[10px] font-semibold text-[#5679A4]"><ExternalLink className="h-[10px] w-[10px]" />الإيصال</button> : <div className="flex h-[35px] items-center justify-center rounded-[8px] border border-[#E3E7EC] bg-white text-[10px] text-[#626E63]">بدون إيصال</div>}
                       <button type="button" onClick={() => openEdit(expense)} className="flex h-[35px] items-center justify-center gap-[5px] rounded-[8px] border border-[#E2DEF3] bg-white text-[10px] font-semibold text-[#675CBA]"><Pencil className="h-[10px] w-[10px]" />تعديل</button>
                       <button type="button" onClick={() => setDeleteTarget(expense)} className="flex h-[35px] items-center justify-center gap-[5px] rounded-[8px] border border-[#F0D7D4] bg-white text-[10px] font-semibold text-[#C15F56]"><Trash2 className="h-[10px] w-[10px]" />حذف</button>
                     </div>
@@ -554,7 +554,7 @@ const AdminExpensesPage = () => {
       <Dialog open={dialogOpen} onOpenChange={(next) => { if (!next) void closeDialog(); else setDialogOpen(true); }}>
         <DialogContent dir="rtl" className="max-h-[92vh] max-w-[760px] overflow-y-auto rounded-[18px] border-[#E4E8ED] bg-[#F7F8FA] p-0">
           <DialogHeader className="sticky top-0 z-20 border-b border-[#E6E9EE] bg-white px-5 py-4">
-            <div className="flex items-center gap-[10px]"><div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#FFF0ED] text-[#D06A5E]">{editingExpense ? <Pencil className="h-[15px] w-[15px]" /> : <Plus className="h-[15px] w-[15px]" />}</div><div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingExpense ? "تعديل المصروف" : "إضافة مصروف جديد"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">سجّل المصروف بعملته الأصلية وسيتم حفظ القيمة الأساسية تلقائيًا للتقارير المالية.</DialogDescription></div></div>
+            <div className="flex items-center gap-[10px]"><div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#FFF0ED] text-[#A5564A]">{editingExpense ? <Pencil className="h-[15px] w-[15px]" /> : <Plus className="h-[15px] w-[15px]" />}</div><div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingExpense ? "تعديل المصروف" : "إضافة مصروف جديد"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">سجّل المصروف بعملته الأصلية وسيتم حفظ القيمة الأساسية تلقائيًا للتقارير المالية.</DialogDescription></div></div>
           </DialogHeader>
 
           <form onSubmit={(event: FormEvent) => { event.preventDefault(); saveMutation.mutate(); }}>
@@ -588,7 +588,7 @@ const AdminExpensesPage = () => {
 
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(next) => { if (!next) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
-          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف المصروف</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم حذف المصروف "{deleteTarget?.description || ""}" نهائيًا، وسيتم حذف الإيصال أيضًا إذا كان مرفوعًا داخل تخزين المتجر.</AlertDialogDescription></AlertDialogHeader>
+          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف المصروف</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم حذف المصروف "{deleteTarget?.description || ""}" نهائيًا، وسيتم حذف الإيصال أيضًا إذا كان مرفوعًا داخل تخزين المتجر.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2"><AlertDialogCancel disabled={deleteMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel><AlertDialogAction disabled={deleteMutation.isPending} onClick={(event) => { event.preventDefault(); if (deleteTarget) deleteMutation.mutate(deleteTarget); }} className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[10.5px] font-semibold text-white hover:bg-[#B65555]">{deleteMutation.isPending && <Loader2 className="ml-[5px] h-[11px] w-[11px] animate-spin" />}حذف نهائي</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -603,12 +603,12 @@ const AdminExpensesPage = () => {
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "blue" | "coral" | "amber" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
-    amber: { icon: "bg-[#FFF7E8] text-[#A9782F]", line: "bg-[#C49446]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
+    amber: { icon: "bg-[#FFF7E8] text-[#926829]", line: "bg-[#C49446]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -624,7 +624,7 @@ const InfoBox = ({ label, value }: { label: string; value: string }) => {
 };
 
 const PanelEmpty = () => {
-  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#FFF0ED] text-[#D06A5E]"><Receipt className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد مصروفات</h3><p className="mt-[5px] text-[10px] text-[#9BA2AC]">غيّر البحث أو الفلاتر، أو أضف مصروفًا جديدًا.</p></div>;
+  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#FFF0ED] text-[#A5564A]"><Receipt className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد مصروفات</h3><p className="mt-[5px] text-[10px] text-[#626E63]">غيّر البحث أو الفلاتر، أو أضف مصروفًا جديدًا.</p></div>;
 };
 
 const formatNativeMoney = (value: number, symbol: string) => `${Number(value || 0).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${symbol}`;

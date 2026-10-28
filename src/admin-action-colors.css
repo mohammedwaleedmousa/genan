@@ -1,6 +1,6 @@
 .admin-normalized-pink-action {
-  border-color: #98774B !important;
-  background: #98774B !important;
+  border-color: #765830 !important;
+  background: #765830 !important;
   color: #FFFFFF !important;
   box-shadow: none !important;
 }
@@ -19,13 +19,13 @@
 }
 
 .admin-normalized-pink-soft-action:hover {
-  border-color: #CBC5E9 !important;
+  border-color: #D0B994 !important;
   background: #F4EAD8 !important;
-  color: #51479C !important;
+  color: #654C28 !important;
 }
 
 .admin-normalized-pink-text-action {
-  color: #98774B !important;
+  color: #765830 !important;
 }
 
 .admin-normalized-pink-text-action:hover {
@@ -53,10 +53,10 @@
   gap: 6px;
   border: 1px solid #E4D8C3;
   border-radius: 10px;
-  background: #F5F3FF;
+  background: #F9F3E8;
   padding: 0 10px;
   color: #7D6037;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
   transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
@@ -65,7 +65,7 @@
 .admin-global-excel-export:hover {
   border-color: #D9C5A4;
   background: #F3E8D2;
-  color: #51479C;
+  color: #654C28;
 }
 
 .admin-global-excel-export:disabled {

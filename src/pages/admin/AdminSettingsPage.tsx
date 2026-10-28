@@ -319,7 +319,7 @@ const AdminSettingsPage = () => {
           </button>
         ))}
       </nav>
-      <p className="-mt-3 text-[12px] text-[#867A69]">يمكنك التنقل بين الأقسام، ثم الضغط على «حفظ التغييرات» لحفظ الإعدادات.</p>
+      <p className="-mt-3 text-[12px] text-[#655C4F]">يمكنك التنقل بين الأقسام، ثم الضغط على «حفظ التغييرات» لحفظ الإعدادات.</p>
 
       {activeSettingsTab === "general" && (
         <div id="genan-settings-panel-general" role="tabpanel" aria-labelledby="genan-settings-tab-general" className="space-y-5">

@@ -350,7 +350,7 @@ const AdminDeliveryPage = () => {
           <div className="mx-auto flex h-[48px] w-[48px] items-center justify-center rounded-[14px] border border-[#E5E9EF] bg-white">
             <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" />
           </div>
-          <p className="mt-3 text-[9px] font-medium text-[#969DA7]">جاري تحميل شركات التوصيل...</p>
+          <p className="mt-3 text-[9px] font-medium text-[#626E63]">جاري تحميل شركات التوصيل...</p>
         </div>
       </div>
     );
@@ -383,7 +383,7 @@ const AdminDeliveryPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[8px] text-[#9BA2AC]">ابحث عن شركة ورتّب النتائج حسب الرسوم أو الاستخدام</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">ابحث عن شركة ورتّب النتائج حسب الرسوم أو الاستخدام</p>
           </div>
 
           {hasFilters && (
@@ -430,11 +430,11 @@ const AdminDeliveryPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">دليل شركات التوصيل</h2>
-            <p className="mt-[3px] text-[8px] text-[#9CA3AC]">{filteredCompanies.length.toLocaleString("ar-EG")} شركة ظاهرة</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">{filteredCompanies.length.toLocaleString("ar-EG")} شركة ظاهرة</p>
           </div>
 
           {(isFetching || countsLoading) && (
-            <span className="flex items-center gap-[5px] text-[8px] text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[8px] text-[#626E63]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -444,7 +444,7 @@ const AdminDeliveryPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[980px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#858D97]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#6A727C]">
                 <th className="px-[12px] text-right">شركة التوصيل</th>
                 <th className="px-[12px] text-right">الرسوم</th>
                 <th className="px-[12px] text-right">مدة التوصيل</th>
@@ -497,7 +497,7 @@ const AdminDeliveryPage = () => {
                       </td>
 
                       <td className="px-[12px]">
-                        <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", ordersCount > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#858D97]")}>
+                        <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", ordersCount > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#686F79]")}>
                           <PackageCheck className="h-[8px] w-[8px]" />
                           {ordersCount.toLocaleString("ar-EG")} طلب
                         </span>
@@ -548,7 +548,7 @@ const AdminDeliveryPage = () => {
 
                       <div className="min-w-0">
                         <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{company.name}</h3>
-                        <p className="mt-[3px] text-[7px] text-[#9299A3]">{company.delivery_days || "مدة التوصيل غير محددة"}</p>
+                        <p className="mt-[3px] text-[7px] text-[#626E63]">{company.delivery_days || "مدة التوصيل غير محددة"}</p>
                         <p className="mt-[3px] text-[7px] font-medium text-[#675CBA]">{deliveryScopeLabel(company.service_scope)}</p>
                       </div>
                     </div>
@@ -590,7 +590,7 @@ const AdminDeliveryPage = () => {
 
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editingCompany ? "تعديل شركة التوصيل" : "إضافة شركة توصيل"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#9299A3]">إدارة اسم الخدمة ورسومها ومدة التوصيل وحالة ظهورها للعميل.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#626E63]">إدارة اسم الخدمة ورسومها ومدة التوصيل وحالة ظهورها للعميل.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -630,7 +630,7 @@ const AdminDeliveryPage = () => {
                 <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
                   <div>
                     <p className="text-[9px] font-semibold text-[#555D67]">حالة شركة التوصيل</p>
-                    <p className="mt-[3px] text-[7px] text-[#9BA2AC]">{formData.is_active ? "تظهر كخيار للعميل أثناء إتمام الطلب" : "مخفية عن صفحة إتمام الطلب"}</p>
+                    <p className="mt-[3px] text-[7px] text-[#626E63]">{formData.is_active ? "تظهر كخيار للعميل أثناء إتمام الطلب" : "مخفية عن صفحة إتمام الطلب"}</p>
                   </div>
 
                   <Switch checked={formData.is_active} onCheckedChange={(checked) => setFormData((current) => ({ ...current, is_active: checked }))} />
@@ -659,9 +659,9 @@ const AdminDeliveryPage = () => {
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div>
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div>
             <AlertDialogTitle className="text-[14px] font-semibold text-[#343A44]">حذف شركة التوصيل</AlertDialogTitle>
-            <AlertDialogDescription className="text-[9px] leading-6 text-[#858D97]">
+            <AlertDialogDescription className="text-[9px] leading-6 text-[#626E63]">
               {deleteTarget && (orderCounts[deleteTarget.id] || 0) > 0 ? `شركة "${deleteTarget.name}" مرتبطة بـ ${(orderCounts[deleteTarget.id] || 0).toLocaleString("ar-EG")} طلب. للحفاظ على سجل الطلبات يفضل تعطيلها بدل حذفها.` : `سيتم حذف شركة "${deleteTarget?.name || ""}" نهائيًا من خيارات التوصيل.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -687,9 +687,9 @@ const deliveryScopeLabel = (scope: DeliveryScope) => {
 const DeliveryStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -698,13 +698,13 @@ const DeliveryStatCard = ({ title, value, helper, icon: Icon, tone }: { title: s
       <div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div>
       <p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p>
       <p className="mt-[4px] truncate text-[17px] font-semibold leading-none text-[#303741]">{value}</p>
-      <p className="mt-[6px] text-[7px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[6px] text-[7px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
 
 const DeliveryStatus = ({ active }: { active: boolean }) => {
-  return <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشطة" : "معطلة"}</span>;
+  return <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشطة" : "معطلة"}</span>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -716,7 +716,7 @@ const Field = ({ label, children, required = false }: { label: string; children:
 };
 
 const DeliveryEmpty = () => {
-  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><Truck className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد شركات توصيل</h3><p className="mt-[4px] text-[7px] text-[#9BA2AC]">أضف شركة جديدة أو غيّر البحث والفلاتر الحالية.</p></div>;
+  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><Truck className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد شركات توصيل</h3><p className="mt-[4px] text-[7px] text-[#626E63]">أضف شركة جديدة أو غيّر البحث والفلاتر الحالية.</p></div>;
 };
 
 export default AdminDeliveryPage;

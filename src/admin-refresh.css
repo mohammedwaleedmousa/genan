@@ -33,7 +33,7 @@
   outline-offset: 2px;
 }
 .admin-workspace .admin-page-scroll h1 {
-  color: #242a24;
+  /* Respect white titles placed on dark panels; do not force a dark foreground. */
   letter-spacing: -.025em;
 }
 .admin-workspace .admin-page-scroll section[class*="bg-white"],
@@ -86,14 +86,9 @@
   border-color: #e2d8ca;
   background-color: #fffdf9;
 }
-.admin-workspace .admin-page-scroll th {
-  font-size: 11px;
-  color: #686c61;
-}
-.admin-workspace .admin-page-scroll td {
-  font-size: 12px;
-  color: #343c32;
-}
+.admin-workspace .admin-page-scroll th { font-size: 12px; }
+.admin-workspace .admin-page-scroll td { font-size: 12px; }
+/* Preserve semantically colored table badges and cells. */
 .admin-workspace .admin-page-scroll .font-heading {
   letter-spacing: -.01em;
 }
@@ -105,5 +100,61 @@
   .admin-workspace .admin-page-scroll button,
   .admin-workspace .admin-page-scroll a {
     touch-action: manipulation;
+  }
+}
+
+
+/* Admin readability: preserve component-specific text colors and semantic status colors. */
+.admin-workspace {
+  --genan-admin-ink: #273329;
+  --genan-admin-muted: #5f6b60;
+  --genan-admin-border: #e4dbcc;
+}
+.admin-workspace .admin-page-scroll :is(p, label) { line-height: 1.65; }
+.admin-workspace .admin-page-scroll :is(h1, h2, h3) { line-height: 1.4; overflow-wrap: anywhere; }
+.admin-workspace .admin-page-scroll :is(section, article, table) { min-width: 0; }
+.admin-workspace .admin-page-scroll :is(input, textarea, [role="combobox"]) { color: #273329; }
+.admin-workspace .admin-page-scroll :is(input, textarea)::placeholder { color: #6b756b; opacity: 1; }
+.admin-workspace .admin-page-scroll :is(input, textarea, select, [role="combobox"]) { border-color: #ddd1bd; }
+.admin-workspace .admin-page-scroll :is(button, a, input, textarea, [role="combobox"]):focus-visible {
+  outline: 2px solid #806137;
+  outline-offset: 2px;
+}
+.admin-workspace .admin-page-scroll thead:not([class*="bg-"]) { background: #faf7f1; }
+.admin-workspace .admin-page-scroll thead th:not([class*="text-"]) { color: #49564a; }
+.admin-workspace .admin-page-scroll thead th { font-weight: 650; line-height: 1.6; }
+.admin-workspace .admin-page-scroll tbody td { line-height: 1.65; vertical-align: middle; }
+/* Radix and other popup portals are mounted outside the layout.
+   Apply the admin light palette while (and only while) the admin is mounted. */
+body.genan-admin-active {
+  --background: 40 22% 96%;
+  --foreground: 145 12% 15%;
+  --card: 0 0% 100%;
+  --card-foreground: 145 12% 15%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 145 12% 15%;
+  --muted: 40 20% 96%;
+  --muted-foreground: 145 8% 39%;
+  --primary: 37 40% 37%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 37 45% 92%;
+  --accent-foreground: 145 10% 22%;
+  --border: 37 22% 87%;
+  --input: 37 22% 87%;
+  --ring: 37 40% 37%;
+}
+body.genan-admin-active [role="dialog"],
+body.genan-admin-active [role="listbox"],
+body.genan-admin-active [cmdk-root] { color: #273329; }
+body.genan-admin-active [role="option"][data-highlighted] {
+  background: #f1e7d6;
+  color: #29352c;
+}
+@media (max-width: 767px) {
+  .admin-workspace .admin-page-scroll > div {
+    padding: 16px 14px max(30px, env(safe-area-inset-bottom));
+  }
+  .admin-workspace .admin-page-scroll :is(input:not([type="checkbox"]):not([type="file"]):not([type="color"]), textarea) {
+    font-size: 16px !important;
   }
 }

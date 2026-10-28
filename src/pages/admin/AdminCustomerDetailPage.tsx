@@ -99,12 +99,12 @@ interface DeliveryCompany {
 const STATUS_META: Record<string, { label: string; className: string; dot: string }> = {
   pending: {
     label: "قيد الانتظار",
-    className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#A9782F]",
+    className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#926829]",
     dot: "bg-[#C38838]",
   },
   confirmed: {
     label: "مؤكد",
-    className: "border-[#DCE7F5] bg-[#F1F6FC] text-[#5679A4]",
+    className: "border-[#DCE7F5] bg-[#F1F6FC] text-[#507098]",
     dot: "bg-[#5680CF]",
   },
   processing: {
@@ -114,22 +114,22 @@ const STATUS_META: Record<string, { label: string; className: string; dot: strin
   },
   shipped: {
     label: "تم الشحن",
-    className: "border-[#D5E8EE] bg-[#EFF8FB] text-[#4A879B]",
+    className: "border-[#D5E8EE] bg-[#EFF8FB] text-[#3F7588]",
     dot: "bg-[#4A90A6]",
   },
   delivered: {
     label: "تم التوصيل",
-    className: "border-[#D7E8DC] bg-[#EFF8F2] text-[#568468]",
+    className: "border-[#D7E8DC] bg-[#EFF8F2] text-[#4C755E]",
     dot: "bg-[#629067]",
   },
   cancelled: {
     label: "ملغي",
-    className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]",
+    className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#A9534A]",
     dot: "bg-[#D06A5E]",
   },
   canceled: {
     label: "ملغي",
-    className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]",
+    className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#A9534A]",
     dot: "bg-[#D06A5E]",
   },
 };
@@ -330,7 +330,7 @@ const AdminCustomerDetailPage = () => {
     if (!customer) return;
 
     const phone = normalizeWhatsAppPhone();
-    const message = `مرحباً ${customer.name || ""}، معك فريق Flamingo Park`;
+    const message = `مرحباً ${customer.name || ""}، معك فريق بوتيك جنان`;
 
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
@@ -351,7 +351,7 @@ const AdminCustomerDetailPage = () => {
           <div className="mx-auto flex h-[48px] w-[48px] items-center justify-center rounded-[14px] border border-[#E5E9EF] bg-white">
             <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" strokeWidth={1.8} />
           </div>
-          <p className="mt-3 text-[8px] font-medium text-[#969DA7]">جاري تحميل ملف العميل الكامل...</p>
+          <p className="mt-3 text-[8px] font-medium text-[#626E63]">جاري تحميل ملف العميل الكامل...</p>
         </div>
       </div>
     );
@@ -361,7 +361,7 @@ const AdminCustomerDetailPage = () => {
     return (
       <div className="flex min-h-[430px] items-center justify-center" dir="rtl">
         <div className="text-center">
-          <div className="mx-auto flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]">
+          <div className="mx-auto flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]">
             <User className="h-[19px] w-[19px]" />
           </div>
           <h2 className="mt-3 text-[12px] font-semibold text-[#4A525C]">لم يتم العثور على العميل</h2>
@@ -430,7 +430,7 @@ const AdminCustomerDetailPage = () => {
                   <p dir="ltr" className="mt-[4px] truncate text-right text-[8px] text-[#89919C]">{customer.phone}</p>
                 </div>
 
-                <span className="inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[7px] text-[6.5px] font-semibold text-[#568468]">
+                <span className="inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[7px] text-[6.5px] font-semibold text-[#4C755E]">
                   <span className="h-[5px] w-[5px] rounded-full bg-[#629067]" />
                   نشط
                 </span>
@@ -499,7 +499,7 @@ const AdminCustomerDetailPage = () => {
           <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[14px] py-[12px]">
             <SectionTitle icon={Package} title="سجل الطلبات" description="اضغط على العين لفتح الطلب مباشرة" tone="blue" />
 
-            <span className="rounded-[7px] bg-[#EDF4FF] px-[7px] py-[4px] text-[7px] font-bold text-[#567BC5]">{orders.length}</span>
+            <span className="rounded-[7px] bg-[#EDF4FF] px-[7px] py-[4px] text-[7px] font-bold text-[#4C6CB0]">{orders.length}</span>
           </div>
 
           {orders.length === 0 ? (
@@ -523,8 +523,8 @@ const AdminCustomerDetailPage = () => {
           <SectionTitle icon={Bell} title="سجل الإشعارات" description="جميع الإشعارات المرتبطة بهذا العميل" tone="violet" />
 
           <div className="flex items-center gap-[6px]">
-            {unreadNotifications > 0 && <span className="rounded-[7px] bg-[#FFF5E5] px-[7px] py-[4px] text-[6.5px] font-semibold text-[#B17B33]">{unreadNotifications} غير مقروء</span>}
-            <span className="rounded-[7px] bg-[#F2F4F7] px-[7px] py-[4px] text-[6.5px] font-semibold text-[#747C86]">{notifications.length} إجمالي</span>
+            {unreadNotifications > 0 && <span className="rounded-[7px] bg-[#FFF5E5] px-[7px] py-[4px] text-[6.5px] font-semibold text-[#92662B]">{unreadNotifications} غير مقروء</span>}
+            <span className="rounded-[7px] bg-[#F2F4F7] px-[7px] py-[4px] text-[6.5px] font-semibold text-[#676D77]">{notifications.length} إجمالي</span>
           </div>
         </div>
 
@@ -557,14 +557,14 @@ const AdminCustomerDetailPage = () => {
 const OrderRow = ({ order, onOpen }: { order: Order; onOpen: () => void }) => {
   const status = STATUS_META[String(order.status || "").toLowerCase()] || {
     label: order.status || "غير محدد",
-    className: "border-[#E2E5E9] bg-[#F5F6F8] text-[#7B838E]",
+    className: "border-[#E2E5E9] bg-[#F5F6F8] text-[#686E79]",
     dot: "bg-[#969EA8]",
   };
 
   return (
     <div className="group flex flex-col gap-[10px] px-[14px] py-[12px] transition-colors hover:bg-[#FCFDFE] sm:flex-row sm:items-center">
       <div className="flex min-w-0 flex-1 items-start gap-[10px]">
-        <div className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-[10px] bg-[#EDF4FF] text-[#5680CF]">
+        <div className="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-[10px] bg-[#EDF4FF] text-[#486BB0]">
           <Package className="h-[14px] w-[14px]" strokeWidth={1.7} />
         </div>
 
@@ -578,7 +578,7 @@ const OrderRow = ({ order, onOpen }: { order: Order; onOpen: () => void }) => {
             </span>
           </div>
 
-          <div className="mt-[6px] flex flex-wrap items-center gap-x-[12px] gap-y-[5px] text-[6.5px] text-[#969DA7]">
+          <div className="mt-[6px] flex flex-wrap items-center gap-x-[12px] gap-y-[5px] text-[6.5px] text-[#626E63]">
             <span className="flex items-center gap-[4px]">
               <CalendarDays className="h-[8px] w-[8px]" />
               {formatDate(order.created_at)}
@@ -606,7 +606,7 @@ const OrderRow = ({ order, onOpen }: { order: Order; onOpen: () => void }) => {
 
       <div className="flex shrink-0 items-center justify-between gap-[12px] sm:justify-end">
         <div className="text-left">
-          <p className="text-[6.5px] text-[#9BA2AC]">قيمة الطلب</p>
+          <p className="text-[6.5px] text-[#626E63]">قيمة الطلب</p>
           <p dir="ltr" className="mt-[3px] text-[10px] font-semibold text-[#3F4751]">{formatNativeAmount(order.total, order)}</p>
         </div>
 
@@ -625,7 +625,7 @@ const OrderRow = ({ order, onOpen }: { order: Order; onOpen: () => void }) => {
 const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValue }: { order: Order; deliveryCompany: DeliveryCompany | null; formatCurrency: (value: number) => string; onClose: () => void; copyValue: (value: string, label: string) => Promise<void> }) => {
   const status = STATUS_META[String(order.status || "").toLowerCase()] || {
     label: order.status || "غير محدد",
-    className: "border-[#E2E5E9] bg-[#F5F6F8] text-[#7B838E]",
+    className: "border-[#E2E5E9] bg-[#F5F6F8] text-[#686E79]",
     dot: "bg-[#969EA8]",
   };
 
@@ -637,7 +637,7 @@ const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValu
         <div className="sticky top-0 z-30 border-b border-[#E5E9EF] bg-white/95 px-[14px] py-[13px] backdrop-blur">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[7px] font-semibold tracking-[0.06em] text-[#9BA2AC]">ORDER DETAILS</p>
+              <p className="text-[7px] font-semibold tracking-[0.06em] text-[#626E63]">ORDER DETAILS</p>
 
               <div className="mt-[5px] flex flex-wrap items-center gap-[7px]">
                 <h2 dir="ltr" className="text-right text-[18px] font-semibold tracking-[-0.03em] text-[#303741]">#{order.order_number}</h2>
@@ -648,7 +648,7 @@ const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValu
                 </span>
               </div>
 
-              <p className="mt-[5px] text-[7px] text-[#969DA7]">{formatDate(order.created_at, true)}</p>
+              <p className="mt-[5px] text-[7px] text-[#626E63]">{formatDate(order.created_at, true)}</p>
             </div>
 
             <button type="button" onClick={onClose} className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-[#E3E7EC] bg-white text-[#777F8A] transition-colors hover:bg-[#F5F7F9]">
@@ -665,7 +665,7 @@ const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValu
 
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-[7px] text-[#969DA7]">إجمالي الطلب</p>
+                <p className="text-[7px] text-[#626E63]">إجمالي الطلب</p>
                 <p dir="ltr" className="mt-[5px] text-right text-[22px] font-semibold tracking-[-0.04em] text-[#303741]">{formatNativeAmount(order.total, order)}</p>
 
                 {order.total_base !== null && order.total_base !== undefined && (
@@ -693,7 +693,7 @@ const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValu
 
             {order.customer_address && (
               <div className="mt-[8px] rounded-[10px] bg-[#F8FAFC] p-[10px]">
-                <p className="text-[6.5px] font-medium text-[#9AA1AB]">العنوان الكامل</p>
+                <p className="text-[6.5px] font-medium text-[#626E63]">العنوان الكامل</p>
                 <p className="mt-[4px] text-[8px] leading-5 text-[#535B65]">{order.customer_address}</p>
               </div>
             )}
@@ -711,7 +711,7 @@ const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValu
           <DrawerSection icon={Package} title={`المنتجات · ${itemsCount(order)} قطعة`}>
             <div className="space-y-[7px]">
               {itemsOf(order).length === 0 ? (
-                <p className="py-5 text-center text-[8px] text-[#9BA2AC]">لا توجد تفاصيل للمنتجات</p>
+                <p className="py-5 text-center text-[8px] text-[#626E63]">لا توجد تفاصيل للمنتجات</p>
               ) : (
                 itemsOf(order).map((item, index) => {
                   const quantity = Math.max(1, Number(item.quantity || 1));
@@ -740,7 +740,7 @@ const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValu
                         )}
 
                         <div className="mt-[9px] flex items-end justify-between gap-2">
-                          <span dir="ltr" className="text-[7px] text-[#969DA7]">{quantity} × {Number(price).toLocaleString("en-US")} {currencySymbol(order)}</span>
+                          <span dir="ltr" className="text-[7px] text-[#626E63]">{quantity} × {Number(price).toLocaleString("en-US")} {currencySymbol(order)}</span>
                           <span dir="ltr" className="text-[9px] font-semibold text-[#404852]">{Number(quantity * price).toLocaleString("en-US")} {currencySymbol(order)}</span>
                         </div>
                       </div>
@@ -824,9 +824,9 @@ const OrderDrawer = ({ order, deliveryCompany, formatCurrency, onClose, copyValu
 const MetricCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "blue" | "green" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -839,7 +839,7 @@ const MetricCard = ({ title, value, helper, icon: Icon, tone }: { title: string;
 
       <p className="mt-[12px] text-[8px] font-medium text-[#8D949E]">{title}</p>
       <p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p>
-      <p className="mt-[5px] truncate text-[6.5px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[5px] truncate text-[6.5px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
@@ -865,17 +865,17 @@ const CustomerAvatar = ({ customer }: { customer: Customer }) => {
 const ProfileRow = ({ icon: Icon, label, value, ltr = false, copy }: { icon: LucideIcon; label: string; value: string; ltr?: boolean; copy?: () => void }) => {
   return (
     <div className="flex min-h-[45px] items-center gap-[9px] rounded-[10px] px-[7px] transition-colors hover:bg-[#F8FAFC]">
-      <div className="flex h-[29px] w-[29px] shrink-0 items-center justify-center rounded-[9px] bg-[#F1F3F6] text-[#79818C]">
+      <div className="flex h-[29px] w-[29px] shrink-0 items-center justify-center rounded-[9px] bg-[#F1F3F6] text-[#666C77]">
         <Icon className="h-[12px] w-[12px]" strokeWidth={1.7} />
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-[6.5px] text-[#9BA2AC]">{label}</p>
+        <p className="text-[6.5px] text-[#626E63]">{label}</p>
         <p dir={ltr ? "ltr" : undefined} className={cn("mt-[3px] truncate text-[8.5px] font-semibold text-[#515964]", ltr && "text-right")}>{value}</p>
       </div>
 
       {copy && (
-        <button type="button" onClick={copy} className="flex h-[25px] w-[25px] shrink-0 items-center justify-center rounded-[7px] text-[#9AA1AB] transition-colors hover:bg-white hover:text-[#675CBA]">
+        <button type="button" onClick={copy} className="flex h-[25px] w-[25px] shrink-0 items-center justify-center rounded-[7px] text-[#626E63] transition-colors hover:bg-white hover:text-[#675CBA]">
           <Copy className="h-[10px] w-[10px]" />
         </button>
       )}
@@ -889,9 +889,9 @@ const ProfileRow = ({ icon: Icon, label, value, ltr = false, copy }: { icon: Luc
 
 const SectionTitle = ({ icon: Icon, title, description, tone }: { icon: LucideIcon; title: string; description: string; tone: "blue" | "teal" | "violet" }) => {
   const style = {
-    blue: "bg-[#EDF4FF] text-[#5680CF]",
-    teal: "bg-[#EAF8F4] text-[#4C9687]",
-    violet: "bg-[#F4ECFF] text-[#8F63C1]",
+    blue: "bg-[#EDF4FF] text-[#486BB0]",
+    teal: "bg-[#EAF8F4] text-[#3C786A]",
+    violet: "bg-[#F4ECFF] text-[#7D57A9]",
   }[tone];
 
   return (
@@ -902,7 +902,7 @@ const SectionTitle = ({ icon: Icon, title, description, tone }: { icon: LucideIc
 
       <div className="min-w-0">
         <h2 className="text-[10px] font-semibold text-[#454C56]">{title}</h2>
-        <p className="mt-[2px] truncate text-[6.5px] text-[#9BA2AC]">{description}</p>
+        <p className="mt-[2px] truncate text-[6.5px] text-[#626E63]">{description}</p>
       </div>
     </div>
   );
@@ -928,13 +928,13 @@ const SummaryRow = ({ label, value, danger = false }: { label: string; value: st
 const ValueList = ({ title, values }: { title: string; values: string[] }) => {
   return (
     <div>
-      <p className="mb-[6px] text-[7px] font-semibold text-[#9299A3]">{title}</p>
+      <p className="mb-[6px] text-[7px] font-semibold text-[#626E63]">{title}</p>
 
       {values.length === 0 ? (
         <p className="text-[7px] text-[#A2A8B1]">لا توجد بيانات</p>
       ) : (
         <div className="flex flex-wrap gap-[5px]">
-          {values.map((value) => <span key={value} className="max-w-full truncate rounded-[7px] border border-[#E6E9EE] bg-[#F8FAFC] px-[7px] py-[4px] text-[6.5px] text-[#727A84]">{value}</span>)}
+          {values.map((value) => <span key={value} className="max-w-full truncate rounded-[7px] border border-[#E6E9EE] bg-[#F8FAFC] px-[7px] py-[4px] text-[6.5px] text-[#6A717B]">{value}</span>)}
         </div>
       )}
     </div>
@@ -953,17 +953,17 @@ const NotificationCard = ({ notification }: { notification: Notification }) => {
       {!notification.is_read && <span className="absolute right-0 top-[15px] h-[23px] w-[2px] bg-[#675CBA]" />}
 
       <div className="flex items-start justify-between gap-[8px]">
-        <div className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#F4F1FF] text-[#796BC1]">
+        <div className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#F4F1FF] text-[#6A61AD]">
           <Bell className="h-[12px] w-[12px]" />
         </div>
 
-        <span className={cn("rounded-[6px] px-[6px] py-[3px] text-[6px] font-semibold", notification.is_read ? "bg-[#F1F3F5] text-[#868E98]" : "bg-[#F1EFFF] text-[#675CBA]")}>{notification.is_read ? "مقروء" : "غير مقروء"}</span>
+        <span className={cn("rounded-[6px] px-[6px] py-[3px] text-[6px] font-semibold", notification.is_read ? "bg-[#F1F3F5] text-[#676D77]" : "bg-[#F1EFFF] text-[#675CBA]")}>{notification.is_read ? "مقروء" : "غير مقروء"}</span>
       </div>
 
       <h3 className="mt-[9px] truncate text-[8.5px] font-semibold text-[#4B535D]">{notification.title}</h3>
       <p className="mt-[4px] line-clamp-2 text-[7px] leading-[15px] text-[#8F96A0]">{body}</p>
 
-      <div className="mt-[9px] flex items-center justify-between text-[6px] text-[#A0A6AF]">
+      <div className="mt-[9px] flex items-center justify-between text-[6px] text-[#626E63]">
         <span>{notification.type || "notification"}</span>
         <span>{formatDate(notification.created_at)}</span>
       </div>
@@ -995,7 +995,7 @@ const InfoGrid = ({ children }: { children: React.ReactNode }) => <div className
 const InfoBox = ({ label, value, ltr = false }: { label: string; value: string; ltr?: boolean }) => {
   return (
     <div className="rounded-[9px] bg-[#F8FAFC] p-[9px]">
-      <p className="text-[6px] text-[#9CA3AC]">{label}</p>
+      <p className="text-[6px] text-[#626E63]">{label}</p>
       <p dir={ltr ? "ltr" : undefined} className={cn("mt-[4px] truncate text-[8px] font-semibold text-[#525A64]", ltr && "text-right")}>{value}</p>
     </div>
   );
@@ -1023,7 +1023,7 @@ const CopyRow = ({ label, value, onCopy }: { label: string; value: string; onCop
   return (
     <div className="mt-[8px] flex items-center gap-[7px] rounded-[9px] border border-[#E9ECF0] bg-[#FAFBFC] p-[8px]">
       <div className="min-w-0 flex-1">
-        <p className="text-[6px] text-[#A0A6AF]">{label}</p>
+        <p className="text-[6px] text-[#626E63]">{label}</p>
         <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] font-medium text-[#606873]">{value}</p>
       </div>
 
@@ -1043,11 +1043,11 @@ const SmallTag = ({ children }: { children: React.ReactNode }) => <span classNam
 const EmptyState = ({ icon: Icon, title, description }: { icon: LucideIcon; title: string; description: string }) => {
   return (
     <div className="flex min-h-[240px] flex-col items-center justify-center px-6 text-center">
-      <div className="flex h-[44px] w-[44px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]">
+      <div className="flex h-[44px] w-[44px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]">
         <Icon className="h-[18px] w-[18px]" />
       </div>
       <h3 className="mt-3 text-[9px] font-semibold text-[#535B65]">{title}</h3>
-      <p className="mt-[4px] text-[7px] text-[#9BA2AC]">{description}</p>
+      <p className="mt-[4px] text-[7px] text-[#626E63]">{description}</p>
     </div>
   );
 };

@@ -279,7 +279,7 @@ const AdminSidebar = () => {
                   </div>
                 </div>
 
-                <span className="rounded-[7px] border border-[#E2D1AE] bg-[#F3EBDA] px-[7px] py-[4px] text-[7px] font-bold tracking-[0.07em] text-[#886738]">ADMIN</span>
+                <span className="rounded-[7px] border border-[#E2D1AE] bg-[#F3EBDA] px-[7px] py-[4px] text-[10px] font-bold tracking-[0.07em] text-[#886738]">ADMIN</span>
               </>
             )}
           </button>
@@ -330,10 +330,10 @@ const AdminSidebar = () => {
                       <>
                         <div className="min-w-0 flex-1 text-right">
                           <p className={cn("truncate text-[12px] leading-none", active ? "font-semibold" : "font-medium")}>{section.title}</p>
-                          <p className="mt-[4px] truncate text-[10px] font-medium text-[#918B7E]">{section.subtitle}</p>
+                          <p className="mt-[4px] truncate text-[10px] font-medium text-[#667267]">{section.subtitle}</p>
                         </div>
 
-                        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={ACCORDION_TRANSITION} className="flex h-[20px] w-[20px] shrink-0 items-center justify-center text-[#9DA4AD]">
+                        <motion.span animate={{ rotate: open ? 180 : 0 }} transition={ACCORDION_TRANSITION} className="flex h-[20px] w-[20px] shrink-0 items-center justify-center text-[#6A7469]">
                           <ChevronDown className="h-[11px] w-[11px]" strokeWidth={1.8} />
                         </motion.span>
                       </>

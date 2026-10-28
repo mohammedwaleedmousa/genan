@@ -431,7 +431,7 @@ const AdminCategoriesPage = () => {
             <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" />
           </div>
 
-          <p className="mt-3 text-[8px] font-medium text-[#969DA7]">جاري تحميل الفئات...</p>
+          <p className="mt-3 text-[8px] font-medium text-[#626E63]">جاري تحميل الفئات...</p>
         </div>
       </div>
     );
@@ -469,12 +469,12 @@ const AdminCategoriesPage = () => {
 
             <div>
               <p className="text-[10px] font-semibold text-[#444B55]">البحث والتصفية</p>
-              <p className="mt-[2px] text-[7px] text-[#9BA2AC]">ابحث بالاسم أو الرابط وفلتر هيكل الفئات</p>
+              <p className="mt-[2px] text-[7px] text-[#626E63]">ابحث بالاسم أو الرابط وفلتر هيكل الفئات</p>
             </div>
           </div>
 
           {hasFilters && (
-            <button type="button" onClick={clearFilters} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[8px] font-semibold text-[#8A919B] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
+            <button type="button" onClick={clearFilters} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[8px] font-semibold text-[#626E63] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
               <X className="h-[10px] w-[10px]" />
               مسح الفلاتر
             </button>
@@ -485,10 +485,10 @@ const AdminCategoriesPage = () => {
           <div className="relative">
             <Search className="pointer-events-none absolute right-[12px] top-1/2 h-[13px] w-[13px] -translate-y-1/2 text-[#969EA8]" strokeWidth={1.7} />
 
-            <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="اسم الفئة، الاسم الإنجليزي أو slug..." className="h-[40px] rounded-[10px] border-[#E3E7EC] bg-[#F8FAFC] pr-[35px] pl-[34px] text-[10px] font-medium shadow-none placeholder:text-[#A4ABB4] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
+            <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="اسم الفئة، الاسم الإنجليزي أو slug..." className="h-[40px] rounded-[10px] border-[#E3E7EC] bg-[#F8FAFC] pr-[35px] pl-[34px] text-[10px] font-medium shadow-none placeholder:text-[#626E63] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
 
             {search && (
-              <button type="button" onClick={() => setSearch("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#9AA1AB] transition-colors hover:bg-white hover:text-[#5C6470]">
+              <button type="button" onClick={() => setSearch("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#626E63] transition-colors hover:bg-white hover:text-[#5C6470]">
                 <X className="h-[11px] w-[11px]" />
               </button>
             )}
@@ -541,7 +541,7 @@ const AdminCategoriesPage = () => {
                       <div className="flex items-start justify-between gap-[7px]">
                         <div className="min-w-0">
                           <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{category.name_ar}</h3>
-                          <p className="mt-[3px] truncate text-[7px] text-[#9299A3]">{category.name}</p>
+                          <p className="mt-[3px] truncate text-[7px] text-[#626E63]">{category.name}</p>
                         </div>
 
                         <CategoryStatus active={Boolean(category.is_active)} />
@@ -550,10 +550,10 @@ const AdminCategoriesPage = () => {
                       <div className="mt-[8px] flex flex-wrap gap-[5px]">
                         <CategoryTypeBadge category={category} parentName={category.parent_id ? categoryNameById.get(category.parent_id) : undefined} />
 
-                        {childrenCount > 0 && <span className="rounded-[6px] bg-[#EDF4FF] px-[6px] py-[3px] text-[6px] font-semibold text-[#567BC5]">{childrenCount} فرعي</span>}
+                        {childrenCount > 0 && <span className="rounded-[6px] bg-[#EDF4FF] px-[6px] py-[3px] text-[6px] font-semibold text-[#4C6CB0]">{childrenCount} فرعي</span>}
                       </div>
 
-                      <div className="mt-[8px] flex items-center justify-between text-[6.5px] text-[#9BA2AC]">
+                      <div className="mt-[8px] flex items-center justify-between text-[6.5px] text-[#626E63]">
                         <span dir="ltr">{category.slug}</span>
                         <span>الترتيب #{category.sort_order ?? 0}</span>
                       </div>
@@ -593,11 +593,11 @@ const AdminCategoriesPage = () => {
               <h2 className="text-[10px] font-semibold text-[#454C56]">هيكل الفئات</h2>
             </div>
 
-            <p className="mt-[4px] text-[7px] text-[#9CA3AC]">{filteredCategories.length.toLocaleString("ar-EG")} نتيجة ظاهرة</p>
+            <p className="mt-[4px] text-[7px] text-[#626E63]">{filteredCategories.length.toLocaleString("ar-EG")} نتيجة ظاهرة</p>
           </div>
 
           {isFetching && (
-            <span className="flex items-center gap-[5px] text-[7px] text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[7px] text-[#626E63]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -607,7 +607,7 @@ const AdminCategoriesPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[960px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[7.5px] font-semibold text-[#9299A3]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[7.5px] font-semibold text-[#6B7179]">
                 <th className="w-[70px] px-[10px] text-right font-semibold">الصورة</th>
                 <th className="px-[10px] text-right font-semibold">الفئة</th>
                 <th className="px-[10px] text-right font-semibold">النوع</th>
@@ -640,10 +640,10 @@ const AdminCategoriesPage = () => {
                           <div className="flex items-center gap-[6px]">
                             <p className="max-w-[220px] truncate text-[10px] font-semibold text-[#414953]">{category.name_ar}</p>
 
-                            {childrenCount > 0 && <span className="rounded-[5px] bg-[#EDF4FF] px-[5px] py-[2px] text-[5.8px] font-semibold text-[#567BC5]">{childrenCount}</span>}
+                            {childrenCount > 0 && <span className="rounded-[5px] bg-[#EDF4FF] px-[5px] py-[2px] text-[5.8px] font-semibold text-[#4C6CB0]">{childrenCount}</span>}
                           </div>
 
-                          <p className="mt-[4px] max-w-[220px] truncate text-[7px] text-[#9BA2AC]">{category.name}</p>
+                          <p className="mt-[4px] max-w-[220px] truncate text-[7px] text-[#626E63]">{category.name}</p>
                         </div>
                       </td>
 
@@ -656,7 +656,7 @@ const AdminCategoriesPage = () => {
                       </td>
 
                       <td className="px-[10px]">
-                        <span className="inline-flex h-[25px] min-w-[28px] items-center justify-center rounded-[7px] bg-[#F2F4F7] px-[7px] text-[7px] font-semibold text-[#727A84]">{category.sort_order ?? 0}</span>
+                        <span className="inline-flex h-[25px] min-w-[28px] items-center justify-center rounded-[7px] bg-[#F2F4F7] px-[7px] text-[7px] font-semibold text-[#686E78]">{category.sort_order ?? 0}</span>
                       </td>
 
                       <td className="px-[10px]">
@@ -701,7 +701,7 @@ const AdminCategoriesPage = () => {
 
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editingCategory ? "تعديل الفئة" : "إضافة فئة جديدة"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#9299A3]">{editingCategory ? "حدّث معلومات الفئة وطريقة ظهورها في المتجر." : "أنشئ قسمًا جديدًا داخل كتالوج Flamingo Park."}</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#626E63]">{editingCategory ? "حدّث معلومات الفئة وطريقة ظهورها في المتجر." : "أنشئ قسمًا جديدًا داخل كتالوج بوتيك جنان."}</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -755,7 +755,7 @@ const AdminCategoriesPage = () => {
                   <div className="flex items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] p-[10px]">
                     <div>
                       <p className="text-[8.5px] font-semibold text-[#555D67]">حالة الفئة</p>
-                      <p className="mt-[2px] text-[6.5px] text-[#9BA2AC]">الفئة النشطة تظهر للعميل في المتجر.</p>
+                      <p className="mt-[2px] text-[6.5px] text-[#626E63]">الفئة النشطة تظهر للعميل في المتجر.</p>
                     </div>
 
                     <div className="flex items-center gap-[7px]">
@@ -791,7 +791,7 @@ const AdminCategoriesPage = () => {
                       {uploading ? (
                         <>
                           <Loader2 className="h-[20px] w-[20px] animate-spin text-[#675CBA]" />
-                          <span className="mt-2 text-[7px] font-medium text-[#858D97]">جاري تحسين الصورة...</span>
+                          <span className="mt-2 text-[7px] font-medium text-[#626E63]">جاري تحسين الصورة...</span>
                         </>
                       ) : (
                         <>
@@ -800,7 +800,7 @@ const AdminCategoriesPage = () => {
                           </div>
 
                           <span className="mt-[9px] text-[8px] font-semibold text-[#606873]">رفع صورة</span>
-                          <span className="mt-[3px] text-center text-[6px] leading-4 text-[#A0A6AF]">JPG، PNG، WEBP أو HEIC<br />سيتم ضغطها تلقائيًا</span>
+                          <span className="mt-[3px] text-center text-[6px] leading-4 text-[#626E63]">JPG، PNG، WEBP أو HEIC<br />سيتم ضغطها تلقائيًا</span>
                         </>
                       )}
 
@@ -809,7 +809,7 @@ const AdminCategoriesPage = () => {
                   )}
 
                   <div className="mt-[8px] rounded-[9px] bg-[#F8FAFC] p-[8px]">
-                    <p className="text-[6px] leading-4 text-[#969DA7]">يفضل استخدام صورة مربعة وواضحة. سيتم تحويل الصورة تلقائيًا إلى WebP لتقليل حجم التحميل في المتجر.</p>
+                    <p className="text-[6px] leading-4 text-[#626E63]">يفضل استخدام صورة مربعة وواضحة. سيتم تحويل الصورة تلقائيًا إلى WebP لتقليل حجم التحميل في المتجر.</p>
                   </div>
                 </FormSection>
               </div>
@@ -818,7 +818,7 @@ const AdminCategoriesPage = () => {
             {/* FOOTER */}
 
             <div className="sticky bottom-0 z-20 flex items-center justify-between gap-3 border-t border-[#E5E9EF] bg-white/95 px-5 py-3 backdrop-blur">
-              <p className="hidden text-[6.5px] text-[#A0A6AF] sm:block">{editingCategory ? "سيتم تطبيق التعديلات على الفئة الحالية." : "سيتم إضافة الفئة إلى كتالوج المتجر."}</p>
+              <p className="hidden text-[6.5px] text-[#626E63] sm:block">{editingCategory ? "سيتم تطبيق التعديلات على الفئة الحالية." : "سيتم إضافة الفئة إلى كتالوج المتجر."}</p>
 
               <div className="mr-auto flex items-center gap-[7px]">
                 <Button type="button" variant="outline" onClick={closeForm} disabled={saveMutation.isPending} className="h-[36px] rounded-[9px] border-[#E1E5EA] bg-white px-4 text-[8px] font-semibold text-[#707883] shadow-none">إلغاء</Button>
@@ -840,13 +840,13 @@ const AdminCategoriesPage = () => {
       <AlertDialog open={Boolean(deleteCategory)} onOpenChange={(open) => { if (!open) setDeleteCategory(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]">
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]">
               <Trash2 className="h-[16px] w-[16px]" />
             </div>
 
             <AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف الفئة</AlertDialogTitle>
 
-            <AlertDialogDescription className="text-[10px] leading-6 text-[#858D97]">
+            <AlertDialogDescription className="text-[10px] leading-6 text-[#626E63]">
               {deleteCategory && (childrenCountMap.get(deleteCategory.id) || 0) > 0 ? `الفئة "${deleteCategory.name_ar}" تحتوي على ${childrenCountMap.get(deleteCategory.id)} فئة فرعية. يجب نقل أو حذف الفئات الفرعية أولًا.` : `سيتم حذف الفئة "${deleteCategory?.name_ar || ""}" نهائيًا. لا يمكن التراجع عن هذه العملية.`}
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -878,9 +878,9 @@ const AdminCategoriesPage = () => {
 const CategoryStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: typeof Grid3X3; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -893,7 +893,7 @@ const CategoryStatCard = ({ title, value, helper, icon: Icon, tone }: { title: s
 
       <p className="mt-[12px] text-[8px] font-medium text-[#8D949E]">{title}</p>
       <p dir="ltr" className="mt-[4px] text-right text-[20px] font-semibold leading-none tracking-[-0.035em] text-[#303741]">{value.toLocaleString("en-US")}</p>
-      <p className="mt-[5px] text-[6.5px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[5px] text-[6.5px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
@@ -907,7 +907,7 @@ const CategoryImage = ({ category, size }: { category: Category; size: "mobile" 
 
   if (!category.image_url) {
     return (
-      <div className={cn("flex shrink-0 items-center justify-center border border-[#E8EBEF] bg-[#F3F5F7] text-[#969EA8]", boxClass)}>
+      <div className={cn("flex shrink-0 items-center justify-center border border-[#E8EBEF] bg-[#F3F5F7] text-[#686C74]", boxClass)}>
         <Grid3X3 className="h-[15px] w-[15px]" strokeWidth={1.5} />
       </div>
     );
@@ -926,7 +926,7 @@ const CategoryImage = ({ category, size }: { category: Category; size: "mobile" 
 
 const CategoryStatus = ({ active }: { active: boolean }) => {
   return (
-    <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}>
+    <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}>
       <span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />
       {active ? "نشط" : "معطل"}
     </span>
@@ -948,7 +948,7 @@ const CategoryTypeBadge = ({ category, parentName }: { category: Category; paren
   }
 
   return (
-    <span className="inline-flex h-[25px] max-w-[170px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[6.5px] font-semibold text-[#5679A4]">
+    <span className="inline-flex h-[25px] max-w-[170px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[6.5px] font-semibold text-[#507098]">
       <Layers3 className="h-[8px] w-[8px] shrink-0" />
       <span className="truncate">{parentName || "فرعي"}</span>
     </span>
@@ -991,12 +991,12 @@ const Field = ({ label, children, required = false }: { label: string; children:
 const CategoryEmpty = () => {
   return (
     <div className="flex min-h-[230px] flex-col items-center justify-center px-6 text-center">
-      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]">
+      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]">
         <Grid3X3 className="h-[18px] w-[18px]" />
       </div>
 
       <h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد فئات</h3>
-      <p className="mt-[4px] text-[7px] text-[#9BA2AC]">لم نجد أي فئة مطابقة للبحث والفلاتر الحالية.</p>
+      <p className="mt-[4px] text-[7px] text-[#626E63]">لم نجد أي فئة مطابقة للبحث والفلاتر الحالية.</p>
     </div>
   );
 };

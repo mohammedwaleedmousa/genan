@@ -575,7 +575,7 @@ const AdminPaymentMethodsPage = () => {
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]">{editingMethod ? <Pencil className="h-[15px] w-[15px]" /> : <Plus className="h-[15px] w-[15px]" />}</div>
               <div>
                 <DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingMethod ? "تعديل طريقة الدفع" : "إضافة طريقة دفع"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">إدارة الكود والنوع والربط بالحساب المالي ومعلومات المزود.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">إدارة الكود والنوع والربط بالحساب المالي ومعلومات المزود.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -632,7 +632,7 @@ const AdminPaymentMethodsPage = () => {
                   <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
                     <div>
                       <p className="text-[11px] font-semibold text-[#555D67]">طريقة نشطة</p>
-                      <p className="mt-[3px] text-[10px] text-[#9BA2AC]">{methodForm.is_active ? "متاحة للاستخدام داخل النظام" : "محفوظة لكنها معطلة"}</p>
+                      <p className="mt-[3px] text-[10px] text-[#626E63]">{methodForm.is_active ? "متاحة للاستخدام داخل النظام" : "محفوظة لكنها معطلة"}</p>
                     </div>
                     <Switch checked={methodForm.is_active} onCheckedChange={(checked) => setMethodForm((current) => ({ ...current, is_active: checked }))} />
                   </div>
@@ -653,10 +653,10 @@ const AdminPaymentMethodsPage = () => {
         <DialogContent dir="rtl" className="max-w-[620px] rounded-[18px] border-[#E4E8ED] bg-[#F7F8FA] p-0">
           <DialogHeader className="border-b border-[#E6E9EE] bg-white px-5 py-4">
             <div className="flex items-center gap-[10px]">
-              <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#EDF4FF] text-[#5680CF]"><ArrowRightLeft className="h-[15px] w-[15px]" /></div>
+              <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#EDF4FF] text-[#486BB0]"><ArrowRightLeft className="h-[15px] w-[15px]" /></div>
               <div>
                 <DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingSettlement ? "تعديل التسوية" : "تسوية جديدة"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">قارن المبلغ المتوقع بالمبلغ الفعلي وسجّل فرق التسوية.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">قارن المبلغ المتوقع بالمبلغ الفعلي وسجّل فرق التسوية.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -708,9 +708,9 @@ const AdminPaymentMethodsPage = () => {
       <AlertDialog open={Boolean(deleteMethodTarget)} onOpenChange={(next) => { if (!next) setDeleteMethodTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div>
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div>
             <AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف طريقة الدفع</AlertDialogTitle>
-            <AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم التحقق أولًا من الطلبات والتسويات. إذا كانت "{deleteMethodTarget?.name_ar || ""}" مستخدمة في السجل المالي فسيتم منع الحذف ويمكن تعطيلها بدلًا منه.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم التحقق أولًا من الطلبات والتسويات. إذا كانت "{deleteMethodTarget?.name_ar || ""}" مستخدمة في السجل المالي فسيتم منع الحذف ويمكن تعطيلها بدلًا منه.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2">
             <AlertDialogCancel disabled={deleteMethodMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel>
@@ -723,9 +723,9 @@ const AdminPaymentMethodsPage = () => {
       <AlertDialog open={Boolean(deleteSettlementTarget)} onOpenChange={(next) => { if (!next) setDeleteSettlementTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div>
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div>
             <AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف التسوية</AlertDialogTitle>
-            <AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم حذف سجل التسوية بتاريخ {deleteSettlementTarget?.settlement_date || ""} نهائيًا. لا يمكن التراجع عن هذا الإجراء.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم حذف سجل التسوية بتاريخ {deleteSettlementTarget?.settlement_date || ""} نهائيًا. لا يمكن التراجع عن هذا الإجراء.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2">
             <AlertDialogCancel disabled={deleteSettlementMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel>
@@ -749,14 +749,14 @@ const MethodsPanel = ({ methods, loading, fetching, onEdit, onDelete, onToggle }
     <>
       <div className="hidden md:block">
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
-          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">قنوات الدفع والتحصيل</h2><p className="mt-[3px] text-[10px] text-[#9CA3AC]">{methods.length.toLocaleString("ar-EG")} طريقة ظاهرة</p></div>
+          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">قنوات الدفع والتحصيل</h2><p className="mt-[3px] text-[10px] text-[#626E63]">{methods.length.toLocaleString("ar-EG")} طريقة ظاهرة</p></div>
           {fetching && <Loader2 className="h-[12px] w-[12px] animate-spin text-[#8E959F]" />}
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1020px]">
             <thead>
-              <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#858D97]">
+              <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#6A727C]">
                 <th className="px-[12px] text-right">طريقة الدفع</th>
                 <th className="px-[12px] text-right">الكود</th>
                 <th className="px-[12px] text-right">النوع</th>
@@ -778,13 +778,13 @@ const MethodsPanel = ({ methods, loading, fetching, onEdit, onDelete, onToggle }
                         <div className={cn("flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[9px]", methodTypeTone(method.type))}><Icon className="h-[14px] w-[14px]" /></div>
                         <div className="min-w-0">
                           <p className="max-w-[220px] truncate text-[11px] font-semibold text-[#444C56]">{method.name_ar}</p>
-                          <p dir="ltr" className="mt-[3px] max-w-[220px] truncate text-right text-[10px] text-[#969DA7]">{method.name}</p>
+                          <p dir="ltr" className="mt-[3px] max-w-[220px] truncate text-right text-[10px] text-[#626E63]">{method.name}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-[12px]"><span dir="ltr" className="inline-flex rounded-[7px] bg-[#F2F4F7] px-[8px] py-[5px] font-mono text-[10px] font-semibold text-[#68717B]">{method.code}</span></td>
+                    <td className="px-[12px]"><span dir="ltr" className="inline-flex rounded-[7px] bg-[#F2F4F7] px-[8px] py-[5px] font-mono text-[10px] font-semibold text-[#666E78]">{method.code}</span></td>
                     <td className="px-[12px]"><span className="text-[10.5px] font-medium text-[#6C7480]">{methodTypeLabel(method.type)}</span></td>
-                    <td className="px-[12px]">{method.chart_of_accounts ? <div><p className="text-[10.5px] font-semibold text-[#59616B]">{method.chart_of_accounts.name_ar}</p><p className="mt-[2px] text-[9.5px] text-[#9AA1AB]">{method.chart_of_accounts.code}</p></div> : <span className="text-[10px] text-[#A0A6AF]">غير مربوط</span>}</td>
+                    <td className="px-[12px]">{method.chart_of_accounts ? <div><p className="text-[10.5px] font-semibold text-[#59616B]">{method.chart_of_accounts.name_ar}</p><p className="mt-[2px] text-[9.5px] text-[#626E63]">{method.chart_of_accounts.code}</p></div> : <span className="text-[10px] text-[#626E63]">غير مربوط</span>}</td>
                     <td className="px-[12px]"><span className="text-[10.5px] text-[#68717B]">{method.sort_order}</span></td>
                     <td className="px-[12px]"><div className="flex items-center gap-[8px]"><Switch checked={method.is_active} onCheckedChange={(checked) => onToggle(method, checked)} /><StatusBadge active={method.is_active} /></div></td>
                     <td className="px-[12px]"><div className="flex items-center justify-center gap-[4px]"><button type="button" onClick={() => onEdit(method)} className="flex h-[31px] w-[31px] items-center justify-center rounded-[8px] border border-[#E2DEF3] bg-white text-[#675CBA] hover:bg-[#F5F3FF]" title="تعديل"><Pencil className="h-[11px] w-[11px]" /></button><button type="button" onClick={() => onDelete(method)} className="flex h-[31px] w-[31px] items-center justify-center rounded-[8px] border border-[#F0D7D4] bg-white text-[#C15F56] hover:bg-[#FFF3F1]" title="حذف"><Trash2 className="h-[11px] w-[11px]" /></button></div></td>
@@ -808,7 +808,7 @@ const MethodsPanel = ({ methods, loading, fetching, onEdit, onDelete, onToggle }
                     <div className={cn("flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[10px]", methodTypeTone(method.type))}><Icon className="h-[15px] w-[15px]" /></div>
                     <div className="min-w-0">
                       <h3 className="truncate text-[11.5px] font-semibold text-[#3B424C]">{method.name_ar}</h3>
-                      <p dir="ltr" className="mt-[3px] truncate text-right font-mono text-[10px] text-[#9299A3]">{method.code}</p>
+                      <p dir="ltr" className="mt-[3px] truncate text-right font-mono text-[10px] text-[#626E63]">{method.code}</p>
                     </div>
                   </div>
                   <StatusBadge active={method.is_active} />
@@ -841,14 +841,14 @@ const SettlementsPanel = ({ settlements, loading, fetching, currencySymbol, onEd
     <>
       <div className="hidden md:block">
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
-          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">سجل التسويات</h2><p className="mt-[3px] text-[10px] text-[#9CA3AC]">مطابقة المبالغ المتوقعة مع المقبوضات الفعلية</p></div>
+          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">سجل التسويات</h2><p className="mt-[3px] text-[10px] text-[#626E63]">مطابقة المبالغ المتوقعة مع المقبوضات الفعلية</p></div>
           {fetching && <Loader2 className="h-[12px] w-[12px] animate-spin text-[#8E959F]" />}
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1060px]">
             <thead>
-              <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#858D97]">
+              <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#6A727C]">
                 <th className="px-[12px] text-right">التاريخ</th>
                 <th className="px-[12px] text-right">طريقة الدفع</th>
                 <th className="px-[12px] text-right">المتوقع</th>
@@ -867,12 +867,12 @@ const SettlementsPanel = ({ settlements, loading, fetching, currencySymbol, onEd
                 return (
                   <tr key={settlement.id} className="h-[70px] border-b border-[#F0F2F5] transition-colors last:border-b-0 hover:bg-[#FCFDFE]">
                     <td className="px-[12px]"><span className="text-[10.5px] font-medium text-[#59616B]">{formatDate(settlement.settlement_date)}</span></td>
-                    <td className="px-[12px]"><div><p className="text-[10.5px] font-semibold text-[#555D67]">{settlement.payment_methods?.name_ar || "طريقة محذوفة"}</p><p dir="ltr" className="mt-[2px] text-right font-mono text-[9.5px] text-[#9AA1AB]">{settlement.payment_methods?.code || "—"}</p></div></td>
+                    <td className="px-[12px]"><div><p className="text-[10.5px] font-semibold text-[#555D67]">{settlement.payment_methods?.name_ar || "طريقة محذوفة"}</p><p dir="ltr" className="mt-[2px] text-right font-mono text-[9.5px] text-[#626E63]">{settlement.payment_methods?.code || "—"}</p></div></td>
                     <td className="px-[12px]"><span className="text-[10.5px] text-[#68717B]">{formatMoney(settlement.expected_amount, currencySymbol)}</span></td>
                     <td className="px-[12px]"><span className="text-[10.5px] font-semibold text-[#59616B]">{formatMoney(settlement.actual_amount, currencySymbol)}</span></td>
                     <td className="px-[12px]"><VarianceBadge value={difference} symbol={currencySymbol} /></td>
                     <td className="px-[12px]"><SettlementStatus status={settlement.status} /></td>
-                    <td className="px-[12px]"><p className="max-w-[240px] truncate text-[10px] text-[#858D97]">{settlement.notes || "—"}</p></td>
+                    <td className="px-[12px]"><p className="max-w-[240px] truncate text-[10px] text-[#626E63]">{settlement.notes || "—"}</p></td>
                     <td className="px-[12px]"><div className="flex items-center justify-center gap-[4px]">{settlement.status !== "reconciled" && <button type="button" onClick={() => onReconcile(settlement)} title="اعتماد التسوية" className="flex h-[31px] w-[31px] items-center justify-center rounded-[8px] border border-[#D8E8DD] bg-white text-[#568468] hover:bg-[#EFF8F2]"><CheckCircle2 className="h-[11px] w-[11px]" /></button>}<button type="button" onClick={() => onEdit(settlement)} title="تعديل" className="flex h-[31px] w-[31px] items-center justify-center rounded-[8px] border border-[#E2DEF3] bg-white text-[#675CBA] hover:bg-[#F5F3FF]"><Pencil className="h-[11px] w-[11px]" /></button><button type="button" onClick={() => onDelete(settlement)} title="حذف" className="flex h-[31px] w-[31px] items-center justify-center rounded-[8px] border border-[#F0D7D4] bg-white text-[#C15F56] hover:bg-[#FFF3F1]"><Trash2 className="h-[11px] w-[11px]" /></button></div></td>
                   </tr>
                 );
@@ -892,7 +892,7 @@ const SettlementsPanel = ({ settlements, loading, fetching, currencySymbol, onEd
                 <div className="flex items-start justify-between gap-[8px]">
                   <div>
                     <h3 className="text-[11.5px] font-semibold text-[#3B424C]">{settlement.payment_methods?.name_ar || "طريقة محذوفة"}</h3>
-                    <p className="mt-[3px] text-[10px] text-[#9299A3]">{formatDate(settlement.settlement_date)}</p>
+                    <p className="mt-[3px] text-[10px] text-[#626E63]">{formatDate(settlement.settlement_date)}</p>
                   </div>
                   <SettlementStatus status={settlement.status} />
                 </div>
@@ -903,11 +903,11 @@ const SettlementsPanel = ({ settlements, loading, fetching, currencySymbol, onEd
                 </div>
 
                 <div className="mt-[8px] flex items-center justify-between gap-[8px] rounded-[9px] bg-[#F8FAFC] p-[8px]">
-                  <span className="text-[10px] text-[#858D97]">فرق التسوية</span>
+                  <span className="text-[10px] text-[#626E63]">فرق التسوية</span>
                   <VarianceBadge value={difference} symbol={currencySymbol} />
                 </div>
 
-                {settlement.notes && <p className="mt-[8px] text-[10px] leading-5 text-[#858D97]">{settlement.notes}</p>}
+                {settlement.notes && <p className="mt-[8px] text-[10px] leading-5 text-[#626E63]">{settlement.notes}</p>}
               </div>
 
               <div className="grid grid-cols-3 gap-[5px] border-t border-[#EDF0F3] bg-[#FAFBFC] p-[7px]">
@@ -930,13 +930,13 @@ const SettlementsPanel = ({ settlements, loading, fetching, currencySymbol, onEd
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" | "amber" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
-    amber: { icon: "bg-[#FFF7E8] text-[#A9782F]", line: "bg-[#C49446]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
+    amber: { icon: "bg-[#FFF7E8] text-[#926829]", line: "bg-[#C49446]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[19px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[19px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const TabButton = ({ active, onClick, icon: Icon, label, count }: { active: boolean; onClick: () => void; icon: LucideIcon; label: string; count: number }) => {
@@ -952,18 +952,18 @@ const Field = ({ label, children, required = false }: { label: string; children:
 };
 
 const StatusBadge = ({ active }: { active: boolean }) => {
-  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[10px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشطة" : "معطلة"}</span>;
+  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[10px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشطة" : "معطلة"}</span>;
 };
 
 const SettlementStatus = ({ status }: { status: string }) => {
   const reconciled = status === "reconciled";
-  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[10px] font-semibold", reconciled ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#EEDFC4] bg-[#FFF7E8] text-[#A9782F]")}>{reconciled ? <CheckCircle2 className="h-[10px] w-[10px]" /> : <ArrowRightLeft className="h-[10px] w-[10px]" />}{reconciled ? "تمت التسوية" : "معلقة"}</span>;
+  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[10px] font-semibold", reconciled ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#EEDFC4] bg-[#FFF7E8] text-[#926829]")}>{reconciled ? <CheckCircle2 className="h-[10px] w-[10px]" /> : <ArrowRightLeft className="h-[10px] w-[10px]" />}{reconciled ? "تمت التسوية" : "معلقة"}</span>;
 };
 
 const VarianceBadge = ({ value, symbol }: { value: number; symbol: string }) => {
-  if (Math.abs(value) < 0.0001) return <span className="inline-flex h-[27px] items-center rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[8px] text-[10px] font-semibold text-[#568468]">متطابق</span>;
+  if (Math.abs(value) < 0.0001) return <span className="inline-flex h-[27px] items-center rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[8px] text-[10px] font-semibold text-[#4C755E]">متطابق</span>;
 
-  return <span className={cn("inline-flex h-[27px] items-center rounded-[7px] border px-[8px] text-[10px] font-semibold", value > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]")}>{value > 0 ? "+" : ""}{formatMoney(value, symbol)}</span>;
+  return <span className={cn("inline-flex h-[27px] items-center rounded-[7px] border px-[8px] text-[10px] font-semibold", value > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]" : "border-[#F0D7D4] bg-[#FFF3F1] text-[#A9534A]")}>{value > 0 ? "+" : ""}{formatMoney(value, symbol)}</span>;
 };
 
 const SettlementPreview = ({ expected, actual, symbol }: { expected: number; actual: number; symbol: string }) => {
@@ -977,11 +977,11 @@ const InfoBox = ({ label, value }: { label: string; value: string }) => {
 };
 
 const PanelLoading = ({ text }: { text: string }) => {
-  return <div className="flex min-h-[300px] flex-col items-center justify-center gap-[8px]"><Loader2 className="h-[19px] w-[19px] animate-spin text-[#675CBA]" /><p className="text-[11px] text-[#9299A3]">{text}</p></div>;
+  return <div className="flex min-h-[300px] flex-col items-center justify-center gap-[8px]"><Loader2 className="h-[19px] w-[19px] animate-spin text-[#675CBA]" /><p className="text-[11px] text-[#626E63]">{text}</p></div>;
 };
 
 const PanelEmpty = ({ icon: Icon, title, description }: { icon: LucideIcon; title: string; description: string }) => {
-  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><Icon className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">{title}</h3><p className="mt-[5px] text-[10px] text-[#9BA2AC]">{description}</p></div>;
+  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><Icon className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">{title}</h3><p className="mt-[5px] text-[10px] text-[#626E63]">{description}</p></div>;
 };
 
 const methodTypeLabel = (type: string) => {
@@ -1000,10 +1000,10 @@ const methodTypeIcon = (type: string): LucideIcon => {
 };
 
 const methodTypeTone = (type: string) => {
-  if (type === "cash") return "bg-[#EAF7EE] text-[#629067]";
-  if (type === "bank") return "bg-[#EDF4FF] text-[#5680CF]";
+  if (type === "cash") return "bg-[#EAF7EE] text-[#507555]";
+  if (type === "bank") return "bg-[#EDF4FF] text-[#486BB0]";
   if (type === "card") return "bg-[#F1EFFF] text-[#675CBA]";
-  return "bg-[#FFF7E8] text-[#A9782F]";
+  return "bg-[#FFF7E8] text-[#926829]";
 };
 
 const formatMoney = (value: number, symbol: string) => `${Number(value || 0).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${symbol}`;

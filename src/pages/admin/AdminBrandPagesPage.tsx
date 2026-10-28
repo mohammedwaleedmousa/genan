@@ -97,7 +97,7 @@ const AdminBrandPagesPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[8px] text-[#9BA2AC]">ابحث باسم الماركة أو الرابط وراجع حالة الصفحة</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">ابحث باسم الماركة أو الرابط وراجع حالة الصفحة</p>
           </div>
 
           {hasFilters && (
@@ -114,7 +114,7 @@ const AdminBrandPagesPage = () => {
             <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="اسم الماركة أو slug..." className="h-[40px] rounded-[9px] border-[#E3E7EC] bg-[#F8FAFC] pr-[35px] pl-[34px] text-[10px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
 
             {search && (
-              <button type="button" onClick={() => setSearch("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#9AA1AB] hover:bg-white">
+              <button type="button" onClick={() => setSearch("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#626E63] hover:bg-white">
                 <X className="h-[11px] w-[11px]" />
               </button>
             )}
@@ -148,11 +148,11 @@ const AdminBrandPagesPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">دليل صفحات الماركات</h2>
-            <p className="mt-[3px] text-[8px] text-[#9CA3AC]">{filteredBrands.length.toLocaleString("ar-EG")} نتيجة ظاهرة</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">{filteredBrands.length.toLocaleString("ar-EG")} نتيجة ظاهرة</p>
           </div>
 
           {isFetching && (
-            <span className="flex items-center gap-[5px] text-[8px] text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[8px] text-[#626E63]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -162,7 +162,7 @@ const AdminBrandPagesPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1020px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#858D97]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#6A727C]">
                 <th className="w-[78px] px-[12px] text-right">الشعار</th>
                 <th className="px-[12px] text-right">الماركة</th>
                 <th className="px-[12px] text-right">الرابط</th>
@@ -199,34 +199,34 @@ const AdminBrandPagesPage = () => {
                       <td className="px-[12px]">
                         <div className="min-w-[190px]">
                           <p className="max-w-[240px] truncate text-[10.5px] font-semibold text-[#414953]">{brand.name}</p>
-                          <p className="mt-[4px] text-[7px] text-[#9BA2AC]">صفحة ماركة مخصصة</p>
+                          <p className="mt-[4px] text-[7px] text-[#626E63]">صفحة ماركة مخصصة</p>
                         </div>
                       </td>
 
                       <td className="px-[12px]">
                         {brand.slug ? (
                           <div className="flex items-center gap-[5px]">
-                            <ExternalLink className="h-[9px] w-[9px] shrink-0 text-[#9AA1AB]" />
+                            <ExternalLink className="h-[9px] w-[9px] shrink-0 text-[#626E63]" />
                             <span dir="ltr" className="block max-w-[180px] truncate text-right text-[8px] font-medium text-[#737C87]">/brands/{brand.slug}</span>
                           </div>
                         ) : (
-                          <span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#EEDFC4] bg-[#FFF7E8] px-[7px] text-[6.5px] font-semibold text-[#A9782F]">بدون رابط</span>
+                          <span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#EEDFC4] bg-[#FFF7E8] px-[7px] text-[6.5px] font-semibold text-[#926829]">بدون رابط</span>
                         )}
                       </td>
 
                       <td className="px-[12px]">
                         <div>
-                          <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", ready ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#EEDFC4] bg-[#FFF7E8] text-[#A9782F]")}>
+                          <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", ready ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#EEDFC4] bg-[#FFF7E8] text-[#926829]")}>
                             {ready ? <CheckCircle2 className="h-[8px] w-[8px]" /> : <CircleOff className="h-[8px] w-[8px]" />}
                             {ready ? "جاهزة" : "تحتاج إكمال"}
                           </span>
 
-                          {!brand.hero_image && <p className="mt-[3px] text-[6px] text-[#A0A6AF]">لا توجد صورة رئيسية</p>}
+                          {!brand.hero_image && <p className="mt-[3px] text-[6px] text-[#626E63]">لا توجد صورة رئيسية</p>}
                         </div>
                       </td>
 
                       <td className="px-[12px]">
-                        <span className="inline-flex h-[26px] min-w-[32px] items-center justify-center rounded-[7px] bg-[#F2F4F7] px-[8px] text-[8px] font-semibold text-[#727A84]">{brand.sort_order ?? 0}</span>
+                        <span className="inline-flex h-[26px] min-w-[32px] items-center justify-center rounded-[7px] bg-[#F2F4F7] px-[8px] text-[8px] font-semibold text-[#686E78]">{brand.sort_order ?? 0}</span>
                       </td>
 
                       <td className="px-[12px]">
@@ -280,15 +280,15 @@ const AdminBrandPagesPage = () => {
                       <div className="flex items-start justify-between gap-[7px]">
                         <div className="min-w-0">
                           <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{brand.name}</h3>
-                          <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#9299A3]">{brand.slug ? `/brands/${brand.slug}` : "بدون رابط"}</p>
+                          <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#626E63]">{brand.slug ? `/brands/${brand.slug}` : "بدون رابط"}</p>
                         </div>
 
                         <BrandPageStatus active={Boolean(brand.is_active)} />
                       </div>
 
                       <div className="mt-[8px] flex flex-wrap gap-[5px]">
-                        <span className={cn("rounded-[6px] px-[7px] py-[4px] text-[7px] font-semibold", ready ? "bg-[#EFF8F2] text-[#568468]" : "bg-[#FFF7E8] text-[#A9782F]")}>{ready ? "جاهزة للعرض" : "تحتاج إكمال"}</span>
-                        <span className="rounded-[6px] bg-[#F2F4F7] px-[7px] py-[4px] text-[7px] font-semibold text-[#757D87]">الترتيب #{brand.sort_order ?? 0}</span>
+                        <span className={cn("rounded-[6px] px-[7px] py-[4px] text-[7px] font-semibold", ready ? "bg-[#EFF8F2] text-[#4C755E]" : "bg-[#FFF7E8] text-[#926829]")}>{ready ? "جاهزة للعرض" : "تحتاج إكمال"}</span>
+                        <span className="rounded-[6px] bg-[#F2F4F7] px-[7px] py-[4px] text-[7px] font-semibold text-[#686E78]">الترتيب #{brand.sort_order ?? 0}</span>
                       </div>
                     </div>
                   </div>
@@ -327,9 +327,9 @@ const AdminBrandPagesPage = () => {
 const BrandPageStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -338,7 +338,7 @@ const BrandPageStatCard = ({ title, value, helper, icon: Icon, tone }: { title: 
       <div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div>
       <p className="mt-[12px] text-[8.5px] font-medium text-[#8D949E]">{title}</p>
       <p className="mt-[4px] text-[20px] font-semibold leading-none text-[#303741]">{value.toLocaleString("en-US")}</p>
-      <p className="mt-[6px] text-[7px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[6px] text-[7px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
@@ -348,14 +348,14 @@ const BrandLogo = ({ brand, mobile = false }: { brand: BrandRow; mobile?: boolea
 
   return (
     <div className={cn("flex shrink-0 items-center justify-center overflow-hidden border border-[#E8EBEF] bg-white", box)}>
-      {brand.logo_url ? <img src={brand.logo_url} alt={brand.name} loading="lazy" className="h-full w-full object-contain" /> : <LayoutTemplate className="h-[14px] w-[14px] text-[#9AA1AB]" />}
+      {brand.logo_url ? <img src={brand.logo_url} alt={brand.name} loading="lazy" className="h-full w-full object-contain" /> : <LayoutTemplate className="h-[14px] w-[14px] text-[#626E63]" />}
     </div>
   );
 };
 
 const BrandPageStatus = ({ active }: { active: boolean }) => {
   return (
-    <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}>
+    <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}>
       <span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />
       {active ? "نشطة" : "معطلة"}
     </span>
@@ -365,12 +365,12 @@ const BrandPageStatus = ({ active }: { active: boolean }) => {
 const BrandPagesEmpty = () => {
   return (
     <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center">
-      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]">
+      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]">
         <Layers3 className="h-[18px] w-[18px]" />
       </div>
 
       <h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد صفحات ماركات</h3>
-      <p className="mt-[4px] text-[7px] text-[#9BA2AC]">لم نجد صفحات مطابقة للبحث والفلاتر الحالية.</p>
+      <p className="mt-[4px] text-[7px] text-[#626E63]">لم نجد صفحات مطابقة للبحث والفلاتر الحالية.</p>
     </div>
   );
 };

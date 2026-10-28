@@ -359,7 +359,7 @@ const AdminSectionsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[8px] text-[#9BA2AC]">ابحث باسم القسم أو نوعه أو الرابط</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">ابحث باسم القسم أو نوعه أو الرابط</p>
           </div>
 
           {(search || statusFilter !== "all") && (
@@ -393,7 +393,7 @@ const AdminSectionsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">ترتيب أقسام الواجهة</h2>
-            <p className="mt-[3px] text-[8px] text-[#9CA3AC]">ترتيب القائمة هنا يحدد ترتيب الأقسام الديناميكية في المتجر</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">ترتيب القائمة هنا يحدد ترتيب الأقسام الديناميكية في المتجر</p>
           </div>
 
           {isFetching && <Loader2 className="h-[13px] w-[13px] animate-spin text-[#8E959F]" />}
@@ -402,7 +402,7 @@ const AdminSectionsPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1050px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#858D97]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#6A727C]">
                 <th className="w-[60px] px-[10px] text-center">الترتيب</th>
                 <th className="px-[12px] text-right">القسم</th>
                 <th className="px-[12px] text-right">النوع</th>
@@ -446,7 +446,7 @@ const AdminSectionsPage = () => {
                             </button>
                           </div>
 
-                          <span className="flex items-center gap-[3px] text-[7px] font-semibold text-[#9BA2AC]">
+                          <span className="flex items-center gap-[3px] text-[7px] font-semibold text-[#626E63]">
                             {moving ? <Loader2 className="h-[9px] w-[9px] animate-spin" /> : <GripVertical className="h-[9px] w-[9px]" />}
                             {originalIndex + 1}
                           </span>
@@ -466,16 +466,16 @@ const AdminSectionsPage = () => {
 
                       <td className="px-[12px]">
                         <div>
-                          <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", count > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#858D97]")}>
+                          <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", count > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#686F79]")}>
                             <ShoppingBag className="h-[8px] w-[8px]" />
                             {count} منتج
                           </span>
-                          {count === 0 && <p className="mt-[3px] text-[6px] text-[#A0A6AF]">لن يظهر القسم للعميل حتى تربط منتجات به</p>}
+                          {count === 0 && <p className="mt-[3px] text-[6px] text-[#626E63]">لن يظهر القسم للعميل حتى تربط منتجات به</p>}
                         </div>
                       </td>
 
                       <td className="px-[12px]">
-                        <span className="inline-flex h-[25px] min-w-[34px] items-center justify-center rounded-[7px] bg-[#F2F4F7] px-[7px] text-[7px] font-semibold text-[#727A84]">{section.max_products ?? 8}</span>
+                        <span className="inline-flex h-[25px] min-w-[34px] items-center justify-center rounded-[7px] bg-[#F2F4F7] px-[7px] text-[7px] font-semibold text-[#686E78]">{section.max_products ?? 8}</span>
                       </td>
 
                       <td className="px-[12px]">
@@ -485,7 +485,7 @@ const AdminSectionsPage = () => {
                             <span className="max-w-[140px] truncate text-[7px] font-medium text-[#69727C]">{section.view_all_link || "/products"}</span>
                           </div>
                         ) : (
-                          <div className="flex items-center gap-[5px] text-[#9BA2AC]">
+                          <div className="flex items-center gap-[5px] text-[#626E63]">
                             <EyeOff className="h-[10px] w-[10px]" />
                             <span className="text-[7px]">مخفي</span>
                           </div>
@@ -537,7 +537,7 @@ const AdminSectionsPage = () => {
                   <div className="flex items-start justify-between gap-[8px]">
                     <div className="min-w-0">
                       <h3 className="truncate text-[11px] font-semibold text-[#3F4751]">{section.title_ar}</h3>
-                      <p className="mt-[3px] truncate text-[7px] text-[#9299A3]">{section.title}</p>
+                      <p className="mt-[3px] truncate text-[7px] text-[#626E63]">{section.title}</p>
                     </div>
 
                     <Switch checked={section.is_active ?? true} onCheckedChange={(checked) => toggleActiveMutation.mutate({ id: section.id, is_active: checked })} />
@@ -545,8 +545,8 @@ const AdminSectionsPage = () => {
 
                   <div className="mt-[9px] flex flex-wrap gap-[5px]">
                     <FilterBadge value={section.filter_type || "featured"} />
-                    <span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[6.5px] font-semibold text-[#5679A4]">{count} منتج</span>
-                    <span className="inline-flex h-[25px] items-center rounded-[7px] bg-[#F2F4F7] px-[7px] text-[6.5px] font-semibold text-[#727A84]">حد العرض {section.max_products ?? 8}</span>
+                    <span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[6.5px] font-semibold text-[#507098]">{count} منتج</span>
+                    <span className="inline-flex h-[25px] items-center rounded-[7px] bg-[#F2F4F7] px-[7px] text-[6.5px] font-semibold text-[#686E78]">حد العرض {section.max_products ?? 8}</span>
                   </div>
                 </div>
 
@@ -589,7 +589,7 @@ const AdminSectionsPage = () => {
 
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editingSection ? "تعديل القسم" : "إضافة قسم جديد"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#9299A3]">إدارة عنوان القسم، عدد المنتجات، ترتيب الظهور ورابط عرض الكل.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#626E63]">إدارة عنوان القسم، عدد المنتجات، ترتيب الظهور ورابط عرض الكل.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -619,7 +619,7 @@ const AdminSectionsPage = () => {
                     </SelectContent>
                   </Select>
 
-                  <p className="mt-[5px] text-[6.5px] leading-5 text-[#9BA2AC]">المنتجات التي تظهر فعليًا هي المنتجات المرتبطة بهذا القسم من إدارة المنتج.</p>
+                  <p className="mt-[5px] text-[6.5px] leading-5 text-[#626E63]">المنتجات التي تظهر فعليًا هي المنتجات المرتبطة بهذا القسم من إدارة المنتج.</p>
                 </Field>
               </FormSection>
 
@@ -638,7 +638,7 @@ const AdminSectionsPage = () => {
                   <div className="flex min-h-[63px] items-center justify-between rounded-[10px] border border-[#E5E9EF] bg-[#F8FAFC] px-[10px]">
                     <div>
                       <p className="text-[8.5px] font-semibold text-[#555D67]">حالة القسم</p>
-                      <p className="mt-[2px] text-[6.5px] text-[#9BA2AC]">{formData.is_active ? "ظاهر في الواجهة" : "مخفي عن العملاء"}</p>
+                      <p className="mt-[2px] text-[6.5px] text-[#626E63]">{formData.is_active ? "ظاهر في الواجهة" : "مخفي عن العملاء"}</p>
                     </div>
                     <Switch checked={formData.is_active} onCheckedChange={(checked) => setFormData((current) => ({ ...current, is_active: checked }))} />
                   </div>
@@ -646,7 +646,7 @@ const AdminSectionsPage = () => {
                   <div className="flex min-h-[63px] items-center justify-between rounded-[10px] border border-[#E5E9EF] bg-[#F8FAFC] px-[10px]">
                     <div>
                       <p className="text-[8.5px] font-semibold text-[#555D67]">زر عرض الكل</p>
-                      <p className="mt-[2px] text-[6.5px] text-[#9BA2AC]">{formData.show_view_all ? "يظهر للعملاء" : "مخفي"}</p>
+                      <p className="mt-[2px] text-[6.5px] text-[#626E63]">{formData.show_view_all ? "يظهر للعملاء" : "مخفي"}</p>
                     </div>
                     <Switch checked={formData.show_view_all} onCheckedChange={(checked) => setFormData((current) => ({ ...current, show_view_all: checked }))} />
                   </div>
@@ -689,12 +689,12 @@ const AdminSectionsPage = () => {
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]">
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]">
               <Trash2 className="h-[16px] w-[16px]" />
             </div>
 
             <AlertDialogTitle className="text-[14px] font-semibold text-[#343A44]">حذف القسم</AlertDialogTitle>
-            <AlertDialogDescription className="text-[9px] leading-6 text-[#858D97]">سيتم حذف قسم "{deleteTarget?.title_ar || ""}". المنتجات نفسها لن تُحذف، لكن لن يعود هذا القسم ظاهرًا في الصفحة الرئيسية.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[9px] leading-6 text-[#626E63]">سيتم حذف قسم "{deleteTarget?.title_ar || ""}". المنتجات نفسها لن تُحذف، لكن لن يعود هذا القسم ظاهرًا في الصفحة الرئيسية.</AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter className="mt-2 gap-2">
@@ -733,9 +733,9 @@ const FilterBadge = ({ value }: { value: string }) => {
 const SectionStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const styles = {
     indigo: ["bg-[#F1EFFF] text-[#675CBA]", "bg-[#675CBA]"],
-    green: ["bg-[#EAF7EE] text-[#629067]", "bg-[#629067]"],
-    blue: ["bg-[#EDF4FF] text-[#5680CF]", "bg-[#5680CF]"],
-    coral: ["bg-[#FFF0ED] text-[#D06A5E]", "bg-[#D06A5E]"],
+    green: ["bg-[#EAF7EE] text-[#507555]", "bg-[#629067]"],
+    blue: ["bg-[#EDF4FF] text-[#486BB0]", "bg-[#5680CF]"],
+    coral: ["bg-[#FFF0ED] text-[#A5564A]", "bg-[#D06A5E]"],
   }[tone];
 
   return (
@@ -744,7 +744,7 @@ const SectionStatCard = ({ title, value, helper, icon: Icon, tone }: { title: st
       <div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", styles[0])}><Icon className="h-[14px] w-[14px]" /></div>
       <p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p>
       <p className="mt-[4px] text-[20px] font-semibold leading-none text-[#303741]">{value.toLocaleString("en-US")}</p>
-      <p className="mt-[6px] text-[7px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[6px] text-[7px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
@@ -768,9 +768,9 @@ const Field = ({ label, children, required = false }: { label: string; children:
 
 const EmptySections = () => (
   <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center">
-    <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><LayoutGrid className="h-[18px] w-[18px]" /></div>
+    <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><LayoutGrid className="h-[18px] w-[18px]" /></div>
     <h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد أقسام</h3>
-    <p className="mt-[4px] text-[7px] text-[#9BA2AC]">أضف قسمًا جديدًا لعرض منتجات مختارة في الصفحة الرئيسية.</p>
+    <p className="mt-[4px] text-[7px] text-[#626E63]">أضف قسمًا جديدًا لعرض منتجات مختارة في الصفحة الرئيسية.</p>
   </div>
 );
 

@@ -59,7 +59,7 @@
     gap: 6px !important;
   }
 
-  body.admin-products-mobile-list [data-admin-products-page-header] a[href="/admin/products/new"] {
+  body.admin-products-mobile-list [data-admin-products-page-header] a[href$="/products/new"] {
     position: fixed;
     right: 10px;
     bottom: calc(9px + env(safe-area-inset-bottom));
@@ -67,12 +67,12 @@
     z-index: 35;
     height: 52px !important;
     border-radius: 14px !important;
-    box-shadow: 0 12px 34px rgba(61, 53, 119, 0.2);
+    box-shadow: 0 12px 34px rgba(64, 49, 29, 0.17);
     font-size: 13px !important;
   }
 
-  body.admin-products-mobile-list [data-admin-products-page-header] a[href="/admin/inventory-adjustments"],
-  body.admin-products-mobile-list [data-admin-products-page-header] a[href="/admin/reports"] {
+  body.admin-products-mobile-list [data-admin-products-page-header] a[href$="/inventory-adjustments"],
+  body.admin-products-mobile-list [data-admin-products-page-header] a[href$="/reports"] {
     flex: 1 1 0;
     height: 40px !important;
     padding-inline: 10px !important;
@@ -175,11 +175,11 @@
     font-size: 11px !important;
   }
 
-  body.admin-products-mobile-list article[data-product-id] > div:last-child > a[href^="/admin/products/"] {
-    border-color: #675cba !important;
-    background: #675cba !important;
+  body.admin-products-mobile-list article[data-product-id] > div:last-child > a[href*="/products/"] {
+    border-color: #806039 !important;
+    background: #806039 !important;
     color: white !important;
-    box-shadow: 0 5px 14px rgba(103, 92, 186, 0.16);
+    box-shadow: 0 5px 14px rgba(100, 76, 40, 0.14);
   }
 
   body.admin-products-mobile-list article[data-product-id] > div:last-child > button:last-child {

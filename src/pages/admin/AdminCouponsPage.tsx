@@ -358,7 +358,7 @@ const AdminCouponsPage = () => {
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[1080px]">
                 <thead>
-                  <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#858D97]">
+                  <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#6A727C]">
                     <th className="px-[12px] text-right">الكوبون</th>
                     <th className="px-[12px] text-right">نوع الخصم</th>
                     <th className="px-[12px] text-right">القيمة</th>
@@ -383,7 +383,7 @@ const AdminCouponsPage = () => {
                         </td>
                         <td className="px-[12px]"><CouponTypeBadge type={coupon.type} /></td>
                         <td className="px-[12px]"><p className="text-[11px] font-semibold text-[#4A525C]">{coupon.type === "percentage" ? `${coupon.value}%` : `${coupon.value.toLocaleString("en-US")} ريال`}</p></td>
-                        <td className="px-[12px]"><div><p className="text-[10.5px] font-semibold text-[#59616B]">{usageCount.toLocaleString("ar-EG")} مرة</p><p className="mt-[2px] text-[9.5px] text-[#9AA1AB]">{usageCount > 0 ? "له سجل استخدام" : "لم يُستخدم بعد"}</p></div></td>
+                        <td className="px-[12px]"><div><p className="text-[10.5px] font-semibold text-[#59616B]">{usageCount.toLocaleString("ar-EG")} مرة</p><p className="mt-[2px] text-[9.5px] text-[#626E63]">{usageCount > 0 ? "له سجل استخدام" : "لم يُستخدم بعد"}</p></div></td>
                         <td className="px-[12px]"><span className="text-[10px] text-[#7E8690]">{couponUsage?.last_used_at ? formatDate(couponUsage.last_used_at) : "—"}</span></td>
                         <td className="px-[12px]"><div className="flex items-center gap-[8px]"><Switch checked={coupon.is_active} onCheckedChange={(checked) => toggleMutation.mutate({ coupon, checked })} /><StatusBadge active={coupon.is_active} /></div></td>
                         <td className="px-[12px]">
@@ -444,7 +444,7 @@ const AdminCouponsPage = () => {
           <DialogHeader className="border-b border-[#E6E9EE] bg-white px-5 py-4">
             <div className="flex items-center gap-[10px]">
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]">{editingCoupon ? <Tag className="h-[15px] w-[15px]" /> : <Plus className="h-[15px] w-[15px]" />}</div>
-              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingCoupon ? "تعديل الكوبون" : "إضافة كوبون جديد"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">أدخل الكود ونوع الخصم وقيمته ثم فعّل الكوبون.</DialogDescription></div>
+              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingCoupon ? "تعديل الكوبون" : "إضافة كوبون جديد"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">أدخل الكود ونوع الخصم وقيمته ثم فعّل الكوبون.</DialogDescription></div>
             </div>
           </DialogHeader>
 
@@ -452,7 +452,7 @@ const AdminCouponsPage = () => {
             <div className="space-y-[10px] p-[10px]">
               <FormSection title="بيانات الكوبون" icon={TicketPercent}>
                 <Field label="كود الكوبون" required>
-                  <Input value={form.code} disabled={Boolean(editingCoupon && (usageMap.get(editingCoupon.code.toUpperCase())?.usage_count || 0) > 0)} onChange={(event) => setForm((current) => ({ ...current, code: event.target.value.toUpperCase() }))} placeholder="FLAMINGO20" dir="ltr" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] font-mono text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0 disabled:opacity-70" />
+                  <Input value={form.code} disabled={Boolean(editingCoupon && (usageMap.get(editingCoupon.code.toUpperCase())?.usage_count || 0) > 0)} onChange={(event) => setForm((current) => ({ ...current, code: event.target.value.toUpperCase() }))} placeholder="GENAN20" dir="ltr" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] font-mono text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0 disabled:opacity-70" />
                   {editingCoupon && (usageMap.get(editingCoupon.code.toUpperCase())?.usage_count || 0) > 0 && <p className="mt-[5px] text-[9.5px] leading-5 text-[#A9782F]">تم استخدام هذا الكوبون سابقًا، لذلك يُفضّل عدم تغيير الكود حفاظًا على التقارير.</p>}
                 </Field>
 
@@ -467,7 +467,7 @@ const AdminCouponsPage = () => {
                   <Field label={form.type === "percentage" ? "نسبة الخصم" : "مبلغ الخصم"} required>
                     <div className="relative">
                       <Input type="number" min="0.01" max={form.type === "percentage" ? 100 : undefined} step="0.01" value={form.value} onChange={(event) => setForm((current) => ({ ...current, value: event.target.value }))} placeholder="0" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] pl-[42px] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
-                      <span className="pointer-events-none absolute left-[11px] top-1/2 -translate-y-1/2 text-[10px] font-semibold text-[#9299A3]">{form.type === "percentage" ? "%" : "ريال"}</span>
+                      <span className="pointer-events-none absolute left-[11px] top-1/2 -translate-y-1/2 text-[10px] font-semibold text-[#626E63]">{form.type === "percentage" ? "%" : "ريال"}</span>
                     </div>
                   </Field>
                 </div>
@@ -475,7 +475,7 @@ const AdminCouponsPage = () => {
 
               <FormSection title="التفعيل والنطاق" icon={CheckCircle2}>
                 <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
-                  <div><p className="text-[11px] font-semibold text-[#555D67]">الكوبون نشط</p><p className="mt-[3px] text-[10px] text-[#9BA2AC]">{form.is_active ? "متاح للاستخدام في صفحة الدفع" : "محفوظ لكنه غير قابل للاستخدام"}</p></div>
+                  <div><p className="text-[11px] font-semibold text-[#555D67]">الكوبون نشط</p><p className="mt-[3px] text-[10px] text-[#626E63]">{form.is_active ? "متاح للاستخدام في صفحة الدفع" : "محفوظ لكنه غير قابل للاستخدام"}</p></div>
                   <Switch checked={form.is_active} onCheckedChange={(checked) => setForm((current) => ({ ...current, is_active: checked }))} />
                 </div>
 
@@ -493,7 +493,7 @@ const AdminCouponsPage = () => {
 
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(next) => { if (!next) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
-          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف الكوبون</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم حذف {deleteTarget?.code || ""} فقط إذا لم يُستخدم في أي طلب سابق. إذا كان له سجل استخدام، عطّله بدل الحذف.</AlertDialogDescription></AlertDialogHeader>
+          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف الكوبون</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم حذف {deleteTarget?.code || ""} فقط إذا لم يُستخدم في أي طلب سابق. إذا كان له سجل استخدام، عطّله بدل الحذف.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2"><AlertDialogCancel disabled={deleteMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel><AlertDialogAction disabled={deleteMutation.isPending} onClick={(event) => { event.preventDefault(); if (deleteTarget) deleteMutation.mutate(deleteTarget); }} className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[10.5px] font-semibold text-white hover:bg-[#B65555]">{deleteMutation.isPending && <Loader2 className="ml-[5px] h-[11px] w-[11px] animate-spin" />}حذف نهائي</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -502,23 +502,23 @@ const AdminCouponsPage = () => {
 };
 
 const CouponTypeBadge = ({ type }: { type: CouponType }) => {
-  if (type === "percentage") return <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[8px] text-[9.5px] font-semibold text-[#568468]"><Percent className="h-[9px] w-[9px]" />نسبة مئوية</span>;
-  return <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9.5px] font-semibold text-[#5679A4]"><Banknote className="h-[9px] w-[9px]" />مبلغ ثابت</span>;
+  if (type === "percentage") return <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[8px] text-[9.5px] font-semibold text-[#4C755E]"><Percent className="h-[9px] w-[9px]" />نسبة مئوية</span>;
+  return <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[8px] text-[9.5px] font-semibold text-[#507098]"><Banknote className="h-[9px] w-[9px]" />مبلغ ثابت</span>;
 };
 
 const StatusBadge = ({ active }: { active: boolean }) => {
-  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[9.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}>{active ? <CheckCircle2 className="h-[9px] w-[9px]" /> : <CircleOff className="h-[9px] w-[9px]" />}{active ? "نشط" : "معطل"}</span>;
+  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[9.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}>{active ? <CheckCircle2 className="h-[9px] w-[9px]" /> : <CircleOff className="h-[9px] w-[9px]" />}{active ? "نشط" : "معطل"}</span>;
 };
 
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "amber" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    amber: { icon: "bg-[#FFF7E8] text-[#A9782F]", line: "bg-[#C49446]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    amber: { icon: "bg-[#FFF7E8] text-[#926829]", line: "bg-[#C49446]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -534,7 +534,7 @@ const InfoBox = ({ label, value }: { label: string; value: string }) => {
 };
 
 const PanelEmpty = ({ onCreate }: { onCreate: () => void }) => {
-  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><TicketPercent className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد كوبونات</h3><p className="mt-[5px] text-[10px] text-[#9BA2AC]">أضف كوبون خصم جديد أو غيّر الفلاتر الحالية.</p><Button type="button" onClick={onCreate} className="mt-3 h-[36px] rounded-[9px] bg-[#675CBA] px-4 text-[10px] font-semibold text-white shadow-none hover:bg-[#594FAB]"><Plus className="ml-[5px] h-[10px] w-[10px]" />كوبون جديد</Button></div>;
+  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><TicketPercent className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد كوبونات</h3><p className="mt-[5px] text-[10px] text-[#626E63]">أضف كوبون خصم جديد أو غيّر الفلاتر الحالية.</p><Button type="button" onClick={onCreate} className="mt-3 h-[36px] rounded-[9px] bg-[#675CBA] px-4 text-[10px] font-semibold text-white shadow-none hover:bg-[#594FAB]"><Plus className="ml-[5px] h-[10px] w-[10px]" />كوبون جديد</Button></div>;
 };
 
 const formatDate = (value: string) => {

@@ -21,11 +21,11 @@ const ADMIN_THEME = {
   surfaceSoft: "#FEFCF8",
   text: "#222821",
   textSecondary: "#60695E",
-  muted: "#8F9389",
+  muted: "#657066",
   border: "#E7E0D4",
   borderStrong: "#D8CBB9",
-  primary: "#99774B",
-  primaryDark: "#765A34",
+  primary: "#765830",
+  primaryDark: "#604627",
   primarySoft: "#F5ECDA",
   blue: "#557C83",
   blueSoft: "#EAF3F3",
@@ -58,7 +58,7 @@ const adminThemeVariables = {
   "--secondary": "38 28% 96%",
   "--secondary-foreground": "145 9% 29%",
   "--muted": "39 24% 96%",
-  "--muted-foreground": "140 4% 55%",
+  "--muted-foreground": "145 8% 39%",
   "--accent": "37 45% 92%",
   "--accent-foreground": "35 31% 30%",
   "--border": "37 22% 89%",
@@ -349,6 +349,7 @@ const AdminLayout = () => {
 
     html.style.overflow = "hidden";
     body.style.overflow = "hidden";
+    body.classList.add("genan-admin-active");
     html.style.height = "100%";
     body.style.height = "100%";
 
@@ -360,6 +361,7 @@ const AdminLayout = () => {
     return () => {
       html.style.overflow = oldHtmlOverflow;
       body.style.overflow = oldBodyOverflow;
+      body.classList.remove("genan-admin-active");
       html.style.height = oldHtmlHeight;
       body.style.height = oldBodyHeight;
 

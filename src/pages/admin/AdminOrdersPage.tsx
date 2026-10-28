@@ -130,42 +130,42 @@ const statusOptions = [
   {
     value: "pending",
     label: "قيد الانتظار",
-    className: "border-[#EEDCB6] bg-[#FFF7E8] text-[#A9782F]",
+    className: "border-[#EEDCB6] bg-[#FFF7E8] text-[#926829]",
     dot: "#D7A549",
     icon: Clock3,
   },
   {
     value: "confirmed",
     label: "مؤكد",
-    className: "border-[#D9E5F3] bg-[#F1F6FC] text-[#557CA4]",
+    className: "border-[#D9E5F3] bg-[#F1F6FC] text-[#4D7095]",
     dot: "#789CC2",
     icon: CheckCircle2,
   },
   {
     value: "processing",
     label: "قيد التجهيز",
-    className: "border-[#E2DCEF] bg-[#F6F2FA] text-[#786993]",
+    className: "border-[#E2DCEF] bg-[#F6F2FA] text-[#756790]",
     dot: "#8F7AA8",
     icon: Package,
   },
   {
     value: "shipped",
     label: "تم الشحن",
-    className: "border-[#D6E5E8] bg-[#EFF7F8] text-[#557E86]",
+    className: "border-[#D6E5E8] bg-[#EFF7F8] text-[#4F757D]",
     dot: "#66939B",
     icon: Truck,
   },
   {
     value: "delivered",
     label: "تم التوصيل",
-    className: "border-[#CFE9D8] bg-[#EAF7EF] text-[#3F9262]",
+    className: "border-[#CFE9D8] bg-[#EAF7EF] text-[#377A52]",
     dot: "#59B97B",
     icon: PackageCheck,
   },
   {
     value: "cancelled",
     label: "ملغي",
-    className: "border-[#F0D4D4] bg-[#FCEEEE] text-[#BA6464]",
+    className: "border-[#F0D4D4] bg-[#FCEEEE] text-[#9E5656]",
     dot: "#D17373",
     icon: AlertTriangle,
   },
@@ -306,7 +306,7 @@ const StatusBadge = ({ status }: { status: string }) => {
   const info = statusOptions.find((item) => item.value === status);
 
   if (!info) {
-    return <span className="inline-flex h-[27px] items-center rounded-[8px] border border-[#E8DED0] bg-[#F7F9FB] px-[8px] text-[10px] font-semibold text-[#727A85]">{status}</span>;
+    return <span className="inline-flex h-[27px] items-center rounded-[8px] border border-[#E8DED0] bg-[#F7F9FB] px-[8px] text-[10px] font-semibold text-[#6A717C]">{status}</span>;
   }
 
   const Icon = info.icon;
@@ -327,7 +327,7 @@ const PaymentBadge = ({ paymentMethod }: { paymentMethod: string }) => {
   const cod = String(paymentMethod || "").toLowerCase() === "cod";
 
   return (
-    <span className={cn("inline-flex h-[27px] items-center gap-[5px] whitespace-nowrap rounded-[8px] border px-[8px] text-[10px] font-semibold", cod ? "border-[#EFE2C8] bg-[#FFF8EC] text-[#9A7133]" : "border-[#D8E8EC] bg-[#F1F8FA] text-[#557E88]")}>
+    <span className={cn("inline-flex h-[27px] items-center gap-[5px] whitespace-nowrap rounded-[8px] border px-[8px] text-[10px] font-semibold", cod ? "border-[#EFE2C8] bg-[#FFF8EC] text-[#906930]" : "border-[#D8E8EC] bg-[#F1F8FA] text-[#4F757F]")}>
       <CircleDollarSign className="h-[10px] w-[10px]" strokeWidth={1.7} />
       {paymentLabel(paymentMethod)}
     </span>
@@ -341,12 +341,12 @@ const PaymentBadge = ({ paymentMethod }: { paymentMethod: string }) => {
 const EmptyOrders = () => {
   return (
     <div className="flex min-h-[260px] flex-col items-center justify-center px-5 text-center">
-      <div className="flex h-[46px] w-[46px] items-center justify-center rounded-[14px] bg-[#F5EAD7] text-[#98774B]">
+      <div className="flex h-[46px] w-[46px] items-center justify-center rounded-[14px] bg-[#F5EAD7] text-[#80633E]">
         <ShoppingCart className="h-[19px] w-[19px]" strokeWidth={1.6} />
       </div>
 
       <h3 className="mt-3 text-[12px] font-semibold text-[#4A515B]">لا توجد طلبات</h3>
-      <p className="mt-[5px] max-w-[260px] text-[10px] leading-5 text-[#9AA1AB]">لم نجد طلبات مطابقة للبحث أو الفلاتر الحالية.</p>
+      <p className="mt-[5px] max-w-[260px] text-[10px] leading-5 text-[#606C62]">لم نجد طلبات مطابقة للبحث أو الفلاتر الحالية.</p>
     </div>
   );
 };
@@ -688,10 +688,10 @@ const AdminOrdersPage = () => {
 
             <div className="flex flex-wrap items-end gap-2">
               <h1 className="text-[23px] font-bold leading-none tracking-[-0.5px] text-[#283129] md:text-[25px]">الطلبات</h1>
-              <span className="mb-[1px] rounded-[7px] bg-[#FFF0ED] px-[7px] py-[4px] text-[10px] font-semibold text-[#C45E53]">{fmt(total)} طلب</span>
+              <span className="mb-[1px] rounded-[7px] bg-[#FFF0ED] px-[7px] py-[4px] text-[10px] font-semibold text-[#AB5247]">{fmt(total)} طلب</span>
             </div>
 
-            <p className="mt-[7px] max-w-[620px] text-[11px] font-medium leading-5 text-[#8F97A2]">إدارة الطلبات ومتابعة حالاتها والتواصل مع العملاء من مكان واحد.</p>
+            <p className="mt-[7px] max-w-[620px] text-[11px] font-medium leading-5 text-[#606C62]">إدارة الطلبات ومتابعة حالاتها والتواصل مع العملاء من مكان واحد.</p>
           </div>
 
           <div className="flex items-center gap-[7px]">
@@ -715,10 +715,10 @@ const AdminOrdersPage = () => {
           <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
             <span className="absolute inset-x-0 top-0 h-[3px] bg-[#98774B]" />
             <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EEEBFF] text-[#98774B]">
+              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EEEBFF] text-[#83653F]">
                 <ShoppingCart className="h-[14px] w-[14px]" strokeWidth={1.8} />
               </div>
-              <span className="text-[10px] font-medium text-[#9BA2AC]">حسب الفلاتر</span>
+              <span className="text-[10px] font-medium text-[#606C62]">حسب الفلاتر</span>
             </div>
             <p className="mt-3 text-[10px] font-medium text-[#858D98]">إجمالي النتائج</p>
             <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#2B313B]">{fmt(total)}</div>
@@ -727,10 +727,10 @@ const AdminOrdersPage = () => {
           <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
             <span className="absolute inset-x-0 top-0 h-[3px] bg-[#5680CF]" />
             <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EDF4FF] text-[#5680CF]">
+              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EDF4FF] text-[#486BB0]">
                 <Package className="h-[14px] w-[14px]" strokeWidth={1.8} />
               </div>
-              <span className="text-[10px] font-medium text-[#9BA2AC]">{firstResult}–{lastResult}</span>
+              <span className="text-[10px] font-medium text-[#606C62]">{firstResult}–{lastResult}</span>
             </div>
             <p className="mt-3 text-[10px] font-medium text-[#858D98]">طلبات الصفحة</p>
             <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#2B313B]">{fmt(orders.length)}</div>
@@ -739,10 +739,10 @@ const AdminOrdersPage = () => {
           <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
             <span className="absolute inset-x-0 top-0 h-[3px] bg-[#C38838]" />
             <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#FFF5E5] text-[#B98031]">
+              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#FFF5E5] text-[#926527]">
                 <Clock3 className="h-[14px] w-[14px]" strokeWidth={1.8} />
               </div>
-              <span className="rounded-[6px] bg-[#FFF5E5] px-[6px] py-[3px] text-[10px] font-semibold text-[#A9752F]">تحتاج متابعة</span>
+              <span className="rounded-[6px] bg-[#FFF5E5] px-[6px] py-[3px] text-[10px] font-semibold text-[#926629]">تحتاج متابعة</span>
             </div>
             <p className="mt-3 text-[10px] font-medium text-[#858D98]">قيد الانتظار</p>
             <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#B47B2C]">{fmt(pageStats.pending)}</div>
@@ -751,10 +751,10 @@ const AdminOrdersPage = () => {
           <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
             <span className="absolute inset-x-0 top-0 h-[3px] bg-[#629067]" />
             <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EAF7EE] text-[#57906A]">
+              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EAF7EE] text-[#47785A]">
                 <PackageCheck className="h-[14px] w-[14px]" strokeWidth={1.8} />
               </div>
-              <span className="rounded-[6px] bg-[#EAF7EE] px-[6px] py-[3px] text-[10px] font-semibold text-[#57906A]">مكتملة</span>
+              <span className="rounded-[6px] bg-[#EAF7EE] px-[6px] py-[3px] text-[10px] font-semibold text-[#47785A]">مكتملة</span>
             </div>
             <p className="mt-3 text-[10px] font-medium text-[#858D98]">تم توصيلها</p>
             <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#57906A]">{fmt(pageStats.delivered)}</div>
@@ -773,7 +773,7 @@ const AdminOrdersPage = () => {
               <Input value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder="ابحث برقم الطلب، اسم العميل أو رقم الهاتف..." className="h-[40px] rounded-[10px] border-[#E7DFD3] bg-[#FBF9F5] pr-[38px] pl-[38px] text-[11px] font-medium text-[#424A55] shadow-none placeholder:text-[#A1A8B2] focus-visible:border-[#D8DCE8] focus-visible:bg-white focus-visible:ring-0" />
 
               {searchInput ? (
-                <button type="button" onClick={() => setSearchInput("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#9AA1AB] transition-colors hover:bg-[#EDF0F4] hover:text-[#606873]">
+                <button type="button" onClick={() => setSearchInput("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#606C62] transition-colors hover:bg-[#EDF0F4] hover:text-[#606873]">
                   <X className="h-[12px] w-[12px]" />
                 </button>
               ) : null}
@@ -838,7 +838,7 @@ const AdminOrdersPage = () => {
 
                 <Button variant="outline" onClick={() => setSelected(new Set())} className="h-[34px] rounded-[9px] border-[#E0E3E8] bg-white px-3 text-[11px] font-semibold text-[#69717C] shadow-none hover:bg-[#FBF9F5]">إلغاء التحديد</Button>
 
-                <Button variant="outline" onClick={() => setConfirmDelete({ bulk: true })} className="h-[34px] rounded-[9px] border-[#F0D8D8] bg-[#FFF8F8] px-3 text-[11px] font-semibold text-[#BE6262] shadow-none hover:bg-[#FFF0F0] hover:text-[#B35656]">
+                <Button variant="outline" onClick={() => setConfirmDelete({ bulk: true })} className="h-[34px] rounded-[9px] border-[#F0D8D8] bg-[#FFF8F8] px-3 text-[11px] font-semibold text-[#AA5858] shadow-none hover:bg-[#FFF0F0] hover:text-[#B35656]">
                   <Trash2 className="ml-[5px] h-[12px] w-[12px]" />
                   حذف
                 </Button>
@@ -917,7 +917,7 @@ const AdminOrdersPage = () => {
                         <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                           <PaymentBadge paymentMethod={order.payment_method} />
 
-                          <span className="inline-flex h-[28px] items-center gap-1.5 rounded-full border border-[#E5E7E3] bg-[#FAFBFC] px-2.5 text-[11px] text-[#7B807B]">
+                          <span className="inline-flex h-[28px] items-center gap-1.5 rounded-full border border-[#E5E7E3] bg-[#FAFBFC] px-2.5 text-[11px] text-[#6F746F]">
                             <MapPin className="h-3 w-3" />
                             {orderLocation(order)}
                           </span>
@@ -985,7 +985,7 @@ const AdminOrdersPage = () => {
                 قائمة الطلبات
               </h2>
 
-              <p className="mt-[3px] text-[10px] text-[#9AA1AB]">
+              <p className="mt-[3px] text-[10px] text-[#606C62]">
                 عرض {firstResult} - {lastResult} من أصل {fmt(total)}
               </p>
             </div>
@@ -1004,7 +1004,7 @@ const AdminOrdersPage = () => {
               {/* TABLE HEAD */}
 
               <thead>
-                <tr className="h-[42px] border-b border-[#EFE8DE] bg-[#FAFBFC] text-[10px] font-semibold text-[#929AA5]">
+                <tr className="h-[42px] border-b border-[#EFE8DE] bg-[#FAFBFC] text-[10px] font-semibold text-[#6B727A]">
                   <th className="w-[45px] px-3 text-center font-semibold">
                     <Checkbox checked={allSelected} onCheckedChange={toggleSelectAll} className="h-4 w-4 border-[#AEB4AE] data-[state=checked]:border-[#98774B] data-[state=checked]:bg-[#98774B]" />
                   </th>
@@ -1090,7 +1090,7 @@ const AdminOrdersPage = () => {
 
                         <td className="px-3">
                           <div className="flex items-center gap-2.5">
-                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px] bg-[#EEEBFF] text-[11px] font-semibold text-[#98774B]">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[9px] bg-[#EEEBFF] text-[11px] font-semibold text-[#83653F]">
                               {(order.customer_name || "?").charAt(0)}
                             </div>
 
@@ -1128,7 +1128,7 @@ const AdminOrdersPage = () => {
                             </span>
                           </div>
 
-                          <div className="mt-[3px] text-[10px] text-[#9AA1AB]">
+                          <div className="mt-[3px] text-[10px] text-[#606C62]">
                             {currencyName(order)}
                           </div>
                         </td>
@@ -1277,7 +1277,7 @@ const AdminOrdersPage = () => {
 
                 <div className="mt-3 space-y-2.5">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[12px] font-medium text-[#98774B]">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[12px] font-medium text-[#80633E]">
                       {(selectedOrder.customer_name || "?").charAt(0)}
                     </div>
 
@@ -1295,7 +1295,7 @@ const AdminOrdersPage = () => {
                   {/* PHONE */}
 
                   <div className="flex items-center gap-3 border-t border-[#EEF1F4] pt-2.5">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-[9px] bg-[#EAF7EE] text-[#57906A]">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-[9px] bg-[#EAF7EE] text-[#47785A]">
                       <Phone className="h-4 w-4" strokeWidth={1.5} />
                     </div>
 
@@ -1309,7 +1309,7 @@ const AdminOrdersPage = () => {
                       </div>
                     </div>
 
-                    <button type="button" onClick={() => openWhatsApp(selectedOrder)} className="flex h-8 items-center gap-1.5 rounded-[8px] border border-[#DCE9E0] bg-[#F5FAF6] px-3 text-[11px] text-[#528F67]">
+                    <button type="button" onClick={() => openWhatsApp(selectedOrder)} className="flex h-8 items-center gap-1.5 rounded-[8px] border border-[#DCE9E0] bg-[#F5FAF6] px-3 text-[11px] text-[#447A59]">
                       <MessageCircle className="h-3.5 w-3.5" />
                       واتساب
                     </button>
@@ -1321,7 +1321,7 @@ const AdminOrdersPage = () => {
                   selectedOrder.customer_city ||
                   selectedOrder.customer_region ? (
                     <div className="flex items-start gap-3 border-t border-[#EEF1F4] pt-2.5">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px] bg-[#EEF5F7] text-[#718079]">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px] bg-[#EEF5F7] text-[#65716A]">
                         <MapPin className="h-4 w-4" strokeWidth={1.5} />
                       </div>
 
@@ -1333,13 +1333,13 @@ const AdminOrdersPage = () => {
 
                         <div className="mt-1.5 flex flex-wrap gap-1">
                           {selectedOrder.customer_city ? (
-                            <span className="rounded-[7px] bg-[#F4F6F8] px-2.5 py-1 text-[11px] text-[#777D77]">
+                            <span className="rounded-[7px] bg-[#F4F6F8] px-2.5 py-1 text-[11px] text-[#6B716B]">
                               {selectedOrder.customer_city}
                             </span>
                           ) : null}
 
                           {selectedOrder.customer_region ? (
-                            <span className="rounded-[7px] bg-[#F4F6F8] px-2.5 py-1 text-[11px] text-[#777D77]">
+                            <span className="rounded-[7px] bg-[#F4F6F8] px-2.5 py-1 text-[11px] text-[#6B716B]">
                               {selectedOrder.customer_region}
                             </span>
                           ) : null}
@@ -1502,7 +1502,7 @@ const AdminOrdersPage = () => {
                         الخصم
 
                         {selectedOrder.coupon_code ? (
-                          <Badge variant="outline" className="h-[22px] rounded-full border-[#D8E7DC] bg-[#F3F8F4] px-2 text-[11px] font-normal text-[#538C66]">
+                          <Badge variant="outline" className="h-[22px] rounded-full border-[#D8E7DC] bg-[#F3F8F4] px-2 text-[11px] font-normal text-[#477A5A]">
                             {selectedOrder.coupon_code}
                           </Badge>
                         ) : null}

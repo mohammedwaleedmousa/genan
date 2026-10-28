@@ -482,7 +482,7 @@ const AdminBrandSectionsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">الماركة والبحث</h2>
-            <p className="mt-[3px] text-[8px] text-[#9BA2AC]">اختر الماركة ثم ابحث داخل أقسامها</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">اختر الماركة ثم ابحث داخل أقسامها</p>
           </div>
 
           {search && (
@@ -524,11 +524,11 @@ const AdminBrandSectionsPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">أقسام {activeBrand?.name || "الماركة"}</h2>
-            <p className="mt-[3px] text-[8px] text-[#9CA3AC]">{filteredSections.length.toLocaleString("ar-EG")} قسم ظاهر في القائمة</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">{filteredSections.length.toLocaleString("ar-EG")} قسم ظاهر في القائمة</p>
           </div>
 
           {isFetching && (
-            <span className="flex items-center gap-[5px] text-[8px] text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[8px] text-[#626E63]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -538,7 +538,7 @@ const AdminBrandSectionsPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1040px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#858D97]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#6A727C]">
                 <th className="w-[68px] px-[10px] text-center">الترتيب</th>
                 <th className="w-[76px] px-[10px] text-right">الصورة</th>
                 <th className="px-[12px] text-right">القسم</th>
@@ -576,7 +576,7 @@ const AdminBrandSectionsPage = () => {
                             <button type="button" disabled={index >= sections.length - 1 || Boolean(movingId)} onClick={() => void moveSection(section, "down")} className="flex h-[20px] w-[24px] items-center justify-center rounded-[6px] text-[#8D949E] hover:bg-[#F1F3F6] disabled:opacity-25"><ChevronDown className="h-[9px] w-[9px]" /></button>
                           </div>
 
-                          <span className="text-[7px] font-semibold text-[#9BA2AC]">{movingId === section.id ? <Loader2 className="h-[9px] w-[9px] animate-spin" /> : index + 1}</span>
+                          <span className="text-[7px] font-semibold text-[#626E63]">{movingId === section.id ? <Loader2 className="h-[9px] w-[9px] animate-spin" /> : index + 1}</span>
                         </div>
                       </td>
 
@@ -587,7 +587,7 @@ const AdminBrandSectionsPage = () => {
                       <td className="px-[12px]">
                         <div className="min-w-[200px]">
                           <p className="max-w-[240px] truncate text-[10.5px] font-semibold text-[#414953]">{section.name}</p>
-                          {section.description && <p className="mt-[4px] max-w-[260px] truncate text-[7px] text-[#9BA2AC]">{section.description}</p>}
+                          {section.description && <p className="mt-[4px] max-w-[260px] truncate text-[7px] text-[#626E63]">{section.description}</p>}
                         </div>
                       </td>
 
@@ -596,7 +596,7 @@ const AdminBrandSectionsPage = () => {
                       </td>
 
                       <td className="px-[12px]">
-                        <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", productsCount > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#858D97]")}>
+                        <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", productsCount > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#686F79]")}>
                           <Package className="h-[8px] w-[8px]" />
                           {productsCount} منتج
                         </span>
@@ -645,14 +645,14 @@ const AdminBrandSectionsPage = () => {
                       <div className="flex items-start justify-between gap-[7px]">
                         <div className="min-w-0">
                           <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{section.name}</h3>
-                          <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#9299A3]">/{section.slug}</p>
+                          <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#626E63]">/{section.slug}</p>
                         </div>
                         <SectionStatus active={Boolean(section.is_active)} />
                       </div>
 
                       <div className="mt-[8px] flex flex-wrap gap-[5px]">
-                        <span className="rounded-[6px] bg-[#EDF4FF] px-[7px] py-[4px] text-[7px] font-semibold text-[#567BC5]">{productsCount} منتج</span>
-                        <span className="rounded-[6px] bg-[#F2F4F7] px-[7px] py-[4px] text-[7px] font-semibold text-[#757D87]">الترتيب #{index + 1}</span>
+                        <span className="rounded-[6px] bg-[#EDF4FF] px-[7px] py-[4px] text-[7px] font-semibold text-[#4C6CB0]">{productsCount} منتج</span>
+                        <span className="rounded-[6px] bg-[#F2F4F7] px-[7px] py-[4px] text-[7px] font-semibold text-[#686E78]">الترتيب #{index + 1}</span>
                       </div>
                     </div>
                   </div>
@@ -678,7 +678,7 @@ const AdminBrandSectionsPage = () => {
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]">{editing ? <Pencil className="h-[15px] w-[15px]" /> : <Plus className="h-[15px] w-[15px]" />}</div>
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editing ? "تعديل القسم" : "إضافة قسم جديد"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#9299A3]">إدارة اسم القسم وصورته ورابطه وحالة ظهوره داخل صفحة الماركة.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#626E63]">إدارة اسم القسم وصورته ورابطه وحالة ظهوره داخل صفحة الماركة.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -709,7 +709,7 @@ const AdminBrandSectionsPage = () => {
                     <div className="flex min-h-[64px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[10px]">
                       <div>
                         <p className="text-[8.5px] font-semibold text-[#555D67]">حالة القسم</p>
-                        <p className="mt-[2px] text-[6.5px] text-[#9BA2AC]">{form.is_active ? "ظاهر للعملاء" : "مخفي"}</p>
+                        <p className="mt-[2px] text-[6.5px] text-[#626E63]">{form.is_active ? "ظاهر للعملاء" : "مخفي"}</p>
                       </div>
                       <Switch checked={form.is_active} onCheckedChange={(value) => setForm((current) => ({ ...current, is_active: value }))} />
                     </div>
@@ -734,7 +734,7 @@ const AdminBrandSectionsPage = () => {
                     </div>
                   ) : (
                     <label className={cn("flex aspect-square cursor-pointer flex-col items-center justify-center rounded-[11px] border border-dashed border-[#D9DEE5] bg-[#FAFBFC] hover:border-[#BFB8DE] hover:bg-[#F9F8FF]", uploading && "pointer-events-none opacity-60")}>
-                      {uploading ? <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" /> : <><div className="flex h-[36px] w-[36px] items-center justify-center rounded-[10px] bg-[#F1EFFF] text-[#675CBA]"><Upload className="h-[14px] w-[14px]" /></div><span className="mt-[7px] text-[7.5px] font-semibold text-[#626A74]">رفع صورة القسم</span><span className="mt-[2px] text-[6px] text-[#A0A6AF]">JPG · PNG · WEBP · HEIC</span></>}
+                      {uploading ? <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" /> : <><div className="flex h-[36px] w-[36px] items-center justify-center rounded-[10px] bg-[#F1EFFF] text-[#675CBA]"><Upload className="h-[14px] w-[14px]" /></div><span className="mt-[7px] text-[7.5px] font-semibold text-[#626A74]">رفع صورة القسم</span><span className="mt-[2px] text-[6px] text-[#626E63]">JPG · PNG · WEBP · HEIC</span></>}
                       <input type="file" accept="image/*,.heic,.heif" className="hidden" disabled={uploading} onChange={handleImageInput} />
                     </label>
                   )}
@@ -753,9 +753,9 @@ const AdminBrandSectionsPage = () => {
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div>
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div>
             <AlertDialogTitle className="text-[14px] font-semibold text-[#343A44]">حذف القسم</AlertDialogTitle>
-            <AlertDialogDescription className="text-[9px] leading-6 text-[#858D97]">سيتم حذف قسم "{deleteTarget?.name || ""}" وروابط المنتجات الموجودة داخله. المنتجات نفسها لن تُحذف.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[9px] leading-6 text-[#626E63]">سيتم حذف قسم "{deleteTarget?.name || ""}" وروابط المنتجات الموجودة داخله. المنتجات نفسها لن تُحذف.</AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter className="mt-2 gap-2">
@@ -771,22 +771,22 @@ const AdminBrandSectionsPage = () => {
 const SectionStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
-  return <article className="relative min-h-[116px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] text-[20px] font-semibold leading-none text-[#303741]">{value.toLocaleString("en-US")}</p><p className="mt-[6px] text-[7px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[116px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] text-[20px] font-semibold leading-none text-[#303741]">{value.toLocaleString("en-US")}</p><p className="mt-[6px] text-[7px] text-[#626E63]">{helper}</p></article>;
 };
 
 const SectionImage = ({ section, mobile = false }: { section: Section; mobile?: boolean }) => {
   const box = mobile ? "h-[62px] w-[62px] rounded-[11px]" : "h-[48px] w-[48px] rounded-[9px]";
 
-  return <div className={cn("flex shrink-0 items-center justify-center overflow-hidden border border-[#E8EBEF] bg-[#F5F6F8]", box)}>{section.image_url ? <img src={section.image_url} alt={section.name} loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[14px] w-[14px] text-[#9AA1AB]" />}</div>;
+  return <div className={cn("flex shrink-0 items-center justify-center overflow-hidden border border-[#E8EBEF] bg-[#F5F6F8]", box)}>{section.image_url ? <img src={section.image_url} alt={section.name} loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[14px] w-[14px] text-[#626E63]" />}</div>;
 };
 
 const SectionStatus = ({ active }: { active: boolean }) => {
-  return <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشط" : "معطل"}</span>;
+  return <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشط" : "معطل"}</span>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -798,7 +798,7 @@ const Field = ({ label, children, required = false }: { label: string; children:
 };
 
 const EmptySections = () => {
-  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><Package className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد أقسام</h3><p className="mt-[4px] text-[7px] text-[#9BA2AC]">أضف أول قسم لهذه الماركة للبدء.</p></div>;
+  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><Package className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد أقسام</h3><p className="mt-[4px] text-[7px] text-[#626E63]">أضف أول قسم لهذه الماركة للبدء.</p></div>;
 };
 
 export default AdminBrandSectionsPage;

@@ -439,10 +439,10 @@ const AdminCampaignsPage = () => {
 
     setForm((current) => ({
       ...current,
-      badge_text: current.badge_text || "اختيارات فلامنجو",
+      badge_text: current.badge_text || "اختيارات جنان",
       cta_label: current.cta_label || "تسوق الآن",
-      seo_title: current.seo_title || `${current.title_ar} | فلامنجو بارك`,
-      seo_description: current.seo_description || current.description_ar.slice(0, 150) || `اكتشف ${current.title_ar} من فلامنجو بارك وتسوق مجموعة مختارة بعناية.`,
+      seo_title: current.seo_title || `${current.title_ar} | بوتيك جنان`,
+      seo_description: current.seo_description || current.description_ar.slice(0, 150) || `اكتشف ${current.title_ar} من بوتيك جنان وتسوق مجموعة مختارة بعناية.`,
     }));
   };
 
@@ -548,13 +548,13 @@ const AdminCampaignsPage = () => {
                     <div className="flex items-start justify-between gap-[8px]">
                       <div className="min-w-0 flex-1">
                         <h2 className="truncate text-[12px] font-semibold text-[#3F4751]">{campaign.title_ar}</h2>
-                        <button type="button" onClick={() => void copySlug(campaign)} className="mt-[4px] flex max-w-full items-center gap-[4px] text-[9.5px] text-[#969DA7] hover:text-[#675CBA]"><span dir="ltr" className="truncate">/{campaign.slug}</span><Copy className="h-[8px] w-[8px] shrink-0" /></button>
+                        <button type="button" onClick={() => void copySlug(campaign)} className="mt-[4px] flex max-w-full items-center gap-[4px] text-[9.5px] text-[#626E63] hover:text-[#675CBA]"><span dir="ltr" className="truncate">/{campaign.slug}</span><Copy className="h-[8px] w-[8px] shrink-0" /></button>
                       </div>
 
                       <Switch checked={campaign.is_active} onCheckedChange={(checked) => toggleMutation.mutate({ campaign, checked })} />
                     </div>
 
-                    <p className="mt-[9px] line-clamp-2 min-h-[34px] text-[10px] leading-5 text-[#858D97]">{campaign.description_ar || "لا يوجد وصف مختصر لهذه الحملة."}</p>
+                    <p className="mt-[9px] line-clamp-2 min-h-[34px] text-[10px] leading-5 text-[#626E63]">{campaign.description_ar || "لا يوجد وصف مختصر لهذه الحملة."}</p>
 
                     <div className="mt-[10px] grid grid-cols-3 gap-[5px]">
                       <MiniStat label="المنتجات" value={campaign.product_ids.length.toLocaleString("ar-EG")} />
@@ -588,7 +588,7 @@ const AdminCampaignsPage = () => {
             <div className="flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-[10px]">
                 <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]">{editing ? <Pencil className="h-[15px] w-[15px]" /> : <Megaphone className="h-[15px] w-[15px]" />}</div>
-                <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editing ? "تعديل الحملة" : "إنشاء حملة جديدة"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">المحتوى، الصور، الجدولة، المنتجات وتحسين الظهور في صفحة واحدة.</DialogDescription></div>
+                <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editing ? "تعديل الحملة" : "إنشاء حملة جديدة"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">المحتوى، الصور، الجدولة، المنتجات وتحسين الظهور في صفحة واحدة.</DialogDescription></div>
               </div>
 
               <Button type="button" variant="outline" onClick={generateMarketingCopy} className="h-[36px] rounded-[9px] border-[#E2DEF3] bg-white px-3 text-[10px] font-semibold text-[#675CBA] shadow-none"><WandSparkles className="ml-[5px] h-[11px] w-[11px]" />إكمال النصوص المقترحة</Button>
@@ -601,13 +601,13 @@ const AdminCampaignsPage = () => {
                 <div className="space-y-[10px]">
                   <FormSection title="هوية الحملة" icon={Megaphone}>
                     <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-2">
-                      <Field label="العنوان العربي" required><Input value={form.title_ar} onChange={(event) => { const value = event.target.value; setForm((current) => ({ ...current, title_ar: value, slug: slugTouched ? current.slug : slugify(value) })); }} placeholder="مثال: صيف فلامنجو" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" /></Field>
-                      <Field label="العنوان الإنجليزي"><Input value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} placeholder="Flamingo Summer" dir="ltr" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" /></Field>
+                      <Field label="العنوان العربي" required><Input value={form.title_ar} onChange={(event) => { const value = event.target.value; setForm((current) => ({ ...current, title_ar: value, slug: slugTouched ? current.slug : slugify(value) })); }} placeholder="مثال: صيف جنان" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" /></Field>
+                      <Field label="العنوان الإنجليزي"><Input value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} placeholder="Genan Summer" dir="ltr" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" /></Field>
                     </div>
 
                     <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-[1fr_190px]">
                       <Field label="الرابط المختصر" required><Input value={form.slug} onChange={(event) => { setSlugTouched(true); setForm((current) => ({ ...current, slug: slugify(event.target.value) })); }} placeholder="summer-collection" dir="ltr" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] font-mono text-[10.5px] shadow-none focus-visible:bg-white focus-visible:ring-0" /></Field>
-                      <Field label="نوع الصفحة"><Select value={form.page_type} onValueChange={(value) => setForm((current) => ({ ...current, page_type: value as CampaignPageType }))}><SelectTrigger className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[10.5px] shadow-none focus:ring-0"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="campaign">حملة تسويقية</SelectItem><SelectItem value="service">خدمة فلامنجو</SelectItem></SelectContent></Select></Field>
+                      <Field label="نوع الصفحة"><Select value={form.page_type} onValueChange={(value) => setForm((current) => ({ ...current, page_type: value as CampaignPageType }))}><SelectTrigger className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[10.5px] shadow-none focus:ring-0"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="campaign">حملة تسويقية</SelectItem><SelectItem value="service">خدمة جنان</SelectItem></SelectContent></Select></Field>
                     </div>
 
                     <Field label="الوصف العربي"><Textarea rows={4} value={form.description_ar} onChange={(event) => setForm((current) => ({ ...current, description_ar: event.target.value }))} placeholder="وصف تسويقي قصير وواضح..." className="resize-none rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] leading-6 shadow-none focus-visible:bg-white focus-visible:ring-0" /></Field>
@@ -635,12 +635,12 @@ const AdminCampaignsPage = () => {
 
                     <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-2">
                       <Field label="الأولوية"><Input type="number" value={form.sort_order} onChange={(event) => setForm((current) => ({ ...current, sort_order: event.target.value }))} className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:ring-0" /></Field>
-                      <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]"><div><p className="text-[11px] font-semibold text-[#555D67]">الحملة مفعلة</p><p className="mt-[3px] text-[10px] text-[#9BA2AC]">{form.is_active ? "يمكن نشرها حسب الجدول" : "ستبقى مسودة وغير ظاهرة"}</p></div><Switch checked={form.is_active} onCheckedChange={(is_active) => setForm((current) => ({ ...current, is_active }))} /></div>
+                      <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]"><div><p className="text-[11px] font-semibold text-[#555D67]">الحملة مفعلة</p><p className="mt-[3px] text-[10px] text-[#626E63]">{form.is_active ? "يمكن نشرها حسب الجدول" : "ستبقى مسودة وغير ظاهرة"}</p></div><Switch checked={form.is_active} onCheckedChange={(is_active) => setForm((current) => ({ ...current, is_active }))} /></div>
                     </div>
                   </FormSection>
 
                   <FormSection title="تحسين الظهور SEO" icon={Sparkles}>
-                    <Field label="عنوان SEO"><Input value={form.seo_title} onChange={(event) => setForm((current) => ({ ...current, seo_title: event.target.value }))} placeholder={`${form.title_ar || "عنوان الحملة"} | فلامنجو بارك`} className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:ring-0" /><p className="mt-[4px] text-[9.5px] text-[#9AA2AC]">{form.seo_title.length}/60</p></Field>
+                    <Field label="عنوان SEO"><Input value={form.seo_title} onChange={(event) => setForm((current) => ({ ...current, seo_title: event.target.value }))} placeholder={`${form.title_ar || "عنوان الحملة"} | بوتيك جنان`} className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:ring-0" /><p className="mt-[4px] text-[9.5px] text-[#9AA2AC]">{form.seo_title.length}/60</p></Field>
                     <Field label="وصف SEO"><Textarea rows={3} value={form.seo_description} onChange={(event) => setForm((current) => ({ ...current, seo_description: event.target.value }))} placeholder="وصف مختصر يظهر في نتائج البحث والمشاركة..." className="resize-none rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] leading-6 shadow-none focus-visible:bg-white focus-visible:ring-0" /><p className="mt-[4px] text-[9.5px] text-[#9AA2AC]">{form.seo_description.length}/160</p></Field>
                   </FormSection>
 
@@ -649,7 +649,7 @@ const AdminCampaignsPage = () => {
                       <div className="space-y-[5px]">
                         {selectedProducts.map((product, index) => (
                           <div key={product.id} className="flex items-center gap-[8px] rounded-[9px] border border-[#E6E9EE] bg-[#FAFBFC] p-[7px]">
-                            <div className="flex h-[42px] w-[38px] shrink-0 items-center justify-center overflow-hidden rounded-[7px] bg-white">{product.images?.[0] ? <img src={product.images[0]} alt="" loading="lazy" className="h-full w-full object-cover" /> : <ShoppingBag className="h-[11px] w-[11px] text-[#A0A6AF]" />}</div>
+                            <div className="flex h-[42px] w-[38px] shrink-0 items-center justify-center overflow-hidden rounded-[7px] bg-white">{product.images?.[0] ? <img src={product.images[0]} alt="" loading="lazy" className="h-full w-full object-cover" /> : <ShoppingBag className="h-[11px] w-[11px] text-[#626E63]" />}</div>
                             <div className="min-w-0 flex-1"><p className="truncate text-[10.5px] font-semibold text-[#555D67]">{product.name_ar}</p><p className="mt-[2px] text-[9.5px] text-[#9AA2AC]">{product.brand || "بدون ماركة"}{product.in_stock === false ? " · غير متوفر" : ""}</p></div>
                             <div className="flex items-center gap-[3px]"><button type="button" disabled={index === 0} onClick={() => moveProduct(index, -1)} className="flex h-[29px] w-[29px] items-center justify-center rounded-[7px] border border-[#E3E7EC] bg-white text-[#707883] disabled:opacity-30"><ArrowUp className="h-[9px] w-[9px]" /></button><button type="button" disabled={index === selectedProducts.length - 1} onClick={() => moveProduct(index, 1)} className="flex h-[29px] w-[29px] items-center justify-center rounded-[7px] border border-[#E3E7EC] bg-white text-[#707883] disabled:opacity-30"><ArrowDown className="h-[9px] w-[9px]" /></button><button type="button" onClick={() => removeProduct(product.id)} className="flex h-[29px] w-[29px] items-center justify-center rounded-[7px] border border-[#F0D7D4] bg-white text-[#C15F56]"><Trash2 className="h-[9px] w-[9px]" /></button></div>
                           </div>
@@ -667,7 +667,7 @@ const AdminCampaignsPage = () => {
                       {(productSearchQuery.data || []).map((product) => {
                         const selected = form.product_ids.includes(product.id);
 
-                        return <button type="button" key={product.id} onClick={() => toggleProduct(product.id)} className={cn("flex items-center gap-[7px] rounded-[8px] border p-[6px] text-right transition-colors", selected ? "border-[#CBC5E7] bg-[#F5F3FF]" : "border-transparent bg-white hover:border-[#E1E5EA]")}><div className="flex h-[38px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-[7px] bg-[#F3F5F7]">{product.images?.[0] ? <img src={product.images[0]} alt="" loading="lazy" className="h-full w-full object-cover" /> : <ShoppingBag className="h-[10px] w-[10px] text-[#A0A6AF]" />}</div><div className="min-w-0 flex-1"><p className={cn("truncate text-[10px] font-semibold", selected ? "text-[#675CBA]" : "text-[#555D67]")}>{product.name_ar}</p><p className="mt-[2px] truncate text-[9px] text-[#9AA2AC]">{product.brand || "بدون ماركة"}</p></div>{selected && <CheckCircle2 className="h-[12px] w-[12px] shrink-0 text-[#675CBA]" />}</button>;
+                        return <button type="button" key={product.id} onClick={() => toggleProduct(product.id)} className={cn("flex items-center gap-[7px] rounded-[8px] border p-[6px] text-right transition-colors", selected ? "border-[#CBC5E7] bg-[#F5F3FF]" : "border-transparent bg-white hover:border-[#E1E5EA]")}><div className="flex h-[38px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-[7px] bg-[#F3F5F7]">{product.images?.[0] ? <img src={product.images[0]} alt="" loading="lazy" className="h-full w-full object-cover" /> : <ShoppingBag className="h-[10px] w-[10px] text-[#626E63]" />}</div><div className="min-w-0 flex-1"><p className={cn("truncate text-[10px] font-semibold", selected ? "text-[#675CBA]" : "text-[#555D67]")}>{product.name_ar}</p><p className="mt-[2px] truncate text-[9px] text-[#9AA2AC]">{product.brand || "بدون ماركة"}</p></div>{selected && <CheckCircle2 className="h-[12px] w-[12px] shrink-0 text-[#675CBA]" />}</button>;
                       })}
                     </div>
                   </FormSection>
@@ -690,14 +690,14 @@ const AdminCampaignsPage = () => {
 
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(next) => { if (!next) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
-          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف الحملة</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم حذف "{deleteTarget?.title_ar || ""}" نهائيًا. إذا كنت تريد إيقافها مؤقتًا، عطّلها بدل الحذف.</AlertDialogDescription></AlertDialogHeader>
+          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف الحملة</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم حذف "{deleteTarget?.title_ar || ""}" نهائيًا. إذا كنت تريد إيقافها مؤقتًا، عطّلها بدل الحذف.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2"><AlertDialogCancel disabled={deleteMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel><AlertDialogAction disabled={deleteMutation.isPending} onClick={(event) => { event.preventDefault(); if (deleteTarget) deleteMutation.mutate(deleteTarget); }} className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[10.5px] font-semibold text-white hover:bg-[#B65555]">{deleteMutation.isPending && <Loader2 className="ml-[5px] h-[11px] w-[11px] animate-spin" />}حذف نهائي</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
       <AlertDialog open={Boolean(duplicateTarget)} onOpenChange={(next) => { if (!next) setDuplicateTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
-          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#EDF4FF] text-[#5680CF]"><Copy className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">نسخ الحملة</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم إنشاء نسخة من "{duplicateTarget?.title_ar || ""}" بجميع الصور والمنتجات، وستكون غير منشورة حتى تعدّلها وتفعلها.</AlertDialogDescription></AlertDialogHeader>
+          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#EDF4FF] text-[#486BB0]"><Copy className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">نسخ الحملة</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم إنشاء نسخة من "{duplicateTarget?.title_ar || ""}" بجميع الصور والمنتجات، وستكون غير منشورة حتى تعدّلها وتفعلها.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2"><AlertDialogCancel disabled={duplicateMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel><AlertDialogAction disabled={duplicateMutation.isPending} onClick={(event) => { event.preventDefault(); if (duplicateTarget) duplicateMutation.mutate(duplicateTarget); }} className="h-[38px] rounded-[9px] bg-[#5680CF] px-4 text-[10.5px] font-semibold text-white hover:bg-[#496EAF]">{duplicateMutation.isPending && <Loader2 className="ml-[5px] h-[11px] w-[11px] animate-spin" />}إنشاء نسخة</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -707,10 +707,10 @@ const AdminCampaignsPage = () => {
 
 const CampaignStatus = ({ status }: { status: "live" | "scheduled" | "expired" | "draft" }) => {
   const config = {
-    live: { label: "مباشرة", className: "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]", icon: CheckCircle2 },
-    scheduled: { label: "مجدولة", className: "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]", icon: CalendarClock },
-    expired: { label: "منتهية", className: "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]", icon: CircleOff },
-    draft: { label: "مسودة", className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#A9782F]", icon: FileText },
+    live: { label: "مباشرة", className: "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]", icon: CheckCircle2 },
+    scheduled: { label: "مجدولة", className: "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]", icon: CalendarClock },
+    expired: { label: "منتهية", className: "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]", icon: CircleOff },
+    draft: { label: "مسودة", className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#926829]", icon: FileText },
   }[status];
 
   const Icon = config.icon;
@@ -759,7 +759,7 @@ const CampaignReadiness = ({ form }: { form: CampaignForm }) => {
     <section className="rounded-[14px] border border-[#E5E9EF] bg-white p-[11px]">
       <div className="flex items-center justify-between"><div className="flex items-center gap-[7px]"><div className="flex h-[28px] w-[28px] items-center justify-center rounded-[8px] bg-[#F1EFFF] text-[#675CBA]"><Layers3 className="h-[11px] w-[11px]" /></div><h3 className="text-[10.5px] font-semibold text-[#4A525C]">جاهزية الحملة</h3></div><span className="text-[11px] font-semibold text-[#675CBA]">{percent}%</span></div>
       <div className="mt-[9px] h-[5px] overflow-hidden rounded-full bg-[#EEF0F3]"><div className="h-full rounded-full bg-[#675CBA] transition-all" style={{ width: `${percent}%` }} /></div>
-      <div className="mt-[9px] grid grid-cols-2 gap-[5px]">{items.map((item) => <div key={item.label} className={cn("flex items-center gap-[5px] rounded-[7px] px-[7px] py-[6px] text-[9px] font-medium", item.done ? "bg-[#EFF8F2] text-[#568468]" : "bg-[#F7F8FA] text-[#9299A3]")}>{item.done ? <CheckCircle2 className="h-[9px] w-[9px]" /> : <CircleOff className="h-[9px] w-[9px]" />}{item.label}</div>)}</div>
+      <div className="mt-[9px] grid grid-cols-2 gap-[5px]">{items.map((item) => <div key={item.label} className={cn("flex items-center gap-[5px] rounded-[7px] px-[7px] py-[6px] text-[9px] font-medium", item.done ? "bg-[#EFF8F2] text-[#4C755E]" : "bg-[#F7F8FA] text-[#696E76]")}>{item.done ? <CheckCircle2 className="h-[9px] w-[9px]" /> : <CircleOff className="h-[9px] w-[9px]" />}{item.label}</div>)}</div>
     </section>
   );
 };
@@ -768,7 +768,7 @@ const ImageUploader = ({ title, helper, value, uploading, onUpload, onRemove, ic
   return (
     <div className="overflow-hidden rounded-[11px] border border-[#E5E9EF] bg-[#FAFBFC]">
       <div className="relative aspect-[16/10] bg-[#F1F3F5]">
-        {value ? <img src={value} alt="" className="h-full w-full object-cover" /> : <div className="flex h-full flex-col items-center justify-center text-[#A0A6AF]"><Icon className="h-[20px] w-[20px]" /><p className="mt-[6px] text-[9.5px]">لا توجد صورة</p></div>}
+        {value ? <img src={value} alt="" className="h-full w-full object-cover" /> : <div className="flex h-full flex-col items-center justify-center text-[#626E63]"><Icon className="h-[20px] w-[20px]" /><p className="mt-[6px] text-[9.5px]">لا توجد صورة</p></div>}
         {value && <button type="button" onClick={onRemove} className="absolute left-[7px] top-[7px] flex h-[28px] w-[28px] items-center justify-center rounded-[8px] bg-white/95 text-[#C15F56] shadow-sm"><Trash2 className="h-[10px] w-[10px]" /></button>}
       </div>
       <div className="p-[9px]">
@@ -783,12 +783,12 @@ const ImageUploader = ({ title, helper, value, uploading, onUpload, onRemove, ic
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "amber" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    amber: { icon: "bg-[#FFF7E8] text-[#A9782F]", line: "bg-[#C49446]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    amber: { icon: "bg-[#FFF7E8] text-[#926829]", line: "bg-[#C49446]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -800,11 +800,11 @@ const Field = ({ label, children, required = false }: { label: string; children:
 };
 
 const MiniStat = ({ label, value }: { label: string; value: string }) => {
-  return <div className="rounded-[8px] bg-[#F8FAFC] p-[7px]"><p className="text-[8.5px] text-[#A0A6AF]">{label}</p><p className="mt-[3px] truncate text-[10px] font-semibold text-[#59616B]">{value}</p></div>;
+  return <div className="rounded-[8px] bg-[#F8FAFC] p-[7px]"><p className="text-[8.5px] text-[#626E63]">{label}</p><p className="mt-[3px] truncate text-[10px] font-semibold text-[#59616B]">{value}</p></div>;
 };
 
 const PanelEmpty = ({ onCreate }: { onCreate: () => void }) => {
-  return <div className="flex min-h-[300px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[50px] w-[50px] items-center justify-center rounded-[14px] bg-[#F1EFFF] text-[#675CBA]"><Megaphone className="h-[20px] w-[20px]" /></div><h3 className="mt-3 text-[12px] font-semibold text-[#535B65]">لا توجد حملات</h3><p className="mt-[5px] max-w-[360px] text-[10px] leading-5 text-[#9BA2AC]">أنشئ أول حملة تسويقية واربطها بالمنتجات والصور وجدول النشر.</p><Button type="button" onClick={onCreate} className="mt-3 h-[36px] rounded-[9px] bg-[#675CBA] px-4 text-[10px] font-semibold text-white shadow-none hover:bg-[#594FAB]"><Plus className="ml-[5px] h-[10px] w-[10px]" />حملة جديدة</Button></div>;
+  return <div className="flex min-h-[300px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[50px] w-[50px] items-center justify-center rounded-[14px] bg-[#F1EFFF] text-[#675CBA]"><Megaphone className="h-[20px] w-[20px]" /></div><h3 className="mt-3 text-[12px] font-semibold text-[#535B65]">لا توجد حملات</h3><p className="mt-[5px] max-w-[360px] text-[10px] leading-5 text-[#626E63]">أنشئ أول حملة تسويقية واربطها بالمنتجات والصور وجدول النشر.</p><Button type="button" onClick={onCreate} className="mt-3 h-[36px] rounded-[9px] bg-[#675CBA] px-4 text-[10px] font-semibold text-white shadow-none hover:bg-[#594FAB]"><Plus className="ml-[5px] h-[10px] w-[10px]" />حملة جديدة</Button></div>;
 };
 
 const formatDateTime = (value: string) => {

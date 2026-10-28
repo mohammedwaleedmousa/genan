@@ -597,7 +597,7 @@ const AdminProductFormPage = () => {
                 placeholder="0.00"
                 className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[10px] shadow-none focus-visible:border-[#D4D9E0] focus-visible:bg-white focus-visible:ring-0"
               />
-              <p className="text-[8px] text-[#969DA7] mt-[4px]">السعر الذي يظهر للعميل</p>
+              <p className="text-[8px] text-[#626E63] mt-[4px]">السعر الذي يظهر للعميل</p>
             </div>
             <div>
               <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">سعر التكلفة *</label>
@@ -609,7 +609,7 @@ const AdminProductFormPage = () => {
                 placeholder="0.00"
                 className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[10px] shadow-none focus-visible:border-[#D4D9E0] focus-visible:bg-white focus-visible:ring-0"
               />
-              <p className="text-[8px] text-[#969DA7] mt-[4px]">السعر الأصلي (التكلفة) - الخصومات تُطبق على هذا السعر</p>
+              <p className="text-[8px] text-[#626E63] mt-[4px]">السعر الأصلي (التكلفة) - الخصومات تُطبق على هذا السعر</p>
             </div>
           </div>
           
@@ -624,7 +624,7 @@ const AdminProductFormPage = () => {
                 placeholder="0.00"
                 className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[10px] shadow-none focus-visible:border-[#D4D9E0] focus-visible:bg-white focus-visible:ring-0"
               />
-              <p className="text-[8px] text-[#969DA7] mt-[4px]">يظهر مشطوباً بجانب السعر الحالي</p>
+              <p className="text-[8px] text-[#626E63] mt-[4px]">يظهر مشطوباً بجانب السعر الحالي</p>
             </div>
             <div>
               <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">الخصم %</label>
@@ -657,7 +657,7 @@ const AdminProductFormPage = () => {
                   <span className="text-green-500 font-bold mr-2">
                     {(parseFloat(formData.price) - parseFloat(formData.cost_price)).toFixed(2)}
                   </span>
-                  <span className="text-[8px] text-[#969DA7]">
+                  <span className="text-[8px] text-[#626E63]">
                     ({(((parseFloat(formData.price) - parseFloat(formData.cost_price)) / parseFloat(formData.cost_price)) * 100).toFixed(1)}%)
                   </span>
                 </div>
@@ -678,7 +678,7 @@ const AdminProductFormPage = () => {
                   <SelectItem value="unisex">للجنسين</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-[8px] text-[#969DA7] mt-[4px]">يمكن تركه غير محدد للمنتجات القديمة؛ اختيارك هنا لا يغيّر الفئة.</p>
+              <p className="text-[8px] text-[#626E63] mt-[4px]">يمكن تركه غير محدد للمنتجات القديمة؛ اختيارك هنا لا يغيّر الفئة.</p>
             </div>
 
             <div>
@@ -739,7 +739,7 @@ const AdminProductFormPage = () => {
                   ))}
                 </SelectContent>
               </Select>
-              <p className="text-[8px] text-[#969DA7] mt-[4px]">
+              <p className="text-[8px] text-[#626E63] mt-[4px]">
                 إذا لم توجد أقسام فرعية سيتم حفظ المنتج مباشرة داخل القسم الرئيسي.
               </p>
             </div>
@@ -775,7 +775,7 @@ const AdminProductFormPage = () => {
                   <option key={brand.id} value={brand.name} />
                 ))}
               </datalist>
-              <p className="text-[8px] text-[#969DA7] mt-[4px]">
+              <p className="text-[8px] text-[#626E63] mt-[4px]">
                 اختر ماركة مسجلة من القائمة، أو اكتب اسم ماركة جديدة إذا لم تكن موجودة.
               </p>
             </div>
@@ -794,7 +794,7 @@ const AdminProductFormPage = () => {
 
         {/* Settings */}
         <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
-          <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#5680CF]"><Settings2 className="h-[12px] w-[12px]" /></span>الإعدادات والظهور</h2>
+          <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#486BB0]"><Settings2 className="h-[12px] w-[12px]" /></span>الإعدادات والظهور</h2>
 
           <div className="flex flex-wrap gap-[8px]">
             <label className="flex items-center gap-[6px] cursor-pointer rounded-[9px] border border-[#E7EAEF] bg-[#FAFBFC] px-[9px] py-[7px]">
@@ -862,7 +862,7 @@ const AdminProductFormPage = () => {
                 </button>
               ))}
             </div>
-            <p className="text-[8px] text-[#969DA7] mt-[5px]">
+            <p className="text-[8px] text-[#626E63] mt-[5px]">
               اختياري — يحدد ظهور المنتج في صفحات: /curated و /new-season و /top-selling
             </p>
           </div>
@@ -891,7 +891,7 @@ const AdminProductFormPage = () => {
                   </label>
                 ))}
               </div>
-              <p className="text-[8px] text-[#969DA7] mt-[5px]">
+              <p className="text-[8px] text-[#626E63] mt-[5px]">
                 اختر الأقسام التي تريد عرض هذا المنتج فيها
               </p>
             </div>
@@ -900,7 +900,7 @@ const AdminProductFormPage = () => {
 
         {/* Accessories Section */}
         <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
-          <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#FFF0ED] text-[#D06A5E]"><Plus className="h-[12px] w-[12px]" /></span>الملحقات الإضافية</h2>
+          <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#FFF0ED] text-[#A5564A]"><Plus className="h-[12px] w-[12px]" /></span>الملحقات الإضافية</h2>
           <p className="text-[9px] text-[#8D959F]">
             أضف ملحقات اختيارية للمنتج. عند اختيار أي ملحق سيُضاف سعره للسعر الأساسي.
           </p>
@@ -1059,7 +1059,7 @@ const AdminProductFormPage = () => {
         {formData.color_variants.length === 0 && (
           <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
             <div>
-              <h2 className="flex items-center gap-[7px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EAF7EE] text-[#629067]"><Boxes className="h-[12px] w-[12px]" /></span>المقاسات والمخزون</h2>
+              <h2 className="flex items-center gap-[7px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EAF7EE] text-[#507555]"><Boxes className="h-[12px] w-[12px]" /></span>المقاسات والمخزون</h2>
               <p className="text-[9px] text-[#8D959F] mt-[4px]">يمكنك استخدام مخزون عام، أو إضافة كل مقاس وتحديد كميته. نفس البيانات تظهر للعميل وتُخصم تلقائيًا عند تأكيد الطلب.</p>
             </div>
 
@@ -1077,7 +1077,7 @@ const AdminProductFormPage = () => {
                     <button type="button" onClick={() => setStandaloneSizes((current) => current.filter((_, rowIndex) => rowIndex !== index))} className="flex h-[38px] w-[38px] items-center justify-center rounded-[8px] border border-[#F0D7D4] bg-white text-[#C15F56] hover:bg-[#FFF3F1]" aria-label="حذف المقاس"><Trash2 className="h-4 w-4" /></button>
                   </div>
                 ))}
-                <p className="text-[8px] text-[#969DA7]">الإجمالي: {standaloneSizes.reduce((sum, item) => sum + Number(item.stock || 0), 0)} قطعة</p>
+                <p className="text-[8px] text-[#626E63]">الإجمالي: {standaloneSizes.reduce((sum, item) => sum + Number(item.stock || 0), 0)} قطعة</p>
               </div>
             )}
 
@@ -1086,13 +1086,13 @@ const AdminProductFormPage = () => {
               <Button type="button" variant="outline" onClick={() => { const size = newStandaloneSize.trim(); if (!size) return toast({ title: 'أدخل المقاس أولًا', variant: 'destructive' }); if (standaloneSizes.some((item) => item.size.trim().toLowerCase() === size.toLowerCase())) return toast({ title: 'المقاس موجود بالفعل', variant: 'destructive' }); setStandaloneSizes((current) => [...current, { size, stock: 0 }]); setNewStandaloneSize(''); }} className="h-[40px] rounded-[9px] gap-[6px] border-[#E0DCEF] bg-white px-[12px] text-[9px] font-semibold text-[#675CBA] hover:bg-[#F7F5FF]"><Plus className="h-4 w-4" />إضافة مقاس</Button>
             </div>
 
-            {standaloneSizes.length > 0 && <button type="button" onClick={() => { setStandaloneSizes([]); setFormData((current) => ({ ...current, stock_quantity: String(standaloneSizes.reduce((sum, item) => sum + Number(item.stock || 0), 0)) })); }} className="text-[8px] text-[#969DA7] underline underline-offset-4">العودة إلى مخزون عام بدون مقاسات</button>}
+            {standaloneSizes.length > 0 && <button type="button" onClick={() => { setStandaloneSizes([]); setFormData((current) => ({ ...current, stock_quantity: String(standaloneSizes.reduce((sum, item) => sum + Number(item.stock || 0), 0)) })); }} className="text-[8px] text-[#626E63] underline underline-offset-4">العودة إلى مخزون عام بدون مقاسات</button>}
           </div>
         )}
         <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#5680CF]">
           <div className="mb-[11px] flex items-center justify-between gap-3 border-b border-[#EEF1F4] pb-[10px]">
-            <div className="flex items-center gap-[7px]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#5680CF]"><Layers3 className="h-[12px] w-[12px]" /></span><div><h2 className="text-[12px] font-semibold text-[#3F4650]">الصور والألوان والمقاسات</h2><p className="mt-[2px] text-[7px] text-[#9AA1AB]">إدارة خيارات المنتج والمخزون لكل لون ومقاس</p></div></div>
-            <span className="rounded-[7px] bg-[#F6F7F9] px-[7px] py-[4px] text-[6px] font-semibold text-[#8D959F]">VARIANTS</span>
+            <div className="flex items-center gap-[7px]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#486BB0]"><Layers3 className="h-[12px] w-[12px]" /></span><div><h2 className="text-[12px] font-semibold text-[#3F4650]">الصور والألوان والمقاسات</h2><p className="mt-[2px] text-[7px] text-[#626E63]">إدارة خيارات المنتج والمخزون لكل لون ومقاس</p></div></div>
+            <span className="rounded-[7px] bg-[#F6F7F9] px-[7px] py-[4px] text-[6px] font-semibold text-[#686E76]">VARIANTS</span>
           </div>
           <Suspense fallback={<div className="h-40 rounded-[12px] border border-[#E5E9EF] bg-[#F4F6F8] animate-pulse" />}>
           <ColorVariantsEditor
@@ -1104,8 +1104,8 @@ const AdminProductFormPage = () => {
 
         {/* Specifications */}
         <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
-          <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#5680CF]"><ClipboardList className="h-[12px] w-[12px]" /></span>المواصفات التفصيلية</h2>
-          <p className="text-[8px] text-[#969DA7]">أضف مواصفات المنتج (مثل: المادة، الوزن، البلد، إلخ). تُعرض كجدول قابل للطي في صفحة المنتج.</p>
+          <h2 className="flex items-center gap-[7px] border-b border-[#EEF1F4] pb-[10px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#486BB0]"><ClipboardList className="h-[12px] w-[12px]" /></span>المواصفات التفصيلية</h2>
+          <p className="text-[8px] text-[#626E63]">أضف مواصفات المنتج (مثل: المادة، الوزن، البلد، إلخ). تُعرض كجدول قابل للطي في صفحة المنتج.</p>
           <div className="grid grid-cols-1 gap-[7px] md:grid-cols-[1fr_1fr_auto]">
             <Input className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[10px] shadow-none focus-visible:border-[#D4D9E0] focus-visible:bg-white focus-visible:ring-0" placeholder="التسمية (مثل: المادة)" value={newSpec.label} onChange={(e) => setNewSpec({ ...newSpec, label: e.target.value })} />
             <Input className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[10px] shadow-none focus-visible:border-[#D4D9E0] focus-visible:bg-white focus-visible:ring-0" placeholder="القيمة (مثل: جلد طبيعي)" value={newSpec.value} onChange={(e) => setNewSpec({ ...newSpec, value: e.target.value })} />
@@ -1144,8 +1144,8 @@ const AdminProductFormPage = () => {
         <div className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="flex items-center gap-[7px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#FFF5E5] text-[#C38838]"><Shield className="h-[12px] w-[12px]" /></span>جودات / خامات متعددة</h2>
-              <p className="text-[8px] text-[#969DA7] mt-[4px]">فعّل هذا الخيار إذا كان لدى المنتج أكثر من جودة أو خامة بأسعار وصور مختلفة.</p>
+              <h2 className="flex items-center gap-[7px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#FFF5E5] text-[#91642B]"><Shield className="h-[12px] w-[12px]" /></span>جودات / خامات متعددة</h2>
+              <p className="text-[8px] text-[#626E63] mt-[4px]">فعّل هذا الخيار إذا كان لدى المنتج أكثر من جودة أو خامة بأسعار وصور مختلفة.</p>
             </div>
             <label className="inline-flex items-center gap-2">
               <input
@@ -1322,7 +1322,7 @@ const AdminProductFormPage = () => {
         <div className="sticky bottom-0 z-20 flex flex-wrap items-center justify-between gap-[8px] rounded-[14px] border border-[#E3E7EC] bg-white/95 px-[12px] py-[10px] shadow-[0_-6px_20px_rgba(32,36,45,0.05)] backdrop-blur">
           <div>
             <p className="text-[9px] font-semibold text-[#4F5761]">{isEditing ? 'تعديل المنتج' : 'منتج جديد'}</p>
-            <p className="mt-[2px] text-[7px] text-[#9AA1AB]">المخزون المتوقع: {previewStockQty} قطعة • {formData.is_active ? 'نشط' : 'معطل'}</p>
+            <p className="mt-[2px] text-[7px] text-[#626E63]">المخزون المتوقع: {previewStockQty} قطعة • {formData.is_active ? 'نشط' : 'معطل'}</p>
           </div>
           <div className="flex items-center gap-[7px]">
             <Button type="button" variant="outline" className="h-[38px] rounded-[9px] border-[#E1E5EA] bg-white px-[15px] text-[9px] font-semibold text-[#6F7781] shadow-none" onClick={() => navigate('/admin/products')}>إلغاء</Button>
@@ -1340,9 +1340,9 @@ const AdminProductFormPage = () => {
 const ProductEditorStat = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: typeof Package; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -1354,7 +1354,7 @@ const ProductEditorStat = ({ title, value, helper, icon: Icon, tone }: { title: 
       </div>
       <p className="mt-[10px] text-[8px] font-medium text-[#8D949E]">{title}</p>
       <p className="mt-[4px] truncate text-[19px] font-semibold leading-none tracking-[-0.03em] text-[#303741]">{value}</p>
-      <p className="mt-[6px] truncate text-[6.5px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[6px] truncate text-[6.5px] text-[#626E63]">{helper}</p>
     </article>
   );
 };

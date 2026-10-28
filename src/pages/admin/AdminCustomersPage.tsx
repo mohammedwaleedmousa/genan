@@ -250,18 +250,18 @@ const AdminCustomersPage = () => {
       <section className="overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white">
         <div className="flex items-center justify-between border-b border-[#EFE8DE] px-[14px] py-[11px]">
           <div className="flex items-center gap-[8px]">
-            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[#98774B]">
+            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#F5EAD7] text-[#80633E]">
               <Search className="h-[13px] w-[13px]" strokeWidth={1.8} />
             </div>
 
             <div>
               <p className="text-[11px] font-semibold text-[#444B55]">البحث في العملاء</p>
-              <p className="mt-[2px] text-[10px] text-[#9BA2AC]">ابحث بالاسم أو رقم الهاتف</p>
+              <p className="mt-[2px] text-[10px] text-[#606C62]">ابحث بالاسم أو رقم الهاتف</p>
             </div>
           </div>
 
           {searchInput && (
-            <button type="button" onClick={() => setSearchInput("")} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[10px] font-semibold text-[#8A919B] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
+            <button type="button" onClick={() => setSearchInput("")} className="flex h-[29px] items-center gap-[5px] rounded-[8px] px-[8px] text-[10px] font-semibold text-[#606C62] transition-colors hover:bg-[#F5F7F9] hover:text-[#555D68]">
               <X className="h-[10px] w-[10px]" />
               مسح البحث
             </button>
@@ -270,12 +270,12 @@ const AdminCustomersPage = () => {
 
         <div className="p-[12px]">
           <div className="relative">
-            <Search className="pointer-events-none absolute right-[12px] top-1/2 h-[13px] w-[13px] -translate-y-1/2 text-[#969EA8]" strokeWidth={1.7} />
+            <Search className="pointer-events-none absolute right-[12px] top-1/2 h-[13px] w-[13px] -translate-y-1/2 text-[#606C62]" strokeWidth={1.7} />
 
-            <Input value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder="اسم العميل أو رقم الهاتف..." className="h-[40px] rounded-[10px] border-[#E8DED0] bg-[#FBF9F5] pr-[35px] pl-[34px] text-[11px] font-medium shadow-none placeholder:text-[#A4ABB4] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
+            <Input value={searchInput} onChange={(event) => setSearchInput(event.target.value)} placeholder="اسم العميل أو رقم الهاتف..." className="h-[40px] rounded-[10px] border-[#E8DED0] bg-[#FBF9F5] pr-[35px] pl-[34px] text-[11px] font-medium shadow-none placeholder:text-[#606C62] focus-visible:border-[#D7DBE5] focus-visible:bg-white focus-visible:ring-0" />
 
             {searchInput && (
-              <button type="button" onClick={() => setSearchInput("")} aria-label="مسح البحث" className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#9AA1AB] transition-colors hover:bg-white hover:text-[#5C6470]">
+              <button type="button" onClick={() => setSearchInput("")} aria-label="مسح البحث" className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#606C62] transition-colors hover:bg-white hover:text-[#5C6470]">
                 <X className="h-[11px] w-[11px]" />
               </button>
             )}
@@ -300,7 +300,7 @@ const AdminCustomersPage = () => {
                   حذف المحدد
                 </button>
 
-                <button type="button" onClick={() => setSelected(new Set())} className="flex h-[34px] items-center rounded-[8px] px-[8px] text-[10px] font-semibold text-[#858D97] transition-colors hover:bg-white">إلغاء التحديد</button>
+                <button type="button" onClick={() => setSelected(new Set())} className="flex h-[34px] items-center rounded-[8px] px-[8px] text-[10px] font-semibold text-[#606C62] transition-colors hover:bg-white">إلغاء التحديد</button>
               </div>
             </div>
           )}
@@ -340,17 +340,17 @@ const AdminCustomersPage = () => {
 
                       <div className="mt-[10px] grid grid-cols-2 gap-[6px]">
                         <div className="rounded-[9px] bg-[#FBF9F5] p-[8px]">
-                          <p className="text-[10px] text-[#9AA1AB]">إجمالي الإنفاق</p>
+                          <p className="text-[10px] text-[#606C62]">إجمالي الإنفاق</p>
                           <p className="mt-[3px] truncate text-[11px] font-semibold text-[#454D57]">{format(spend.total)}</p>
                         </div>
 
                         <div className="rounded-[9px] bg-[#FBF9F5] p-[8px]">
-                          <p className="text-[10px] text-[#9AA1AB]">الطلبات</p>
+                          <p className="text-[10px] text-[#606C62]">الطلبات</p>
                           <p dir="ltr" className="mt-[3px] text-right text-[11px] font-semibold text-[#454D57]">{spend.count.toLocaleString("en-US")}</p>
                         </div>
                       </div>
 
-                      <div className="mt-[8px] flex items-center gap-[5px] text-[10px] text-[#9CA3AC]">
+                      <div className="mt-[8px] flex items-center gap-[5px] text-[10px] text-[#606C62]">
                         <CalendarDays className="h-[9px] w-[9px]" strokeWidth={1.6} />
                         <span>{formatCustomerDate(customer.created_at)}</span>
                       </div>
@@ -386,11 +386,11 @@ const AdminCustomersPage = () => {
               <h2 className="text-[11px] font-semibold text-[#454C56]">قائمة العملاء</h2>
             </div>
 
-            <p className="mt-[4px] text-[10px] text-[#9CA3AC]">عرض {firstResult.toLocaleString("ar-EG")} - {lastResult.toLocaleString("ar-EG")} من أصل {total.toLocaleString("ar-EG")}</p>
+            <p className="mt-[4px] text-[10px] text-[#606C62]">عرض {firstResult.toLocaleString("ar-EG")} - {lastResult.toLocaleString("ar-EG")} من أصل {total.toLocaleString("ar-EG")}</p>
           </div>
 
           {isLoading && (
-            <span className="flex items-center gap-[5px] text-[10px] font-medium text-[#969DA7]">
+            <span className="flex items-center gap-[5px] text-[10px] font-medium text-[#606C62]">
               <Loader2 className="h-[10px] w-[10px] animate-spin" />
               تحديث...
             </span>
@@ -400,7 +400,7 @@ const AdminCustomersPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1040px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#9299A3]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#6B7179]">
                 <th className="w-[42px] px-[10px] text-center">
                   <Checkbox checked={allSelected} onCheckedChange={toggleSelectAll} className="h-[15px] w-[15px] border-[#BAC0C8] data-[state=checked]:border-[#98774B] data-[state=checked]:bg-[#98774B]" />
                 </th>
@@ -452,7 +452,7 @@ const AdminCustomersPage = () => {
 
                       <td className="px-[10px]">
                         <div className="flex items-center gap-[6px]">
-                          <div className="flex h-[25px] w-[25px] items-center justify-center rounded-[7px] bg-[#F2F4F7] text-[#7E8791]">
+                          <div className="flex h-[25px] w-[25px] items-center justify-center rounded-[7px] bg-[#F2F4F7] text-[#686F79]">
                             <Phone className="h-[10px] w-[10px]" strokeWidth={1.7} />
                           </div>
 
@@ -466,7 +466,7 @@ const AdminCustomersPage = () => {
 
                       <td className="px-[10px]">
                         <div className="flex items-center gap-[6px]">
-                          <div className="flex h-[25px] w-[25px] items-center justify-center rounded-[7px] bg-[#EAF8F4] text-[#4C9687]">
+                          <div className="flex h-[25px] w-[25px] items-center justify-center rounded-[7px] bg-[#EAF8F4] text-[#3C786A]">
                             <Wallet className="h-[10px] w-[10px]" strokeWidth={1.7} />
                           </div>
 
@@ -476,7 +476,7 @@ const AdminCustomersPage = () => {
 
                       <td className="px-[10px]">
                         <div className="flex items-center gap-[6px]">
-                          <span className={cn("flex h-[25px] min-w-[25px] items-center justify-center rounded-[7px] px-[6px] text-[10px] font-bold", spend.count > 0 ? "bg-[#EDF4FF] text-[#567BC5]" : "bg-[#F2F4F6] text-[#9097A0]")}>{spend.count.toLocaleString("en-US")}</span>
+                          <span className={cn("flex h-[25px] min-w-[25px] items-center justify-center rounded-[7px] px-[6px] text-[10px] font-bold", spend.count > 0 ? "bg-[#EDF4FF] text-[#4C6CB0]" : "bg-[#F2F4F6] text-[#686D74]")}>{spend.count.toLocaleString("en-US")}</span>
 
                           <span className="text-[10px] text-[#9DA4AD]">طلب</span>
                         </div>
@@ -484,7 +484,7 @@ const AdminCustomersPage = () => {
 
                       <td className="px-[10px]">
                         <div className="flex items-center gap-[6px] text-[10px] text-[#808893]">
-                          <CalendarDays className="h-[10px] w-[10px] text-[#A0A6AF]" strokeWidth={1.6} />
+                          <CalendarDays className="h-[10px] w-[10px] text-[#606C62]" strokeWidth={1.6} />
                           <span>{formatCustomerDate(customer.created_at)}</span>
                         </div>
                       </td>
@@ -528,13 +528,13 @@ const AdminCustomersPage = () => {
       <AlertDialog open={Boolean(confirmDelete)} onOpenChange={(open) => { if (!open) setConfirmDelete(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E7DFD3] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]">
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]">
               <Trash2 className="h-[16px] w-[16px]" strokeWidth={1.7} />
             </div>
 
             <AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">تأكيد حذف العميل</AlertDialogTitle>
 
-            <AlertDialogDescription className="text-[11px] leading-6 text-[#858D97]">
+            <AlertDialogDescription className="text-[11px] leading-6 text-[#606C62]">
               {confirmDelete?.bulk ? `سيتم حذف ${selected.size} عميل نهائيًا من النظام. لا يمكن التراجع عن هذه العملية.` : "سيتم حذف هذا العميل نهائيًا من النظام. لا يمكن التراجع عن هذه العملية."}
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -570,10 +570,10 @@ const AdminCustomersPage = () => {
 
 const CustomerStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: typeof Users; tone: "indigo" | "teal" | "blue" | "coral" }) => {
   const styles = {
-    indigo: { icon: "bg-[#F5EAD7] text-[#98774B]", line: "bg-[#98774B]" },
-    teal: { icon: "bg-[#EAF8F4] text-[#4C9687]", line: "bg-[#4C9687]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    indigo: { icon: "bg-[#F5EAD7] text-[#80633E]", line: "bg-[#98774B]" },
+    teal: { icon: "bg-[#EAF8F4] text-[#3C786A]", line: "bg-[#4C9687]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -590,7 +590,7 @@ const CustomerStatCard = ({ title, value, helper, icon: Icon, tone }: { title: s
 
       <p className="mt-[12px] text-[10px] font-medium text-[#8D949E]">{title}</p>
       <p dir="ltr" className="mt-[4px] text-right text-[20px] font-semibold leading-none tracking-[-0.035em] text-[#303741]">{value}</p>
-      <p className="mt-[5px] text-[10px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[5px] text-[10px] text-[#606C62]">{helper}</p>
     </div>
   );
 };
@@ -625,7 +625,7 @@ const CountryBadge = ({ country }: { country: string }) => {
   const saudi = value === "SA" || value === "SAUDI" || value === "SAUDI ARABIA";
 
   return (
-    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", saudi ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E1DDF1] bg-[#F5F3FC] text-[#6D64A5]")}>
+    <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[10px] font-semibold", saudi ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4E7860]" : "border-[#E1DDF1] bg-[#F5F3FC] text-[#6D64A5]")}>
       <MapPin className="h-[8px] w-[8px]" strokeWidth={1.8} />
       {countryLabel(country)}
     </span>
@@ -694,12 +694,12 @@ const MobileAction = ({ icon: Icon, label, tone, onClick }: { icon: typeof Eye; 
 const EmptyCustomers = () => {
   return (
     <div className="flex min-h-[240px] flex-col items-center justify-center px-6 text-center">
-      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]">
+      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]">
         <Users className="h-[19px] w-[19px]" strokeWidth={1.5} />
       </div>
 
       <h3 className="mt-3 text-[11px] font-semibold text-[#535B65]">لا يوجد عملاء</h3>
-      <p className="mt-[4px] text-[10px] leading-5 text-[#9BA2AC]">لم نجد أي عميل مطابق لعملية البحث الحالية.</p>
+      <p className="mt-[4px] text-[10px] leading-5 text-[#606C62]">لم نجد أي عميل مطابق لعملية البحث الحالية.</p>
     </div>
   );
 };
@@ -713,7 +713,7 @@ const CustomerLoading = () => {
     <div className="flex h-[230px] items-center justify-center rounded-[14px] border border-[#E8E0D4] bg-white">
       <div className="text-center">
         <Loader2 className="mx-auto h-[20px] w-[20px] animate-spin text-[#98774B]" />
-        <p className="mt-2 text-[10px] font-medium text-[#969DA7]">جاري تحميل العملاء...</p>
+        <p className="mt-2 text-[10px] font-medium text-[#606C62]">جاري تحميل العملاء...</p>
       </div>
     </div>
   );

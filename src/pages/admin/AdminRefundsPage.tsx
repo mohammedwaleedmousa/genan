@@ -123,13 +123,13 @@ const emptyForm = (): RefundForm => ({
 });
 
 const STATUS_CONFIG: Record<RefundStatus, { label: string; className: string; icon: LucideIcon }> = {
-  pending: { label: "قيد المراجعة", className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#A9782F]", icon: Clock3 },
+  pending: { label: "قيد المراجعة", className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#926829]", icon: Clock3 },
   reviewing: { label: "جاري الفحص", className: "border-[#E2DEF3] bg-[#F6F4FF] text-[#675CBA]", icon: FileSearch },
-  approved: { label: "تمت الموافقة", className: "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]", icon: CheckCircle2 },
+  approved: { label: "تمت الموافقة", className: "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]", icon: CheckCircle2 },
   processing: { label: "جاري التحويل", className: "border-[#E2DEF3] bg-[#F6F4FF] text-[#675CBA]", icon: ArrowRightLeft },
-  completed: { label: "مكتمل", className: "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]", icon: CheckCircle2 },
-  rejected: { label: "مرفوض", className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]", icon: CircleOff },
-  cancelled: { label: "ملغي", className: "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]", icon: CircleOff },
+  completed: { label: "مكتمل", className: "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]", icon: CheckCircle2 },
+  rejected: { label: "مرفوض", className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#A9534A]", icon: CircleOff },
+  cancelled: { label: "ملغي", className: "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]", icon: CircleOff },
 };
 
 const AdminRefundsPage = () => {
@@ -577,7 +577,7 @@ const AdminRefundsPage = () => {
             <div className="hidden md:block">
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[1300px]">
-                  <thead><tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#858D97]"><th className="w-[44px] px-[10px] text-center"><Checkbox checked={allVisibleSelected} onCheckedChange={toggleAll} /></th><th className="px-[12px] text-right">المرتجع</th><th className="px-[12px] text-right">العميل / الطلب</th><th className="px-[12px] text-right">النوع</th><th className="px-[12px] text-right">المبلغ</th><th className="px-[12px] text-right">طريقة الاسترجاع</th><th className="px-[12px] text-right">الحالة</th><th className="px-[12px] text-right">التاريخ</th><th className="w-[260px] px-[12px] text-center">الإجراءات</th></tr></thead>
+                  <thead><tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#6A727C]"><th className="w-[44px] px-[10px] text-center"><Checkbox checked={allVisibleSelected} onCheckedChange={toggleAll} /></th><th className="px-[12px] text-right">المرتجع</th><th className="px-[12px] text-right">العميل / الطلب</th><th className="px-[12px] text-right">النوع</th><th className="px-[12px] text-right">المبلغ</th><th className="px-[12px] text-right">طريقة الاسترجاع</th><th className="px-[12px] text-right">الحالة</th><th className="px-[12px] text-right">التاريخ</th><th className="w-[260px] px-[12px] text-center">الإجراءات</th></tr></thead>
                   <tbody>
                     {filteredRefunds.map((refund) => {
                       const currency = getRefundCurrency(refund);
@@ -587,9 +587,9 @@ const AdminRefundsPage = () => {
                         <tr key={refund.id} className="h-[78px] border-b border-[#F0F2F5] transition-colors last:border-b-0 hover:bg-[#FCFDFE]">
                           <td className="px-[10px] text-center"><Checkbox checked={selectedIds.includes(refund.id)} disabled={!deletable} onCheckedChange={() => toggleOne(refund.id)} /></td>
                           <td className="px-[12px]"><div><p dir="ltr" className="text-right font-mono text-[10px] font-semibold text-[#675CBA]">{refund.refund_number}</p><p className="mt-[4px] max-w-[230px] truncate text-[10.5px] font-semibold text-[#4A525C]">{refund.reason}</p></div></td>
-                          <td className="px-[12px]"><div className="min-w-[170px]"><p className="text-[10.5px] font-semibold text-[#59616B]">{refund.customer_name || "—"}</p><p className="mt-[3px] text-[9.5px] text-[#9299A3]">{refund.order_number ? `#${refund.order_number}` : "بدون طلب مرتبط"}{refund.customer_phone ? ` · ${refund.customer_phone}` : ""}</p></div></td>
+                          <td className="px-[12px]"><div className="min-w-[170px]"><p className="text-[10.5px] font-semibold text-[#59616B]">{refund.customer_name || "—"}</p><p className="mt-[3px] text-[9.5px] text-[#626E63]">{refund.order_number ? `#${refund.order_number}` : "بدون طلب مرتبط"}{refund.customer_phone ? ` · ${refund.customer_phone}` : ""}</p></div></td>
                           <td className="px-[12px]"><span className="inline-flex h-[26px] items-center rounded-[7px] border border-[#E3E7EC] bg-[#F8FAFC] px-[8px] text-[10px] font-semibold text-[#68717B]">{refund.refund_type === "partial" ? "جزئي" : "كامل"}</span></td>
-                          <td className="px-[12px]"><div><p className="text-[11px] font-semibold text-[#C15F56]">{formatMoney(refund.amount, currency.symbol)}</p>{refund.currency_code !== baseCurrency.code && <p className="mt-[2px] text-[9.5px] text-[#9AA1AB]">{formatMoney(getRefundBase(refund), baseCurrency.symbol)}</p>}</div></td>
+                          <td className="px-[12px]"><div><p className="text-[11px] font-semibold text-[#C15F56]">{formatMoney(refund.amount, currency.symbol)}</p>{refund.currency_code !== baseCurrency.code && <p className="mt-[2px] text-[9.5px] text-[#626E63]">{formatMoney(getRefundBase(refund), baseCurrency.symbol)}</p>}</div></td>
                           <td className="px-[12px]"><span className="text-[10.5px] text-[#68717B]">{refundMethodLabel(refund.refund_method)}</span></td>
                           <td className="px-[12px]"><StatusBadge status={refund.status as RefundStatus} /></td>
                           <td className="px-[12px]"><span className="text-[10.5px] text-[#7E8690]">{formatDate(refund.created_at)}</span></td>
@@ -613,7 +613,7 @@ const AdminRefundsPage = () => {
                       <div className="flex items-start justify-between gap-[8px]">
                         <div className="flex min-w-0 gap-[8px]">
                           <Checkbox checked={selectedIds.includes(refund.id)} disabled={!deletable} onCheckedChange={() => toggleOne(refund.id)} className="mt-[2px]" />
-                          <div className="min-w-0"><p dir="ltr" className="text-right font-mono text-[10px] font-semibold text-[#675CBA]">{refund.refund_number}</p><h3 className="mt-[4px] line-clamp-2 text-[11px] font-semibold text-[#3B424C]">{refund.reason}</h3><p className="mt-[3px] text-[10px] text-[#9299A3]">{refund.customer_name || "—"}{refund.order_number ? ` · #${refund.order_number}` : ""}</p></div>
+                          <div className="min-w-0"><p dir="ltr" className="text-right font-mono text-[10px] font-semibold text-[#675CBA]">{refund.refund_number}</p><h3 className="mt-[4px] line-clamp-2 text-[11px] font-semibold text-[#3B424C]">{refund.reason}</h3><p className="mt-[3px] text-[10px] text-[#626E63]">{refund.customer_name || "—"}{refund.order_number ? ` · #${refund.order_number}` : ""}</p></div>
                         </div>
                         <StatusBadge status={refund.status as RefundStatus} />
                       </div>
@@ -622,7 +622,7 @@ const AdminRefundsPage = () => {
                       <div className="mt-[6px] grid grid-cols-2 gap-[6px]"><InfoBox label="الطريقة" value={refundMethodLabel(refund.refund_method)} /><InfoBox label="التاريخ" value={formatDate(refund.created_at)} /></div>
 
                       {refund.items.length > 0 && <RefundItems items={refund.items} currencySymbol={currency.symbol} />}
-                      {refund.admin_notes && <div className="mt-[8px] rounded-[8px] border border-[#E6E9EE] bg-[#FAFBFC] p-[8px]"><p className="text-[9.5px] font-semibold text-[#68717B]">ملاحظة الإدارة</p><p className="mt-[3px] text-[10px] leading-5 text-[#858D97]">{refund.admin_notes}</p></div>}
+                      {refund.admin_notes && <div className="mt-[8px] rounded-[8px] border border-[#E6E9EE] bg-[#FAFBFC] p-[8px]"><p className="text-[9.5px] font-semibold text-[#68717B]">ملاحظة الإدارة</p><p className="mt-[3px] text-[10px] leading-5 text-[#626E63]">{refund.admin_notes}</p></div>}
                     </div>
 
                     <div className="border-t border-[#EDF0F3] bg-[#FAFBFC] p-[7px]"><RefundActions refund={refund} onStatus={openStatusAction} onDelete={setDeleteTarget} mobile /></div>
@@ -640,7 +640,7 @@ const AdminRefundsPage = () => {
           <DialogHeader className="sticky top-0 z-20 border-b border-[#E6E9EE] bg-white px-5 py-4">
             <div className="flex items-center gap-[10px]">
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]"><RefreshCcw className="h-[15px] w-[15px]" /></div>
-              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">إضافة مرتجع جديد</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">اربط المرتجع بطلب أو أنشئ مرتجعًا يدويًا، مع دعم المرتجع الكامل والجزئي.</DialogDescription></div>
+              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">إضافة مرتجع جديد</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">اربط المرتجع بطلب أو أنشئ مرتجعًا يدويًا، مع دعم المرتجع الكامل والجزئي.</DialogDescription></div>
             </div>
           </DialogHeader>
 
@@ -655,13 +655,13 @@ const AdminRefundsPage = () => {
 
                 {!selectedOrder && orderQuery.data && orderQuery.data.length > 0 && (
                   <div className="max-h-[240px] space-y-[5px] overflow-y-auto rounded-[10px] border border-[#E5E9EF] bg-[#FAFBFC] p-[6px]">
-                    {orderQuery.data.map((order) => <button key={order.id} type="button" onClick={() => chooseOrder(order)} className="flex w-full items-center justify-between gap-[10px] rounded-[9px] border border-[#E6E9EE] bg-white p-[9px] text-right hover:border-[#CBC5E7] hover:bg-[#F9F8FF]"><div className="min-w-0"><p dir="ltr" className="text-right font-mono text-[10px] font-semibold text-[#675CBA]">{order.order_number}</p><p className="mt-[3px] truncate text-[10.5px] font-semibold text-[#555D67]">{order.customer_name}</p><p className="mt-[2px] text-[9.5px] text-[#9BA2AC]">{order.customer_phone}</p></div><span className="text-[10.5px] font-semibold text-[#59616B]">{order.total.toLocaleString("en-US")}</span></button>)}
+                    {orderQuery.data.map((order) => <button key={order.id} type="button" onClick={() => chooseOrder(order)} className="flex w-full items-center justify-between gap-[10px] rounded-[9px] border border-[#E6E9EE] bg-white p-[9px] text-right hover:border-[#CBC5E7] hover:bg-[#F9F8FF]"><div className="min-w-0"><p dir="ltr" className="text-right font-mono text-[10px] font-semibold text-[#675CBA]">{order.order_number}</p><p className="mt-[3px] truncate text-[10.5px] font-semibold text-[#555D67]">{order.customer_name}</p><p className="mt-[2px] text-[9.5px] text-[#626E63]">{order.customer_phone}</p></div><span className="text-[10.5px] font-semibold text-[#59616B]">{order.total.toLocaleString("en-US")}</span></button>)}
                   </div>
                 )}
 
                 {selectedOrder && (
                   <div className="rounded-[10px] border border-[#DCE7F4] bg-[#F5F8FC] p-[10px]">
-                    <div className="flex items-start justify-between gap-[8px]"><div><p className="font-mono text-[10px] font-semibold text-[#675CBA]">{selectedOrder.order_number}</p><p className="mt-[4px] text-[11px] font-semibold text-[#4A525C]">{selectedOrder.customer_name}</p><p className="mt-[2px] text-[10px] text-[#9299A3]">{selectedOrder.customer_phone}</p></div><button type="button" onClick={() => { setSelectedOrder(null); setOrderSearch(""); setForm(emptyForm()); }} className="flex h-[30px] w-[30px] items-center justify-center rounded-[8px] bg-white text-[#7E8690]"><X className="h-[10px] w-[10px]" /></button></div>
+                    <div className="flex items-start justify-between gap-[8px]"><div><p className="font-mono text-[10px] font-semibold text-[#675CBA]">{selectedOrder.order_number}</p><p className="mt-[4px] text-[11px] font-semibold text-[#4A525C]">{selectedOrder.customer_name}</p><p className="mt-[2px] text-[10px] text-[#626E63]">{selectedOrder.customer_phone}</p></div><button type="button" onClick={() => { setSelectedOrder(null); setOrderSearch(""); setForm(emptyForm()); }} className="flex h-[30px] w-[30px] items-center justify-center rounded-[8px] bg-white text-[#7E8690]"><X className="h-[10px] w-[10px]" /></button></div>
                   </div>
                 )}
 
@@ -675,7 +675,7 @@ const AdminRefundsPage = () => {
 
               <FormSection title="نوع المرتجع والمنتجات" icon={ShoppingBag}>
                 <div className="grid grid-cols-2 gap-[6px]">
-                  <button type="button" onClick={() => applyRefundType("full")} className={cn("h-[40px] rounded-[9px] border text-[10.5px] font-semibold", form.refund_type === "full" ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E7EC] bg-white text-[#68717B]")}>مرتجع كامل</button>
+                  <button type="button" onClick={() => applyRefundType("full")} className={cn("h-[40px] rounded-[9px] border text-[10.5px] font-semibold", form.refund_type === "full" ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E7EC] bg-white text-[#68717B]")}>مرتجع كامل</button>
                   <button type="button" onClick={() => applyRefundType("partial")} className={cn("h-[40px] rounded-[9px] border text-[10.5px] font-semibold", form.refund_type === "partial" ? "border-[#E2DEF3] bg-[#F6F4FF] text-[#675CBA]" : "border-[#E3E7EC] bg-white text-[#68717B]")}>مرتجع جزئي</button>
                 </div>
 
@@ -688,14 +688,14 @@ const AdminRefundsPage = () => {
                       return (
                         <div key={`${item.product_id || index}-${index}`} className="flex items-center gap-[8px] rounded-[10px] border border-[#E5E9EF] bg-[#FAFBFC] p-[8px]">
                           <Checkbox checked={checked} onCheckedChange={(value) => toggleRefundItem(index, Boolean(value))} />
-                          <div className="flex h-[42px] w-[38px] shrink-0 items-center justify-center overflow-hidden rounded-[8px] bg-white">{item.product_image || item.image ? <img src={item.product_image || item.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[12px] w-[12px] text-[#A0A6AF]" />}</div>
-                          <div className="min-w-0 flex-1"><p className="truncate text-[10.5px] font-semibold text-[#555D67]">{item.product_name || item.name || "منتج"}</p><p className="mt-[2px] text-[9.5px] text-[#9BA2AC]">المتاح في الطلب: {maxQty} · السعر: {Number(item.price || 0).toLocaleString("en-US")}</p></div>
+                          <div className="flex h-[42px] w-[38px] shrink-0 items-center justify-center overflow-hidden rounded-[8px] bg-white">{item.product_image || item.image ? <img src={item.product_image || item.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[12px] w-[12px] text-[#626E63]" />}</div>
+                          <div className="min-w-0 flex-1"><p className="truncate text-[10.5px] font-semibold text-[#555D67]">{item.product_name || item.name || "منتج"}</p><p className="mt-[2px] text-[9.5px] text-[#626E63]">المتاح في الطلب: {maxQty} · السعر: {Number(item.price || 0).toLocaleString("en-US")}</p></div>
                           {form.refund_type === "partial" && checked && <Input type="number" min={1} max={maxQty} value={item.refund_quantity || 1} onChange={(event) => updateRefundQuantity(index, Number.parseInt(event.target.value, 10) || 1)} className="h-[36px] w-[76px] rounded-[8px] border-[#E2E6EB] bg-white text-[10px] shadow-none focus-visible:ring-0" />}
                         </div>
                       );
                     })}
 
-                    {form.refund_type === "partial" && <div className="flex items-center justify-between rounded-[9px] bg-[#F8FAFC] p-[8px]"><span className="text-[10px] text-[#858D97]">القيمة المقترحة للمنتجات المحددة</span><button type="button" onClick={() => setForm((current) => ({ ...current, amount: String(suggestedPartialAmount) }))} className="text-[10.5px] font-semibold text-[#675CBA]">{suggestedPartialAmount.toLocaleString("en-US")} — استخدام القيمة</button></div>}
+                    {form.refund_type === "partial" && <div className="flex items-center justify-between rounded-[9px] bg-[#F8FAFC] p-[8px]"><span className="text-[10px] text-[#626E63]">القيمة المقترحة للمنتجات المحددة</span><button type="button" onClick={() => setForm((current) => ({ ...current, amount: String(suggestedPartialAmount) }))} className="text-[10.5px] font-semibold text-[#675CBA]">{suggestedPartialAmount.toLocaleString("en-US")} — استخدام القيمة</button></div>}
                   </div>
                 )}
               </FormSection>
@@ -726,7 +726,7 @@ const AdminRefundsPage = () => {
           <DialogHeader className="border-b border-[#E6E9EE] bg-white px-5 py-4">
             <div className="flex items-center gap-[10px]">
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]">{nextStatus && (() => { const Icon = STATUS_CONFIG[nextStatus].icon; return <Icon className="h-[15px] w-[15px]" />; })()}</div>
-              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">تحديث حالة المرتجع</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">{statusTarget?.refund_number} ← {nextStatus ? STATUS_CONFIG[nextStatus].label : ""}</DialogDescription></div>
+              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">تحديث حالة المرتجع</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">{statusTarget?.refund_number} ← {nextStatus ? STATUS_CONFIG[nextStatus].label : ""}</DialogDescription></div>
             </div>
           </DialogHeader>
 
@@ -745,7 +745,7 @@ const AdminRefundsPage = () => {
       {/* DELETE */}
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(next) => { if (!next) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
-          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف المرتجع</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم حذف {deleteTarget?.refund_number || ""} إذا لم يكن قد دخل مرحلة الاعتماد أو المعالجة. المرتجعات المالية المعتمدة لا يمكن حذفها.</AlertDialogDescription></AlertDialogHeader>
+          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف المرتجع</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم حذف {deleteTarget?.refund_number || ""} إذا لم يكن قد دخل مرحلة الاعتماد أو المعالجة. المرتجعات المالية المعتمدة لا يمكن حذفها.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2"><AlertDialogCancel disabled={deleteMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel><AlertDialogAction disabled={deleteMutation.isPending} onClick={(event) => { event.preventDefault(); if (deleteTarget) deleteMutation.mutate(deleteTarget); }} className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[10.5px] font-semibold text-white hover:bg-[#B65555]">{deleteMutation.isPending && <Loader2 className="ml-[5px] h-[11px] w-[11px] animate-spin" />}حذف نهائي</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -782,7 +782,7 @@ const RefundItems = ({ items, currencySymbol }: { items: RefundItem[]; currencyS
   return (
     <div className="mt-[8px] rounded-[9px] border border-[#E6E9EE] bg-[#FAFBFC]">
       <button type="button" onClick={() => setOpen((current) => !current)} className="flex h-[36px] w-full items-center justify-between px-[9px] text-[10px] font-semibold text-[#68717B]"><span>منتجات المرتجع ({items.length})</span><span>{open ? "إخفاء" : "عرض"}</span></button>
-      {open && <div className="space-y-[5px] border-t border-[#E7EAEF] p-[7px]">{items.map((item, index) => <div key={`${item.product_id || index}-${index}`} className="flex items-center gap-[7px] rounded-[8px] bg-white p-[7px]"><div className="flex h-[38px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-[7px] bg-[#F3F5F7]">{item.product_image || item.image ? <img src={item.product_image || item.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[10px] w-[10px] text-[#A0A6AF]" />}</div><div className="min-w-0 flex-1"><p className="truncate text-[10px] font-semibold text-[#555D67]">{item.product_name || item.name || "منتج"}</p><p className="mt-[2px] text-[9px] text-[#9AA2AC]">الكمية: {Number(item.quantity || item.refund_quantity || 1)}</p></div><span className="text-[10px] font-semibold text-[#59616B]">{formatMoney(Number(item.price || 0) * Number(item.quantity || item.refund_quantity || 1), currencySymbol)}</span></div>)}</div>}
+      {open && <div className="space-y-[5px] border-t border-[#E7EAEF] p-[7px]">{items.map((item, index) => <div key={`${item.product_id || index}-${index}`} className="flex items-center gap-[7px] rounded-[8px] bg-white p-[7px]"><div className="flex h-[38px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-[7px] bg-[#F3F5F7]">{item.product_image || item.image ? <img src={item.product_image || item.image} alt="" loading="lazy" className="h-full w-full object-cover" /> : <Package className="h-[10px] w-[10px] text-[#626E63]" />}</div><div className="min-w-0 flex-1"><p className="truncate text-[10px] font-semibold text-[#555D67]">{item.product_name || item.name || "منتج"}</p><p className="mt-[2px] text-[9px] text-[#9AA2AC]">الكمية: {Number(item.quantity || item.refund_quantity || 1)}</p></div><span className="text-[10px] font-semibold text-[#59616B]">{formatMoney(Number(item.price || 0) * Number(item.quantity || item.refund_quantity || 1), currencySymbol)}</span></div>)}</div>}
     </div>
   );
 };
@@ -800,12 +800,12 @@ const RefundTab = ({ active, onClick, label, count }: { active: boolean; onClick
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "blue" | "green" | "amber" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    amber: { icon: "bg-[#FFF7E8] text-[#A9782F]", line: "bg-[#C49446]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    amber: { icon: "bg-[#FFF7E8] text-[#926829]", line: "bg-[#C49446]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -821,7 +821,7 @@ const InfoBox = ({ label, value }: { label: string; value: string }) => {
 };
 
 const PanelEmpty = () => {
-  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><RefreshCcw className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد مرتجعات</h3><p className="mt-[5px] text-[10px] text-[#9BA2AC]">غيّر الفلاتر أو أضف طلب استرجاع جديد.</p></div>;
+  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><RefreshCcw className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد مرتجعات</h3><p className="mt-[5px] text-[10px] text-[#626E63]">غيّر الفلاتر أو أضف طلب استرجاع جديد.</p></div>;
 };
 
 const refundMethodLabel = (method: string) => {
