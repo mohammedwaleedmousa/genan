@@ -68,10 +68,10 @@ const CartDrawerContent = () => {
 
       <aside
         role="dialog" aria-modal="true" aria-labelledby="genan-cart-title"
-        className="fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#E7DCCD] bg-[#FAF9F6] text-[#171717] shadow-[-18px_0_50px_rgba(31,34,30,.17)] sm:max-w-[460px]"
+        className="genan-editorial-drawer fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#E7DCCD] bg-[#FAF9F6] text-[#171717] shadow-[-18px_0_50px_rgba(31,34,30,.17)] sm:max-w-[460px]"
         dir="rtl"
       >
-        <header className="shrink-0 border-b border-[#E8DDD0] bg-[#FAF9F6]/95 px-4 pb-4 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur sm:px-5 sm:pt-5">
+        <header className="genan-drawer-header shrink-0 border-b border-[#E8DDD0] bg-[#FAF9F6]/95 px-4 pb-4 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur sm:px-5 sm:pt-5">
           <div className="grid grid-cols-[40px_1fr_40px] items-center gap-3">
             <button
               type="button"
@@ -84,12 +84,12 @@ const CartDrawerContent = () => {
 
             <div className="text-center">
               <div className="flex items-center justify-center gap-2">
-                <h2 id="genan-cart-title" className="text-[22px] font-semibold tracking-tight text-[#171717]">سلة التسوق</h2>
+                <h2 id="genan-cart-title" className="text-[22px] font-semibold tracking-tight text-[#171717]">اختياراتك</h2>
                 {totalQuantity > 0 && (
                   <span className="text-[11px] font-medium text-[#8D7965]">({totalQuantity})</span>
                 )}
               </div>
-              <p className="mt-1 font-serif text-[10px] tracking-[0.28em] text-[#9B7845]">GENAN BAG</p>
+              <p className="mt-1 font-serif text-[10px] tracking-[0.28em] text-[#9B7845]">GENAN / THE EDIT</p>
             </div>
 
             <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E5DACB] bg-[#F5EFE7] text-[#9B7845]">
@@ -98,9 +98,9 @@ const CartDrawerContent = () => {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-5">
+        <div className="genan-drawer-scroll flex-1 overflow-y-auto overscroll-contain px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-5">
           {cart.length === 0 ? (
-            <div className="flex min-h-full flex-col items-center justify-center px-6 pb-16 text-center">
+            <div className="genan-drawer-empty flex min-h-full flex-col items-center justify-center px-6 pb-16 text-center">
               <div className="flex h-[86px] w-[86px] items-center justify-center rounded-full border border-[#E4D6C5] bg-[#F2EAE0]">
                 <ShoppingBag className="h-6 w-6 stroke-[1.2] text-[#A18259]" />
               </div>
@@ -120,7 +120,7 @@ const CartDrawerContent = () => {
               </button>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="genan-drawer-items space-y-3">
               {cart.map((item, cartIndex) => {
                 const variant = item.variantId
                   ? item.product.variants?.find((candidate) => candidate.id === item.variantId)
@@ -144,11 +144,12 @@ const CartDrawerContent = () => {
 
                 return (
                   <article
+                    data-look={String(cartIndex + 1).padStart(2, "0")}
                     key={`${item.product.id}-${item.variantId || "base"}-${cartIndex}`}
-                    className="rounded-2xl border border-[#E9E1D5] bg-white p-3 sm:p-4"
+                    className="genan-drawer-item rounded-2xl border border-[#E9E1D5] bg-white p-3 sm:p-4"
                   >
                     <div className="flex gap-3.5">
-                      <div className="relative h-[138px] w-[98px] shrink-0 overflow-hidden rounded-xl bg-[#F4EFE8]">
+                      <div className="genan-drawer-image relative h-[138px] w-[98px] shrink-0 overflow-hidden rounded-xl bg-[#F4EFE8]">
                         {image ? (
                           <img
                             src={image}
@@ -179,7 +180,7 @@ const CartDrawerContent = () => {
                               </p>
                             )}
 
-                            <h3 className="line-clamp-2 text-[14px] font-semibold leading-[1.65] text-[#171717]">
+                            <h3 className="genan-drawer-name line-clamp-2 text-[14px] font-semibold leading-[1.65] text-[#171717]">
                               {item.product.nameAr}
                             </h3>
                           </div>
@@ -188,7 +189,7 @@ const CartDrawerContent = () => {
                             type="button"
                             onClick={() => removeFromCart(item.product.id, item.variantId)}
                             aria-label="حذف المنتج"
-                            className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#E8DDD0] bg-white text-[#9A7866] transition-colors active:bg-[#F5EDE3]"
+                            className="genan-drawer-remove flex h-7 w-7 shrink-0 items-center justify-center border border-[#E8DDD0] bg-white text-[#9A7866] transition-colors active:bg-[#F5EDE3]"
                           >
                             <Trash2 className="h-3.5 w-3.5 stroke-[1.35]" />
                           </button>
@@ -236,7 +237,7 @@ const CartDrawerContent = () => {
                         </div>
 
                         <div className="mt-4 flex items-end justify-between gap-3">
-                          <div className="flex h-[38px] items-center overflow-hidden rounded-lg border border-[#E4D7C8] bg-[#FAF8F5]">
+                          <div className="genan-drawer-qty flex h-[38px] items-center overflow-hidden rounded-lg border border-[#E4D7C8] bg-[#FAF8F5]">
                             <button
                               type="button"
                               onClick={() =>
@@ -290,7 +291,7 @@ const CartDrawerContent = () => {
         </div>
 
         {cart.length > 0 && (
-          <footer className="shrink-0 border-t border-[#E7DCCD] bg-[#FFFFFF] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-4 sm:px-5 sm:pb-5">
+          <footer className="genan-drawer-footer shrink-0 border-t border-[#E7DCCD] bg-[#FFFFFF] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-4 sm:px-5 sm:pb-5">
             <div className="mb-4 flex items-end justify-between">
               <div>
                 <p className="text-[11px] text-[#8C8175]">المجموع</p>
@@ -305,7 +306,7 @@ const CartDrawerContent = () => {
             <button
               type="button"
               onClick={handleCheckout}
-              className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#171717] text-[14px] font-semibold text-white transition-colors hover:bg-[#38302A] active:bg-[#38302A]"
+              className="genan-drawer-checkout flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#171717] text-[14px] font-semibold text-white transition-colors hover:bg-[#38302A] active:bg-[#38302A]"
             >
               <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
               إتمام الشراء
