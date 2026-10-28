@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Loader2, Upload, X, FileText, Save, MessageCircle, Plus } from "lucide-react";
+import { Loader2, Upload, X, FileText, Save, MessageCircle, Plus, Users } from "lucide-react";
 import AdminPageHeader from "@/components/admin/AdminPageHeader";
 
 type ChatbotConfig = {
@@ -292,12 +292,8 @@ const AdminSettingsPage = () => {
         title="الإعدادات"
         description="إعدادات منظمة لتسهيل إدارة المتجر والتواصل والحسابات"
         actions={[
-          {
-            label: "حفظ التغييرات",
-            icon: Save,
-            onClick: handleSave,
-            variant: "primary",
-          },
+          { label: "صلاحيات الفريق", icon: Users, href: "/admin/team", variant: "secondary" },
+          { label: "حفظ التغييرات", icon: Save, onClick: handleSave, variant: "primary" },
         ]}
       />
 

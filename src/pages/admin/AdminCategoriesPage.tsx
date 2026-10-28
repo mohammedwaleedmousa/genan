@@ -449,12 +449,7 @@ const AdminCategoriesPage = () => {
           STATS
       ===================================================== */}
 
-      <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">
-        <CategoryStatCard title="إجمالي الفئات" value={stats.total} helper="جميع أقسام الكتالوج" icon={Grid3X3} tone="indigo" />
-        <CategoryStatCard title="الفئات النشطة" value={stats.active} helper={`${stats.inactive} فئة معطلة`} icon={CheckCircle2} tone="green" />
-        <CategoryStatCard title="الأقسام الرئيسية" value={stats.roots} helper="المستوى الأول من الكتالوج" icon={FolderTree} tone="blue" />
-        <CategoryStatCard title="الأقسام الفرعية" value={stats.children} helper="مرتبطة بالأقسام الرئيسية" icon={Layers3} tone="coral" />
-      </section>
+      <div className="genan-facts-strip" aria-label="ملخص الفئات"><span>إجمالي الفئات: <strong>{stats.total}</strong></span><span>الأقسام الرئيسية: <strong>{stats.roots}</strong></span></div>
 
       {/* =====================================================
           FILTERS

@@ -88,6 +88,8 @@ const PolicyPage = lazy(() => import("./pages/PolicyPage"));
 const AdminLoginPage = lazy(() => import("./pages/admin/AdminLoginPage"));
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminTeamPermissionsPage = lazy(() => import("./pages/admin/AdminTeamPermissionsPage"));
+const AdminOrderPreparationPage = lazy(() => import("./pages/admin/AdminOrderPreparationPage"));
 const AdminProductsPage = lazy(() => import("./pages/admin/AdminProductsPage"));
 const AdminCatalogHealthPage = lazy(() => import("./pages/admin/AdminCatalogHealthPage"));
 const AdminProductFormPage = lazy(() => import("./pages/admin/AdminProductFormPage"));
@@ -311,6 +313,7 @@ const App = () => {
               <Route path="products/:id" element={<AdminProductFormPage />} />
               <Route path="size-price-rules" element={<AdminSizePriceRulesPage />} />
               <Route path="orders" element={<AdminOrdersPage />} />
+              <Route path="order-preparation" element={<AdminOrderPreparationPage />} />
               <Route path="customers" element={<AdminCustomersPage />} />
               <Route path="password-recovery" element={<AdminPasswordRecoveryPage />} />
               <Route path="banners" element={<AdminBannersPage />} />
@@ -344,6 +347,7 @@ const App = () => {
               <Route path="payment-methods" element={<AdminPaymentMethodsPage />} />
               <Route path="inventory-adjustments" element={<AdminInventoryAdjustmentsPage />} />
               <Route path="settings" element={<AdminSettingsPage />} />
+              <Route path="team" element={<AdminTeamPermissionsPage />} />
               <Route path="customer-experience" element={<AdminCustomerExperiencePage />} />
               <Route path="product-experience" element={<Navigate to={adminPath("products")} replace />} />
               <Route path="storefront-map" element={<Navigate to={adminPath("sections")} replace />} />

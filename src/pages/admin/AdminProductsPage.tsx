@@ -428,12 +428,7 @@ const AdminProductsPage = () => {
           KPI
       ===================================================== */}
 
-      <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">
-        <ProductStatCard title="إجمالي المنتجات" value={stats.total} helper="جميع منتجات الكتالوج" icon={Package} tone="indigo" />
-        <ProductStatCard title="المنتجات النشطة" value={stats.active} helper={`${stats.total > 0 ? Math.round((stats.active / stats.total) * 100) : 0}% من الكتالوج`} icon={CheckCircle2} tone="green" />
-        <ProductStatCard title="متوفر بالمخزون" value={stats.inStock} helper="جاهز للبيع حاليًا" icon={PackageCheck} tone="blue" />
-        <ProductStatCard title="نفد المخزون" value={stats.outOfStock} helper="يحتاج إلى المتابعة" icon={PackageX} tone="coral" />
-      </section>
+      <div className="genan-facts-strip" aria-label="ملخص الكتالوج"><span>منتجات الكتالوج: <strong>{stats.total}</strong></span><span>منتجات نشطة: <strong>{stats.active}</strong></span><span>غير متوفرة: <strong>{stats.outOfStock}</strong></span></div>
 
       {/* =====================================================
           FILTER PANEL

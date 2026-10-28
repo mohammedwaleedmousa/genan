@@ -694,17 +694,9 @@ const AdminOrdersPage = () => {
             <p className="mt-[7px] max-w-[620px] text-[11px] font-medium leading-5 text-[#606C62]">إدارة الطلبات ومتابعة حالاتها والتواصل مع العملاء من مكان واحد.</p>
           </div>
 
-          <div className="flex items-center gap-[7px]">
-            <Link to="/admin/reports/finance" className="flex h-[38px] items-center gap-[7px] rounded-[10px] border border-[#E2E6EB] bg-white px-3 text-[11px] font-semibold text-[#5F6772] transition-colors hover:bg-[#FBF9F5]">
-              <TrendingUp className="h-[12px] w-[12px] text-[#57906A]" strokeWidth={1.8} />
-              الإيرادات
-            </Link>
-
-            <Link to="/admin/reports" className="flex h-[38px] items-center gap-[7px] rounded-[10px] border border-[#E2E6EB] bg-white px-3 text-[11px] font-semibold text-[#5F6772] transition-colors hover:bg-[#FBF9F5]">
-              <BarChart3 className="h-[12px] w-[12px] text-[#98774B]" strokeWidth={1.8} />
-              التقارير
-            </Link>
-          </div>
+          <Link to="/admin/order-preparation" className="inline-flex min-h-[42px] items-center gap-2 rounded-xl border border-[#D7C8B1] bg-[#FCF9F3] px-4 text-[12px] font-semibold text-[#665038] transition-colors hover:bg-[#F3EADD]">
+            <PackageCheck className="h-4 w-4" /> تجهيز الطلبات
+          </Link>
         </header>
 
         {/* =====================================================

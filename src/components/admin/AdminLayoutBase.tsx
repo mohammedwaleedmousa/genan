@@ -125,52 +125,26 @@ type SearchableAdminPage = {
 };
 
 const searchablePages: SearchableAdminPage[] = [
-  { title: "لوحة التحكم", section: "الرئيسية", url: "/admin", keywords: "dashboard مؤشرات" },
-  { title: "الطلبات", section: "الرئيسية", url: "/admin/orders", keywords: "orders طلب" },
-  { title: "المنتجات", section: "الكتالوج", url: "/admin/products", keywords: "products" },
-  { title: "إضافة منتج", section: "الكتالوج", url: "/admin/products/new", keywords: "new product" },
-  { title: "العملاء", section: "الرئيسية", url: "/admin/customers", keywords: "customers" },
-
-  { title: "تجربة عرض المنتج", section: "الكتالوج", url: "/admin/product-experience" },
+  { title: "الرئيسية", section: "يومي", url: "/admin", keywords: "dashboard عمل اليوم" },
+  { title: "الطلبات", section: "يومي", url: "/admin/orders", keywords: "orders" },
+  { title: "تجهيز الطلبات", section: "يومي", url: "/admin/order-preparation" },
+  { title: "المنتجات", section: "يومي", url: "/admin/products", keywords: "products" },
+  { title: "إضافة منتج", section: "يومي", url: "/admin/products/new" },
+  { title: "العملاء", section: "يومي", url: "/admin/customers" },
+  { title: "التقارير", section: "يومي", url: "/admin/reports" },
   { title: "الفئات", section: "الكتالوج", url: "/admin/categories" },
   { title: "الماركات", section: "الكتالوج", url: "/admin/brands" },
-  { title: "ربط الماركات بالفئات", section: "الكتالوج", url: "/admin/brand-category-map" },
-  { title: "سير عمل الكتالوج", section: "الكتالوج", url: "/admin/catalog-workflow" },
-  { title: "تعديلات المخزون", section: "الكتالوج", url: "/admin/inventory-adjustments" },
-
+  { title: "المخزون", section: "الكتالوج", url: "/admin/inventory-adjustments" },
   { title: "البانرات", section: "واجهة المتجر", url: "/admin/banners" },
-  { title: "أقسام الصفحة الرئيسية", section: "واجهة المتجر", url: "/admin/sections" },
+  { title: "أقسام الرئيسية", section: "واجهة المتجر", url: "/admin/sections" },
   { title: "المحتوى", section: "واجهة المتجر", url: "/admin/content" },
-  { title: "صفحات الماركات", section: "واجهة المتجر", url: "/admin/brand-pages" },
-  { title: "أقسام الماركات", section: "واجهة المتجر", url: "/admin/brand-sections" },
-  { title: "فلاتر الماركات", section: "واجهة المتجر", url: "/admin/brand-filters" },
-  { title: "تجربة العميل", section: "واجهة المتجر", url: "/admin/customer-experience" },
-  { title: "خريطة الواجهة", section: "واجهة المتجر", url: "/admin/storefront-map" },
-
-  { title: "إدارة التوصيل", section: "العمليات", url: "/admin/delivery" },
-  { title: "مناطق الدفع عند الاستلام", section: "العمليات", url: "/admin/cod-regions", keywords: "cod مناطق" },
-  { title: "التقييمات", section: "العمليات", url: "/admin/reviews" },
-
-  { title: "الفواتير", section: "المالية", url: "/admin/invoices" },
-  { title: "طرق الدفع", section: "المالية", url: "/admin/payment-methods" },
-  { title: "المصروفات", section: "المالية", url: "/admin/expenses" },
-  { title: "دفتر اليومية", section: "المالية", url: "/admin/ledger" },
-  { title: "المرتجعات", section: "المالية", url: "/admin/refunds" },
-  { title: "العملات", section: "المالية", url: "/admin/currencies" },
-  { title: "الدول", section: "المالية", url: "/admin/countries" },
-
-  { title: "الحملات", section: "التسويق", url: "/admin/campaigns" },
   { title: "العروض", section: "التسويق", url: "/admin/offers" },
   { title: "القسائم", section: "التسويق", url: "/admin/coupons" },
-  { title: "إشعارات العملاء", section: "التسويق", url: "/admin/customer-notifications" },
-  { title: "سجل إرسال الإشعارات", section: "التسويق", url: "/admin/notification-deliveries" },
-
-  { title: "نظرة عامة", section: "التقارير", url: "/admin/reports" },
-  { title: "الأرباح والمالية", section: "التقارير", url: "/admin/reports/finance" },
-  { title: "تحليل العملاء", section: "التقارير", url: "/admin/reports/customers" },
-
+  { title: "التوصيل", section: "العمليات", url: "/admin/delivery" },
+  { title: "الفواتير", section: "المالية", url: "/admin/invoices" },
+  { title: "المصروفات", section: "المالية", url: "/admin/expenses" },
   { title: "الإعدادات", section: "النظام", url: "/admin/settings" },
-  { title: "سجل النشاط", section: "النظام", url: "/admin/audit-log" },
+  { title: "صلاحيات الفريق", section: "النظام", url: "/admin/team" },
 ];
 
 /* =========================================================
@@ -191,6 +165,8 @@ const pageMetaRules: PageMetaRule[] = [
   { match: "/admin/products", title: "المنتجات", section: "الكتالوج", exact: true },
 
   { match: "/admin/orders", title: "الطلبات", section: "الطلبات", exact: true },
+  { match: "/admin/order-preparation", title: "تجهيز الطلبات", section: "الطلبات", exact: true },
+  { match: "/admin/team", title: "صلاحيات الفريق", section: "النظام", exact: true },
 
   { match: "/admin/customers/", title: "تفاصيل العميل", section: "العملاء" },
   { match: "/admin/customers", title: "العملاء", section: "العملاء", exact: true },

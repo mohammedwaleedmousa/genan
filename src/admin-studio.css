@@ -1,313 +1,187 @@
-/* GENAN / SOFT ATELIER
-   A boutique management workspace, not the Flamingo dashboard design.
-   Deliberately scoped to the page canvas and toolbar. The existing Sidebar is untouched. */
-
+/* Genan Admin / functional workbench
+   Content layout only. Never targets or changes the established Sidebar. */
 .genan-admin-canvas {
-  --genan-page: #f7f6f2;
-  --genan-surface: #fffefc;
-  --genan-ink: #233329;
-  --genan-secondary: #57665a;
-  --genan-gold: #937548;
-  --genan-line: #e8e2d8;
-  --genan-shadow: 0 5px 24px rgba(45, 50, 36, .045);
-  background: var(--genan-page) !important;
+  --genan-paper: #f7f6f2;
+  --genan-ink: #24362a;
+  --genan-line: #e8e1d8;
+  --genan-gold: #876b43;
+  background: var(--genan-paper) !important;
   color: var(--genan-ink);
 }
 .genan-admin-canvas .admin-page-scroll {
-  background: var(--genan-page) !important;
-  scrollbar-color: #c2b7a4 transparent;
+  background: var(--genan-paper) !important;
+  scrollbar-color: #c4b9a7 transparent;
 }
 .genan-admin-canvas .admin-page-scroll > div {
-  width: 100%;
-  max-width: 1560px;
-  padding: 30px clamp(16px, 2.5vw, 38px) 62px;
+  max-width: 1550px;
+  padding: 26px clamp(15px, 2.7vw, 40px) 55px;
 }
-
-/* Tailored soft topbar. No changes to the Sidebar or its descendants. */
 .genan-studio-topbar {
-  background: rgba(255, 254, 251, .97) !important;
-  border-color: #eee8df !important;
-  box-shadow: 0 2px 18px rgba(27, 37, 27, .025);
+  background: #fffefa !important;
+  border-color: #eae4db !important;
 }
 .genan-studio-topbar .genan-toolbar-search {
-  border-radius: 16px;
-  border-color: #e2dbcf;
-  background: #f8f7f2;
-  box-shadow: none;
-}
-.genan-studio-topbar .genan-toolbar-search input {
-  background: transparent;
-  border-color: transparent;
   border-radius: 15px;
-}
-.genan-studio-topbar button[class*="border"] {
-  border-radius: 13px;
+  background: #f9f7f2;
 }
 .genan-studio-topbar button:focus-visible,
 .genan-admin-canvas :is(a, button, input, textarea, select):focus-visible {
-  outline: 2px solid #9b804f;
-  outline-offset: 3px;
+  outline: 2px solid #987447;
+  outline-offset: 2px;
 }
 
-/* Page titles have comfortable breathing room, distinct from KPI grid headers. */
+/* Shared page title – compact, distinct from the old KPI dashboards. */
 .genan-admin-canvas .genan-studio-heading {
-  background: #fffdfa;
-  border: 1px solid #e8e0d5 !important;
-  border-radius: 24px;
-  padding: clamp(20px, 3vw, 34px) !important;
-  margin: 0 0 24px;
-  box-shadow: var(--genan-shadow);
+  margin-bottom: 18px;
+  padding: 23px clamp(19px, 2.5vw, 32px) !important;
+  border: 1px solid #e9e1d7 !important;
+  border-radius: 22px;
+  background: #fffefa;
+  box-shadow: 0 5px 20px rgba(36,46,35,.035);
 }
 .genan-admin-canvas .genan-studio-heading h1 {
-  font-weight: 700;
-  line-height: 1.25;
+  font-size: clamp(26px, 3vw, 35px);
+  line-height: 1.3;
+  color: #24362b;
 }
-.genan-admin-canvas .genan-studio-heading a,
-.genan-admin-canvas .genan-studio-heading button {
-  border-radius: 13px;
-  min-height: 45px;
+.genan-admin-canvas .genan-studio-heading :is(a,button) { border-radius: 12px; }
+
+/* One concise, scannable text summary instead of four repeated KPI widgets. */
+.genan-admin-canvas .genan-facts-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  border: 1px solid #e8e0d5;
+  border-radius: 16px;
+  background: #f3f0e9;
+  padding: 13px 20px;
+  color: #566456;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.genan-admin-canvas .genan-facts-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.genan-admin-canvas .genan-facts-strip span + span::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-inline-end: 9px;
+  border-radius: 50%;
+  background: #b9a381;
+}
+.genan-admin-canvas .genan-facts-strip strong {
+  color: #24372b;
+  font-size: 13px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Main surfaces are quiet and dimensional, never flat squares. */
-.genan-admin-canvas .admin-page-scroll :is(section, article)[class*="bg-white"][class*="border"] {
-  border-radius: 22px !important;
-  border: 1px solid #e8e1d6 !important;
-  background: var(--genan-surface);
-  box-shadow: var(--genan-shadow) !important;
+/* Panels, tables and filters retain their business logic; their composition is quieter. */
+.genan-admin-canvas .admin-page-scroll :is(section,article)[class*="bg-white"][class*="border"] {
+  border-radius: 20px !important;
+  border-color: #e8e1d8 !important;
+  background: #fffefa;
+  box-shadow: 0 6px 22px rgba(35,45,35,.035) !important;
 }
-.genan-admin-canvas .admin-page-scroll :is(section, article)[class*="bg-white"][class*="border"]:has(table) {
+.genan-admin-canvas .admin-page-scroll :is(section,article)[class*="bg-white"][class*="border"]:has(table) {
   overflow: hidden;
 }
-.genan-admin-canvas .admin-page-scroll :is(section, article)[class*="bg-white"][class*="border"] > div:first-child[class*="border-b"] {
-  border-color: #eee8dd !important;
-  border-radius: 21px 21px 0 0;
-  background: #fffdf9;
-  padding: 20px 23px !important;
+.genan-admin-canvas .admin-page-scroll :is(section,article)[class*="bg-white"][class*="border"] > div:first-child[class*="border-b"] {
+  border-color: #eee9e1 !important;
+  background: #fcfaf6;
+  padding: 17px 21px !important;
 }
-.genan-admin-canvas .admin-page-scroll :is(section, article)[class*="bg-white"][class*="border"] > div:first-child[class*="border-b"] h2 {
-  font-size: 15px;
+.genan-admin-canvas .admin-page-scroll :is(section,article)[class*="bg-white"][class*="border"] > div:first-child[class*="border-b"] h2 {
+  color: #293c2e;
+  font-size: 14px;
   font-weight: 700;
-  color: #28382d;
 }
-.genan-admin-canvas .genan-studio-page {
-  width: 100%;
-}
-.genan-admin-canvas .genan-studio-page > section:not(.grid) + section:not(.grid),
-.genan-admin-canvas .genan-studio-page > div > section:not(.grid) + section:not(.grid) {
-  margin-top: 18px;
-}
-
-/* Snapshot KPIs: individually soft-floated tiles with a calm number hierarchy. */
-.genan-admin-canvas .genan-studio-page > section.grid:first-of-type,
-.genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type {
-  gap: 14px !important;
-  border: 0 !important;
-  background: transparent !important;
-  overflow: visible;
-}
-.genan-admin-canvas .genan-studio-page > section.grid:first-of-type > *,
-.genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type > * {
-  min-width: 0;
-  min-height: 132px;
-  padding: 20px 21px !important;
-  border-radius: 21px !important;
-  border: 1px solid #e8e0d3 !important;
-  background: #fffefa !important;
-  box-shadow: var(--genan-shadow) !important;
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-}
-.genan-admin-canvas .genan-studio-page > section.grid:first-of-type > *:hover,
-.genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type > *:hover {
-  border-color: #d5c29f !important;
-  box-shadow: 0 10px 26px rgba(40, 49, 38, .065) !important;
-}
-.genan-admin-canvas .genan-studio-page > section.grid:first-of-type > * > span[class*="absolute"],
-.genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type > * > span[class*="absolute"] {
-  display: none !important;
-}
-.genan-admin-canvas .genan-studio-page > section.grid:first-of-type p,
-.genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type p {
-  color: #5d685e;
-  font-size: 12px !important;
-  line-height: 1.6;
-}
-.genan-admin-canvas .genan-studio-page > section.grid:first-of-type [dir="ltr"],
-.genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type [dir="ltr"] {
-  font-size: clamp(25px, 2.2vw, 34px) !important;
-  line-height: 1.25;
-  font-weight: 700;
-  letter-spacing: -.025em;
-}
-.genan-admin-canvas .genan-studio-page > section.grid:first-of-type svg,
-.genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Tables: pale ivory headings, softly separated rows. Preserve status badges. */
 .genan-admin-canvas .admin-page-scroll table {
   border-collapse: separate;
   border-spacing: 0;
   background: #fffefa;
 }
-.genan-admin-canvas .admin-page-scroll table thead,
-.genan-admin-canvas .admin-page-scroll table thead tr {
-  background: #f5f2ec !important;
+.genan-admin-canvas .admin-page-scroll table :is(thead, thead tr) {
+  background: #f4f2ed !important;
 }
 .genan-admin-canvas .admin-page-scroll table thead th {
-  height: 54px;
-  color: #475649 !important;
+  height: 49px;
   font-size: 12px !important;
   font-weight: 700;
+  color: #465549 !important;
   white-space: nowrap;
-  border-bottom: 1px solid #ece4d8;
-}
-.genan-admin-canvas .admin-page-scroll table tbody tr {
-  transition: background-color 160ms ease;
-}
-.genan-admin-canvas .admin-page-scroll table tbody tr:nth-child(even) {
-  background: #fcfaf6;
-}
-.genan-admin-canvas .admin-page-scroll table tbody tr:hover {
-  background: #f7f4ee;
 }
 .genan-admin-canvas .admin-page-scroll table tbody td {
-  min-height: 58px;
+  height: 53px;
   font-size: 12px !important;
   line-height: 1.7;
-  vertical-align: middle;
-  border-bottom-color: #efebe3;
+  border-bottom-color: #eee9e2;
 }
-
-/* Search filters and editable inputs. Soft corners but accessible contrast. */
+.genan-admin-canvas .admin-page-scroll table tbody tr:nth-child(even) { background: #fcfbf8; }
+.genan-admin-canvas .admin-page-scroll table tbody tr:hover { background: #f8f5ef; }
 .genan-admin-canvas .admin-page-scroll :is(input, textarea, select, [role="combobox"]):not([type="checkbox"]):not([type="color"]) {
-  border-radius: 12px !important;
-  min-height: 43px;
+  min-height: 42px;
+  border-radius: 11px !important;
+  border-color: #e1d9ce !important;
   background: #fcfaf6 !important;
-  border-color: #e1d9cd !important;
-  color: #27362c;
+  color: #26382c;
 }
-.genan-admin-canvas .admin-page-scroll :is(input, textarea)::placeholder {
-  color: #74796e;
-  opacity: 1;
+.genan-admin-canvas .admin-page-scroll :is(input,textarea)::placeholder { color: #717b71; opacity: 1; }
+.genan-admin-canvas .admin-page-scroll :is(input,textarea,[role="combobox"]):focus-visible {
+  border-color: #ad9064 !important;
+  box-shadow: 0 0 0 3px rgba(173,144,100,.1);
 }
-.genan-admin-canvas .admin-page-scroll :is(input, textarea, [role="combobox"]):focus,
-.genan-admin-canvas .admin-page-scroll :is(input, textarea, [role="combobox"]):focus-visible {
-  border-color: #ae976b !important;
-  box-shadow: 0 0 0 3px rgba(172, 144, 95, .11);
-}
-.genan-admin-canvas .admin-page-scroll :is(button, a)[class*="rounded-"]:not([role="checkbox"]) {
+.genan-admin-canvas .admin-page-scroll :is(button,a)[class*="rounded-"]:not([role="checkbox"]) {
   border-radius: 12px;
 }
-.genan-admin-canvas .genan-studio-page > section[class*="bg-white"]:has(input),
-.genan-admin-canvas .genan-studio-page > div > section[class*="bg-white"]:has(input) {
-  border: 1px solid #e7ded1 !important;
-  border-inline-start: 1px solid #e7ded1 !important;
+.genan-admin-canvas .admin-page-scroll .overflow-x-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #c6bba9 transparent;
 }
-.genan-admin-canvas .genan-studio-page table button,
-.genan-admin-canvas .genan-studio-page table a {
-  min-height: 36px;
-}
-
-/* Order page has a custom heading, not the shared header component. */
 .genan-admin-canvas .genan-studio-page[data-genan-screen="orders"] > div > header {
-  border: 1px solid #e7e0d3 !important;
+  border: 1px solid #e7e0d6 !important;
+  border-radius: 21px;
+  padding: 23px !important;
+  margin-bottom: 16px;
   background: #fffefa;
-  border-radius: 23px;
-  padding: 26px 28px !important;
-  margin-bottom: 22px;
-  box-shadow: var(--genan-shadow);
 }
 .genan-admin-canvas .genan-studio-page[data-genan-screen="orders"] > div > header h1 {
-  font-size: clamp(28px, 3vw, 38px) !important;
-  line-height: 1.25 !important;
-  font-weight: 700;
-  color: #223429 !important;
-}
-.genan-admin-canvas .genan-studio-page[data-genan-screen="orders"] > div > header > div:first-child > p {
-  font-size: 13px !important;
-  line-height: 1.8;
+  color: #24382b !important;
+  font-size: 30px !important;
 }
 
-/* Dedicated soft floating home — no dashboard-wide hard-coded color tiles. */
-.genan-admin-canvas .genan-studio-home .genan-home-hero {
-  border-radius: 29px;
-  overflow: hidden;
-  border: 1px solid #ded4c4;
-  box-shadow: 0 14px 45px rgba(34, 43, 34, .055);
-}
-.genan-admin-canvas .genan-studio-home .genan-home-hero > div:first-child {
-  background: linear-gradient(125deg, #f8f2e8, #efe4d4 85%);
-}
-.genan-admin-canvas .genan-studio-home .genan-home-metrics > div {
-  gap: 15px;
-}
-.genan-admin-canvas .genan-studio-home .genan-home-metrics > div > a {
-  background: #fffefa;
-  border: 1px solid #e9e1d7;
-  border-radius: 22px;
-  box-shadow: var(--genan-shadow);
-  min-height: 144px;
-  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-}
-.genan-admin-canvas .genan-studio-home .genan-home-metrics > div > a:hover {
-  transform: translateY(-2px);
-  border-color: #cdb895;
-  box-shadow: 0 12px 28px rgba(32, 44, 33, .075);
-}
-.genan-admin-canvas .genan-studio-home .genan-primary-workflow {
-  border: 1px solid #e7dfd3;
-  border-radius: 24px;
-  background: #fffefb;
-  box-shadow: var(--genan-shadow);
-  overflow: hidden;
-}
-.genan-admin-canvas .genan-studio-home .genan-primary-workflow > a {
-  background: transparent;
-  transition: background 170ms ease;
-}
-.genan-admin-canvas .genan-studio-home .genan-primary-workflow > a + a {
-  border-top: 1px solid #eee9df;
-}
-.genan-admin-canvas .genan-studio-home .genan-primary-workflow > a:hover {
-  background: #f8f4ed;
-}
-.genan-admin-canvas .genan-studio-home .genan-tools-panel {
-  border-radius: 24px;
-  border: 1px solid #e6dac8;
-  box-shadow: var(--genan-shadow);
-  background: linear-gradient(150deg, #f9f6ef, #f4eee3);
-}
-
-/* Secondary settings navigation is an in-page control, never the main Sidebar. */
+/* Settings keeps its own in-page navigation, not a second full dashboard. */
 .genan-admin-canvas .genan-settings-studio {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-columns: 215px minmax(0,1fr);
   align-items: start;
   gap: 20px;
 }
 .genan-admin-canvas .genan-settings-rail {
   position: sticky;
-  top: 20px;
-  min-width: 0;
-  border: 1px solid #e2d7c6;
-  border-radius: 22px;
-  padding: 20px 13px;
-  background: #f3eee5;
-  box-shadow: var(--genan-shadow);
+  top: 18px;
+  border: 1px solid #e4dccc;
+  border-radius: 20px;
+  padding: 17px 12px;
+  background: #f2eee6;
 }
 .genan-admin-canvas .genan-settings-rail::before {
   content: "أقسام الإعدادات";
   display: block;
-  margin: 0 10px 13px;
-  color: #28382d;
-  font-weight: 700;
+  margin: 0 9px 12px;
   font-size: 14px;
+  font-weight: 700;
+  color: #293a2e;
 }
 .genan-admin-canvas .genan-settings-rail nav {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   padding: 0;
   border: 0;
   background: transparent;
@@ -316,192 +190,83 @@
 .genan-admin-canvas .genan-settings-rail nav button {
   width: 100%;
   min-height: 44px;
-  padding: 11px 14px;
-  text-align: right;
   border: 0;
-  border-radius: 12px !important;
+  border-radius: 11px !important;
+  padding: 10px 12px;
   background: transparent;
-  color: #4c5a4e;
+  color: #4b5a4e;
   font-size: 12px;
-  font-weight: 600;
-  transition: background-color 160ms ease;
-}
-.genan-admin-canvas .genan-settings-rail nav button:hover {
-  background: #e9dfcf;
+  text-align: right;
 }
 .genan-admin-canvas .genan-settings-rail nav button[aria-selected="true"] {
-  color: #fff !important;
-  background: #293d30 !important;
-  box-shadow: 0 4px 12px rgba(32, 48, 37, .1);
+  background: #2c4234 !important;
+  color: white !important;
 }
-.genan-admin-canvas .genan-settings-main {
-  min-width: 0;
-}
+.genan-admin-canvas .genan-settings-main { min-width: 0; }
 .genan-admin-canvas .genan-settings-main [role="tabpanel"] > div {
-  border-radius: 23px !important;
-  border: 1px solid #e7dfd4 !important;
-  background: #fffefb;
-  padding: clamp(18px, 2.7vw, 30px) !important;
-  box-shadow: var(--genan-shadow) !important;
+  border: 1px solid #e7e0d5 !important;
+  border-radius: 20px !important;
+  background: #fffefa;
+  padding: clamp(18px,2.6vw,29px) !important;
+  box-shadow: none !important;
 }
-.genan-admin-canvas .genan-settings-main [role="tabpanel"] h2 {
-  font-size: 19px;
-  font-weight: 700;
-  color: #293a2f;
-}
-.genan-admin-canvas .genan-settings-main [role="tabpanel"] label {
-  color: #485849;
-  font-weight: 600;
-}
+.genan-admin-canvas .genan-settings-main [role="tabpanel"] h2 { font-size: 18px; color: #293b2d; }
 
-/* Product editor: clear groups, soft rounded panels, no top ribbon accent. */
-.genan-admin-canvas .genan-product-editor #product-editor-form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 20px;
-}
-.genan-admin-canvas .genan-product-editor #product-editor-form > div[class*="bg-white"] {
-  border: 1px solid #e8e0d5 !important;
-  border-top: 1px solid #e8e0d5 !important;
-  border-radius: 23px !important;
-  padding: clamp(19px, 2.6vw, 32px) !important;
-  background: #fffefb !important;
-  box-shadow: var(--genan-shadow) !important;
-}
-.genan-admin-canvas .genan-product-editor #product-editor-form > div[class*="bg-white"]::before {
-  display: none !important;
-}
-.genan-admin-canvas .genan-product-editor #product-editor-form > div > h2 {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-bottom: 15px !important;
-  border-bottom: 1px solid #ede6dd !important;
-  margin-bottom: 20px;
-  color: #28392e !important;
-  font-size: 17px !important;
-  font-weight: 700 !important;
-}
-.genan-admin-canvas .genan-product-editor #product-editor-form > div > h2 > span {
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #dfd4c2;
-  border-radius: 11px !important;
-  background: #f5eee3;
-  color: #745c3a;
-}
-.genan-admin-canvas .genan-product-editor #product-editor-form label {
-  font-size: 12px;
-  font-weight: 650;
-  color: #47584a;
-}
-.genan-admin-canvas .genan-product-editor #product-editor-form textarea { min-height: 100px; }
-.genan-admin-canvas .genan-product-editor #product-editor-form :is(input, textarea) { font-size: 13px; }
+/* Product editing: 6 chapters, restrained form grouping. */
 .genan-admin-canvas .genan-product-editor .genan-editor-chapters {
-  border-radius: 16px;
-  border-color: #e1d6c6;
-  background: rgba(255, 254, 250, .96);
-  scrollbar-color: #c2b7a5 transparent;
-  box-shadow: 0 5px 20px rgba(38, 47, 38, .045);
+  border-radius: 15px;
+  border-color: #e1d7c9;
+  background: rgba(255,254,251,.96);
 }
 .genan-admin-canvas .genan-product-editor .genan-editor-chapters button {
   border-radius: 10px !important;
-  min-height: 42px;
 }
-.genan-admin-canvas .genan-product-editor .genan-editor-chapters button:hover { background: #f1e9dc; }
-.genan-admin-canvas .genan-product-editor [id^="genan-editor-"] { scroll-margin-top: 80px; }
-
-/* Mobile cards remain easy to tap without reusing Flamingo's hard-edged lists. */
-.genan-admin-canvas .genan-studio-page > section[class*="md:hidden"] article,
-.genan-admin-canvas .genan-studio-page > div > section[class*="md:hidden"] article {
-  border-radius: 19px !important;
-  border-color: #e6ddd1;
-  box-shadow: var(--genan-shadow) !important;
+.genan-admin-canvas .genan-product-editor [id^="genan-editor-"] { scroll-margin-top: 85px; }
+.genan-admin-canvas .genan-product-editor #product-editor-form {
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 19px;
 }
-.genan-admin-canvas .admin-page-scroll .overflow-x-auto {
-  scrollbar-color: #c0b29b transparent;
-  scrollbar-width: thin;
+.genan-admin-canvas .genan-product-editor #product-editor-form > div[class*="bg-white"] {
+  border: 1px solid #e8e0d6 !important;
+  border-radius: 21px !important;
+  background: #fffefb !important;
+  padding: clamp(17px,2.5vw,28px) !important;
+}
+.genan-admin-canvas .genan-product-editor #product-editor-form > div[class*="bg-white"]::before { display: none !important; }
+.genan-admin-canvas .genan-product-editor #product-editor-form > div > h2 {
+  margin-bottom: 19px;
+  padding-bottom: 15px !important;
+  border-bottom: 1px solid #ebe5dc !important;
+  color: #293b2e !important;
+  font-size: 16px !important;
+  font-weight: 700;
+}
+.genan-admin-canvas .genan-product-editor #product-editor-form > div > h2 > span {
+  width: 35px;
+  height: 35px;
+  border-radius: 10px !important;
+  background: #f4ede2;
+  color: #71583a;
+}
+.genan-admin-canvas .genan-product-editor #product-editor-form label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4c5a4f;
 }
 @media (max-width: 1023px) {
-  .genan-admin-canvas .genan-settings-studio {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-  .genan-admin-canvas .genan-settings-rail {
-    position: static;
-    padding: 14px;
-  }
-  .genan-admin-canvas .genan-settings-rail::before { margin-bottom: 10px; }
+  .genan-admin-canvas .genan-settings-studio { grid-template-columns: 1fr; }
+  .genan-admin-canvas .genan-settings-rail { position: static; }
   .genan-admin-canvas .genan-settings-rail nav { flex-direction: row; flex-wrap: wrap; }
-  .genan-admin-canvas .genan-settings-rail nav button {
-    width: auto;
-    flex: 1 1 150px;
-    text-align: center;
-  }
+  .genan-admin-canvas .genan-settings-rail nav button { width: auto; flex: 1 1 155px; text-align: center; }
 }
 @media (max-width: 767px) {
-  .genan-admin-canvas .admin-page-scroll > div { padding: 18px 13px 44px; }
-  .genan-admin-canvas .genan-studio-heading {
-    padding: 19px !important;
-    border-radius: 21px;
-    margin-bottom: 20px;
-  }
-  .genan-admin-canvas .genan-studio-page > section.grid:first-of-type,
-  .genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type { gap: 10px !important; }
-  .genan-admin-canvas .genan-studio-page > section.grid:first-of-type > *,
-  .genan-admin-canvas .genan-studio-page > div > section.grid:first-of-type > * {
-    min-height: 124px;
-    padding: 14px 15px !important;
-    border-radius: 17px !important;
-  }
-  .genan-admin-canvas .admin-page-scroll :is(section, article)[class*="bg-white"][class*="border"] > div:first-child[class*="border-b"] {
-    padding: 15px 17px !important;
-  }
-  .genan-admin-canvas .genan-product-editor #product-editor-form > div[class*="bg-white"] {
-    padding: 17px !important;
-  }
-  .genan-admin-canvas .genan-product-editor #product-editor-form :is(input, textarea) { font-size: 16px !important; }
-  .genan-admin-canvas .genan-product-editor .genan-editor-chapters {
-    margin-inline: -5px;
-    padding-inline: 10px;
-  }
-  .genan-admin-canvas .genan-settings-rail nav button { flex-basis: 45%; }
+  .genan-admin-canvas .admin-page-scroll > div { padding: 16px 13px 40px; }
+  .genan-admin-canvas .genan-facts-strip { gap: 6px 12px; padding: 12px 14px; }
+  .genan-admin-canvas .genan-facts-strip span + span::before { margin-inline-end: 2px; }
+  .genan-admin-canvas .genan-product-editor #product-editor-form input,
+  .genan-admin-canvas .genan-product-editor #product-editor-form textarea { font-size: 16px !important; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .genan-admin-canvas * {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Soft Atelier overview enhancements: breathe, don't box everything tightly. */
-.genan-admin-canvas .genan-studio-home .genan-home-hero a:focus-visible,
-.genan-admin-canvas .genan-studio-home .genan-primary-workflow a:focus-visible,
-.genan-admin-canvas .genan-studio-home .genan-home-metrics a:focus-visible {
-  outline: 2px solid #87673e;
-  outline-offset: 3px;
-}
-.genan-admin-canvas .genan-studio-home .genan-home-metrics > div > a p {
-  font-variant-numeric: tabular-nums;
-}
-.genan-admin-canvas .genan-product-editor .genan-editor-chapters {
-  scroll-padding-inline: 18px;
-}
-@media (max-width: 767px) {
-  .genan-admin-canvas .genan-studio-home .genan-home-hero {
-    border-radius: 23px;
-  }
-  .genan-admin-canvas .genan-studio-home .genan-home-metrics > div {
-    gap: 10px;
-  }
-  .genan-admin-canvas .genan-studio-home .genan-home-metrics > div > a {
-    min-height: 122px;
-    border-radius: 18px;
-    padding: 21px;
-  }
+@media (prefers-reduced-motion:reduce) {
+  .genan-admin-canvas * { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }

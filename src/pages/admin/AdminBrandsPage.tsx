@@ -601,12 +601,7 @@ const AdminBrandsPage = () => {
     <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="brands">
       <AdminPageHeader category="الكتالوج" title="إدارة الماركات" description={`${stats.total.toLocaleString("ar-EG")} ماركة مسجلة في المتجر`} actions={[{ label: "إضافة ماركة", icon: Plus, onClick: openCreate, variant: "primary" }]} />
 
-      <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">
-        <BrandStatCard title="إجمالي الماركات" value={stats.total} helper="جميع الماركات المسجلة" icon={Tag} tone="indigo" />
-        <BrandStatCard title="الماركات النشطة" value={stats.active} helper={`${stats.inactive} ماركة معطلة`} icon={CheckCircle2} tone="green" />
-        <BrandStatCard title="مرتبطة بأقسام" value={stats.linked} helper={`${stats.total - stats.linked} بدون ربط`} icon={Layers3} tone="blue" />
-        <BrandStatCard title="الماركات المعطلة" value={stats.inactive} helper="لا تظهر حاليًا للعملاء" icon={CircleOff} tone="coral" />
-      </section>
+      <div className="genan-facts-strip" aria-label="ملخص الماركات"><span>إجمالي الماركات: <strong>{stats.total}</strong></span><span>النشطة: <strong>{stats.active}</strong></span></div>
 
       <section className="overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white">
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">

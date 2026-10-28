@@ -41,6 +41,8 @@ const permissionForLocation = (pathname: string, search: string): RoutePermissio
     return null;
   }
 
+  if (pathname === "/admin/team") return "admin.permissions.manage";
+  if (pathname === "/admin/order-preparation") return "orders.manage";
   if (pathname === "/admin/products") return "products.view";
   if (pathname.startsWith("/admin/products/") || pathname.startsWith("/admin/categories") || pathname.startsWith("/admin/brands") || pathname.startsWith("/admin/brand-category-map") || pathname.startsWith("/admin/catalog-") || pathname.startsWith("/admin/size-price-rules")) return "products.edit";
   if (pathname.startsWith("/admin/inventory-adjustments")) return "inventory.adjust";

@@ -379,12 +379,7 @@ const AdminBannersPage = () => {
     <div className="genan-studio-page w-full space-y-6" dir="rtl" data-genan-screen="banners">
       <AdminPageHeader category="واجهة المتجر" title="إدارة البانرات" description={`${stats.total.toLocaleString("ar-EG")} بانر داخل واجهة بوتيك جنان`} actions={[{ label: "إضافة بانر", icon: Plus, onClick: () => openDialog(), variant: "primary" }]} />
 
-      <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">
-        <BannerStatCard title="إجمالي البانرات" value={stats.total} helper="جميع البانرات المسجلة" icon={LayoutTemplate} tone="indigo" />
-        <BannerStatCard title="البانرات النشطة" value={stats.active} helper="ظاهرة حاليًا للعملاء" icon={CheckCircle2} tone="green" />
-        <BannerStatCard title="بانرات معطلة" value={stats.inactive} helper="مخفية عن واجهة المتجر" icon={ImageIcon} tone="coral" />
-        <BannerStatCard title="صفحات خاصة" value={stats.withPage} helper="مرتبطة بصفحات مخصصة" icon={Link2} tone="blue" />
-      </section>
+      <div className="genan-facts-strip" aria-label="ملخص البانرات"><span>إجمالي البانرات: <strong>{stats.total}</strong></span><span>النشطة: <strong>{stats.active}</strong></span></div>
 
       <section className="overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white">
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">

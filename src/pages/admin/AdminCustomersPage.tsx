@@ -236,12 +236,7 @@ const AdminCustomersPage = () => {
           KPI
       ===================================================== */}
 
-      <section className="grid grid-cols-2 gap-[9px] lg:grid-cols-4">
-        <CustomerStatCard title="إجمالي العملاء" value={total.toLocaleString("en-US")} helper="جميع العملاء المسجلين" icon={Users} tone="indigo" />
-        <CustomerStatCard title="عملاء الصفحة" value={customers.length.toLocaleString("en-US")} helper={`${firstResult} - ${lastResult} من النتائج`} icon={UserCheck} tone="teal" />
-        <CustomerStatCard title="لديهم طلبات" value={pageStats.customersWithOrders.toLocaleString("en-US")} helper="من العملاء الظاهرين حاليًا" icon={ShoppingBag} tone="blue" />
-        <CustomerStatCard title="طلبات العملاء" value={pageStats.orders.toLocaleString("en-US")} helper="إجمالي طلبات الصفحة الحالية" icon={Wallet} tone="coral" />
-      </section>
+      <div className="genan-facts-strip" aria-label="ملخص العملاء"><span>العملاء المسجلون: <strong>{total.toLocaleString("en-US")}</strong></span><span>نتائج هذه الصفحة: <strong>{customers.length.toLocaleString("en-US")}</strong></span></div>
 
       {/* =====================================================
           SEARCH
