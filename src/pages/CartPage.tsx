@@ -32,7 +32,7 @@ const CartPage = () => {
             </Link>
             <div className="min-w-0">
               <span className="text-[10px] font-medium tracking-[0.17em] text-[#A38960]">GENAN</span>
-              <h1 className="text-[19px] font-bold text-[#171717] sm:text-[23px]">{getSiteText(content, "cart_title", "حقيبتي")}</h1>
+              <h1 className="text-[19px] font-bold text-[#171717] sm:text-[23px]">{getSiteText(content, "cart_title", "سلة التسوق")}</h1>
             </div>
           </div>
           <div className="rounded-2xl bg-[#F7F4EE] px-3 py-2 text-left">
@@ -50,11 +50,11 @@ const CartPage = () => {
             <span className="mt-5 font-serif text-[10px] tracking-[0.25em] text-[#8C6B32]">GENAN</span>
 
             <h2 className="mt-2 text-[21px] font-semibold text-[#171717]">
-              {getSiteText(content, "cart_empty_text", "حقيبتك فارغة")}
+              {getSiteText(content, "cart_empty_text", "سلة التسوق فارغة")}
             </h2>
 
             <p className="mt-3 max-w-[320px] text-[13px] leading-6 text-[#777777]">
-              اكتشف المنتجات وأضف القطع التي تحبها إلى حقيبتك.
+              اكتشف المنتجات وأضف القطع التي تحبها إلى سلة التسوق.
             </p>
 
             <Link

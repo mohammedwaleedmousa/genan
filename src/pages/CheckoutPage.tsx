@@ -524,7 +524,7 @@ const CheckoutPage = () => {
         <div className="mx-auto w-full max-w-[1120px] px-3 sm:px-5 md:px-7">
           <header className="mb-5 flex items-center justify-between gap-3 rounded-3xl bg-white px-4 py-4 shadow-sm sm:px-6">
             <div className="flex items-center gap-3">
-              <Link to="/cart" aria-label="العودة إلى الحقيبة" className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F5F3EF] text-[#171717]"><ChevronRight className="h-5 w-5" /></Link>
+              <Link to="/cart" aria-label="العودة إلى سلة التسوق" className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F5F3EF] text-[#171717]"><ChevronRight className="h-5 w-5" /></Link>
               <div>
                 <span className="text-[10px] font-medium tracking-[0.17em] text-[#A38960]">GENAN</span>
                 <h1 className="text-[19px] font-bold text-[#171717] sm:text-[23px]">إتمام الطلب</h1>

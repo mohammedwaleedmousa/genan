@@ -84,7 +84,7 @@ const CartDrawerContent = () => {
 
             <div className="text-center">
               <div className="flex items-center justify-center gap-2">
-                <h2 id="genan-cart-title" className="text-[20px] font-bold tracking-tight text-[#171717]">حقيبتي</h2>
+                <h2 id="genan-cart-title" className="text-[20px] font-bold tracking-tight text-[#171717]">سلة التسوق</h2>
                 {totalQuantity > 0 && (
                   <span className="text-[11px] font-medium text-[#8D7965]">({totalQuantity})</span>
                 )}

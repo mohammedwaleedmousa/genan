@@ -279,7 +279,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                       <p className="mb-2 px-3 text-[11px] font-medium text-white/70">حسابي وتسوقي</p>
                       <div className="grid grid-cols-2 gap-x-2 gap-y-1">
                         <button type="button" onClick={() => goFromMenu("/favorites")} className="min-h-10 rounded-xl px-3 text-right text-[13px] font-medium text-white/95 hover:bg-white/10">المفضلة{favorites.length > 0 ? ` (${favorites.length})` : ""}</button>
-                        <button type="button" onClick={() => goFromMenu("/cart")} className="min-h-10 rounded-xl px-3 text-right text-[13px] font-medium text-white/95 hover:bg-white/10">حقيبتي{cartCount > 0 ? ` (${cartCount})` : ""}</button>
+                        <button type="button" onClick={() => goFromMenu("/cart")} className="min-h-10 rounded-xl px-3 text-right text-[13px] font-medium text-white/95 hover:bg-white/10">سلة التسوق{cartCount > 0 ? ` (${cartCount})` : ""}</button>
                         <button type="button" onClick={() => goFromMenu("/account")} className="min-h-10 rounded-xl px-3 text-right text-[13px] font-medium text-white/95 hover:bg-white/10">حسابي</button>
                       </div>
                     </div>
@@ -308,8 +308,8 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </Link>
 
             <div className="flex shrink-0 items-center gap-1">
-              {/* Bag occupies the former currency slot and always opens the full cart page. */}
-              <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
+              {/* Cart icon opens the full cart page. */}
+              <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="فتح سلة التسوق" title="سلة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                 <ShoppingBag size={22} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
@@ -357,7 +357,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </form>
 
             <div className="flex shrink-0 items-center gap-1.5">
-              <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
+              <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="فتح سلة التسوق" title="سلة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
                 <ShoppingBag size={20} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
