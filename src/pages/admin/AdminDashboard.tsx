@@ -73,15 +73,15 @@ const WorkspaceNav = () => {
     { title: "الصلاحيات", to: adminPath() + "?workspace=team", key: "team", icon: ShieldCheck },
   ];
   return (
-    <nav aria-label="التنقل بين مساحات الإدارة" className="flex max-w-full items-center gap-0 overflow-x-auto border-y border-[#CFC5B7] bg-[#EEE9E1] [scrollbar-width:thin] print:hidden">
+    <nav aria-label="التنقل بين مساحات الإدارة" className="flex max-w-full flex-wrap items-center gap-2 overflow-x-auto rounded-[20px] border border-[#E8DFD2] bg-[#FFFEFA] p-2 shadow-[0_4px_18px_rgba(38,49,40,.035)] [scrollbar-width:thin] print:hidden">
       {tabs.map(tab => {
         const Icon = tab.icon;
         const selected = current === tab.key;
         return (
           <Link key={tab.title} to={tab.to} aria-current={selected ? "page" : undefined}
             className={selected
-              ? "flex min-h-[48px] shrink-0 items-center gap-2 border-b-[3px] border-[#80623C] bg-[#26392F] px-5 text-[12px] font-semibold text-white"
-              : "flex min-h-[48px] shrink-0 items-center gap-2 border-b-[3px] border-transparent px-5 text-[12px] font-medium text-[#586357] transition-colors hover:bg-[#E2DACD]"}
+              ? "flex min-h-[44px] shrink-0 items-center gap-2 rounded-[13px] bg-[#26392F] px-4 text-[12px] font-semibold text-white shadow-[0_4px_12px_rgba(30,52,37,.12)]"
+              : "flex min-h-[44px] shrink-0 items-center gap-2 rounded-[13px] px-4 text-[12px] font-medium text-[#586357] transition-colors hover:bg-[#F1ECE4]"}
           >
             <Icon className="h-[15px] w-[15px]" />
             <span>{tab.title}</span>

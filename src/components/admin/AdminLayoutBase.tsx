@@ -483,10 +483,10 @@ const AdminLayout = () => {
               TOP BAR
           ===================================================== */}
 
-          <header className="genan-studio-topbar relative z-40 flex h-[78px] shrink-0 items-center border-b border-[#D7CEBF] bg-[#F3F0E8] px-3 sm:px-5 lg:px-8">
+          <header className="genan-studio-topbar relative z-40 flex h-[76px] shrink-0 items-center border-b border-[#EAE4D9] bg-[#FFFEFA] px-3 sm:px-5 lg:px-8">
             <div className="flex w-full min-w-0 items-center gap-3 lg:gap-6">
               <div className="flex min-w-0 shrink-0 items-center gap-3">
-                <SidebarTrigger aria-label="فتح وإغلاق القائمة الجانبية" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-none border border-[#C8BBA8] bg-[#FAF8F2] text-[#344337] shadow-none transition-colors hover:bg-[#EAE2D5]" />
+                <SidebarTrigger aria-label="فتح وإغلاق القائمة الجانبية" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#E2DACD] bg-[#F7F4EE] text-[#344337] shadow-none transition-colors hover:bg-[#EDE5DA]" />
                 <div className="hidden min-w-0 border-r-2 border-[#AD8C5F] pr-3 sm:block">
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-semibold text-[#816B4D]">{currentPageMeta.section}</span>
@@ -497,23 +497,23 @@ const AdminLayout = () => {
                 </div>
               </div>
 
-              <div className="genan-toolbar-search relative mx-auto hidden w-full max-w-[470px] border border-[#D1C7B7] bg-[#FFFEFA] md:block">
+              <div className="genan-toolbar-search relative mx-auto hidden w-full max-w-[470px] rounded-2xl border border-[#E2DACE] bg-[#F8F6F1] md:block">
                 <SearchBox searchRef={searchRef} query={searchQuery} focused={searchFocused} results={searchResults} onQueryChange={setSearchQuery} onFocus={() => setSearchFocused(true)} onBlur={() => window.setTimeout(() => setSearchFocused(false), 120)} onSelect={openSearchResult} />
               </div>
 
               <div className="mr-auto flex shrink-0 items-center gap-2">
-                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" aria-expanded={mobileSearchOpen} className="flex h-11 w-11 items-center justify-center border border-[#D1C7B7] bg-[#FFFEFA] text-[#3C4C3E] transition-colors hover:bg-[#EAE3D8] md:hidden">
+                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" aria-expanded={mobileSearchOpen} className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#E2DACE] bg-[#F8F6F1] text-[#3C4C3E] transition-colors hover:bg-[#EAE3D8] md:hidden">
                   {mobileSearchOpen ? <X className="h-[18px] w-[18px]" /> : <Search className="h-[18px] w-[18px]" />}
                 </button>
-                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-11 items-center gap-2 border border-[#CDBFA9] px-4 text-[12px] font-semibold text-[#37493A] transition-colors hover:bg-[#EAE3D8] xl:flex">
+                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-11 items-center gap-2 rounded-2xl border border-[#E2DACE] bg-[#F8F6F1] px-4 text-[12px] font-semibold text-[#37493A] transition-colors hover:bg-[#EAE3D8] xl:flex">
                   <ExternalLink className="h-4 w-4" strokeWidth={1.75} />
                   عرض المتجر
                 </button>
-                <div className="flex h-11 w-11 items-center justify-center border border-[#CDBFA9] bg-[#FFFEFA] text-[#37493A]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#E2DACE] bg-[#F8F6F1] text-[#37493A]">
                   <NotificationsDropdown />
                 </div>
-                <button type="button" onClick={() => navigate(adminPath("settings"))} aria-label="الانتقال إلى إعدادات الحساب" className="group flex min-h-11 min-w-11 items-center gap-2 border-r border-[#CCC1B1] pr-2 text-right transition-colors hover:bg-[#EDE6DB] sm:pr-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#283D31] text-[15px] font-bold text-[#F5E9D3]">
+                <button type="button" onClick={() => navigate(adminPath("settings"))} aria-label="الانتقال إلى إعدادات الحساب" className="group flex min-h-11 min-w-11 items-center gap-2 rounded-2xl px-2 text-right transition-colors hover:bg-[#F2EDE4] sm:px-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[15px] bg-[#283D31] text-[15px] font-bold text-[#F5E9D3]">
                     {userName ? userName.charAt(0).toUpperCase() : <UserRound className="h-5 w-5" strokeWidth={1.7} />}
                   </span>
                   <span className="hidden max-w-[140px] lg:block">
@@ -561,7 +561,7 @@ const SearchBox = ({ searchRef, query, focused, results, onQueryChange, onFocus,
     <div className="relative w-full">
       <Search className="pointer-events-none absolute right-[13px] top-1/2 z-10 h-[14px] w-[14px] -translate-y-1/2 text-[#9AA2AC]" strokeWidth={1.7} />
 
-      <input ref={searchRef} type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder="انتقل إلى صفحة أو أداة..." className="h-[38px] w-full rounded-[10px] border border-[#E5E8ED] bg-[#FBF9F5] pr-[38px] pl-[58px] text-[10.5px] font-medium text-[#343B44] outline-none transition-colors placeholder:text-[#A3AAB4] focus:border-[#DADDE9] focus:bg-white" />
+      <input ref={searchRef} type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder="انتقل إلى صفحة أو أداة..." className="h-[42px] w-full rounded-[14px] border border-[#E5E8ED] bg-[#FBF9F5] pr-[38px] pl-[58px] text-[10.5px] font-medium text-[#343B44] outline-none transition-colors placeholder:text-[#A3AAB4] focus:border-[#DADDE9] focus:bg-white" />
 
       <span className="pointer-events-none absolute left-[8px] top-1/2 flex h-[23px] -translate-y-1/2 items-center rounded-[6px] border border-[#E3E7EC] bg-white px-[7px] text-[7.5px] font-semibold text-[#9AA1AB]">⌘ K</span>
 

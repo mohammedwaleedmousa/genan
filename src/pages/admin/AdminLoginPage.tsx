@@ -82,8 +82,8 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <main className="min-h-[100dvh] bg-[#EFEAE1] text-[#243228]" dir="rtl">
-      <div className="grid min-h-[100dvh] lg:grid-cols-[minmax(0,1fr)_minmax(0,.9fr)]">
+    <main className="min-h-[100dvh] bg-[#F7F6F2] text-[#243228]" dir="rtl">
+      <div className="grid min-h-[100dvh] lg:grid-cols-[minmax(0,1fr)_minmax(0,.85fr)]">
         <section className="flex min-h-[100dvh] flex-col justify-between px-6 py-8 sm:px-12 lg:min-h-[100dvh] lg:px-[clamp(42px,6vw,110px)] lg:py-12">
           <div className="flex items-center justify-between gap-4 border-b border-[#CFC4B4] pb-6">
             <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ const AdminLoginPage = () => {
                   <UserRound className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#806C4D]" />
                   <Input id="admin-identifier" type="text" value={identifier} onChange={e => setIdentifier(e.target.value)}
                     autoComplete="username" placeholder="البريد الإلكتروني أو +967..." dir="ltr"
-                    className="h-[54px] rounded-none border border-[#CFC5B4] bg-[#FAF9F5] pr-12 text-[14px] text-[#26352B] shadow-none focus-visible:border-[#896D46] focus-visible:ring-1 focus-visible:ring-[#896D46]" />
+                    className="h-[54px] rounded-[16px] border border-[#DFD6C9] bg-[#FAF9F5] pr-12 text-[14px] text-[#26352B] shadow-none focus-visible:border-[#896D46] focus-visible:ring-1 focus-visible:ring-[#896D46]" />
                 </div>
               </div>
               <div>
@@ -117,10 +117,10 @@ const AdminLoginPage = () => {
                 <div className="relative">
                   <Lock className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#806C4D]" />
                   <Input id="admin-password" type="password" value={password} onChange={e => setPassword(e.target.value)}
-                    autoComplete="current-password" className="h-[54px] rounded-none border border-[#CFC5B4] bg-[#FAF9F5] pr-12 text-[14px] text-[#26352B] shadow-none focus-visible:border-[#896D46] focus-visible:ring-1 focus-visible:ring-[#896D46]" />
+                    autoComplete="current-password" className="h-[54px] rounded-[16px] border border-[#DFD6C9] bg-[#FAF9F5] pr-12 text-[14px] text-[#26352B] shadow-none focus-visible:border-[#896D46] focus-visible:ring-1 focus-visible:ring-[#896D46]" />
                 </div>
               </div>
-              <Button type="submit" disabled={isLoading} className="flex min-h-[54px] w-full items-center justify-center gap-3 rounded-none bg-[#25382D] px-5 text-[14px] font-semibold text-white hover:bg-[#3F5343]">
+              <Button type="submit" disabled={isLoading} className="flex min-h-[54px] w-full items-center justify-center gap-3 rounded-[16px] bg-[#25382D] px-5 text-[14px] font-semibold text-white shadow-[0_10px_22px_rgba(33,53,39,.12)] transition-colors hover:bg-[#3F5343]">
                 {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <><LogIn className="h-5 w-5" />دخول لوحة الإدارة</>}
               </Button>
             </form>
@@ -128,7 +128,7 @@ const AdminLoginPage = () => {
           </motion.div>
           <div className="border-t border-[#CFC4B4] pt-5 text-[11px] tracking-[.14em] text-[#97846B]" dir="ltr">GENAN BOUTIQUE · MANAGEMENT</div>
         </section>
-        <aside className="relative hidden min-h-[100dvh] flex-col justify-between overflow-hidden bg-[#253A2E] p-12 text-[#F5ECE0] lg:flex">
+        <aside className="relative m-4 hidden min-h-[calc(100dvh-32px)] flex-col justify-between overflow-hidden rounded-[32px] bg-[#263C30] p-12 text-[#F5ECE0] shadow-[0_14px_45px_rgba(39,46,32,.12)] lg:flex">
           <div className="absolute -bottom-20 -left-24 h-[530px] w-[530px] rounded-full border border-[#D2BC95]/20" aria-hidden="true" />
           <div className="absolute bottom-10 left-10 h-[380px] w-[380px] rounded-full border border-[#D2BC95]/15" aria-hidden="true" />
           <div className="relative flex items-center justify-between border-b border-[#9EA48C]/30 pb-6">
