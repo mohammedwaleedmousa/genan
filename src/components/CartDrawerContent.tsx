@@ -63,35 +63,36 @@ const CartDrawerContent = () => {
         type="button"
         aria-label="إغلاق السلة"
         onClick={closeCart}
-        className="fixed inset-0 z-[70] cursor-default bg-black/15 backdrop-blur-[1px]"
+        className="fixed inset-0 z-[70] cursor-default bg-black/45 backdrop-blur-[2px]"
       />
 
       <aside
-        className="fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#E8E4DC] bg-[#FCFBF8] shadow-[-18px_0_50px_rgba(31,34,30,.06)] sm:max-w-[440px]"
+        role="dialog" aria-modal="true" aria-labelledby="genan-cart-title"
+        className="fixed inset-y-0 right-0 z-[80] flex w-full flex-col border-l border-[#E7DCCD] bg-[#FAF9F6] text-[#171717] shadow-[-18px_0_50px_rgba(31,34,30,.17)] sm:max-w-[460px]"
         dir="rtl"
       >
-        <header className="shrink-0 border-b border-[#E9E5DD] bg-[#FCFBF8]/95 px-4 pb-4 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur sm:px-5 sm:pt-5">
+        <header className="shrink-0 border-b border-[#E8DDD0] bg-[#FAF9F6]/95 px-4 pb-4 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur sm:px-5 sm:pt-5">
           <div className="grid grid-cols-[40px_1fr_40px] items-center gap-3">
             <button
               type="button"
               onClick={closeCart}
               aria-label="إغلاق"
-              className="flex h-10 w-10 items-center justify-center border border-[#DEDAD2] bg-white text-[#4C514D] transition-colors active:bg-[#F3F1EC]"
+              className="flex h-10 w-10 items-center justify-center border border-[#E1D3C3] bg-white text-[#171717] transition-colors active:bg-[#F3EDE5]"
             >
               <X className="h-4 w-4 stroke-[1.4]" />
             </button>
 
             <div className="text-center">
               <div className="flex items-center justify-center gap-2">
-                <h2 className="text-[18px] font-semibold tracking-[-0.025em] text-[#26312C]">سلة التسوق</h2>
+                <h2 id="genan-cart-title" className="text-[22px] font-semibold tracking-tight text-[#171717]">سلة التسوق</h2>
                 {totalQuantity > 0 && (
-                  <span className="text-[8px] font-medium text-[#8A8F89]">({totalQuantity})</span>
+                  <span className="text-[11px] font-medium text-[#8D7965]">({totalQuantity})</span>
                 )}
               </div>
-              <p className="mt-1 font-serif text-[6px] tracking-[0.28em] text-[#9A8461]">GENAN BAG</p>
+              <p className="mt-1 font-serif text-[10px] tracking-[0.28em] text-[#9B7845]">GENAN BAG</p>
             </div>
 
-            <div className="flex h-10 w-10 items-center justify-center border border-[#E5E1D9] bg-[#F5F2EC] text-[#6C716D]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E5DACB] bg-[#F5EFE7] text-[#9B7845]">
               <ShoppingBag className="h-[17px] w-[17px] stroke-[1.35]" />
             </div>
           </div>
@@ -100,26 +101,26 @@ const CartDrawerContent = () => {
         <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-5">
           {cart.length === 0 ? (
             <div className="flex min-h-full flex-col items-center justify-center px-6 pb-16 text-center">
-              <div className="flex h-[72px] w-[72px] items-center justify-center border border-[#DED9D0] bg-white">
-                <ShoppingBag className="h-6 w-6 stroke-[1.2] text-[#8B8F8A]" />
+              <div className="flex h-[86px] w-[86px] items-center justify-center rounded-full border border-[#E4D6C5] bg-[#F2EAE0]">
+                <ShoppingBag className="h-6 w-6 stroke-[1.2] text-[#A18259]" />
               </div>
 
-              <span className="mt-5 font-serif text-[6px] tracking-[0.28em] text-[#9A8461]">GENAN</span>
-              <h3 className="mt-2 text-[18px] font-semibold text-[#29332E]">سلتك فارغة</h3>
-              <p className="mt-2 max-w-[250px] text-[9px] leading-5 text-[#838781]">
+              <span className="mt-5 font-serif text-[10px] tracking-[0.28em] text-[#9B7845]">GENAN</span>
+              <h3 className="mt-2 text-[18px] font-semibold text-[#171717]">سلتك فارغة</h3>
+              <p className="mt-2 max-w-[280px] text-[13px] leading-6 text-[#80746A]">
                 اكتشف أحدث اختيارات جنان وأضف القطع التي تحبها إلى سلتك.
               </p>
 
               <button
                 type="button"
                 onClick={handleBrowseProducts}
-                className="mt-6 h-[44px] border border-[#2C3932] bg-[#2C3932] px-8 text-[10px] font-semibold text-white transition-colors active:bg-[#202A25]"
+                className="mt-7 h-[50px] rounded-xl bg-[#171717] px-8 text-[13px] font-semibold text-white transition-colors hover:bg-[#38302A]"
               >
                 تصفح المنتجات
               </button>
             </div>
           ) : (
-            <div className="divide-y divide-[#EAE6DF]">
+            <div className="space-y-3">
               {cart.map((item, cartIndex) => {
                 const variant = item.variantId
                   ? item.product.variants?.find((candidate) => candidate.id === item.variantId)
@@ -144,10 +145,10 @@ const CartDrawerContent = () => {
                 return (
                   <article
                     key={`${item.product.id}-${item.variantId || "base"}-${cartIndex}`}
-                    className="py-4 first:pt-1"
+                    className="rounded-2xl border border-[#E9E1D5] bg-white p-3 sm:p-4"
                   >
                     <div className="flex gap-3.5">
-                      <div className="relative h-[126px] w-[98px] shrink-0 overflow-hidden bg-[#F2F0EB]">
+                      <div className="relative h-[138px] w-[98px] shrink-0 overflow-hidden rounded-xl bg-[#F4EFE8]">
                         {image ? (
                           <img
                             src={image}
@@ -158,12 +159,12 @@ const CartDrawerContent = () => {
                           />
                         ) : (
                           <div className="flex h-full w-full items-center justify-center">
-                            <ShoppingBag className="h-5 w-5 stroke-[1.25] text-[#B2B4B0]" />
+                            <ShoppingBag className="h-5 w-5 stroke-[1.25] text-[#AE9572]" />
                           </div>
                         )}
 
                         {!!discount && (
-                          <span className="absolute bottom-1.5 right-1.5 bg-white/95 px-2 py-1 text-[7px] font-semibold text-[#786747] shadow-sm">
+                          <span className="absolute bottom-1.5 right-1.5 bg-white/95 px-2 py-1 text-[11px] font-semibold text-[#9B7845] shadow-sm">
                             -{discount}%
                           </span>
                         )}
@@ -173,12 +174,12 @@ const CartDrawerContent = () => {
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
                             {item.product.brand && (
-                              <p className="mb-1 truncate text-[7px] tracking-[0.05em] text-[#92958F]">
+                              <p className="mb-1 truncate text-[11px] tracking-[0.05em] text-[#8C7B66]">
                                 {item.product.brand}
                               </p>
                             )}
 
-                            <h3 className="line-clamp-2 text-[11px] font-semibold leading-[1.65] text-[#2D332F]">
+                            <h3 className="line-clamp-2 text-[14px] font-semibold leading-[1.65] text-[#171717]">
                               {item.product.nameAr}
                             </h3>
                           </div>
@@ -187,30 +188,30 @@ const CartDrawerContent = () => {
                             type="button"
                             onClick={() => removeFromCart(item.product.id, item.variantId)}
                             aria-label="حذف المنتج"
-                            className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#E4E0D8] bg-white text-[#8F8276] transition-colors active:bg-[#F4F1EC]"
+                            className="flex h-7 w-7 shrink-0 items-center justify-center border border-[#E8DDD0] bg-white text-[#9A7866] transition-colors active:bg-[#F5EDE3]"
                           >
                             <Trash2 className="h-3.5 w-3.5 stroke-[1.35]" />
                           </button>
                         </div>
 
                         {(item.selectedSize || item.selectedColor) && (
-                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[7px] text-[#7E837D]">
+                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[#84796E]">
                             {item.selectedSize && (
                               <span>
-                                <span className="text-[#A0A39E]">المقاس:</span> {item.selectedSize}
+                                <span className="text-[#928476]">المقاس:</span> {item.selectedSize}
                               </span>
                             )}
 
                             {item.selectedColor && (
                               <span>
-                                <span className="text-[#A0A39E]">اللون:</span> {item.selectedColor}
+                                <span className="text-[#928476]">اللون:</span> {item.selectedColor}
                               </span>
                             )}
                           </div>
                         )}
 
                         {item.selectedAccessories && item.selectedAccessories.length > 0 && (
-                          <p className="mt-2 line-clamp-1 text-[7px] text-[#8B8F89]">
+                          <p className="mt-2 line-clamp-1 text-[11px] text-[#8C8175]">
                             +{" "}
                             {item.selectedAccessories.map((accessory, index) => (
                               <span key={`${accessory.name_ar}-${index}`}>
@@ -223,19 +224,19 @@ const CartDrawerContent = () => {
                         )}
 
                         <div className="mt-2.5 flex items-end gap-2">
-                          <span className="text-[14px] font-semibold leading-none text-[#343A36]">
+                          <span className="text-[16px] font-semibold leading-none text-[#171717]">
                             {formatCurrency(unitTotal)}
                           </span>
 
                           {!!discount && (
-                            <span className="text-[7px] leading-none text-[#A3A6A1] line-through">
+                            <span className="text-[11px] leading-none text-[#ADA397] line-through">
                               {formatCurrency(basePrice)}
                             </span>
                           )}
                         </div>
 
                         <div className="mt-4 flex items-end justify-between gap-3">
-                          <div className="flex h-[32px] items-center border border-[#DCD8D0] bg-white">
+                          <div className="flex h-[38px] items-center overflow-hidden rounded-lg border border-[#E4D7C8] bg-[#FAF8F5]">
                             <button
                               type="button"
                               onClick={() =>
@@ -246,12 +247,12 @@ const CartDrawerContent = () => {
                                 )
                               }
                               disabled={item.quantity <= 1}
-                              className="flex h-full w-8 items-center justify-center text-[#555B57] disabled:opacity-25"
+                              className="flex h-full w-8 items-center justify-center text-[#171717] disabled:opacity-25"
                             >
                               <Minus className="h-3 w-3 stroke-[1.45]" />
                             </button>
 
-                            <span className="flex h-full min-w-[30px] items-center justify-center border-x border-[#E5E1DA] px-1 text-[9px] font-semibold text-[#343A36]">
+                            <span className="flex h-full min-w-[30px] items-center justify-center border-x border-[#E4D7C8] px-1 text-[12px] font-semibold text-[#171717]">
                               {item.quantity}
                             </span>
 
@@ -266,15 +267,15 @@ const CartDrawerContent = () => {
                                 );
                               }}
                               disabled={maxQuantityReached}
-                              className="flex h-full w-8 items-center justify-center text-[#555B57] disabled:opacity-25"
+                              className="flex h-full w-8 items-center justify-center text-[#171717] disabled:opacity-25"
                             >
                               <Plus className="h-3 w-3 stroke-[1.45]" />
                             </button>
                           </div>
 
                           <div className="text-left">
-                            <span className="block text-[6px] text-[#A1A49F]">الإجمالي</span>
-                            <span className="mt-1 block text-[10px] font-semibold leading-none text-[#4B514D]">
+                            <span className="block text-[10px] text-[#928476]">الإجمالي</span>
+                            <span className="mt-1 block text-[13px] font-semibold leading-none text-[#171717]">
                               {formatCurrency(unitTotal * item.quantity)}
                             </span>
                           </div>
@@ -289,14 +290,14 @@ const CartDrawerContent = () => {
         </div>
 
         {cart.length > 0 && (
-          <footer className="shrink-0 border-t border-[#E6E2DA] bg-[#FEFDFB] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-4 sm:px-5 sm:pb-5">
+          <footer className="shrink-0 border-t border-[#E7DCCD] bg-[#FFFFFF] px-4 pb-[calc(env(safe-area-inset-bottom)+12px)] pt-4 sm:px-5 sm:pb-5">
             <div className="mb-4 flex items-end justify-between">
               <div>
-                <p className="text-[8px] text-[#8B8F89]">المجموع</p>
-                <p className="mt-1 text-[7px] text-[#A0A39E]">{totalQuantity} قطعة في السلة</p>
+                <p className="text-[11px] text-[#8C8175]">المجموع</p>
+                <p className="mt-1 text-[11px] text-[#928476]">{totalQuantity} قطعة في السلة</p>
               </div>
 
-              <span className="text-[23px] font-semibold leading-none text-[#2E3531]">
+              <span className="text-[23px] font-semibold leading-none text-[#171717]">
                 {formatCurrency(total)}
               </span>
             </div>
@@ -304,7 +305,7 @@ const CartDrawerContent = () => {
             <button
               type="button"
               onClick={handleCheckout}
-              className="flex h-[49px] w-full items-center justify-center gap-2 bg-[#2C3932] text-[11px] font-semibold text-white transition-colors active:bg-[#202A25]"
+              className="flex h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#171717] text-[14px] font-semibold text-white transition-colors hover:bg-[#38302A] active:bg-[#38302A]"
             >
               <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
               إتمام الشراء
@@ -314,7 +315,7 @@ const CartDrawerContent = () => {
               <button
                 type="button"
                 onClick={handleBrowseProducts}
-                className="text-[8px] font-medium text-[#59615C]"
+                className="text-[11px] font-medium text-[#9B7845]"
               >
                 متابعة التسوق
               </button>
@@ -322,7 +323,7 @@ const CartDrawerContent = () => {
               <button
                 type="button"
                 onClick={clearCart}
-                className="text-[8px] font-medium text-[#9B7963]"
+                className="text-[11px] font-medium text-[#917967]"
               >
                 إفراغ السلة
               </button>
