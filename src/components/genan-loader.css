@@ -1,0 +1,69 @@
+/* Genan loading mark: one icon, no visible text or forced delay. */
+.genan-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #faf9f7;
+}
+.genan-loading-mark {
+  position: relative;
+  display: block;
+  width: 108px;
+  height: 108px;
+  flex: none;
+}
+.genan-loading-mark > span {
+  position: absolute;
+  inset: 0;
+  display: block;
+  -webkit-mask: url('/icons/genan-loader.svg') center / contain no-repeat;
+  mask: url('/icons/genan-loader.svg') center / contain no-repeat;
+}
+.genan-loading-mark__base {
+  background: #e8ddca;
+}
+.genan-loading-mark__reveal {
+  background: #a78859;
+  animation: genan-loading-reveal 1.85s cubic-bezier(.65,0,.35,1) infinite;
+}
+.genan-loading-mark__shine {
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    transparent 35%,
+    rgb(255 250 224 / 10%) 42%,
+    rgb(255 250 224 / 82%) 50%,
+    rgb(255 250 224 / 10%) 58%,
+    transparent 65%,
+    transparent 100%);
+  background-size: 100% 55%;
+  background-position: center -90%;
+  background-repeat: no-repeat;
+  animation: genan-loading-shine 1.85s cubic-bezier(.65,0,.35,1) infinite;
+}
+@keyframes genan-loading-reveal {
+  0%, 8% { clip-path: inset(0 0 100% 0); opacity: 1; }
+  74%, 86% { clip-path: inset(0); opacity: 1; }
+  100% { clip-path: inset(0); opacity: 0; }
+}
+@keyframes genan-loading-shine {
+  0% { background-position: center -90%; opacity: 0; }
+  8% { opacity: 1; }
+  75% { background-position: center 175%; opacity: 1; }
+  88%, 100% { background-position: center 175%; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .genan-loading-mark__reveal {
+    animation: none;
+    clip-path: inset(0);
+  }
+  .genan-loading-mark__shine { display: none; }
+}
+@media (max-width: 480px) {
+  .genan-loading-mark { width: 94px; height: 94px; }
+}
