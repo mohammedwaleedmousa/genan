@@ -703,55 +703,7 @@ const AdminOrdersPage = () => {
             STATS
         ====================================================== */}
 
-        <section className="grid grid-cols-2 gap-[9px] xl:grid-cols-4">
-          <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
-            <span className="absolute inset-x-0 top-0 h-[3px] bg-[#98774B]" />
-            <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EEEBFF] text-[#83653F]">
-                <ShoppingCart className="h-[14px] w-[14px]" strokeWidth={1.8} />
-              </div>
-              <span className="text-[10px] font-medium text-[#606C62]">حسب الفلاتر</span>
-            </div>
-            <p className="mt-3 text-[10px] font-medium text-[#858D98]">إجمالي النتائج</p>
-            <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#2B313B]">{fmt(total)}</div>
-          </article>
-
-          <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
-            <span className="absolute inset-x-0 top-0 h-[3px] bg-[#5680CF]" />
-            <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EDF4FF] text-[#486BB0]">
-                <Package className="h-[14px] w-[14px]" strokeWidth={1.8} />
-              </div>
-              <span className="text-[10px] font-medium text-[#606C62]">{firstResult}–{lastResult}</span>
-            </div>
-            <p className="mt-3 text-[10px] font-medium text-[#858D98]">طلبات الصفحة</p>
-            <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#2B313B]">{fmt(orders.length)}</div>
-          </article>
-
-          <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
-            <span className="absolute inset-x-0 top-0 h-[3px] bg-[#C38838]" />
-            <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#FFF5E5] text-[#926527]">
-                <Clock3 className="h-[14px] w-[14px]" strokeWidth={1.8} />
-              </div>
-              <span className="rounded-[6px] bg-[#FFF5E5] px-[6px] py-[3px] text-[10px] font-semibold text-[#926629]">تحتاج متابعة</span>
-            </div>
-            <p className="mt-3 text-[10px] font-medium text-[#858D98]">قيد الانتظار</p>
-            <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#B47B2C]">{fmt(pageStats.pending)}</div>
-          </article>
-
-          <article className="relative min-h-[112px] overflow-hidden rounded-[16px] border border-[#E8E0D4] bg-white p-[13px]">
-            <span className="absolute inset-x-0 top-0 h-[3px] bg-[#629067]" />
-            <div className="flex items-start justify-between">
-              <div className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] bg-[#EAF7EE] text-[#47785A]">
-                <PackageCheck className="h-[14px] w-[14px]" strokeWidth={1.8} />
-              </div>
-              <span className="rounded-[6px] bg-[#EAF7EE] px-[6px] py-[3px] text-[10px] font-semibold text-[#47785A]">مكتملة</span>
-            </div>
-            <p className="mt-3 text-[10px] font-medium text-[#858D98]">تم توصيلها</p>
-            <div dir="ltr" className="mt-[5px] text-right text-[21px] font-semibold leading-none tracking-[-0.04em] text-[#57906A]">{fmt(pageStats.delivered)}</div>
-          </article>
-        </section>
+        <div className="genan-facts-strip" aria-label="ملخص الطلبات"><span>الطلبات المطابقة: <strong>{fmt(total)}</strong></span><span>طلبات الصفحة: <strong>{fmt(orders.length)}</strong></span></div>
 
         {/* =====================================================
             FILTERS
