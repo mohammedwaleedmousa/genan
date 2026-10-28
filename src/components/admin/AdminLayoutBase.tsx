@@ -485,7 +485,7 @@ const AdminLayout = () => {
           <header className="relative z-40 flex h-[64px] shrink-0 items-center border-b border-[#E7E0D4] bg-white px-3 sm:px-4 lg:px-5">
             <div className="flex w-full min-w-0 items-center gap-3">
               <div className="flex min-w-0 shrink-0 items-center gap-2.5">
-                <SidebarTrigger className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] border border-[#E4DACA] bg-[#FBF9F5] text-[#69717C] shadow-none transition-colors duration-150 hover:border-[#D9DEE5] hover:bg-white hover:text-[#4D5560]" />
+                <SidebarTrigger className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[10px] border border-[#E4DACA] bg-[#FBF9F5] text-[#69717C] shadow-none transition-colors duration-150 hover:border-[#D9DEE5] hover:bg-white hover:text-[#4D5560]" />
 
                 <div className="hidden h-[26px] w-px bg-[#E9ECF0] sm:block" />
 
@@ -505,16 +505,16 @@ const AdminLayout = () => {
               </div>
 
               <div className="mr-auto flex shrink-0 items-center gap-[6px]">
-                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#737B86] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#4E5661] md:hidden">
+                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" className="flex h-[42px] w-[42px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#737B86] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#4E5661] md:hidden">
                   {mobileSearchOpen ? <X className="h-[15px] w-[15px]" strokeWidth={1.8} /> : <Search className="h-[15px] w-[15px]" strokeWidth={1.8} />}
                 </button>
 
-                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-[38px] items-center gap-[6px] rounded-[10px] border border-[#E4DACA] bg-white px-[10px] text-[9px] font-semibold text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#3F4650] xl:flex">
+                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-[42px] items-center gap-[6px] rounded-[10px] border border-[#E4DACA] bg-white px-[10px] text-[9px] font-semibold text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#3F4650] xl:flex">
                   <ExternalLink className="h-[12px] w-[12px]" strokeWidth={1.8} />
                   عرض المتجر
                 </button>
 
-                <div className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5]">
+                <div className="flex h-[42px] w-[42px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5]">
                   <NotificationsDropdown />
                 </div>
 

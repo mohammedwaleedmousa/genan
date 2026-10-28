@@ -291,7 +291,6 @@ const AdminSidebar = () => {
           <div className="mx-[10px] mb-[5px] flex gap-[5px]">
             <QuickAction icon={Plus} label="إضافة منتج" tone="blue" onClick={() => navigate(adminPath("products/new"))} />
             <QuickAction icon={ShoppingBag} label="الطلبات" tone="coral" onClick={() => navigate(adminPath("orders"))} />
-            <QuickAction icon={BarChart3} label="التقارير" tone="cyan" onClick={() => navigate(adminPath("reports"))} />
           </div>
         )}
 
@@ -440,7 +439,7 @@ const SubItem = ({ item, active, onNavigate }: { item: NavItem; active: boolean;
   return (
     <NavLink to={legacyAdminPathToCurrent(item.url)} end={item.exact} onClick={onNavigate} className={cn("group flex min-h-[36px] w-full items-center gap-[6px] rounded-[7px] px-[6px] transition-colors duration-150", active ? `${tone.active} font-semibold` : "font-medium text-[#727367] hover:bg-white hover:text-[#4C5560]")}>
       <span className={cn("flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-[6px]", active ? tone.activeIcon : "text-[#A1A7B0]")}>
-        <Icon className="h-[10.5px] w-[10.5px]" strokeWidth={1.8} />
+        <Icon className="h-[14px] w-[14px]" strokeWidth={1.8} />
       </span>
 
       <span className="min-w-0 flex-1 truncate text-[11px]">{item.title}</span>
@@ -454,12 +453,12 @@ const QuickAction = ({ icon: Icon, label, tone, onClick }: { icon: ElementType; 
   const style = toneStyles[tone];
 
   return (
-    <button type="button" onClick={onClick} className="group flex h-[40px] min-w-0 flex-1 items-center justify-center gap-[5px] rounded-[10px] border border-[#E8EBEF] bg-white px-[6px] transition-colors duration-150 hover:border-[#DBE0E6] hover:bg-[#FDFDFE]">
-      <span className={cn("flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-[7px]", style.icon)}>
-        <Icon className="h-[10.5px] w-[10.5px]" strokeWidth={1.8} />
+    <button type="button" onClick={onClick} className="group flex h-[44px] min-w-0 flex-1 items-center justify-center gap-[5px] rounded-[10px] border border-[#E8EBEF] bg-white px-[6px] transition-colors duration-150 hover:border-[#DBE0E6] hover:bg-[#FDFDFE]">
+      <span className={cn("flex h-[27px] w-[27px] shrink-0 items-center justify-center rounded-[7px]", style.icon)}>
+        <Icon className="h-[14px] w-[14px]" strokeWidth={1.8} />
       </span>
 
-      <span className="truncate text-[7.5px] font-semibold text-[#717984]">{label}</span>
+      <span className="truncate text-[11px] font-semibold text-[#566357]">{label}</span>
     </button>
   );
 };
