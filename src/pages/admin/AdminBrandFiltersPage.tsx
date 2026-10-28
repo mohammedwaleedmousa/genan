@@ -501,7 +501,7 @@ const AdminBrandFiltersPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">الماركة والقسم</h2>
-            <p className="mt-[3px] text-[8px] text-[#9BA2AC]">كل فلتر مرتبط بقسم محدد داخل صفحة الماركة</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">كل فلتر مرتبط بقسم محدد داخل صفحة الماركة</p>
           </div>
         </div>
 
@@ -539,7 +539,7 @@ const AdminBrandFiltersPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#444B55]">البحث</h2>
-            <p className="mt-[3px] text-[8px] text-[#9BA2AC]">ابحث باسم الفلتر أو الرابط أو أحد الخيارات</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">ابحث باسم الفلتر أو الرابط أو أحد الخيارات</p>
           </div>
 
           {search && (
@@ -562,7 +562,7 @@ const AdminBrandFiltersPage = () => {
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11px] font-semibold text-[#454C56]">فلاتر {activeSection?.name || "القسم"}</h2>
-            <p className="mt-[3px] text-[8px] text-[#9CA3AC]">{filteredFilters.length.toLocaleString("ar-EG")} فلتر ظاهر</p>
+            <p className="mt-[3px] text-[8px] text-[#626E63]">{filteredFilters.length.toLocaleString("ar-EG")} فلتر ظاهر</p>
           </div>
 
           {isFetching && <Loader2 className="h-[12px] w-[12px] animate-spin text-[#8E959F]" />}
@@ -571,7 +571,7 @@ const AdminBrandFiltersPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1050px]">
             <thead>
-              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#858D97]">
+              <tr className="h-[42px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[9px] font-semibold text-[#6A727C]">
                 <th className="w-[68px] px-[10px] text-center">الترتيب</th>
                 <th className="px-[12px] text-right">الفلتر</th>
                 <th className="px-[12px] text-right">النوع</th>
@@ -610,7 +610,7 @@ const AdminBrandFiltersPage = () => {
                             <button type="button" disabled={index >= filters.length - 1 || Boolean(movingId)} onClick={() => void moveFilter(filter, "down")} className="flex h-[20px] w-[24px] items-center justify-center rounded-[6px] text-[#8D949E] hover:bg-[#F1F3F6] disabled:opacity-25"><ChevronDown className="h-[9px] w-[9px]" /></button>
                           </div>
 
-                          <span className="text-[7px] font-semibold text-[#9BA2AC]">{movingId === filter.id ? <Loader2 className="h-[9px] w-[9px] animate-spin" /> : index + 1}</span>
+                          <span className="text-[7px] font-semibold text-[#626E63]">{movingId === filter.id ? <Loader2 className="h-[9px] w-[9px] animate-spin" /> : index + 1}</span>
                         </div>
                       </td>
 
@@ -627,14 +627,14 @@ const AdminBrandFiltersPage = () => {
 
                       <td className="px-[12px]">
                         <div className="flex max-w-[320px] flex-wrap gap-[4px]">
-                          {filter.options.slice(0, 4).map((option) => <span key={option} className="rounded-[6px] bg-[#F2F4F7] px-[6px] py-[3px] text-[6.5px] font-medium text-[#707883]">{option}</span>)}
-                          {filter.options.length > 4 && <span className="rounded-[6px] bg-[#EDF4FF] px-[6px] py-[3px] text-[6.5px] font-semibold text-[#5680CF]">+{filter.options.length - 4}</span>}
-                          {filter.options.length === 0 && <span className="text-[7px] text-[#A0A6AF]">بدون خيارات</span>}
+                          {filter.options.slice(0, 4).map((option) => <span key={option} className="rounded-[6px] bg-[#F2F4F7] px-[6px] py-[3px] text-[6.5px] font-medium text-[#666C77]">{option}</span>)}
+                          {filter.options.length > 4 && <span className="rounded-[6px] bg-[#EDF4FF] px-[6px] py-[3px] text-[6.5px] font-semibold text-[#486BB0]">+{filter.options.length - 4}</span>}
+                          {filter.options.length === 0 && <span className="text-[7px] text-[#626E63]">بدون خيارات</span>}
                         </div>
                       </td>
 
                       <td className="px-[12px]">
-                        <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", productsCount > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#858D97]")}><Package className="h-[8px] w-[8px]" />{productsCount} منتج</span>
+                        <span className={cn("inline-flex h-[25px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", productsCount > 0 ? "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]" : "border-[#E4E7EB] bg-[#F5F6F8] text-[#686F79]")}><Package className="h-[8px] w-[8px]" />{productsCount} منتج</span>
                       </td>
 
                       <td className="px-[12px]">
@@ -677,7 +677,7 @@ const AdminBrandFiltersPage = () => {
                   <div className="flex items-start justify-between gap-[7px]">
                     <div className="min-w-0">
                       <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{filter.name}</h3>
-                      <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#9299A3]">/{filter.slug}</p>
+                      <p dir="ltr" className="mt-[3px] truncate text-right text-[7px] text-[#626E63]">/{filter.slug}</p>
                     </div>
 
                     <FilterStatus active={Boolean(filter.is_active)} />
@@ -685,11 +685,11 @@ const AdminBrandFiltersPage = () => {
 
                   <div className="mt-[8px] flex flex-wrap gap-[5px]">
                     <span className="rounded-[6px] bg-[#F6F4FF] px-[7px] py-[4px] text-[7px] font-semibold text-[#675CBA]">{filterTypes.find((item) => item.value === filter.filter_type)?.label || filter.filter_type}</span>
-                    <span className="rounded-[6px] bg-[#EDF4FF] px-[7px] py-[4px] text-[7px] font-semibold text-[#5680CF]">{productsCount} منتج</span>
-                    <span className="rounded-[6px] bg-[#F2F4F7] px-[7px] py-[4px] text-[7px] font-semibold text-[#757D87]">{filter.options.length} خيارات</span>
+                    <span className="rounded-[6px] bg-[#EDF4FF] px-[7px] py-[4px] text-[7px] font-semibold text-[#486BB0]">{productsCount} منتج</span>
+                    <span className="rounded-[6px] bg-[#F2F4F7] px-[7px] py-[4px] text-[7px] font-semibold text-[#686E78]">{filter.options.length} خيارات</span>
                   </div>
 
-                  {filter.options.length > 0 && <p className="mt-[7px] line-clamp-2 text-[7px] leading-5 text-[#858D97]">{filter.options.slice(0, 6).join(" • ")}</p>}
+                  {filter.options.length > 0 && <p className="mt-[7px] line-clamp-2 text-[7px] leading-5 text-[#626E63]">{filter.options.slice(0, 6).join(" • ")}</p>}
                 </div>
 
                 <div className="grid grid-cols-[38px_38px_1fr_42px] gap-[5px] border-t border-[#EDF0F3] bg-[#FAFBFC] p-[7px]">
@@ -711,7 +711,7 @@ const AdminBrandFiltersPage = () => {
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]">{editing ? <Pencil className="h-[15px] w-[15px]" /> : <Plus className="h-[15px] w-[15px]" />}</div>
               <div>
                 <DialogTitle className="text-right text-[14px] font-semibold text-[#343B45]">{editing ? "تعديل الفلتر" : "إضافة فلتر جديد"}</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#9299A3]">{activeBrand?.name || "الماركة"} / {activeSection?.name || "القسم"}</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[8px] text-[#626E63]">{activeBrand?.name || "الماركة"} / {activeSection?.name || "القسم"}</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -735,7 +735,7 @@ const AdminBrandFiltersPage = () => {
                     </SelectContent>
                   </Select>
 
-                  <p className="mt-[5px] text-[6.5px] leading-5 text-[#9BA2AC]">{filterTypes.find((type) => type.value === form.filter_type)?.helper}</p>
+                  <p className="mt-[5px] text-[6.5px] leading-5 text-[#626E63]">{filterTypes.find((type) => type.value === form.filter_type)?.helper}</p>
                 </Field>
               </FormSection>
 
@@ -749,7 +749,7 @@ const AdminBrandFiltersPage = () => {
 
                   <div className="mt-[6px] flex flex-wrap gap-[4px]">
                     {Array.from(new Set(form.optionsText.split("\n").map((value) => value.trim()).filter(Boolean))).slice(0, 12).map((option) => <span key={option} className="rounded-[6px] bg-white px-[6px] py-[3px] text-[6.5px] font-medium text-[#707883] ring-1 ring-[#E5E9EF]">{option}</span>)}
-                    {!form.optionsText.trim() && <span className="text-[6.5px] text-[#A0A6AF]">ستظهر الخيارات هنا.</span>}
+                    {!form.optionsText.trim() && <span className="text-[6.5px] text-[#626E63]">ستظهر الخيارات هنا.</span>}
                   </div>
                 </div>
               </FormSection>
@@ -763,7 +763,7 @@ const AdminBrandFiltersPage = () => {
                   <div className="flex min-h-[64px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[10px]">
                     <div>
                       <p className="text-[8.5px] font-semibold text-[#555D67]">حالة الفلتر</p>
-                      <p className="mt-[2px] text-[6.5px] text-[#9BA2AC]">{form.is_active ? "ظاهر للعملاء" : "مخفي"}</p>
+                      <p className="mt-[2px] text-[6.5px] text-[#626E63]">{form.is_active ? "ظاهر للعملاء" : "مخفي"}</p>
                     </div>
                     <Switch checked={form.is_active} onCheckedChange={(value) => setForm((current) => ({ ...current, is_active: value }))} />
                   </div>
@@ -782,9 +782,9 @@ const AdminBrandFiltersPage = () => {
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(open) => { if (!open) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[420px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
           <AlertDialogHeader>
-            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div>
+            <div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div>
             <AlertDialogTitle className="text-[14px] font-semibold text-[#343A44]">حذف الفلتر</AlertDialogTitle>
-            <AlertDialogDescription className="text-[9px] leading-6 text-[#858D97]">سيتم حذف فلتر "{deleteTarget?.name || ""}". روابطه بالمنتجات ستُحذف تلقائيًا، لكن المنتجات نفسها لن تُحذف.</AlertDialogDescription>
+            <AlertDialogDescription className="text-[9px] leading-6 text-[#626E63]">سيتم حذف فلتر "{deleteTarget?.name || ""}". روابطه بالمنتجات ستُحذف تلقائيًا، لكن المنتجات نفسها لن تُحذف.</AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter className="mt-2 gap-2">
@@ -800,16 +800,16 @@ const AdminBrandFiltersPage = () => {
 const FilterStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
-  return <article className="relative min-h-[116px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] text-[20px] font-semibold leading-none text-[#303741]">{value.toLocaleString("en-US")}</p><p className="mt-[6px] text-[7px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[116px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[8.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] text-[20px] font-semibold leading-none text-[#303741]">{value.toLocaleString("en-US")}</p><p className="mt-[6px] text-[7px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FilterStatus = ({ active }: { active: boolean }) => {
-  return <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشط" : "معطل"}</span>;
+  return <span className={cn("inline-flex h-[24px] items-center gap-[5px] rounded-[7px] border px-[7px] text-[6.5px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}><span className={cn("h-[5px] w-[5px] rounded-full", active ? "bg-[#629067]" : "bg-[#969EA8]")} />{active ? "نشط" : "معطل"}</span>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -821,7 +821,7 @@ const Field = ({ label, children, required = false }: { label: string; children:
 };
 
 const EmptyFilters = ({ text }: { text: string }) => {
-  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]"><FilterIcon className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد فلاتر</h3><p className="mt-[4px] text-[7px] text-[#9BA2AC]">{text}</p></div>;
+  return <div className="flex min-h-[230px] flex-col items-center justify-center rounded-[14px] bg-white px-6 text-center"><div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]"><FilterIcon className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[10px] font-semibold text-[#535B65]">لا توجد فلاتر</h3><p className="mt-[4px] text-[7px] text-[#626E63]">{text}</p></div>;
 };
 
 export default AdminBrandFiltersPage;

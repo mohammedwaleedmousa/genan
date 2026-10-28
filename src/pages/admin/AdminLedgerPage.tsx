@@ -361,7 +361,7 @@ const AdminLedgerPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11.5px] font-semibold text-[#444B55]">البحث والتصفية</h2>
-            <p className="mt-[3px] text-[10px] text-[#9BA2AC]">ابحث بالمرجع والوصف والحساب، ثم فلتر الفترة والمصدر</p>
+            <p className="mt-[3px] text-[10px] text-[#626E63]">ابحث بالمرجع والوصف والحساب، ثم فلتر الفترة والمصدر</p>
           </div>
 
           {hasFilters && <button type="button" onClick={clearFilters} className="flex h-[32px] items-center gap-[5px] rounded-[8px] px-[9px] text-[10px] font-semibold text-[#7E8690] hover:bg-[#F7F8FA]"><X className="h-[10px] w-[10px]" />مسح الفلاتر</button>}
@@ -415,7 +415,7 @@ const AdminLedgerPage = () => {
 
       <section className="overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white">
         <div className="flex items-center justify-between border-b border-[#EAEDF1] px-[13px] py-[10px]">
-          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">القيود المحاسبية</h2><p className="mt-[3px] text-[10px] text-[#9CA3AC]">{filteredTxs.length.toLocaleString("ar-EG")} قيد ظاهر من أصل {txs.length.toLocaleString("ar-EG")}</p></div>
+          <div><h2 className="text-[11.5px] font-semibold text-[#454C56]">القيود المحاسبية</h2><p className="mt-[3px] text-[10px] text-[#626E63]">{filteredTxs.length.toLocaleString("ar-EG")} قيد ظاهر من أصل {txs.length.toLocaleString("ar-EG")}</p></div>
           {isFetching && <Loader2 className="h-[12px] w-[12px] animate-spin text-[#8E959F]" />}
         </div>
 
@@ -432,7 +432,7 @@ const AdminLedgerPage = () => {
                 <article key={tx.id} className="bg-white">
                   <div className="flex flex-col gap-[10px] p-[12px] lg:flex-row lg:items-start lg:justify-between">
                     <div className="flex min-w-0 items-start gap-[9px]">
-                      <div className={cn("flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px]", tx.source_type === "journal_reversal" ? "bg-[#FFF0ED] text-[#D06A5E]" : tx.source_type === "manual" ? "bg-[#F1EFFF] text-[#675CBA]" : "bg-[#EDF4FF] text-[#5680CF]")}>
+                      <div className={cn("flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px]", tx.source_type === "journal_reversal" ? "bg-[#FFF0ED] text-[#A5564A]" : tx.source_type === "manual" ? "bg-[#F1EFFF] text-[#675CBA]" : "bg-[#EDF4FF] text-[#486BB0]")}>
                         {tx.source_type === "journal_reversal" ? <RotateCcw className="h-[14px] w-[14px]" /> : tx.source_type === "manual" ? <BookOpen className="h-[14px] w-[14px]" /> : <Landmark className="h-[14px] w-[14px]" />}
                       </div>
 
@@ -440,9 +440,9 @@ const AdminLedgerPage = () => {
                         <div className="flex flex-wrap items-center gap-[6px]">
                           <h3 className="text-[11.5px] font-semibold text-[#3F4751]">{tx.description}</h3>
                           <SourceBadge source={tx.source_type} />
-                          {reversed && <span className="inline-flex h-[24px] items-center gap-[4px] rounded-[7px] border border-[#F0D7D4] bg-[#FFF3F1] px-[7px] text-[9.5px] font-semibold text-[#C15F56]"><RotateCcw className="h-[9px] w-[9px]" />تم عكسه</span>}
+                          {reversed && <span className="inline-flex h-[24px] items-center gap-[4px] rounded-[7px] border border-[#F0D7D4] bg-[#FFF3F1] px-[7px] text-[9.5px] font-semibold text-[#A9534A]"><RotateCcw className="h-[9px] w-[9px]" />تم عكسه</span>}
                         </div>
-                        <p className="mt-[4px] text-[10px] text-[#9299A3]">{formatDate(tx.entry_date)}{tx.reference ? ` · ${tx.reference}` : ""}</p>
+                        <p className="mt-[4px] text-[10px] text-[#626E63]">{formatDate(tx.entry_date)}{tx.reference ? ` · ${tx.reference}` : ""}</p>
                       </div>
                     </div>
 
@@ -486,7 +486,7 @@ const AdminLedgerPage = () => {
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]"><BookOpen className="h-[15px] w-[15px]" /></div>
               <div>
                 <DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">إضافة قيد محاسبي</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">قيد مزدوج متوازن يُحفظ في قاعدة البيانات كعملية واحدة.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">قيد مزدوج متوازن يُحفظ في قاعدة البيانات كعملية واحدة.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -553,10 +553,10 @@ const AdminLedgerPage = () => {
         <DialogContent dir="rtl" className="max-w-[560px] rounded-[18px] border-[#E4E8ED] bg-[#F7F8FA] p-0">
           <DialogHeader className="border-b border-[#E6E9EE] bg-white px-5 py-4">
             <div className="flex items-center gap-[10px]">
-              <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#FFF0ED] text-[#C15F56]"><RotateCcw className="h-[15px] w-[15px]" /></div>
+              <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#FFF0ED] text-[#A9534A]"><RotateCcw className="h-[15px] w-[15px]" /></div>
               <div>
                 <DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">عكس القيد</DialogTitle>
-                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">سيبقى القيد الأصلي محفوظًا وسيتم إنشاء قيد جديد بعكس المدين والدائن.</DialogDescription>
+                <DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">سيبقى القيد الأصلي محفوظًا وسيتم إنشاء قيد جديد بعكس المدين والدائن.</DialogDescription>
               </div>
             </div>
           </DialogHeader>
@@ -565,13 +565,13 @@ const AdminLedgerPage = () => {
             <div className="rounded-[10px] border border-[#E5E9EF] bg-white p-[10px]">
               <p className="text-[10px] text-[#9AA2AC]">القيد الأصلي</p>
               <p className="mt-[4px] text-[11px] font-semibold text-[#4A525C]">{reversalTarget?.description}</p>
-              <p className="mt-[3px] text-[10px] text-[#9299A3]">{reversalTarget?.reference || "بدون مرجع"} · {reversalTarget ? formatDate(reversalTarget.entry_date) : ""}</p>
+              <p className="mt-[3px] text-[10px] text-[#626E63]">{reversalTarget?.reference || "بدون مرجع"} · {reversalTarget ? formatDate(reversalTarget.entry_date) : ""}</p>
             </div>
 
             <Field label="تاريخ قيد العكس" required><Input type="date" value={reversalDate} onChange={(event) => setReversalDate(event.target.value)} className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-white text-[11px] shadow-none focus-visible:ring-0" /></Field>
             <Field label="سبب العكس"><Textarea rows={4} value={reversalReason} onChange={(event) => setReversalReason(event.target.value)} placeholder="مثال: تم إدخال القيد بقيمة خاطئة..." className="resize-none rounded-[9px] border-[#E2E6EB] bg-white text-[11px] leading-6 shadow-none focus-visible:ring-0" /></Field>
 
-            <div className="rounded-[10px] border border-[#F0D7D4] bg-[#FFF8F7] p-[9px] text-[10px] leading-5 text-[#A6635C]">لا يتم حذف السجل الأصلي لأن دفتر اليومية يجب أن يحافظ على الأثر المحاسبي. قيد العكس هو الإجراء الصحيح للقيود المرحّلة.</div>
+            <div className="rounded-[10px] border border-[#F0D7D4] bg-[#FFF8F7] p-[9px] text-[10px] leading-5 text-[#9E5F58]">لا يتم حذف السجل الأصلي لأن دفتر اليومية يجب أن يحافظ على الأثر المحاسبي. قيد العكس هو الإجراء الصحيح للقيود المرحّلة.</div>
           </div>
 
           <div className="flex items-center justify-end gap-[7px] border-t border-[#E5E9EF] bg-white px-5 py-3">
@@ -595,19 +595,19 @@ const transactionAmount = (tx: Tx) => {
 
 const SourceBadge = ({ source }: { source: string | null }) => {
   if (source === "manual") return <span className="inline-flex h-[24px] items-center rounded-[7px] border border-[#E2DEF3] bg-[#F6F4FF] px-[7px] text-[9.5px] font-semibold text-[#675CBA]">يدوي</span>;
-  if (source === "journal_reversal") return <span className="inline-flex h-[24px] items-center rounded-[7px] border border-[#F0D7D4] bg-[#FFF3F1] px-[7px] text-[9.5px] font-semibold text-[#C15F56]">عكس</span>;
-  return <span className="inline-flex h-[24px] items-center rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[9.5px] font-semibold text-[#5679A4]">نظام</span>;
+  if (source === "journal_reversal") return <span className="inline-flex h-[24px] items-center rounded-[7px] border border-[#F0D7D4] bg-[#FFF3F1] px-[7px] text-[9.5px] font-semibold text-[#A9534A]">عكس</span>;
+  return <span className="inline-flex h-[24px] items-center rounded-[7px] border border-[#DCE7F4] bg-[#F1F6FC] px-[7px] text-[9.5px] font-semibold text-[#507098]">نظام</span>;
 };
 
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "blue" | "coral" | "green" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -624,7 +624,7 @@ const BalanceBox = ({ label, value, tone }: { label: string; value: string; tone
 };
 
 const PanelEmpty = () => {
-  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><BookOpen className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد قيود</h3><p className="mt-[5px] text-[10px] text-[#9BA2AC]">غيّر البحث أو الفلاتر، أو أضف قيدًا جديدًا.</p></div>;
+  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><BookOpen className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد قيود</h3><p className="mt-[5px] text-[10px] text-[#626E63]">غيّر البحث أو الفلاتر، أو أضف قيدًا جديدًا.</p></div>;
 };
 
 const currencySymbolFor = (code: string | null, currencies: CurrencyRow[], fallback: string) => currencies.find((currency) => currency.code === code)?.symbol || fallback;

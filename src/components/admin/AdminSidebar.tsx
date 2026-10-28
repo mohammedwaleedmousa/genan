@@ -79,7 +79,7 @@ const ACCORDION_TRANSITION = {
 };
 
 const adminTone = {
-  icon: "bg-[#F3E8D6] text-[#967242]",
+  icon: "bg-[#F3E8D6] text-[#6A502D]",
   activeIcon: "bg-[#EAD5AD] text-[#74552D]",
   active: "border-[#E4D3B2] bg-[#F6ECDD] text-[#272B24]",
   line: "bg-[#A98650]",
@@ -279,7 +279,7 @@ const AdminSidebar = () => {
                   </div>
                 </div>
 
-                <span className="rounded-[7px] border border-[#E2D1AE] bg-[#F3EBDA] px-[7px] py-[4px] text-[10px] font-bold tracking-[0.07em] text-[#886738]">ADMIN</span>
+                <span className="rounded-[7px] border border-[#E2D1AE] bg-[#F3EBDA] px-[7px] py-[4px] text-[10px] font-bold tracking-[0.07em] text-[#765830]">ADMIN</span>
               </>
             )}
           </button>
@@ -392,7 +392,7 @@ const AdminSidebar = () => {
                 )}
               </button>
 
-              <button type="button" onClick={handleLogout} className={cn("mt-[1px] flex min-h-[36px] w-full items-center rounded-[8px] text-[#8A919B] transition-colors duration-150 hover:bg-[#FFF3F1] hover:text-[#C15F56]", collapsed ? "justify-center" : "gap-[7px] px-[8px]")}>
+              <button type="button" onClick={handleLogout} className={cn("mt-[1px] flex min-h-[36px] w-full items-center rounded-[8px] text-[#59665D] transition-colors duration-150 hover:bg-[#FFF3F1] hover:text-[#A74640]", collapsed ? "justify-center" : "gap-[7px] px-[8px]")}>
                 <LogOut className="h-[11px] w-[11px]" strokeWidth={1.8} />
                 {!collapsed && <span className="text-[9px] font-medium">تسجيل الخروج</span>}
               </button>

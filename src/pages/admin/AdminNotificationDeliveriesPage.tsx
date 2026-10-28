@@ -331,7 +331,7 @@ const AdminNotificationDeliveriesPage = () => {
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[1180px]">
                 <thead>
-                  <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#858D97]">
+                  <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#6A727C]">
                     <th className="px-[12px] text-right">الإشعار</th>
                     <th className="px-[12px] text-right">العميل</th>
                     <th className="px-[12px] text-right">القناة</th>
@@ -346,12 +346,12 @@ const AdminNotificationDeliveriesPage = () => {
                 <tbody>
                   {filtered.map((row) => (
                     <tr key={row.id} className="border-b border-[#F0F2F5] transition-colors last:border-b-0 hover:bg-[#FCFDFE]">
-                      <td className="max-w-[320px] px-[12px] py-[11px]"><p className="truncate text-[10.5px] font-semibold text-[#4A525C]">{row.notif_title}</p><p className="mt-[3px] line-clamp-1 text-[9.5px] text-[#9299A3]">{row.notif_body || "—"}</p></td>
+                      <td className="max-w-[320px] px-[12px] py-[11px]"><p className="truncate text-[10.5px] font-semibold text-[#4A525C]">{row.notif_title}</p><p className="mt-[3px] line-clamp-1 text-[9.5px] text-[#626E63]">{row.notif_body || "—"}</p></td>
                       <td className="px-[12px] py-[11px]"><p className="text-[10.5px] font-semibold text-[#59616B]">{row.customer_name}</p><p dir="ltr" className="mt-[2px] text-right text-[9.5px] text-[#9AA2AC]">{row.customer_phone || (row.broadcast ? "Broadcast" : "—")}</p></td>
                       <td className="px-[12px] py-[11px]"><ChannelBadge channel={row.channel} /></td>
                       <td className="px-[12px] py-[11px]"><StatusBadge status={row.status} /></td>
                       <td className="px-[12px] py-[11px]"><span className="inline-flex min-w-[30px] justify-center rounded-[7px] bg-[#F4F6F8] px-[7px] py-[4px] text-[10px] font-semibold text-[#69727C]">{row.attempts}</span></td>
-                      <td className="max-w-[220px] px-[12px] py-[11px]"><p title={row.last_error || ""} className={cn("truncate text-[9.5px]", row.last_error ? "text-[#C15F56]" : "text-[#A0A6AF]")}>{row.last_error || "—"}</p></td>
+                      <td className="max-w-[220px] px-[12px] py-[11px]"><p title={row.last_error || ""} className={cn("truncate text-[9.5px]", row.last_error ? "text-[#C15F56]" : "text-[#626E63]")}>{row.last_error || "—"}</p></td>
                       <td className="px-[12px] py-[11px]"><p className="whitespace-nowrap text-[9.5px] text-[#7E8690]">{formatDateTime(row.created_at)}</p>{row.read_at && <p className="mt-[2px] whitespace-nowrap text-[8.5px] text-[#6F967A]">قُرئ {formatDateTime(row.read_at)}</p>}</td>
                       <td className="px-[12px] py-[11px] text-center">
                         {row.channel === "whatsapp" && row.status !== "sent" && row.status !== "read" ? (
@@ -375,7 +375,7 @@ const AdminNotificationDeliveriesPage = () => {
                       <StatusBadge status={row.status} />
                     </div>
 
-                    <div className="mt-[8px] flex flex-wrap gap-[5px]"><ChannelBadge channel={row.channel} /><span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#E4E7EB] bg-[#F7F8FA] px-[7px] text-[9px] font-semibold text-[#7E8690]">{row.attempts} محاولة</span></div>
+                    <div className="mt-[8px] flex flex-wrap gap-[5px]"><ChannelBadge channel={row.channel} /><span className="inline-flex h-[25px] items-center rounded-[7px] border border-[#E4E7EB] bg-[#F7F8FA] px-[7px] text-[9px] font-semibold text-[#686E78]">{row.attempts} محاولة</span></div>
 
                     <div className="mt-[9px] grid grid-cols-2 gap-[6px]">
                       <InfoBox label="العميل" value={row.customer_name} />
@@ -405,20 +405,20 @@ const AdminNotificationDeliveriesPage = () => {
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "blue" | "green" | "red" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    red: { icon: "bg-[#FFF0F0] text-[#C76161]", line: "bg-[#C76161]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    red: { icon: "bg-[#FFF0F0] text-[#AA5353]", line: "bg-[#C76161]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const StatusBadge = ({ status }: { status: DeliveryStatus }) => {
   const config: Record<DeliveryStatus, { label: string; icon: LucideIcon; className: string }> = {
-    pending: { label: "قيد الإرسال", icon: Clock3, className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#A9782F]" },
-    sent: { label: "مرسل", icon: CheckCircle2, className: "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]" },
-    failed: { label: "فشل", icon: XCircle, className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#C15F56]" },
-    read: { label: "مقروء", icon: Eye, className: "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" },
+    pending: { label: "قيد الإرسال", icon: Clock3, className: "border-[#EEDFC4] bg-[#FFF7E8] text-[#926829]" },
+    sent: { label: "مرسل", icon: CheckCircle2, className: "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]" },
+    failed: { label: "فشل", icon: XCircle, className: "border-[#F0D7D4] bg-[#FFF3F1] text-[#A9534A]" },
+    read: { label: "مقروء", icon: Eye, className: "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" },
   };
 
   const current = config[status] || config.pending;
@@ -428,13 +428,13 @@ const StatusBadge = ({ status }: { status: DeliveryStatus }) => {
 };
 
 const ChannelBadge = ({ channel }: { channel: DeliveryChannel }) => {
-  if (channel === "whatsapp") return <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[8px] text-[9px] font-semibold text-[#568468]"><MessageCircle className="h-[9px] w-[9px]" />واتساب</span>;
+  if (channel === "whatsapp") return <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#D8E8DD] bg-[#EFF8F2] px-[8px] text-[9px] font-semibold text-[#4C755E]"><MessageCircle className="h-[9px] w-[9px]" />واتساب</span>;
   return <span className="inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border border-[#E2DEF3] bg-[#F8F7FF] px-[8px] text-[9px] font-semibold text-[#675CBA]"><Bell className="h-[9px] w-[9px]" />داخل المتجر</span>;
 };
 
 const InfoBox = ({ label, value, ltr = false }: { label: string; value: string; ltr?: boolean }) => <div className="rounded-[9px] bg-[#F8FAFC] p-[8px]"><p className="text-[9px] text-[#9AA2AC]">{label}</p><p dir={ltr ? "ltr" : "rtl"} className={cn("mt-[3px] truncate text-[10px] font-semibold text-[#59616B]", ltr && "text-right")}>{value}</p></div>;
 
-const EmptyState = () => <div className="flex min-h-[260px] flex-col items-center justify-center px-5 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><Activity className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد سجلات مطابقة</h3><p className="mt-[5px] text-[10px] text-[#9BA2AC]">غيّر الفلاتر أو انتظر وصول محاولات تسليم جديدة.</p></div>;
+const EmptyState = () => <div className="flex min-h-[260px] flex-col items-center justify-center px-5 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><Activity className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد سجلات مطابقة</h3><p className="mt-[5px] text-[10px] text-[#626E63]">غيّر الفلاتر أو انتظر وصول محاولات تسليم جديدة.</p></div>;
 
 const normalizeWhatsappPhone = (phone: string) => {
   let value = String(phone || "").replace(/\D/g, "");

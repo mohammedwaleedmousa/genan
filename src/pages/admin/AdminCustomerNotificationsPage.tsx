@@ -302,8 +302,8 @@ const AdminCustomerNotificationsPage = () => {
           <form onSubmit={(event: FormEvent) => { event.preventDefault(); sendMutation.mutate(); }} className="space-y-[10px] p-[11px]">
             <FormSection title="الجمهور" icon={Users}>
               <div className="grid grid-cols-2 gap-[6px]">
-                <button type="button" onClick={() => setForm((current) => ({ ...current, target: "broadcast", customerId: "", alsoWhatsapp: false }))} className={cn("flex min-h-[62px] items-center justify-center gap-[7px] rounded-[10px] border text-[10.5px] font-semibold transition-colors", form.target === "broadcast" ? "border-[#CBC5E7] bg-[#F5F3FF] text-[#675CBA]" : "border-[#E4E8ED] bg-[#FAFBFC] text-[#727A84]")}><Users className="h-[12px] w-[12px]" />جميع العملاء</button>
-                <button type="button" onClick={() => setForm((current) => ({ ...current, target: "single" }))} className={cn("flex min-h-[62px] items-center justify-center gap-[7px] rounded-[10px] border text-[10.5px] font-semibold transition-colors", form.target === "single" ? "border-[#CBC5E7] bg-[#F5F3FF] text-[#675CBA]" : "border-[#E4E8ED] bg-[#FAFBFC] text-[#727A84]")}><Bell className="h-[12px] w-[12px]" />عميل محدد</button>
+                <button type="button" onClick={() => setForm((current) => ({ ...current, target: "broadcast", customerId: "", alsoWhatsapp: false }))} className={cn("flex min-h-[62px] items-center justify-center gap-[7px] rounded-[10px] border text-[10.5px] font-semibold transition-colors", form.target === "broadcast" ? "border-[#CBC5E7] bg-[#F5F3FF] text-[#675CBA]" : "border-[#E4E8ED] bg-[#FAFBFC] text-[#6A717B]")}><Users className="h-[12px] w-[12px]" />جميع العملاء</button>
+                <button type="button" onClick={() => setForm((current) => ({ ...current, target: "single" }))} className={cn("flex min-h-[62px] items-center justify-center gap-[7px] rounded-[10px] border text-[10.5px] font-semibold transition-colors", form.target === "single" ? "border-[#CBC5E7] bg-[#F5F3FF] text-[#675CBA]" : "border-[#E4E8ED] bg-[#FAFBFC] text-[#6A717B]")}><Bell className="h-[12px] w-[12px]" />عميل محدد</button>
               </div>
 
               {form.target === "single" && (
@@ -317,7 +317,7 @@ const AdminCustomerNotificationsPage = () => {
                     {customersLoading ? <div className="flex h-[90px] items-center justify-center"><Loader2 className="h-[14px] w-[14px] animate-spin text-[#675CBA]" /></div> : customerOptions.length === 0 ? <p className="py-8 text-center text-[10px] text-[#9AA2AC]">لا يوجد عملاء مطابقون.</p> : customerOptions.map((customer) => {
                       const selected = form.customerId === customer.id;
 
-                      return <button type="button" key={customer.id} onClick={() => setForm((current) => ({ ...current, customerId: customer.id }))} className={cn("flex w-full items-center gap-[8px] rounded-[8px] border p-[7px] text-right transition-colors", selected ? "border-[#CBC5E7] bg-[#F5F3FF]" : "border-transparent bg-white hover:border-[#E1E5EA]")}><div className={cn("flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-[9px] text-[10px] font-semibold", selected ? "bg-[#675CBA] text-white" : "bg-[#EEF1F4] text-[#7E8690]")}>{customer.name?.trim()?.charAt(0) || "ع"}</div><div className="min-w-0 flex-1"><p className={cn("truncate text-[10.5px] font-semibold", selected ? "text-[#675CBA]" : "text-[#555D67]")}>{customer.name}</p><p dir="ltr" className="mt-[2px] text-right text-[9.5px] text-[#9AA2AC]">{customer.phone}</p></div>{selected && <CheckCircle2 className="h-[12px] w-[12px] shrink-0 text-[#675CBA]" />}</button>;
+                      return <button type="button" key={customer.id} onClick={() => setForm((current) => ({ ...current, customerId: customer.id }))} className={cn("flex w-full items-center gap-[8px] rounded-[8px] border p-[7px] text-right transition-colors", selected ? "border-[#CBC5E7] bg-[#F5F3FF]" : "border-transparent bg-white hover:border-[#E1E5EA]")}><div className={cn("flex h-[32px] w-[32px] shrink-0 items-center justify-center rounded-[9px] text-[10px] font-semibold", selected ? "bg-[#675CBA] text-white" : "bg-[#EEF1F4] text-[#666B75]")}>{customer.name?.trim()?.charAt(0) || "ع"}</div><div className="min-w-0 flex-1"><p className={cn("truncate text-[10.5px] font-semibold", selected ? "text-[#675CBA]" : "text-[#555D67]")}>{customer.name}</p><p dir="ltr" className="mt-[2px] text-right text-[9.5px] text-[#9AA2AC]">{customer.phone}</p></div>{selected && <CheckCircle2 className="h-[12px] w-[12px] shrink-0 text-[#675CBA]" />}</button>;
                     })}
                   </div>
                 </div>
@@ -325,7 +325,7 @@ const AdminCustomerNotificationsPage = () => {
             </FormSection>
 
             <FormSection title="المحتوى" icon={Bell}>
-              <Field label="عنوان الإشعار" required><Input value={form.title} maxLength={120} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} placeholder="مثال: وصل جديد فلامنجو" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" /><Count value={form.title.length} max={120} /></Field>
+              <Field label="عنوان الإشعار" required><Input value={form.title} maxLength={120} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} placeholder="مثال: وصل جديد جنان" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" /><Count value={form.title.length} max={120} /></Field>
               <Field label="نص الإشعار" required><Textarea value={form.body} maxLength={500} onChange={(event) => setForm((current) => ({ ...current, body: event.target.value }))} rows={5} placeholder="اكتب رسالة قصيرة وواضحة..." className="resize-none rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] leading-6 shadow-none focus-visible:bg-white focus-visible:ring-0" /><Count value={form.body.length} max={500} /></Field>
 
               <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-2">
@@ -343,7 +343,7 @@ const AdminCustomerNotificationsPage = () => {
             {form.target === "single" && selectedCustomer && (
               <FormSection title="قنوات الإرسال" icon={MessageCircle}>
                 <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
-                  <div><p className="text-[10.5px] font-semibold text-[#555D67]">فتح واتساب بعد الحفظ</p><p dir="ltr" className="mt-[3px] text-right text-[9.5px] text-[#9BA2AC]">{selectedCustomer.phone}</p></div>
+                  <div><p className="text-[10.5px] font-semibold text-[#555D67]">فتح واتساب بعد الحفظ</p><p dir="ltr" className="mt-[3px] text-right text-[9.5px] text-[#626E63]">{selectedCustomer.phone}</p></div>
                   <Switch checked={form.alsoWhatsapp} onCheckedChange={(checked) => setForm((current) => ({ ...current, alsoWhatsapp: checked }))} />
                 </div>
               </FormSection>
@@ -406,7 +406,7 @@ const AdminCustomerNotificationsPage = () => {
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[980px]">
                 <thead>
-                  <tr className="h-[43px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#858D97]">
+                  <tr className="h-[43px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10px] font-semibold text-[#6A727C]">
                     <th className="px-[12px] text-right">الإشعار</th>
                     <th className="px-[12px] text-right">الجمهور</th>
                     <th className="px-[12px] text-right">النوع</th>
@@ -422,7 +422,7 @@ const AdminCustomerNotificationsPage = () => {
 
                     return (
                       <tr key={notification.id} className="border-b border-[#F0F2F5] last:border-b-0 hover:bg-[#FCFDFE]">
-                        <td className="max-w-[380px] px-[12px] py-[11px]"><p className="truncate text-[10.5px] font-semibold text-[#4A525C]">{notification.title}</p><p className="mt-[3px] line-clamp-1 text-[9.5px] text-[#9299A3]">{notification.message}</p></td>
+                        <td className="max-w-[380px] px-[12px] py-[11px]"><p className="truncate text-[10.5px] font-semibold text-[#4A525C]">{notification.title}</p><p className="mt-[3px] line-clamp-1 text-[9.5px] text-[#626E63]">{notification.message}</p></td>
                         <td className="px-[12px] py-[11px]"><AudienceBadge broadcast={notification.broadcast} /></td>
                         <td className="px-[12px] py-[11px]"><span className="text-[10px] text-[#68717B]">{notificationTypeLabel(notification.type)}</span></td>
                         <td className="px-[12px] py-[11px]"><div className="flex flex-wrap gap-[4px]"><ChannelBadge label="داخل المتجر" /><ChannelBadge label={hasWhatsapp ? "واتساب" : "—"} muted={!hasWhatsapp} /></div></td>
@@ -455,7 +455,7 @@ const AdminCustomerNotificationsPage = () => {
 
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(next) => { if (!next) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
-          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف الإشعار</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم حذف الإشعار وسجلات التسليم المرتبطة به نهائيًا.</AlertDialogDescription></AlertDialogHeader>
+          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف الإشعار</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم حذف الإشعار وسجلات التسليم المرتبطة به نهائيًا.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2"><AlertDialogCancel disabled={deleteMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel><AlertDialogAction disabled={deleteMutation.isPending} onClick={(event) => { event.preventDefault(); if (deleteTarget) deleteMutation.mutate(deleteTarget); }} className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[10.5px] font-semibold text-white hover:bg-[#B65555]">{deleteMutation.isPending && <Loader2 className="ml-[5px] h-[11px] w-[11px] animate-spin" />}حذف نهائي</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -466,25 +466,25 @@ const AdminCustomerNotificationsPage = () => {
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "amber" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    amber: { icon: "bg-[#FFF7E8] text-[#A9782F]", line: "bg-[#C49446]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    amber: { icon: "bg-[#FFF7E8] text-[#926829]", line: "bg-[#C49446]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => <section className="rounded-[13px] border border-[#E5E9EF] bg-white p-[11px]"><div className="mb-[9px] flex items-center gap-[7px] border-b border-[#F0F2F5] pb-[8px]"><div className="flex h-[28px] w-[28px] items-center justify-center rounded-[8px] bg-[#F1EFFF] text-[#675CBA]"><Icon className="h-[11px] w-[11px]" /></div><h3 className="text-[10.5px] font-semibold text-[#4A525C]">{title}</h3></div><div className="space-y-[8px]">{children}</div></section>;
 
 const Field = ({ label, children, required = false }: { label: string; children: ReactNode; required?: boolean }) => <div><Label className="mb-[6px] block text-[10.5px] font-semibold text-[#727A84]">{label}{required && <span className="mr-[3px] text-[#C76161]">*</span>}</Label>{children}</div>;
 
-const Count = ({ value, max }: { value: number; max: number }) => <p dir="ltr" className="mt-[4px] text-right text-[9px] text-[#A0A6AF]">{value}/{max}</p>;
+const Count = ({ value, max }: { value: number; max: number }) => <p dir="ltr" className="mt-[4px] text-right text-[9px] text-[#626E63]">{value}/{max}</p>;
 
 const InfoBox = ({ label, value }: { label: string; value: string }) => <div className="rounded-[9px] bg-[#F8FAFC] p-[8px]"><p className="text-[9px] text-[#9AA2AC]">{label}</p><p className="mt-[3px] truncate text-[10px] font-semibold text-[#59616B]">{value}</p></div>;
 
-const AudienceBadge = ({ broadcast }: { broadcast: boolean }) => <span className={cn("inline-flex h-[25px] items-center gap-[4px] rounded-[7px] border px-[7px] text-[9px] font-semibold", broadcast ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#DCE7F4] bg-[#F1F6FC] text-[#5679A4]")}>{broadcast ? <Users className="h-[8px] w-[8px]" /> : <Bell className="h-[8px] w-[8px]" />}{broadcast ? "بث عام" : "مخصص"}</span>;
+const AudienceBadge = ({ broadcast }: { broadcast: boolean }) => <span className={cn("inline-flex h-[25px] items-center gap-[4px] rounded-[7px] border px-[7px] text-[9px] font-semibold", broadcast ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#DCE7F4] bg-[#F1F6FC] text-[#507098]")}>{broadcast ? <Users className="h-[8px] w-[8px]" /> : <Bell className="h-[8px] w-[8px]" />}{broadcast ? "بث عام" : "مخصص"}</span>;
 
-const ChannelBadge = ({ label, muted = false }: { label: string; muted?: boolean }) => <span className={cn("inline-flex h-[24px] items-center rounded-[6px] border px-[6px] text-[8.5px] font-semibold", muted ? "border-[#E4E7EB] bg-[#F7F8FA] text-[#A0A6AF]" : "border-[#E2DEF3] bg-[#F8F7FF] text-[#675CBA]")}>{label}</span>;
+const ChannelBadge = ({ label, muted = false }: { label: string; muted?: boolean }) => <span className={cn("inline-flex h-[24px] items-center rounded-[6px] border px-[6px] text-[8.5px] font-semibold", muted ? "border-[#E4E7EB] bg-[#F7F8FA] text-[#6B6F76]" : "border-[#E2DEF3] bg-[#F8F7FF] text-[#675CBA]")}>{label}</span>;
 
 const notificationTypeLabel = (type: NotificationType) => {
   if (type === "order") return "طلب";
@@ -519,7 +519,7 @@ const normalizeWhatsappPhone = (phone: string) => {
   return value;
 };
 
-const buildWhatsappMessage = (title: string, body: string, link: string) => `${title.trim() || "فلامنجو بارك"}\n\n${body.trim()}${link.trim() ? `\n\n${link.trim()}` : ""}`;
+const buildWhatsappMessage = (title: string, body: string, link: string) => `${title.trim() || "بوتيك جنان"}\n\n${body.trim()}${link.trim() ? `\n\n${link.trim()}` : ""}`;
 
 const openWhatsApp = (phone: string, message: string) => {
   const normalized = normalizeWhatsappPhone(phone);

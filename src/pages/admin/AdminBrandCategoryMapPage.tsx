@@ -366,7 +366,7 @@ const AdminBrandCategoryMapPage = () => {
             <Loader2 className="h-[18px] w-[18px] animate-spin text-[#675CBA]" />
           </div>
 
-          <p className="mt-3 text-[8px] font-medium text-[#969DA7]">جاري تحميل خريطة الماركات والأقسام...</p>
+          <p className="mt-3 text-[8px] font-medium text-[#626E63]">جاري تحميل خريطة الماركات والأقسام...</p>
         </div>
       </div>
     );
@@ -404,7 +404,7 @@ const AdminBrandCategoryMapPage = () => {
 
             <div>
               <p className="text-[10px] font-semibold text-[#444B55]">مساحة الربط</p>
-              <p className="mt-[2px] text-[7px] text-[#9BA2AC]">يمكنك تعديل أكثر من ماركة ثم حفظ جميع التغييرات دفعة واحدة</p>
+              <p className="mt-[2px] text-[7px] text-[#626E63]">يمكنك تعديل أكثر من ماركة ثم حفظ جميع التغييرات دفعة واحدة</p>
             </div>
           </div>
 
@@ -431,7 +431,7 @@ const AdminBrandCategoryMapPage = () => {
             <Input value={brandSearch} onChange={(event) => setBrandSearch(event.target.value)} placeholder="ابحث باسم الماركة أو الرابط..." className="h-[40px] rounded-[10px] border-[#E3E7EC] bg-[#F8FAFC] pr-[35px] pl-[34px] text-[9px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
 
             {brandSearch && (
-              <button type="button" onClick={() => setBrandSearch("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#9AA1AB] hover:bg-white hover:text-[#5C6470]">
+              <button type="button" onClick={() => setBrandSearch("")} className="absolute left-[8px] top-1/2 flex h-[24px] w-[24px] -translate-y-1/2 items-center justify-center rounded-[7px] text-[#626E63] hover:bg-white hover:text-[#5C6470]">
                 <X className="h-[11px] w-[11px]" />
               </button>
             )}
@@ -467,7 +467,7 @@ const AdminBrandCategoryMapPage = () => {
             </div>
 
             <div className="relative mt-[8px]">
-              <Search className="absolute right-[10px] top-1/2 h-[10px] w-[10px] -translate-y-1/2 text-[#9BA2AC]" />
+              <Search className="absolute right-[10px] top-1/2 h-[10px] w-[10px] -translate-y-1/2 text-[#626E63]" />
 
               <Input value={categorySearch} onChange={(event) => setCategorySearch(event.target.value)} placeholder="بحث في الأقسام..." className="h-[34px] rounded-[8px] border-[#E5E8ED] bg-[#F8FAFC] pr-[29px] text-[7px] shadow-none focus-visible:ring-0" />
             </div>
@@ -504,7 +504,7 @@ const AdminBrandCategoryMapPage = () => {
 
         <div className="space-y-[8px]">
           {isFetching && (
-            <div className="flex items-center justify-end gap-[5px] text-[6.5px] text-[#969DA7]">
+            <div className="flex items-center justify-end gap-[5px] text-[6.5px] text-[#626E63]">
               <Loader2 className="h-[9px] w-[9px] animate-spin" />
               جاري تحديث البيانات...
             </div>
@@ -599,7 +599,7 @@ const BrandMappingCard = ({ brand, categories, rootCategories, childrenByParent,
             </button>
           )}
 
-          <button type="button" disabled={!dirty || saving} onClick={onSave} className={cn("flex h-[31px] items-center gap-[5px] rounded-[8px] px-[9px] text-[6.5px] font-semibold transition-colors", dirty ? "bg-[#675CBA] text-white hover:bg-[#594FAB]" : "bg-[#F0F2F5] text-[#9BA2AC]")}>
+          <button type="button" disabled={!dirty || saving} onClick={onSave} className={cn("flex h-[31px] items-center gap-[5px] rounded-[8px] px-[9px] text-[6.5px] font-semibold transition-colors", dirty ? "bg-[#675CBA] text-white hover:bg-[#594FAB]" : "bg-[#F0F2F5] text-[#686C74]")}>
             {saving ? <Loader2 className="h-[9px] w-[9px] animate-spin" /> : dirty ? <Save className="h-[9px] w-[9px]" /> : <Check className="h-[9px] w-[9px]" />}
             {saving ? "جاري الحفظ" : dirty ? "حفظ" : "محفوظ"}
           </button>
@@ -635,7 +635,7 @@ const BrandMappingCard = ({ brand, categories, rootCategories, childrenByParent,
                     <p className="truncate text-[7.5px] font-semibold text-[#565E68]">{root.name_ar}</p>
                   </div>
 
-                  <span className={cn("rounded-[5px] px-[5px] py-[2px] text-[5.5px] font-semibold", checkedCount > 0 ? "bg-[#EDF4FF] text-[#5680CF]" : "bg-[#F0F2F5] text-[#9299A3]")}>{checkedCount}/{allIds.length}</span>
+                  <span className={cn("rounded-[5px] px-[5px] py-[2px] text-[5.5px] font-semibold", checkedCount > 0 ? "bg-[#EDF4FF] text-[#486BB0]" : "bg-[#F0F2F5] text-[#676B73]")}>{checkedCount}/{allIds.length}</span>
                 </label>
 
                 {children.length > 0 && (
@@ -662,8 +662,8 @@ const BrandMappingCard = ({ brand, categories, rootCategories, childrenByParent,
 
         {categorySearch && rootCategories.filter((root) => visibleCategoryIds.has(root.id)).length === 0 && (
           <div className="py-10 text-center">
-            <Search className="mx-auto h-[18px] w-[18px] text-[#A0A6AF]" />
-            <p className="mt-2 text-[7px] text-[#9299A3]">لا توجد أقسام مطابقة للبحث</p>
+            <Search className="mx-auto h-[18px] w-[18px] text-[#626E63]" />
+            <p className="mt-2 text-[7px] text-[#626E63]">لا توجد أقسام مطابقة للبحث</p>
           </div>
         )}
       </div>
@@ -678,7 +678,7 @@ const BrandMappingCard = ({ brand, categories, rootCategories, childrenByParent,
 const BrandLogo = ({ brand }: { brand: Brand }) => {
   if (!brand.logo_url) {
     return (
-      <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-[10px] border border-[#E6E9EE] bg-[#F3F5F7] text-[#969EA8]">
+      <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-[10px] border border-[#E6E9EE] bg-[#F3F5F7] text-[#686C74]">
         <Tag className="h-[14px] w-[14px]" />
       </div>
     );
@@ -698,9 +698,9 @@ const BrandLogo = ({ brand }: { brand: Brand }) => {
 const MapStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: number; helper: string; icon: typeof Link2; tone: "indigo" | "blue" | "green" | "coral" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    coral: { icon: "bg-[#FFF0ED] text-[#D06A5E]", line: "bg-[#D06A5E]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    coral: { icon: "bg-[#FFF0ED] text-[#A5564A]", line: "bg-[#D06A5E]" },
   }[tone];
 
   return (
@@ -713,7 +713,7 @@ const MapStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string
 
       <p className="mt-[12px] text-[8px] font-medium text-[#8D949E]">{title}</p>
       <p dir="ltr" className="mt-[4px] text-right text-[20px] font-semibold leading-none tracking-[-0.035em] text-[#303741]">{value.toLocaleString("en-US")}</p>
-      <p className="mt-[5px] text-[6.5px] text-[#A0A6AF]">{helper}</p>
+      <p className="mt-[5px] text-[6.5px] text-[#626E63]">{helper}</p>
     </article>
   );
 };
@@ -725,12 +725,12 @@ const MapStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string
 const EmptyBrands = () => {
   return (
     <div className="flex min-h-[250px] flex-col items-center justify-center rounded-[16px] border border-[#E5E9EF] bg-white px-6 text-center">
-      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#8C949E]">
+      <div className="flex h-[45px] w-[45px] items-center justify-center rounded-[13px] bg-[#F0F2F5] text-[#676D75]">
         <Tag className="h-[18px] w-[18px]" />
       </div>
 
       <h3 className="mt-3 text-[9px] font-semibold text-[#535B65]">لا توجد ماركات</h3>
-      <p className="mt-[4px] text-[7px] text-[#9BA2AC]">لم نجد ماركات مطابقة لعملية البحث أو الفلتر الحالي.</p>
+      <p className="mt-[4px] text-[7px] text-[#626E63]">لم نجد ماركات مطابقة لعملية البحث أو الفلتر الحالي.</p>
     </div>
   );
 };

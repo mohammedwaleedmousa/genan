@@ -292,7 +292,7 @@ const AdminCurrenciesPage = () => {
         <div className="flex items-center justify-between border-b border-[#EDF0F3] px-[13px] py-[10px]">
           <div>
             <h2 className="text-[11.5px] font-semibold text-[#444B55]">العملات الحالية</h2>
-            <p className="mt-[3px] text-[10px] text-[#9BA2AC]">{filteredCurrencies.length.toLocaleString("ar-EG")} عملة ظاهرة</p>
+            <p className="mt-[3px] text-[10px] text-[#626E63]">{filteredCurrencies.length.toLocaleString("ar-EG")} عملة ظاهرة</p>
           </div>
 
           <div className="flex items-center gap-[6px]">
@@ -316,7 +316,7 @@ const AdminCurrenciesPage = () => {
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full min-w-[1120px]">
                 <thead>
-                  <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#858D97]">
+                  <tr className="h-[44px] border-b border-[#EAEDF1] bg-[#FAFBFC] text-[10.5px] font-semibold text-[#6A727C]">
                     <th className="px-[12px] text-right">العملة</th>
                     <th className="px-[12px] text-right">الكود</th>
                     <th className="px-[12px] text-right">سعر الصرف</th>
@@ -336,15 +336,15 @@ const AdminCurrenciesPage = () => {
                       <tr key={currency.code} className="h-[74px] border-b border-[#F0F2F5] transition-colors last:border-b-0 hover:bg-[#FCFDFE]">
                         <td className="px-[12px]">
                           <div className="flex min-w-[200px] items-center gap-[9px]">
-                            <div className={cn("flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[9px]", currency.is_base ? "bg-[#EAF7EE] text-[#629067]" : "bg-[#F1EFFF] text-[#675CBA]")}><Banknote className="h-[14px] w-[14px]" /></div>
+                            <div className={cn("flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[9px]", currency.is_base ? "bg-[#EAF7EE] text-[#507555]" : "bg-[#F1EFFF] text-[#675CBA]")}><Banknote className="h-[14px] w-[14px]" /></div>
                             <div className="min-w-0">
-                              <div className="flex items-center gap-[5px]"><p className="max-w-[220px] truncate text-[11px] font-semibold text-[#444C56]">{currency.name_ar}</p>{currency.is_base && <span className="rounded-[6px] bg-[#EAF7EE] px-[6px] py-[2px] text-[9px] font-semibold text-[#568468]">أساسية</span>}</div>
-                              <p className="mt-[3px] max-w-[220px] truncate text-[9.5px] text-[#969DA7]">{currency.name_en}</p>
+                              <div className="flex items-center gap-[5px]"><p className="max-w-[220px] truncate text-[11px] font-semibold text-[#444C56]">{currency.name_ar}</p>{currency.is_base && <span className="rounded-[6px] bg-[#EAF7EE] px-[6px] py-[2px] text-[9px] font-semibold text-[#4C755E]">أساسية</span>}</div>
+                              <p className="mt-[3px] max-w-[220px] truncate text-[9.5px] text-[#626E63]">{currency.name_en}</p>
                             </div>
                           </div>
                         </td>
-                        <td className="px-[12px]"><div className="flex items-center gap-[6px]"><span dir="ltr" className="inline-flex rounded-[7px] bg-[#F2F4F7] px-[8px] py-[5px] font-mono text-[10px] font-semibold text-[#68717B]">{currency.code}</span><span className="text-[11px] font-semibold text-[#59616B]">{currency.symbol}</span></div></td>
-                        <td className="px-[12px]"><div><p className="text-[11px] font-semibold text-[#59616B]">{currency.is_base ? "1.000000" : currency.rate_to_base.toLocaleString("en-US", { maximumFractionDigits: 6 })}</p><p className="mt-[2px] text-[9.5px] text-[#9AA1AB]">{currency.is_base ? "المرجع الأساسي" : `1 ر.س = ${currency.rate_to_base.toLocaleString("en-US")} ${currency.symbol}`}</p></div></td>
+                        <td className="px-[12px]"><div className="flex items-center gap-[6px]"><span dir="ltr" className="inline-flex rounded-[7px] bg-[#F2F4F7] px-[8px] py-[5px] font-mono text-[10px] font-semibold text-[#666E78]">{currency.code}</span><span className="text-[11px] font-semibold text-[#59616B]">{currency.symbol}</span></div></td>
+                        <td className="px-[12px]"><div><p className="text-[11px] font-semibold text-[#59616B]">{currency.is_base ? "1.000000" : currency.rate_to_base.toLocaleString("en-US", { maximumFractionDigits: 6 })}</p><p className="mt-[2px] text-[9.5px] text-[#626E63]">{currency.is_base ? "المرجع الأساسي" : `1 ر.س = ${currency.rate_to_base.toLocaleString("en-US")} ${currency.symbol}`}</p></div></td>
                         <td className="px-[12px]"><UsageSummary usage={rowUsage} total={usageCount} /></td>
                         <td className="px-[12px]"><span className="text-[10.5px] text-[#68717B]">{currency.sort_order}</span></td>
                         <td className="px-[12px]"><div className="flex items-center gap-[8px]"><Switch checked={currency.is_active} disabled={currency.is_base} onCheckedChange={(checked) => toggleMutation.mutate({ currency, checked })} /><StatusBadge active={currency.is_active} /></div></td>
@@ -366,8 +366,8 @@ const AdminCurrenciesPage = () => {
                     <div className="p-[11px]">
                       <div className="flex items-start justify-between gap-[8px]">
                         <div className="flex min-w-0 gap-[9px]">
-                          <div className={cn("flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[10px]", currency.is_base ? "bg-[#EAF7EE] text-[#629067]" : "bg-[#F1EFFF] text-[#675CBA]")}><Banknote className="h-[15px] w-[15px]" /></div>
-                          <div className="min-w-0"><div className="flex items-center gap-[5px]"><h3 className="truncate text-[11.5px] font-semibold text-[#3B424C]">{currency.name_ar}</h3>{currency.is_base && <span className="rounded-[6px] bg-[#EAF7EE] px-[5px] py-[2px] text-[8.5px] font-semibold text-[#568468]">أساسية</span>}</div><p dir="ltr" className="mt-[3px] text-right font-mono text-[10px] text-[#9299A3]">{currency.code} · {currency.symbol}</p></div>
+                          <div className={cn("flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[10px]", currency.is_base ? "bg-[#EAF7EE] text-[#507555]" : "bg-[#F1EFFF] text-[#675CBA]")}><Banknote className="h-[15px] w-[15px]" /></div>
+                          <div className="min-w-0"><div className="flex items-center gap-[5px]"><h3 className="truncate text-[11.5px] font-semibold text-[#3B424C]">{currency.name_ar}</h3>{currency.is_base && <span className="rounded-[6px] bg-[#EAF7EE] px-[5px] py-[2px] text-[8.5px] font-semibold text-[#4C755E]">أساسية</span>}</div><p dir="ltr" className="mt-[3px] text-right font-mono text-[10px] text-[#626E63]">{currency.code} · {currency.symbol}</p></div>
                         </div>
                         <StatusBadge active={currency.is_active} />
                       </div>
@@ -393,7 +393,7 @@ const AdminCurrenciesPage = () => {
           <DialogHeader className="border-b border-[#E6E9EE] bg-white px-5 py-4">
             <div className="flex items-center gap-[10px]">
               <div className="flex h-[36px] w-[36px] items-center justify-center rounded-[11px] bg-[#F1EFFF] text-[#675CBA]">{editingCurrency ? <Pencil className="h-[15px] w-[15px]" /> : <Plus className="h-[15px] w-[15px]" />}</div>
-              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingCurrency ? "تعديل العملة" : "إضافة عملة جديدة"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#9299A3]">{editingCurrency?.is_base ? "يمكن تعديل الاسم والرمز فقط تقريبًا؛ سعر العملة الأساسية يبقى 1." : "أدخل سعر الصرف باعتباره: كم تساوي 1 ر.س بهذه العملة."}</DialogDescription></div>
+              <div><DialogTitle className="text-right text-[15px] font-semibold text-[#343B45]">{editingCurrency ? "تعديل العملة" : "إضافة عملة جديدة"}</DialogTitle><DialogDescription className="mt-[3px] text-right text-[10px] text-[#626E63]">{editingCurrency?.is_base ? "يمكن تعديل الاسم والرمز فقط تقريبًا؛ سعر العملة الأساسية يبقى 1." : "أدخل سعر الصرف باعتباره: كم تساوي 1 ر.س بهذه العملة."}</DialogDescription></div>
             </div>
           </DialogHeader>
 
@@ -421,7 +421,7 @@ const AdminCurrenciesPage = () => {
                   <Field label="ترتيب الظهور"><Input type="number" value={form.sort_order} onChange={(event) => setForm((current) => ({ ...current, sort_order: event.target.value }))} className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[11px] shadow-none focus-visible:bg-white focus-visible:ring-0" /></Field>
 
                   <div className="flex min-h-[68px] items-center justify-between rounded-[10px] border border-[#E6E9EE] bg-[#FAFBFC] px-[11px]">
-                    <div><p className="text-[11px] font-semibold text-[#555D67]">عملة مفعلة</p><p className="mt-[3px] text-[10px] text-[#9BA2AC]">{editingCurrency?.is_base ? "العملة الأساسية لا يمكن تعطيلها" : form.is_active ? "متاحة داخل المتجر والنظام" : "محفوظة لكنها غير متاحة"}</p></div>
+                    <div><p className="text-[11px] font-semibold text-[#555D67]">عملة مفعلة</p><p className="mt-[3px] text-[10px] text-[#626E63]">{editingCurrency?.is_base ? "العملة الأساسية لا يمكن تعطيلها" : form.is_active ? "متاحة داخل المتجر والنظام" : "محفوظة لكنها غير متاحة"}</p></div>
                     <Switch checked={editingCurrency?.is_base ? true : form.is_active} disabled={Boolean(editingCurrency?.is_base)} onCheckedChange={(checked) => setForm((current) => ({ ...current, is_active: checked }))} />
                   </div>
                 </div>
@@ -438,7 +438,7 @@ const AdminCurrenciesPage = () => {
 
       <AlertDialog open={Boolean(deleteTarget)} onOpenChange={(next) => { if (!next) setDeleteTarget(null); }}>
         <AlertDialogContent dir="rtl" className="max-w-[430px] rounded-[15px] border-[#E4E8ED] bg-white p-5">
-          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#C76161]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف العملة</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#858D97]">سيتم حذف {deleteTarget?.code || ""} فقط إذا لم تكن مستخدمة في الطلبات أو المصروفات أو المرتجعات أو دفتر اليومية أو إعدادات الدول. إذا كانت مستخدمة، عطّلها بدل الحذف.</AlertDialogDescription></AlertDialogHeader>
+          <AlertDialogHeader><div className="mb-2 flex h-[38px] w-[38px] items-center justify-center rounded-[11px] bg-[#FFF0F0] text-[#AA5353]"><Trash2 className="h-[16px] w-[16px]" /></div><AlertDialogTitle className="text-[15px] font-semibold text-[#343A44]">حذف العملة</AlertDialogTitle><AlertDialogDescription className="text-[10.5px] leading-6 text-[#626E63]">سيتم حذف {deleteTarget?.code || ""} فقط إذا لم تكن مستخدمة في الطلبات أو المصروفات أو المرتجعات أو دفتر اليومية أو إعدادات الدول. إذا كانت مستخدمة، عطّلها بدل الحذف.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter className="mt-2 gap-2"><AlertDialogCancel disabled={deleteMutation.isPending} className="h-[38px] rounded-[9px] border-[#E2E6EB] bg-white px-4 text-[10.5px] font-semibold text-[#6B737E]">إلغاء</AlertDialogCancel><AlertDialogAction disabled={deleteMutation.isPending} onClick={(event) => { event.preventDefault(); if (deleteTarget) deleteMutation.mutate(deleteTarget); }} className="h-[38px] rounded-[9px] bg-[#C76161] px-4 text-[10.5px] font-semibold text-white hover:bg-[#B65555]">{deleteMutation.isPending && <Loader2 className="ml-[5px] h-[11px] w-[11px] animate-spin" />}حذف نهائي</AlertDialogAction></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -447,29 +447,29 @@ const AdminCurrenciesPage = () => {
 };
 
 const UsageSummary = ({ usage, total }: { usage?: CurrencyUsage; total: number }) => {
-  if (!usage || total === 0) return <span className="text-[10px] text-[#A0A6AF]">غير مستخدمة</span>;
+  if (!usage || total === 0) return <span className="text-[10px] text-[#626E63]">غير مستخدمة</span>;
 
   return (
     <div>
       <p className="text-[10.5px] font-semibold text-[#59616B]">{total.toLocaleString("ar-EG")} استخدام</p>
-      <p className="mt-[2px] text-[9px] text-[#9AA1AB]">{usage.order_count > 0 ? `${usage.order_count} طلب` : ""}{usage.refund_count > 0 ? ` · ${usage.refund_count} مرتجع` : ""}{usage.expense_count > 0 ? ` · ${usage.expense_count} مصروف` : ""}{usage.transaction_count > 0 ? ` · ${usage.transaction_count} قيد` : ""}</p>
+      <p className="mt-[2px] text-[9px] text-[#626E63]">{usage.order_count > 0 ? `${usage.order_count} طلب` : ""}{usage.refund_count > 0 ? ` · ${usage.refund_count} مرتجع` : ""}{usage.expense_count > 0 ? ` · ${usage.expense_count} مصروف` : ""}{usage.transaction_count > 0 ? ` · ${usage.transaction_count} قيد` : ""}</p>
     </div>
   );
 };
 
 const StatusBadge = ({ active }: { active: boolean }) => {
-  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[10px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#568468]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#818994]")}>{active ? <CheckCircle2 className="h-[9px] w-[9px]" /> : <CircleOff className="h-[9px] w-[9px]" />}{active ? "مفعلة" : "معطلة"}</span>;
+  return <span className={cn("inline-flex h-[26px] items-center gap-[5px] rounded-[7px] border px-[8px] text-[10px] font-semibold", active ? "border-[#D8E8DD] bg-[#EFF8F2] text-[#4C755E]" : "border-[#E3E6EA] bg-[#F5F6F8] text-[#686E79]")}>{active ? <CheckCircle2 className="h-[9px] w-[9px]" /> : <CircleOff className="h-[9px] w-[9px]" />}{active ? "مفعلة" : "معطلة"}</span>;
 };
 
 const StatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "amber" }) => {
   const style = {
     indigo: { icon: "bg-[#F1EFFF] text-[#675CBA]", line: "bg-[#675CBA]" },
-    green: { icon: "bg-[#EAF7EE] text-[#629067]", line: "bg-[#629067]" },
-    blue: { icon: "bg-[#EDF4FF] text-[#5680CF]", line: "bg-[#5680CF]" },
-    amber: { icon: "bg-[#FFF7E8] text-[#A9782F]", line: "bg-[#C49446]" },
+    green: { icon: "bg-[#EAF7EE] text-[#507555]", line: "bg-[#629067]" },
+    blue: { icon: "bg-[#EDF4FF] text-[#486BB0]", line: "bg-[#5680CF]" },
+    amber: { icon: "bg-[#FFF7E8] text-[#926829]", line: "bg-[#C49446]" },
   }[tone];
 
-  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#A0A6AF]">{helper}</p></article>;
+  return <article className="relative min-h-[118px] overflow-hidden rounded-[14px] border border-[#E5E9EF] bg-white p-[13px]"><span className={cn("absolute inset-x-0 top-0 h-[3px]", style.line)} /><div className={cn("flex h-[32px] w-[32px] items-center justify-center rounded-[10px]", style.icon)}><Icon className="h-[14px] w-[14px]" /></div><p className="mt-[12px] text-[10.5px] text-[#8D949E]">{title}</p><p className="mt-[4px] truncate text-[18px] font-semibold leading-none text-[#303741]">{value}</p><p className="mt-[6px] truncate text-[10px] text-[#626E63]">{helper}</p></article>;
 };
 
 const FormSection = ({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) => {
@@ -485,7 +485,7 @@ const InfoBox = ({ label, value }: { label: string; value: string }) => {
 };
 
 const PanelEmpty = () => {
-  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><Coins className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد عملات</h3><p className="mt-[5px] text-[10px] text-[#9BA2AC]">أضف عملة جديدة أو غيّر عبارة البحث.</p></div>;
+  return <div className="flex min-h-[280px] flex-col items-center justify-center px-6 text-center"><div className="flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><Coins className="h-[18px] w-[18px]" /></div><h3 className="mt-3 text-[11.5px] font-semibold text-[#535B65]">لا توجد عملات</h3><p className="mt-[5px] text-[10px] text-[#626E63]">أضف عملة جديدة أو غيّر عبارة البحث.</p></div>;
 };
 
 const translateDbError = (message?: string) => {
