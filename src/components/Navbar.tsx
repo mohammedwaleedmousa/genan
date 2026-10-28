@@ -18,6 +18,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useAuthActions } from "@/hooks/useAuthActions";
 import { useCustomerNotifications } from "@/hooks/useCustomerNotifications";
 import { supabase } from "@/integrations/supabase/client";
+import { prefetchStorefrontRoute } from "@/lib/prefetchRoutes";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -107,6 +108,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
   const searchPanelOpen = searchFocused && searchTerm.trim().length > 0;
 
   const goFromMenu = (to: string) => {
+    void prefetchStorefrontRoute(to);
     if (location.pathname + location.search !== to) navigate(to);
     window.requestAnimationFrame(() => setMenuOpen(false));
   };
@@ -123,6 +125,9 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
   ];
 
   useEffect(() => {
+    // A 1000-product search index competes with route/image downloads on startup.
+    // Only request suggestions after the customer actually focuses search.
+    if (!searchFocused) return;
     let cancelled = false;
     void loadSearchIndex().then((index) => {
       if (!cancelled) setSearchIndex(index);
@@ -130,7 +135,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [searchFocused]);
 
   const suggestions = useMemo(() => {
     const value = normalizeSearch(searchTerm);
@@ -304,7 +309,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
             <div className="flex shrink-0 items-center gap-1">
               {/* Bag occupies the former currency slot and always opens the full cart page. */}
-              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
+              <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                 <ShoppingBag size={22} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
@@ -352,7 +357,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             </form>
 
             <div className="flex shrink-0 items-center gap-1.5">
-              <Link to="/cart" aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
+              <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="افتح حقيبة التسوق" title="حقيبة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
                 <ShoppingBag size={20} weight="regular" aria-hidden="true" />
                 {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
@@ -411,6 +416,8 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                 <Link
                   key={item.to}
                   to={item.to}
+                  onPointerEnter={() => void prefetchStorefrontRoute(item.to)}
+                  onFocus={() => void prefetchStorefrontRoute(item.to)}
                   className={`relative flex h-full items-center px-3 text-[10px] font-medium transition-colors lg:px-4 lg:text-[11px] ${active ? "text-[#8C6B32]" : "text-[#0E0E0E] hover:text-[#8C6B32]"}`}
                 >
                   {item.label}

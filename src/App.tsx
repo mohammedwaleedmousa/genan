@@ -17,6 +17,7 @@ import CustomerSessionSync from "@/components/CustomerSessionSync";
 import StorefrontRealtimeSync from "@/components/StorefrontRealtimeSync";
 import { ThemeProvider } from "next-themes";
 import GoldNumbers from "@/components/GoldNumbers";
+import { warmStorefrontRoutes } from "@/lib/prefetchRoutes";
 
 const isLazyImportError = (error: unknown) => {
   const message = String((error as { message?: unknown })?.message || error || "");
@@ -148,6 +149,18 @@ const queryClient = new QueryClient({
 
 const RouteFallback = () => <LoadingScreen />;
 
+const StorefrontRouteWarmup = () => {
+  const { pathname } = useLocation();
+  const isAdmin = pathname.startsWith(ADMIN_BASE_PATH) || pathname.startsWith("/admin");
+
+  useEffect(() => {
+    if (isAdmin) return;
+    return warmStorefrontRoutes(queryClient);
+  }, [isAdmin]);
+
+  return null;
+};
+
 const customerPageForPath = (pathname: string) => {
   if (pathname.startsWith("/product/")) return "products";
   if (pathname.startsWith("/brand")) return "brands";
@@ -240,6 +253,7 @@ const App = () => {
       <DateRangeProvider>
         <BrowserRouter>
           <StorefrontRealtimeSync />
+          <StorefrontRouteWarmup />
           <ScrollToTop />
           <GoldNumbers />
           <AnalyticsTracker />

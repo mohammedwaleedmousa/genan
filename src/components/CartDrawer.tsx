@@ -1,11 +1,5 @@
-import { lazy, Suspense } from "react";
+import CartDrawerContent from "./CartDrawerContent";
 
-const CartDrawerContent = lazy(() => import("./CartDrawerContent"));
-
-const CartDrawer = () => (
-  <Suspense fallback={null}>
-    <CartDrawerContent />
-  </Suspense>
-);
-
-export default CartDrawer;
+// Keep the small, already-mounted cart drawer interactive on the first tap.
+// A lazy boundary here previously showed nothing until a network chunk arrived.
+export default CartDrawerContent;

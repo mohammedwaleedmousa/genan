@@ -12,12 +12,8 @@ export const registerServiceWorker = () => {
 
       await registration.update();
 
-      let reloadingForNewWorker = false;
-      navigator.serviceWorker.addEventListener("controllerchange", () => {
-        if (reloadingForNewWorker) return;
-        reloadingForNewWorker = true;
-        window.location.reload();
-      });
+      // Never reload a customer mid-visit just because the SW gained control.
+      // This also prevents a surprise second page load on the first installation.
     } catch (error) {
       console.error("[pwa] service worker registration failed", error);
     }
