@@ -7,6 +7,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { ADMIN_LOGIN_PATH, adminPath, legacyAdminPathToCurrent, normalizeAdminPathForLegacyRules } from "@/lib/adminRoutes";
 
 import AdminSidebar from "./AdminSidebar";
+import "@/admin-refresh.css";
 import NotificationsDropdown from "./NotificationsDropdown";
 
 /* =========================================================
@@ -14,63 +15,63 @@ import NotificationsDropdown from "./NotificationsDropdown";
 ========================================================= */
 
 const ADMIN_THEME = {
-  background: "#F6F8FA",
-  backgroundSoft: "#F9FAFC",
+  background: "#F7F6F2",
+  backgroundSoft: "#FBFAF6",
   surface: "#FFFFFF",
-  surfaceSoft: "#FBFCFE",
-  text: "#20242D",
-  textSecondary: "#626A75",
-  muted: "#969EAA",
-  border: "#E7EAF0",
-  borderStrong: "#DCE1E7",
-  primary: "#675CBA",
-  primaryDark: "#594FAB",
-  primarySoft: "#F1EFFF",
-  blue: "#5680CF",
-  blueSoft: "#EDF4FF",
-  teal: "#4C9687",
-  tealSoft: "#EAF8F4",
-  coral: "#D06A5E",
-  coralSoft: "#FFF0ED",
-  rose: "#C66A7F",
-  roseSoft: "#FFF0F4",
-  amber: "#C38838",
-  amberSoft: "#FFF5E6",
-  green: "#629067",
-  greenSoft: "#ECF7EC",
-  violet: "#8F63C1",
-  violetSoft: "#F4ECFF",
-  cyan: "#4A90A6",
-  cyanSoft: "#EAF7FB",
-  online: "#65A77C",
+  surfaceSoft: "#FEFCF8",
+  text: "#222821",
+  textSecondary: "#60695E",
+  muted: "#8F9389",
+  border: "#E7E0D4",
+  borderStrong: "#D8CBB9",
+  primary: "#99774B",
+  primaryDark: "#765A34",
+  primarySoft: "#F5ECDA",
+  blue: "#557C83",
+  blueSoft: "#EAF3F3",
+  teal: "#3D8071",
+  tealSoft: "#E6F2EE",
+  coral: "#B47367",
+  coralSoft: "#FAEDEA",
+  rose: "#A86B72",
+  roseSoft: "#F9EDEE",
+  amber: "#AD854A",
+  amberSoft: "#F8F0E0",
+  green: "#56836B",
+  greenSoft: "#EBF4EE",
+  violet: "#88758C",
+  violetSoft: "#F2ECF3",
+  cyan: "#5C858D",
+  cyanSoft: "#EDF5F5",
+  online: "#4A9B74",
 };
 
 const adminThemeVariables = {
-  "--background": "220 20% 97%",
-  "--foreground": "220 13% 15%",
+  "--background": "40 22% 96%",
+  "--foreground": "145 10% 15%",
   "--card": "0 0% 100%",
-  "--card-foreground": "220 13% 15%",
+  "--card-foreground": "145 10% 15%",
   "--popover": "0 0% 100%",
-  "--popover-foreground": "220 13% 15%",
-  "--primary": "247 39% 55%",
+  "--popover-foreground": "145 10% 15%",
+  "--primary": "37 34% 45%",
   "--primary-foreground": "0 0% 100%",
-  "--secondary": "220 25% 97%",
-  "--secondary-foreground": "220 11% 30%",
-  "--muted": "220 22% 97%",
-  "--muted-foreground": "220 8% 57%",
-  "--accent": "246 100% 97%",
-  "--accent-foreground": "247 33% 45%",
-  "--border": "220 16% 91%",
-  "--input": "220 16% 91%",
-  "--ring": "247 39% 55%",
-  "--sidebar-background": "0 0% 100%",
-  "--sidebar-foreground": "220 13% 15%",
-  "--sidebar-primary": "247 39% 55%",
+  "--secondary": "38 28% 96%",
+  "--secondary-foreground": "145 9% 29%",
+  "--muted": "39 24% 96%",
+  "--muted-foreground": "140 4% 55%",
+  "--accent": "37 45% 92%",
+  "--accent-foreground": "35 31% 30%",
+  "--border": "37 22% 89%",
+  "--input": "37 22% 89%",
+  "--ring": "37 34% 45%",
+  "--sidebar-background": "38 45% 98%",
+  "--sidebar-foreground": "145 10% 15%",
+  "--sidebar-primary": "37 34% 45%",
   "--sidebar-primary-foreground": "0 0% 100%",
-  "--sidebar-accent": "220 24% 97%",
-  "--sidebar-accent-foreground": "220 13% 20%",
-  "--sidebar-border": "220 16% 91%",
-  "--sidebar-ring": "247 39% 55%",
+  "--sidebar-accent": "40 30% 95%",
+  "--sidebar-accent-foreground": "145 11% 18%",
+  "--sidebar-border": "37 22% 89%",
+  "--sidebar-ring": "37 34% 45%",
   "--admin-bg": ADMIN_THEME.background,
   "--admin-bg-soft": ADMIN_THEME.backgroundSoft,
   "--admin-surface": ADMIN_THEME.surface,
@@ -270,7 +271,7 @@ const AdminLayout = () => {
 
     if (partialRule) return partialRule;
 
-    return { title: "لوحة الإدارة", section: "Flamingo Park" };
+    return { title: "لوحة الإدارة", section: "جنان" };
   }, [legacyPathname]);
 
   /* =========================================================
@@ -453,10 +454,10 @@ const AdminLayout = () => {
 
   if (isLoading || !isAdmin) {
     return (
-      <div style={adminThemeVariables} className="fixed inset-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-[#F6F8FA] font-admin">
+      <div style={adminThemeVariables} className="fixed inset-0 flex h-[100dvh] w-full items-center justify-center overflow-hidden bg-[#F7F6F2] font-admin">
         <div className="flex flex-col items-center">
-          <div className="flex h-[52px] w-[52px] items-center justify-center rounded-[15px] border border-[#E5E8EE] bg-white">
-            <Loader2 className="h-[19px] w-[19px] animate-spin text-[#675CBA]" strokeWidth={1.8} />
+          <div className="flex h-[52px] w-[52px] items-center justify-center rounded-[15px] border border-[#E4DACA] bg-white">
+            <Loader2 className="h-[19px] w-[19px] animate-spin text-[#96713E]" strokeWidth={1.8} />
           </div>
 
           <p className="mt-3 text-[10px] font-medium text-[#969EAA]">{isLoading ? "جاري تجهيز لوحة التحكم..." : "جاري التحقق من الصلاحيات..."}</p>
@@ -470,19 +471,19 @@ const AdminLayout = () => {
   ========================================================= */
 
   return (
-    <SidebarProvider defaultOpen={true} style={{ "--sidebar-width": "288px", "--sidebar-width-icon": "70px" } as CSSProperties} className="h-[100dvh] min-h-0 overflow-hidden bg-[#F6F8FA]">
-      <div dir="rtl" style={adminThemeVariables} className="admin-workspace flex h-[100dvh] w-full overflow-hidden bg-[#F6F8FA] font-admin text-[#20242D]">
+    <SidebarProvider defaultOpen={true} style={{ "--sidebar-width": "276px", "--sidebar-width-icon": "70px" } as CSSProperties} className="h-[100dvh] min-h-0 overflow-hidden bg-[#F7F6F2]">
+      <div dir="rtl" style={adminThemeVariables} className="admin-workspace flex h-[100dvh] w-full overflow-hidden bg-[#F7F6F2] font-admin text-[#20242D]">
         <AdminSidebar />
 
-        <SidebarInset className="relative flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[#F6F8FA]">
+        <SidebarInset className="relative flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-[#F7F6F2]">
           {/* =====================================================
               TOP BAR
           ===================================================== */}
 
-          <header className="relative z-40 flex h-[64px] shrink-0 items-center border-b border-[#E7EAF0] bg-white px-3 sm:px-4 lg:px-5">
+          <header className="relative z-40 flex h-[64px] shrink-0 items-center border-b border-[#E7E0D4] bg-white px-3 sm:px-4 lg:px-5">
             <div className="flex w-full min-w-0 items-center gap-3">
               <div className="flex min-w-0 shrink-0 items-center gap-2.5">
-                <SidebarTrigger className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] border border-[#E5E8EE] bg-[#F8FAFC] text-[#69717C] shadow-none transition-colors duration-150 hover:border-[#D9DEE5] hover:bg-white hover:text-[#4D5560]" />
+                <SidebarTrigger className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-[10px] border border-[#E4DACA] bg-[#FBF9F5] text-[#69717C] shadow-none transition-colors duration-150 hover:border-[#D9DEE5] hover:bg-white hover:text-[#4D5560]" />
 
                 <div className="hidden h-[26px] w-px bg-[#E9ECF0] sm:block" />
 
@@ -493,7 +494,7 @@ const AdminLayout = () => {
                     <span className="max-w-[180px] truncate text-[9px] font-semibold text-[#4F5762]">{currentPageMeta.title}</span>
                   </div>
 
-                  <p className="mt-[3px] text-[6.5px] font-semibold tracking-[0.1em] text-[#B4BAC2]">FLAMINGO ADMIN</p>
+                  <p className="mt-[3px] text-[6.5px] font-semibold tracking-[0.1em] text-[#B4BAC2]">GENAN ADMIN</p>
                 </div>
               </div>
 
@@ -502,23 +503,23 @@ const AdminLayout = () => {
               </div>
 
               <div className="mr-auto flex shrink-0 items-center gap-[6px]">
-                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-[#E5E8EE] bg-white text-[#737B86] transition-colors hover:border-[#D9DEE5] hover:bg-[#F8FAFC] hover:text-[#4E5661] md:hidden">
+                <button type="button" onClick={() => setMobileSearchOpen((current) => !current)} aria-label="البحث" className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#737B86] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#4E5661] md:hidden">
                   {mobileSearchOpen ? <X className="h-[15px] w-[15px]" strokeWidth={1.8} /> : <Search className="h-[15px] w-[15px]" strokeWidth={1.8} />}
                 </button>
 
-                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-[38px] items-center gap-[6px] rounded-[10px] border border-[#E5E8EE] bg-white px-[10px] text-[9px] font-semibold text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#F8FAFC] hover:text-[#3F4650] xl:flex">
+                <button type="button" onClick={() => window.open("/home", "_blank", "noopener,noreferrer")} className="hidden h-[38px] items-center gap-[6px] rounded-[10px] border border-[#E4DACA] bg-white px-[10px] text-[9px] font-semibold text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5] hover:text-[#3F4650] xl:flex">
                   <ExternalLink className="h-[12px] w-[12px]" strokeWidth={1.8} />
                   عرض المتجر
                 </button>
 
-                <div className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-[#E5E8EE] bg-white text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#F8FAFC]">
+                <div className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] border border-[#E4DACA] bg-white text-[#69717B] transition-colors hover:border-[#D9DEE5] hover:bg-[#FBF9F5]">
                   <NotificationsDropdown />
                 </div>
 
                 <div className="mx-[3px] hidden h-[25px] w-px bg-[#E8EBEF] lg:block" />
 
                 <button type="button" onClick={() => navigate(adminPath("settings"))} className="group flex min-w-0 items-center gap-[8px] rounded-[11px] px-[3px] py-[2px] transition-colors hover:bg-[#F7F9FB]">
-                  <div className="relative flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[11px] bg-[linear-gradient(135deg,#EEEAFE_0%,#E7F5FB_100%)] text-[11px] font-bold uppercase text-[#655DA0]">
+                  <div className="relative flex h-[36px] w-[36px] shrink-0 items-center justify-center rounded-[11px] bg-[linear-gradient(135deg,#F1E1C6_0%,#E4F1EB_100%)] text-[11px] font-bold uppercase text-[#94703D]">
                     {userName ? userName.charAt(0).toUpperCase() : <UserRound className="h-[14px] w-[14px]" strokeWidth={1.7} />}
                     <span className="absolute bottom-0 left-0 h-[9px] w-[9px] rounded-full border-2 border-white bg-[#65A77C]" />
                   </div>
@@ -539,7 +540,7 @@ const AdminLayout = () => {
           ===================================================== */}
 
           {mobileSearchOpen && (
-            <div className="relative z-30 shrink-0 border-b border-[#E7EAF0] bg-white px-3 pb-3 pt-2 md:hidden">
+            <div className="relative z-30 shrink-0 border-b border-[#E7E0D4] bg-white px-3 pb-3 pt-2 md:hidden">
               <SearchBox searchRef={searchRef} query={searchQuery} focused={true} results={searchResults} onQueryChange={setSearchQuery} onFocus={() => setSearchFocused(true)} onBlur={() => window.setTimeout(() => setSearchFocused(false), 120)} onSelect={openSearchResult} />
             </div>
           )}
@@ -548,7 +549,7 @@ const AdminLayout = () => {
               PAGE
           ===================================================== */}
 
-          <main className="relative min-h-0 min-w-0 flex-1 overflow-hidden bg-[#F6F8FA]">
+          <main className="relative min-h-0 min-w-0 flex-1 overflow-hidden bg-[#F7F6F2]">
             <div className="admin-page-scroll h-full w-full overflow-x-hidden overflow-y-auto overscroll-contain [scrollbar-gutter:stable]">
               <div className="mx-auto min-h-full w-full max-w-[1600px] px-4 py-5 lg:px-6 lg:py-6 xl:px-7">
                 <Outlet />
@@ -570,7 +571,7 @@ const SearchBox = ({ searchRef, query, focused, results, onQueryChange, onFocus,
     <div className="relative w-full">
       <Search className="pointer-events-none absolute right-[13px] top-1/2 z-10 h-[14px] w-[14px] -translate-y-1/2 text-[#9AA2AC]" strokeWidth={1.7} />
 
-      <input ref={searchRef} type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder="انتقل إلى صفحة أو أداة..." className="h-[38px] w-full rounded-[10px] border border-[#E5E8ED] bg-[#F8FAFC] pr-[38px] pl-[58px] text-[10.5px] font-medium text-[#343B44] outline-none transition-colors placeholder:text-[#A3AAB4] focus:border-[#DADDE9] focus:bg-white" />
+      <input ref={searchRef} type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} onFocus={onFocus} onBlur={onBlur} placeholder="انتقل إلى صفحة أو أداة..." className="h-[38px] w-full rounded-[10px] border border-[#E5E8ED] bg-[#FBF9F5] pr-[38px] pl-[58px] text-[10.5px] font-medium text-[#343B44] outline-none transition-colors placeholder:text-[#A3AAB4] focus:border-[#DADDE9] focus:bg-white" />
 
       <span className="pointer-events-none absolute left-[8px] top-1/2 flex h-[23px] -translate-y-1/2 items-center rounded-[6px] border border-[#E3E7EC] bg-white px-[7px] text-[7.5px] font-semibold text-[#9AA1AB]">⌘ K</span>
 

@@ -163,16 +163,16 @@ const prefetchPrimaryAdminRoutes = () => {
 
 const adminInteractiveColorOverrides = `
   .admin-workspace .btn-unified {
-    background: linear-gradient(135deg, #7368C7 0%, #6258B8 100%) !important;
-    border-color: #6258B8 !important;
+    background: linear-gradient(135deg, #B59A6D 0%, #987746 100%) !important;
+    border-color: #987746 !important;
     color: #FFFFFF !important;
     box-shadow: none !important;
     transform: none !important;
   }
 
   .admin-workspace .btn-unified:hover {
-    background: linear-gradient(135deg, #675CBA 0%, #594FAB 100%) !important;
-    border-color: #594FAB !important;
+    background: linear-gradient(135deg, #99784D 0%, #7E6037 100%) !important;
+    border-color: #7E6037 !important;
     color: #FFFFFF !important;
     box-shadow: none !important;
     transform: none !important;
@@ -180,26 +180,26 @@ const adminInteractiveColorOverrides = `
 
   .admin-workspace .btn-unified[data-variant="outline"] {
     background: #FFFFFF !important;
-    border-color: #DDE2E8 !important;
+    border-color: #E7DED1 !important;
     color: #5F6874 !important;
   }
 
   .admin-workspace .btn-unified[data-variant="outline"]:hover {
     background: #F5F6FB !important;
-    border-color: #CBCFE4 !important;
-    color: #51489A !important;
+    border-color: #DCCAAE !important;
+    color: #6E552D !important;
   }
 
   .admin-workspace .btn-unified[data-variant="secondary"] {
-    background: #F1EFFF !important;
-    border-color: #DDD8F4 !important;
-    color: #51489A !important;
+    background: #F6ECDA !important;
+    border-color: #E5D3B4 !important;
+    color: #6E552D !important;
   }
 
   .admin-workspace .btn-unified[data-variant="secondary"]:hover {
-    background: #E8E4FF !important;
-    border-color: #CEC7EF !important;
-    color: #443B8C !important;
+    background: #EDE2CB !important;
+    border-color: #D5C3A4 !important;
+    color: #563F22 !important;
   }
 
   .admin-workspace .btn-unified[data-variant="ghost"] {
@@ -226,10 +226,10 @@ const adminInteractiveColorOverrides = `
     color: #FFFFFF !important;
   }
 
-  .admin-workspace button[class*="bg-[#C66A7F]"],
-  .admin-workspace a[class*="bg-[#C66A7F]"],
-  .admin-workspace [role="button"][class*="bg-[#C66A7F]"] {
-    background-color: #675CBA !important;
+  .admin-workspace button[class*="bg-[#AE756C]"],
+  .admin-workspace a[class*="bg-[#AE756C]"],
+  .admin-workspace [role="button"][class*="bg-[#AE756C]"] {
+    background-color: #99784D !important;
     color: #FFFFFF !important;
   }
 
@@ -255,7 +255,7 @@ const adminInteractiveColorOverrides = `
   .admin-workspace a [class*="bg-[#FBDDE6]"],
   .admin-workspace [role="button"] [class*="bg-[#FFF0F4]"],
   .admin-workspace [role="button"] [class*="bg-[#FBDDE6]"] {
-    background-color: #F1EFFF !important;
+    background-color: #F6ECDA !important;
   }
 
   .admin-workspace button[class*="text-[#B96670]"],
@@ -268,8 +268,8 @@ const adminInteractiveColorOverrides = `
   .admin-workspace button [class*="text-[#C66E82]"],
   .admin-workspace button[class*="text-[#B85D72]"],
   .admin-workspace button [class*="text-[#B85D72]"],
-  .admin-workspace button[class*="text-[#C66A7F]"],
-  .admin-workspace button [class*="text-[#C66A7F]"],
+  .admin-workspace button[class*="text-[#AE756C]"],
+  .admin-workspace button [class*="text-[#AE756C]"],
   .admin-workspace button[class*="text-[#B15B70]"],
   .admin-workspace button [class*="text-[#B15B70]"],
   .admin-workspace button[class*="text-[#BC6377]"],
@@ -278,7 +278,7 @@ const adminInteractiveColorOverrides = `
   .admin-workspace a [class*="text-[#C66E82]"],
   .admin-workspace a[class*="text-[#B85D72]"],
   .admin-workspace a [class*="text-[#B85D72]"] {
-    color: #675CBA !important;
+    color: #99784D !important;
   }
 
   .admin-workspace button[class*="border-[#EFD7DF]"],
@@ -288,7 +288,7 @@ const adminInteractiveColorOverrides = `
   }
 
   .admin-workspace button[role="combobox"] {
-    border-color: #DDE2E8 !important;
+    border-color: #E7DED1 !important;
     background: #F8FAFC !important;
     color: #59634D !important;
     box-shadow: none !important;
@@ -300,13 +300,13 @@ const adminInteractiveColorOverrides = `
   }
 
   .admin-workspace button[role="combobox"][data-state="open"] {
-    border-color: #8D86C9 !important;
+    border-color: #B69C70 !important;
     background: #FFFFFF !important;
     box-shadow: 0 0 0 3px rgba(103, 92, 186, 0.10) !important;
   }
 
   [role="listbox"] {
-    border: 1px solid #DDE2E8 !important;
+    border: 1px solid #E7DED1 !important;
     border-radius: 10px !important;
     background: #FFFFFF !important;
     padding: 4px !important;
@@ -323,23 +323,23 @@ const adminInteractiveColorOverrides = `
   }
 
   [role="option"][data-highlighted] {
-    background: #F3F1FC !important;
-    color: #51489A !important;
+    background: #F8F1E3 !important;
+    color: #6E552D !important;
   }
 
   [role="option"][data-state="checked"] {
-    background: #ECE9FB !important;
-    color: #51489A !important;
+    background: #F4E8D3 !important;
+    color: #6E552D !important;
     font-weight: 600 !important;
   }
 
   [role="option"][data-state="checked"][data-highlighted] {
-    background: #E5E1F8 !important;
-    color: #443B8C !important;
+    background: #EBDCBD !important;
+    color: #563F22 !important;
   }
 
   [role="option"] svg {
-    color: #675CBA !important;
+    color: #99784D !important;
   }
 `;
 
@@ -391,17 +391,17 @@ const AdminLayout = () => {
   }, [requiredPermission, authRevision]);
 
   if (checking) {
-    return <div className="fixed inset-0 grid place-items-center bg-[#F6F8FA]" dir="rtl"><div className="text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin text-[#675CBA]" /><p className="mt-2 text-[8px] text-[#8E96A1]">جاري التحقق من صلاحية الصفحة...</p></div></div>;
+    return <div className="fixed inset-0 grid place-items-center bg-[#F7F6F2]" dir="rtl"><div className="text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin text-[#99784D]" /><p className="mt-2 text-[8px] text-[#8E96A1]">جاري التحقق من صلاحية الصفحة...</p></div></div>;
   }
 
   if (!allowed) {
     return (
-      <div className="fixed inset-0 grid place-items-center bg-[#F6F8FA] px-5" dir="rtl">
+      <div className="fixed inset-0 grid place-items-center bg-[#F7F6F2] px-5" dir="rtl">
         <div className="w-full max-w-[420px] rounded-[18px] border border-[#E5E9EF] bg-white p-6 text-center shadow-sm">
-          <div className="mx-auto flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F1EFFF] text-[#675CBA]"><LockKeyhole className="h-[19px] w-[19px]" /></div>
+          <div className="mx-auto flex h-[46px] w-[46px] items-center justify-center rounded-[13px] bg-[#F6ECDA] text-[#99784D]"><LockKeyhole className="h-[19px] w-[19px]" /></div>
           <h1 className="mt-4 text-[13px] font-semibold text-[#404852]">لا تملك صلاحية فتح هذه الصفحة</h1>
           <p className="mt-2 text-[8px] leading-6 text-[#8E96A1]">الصلاحية المطلوبة: <span dir="ltr" className="font-mono">{requiredPermission}</span>. يمكن لمدير الصلاحيات إعادة تفعيلها من مساحة الفريق.</p>
-          <Link to={ADMIN_LOGIN_PATH} className="mt-5 inline-flex h-[34px] items-center justify-center rounded-[9px] bg-[#675CBA] px-4 text-[8px] font-semibold text-white">العودة إلى تسجيل الدخول</Link>
+          <Link to={ADMIN_LOGIN_PATH} className="mt-5 inline-flex h-[34px] items-center justify-center rounded-[9px] bg-[#99784D] px-4 text-[8px] font-semibold text-white">العودة إلى تسجيل الدخول</Link>
         </div>
       </div>
     );
@@ -410,13 +410,7 @@ const AdminLayout = () => {
   return (
     <>
       <style>{adminInteractiveColorOverrides}</style>
-      <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex h-[3px] overflow-hidden">
-        <span className="flex-1 bg-[#7163C1]" />
-        <span className="flex-1 bg-[#5680CF]" />
-        <span className="flex-1 bg-[#4C9687]" />
-        <span className="flex-1 bg-[#C66A7F]" />
-        <span className="flex-1 bg-[#C38838]" />
-      </div>
+      <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-[3px] bg-[#B99A66]" />
       <AdminLayoutBase />
     </>
   );

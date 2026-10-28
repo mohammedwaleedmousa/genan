@@ -1,0 +1,69 @@
+/* Genan Management – autumn ivory / deep ink / brushed gold.
+   Intentionally scoped to the admin shell; customer storefront remains unchanged. */
+.admin-workspace {
+  background: #f7f6f2 !important;
+  color: #222821;
+}
+.admin-workspace [data-sidebar="sidebar"] {
+  background: #fcfaf6 !important;
+  border-color: #e7dfd1 !important;
+}
+.admin-workspace .admin-page-scroll {
+  background: #f7f6f2;
+  scrollbar-color: #c8b99f transparent;
+}
+.admin-workspace .admin-page-scroll > div {
+  max-width: 1550px;
+  padding-top: clamp(20px, 3vw, 34px);
+}
+.admin-workspace .genan-admin-sidebar {
+  background: #fcfaf6 !important;
+}
+.admin-workspace .genan-admin-sidebar h1 {
+  font-family: Georgia, serif;
+  letter-spacing: .12em !important;
+}
+.admin-workspace .genan-admin-sidebar nav > div a,
+.admin-workspace .genan-admin-sidebar nav > div button {
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.admin-workspace .genan-admin-sidebar a:focus-visible,
+.admin-workspace .genan-admin-sidebar button:focus-visible {
+  outline: 2px solid #b89b68;
+  outline-offset: 2px;
+}
+.admin-workspace .admin-page-scroll h1 {
+  color: #242a24;
+  letter-spacing: -.025em;
+}
+.admin-workspace .admin-page-scroll section[class*="bg-white"],
+.admin-workspace .admin-page-scroll article[class*="bg-white"],
+.admin-workspace .admin-page-scroll > div > div[class*="bg-white"] {
+  border-color: #e9e0d3;
+  box-shadow: 0 10px 35px rgba(41, 37, 28, .035);
+}
+.admin-workspace :is(input, textarea, select) {
+  accent-color: #987746;
+}
+.admin-workspace :is(input, textarea, select):focus-visible,
+.admin-workspace :is(button, a):focus-visible {
+  outline: 2px solid #af9160;
+  outline-offset: 2px;
+}
+.admin-workspace .admin-page-scroll ::selection { background: #ead8b5; color: #29251d; }
+@media (max-width: 767px) {
+  .admin-workspace .admin-page-scroll > div {
+    padding: 16px 12px 26px;
+  }
+  .admin-workspace .genan-admin-sidebar nav a,
+  .admin-workspace .genan-admin-sidebar nav button {
+    min-height: 42px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .admin-workspace *,
+  .admin-workspace *::before,
+  .admin-workspace *::after {
+    scroll-behavior: auto !important;
+  }
+}

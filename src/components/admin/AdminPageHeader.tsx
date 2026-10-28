@@ -19,18 +19,18 @@ interface AdminPageHeaderProps {
 
 const AdminPageHeader: React.FC<AdminPageHeaderProps> = ({ title, description, category, actions = [] }) => {
   return (
-    <header dir="rtl" className="mb-5 flex w-full flex-col gap-4 border-b border-[#E5E8ED] pb-4 sm:flex-row sm:items-end sm:justify-between">
+    <header dir="rtl" className="mb-5 flex w-full flex-col gap-4 border-b border-[#E7DFD1] pb-4 sm:flex-row sm:items-end sm:justify-between">
       <div className="min-w-0 flex-1 text-right">
         {category && (
           <div className="mb-[7px] flex items-center gap-[7px]">
-            <span className="h-[6px] w-[6px] rounded-full bg-[#675CBA]" />
-            <span className="text-[8px] font-semibold text-[#8E96A1]">{category}</span>
+            <span className="h-[6px] w-[6px] rounded-full bg-[#99784D]" />
+            <span className="text-[10px] font-semibold text-[#888F84]">{category}</span>
           </div>
         )}
 
-        <h1 className="font-heading text-[22px] font-bold leading-tight tracking-[-0.45px] text-[#20242D] md:text-[25px]">{title}</h1>
+        <h1 className="font-heading text-[25px] font-bold leading-tight tracking-[-0.45px] text-[#222821] md:text-[28px]">{title}</h1>
 
-        {description && <p className="mt-[6px] max-w-[680px] text-[10.5px] font-medium leading-[1.75] text-[#8E96A1] md:text-[11px]">{description}</p>}
+        {description && <p className="mt-[6px] max-w-[680px] text-[12px] font-medium leading-[1.75] text-[#888F84] md:text-[11px]">{description}</p>}
       </div>
 
       {actions.length > 0 && (
@@ -49,7 +49,7 @@ const AdminHeaderAction = ({ action }: { action: NonNullable<AdminPageHeaderProp
 
   const className = cn(
     "inline-flex h-[38px] items-center justify-center gap-[7px] rounded-[10px] border px-[12px] text-[10px] font-semibold transition-colors duration-150",
-    action.variant === "primary" && "border-[#675CBA] bg-[#675CBA] text-white hover:border-[#594FAB] hover:bg-[#594FAB]",
+    action.variant === "primary" && "border-[#99784D] bg-[#99784D] text-white hover:border-[#7E6037] hover:bg-[#7E6037]",
     action.variant === "secondary" && "border-[#D9E3F3] bg-[#EFF4FC] text-[#506A91] hover:bg-[#E8F0FA]",
     action.variant === "destructive" && "border-[#F0D5D1] bg-[#FFF3F1] text-[#C15F56] hover:bg-[#FFEDEA]",
     (!action.variant || action.variant === "outline") && "border-[#E2E6EB] bg-white text-[#5E6671] hover:border-[#D6DBE2] hover:bg-[#F8FAFC] hover:text-[#343B44]",

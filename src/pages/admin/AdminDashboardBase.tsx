@@ -91,10 +91,10 @@ type MetricCardProps = {
 
 const tones: Record<Tone, { icon: string; soft: string; text: string; line: string }> = {
   indigo: {
-    icon: "bg-[#EEEBFF] text-[#675CBA]",
+    icon: "bg-[#EEEBFF] text-[#99784D]",
     soft: "bg-[#F8F6FF]",
-    text: "text-[#675CBA]",
-    line: "#675CBA",
+    text: "text-[#99784D]",
+    line: "#99784D",
   },
   green: {
     icon: "bg-[#EAF7EE] text-[#57906A]",
@@ -112,25 +112,25 @@ const tones: Record<Tone, { icon: string; soft: string; text: string; line: stri
     icon: "bg-[#EDF4FF] text-[#567BC5]",
     soft: "bg-[#F6F9FF]",
     text: "text-[#567BC5]",
-    line: "#5680CF",
+    line: "#629084",
   },
   teal: {
     icon: "bg-[#EAF8F4] text-[#478F80]",
     soft: "bg-[#F4FBF9]",
     text: "text-[#478F80]",
-    line: "#4C9687",
+    line: "#559486",
   },
   amber: {
     icon: "bg-[#FFF5E5] text-[#B98031]",
     soft: "bg-[#FFFAF3]",
     text: "text-[#B98031]",
-    line: "#C38838",
+    line: "#BB985F",
   },
   rose: {
     icon: "bg-[#FFF0F4] text-[#BC6377]",
     soft: "bg-[#FFF7F9]",
     text: "text-[#BC6377]",
-    line: "#C66A7F",
+    line: "#AE756C",
   },
   cyan: {
     icon: "bg-[#EAF7FB] text-[#45899F]",
@@ -140,7 +140,7 @@ const tones: Record<Tone, { icon: string; soft: string; text: string; line: stri
   },
 };
 
-const CURRENCY_COLORS = ["#675CBA", "#4C9687", "#D09A48"];
+const CURRENCY_COLORS = ["#99784D", "#559486", "#D09A48"];
 
 /* =========================================================
    CURRENCY
@@ -265,9 +265,9 @@ const customerNameOf = (order: any) => order?.customer_name || order?.customers?
 ========================================================= */
 
 const STATUS_META: Record<StatusKey, { label: string; icon: LucideIcon; bg: string; text: string; bar: string }> = {
-  pending: { label: "قيد الانتظار", icon: Clock3, bg: "bg-[#FFF6E5]", text: "text-[#AF782B]", bar: "#C38838" },
-  confirmed: { label: "مؤكد", icon: CheckCircle2, bg: "bg-[#EDF4FF]", text: "text-[#567BC5]", bar: "#5680CF" },
-  processing: { label: "قيد التجهيز", icon: Package, bg: "bg-[#F2EFFF]", text: "text-[#675CBA]", bar: "#675CBA" },
+  pending: { label: "قيد الانتظار", icon: Clock3, bg: "bg-[#FFF6E5]", text: "text-[#AF782B]", bar: "#BB985F" },
+  confirmed: { label: "مؤكد", icon: CheckCircle2, bg: "bg-[#EDF4FF]", text: "text-[#567BC5]", bar: "#629084" },
+  processing: { label: "قيد التجهيز", icon: Package, bg: "bg-[#F2EFFF]", text: "text-[#99784D]", bar: "#99784D" },
   shipped: { label: "تم الشحن", icon: Truck, bg: "bg-[#EAF7FB]", text: "text-[#45899F]", bar: "#4A90A6" },
   delivered: { label: "تم التوصيل", icon: PackageCheck, bg: "bg-[#EAF7EE]", text: "text-[#57906A]", bar: "#629067" },
   cancelled: { label: "ملغي", icon: AlertTriangle, bg: "bg-[#FFF0F0]", text: "text-[#C76161]", bar: "#D06C6C" },
@@ -387,7 +387,7 @@ const SessionGauge = ({ sessions, previousSessions }: { sessions: number; previo
       <div className="relative flex flex-1 items-center justify-center py-3">
         <svg viewBox="0 0 120 120" className="h-[132px] w-[132px] -rotate-90">
           <circle cx="60" cy="60" r="48" fill="none" stroke="#EFF1F5" strokeWidth="9" />
-          <circle cx="60" cy="60" r="48" fill="none" stroke="#675CBA" strokeWidth="9" strokeLinecap="round" strokeDasharray={`${dash} ${circumference}`} />
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#99784D" strokeWidth="9" strokeLinecap="round" strokeDasharray={`${dash} ${circumference}`} />
         </svg>
 
         <div className="absolute text-center">
@@ -865,7 +865,7 @@ const AdminDashboard = () => {
       <header className="flex flex-col gap-4 border-b border-[#E4E8ED] pb-5 sm:flex-row sm:items-end sm:justify-between">
         <div className="min-w-0">
           <div className="mb-[7px] flex items-center gap-[7px]">
-            <span className="h-[6px] w-[6px] rounded-full bg-[#675CBA]" />
+            <span className="h-[6px] w-[6px] rounded-full bg-[#99784D]" />
             <span className="text-[7.5px] font-bold tracking-[0.07em] text-[#989FA9]">OVERVIEW</span>
           </div>
 
@@ -884,7 +884,7 @@ const AdminDashboard = () => {
           </div>
 
           <Link to="/admin/reports" className="hidden h-[38px] items-center gap-[7px] rounded-[10px] border border-[#E2E6EB] bg-white px-3 text-[9px] font-semibold text-[#5F6772] transition-colors hover:bg-[#F8FAFC] sm:flex">
-            <BarChart3 className="h-[12px] w-[12px] text-[#675CBA]" strokeWidth={1.8} />
+            <BarChart3 className="h-[12px] w-[12px] text-[#99784D]" strokeWidth={1.8} />
             التقارير
           </Link>
         </div>
@@ -928,7 +928,7 @@ const AdminDashboard = () => {
               <div className="hidden items-center gap-5 sm:flex">
                 <div>
                   <div className="flex items-center gap-[5px]">
-                    <span className="h-[6px] w-[6px] rounded-full bg-[#675CBA]" />
+                    <span className="h-[6px] w-[6px] rounded-full bg-[#99784D]" />
                     <span className="text-[7.5px] text-[#939AA4]">الإيرادات</span>
                   </div>
 
@@ -958,9 +958,9 @@ const AdminDashboard = () => {
               <AreaChart data={chartData} margin={{ top: 10, right: 4, left: -15, bottom: 0 }}>
                 <defs>
                   <linearGradient id="revenueDashboardGradientV2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#675CBA" stopOpacity={0.18} />
-                    <stop offset="60%" stopColor="#675CBA" stopOpacity={0.04} />
-                    <stop offset="100%" stopColor="#675CBA" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#99784D" stopOpacity={0.18} />
+                    <stop offset="60%" stopColor="#99784D" stopOpacity={0.04} />
+                    <stop offset="100%" stopColor="#99784D" stopOpacity={0} />
                   </linearGradient>
                 </defs>
 
@@ -971,7 +971,7 @@ const AdminDashboard = () => {
                 <Tooltip cursor={{ stroke: "#D8DCE4", strokeDasharray: "3 3" }} contentStyle={{ background: "#FFFFFF", border: "1px solid #E4E8EE", borderRadius: "10px", boxShadow: "0 12px 30px rgba(31,39,55,0.08)", fontSize: "9px" }} labelStyle={{ color: "#89919C", marginBottom: "5px" }} formatter={(value, name) => [`${fmt(Number(value || 0))} ر.س`, name === "revenue" ? "الإيرادات" : "المتوسط"]} />
 
                 <Area type="monotone" dataKey="average" stroke="#CDD3DC" strokeWidth={1.3} fill="transparent" dot={false} activeDot={false} />
-                <Area type="monotone" dataKey="revenue" stroke="#675CBA" strokeWidth={2} fill="url(#revenueDashboardGradientV2)" dot={false} activeDot={{ r: 4, fill: "#675CBA", stroke: "#FFFFFF", strokeWidth: 2 }} />
+                <Area type="monotone" dataKey="revenue" stroke="#99784D" strokeWidth={2} fill="url(#revenueDashboardGradientV2)" dot={false} activeDot={{ r: 4, fill: "#99784D", stroke: "#FFFFFF", strokeWidth: 2 }} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -1216,7 +1216,7 @@ const AdminDashboard = () => {
 
                       <span className="text-[7.5px] text-[#8D949E]">{safeDate(order?.created_at)}</span>
 
-                      <Link to="/admin/orders" className="flex h-[28px] w-[28px] items-center justify-center rounded-[8px] border border-[#E7EAEF] bg-white text-[#8B929C] transition-colors hover:border-[#DDE1E7] hover:bg-[#F7F9FB] hover:text-[#675CBA]">
+                      <Link to="/admin/orders" className="flex h-[28px] w-[28px] items-center justify-center rounded-[8px] border border-[#E7EAEF] bg-white text-[#8B929C] transition-colors hover:border-[#DDE1E7] hover:bg-[#F7F9FB] hover:text-[#99784D]">
                         <Eye className="h-[12px] w-[12px]" strokeWidth={1.7} />
                       </Link>
                     </div>
@@ -1320,7 +1320,7 @@ const QuickLink = ({ to, title, subtitle, icon: Icon, tone }: { to: string; titl
   const palette = tones[tone];
 
   return (
-    <Link to={to} className="group flex min-h-[74px] flex-col justify-between rounded-[12px] border border-[#E8EBF0] bg-[#FAFBFC] p-[10px] transition-colors duration-150 hover:border-[#DDE2E8] hover:bg-white">
+    <Link to={to} className="group flex min-h-[74px] flex-col justify-between rounded-[12px] border border-[#E8EBF0] bg-[#FAFBFC] p-[10px] transition-colors duration-150 hover:border-[#E7DED1] hover:bg-white">
       <div className={`flex h-[28px] w-[28px] items-center justify-center rounded-[9px] ${palette.icon}`}>
         <Icon className="h-[13px] w-[13px]" strokeWidth={1.7} />
       </div>
