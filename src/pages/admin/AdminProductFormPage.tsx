@@ -115,7 +115,6 @@ const AdminProductFormPage = () => {
   const [selectedParentCategoryId, setSelectedParentCategoryId] = useState('');
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [standaloneSizes, setStandaloneSizes] = useState<Array<{ size: string; stock: number }>>([]);
-  const [newStandaloneSize, setNewStandaloneSize] = useState('');
 
   // Fetch all homepage sections
   const { data: sections = [] } = useQuery({
@@ -1051,40 +1050,6 @@ const AdminProductFormPage = () => {
         </div>
 
         
-        {/* Inventory without colors */}
-        {formData.color_variants.length === 0 && (
-          <div id="genan-editor-inventory" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] space-y-[12px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#675CBA]">
-            <div>
-              <h2 className="flex items-center gap-[7px] text-[12px] font-semibold text-[#3F4650]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EAF7EE] text-[#507555]"><Boxes className="h-[12px] w-[12px]" /></span>المقاسات والمخزون</h2>
-              <p className="text-[9px] text-[#8D959F] mt-[4px]">يمكنك استخدام مخزون عام، أو إضافة كل مقاس وتحديد كميته. نفس البيانات تظهر للعميل وتُخصم تلقائيًا عند تأكيد الطلب.</p>
-            </div>
-
-            {standaloneSizes.length === 0 ? (
-              <div className="space-y-2">
-                <label className="block text-[9px] text-[#8D959F]">المخزون العام</label>
-                <Input type="number" min={0} value={formData.stock_quantity} onChange={(e) => setFormData({ ...formData, stock_quantity: e.target.value })} className="h-12 max-w-xs rounded-2xl bg-muted/30 border-border/60" placeholder="الكمية المتاحة" />
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {standaloneSizes.map((item, index) => (
-                  <div key={`${item.size}-${index}`} className="grid grid-cols-[minmax(0,1fr)_120px_38px] items-center gap-[6px] rounded-[10px] border border-[#E5E9EF] bg-[#FAFBFC] p-[7px]">
-                    <Input value={item.size} onChange={(e) => setStandaloneSizes((current) => current.map((row, rowIndex) => rowIndex === index ? { ...row, size: e.target.value } : row))} placeholder="المقاس" className="h-[38px] rounded-[8px] border-[#E2E6EB] bg-white text-[9px] shadow-none focus-visible:ring-0" />
-                    <Input type="number" min={0} value={item.stock} onChange={(e) => setStandaloneSizes((current) => current.map((row, rowIndex) => rowIndex === index ? { ...row, stock: Math.max(0, parseInt(e.target.value || '0') || 0) } : row))} placeholder="المخزون" className="h-[38px] rounded-[8px] border-[#E2E6EB] bg-white text-[9px] shadow-none focus-visible:ring-0" />
-                    <button type="button" onClick={() => setStandaloneSizes((current) => current.filter((_, rowIndex) => rowIndex !== index))} className="flex h-[38px] w-[38px] items-center justify-center rounded-[8px] border border-[#F0D7D4] bg-white text-[#C15F56] hover:bg-[#FFF3F1]" aria-label="حذف المقاس"><Trash2 className="h-4 w-4" /></button>
-                  </div>
-                ))}
-                <p className="text-[8px] text-[#626E63]">الإجمالي: {standaloneSizes.reduce((sum, item) => sum + Number(item.stock || 0), 0)} قطعة</p>
-              </div>
-            )}
-
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <Input value={newStandaloneSize} onChange={(e) => setNewStandaloneSize(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); const size = newStandaloneSize.trim(); if (!size) return; if (standaloneSizes.some((item) => item.size.trim().toLowerCase() === size.toLowerCase())) return toast({ title: 'المقاس موجود بالفعل', variant: 'destructive' }); setStandaloneSizes((current) => [...current, { size, stock: 0 }]); setNewStandaloneSize(''); } }} placeholder="أضف مقاسًا مثل 38 أو XL" className="h-[40px] flex-1 rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[9px] shadow-none focus-visible:ring-0" />
-              <Button type="button" variant="outline" onClick={() => { const size = newStandaloneSize.trim(); if (!size) return toast({ title: 'أدخل المقاس أولًا', variant: 'destructive' }); if (standaloneSizes.some((item) => item.size.trim().toLowerCase() === size.toLowerCase())) return toast({ title: 'المقاس موجود بالفعل', variant: 'destructive' }); setStandaloneSizes((current) => [...current, { size, stock: 0 }]); setNewStandaloneSize(''); }} className="h-[40px] rounded-[9px] gap-[6px] border-[#E0DCEF] bg-white px-[12px] text-[9px] font-semibold text-[#675CBA] hover:bg-[#F7F5FF]"><Plus className="h-4 w-4" />إضافة مقاس</Button>
-            </div>
-
-            {standaloneSizes.length > 0 && <button type="button" onClick={() => { setStandaloneSizes([]); setFormData((current) => ({ ...current, stock_quantity: String(standaloneSizes.reduce((sum, item) => sum + Number(item.stock || 0), 0)) })); }} className="text-[8px] text-[#626E63] underline underline-offset-4">العودة إلى مخزون عام بدون مقاسات</button>}
-          </div>
-        )}
         <div id="genan-editor-variants" className="relative overflow-hidden rounded-[16px] border border-[#E5E9EF] bg-white p-[14px] before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:bg-[#5680CF]">
           <div className="mb-[11px] flex items-center justify-between gap-3 border-b border-[#EEF1F4] pb-[10px]">
             <div className="flex items-center gap-[7px]"><span className="flex h-[29px] w-[29px] items-center justify-center rounded-[9px] bg-[#EDF4FF] text-[#486BB0]"><Layers3 className="h-[12px] w-[12px]" /></span><div><h2 className="text-[12px] font-semibold text-[#3F4650]">الصور والألوان والمقاسات</h2><p className="mt-[2px] text-[7px] text-[#626E63]">إدارة خيارات المنتج والمخزون لكل لون ومقاس</p></div></div>
