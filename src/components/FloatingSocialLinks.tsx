@@ -16,6 +16,7 @@ const FloatingSocialLinks = () => {
   const [open, setOpen] = useState(false);
   const [links, setLinks] = useState<Record<SocialKey, string>>({ instagram: "", whatsapp: "", snapchat: "", phone: "" });
   const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     let mounted = true;
     supabase.from("site_settings").select("key,value").in("key", ["social_instagram", "social_whatsapp", "social_snapchat", "whatsapp", "store_info", "phone", "phone_ye", "phone_sa"]).then(({ data }) => {
@@ -57,7 +58,12 @@ const FloatingSocialLinks = () => {
   useEffect(() => {
     if (!open) return;
     const onClick = (event: PointerEvent) => { if (!rootRef.current?.contains(event.target as Node)) setOpen(false); };
-    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
     document.addEventListener("pointerdown", onClick);
     document.addEventListener("keydown", onKey);
     return () => { document.removeEventListener("pointerdown", onClick); document.removeEventListener("keydown", onKey); };
@@ -78,7 +84,7 @@ const FloatingSocialLinks = () => {
         id="genan-social-options"
         aria-label="خيارات التواصل"
         aria-hidden={!open}
-        className={"absolute bottom-[68px] left-1 flex flex-col-reverse items-center gap-3 transition-[opacity,transform,visibility] duration-200 motion-reduce:transition-none " + (open ? "visible translate-y-0 opacity-100" : "invisible pointer-events-none translate-y-3 opacity-0")}
+        className={"absolute bottom-[54px] left-0 flex flex-col-reverse items-center gap-2.5 transition-[opacity,transform,visibility] duration-200 motion-reduce:transition-none " + (open ? "visible translate-y-0 opacity-100" : "invisible pointer-events-none translate-y-3 opacity-0")}
       >
         {items.map(({ key, label, Icon, color }) => (
           <a
@@ -90,25 +96,24 @@ const FloatingSocialLinks = () => {
             title={label}
             tabIndex={open ? 0 : -1}
             onClick={() => setOpen(false)}
-            className={"grid h-[50px] w-[50px] place-items-center rounded-full border border-white/75 shadow-[0_7px_20px_rgba(20,17,12,.22)] transition-transform hover:scale-110 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B89562] " + color}
+            className={"grid h-11 w-11 place-items-center rounded-full border border-white/75 shadow-[0_5px_16px_rgba(20,17,12,.18)] transition-transform hover:scale-110 active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B89562] " + color}
           >
-            <Icon aria-hidden="true" className="h-[24px] w-[24px]" />
+            <Icon aria-hidden="true" className="h-[21px] w-[21px]" />
           </a>
         ))}
       </div>
 
       <button
+        ref={triggerRef}
         type="button"
         aria-label={open ? "إغلاق خيارات التواصل" : "تواصل معنا"}
+        title={open ? "إغلاق خيارات التواصل" : "تواصل معنا"}
         aria-expanded={open}
         aria-controls="genan-social-options"
         onClick={() => setOpen((current) => !current)}
-        className="group flex h-[55px] items-center gap-2.5 rounded-full border border-[#B9A17A] bg-[#171717] py-2 pl-4 pr-2.5 text-white shadow-[0_12px_30px_rgba(20,17,12,.25)] transition-transform hover:-translate-y-0.5 active:translate-y-0 motion-reduce:transform-none"
+        className="grid h-11 w-11 place-items-center rounded-full border border-[#B9A17A] bg-[#171717] text-[#D8C29A] shadow-[0_6px_20px_rgba(20,17,12,.2)] transition-transform hover:-translate-y-0.5 active:scale-95 motion-reduce:transform-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B89562]"
       >
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-[#C9B38B] text-[#171717]">
-          {open ? <X className="h-[19px] w-[19px]" strokeWidth={1.8} /> : <MessageCircle className="h-[19px] w-[19px]" strokeWidth={1.8} />}
-        </span>
-        <span className="text-[12px] font-semibold tracking-wide">{open ? "إغلاق" : "تواصل معنا"}</span>
+        {open ? <X aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} /> : <MessageCircle aria-hidden="true" className="h-[21px] w-[21px]" strokeWidth={1.8} />}
       </button>
     </div>
   );
