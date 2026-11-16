@@ -42,7 +42,7 @@ const FloatingSocialLinks = () => {
       const snap = (settings.social_snapchat || "").trim();
       const rawPhone = String(storeInfo.phone || storeInfo.phone_ye || storeInfo.phone_sa || settings.phone || settings.phone_ye || settings.phone_sa || "").trim();
       const digits = rawPhone.replace(/\D/g, "");
-      const phone = /^[+0-9\s()\-]+$/.test(rawPhone) && digits.length >= 7 && digits.length <= 15
+      const phone = /^[+0-9\s()-]+$/.test(rawPhone) && digits.length >= 7 && digits.length <= 15
         ? "tel:" + (rawPhone.startsWith("+") ? "+" : "") + digits
         : "";
       setLinks({

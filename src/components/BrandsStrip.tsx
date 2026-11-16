@@ -72,7 +72,7 @@ const BrandsStrip = ({ enabled = true }: { enabled?: boolean }) => {
       if (!saved) return;
       const parsed = JSON.parse(saved);
       if (typeof parsed.scrollLeft === "number") scrollerRef.current.scrollLeft = parsed.scrollLeft;
-    } catch {}
+    } catch { /* Stored scroll position is optional. */ }
   }, [enabled, renderBrands.length]);
 
   const saveStripPosition = (id: string) => {
@@ -82,7 +82,7 @@ const BrandsStrip = ({ enabled = true }: { enabled?: boolean }) => {
         BRAND_STRIP_POSITION_KEY,
         JSON.stringify({ scrollLeft: scrollerRef.current.scrollLeft, brandId: id }),
       );
-    } catch {}
+    } catch { /* Browsers may disable session storage. */ }
   };
 
   if (!enabled || !renderBrands.length) return null;
