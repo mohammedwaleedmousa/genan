@@ -1,4 +1,4 @@
-/* Genan loading mark: one icon, no visible text or forced delay. */
+/* Brand wordmark and a quiet indeterminate line; no assets or forced delay. */
 .genan-loading-screen {
   position: fixed;
   inset: 0;
@@ -11,59 +11,50 @@
   overflow: hidden;
   background: #faf9f7;
 }
-.genan-loading-mark {
+.genan-loading-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.genan-loading-wordmark {
+  padding-left: .24em;
+  color: #171717;
+  font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(32px, 6vw, 42px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: .24em;
+}
+
+.genan-loading-track {
   position: relative;
   display: block;
-  width: 108px;
-  height: 108px;
-  flex: none;
+  width: 112px;
+  height: 2px;
+  overflow: hidden;
+  background: #e8e1d6;
+  border-radius: 2px;
 }
-.genan-loading-mark > span {
+
+.genan-loading-track__glide {
   position: absolute;
-  inset: 0;
-  display: block;
-  -webkit-mask: url('/icons/genan-loader.svg') center / contain no-repeat;
-  mask: url('/icons/genan-loader.svg') center / contain no-repeat;
+  inset: 0 auto 0 0;
+  width: 40px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, #a78859, transparent);
+  animation: genan-loading-glide 1.6s cubic-bezier(.4, 0, .2, 1) infinite;
 }
-.genan-loading-mark__base {
-  background: #e8ddca;
+
+@keyframes genan-loading-glide {
+  0% { transform: translateX(-40px); }
+  100% { transform: translateX(112px); }
 }
-.genan-loading-mark__reveal {
-  background: #a78859;
-  animation: genan-loading-reveal 1.85s cubic-bezier(.65,0,.35,1) infinite;
-}
-.genan-loading-mark__shine {
-  background: linear-gradient(to bottom,
-    transparent 0%,
-    transparent 35%,
-    rgb(255 250 224 / 10%) 42%,
-    rgb(255 250 224 / 82%) 50%,
-    rgb(255 250 224 / 10%) 58%,
-    transparent 65%,
-    transparent 100%);
-  background-size: 100% 55%;
-  background-position: center -90%;
-  background-repeat: no-repeat;
-  animation: genan-loading-shine 1.85s cubic-bezier(.65,0,.35,1) infinite;
-}
-@keyframes genan-loading-reveal {
-  0%, 8% { clip-path: inset(0 0 100% 0); opacity: 1; }
-  74%, 86% { clip-path: inset(0); opacity: 1; }
-  100% { clip-path: inset(0); opacity: 0; }
-}
-@keyframes genan-loading-shine {
-  0% { background-position: center -90%; opacity: 0; }
-  8% { opacity: 1; }
-  75% { background-position: center 175%; opacity: 1; }
-  88%, 100% { background-position: center 175%; opacity: 0; }
-}
+
 @media (prefers-reduced-motion: reduce) {
-  .genan-loading-mark__reveal {
+  .genan-loading-track__glide {
     animation: none;
-    clip-path: inset(0);
+    transform: translateX(36px);
   }
-  .genan-loading-mark__shine { display: none; }
-}
-@media (max-width: 480px) {
-  .genan-loading-mark { width: 94px; height: 94px; }
 }

@@ -9,10 +9,11 @@ const LoadingScreen = () => (
     aria-live="polite"
     aria-label="جاري تحميل الصفحة"
   >
-    <div className="genan-loading-mark" aria-hidden="true">
-      <span className="genan-loading-mark__base" />
-      <span className="genan-loading-mark__reveal" />
-      <span className="genan-loading-mark__shine" />
+    <div className="genan-loading-brand" aria-hidden="true" dir="ltr">
+      <span className="genan-loading-wordmark">GENAN</span>
+      <span className="genan-loading-track">
+        <span className="genan-loading-track__glide" />
+      </span>
     </div>
   </main>
 );
