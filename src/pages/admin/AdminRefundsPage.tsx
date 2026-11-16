@@ -374,7 +374,7 @@ const AdminRefundsPage = () => {
             product_id: item.product_id || null,
             product_name: item.product_name || item.name || "منتج",
             product_image: item.product_image || item.image || "",
-            quantity: Number(item.refund_quantity || 0),
+            refund_quantity: Number(item.refund_quantity || 0),
             price: Number(item.price || 0),
             selected_size: item.selected_size || null,
             selected_color: item.selected_color || null,

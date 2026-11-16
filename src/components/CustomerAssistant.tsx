@@ -28,7 +28,7 @@ const CustomerAssistant = ({ initialOpen = false }: { initialOpen?: boolean }) =
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([welcomeMessage]);
   const [isReplying, setIsReplying] = useState(false);
-  const [whatsapp, setWhatsapp] = useState("967778579777");
+  const [whatsapp, setWhatsapp] = useState("");
   const [chatbotConfig, setChatbotConfig] = useState<ChatbotConfig>(defaultChatbotConfig);
   const nextMessageId = useRef(2);
   const messageListRef = useRef<HTMLDivElement>(null);
@@ -245,7 +245,7 @@ const CustomerAssistant = ({ initialOpen = false }: { initialOpen?: boolean }) =
             {isReplying && <div className="flex w-fit items-center gap-2 border border-border bg-background px-3 py-2 text-xs text-muted-foreground"><Sparkles className="h-3.5 w-3.5 text-primary" /> جاري البحث...</div>}
           </div>
           <div className="border-t border-border bg-background p-4">
-            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="mb-3 block text-center text-xs font-medium text-primary hover:underline">التواصل المباشر مع فريق الدعم عبر واتساب</a>
+            {whatsapp && <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="mb-3 block text-center text-xs font-medium text-primary hover:underline">التواصل المباشر مع فريق الدعم عبر واتساب</a>}
             <form onSubmit={handleSubmit} className="flex items-center gap-2 rounded-md border border-input bg-muted/30 p-1.5 focus-within:ring-2 focus-within:ring-ring"><input value={input} onChange={(event) => setInput(event.target.value)} maxLength={800} placeholder="اكتب استفسارك..." className="h-9 min-w-0 flex-1 bg-transparent px-2 text-sm outline-none" /><button type="submit" disabled={isReplying} className="grid h-9 w-9 place-items-center rounded-md bg-primary text-primary-foreground disabled:opacity-50" aria-label="إرسال"><Send className="h-4 w-4" /></button></form>
           </div>
         </section>

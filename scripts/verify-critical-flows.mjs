@@ -83,7 +83,7 @@ const checks = [
   },
   {
     file: "src/components/HeroSlider.tsx",
-    needles: ["GENAN / NEW COLLECTION", "FALLBACK_HERO_IMAGE", "اكتشفي المجموعة"],
+    needles: ["genanFallbackSlides", "managedSlides.length > 0 ? managedSlides : genanFallbackSlides", "اكتشفي المجموعة"],
     message: "Home hero must keep the Genan fallback experience.",
   },
 ];
@@ -127,7 +127,7 @@ if (!adminLayoutSource.includes('supabase.rpc("is_current_user_admin")') ||
   console.error("FAIL admin routes must check server permissions without requiring a second factor.");
   failures += 1;
 }
-if (!customerLoginSource.includes("supabase.auth.signUp({") ||
+if (!customerLoginSource.includes('supabase.functions.invoke("genan-password-register"') ||
     !customerLoginSource.includes("signInWithPassword") ||
     customerLoginSource.includes("verifyOtp(")) {
   console.error("FAIL customer accounts must support phone/password sign-up and sign-in without OTP UI.");

@@ -1,4 +1,4 @@
-const FLAMINGO_IMAGE_ZONE = "https://flamingoparkaden.com";
+const FLAMINGO_IMAGE_ZONE = "https://genanboutiquee.com";
 
 const getViewportAwareWidth = (requestedWidth: number) => {
   if (typeof window === "undefined") return requestedWidth;

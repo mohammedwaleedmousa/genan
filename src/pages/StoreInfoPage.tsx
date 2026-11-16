@@ -59,7 +59,7 @@ const StoreInfoPage = () => {
   }, [location.hash]);
 
   const whatsappNumber = storeInfo?.whatsapp || storeInfo?.whatsapp_ye || storeInfo?.whatsapp_sa;
-  const phone = String(storeInfo?.phone_sa || storeInfo?.phone_ye || storeInfo?.phone || "+967778579777");
+  const phone = String(storeInfo?.phone_sa || storeInfo?.phone_ye || storeInfo?.phone || "");
   const email = String(storeInfo?.email || "").trim();
   const placeholderEmails = new Set(["info@genan.com", "info@genan.com"]);
   const showEmail = Boolean(email && !placeholderEmails.has(email.toLowerCase()));
@@ -91,19 +91,19 @@ const StoreInfoPage = () => {
       label: getSiteText(content, "store_info_phone_label", "الهاتف"),
       value: phone,
       icon: Phone,
-      href: `tel:${phone}`,
+      href: phone ? `tel:${phone}` : "",
     },
     ...(showEmail ? [{
       label: getSiteText(content, "store_info_email_label", "البريد الإلكتروني"),
       value: email,
       icon: Mail,
       href: `mailto:${email}`,
-    }] : [{
+    }] : whatsappDigits ? [{
       label: "واتساب",
       value: `+${whatsappDigits}`,
       icon: MessageCircle,
       href: `https://wa.me/${whatsappDigits}`,
-    }]),
+    }] : []),
     {
       label: getSiteText(content, "store_info_hours_label", "ساعات العمل"),
       value: getSiteText(content, "store_info_hours_value", "يوميًا · استقبال الطلبات على مدار الساعة"),

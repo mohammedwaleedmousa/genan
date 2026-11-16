@@ -417,7 +417,6 @@ const AdminPaymentMethodsPage = () => {
       if (!Number.isFinite(expectedAmount) || expectedAmount < 0) throw new Error("المبلغ المتوقع غير صحيح.");
       if (!Number.isFinite(actualAmount) || actualAmount < 0) throw new Error("المبلغ الفعلي غير صحيح.");
 
-      const difference = actualAmount - expectedAmount;
       const currentUser = await supabase.auth.getUser();
 
       const payload = {
@@ -425,7 +424,6 @@ const AdminPaymentMethodsPage = () => {
         settlement_date: settlementForm.settlement_date,
         expected_amount: expectedAmount,
         actual_amount: actualAmount,
-        difference,
         status: settlementForm.status,
         notes: settlementForm.notes.trim() || null,
         created_by: editingSettlement?.created_by || currentUser.data.user?.id || null,
@@ -454,7 +452,7 @@ const AdminPaymentMethodsPage = () => {
 
   const reconcileSettlementMutation = useMutation({
     mutationFn: async (settlement: Settlement) => {
-      const { error } = await (supabase as any).from("payment_settlements").update({ status: "reconciled", difference: settlement.actual_amount - settlement.expected_amount }).eq("id", settlement.id);
+      const { error } = await (supabase as any).from("payment_settlements").update({ status: "reconciled" }).eq("id", settlement.id);
       if (error) throw error;
     },
     onSuccess: async () => {

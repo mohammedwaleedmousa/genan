@@ -37,7 +37,7 @@ type StatusFilter = "all" | "active" | "inactive" | "used";
 type SortMode = "name" | "fee_low" | "fee_high" | "orders";
 type DeliveryScope = "aden" | "outside" | "all";
 
-const SINGLE_COUNTRY = "GLOBAL";
+const SINGLE_COUNTRY = "YE";
 
 const emptyForm = (): DeliveryForm => ({
   name: "",
@@ -206,7 +206,7 @@ const AdminDeliveryPage = () => {
 
       const payload = {
         name,
-        country: SINGLE_COUNTRY,
+        country: data.country === "SA" ? "SA" : SINGLE_COUNTRY,
         base_fee: baseFee,
         delivery_days: deliveryDays || null,
         service_scope: data.service_scope,

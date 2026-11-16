@@ -19,6 +19,18 @@ interface InvoiceItem {
   product_image?: string;
   quantity: number;
   price: number;
+  selected_size?: string | null;
+  selected_color?: string | null;
+  selected_sku?: string;
+  available_skus?: InvoiceSku[];
+}
+
+interface InvoiceSku {
+  variant_key: string;
+  label: string;
+  size: string | null;
+  color_name: string | null;
+  stock_quantity: number;
 }
 
 interface Product {
@@ -28,6 +40,7 @@ interface Product {
   price: number;
   images: string[] | null;
   brand: string | null;
+  inventory_skus: InvoiceSku[];
 }
 
 interface DeliveryCompany {
@@ -137,7 +150,7 @@ const NewInvoiceCreator = ({ open, onClose, onCreated }: NewInvoiceCreatorProps)
     queryFn: async () => {
       const query = productSearch.trim().replace(/[%_,()]/g, " ");
 
-      let request = supabase.from("products").select("id,name,name_ar,price,images,brand").eq("is_active", true).order("created_at", { ascending: false }).limit(24);
+      let request = supabase.from("products").select("id,name,name_ar,price,images,brand,inventory_skus(variant_key,label,size,color_name,stock_quantity)").eq("is_active", true).order("created_at", { ascending: false }).limit(24);
 
       if (query) {
         request = request.or(`name.ilike.%${query}%,name_ar.ilike.%${query}%,brand.ilike.%${query}%`);
@@ -182,7 +195,7 @@ const NewInvoiceCreator = ({ open, onClose, onCreated }: NewInvoiceCreatorProps)
   const addProduct = (product: Product) => {
     const existingIndex = items.findIndex((item) => item.product_id === product.id);
 
-    if (existingIndex >= 0) {
+    if (existingIndex >= 0 && (product.inventory_skus || []).length <= 1) {
       setItems((current) => current.map((item, index) => index === existingIndex ? { ...item, quantity: item.quantity + 1 } : item));
       toast({ title: "تمت زيادة الكمية", description: product.name_ar || product.name });
       return;
@@ -195,6 +208,10 @@ const NewInvoiceCreator = ({ open, onClose, onCreated }: NewInvoiceCreatorProps)
       product_image: product.images?.find(Boolean) || "",
       quantity: 1,
       price: Number(product.price || 0),
+      available_skus: product.inventory_skus || [],
+      selected_sku: product.inventory_skus?.length === 1 ? product.inventory_skus[0].variant_key : undefined,
+      selected_size: product.inventory_skus?.length === 1 ? product.inventory_skus[0].size : null,
+      selected_color: product.inventory_skus?.length === 1 ? product.inventory_skus[0].color_name : null,
     };
 
     setItems((current) => {
@@ -240,6 +257,13 @@ const NewInvoiceCreator = ({ open, onClose, onCreated }: NewInvoiceCreatorProps)
     const invalidItem = items.find((item) => !item.product_name.trim() || Number(item.quantity) < 1 || Number(item.price) < 0);
     if (invalidItem) return "تحقق من اسم وسعر وكمية جميع البنود.";
 
+    for (const item of items) {
+      if (!item.available_skus?.length) continue;
+      const selected = item.available_skus.find((sku) => sku.variant_key === item.selected_sku);
+      if (!selected) return `اختر اللون والمقاس للبند: ${item.product_name}.`;
+      if (item.quantity > selected.stock_quantity) return `الكمية المطلوبة تتجاوز مخزون ${item.product_name} / ${selected.label}.`;
+    }
+
     if (deliveryFee < 0) return "رسوم التوصيل لا يمكن أن تكون سالبة.";
     if (discountAmount < 0) return "الخصم لا يمكن أن يكون سالبًا.";
     if (discountAmount > subtotal + deliveryFee) return "الخصم أكبر من قيمة الفاتورة.";
@@ -268,6 +292,8 @@ const NewInvoiceCreator = ({ open, onClose, onCreated }: NewInvoiceCreatorProps)
         product_image: item.product_image || "",
         quantity: Math.max(1, Math.trunc(Number(item.quantity || 1))),
         price: toDisplay(Number(item.price || 0)),
+        selected_size: item.selected_size || null,
+        selected_color: item.selected_color || null,
       }));
       const nativeSubtotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
       const nativeDeliveryFee = toDisplay(deliveryFee);
@@ -422,6 +448,14 @@ const NewInvoiceCreator = ({ open, onClose, onCreated }: NewInvoiceCreatorProps)
 
                           <div className="min-w-0 flex-1">
                             <Input value={item.product_name} onChange={(event) => updateItem(item.key, { product_name: event.target.value, product_id: item.product_id })} placeholder={`اسم البند ${index + 1}`} className="h-[36px] rounded-[8px] border-[#E2E6EB] bg-white text-[10px] shadow-none focus-visible:ring-0" />
+
+                            {Boolean(item.available_skus?.length) && <Select value={item.selected_sku || ""} onValueChange={(value) => {
+                              const sku = item.available_skus?.find((option) => option.variant_key === value);
+                              updateItem(item.key, { selected_sku: value, selected_size: sku?.size || null, selected_color: sku?.color_name || null });
+                            }}>
+                              <SelectTrigger aria-label={`خيار المنتج ${index + 1}`} className="mt-[6px] h-[36px] rounded-[8px] bg-white text-[10px]"><SelectValue placeholder="اختر اللون والمقاس" /></SelectTrigger>
+                              <SelectContent>{item.available_skus?.map((sku) => <SelectItem key={sku.variant_key} value={sku.variant_key} disabled={sku.stock_quantity <= 0}>{sku.label} · المتاح {sku.stock_quantity}</SelectItem>)}</SelectContent>
+                            </Select>}
 
                             <div className="mt-[6px] grid grid-cols-[90px_minmax(0,1fr)] gap-[6px]">
                               <Input type="number" min={1} value={item.quantity} onChange={(event) => updateItem(item.key, { quantity: Math.max(1, Number.parseInt(event.target.value, 10) || 1) })} className="h-[36px] rounded-[8px] border-[#E2E6EB] bg-white text-[10px] shadow-none focus-visible:ring-0" />

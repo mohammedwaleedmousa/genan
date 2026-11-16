@@ -213,7 +213,7 @@ const ProductsPageServer = () => {
       });
     });
 
-    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b, "ar"));
+    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name, "ar"));
   }, [rawRows]);
 
   const sizes = useMemo(() => {

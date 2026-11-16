@@ -9,7 +9,7 @@ import { CURRENCY_RATES, getRateSnapshot } from "@/lib/currency";
 import { CheckCircle2, CircleOff, Download, FileClock, FileText, Loader2, Package, Pencil, Plus, Printer, ReceiptText, RotateCcw, Save, Trash2, UserRound, X, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const flamingoLogo = "/icons/flamingo.jpeg";
+const genanLogo = "/icons/app-icon-1024.png";
 
 interface SelectedAccessory {
   name: string;
@@ -392,9 +392,9 @@ const InvoiceEditor = ({ order, open, onClose, onUpdate }: InvoiceEditorProps) =
               <div ref={invoiceRef} id="admin-invoice" className="mx-auto min-w-[690px] max-w-[820px] rounded-[12px] border border-[#E4E8ED] bg-white p-[28px] text-[#303741] shadow-[0_2px_10px_rgba(31,41,55,0.04)]">
                 <div className="flex items-start justify-between gap-6 border-b border-[#E8EBEF] pb-5">
                   <div>
-                    <img src={flamingoLogo} alt="Flamingo" className="h-[58px] w-auto object-contain" />
+                    <img src={genanLogo} alt="Genan" className="h-[58px] w-auto object-contain" />
                     <p className="mt-2 text-[11px] font-semibold text-[#4C545E]">فاتورة مبيعات</p>
-                    <p className="mt-1 text-[9px] text-[#9198A1]">Flamingo Park</p>
+                    <p className="mt-1 text-[9px] text-[#9198A1]">Genan Boutique</p>
                   </div>
 
                   <div className="text-left">
@@ -537,7 +537,7 @@ const InvoiceEditor = ({ order, open, onClose, onUpdate }: InvoiceEditorProps) =
                 </div>
 
                 <div className="mt-6 border-t border-[#E8EBEF] pt-4 text-center">
-                  <p className="text-[8px] text-[#9BA2AC]">شكرًا لاختياركم Flamingo Park</p>
+                  <p className="text-[8px] text-[#9BA2AC]">شكرًا لاختياركم جنان</p>
                 </div>
               </div>
             </div>

@@ -351,7 +351,7 @@ const AdminSettingsPage = () => {
           <Input
             value={whatsapp}
             onChange={(e) => setWhatsapp(e.target.value)}
-            placeholder="+967778579777"
+            placeholder="+96777xxxxxxx"
             dir="ltr"
           />
         </div>

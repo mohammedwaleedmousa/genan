@@ -11,7 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { ArrowRight, BadgeDollarSign, Boxes, ClipboardList, Eye, Layers3, Loader2, Package, Plus, Save, Settings2, Shield, Sparkles, Trash2, Truck, Upload, X, LayoutGrid, RotateCcw, GripVertical, ZoomIn, Move } from 'lucide-react';
 import type { ColorVariant } from '@/components/admin/ColorVariantsEditor';
-import { syncProductInventory } from '@/lib/productInventory';
+import { buildInventoryPayload } from '@/lib/productInventory';
+import { safeRandomUUID } from '@/lib/cryptoCompat';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
 
 const ColorVariantsEditor = lazy(() => import('@/components/admin/ColorVariantsEditor'));
@@ -70,6 +71,7 @@ const AdminProductFormPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditing = Boolean(id);
+  const [draftProductId] = useState(safeRandomUUID);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -378,6 +380,7 @@ const AdminProductFormPage = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (isSaving) return;
     
     const resolvedName = formData.name.trim() || formData.name_ar.trim();
     const resolvedSlug = formData.slug.trim() || generateSlug(resolvedName);
@@ -386,7 +389,7 @@ const AdminProductFormPage = () => {
     const missingFields = [
       !resolvedName && 'الاسم',
       !formData.name_ar.trim() && 'الاسم العربي',
-      !Number.isFinite(price) && 'سعر البيع',
+      (!formData.price.trim() || !Number.isFinite(price)) && 'سعر البيع',
       price < 0 && 'سعر البيع',
       !resolvedCategory && 'القسم الرئيسي',
     ].filter(Boolean);
@@ -472,48 +475,23 @@ const AdminProductFormPage = () => {
     };
 
     try {
-      let savedProductId = id || '';
-
-      if (isEditing) {
-        const { data: savedProduct, error } = await (supabase as any)
-          .from('products')
-          .update(productData)
-          .eq('id', id)
-          .select('id,category,category_id,brand,brand_id,audience')
-          .single();
-        if (error) throw error;
-        if ((selectedCat && savedProduct.category_id !== selectedCat.id) || savedProduct.brand_id !== (selectedBrand?.id ?? null) || savedProduct.audience !== resolvedAudience) {
-          throw new Error('لم يتم حفظ تصنيف المنتج بالكامل. أعد اختيار القسم والماركة ثم احفظ مرة أخرى.');
-        }
-        savedProductId = savedProduct.id;
-      } else {
-        const { data: inserted, error } = await (supabase as any)
-          .from('products')
-          .insert(productData)
-          .select('id,category_id,brand_id,audience')
-          .single();
-        if (error) throw error;
-        if (!inserted?.id) throw new Error('لم يتم إنشاء المنتج (استجابة فارغة)');
-        if ((selectedCat && inserted.category_id !== selectedCat.id) || inserted.brand_id !== (selectedBrand?.id ?? null) || inserted.audience !== resolvedAudience) {
-          throw new Error('تم إنشاء المنتج لكن لم يكتمل تصنيفه. افتح المنتج وأعد اختيار القسم والماركة.');
-        }
-        savedProductId = inserted.id;
-      }
-
       const secureCost = Math.max(0, formData.cost_price ? parseLocalizedNumber(formData.cost_price) || 0 : 0);
-      const { error: costError } = await (supabase as any)
-        .from('product_costs')
-        .upsert({ product_id: savedProductId, cost_price: secureCost, updated_at: new Date().toISOString() }, { onConflict: 'product_id' });
-      if (costError) throw costError;
-
-      // inventory_skus هو مصدر الحقيقة للمخزون. هذا الربط يجعل صفحة إضافة/تعديل
-      // المنتج ومركز المخزون وصفحة العميل كلها تقرأ نفس الكميات.
-      await syncProductInventory(
-        savedProductId,
+      const inventoryItems = buildInventoryPayload(
         formData.color_variants as any,
-        Math.max(0, parseInt(formData.stock_quantity || '0') || 0),
+        stockQty,
         standaloneSizes,
       );
+      // One transaction saves classification, cost and SKU inventory together.
+      // A stable draft ID makes retrying a lost response update the same product.
+      const { data: savedProductId, error } = await (supabase as any).rpc('admin_save_product', {
+        p_product_id: id || draftProductId,
+        p_product: productData,
+        p_cost_price: secureCost,
+        p_inventory_items: inventoryItems,
+        p_create: !isEditing,
+      });
+      if (error) throw error;
+      if (savedProductId !== (id || draftProductId)) throw new Error('تعذر تأكيد حفظ المنتج. حاول الحفظ مرة أخرى.');
 
       toast({
         title: 'تم الحفظ',
@@ -521,7 +499,9 @@ const AdminProductFormPage = () => {
       });
       navigate('/admin/products');
     } catch (error: any) {
-      const desc = error?.message || error?.details || error?.hint || 'فشل حفظ المنتج';
+      const desc = error?.code === '23505'
+        ? 'رابط المنتج مستخدم بالفعل. افتح المنتج الموجود لتعديله أو اختر رابطًا مختلفًا.'
+        : error?.message || error?.details || error?.hint || 'فشل حفظ المنتج';
       console.error('[product-save] error:', error);
       toast({ title: 'خطأ في حفظ المنتج', description: desc, variant: 'destructive' });
     } finally {
