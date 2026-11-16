@@ -1110,27 +1110,6 @@ export type Database = {
           },
         ]
       }
-      customer_assistant_rate_limits: {
-        Row: {
-          client_hash: string
-          request_count: number
-          updated_at: string
-          window_started_at: string
-        }
-        Insert: {
-          client_hash: string
-          request_count?: number
-          updated_at?: string
-          window_started_at?: string
-        }
-        Update: {
-          client_hash?: string
-          request_count?: number
-          updated_at?: string
-          window_started_at?: string
-        }
-        Relationships: []
-      }
       customer_carts: {
         Row: {
           abandoned_at: string | null
@@ -3153,17 +3132,6 @@ export type Database = {
           phone: string
           region: string
           user_id: string
-        }[]
-      }
-      consume_customer_assistant_rate_limit: {
-        Args: {
-          p_client_hash: string
-          p_limit?: number
-          p_window_seconds?: number
-        }
-        Returns: {
-          allowed: boolean
-          retry_after_seconds: number
         }[]
       }
       coupon_usage_summary: {

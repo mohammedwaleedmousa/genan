@@ -12,7 +12,6 @@ import { DateRangeProvider } from "@/lib/analytics/dateRange";
 import { hydrateCurrencies } from "@/lib/currency";
 import { ADMIN_BASE_PATH, ADMIN_ROUTE_UNLOCK_KEY, adminPath, legacyAdminPathToCurrent } from "@/lib/adminRoutes";
 import { MotionConfig } from "framer-motion";
-import CustomerAssistantEntry from "@/components/CustomerAssistantEntry";
 import CustomerSessionSync from "@/components/CustomerSessionSync";
 import StorefrontRealtimeSync from "@/components/StorefrontRealtimeSync";
 import { ThemeProvider } from "next-themes";
@@ -47,9 +46,6 @@ const lazy = <T extends ComponentType<any>>(factory: () => Promise<{ default: T 
       }
     }
   });
-
-// Temporary launch switch: keep the assistant implementation ready without showing its entry button.
-const SHOW_CUSTOMER_ASSISTANT = false;
 
 const CustomerAuthPage = lazy(() => import("./pages/CustomerAuthPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
@@ -259,7 +255,6 @@ const App = () => {
           <ScrollToTop />
           <GoldNumbers />
           <AnalyticsTracker />
-          {SHOW_CUSTOMER_ASSISTANT && <CustomerAssistantEntry />}
           <Suspense fallback={<RouteFallback />}>
             <Routes>
             <Route path="/" element={<AuthRedirect />} />

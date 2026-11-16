@@ -1,0 +1,201 @@
+# Genan repository cleanup — 2026-11-17
+
+Removed unused implementations and assets after checking frontend imports, route declarations, Vite aliases, Cloudflare Pages entry points, Supabase Edge Function deployment inventory, all tracked text source/migrations, and references in every public database table.
+
+## Scope
+
+- Removed 132 files: 71 unreachable frontend modules/styles, 52 unreferenced public images, and 9 empty placeholders, obsolete patch scripts, or undeployed Edge Function files.
+- Removed 32 unused direct dependencies and pruned 41 unreachable lockfile package entries; retained existing versions and integrity hashes for remaining packages.
+- Removed the disabled customer assistant entry and implementation, its undeployed backend, configuration, generated types, empty database table and RPC.
+- Removed undeployed legacy customer migration and placeholder functions with no current application callers.
+- All 104 route declarations remain unchanged. Current customer and admin pages, inventory, checkout and authentication flows remain connected.
+- Retained the Vite alias for `react-zoom-pan-pinch` and its implementation; ordinary import-only scans incorrectly classify it as unused.
+- Retained Android/iOS build targets, active application icons, current demo-catalog illustrations, migration history, and operational tests.
+
+## Space measurements
+
+- Tracked working-tree file bytes before cleanup: 29,898,952.
+- Tracked working-tree bytes after cleanup, before adding this report: 27,296,659.
+- This measures the current repository snapshot, not Git history. No history rewrite was performed.
+- Postgres database size measured 20,108,979 bytes before and 20,084,403 bytes after removal: 24,576 bytes reclaimed.
+- Storage contains two uploaded images totaling 1,087,568 bytes. Both are referenced by stored analytics payloads, so they were retained.
+- Business data counts after the database cleanup match the baseline: 24 products, 84 inventory SKUs, 1 customer and 0 orders. No business records were deleted.
+
+## Verification
+
+- Static module resolution: no missing local imports after removal, including dynamic imports and the Vite alias.
+- No remaining imports reference removed direct dependencies.
+- Public image candidates were checked against tracked source/seed SQL and all 68 public tables before removal.
+- Database removal used a transaction, short lock/statement timeouts, an emptiness guard under lock, and RESTRICT rather than CASCADE.
+- The assistant table and RPC are confirmed absent. Security advisor categories are unchanged; the retired table's no-policy info notice disappeared.
+- `npm run build` now runs TypeScript checking and the existing critical-flow regression script before Vite bundling, so the hosting build validates the cleaned source.
+
+## Deleted files
+
+- `Auth.tsx`
+- `Login.tsx`
+- `public/brand-logos/alaia.svg`
+- `public/brand-logos/audemars-piguet.svg`
+- `public/brand-logos/bvlgari.svg`
+- `public/brand-logos/cartier.svg`
+- `public/brand-logos/jordan.svg`
+- `public/brand-logos/lacoste.svg`
+- `public/brand-logos/loro-piana.svg`
+- `public/brand-logos/messika.svg`
+- `public/brand-logos/omega.svg`
+- `public/brand-logos/patek-philippe.svg`
+- `public/brand-logos/pedro.svg`
+- `public/brand-logos/polo-ralph-lauren.svg`
+- `public/brand-logos/roberto-coin.svg`
+- `public/brand-logos/rolex.svg`
+- `public/brand-logos/swarovski.svg`
+- `public/brand-logos/valentino.svg`
+- `public/brand-logos/van-cleef-arpels.svg`
+- `public/brand-logos/zara.svg`
+- `public/category-covers/accessories.svg`
+- `public/category-covers/accessory-sets.svg`
+- `public/category-covers/babes.svg`
+- `public/category-covers/bags.svg`
+- `public/category-covers/belts.svg`
+- `public/category-covers/cap.svg`
+- `public/category-covers/clothes.svg`
+- `public/category-covers/dresses.svg`
+- `public/category-covers/earrings.svg`
+- `public/category-covers/glasses.svg`
+- `public/category-covers/hand-bags.svg`
+- `public/category-covers/kids-clothing.svg`
+- `public/category-covers/kids-dresses.svg`
+- `public/category-covers/men.svg`
+- `public/category-covers/mens-pants.svg`
+- `public/category-covers/mens-shoes.svg`
+- `public/category-covers/mens-watches.svg`
+- `public/category-covers/necklaces.svg`
+- `public/category-covers/other-watches.svg`
+- `public/category-covers/pants.svg`
+- `public/category-covers/socks.svg`
+- `public/category-covers/women.svg`
+- `public/category-covers/womens-pants.svg`
+- `public/category-covers/womens-sets.svg`
+- `public/demo/genan-bag-black.svg`
+- `public/demo/genan-bag-ivory.svg`
+- `public/demo/genan-dress.svg`
+- `public/demo/genan-perfume.svg`
+- `public/demo/genan-shoe.svg`
+- `public/demo/genan-sunglasses.svg`
+- `public/demo/genan-wallet.svg`
+- `public/demo/genan-watch.svg`
+- `public/images/ChatGPT_Image.png`
+- `public/images/between-products-banner.webp`
+- `scripts/fix_post_audit.py`
+- `scripts/resume_post_audit.py`
+- `src/App.css`
+- `src/components/CustomerAssistant.tsx`
+- `src/components/CustomerAssistantEntry.tsx`
+- `src/components/DesktopHomeExperience.tsx`
+- `src/components/DesktopHomeTrustBar.tsx`
+- `src/components/DynamicSection.tsx`
+- `src/components/EditorialFooter.tsx`
+- `src/components/EditorialMobileNav.tsx`
+- `src/components/GenanHomeHero.tsx`
+- `src/components/NavLink.tsx`
+- `src/components/NavbarSearch.tsx`
+- `src/components/ProductCardMinimal.tsx`
+- `src/components/ReferenceFooter.tsx`
+- `src/components/ReviewsSection.tsx`
+- `src/components/SplashScreen.tsx`
+- `src/components/ThemeToggle.tsx`
+- `src/components/account/AvatarCropper.tsx`
+- `src/components/admin/KPICard.tsx`
+- `src/components/admin/dashboard/CurrencySummary.tsx`
+- `src/components/admin/dashboard/DashboardAlerts.tsx`
+- `src/components/admin/dashboard/DashboardHeader.tsx`
+- `src/components/admin/dashboard/KpiCards.tsx`
+- `src/components/admin/dashboard/OperationsBoard.tsx`
+- `src/components/admin/dashboard/QuickActions.tsx`
+- `src/components/admin/dashboard/RecentActivity.tsx`
+- `src/components/admin/dashboard/RevenueChart.tsx`
+- `src/components/admin/dashboard/TodayOverview.tsx`
+- `src/components/ui/alert.tsx`
+- `src/components/ui/aspect-ratio.tsx`
+- `src/components/ui/avatar.tsx`
+- `src/components/ui/breadcrumb.tsx`
+- `src/components/ui/calendar.tsx`
+- `src/components/ui/carousel.tsx`
+- `src/components/ui/chart.tsx`
+- `src/components/ui/collapsible.tsx`
+- `src/components/ui/command.tsx`
+- `src/components/ui/context-menu.tsx`
+- `src/components/ui/drawer.tsx`
+- `src/components/ui/dropdown-menu.tsx`
+- `src/components/ui/form.tsx`
+- `src/components/ui/hover-card.tsx`
+- `src/components/ui/input-otp.tsx`
+- `src/components/ui/menubar.tsx`
+- `src/components/ui/navigation-menu.tsx`
+- `src/components/ui/pagination.tsx`
+- `src/components/ui/progress.tsx`
+- `src/components/ui/radio-group.tsx`
+- `src/components/ui/resizable.tsx`
+- `src/components/ui/tabs.tsx`
+- `src/components/ui/toggle-group.tsx`
+- `src/components/ui/toggle.tsx`
+- `src/components/ui/use-toast.ts`
+- `src/data/products.ts`
+- `src/integrations/lovable/index.ts`
+- `src/lib/accountStableScroll.ts`
+- `src/lib/admin/index.ts`
+- `src/lib/analytics/finance.ts`
+- `src/lib/analytics/hooks.ts`
+- `src/lib/analytics/index.ts`
+- `src/lib/customerAuthCompat.ts`
+- `src/pages/AccountPageFixed.tsx`
+- `src/pages/Index.tsx`
+- `src/pages/ProductsPageBase.tsx`
+- `src/pages/admin/AdminCommandCenterPage.tsx`
+- `src/pages/admin/AdminPublishingWorkspacePage.tsx`
+- `src/storefront-layout-fixes.css`
+- `src/styles/genanEditorial.css`
+- `src/styles/genanHomeTheme.css`
+- `src/styles/genanHomeV3.css`
+- `src/styles/genanReference.css`
+- `src/styles/laptop-home.css`
+- `supabase/functions/customer-assistant/index.ts`
+- `supabase/functions/customer-assistant/index_test.ts`
+- `supabase/functions/legacy-customer-migrate/index.ts`
+- `supabase/functions/placeholder/index.ts`
+- `useCustomerNotifications.ts`
+
+## Removed direct dependencies
+
+- `@dnd-kit/core`
+- `@dnd-kit/sortable`
+- `@dnd-kit/utilities`
+- `@fontsource/cinzel`
+- `@fontsource/poppins`
+- `@hookform/resolvers`
+- `@lovable.dev/cloud-auth-js`
+- `@radix-ui/react-aspect-ratio`
+- `@radix-ui/react-avatar`
+- `@radix-ui/react-collapsible`
+- `@radix-ui/react-context-menu`
+- `@radix-ui/react-dropdown-menu`
+- `@radix-ui/react-hover-card`
+- `@radix-ui/react-menubar`
+- `@radix-ui/react-navigation-menu`
+- `@radix-ui/react-progress`
+- `@radix-ui/react-radio-group`
+- `@radix-ui/react-tabs`
+- `@radix-ui/react-toggle`
+- `@radix-ui/react-toggle-group`
+- `cmdk`
+- `embla-carousel-autoplay`
+- `embla-carousel-react`
+- `input-otp`
+- `react-day-picker`
+- `react-dropzone`
+- `react-easy-crop`
+- `react-hook-form`
+- `react-image-crop`
+- `react-resizable-panels`
+- `tailwind-scrollbar-hide`
+- `vaul`
