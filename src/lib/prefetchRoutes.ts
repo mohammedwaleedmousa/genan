@@ -12,7 +12,6 @@ const routeModules: Record<string, () => Promise<unknown>> = {
   "/favorites": () => import("@/pages/FavoritesPage"),
   "/account": () => import("@/pages/AccountPage"),
   "/auth": () => import("@/pages/CustomerAuthPage"),
-  "/search": () => import("@/pages/SearchPage"),
   "/product": () => import("@/pages/ProductDetailPage"),
   "/best-sellers": () => import("@/pages/BestSellersPage"),
   "/new-arrivals": () => import("@/pages/NewArrivalsPage"),
@@ -98,7 +97,6 @@ export const warmStorefrontRoutes = (client: QueryClient): (() => void) => {
     stage(3600, () => { void prefetchStorefrontRoute("/categories"); });
     stage(4500, () => { void prefetchStorefrontRoute("/favorites"); });
     stage(5500, () => { void prefetchStorefrontRoute("/account"); });
-    stage(6500, () => { void prefetchStorefrontRoute("/search"); });
     stage(8000, () => { void prefetchCatalog(client); });
   }
 

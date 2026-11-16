@@ -95,6 +95,7 @@ const AdminProductFormPage = () => {
     is_active: true,
     countries: [SINGLE_COUNTRY] as string[],
     section_ids: [] as string[],
+    // Preserve the legacy value on edits while the product-save API still accepts it.
     home_collections: [] as string[],
     accessories: [] as Accessory[],
     features: [] as ProductFeature[],
@@ -365,15 +366,6 @@ const AdminProductFormPage = () => {
       section_ids: prev.section_ids.includes(sectionId)
         ? prev.section_ids.filter(id => id !== sectionId)
         : [...prev.section_ids, sectionId],
-    }));
-  };
-
-  const toggleHomeCollection = (collection: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      home_collections: prev.home_collections.includes(collection)
-        ? prev.home_collections.filter((item) => item !== collection)
-        : [...prev.home_collections, collection],
     }));
   };
 
@@ -825,41 +817,6 @@ const AdminProductFormPage = () => {
           <div>
             <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">النطاق</label>
             <p className="text-[9px] text-[#8D959F]">المنتج سيظهر في المتجر الموحد</p>
-          </div>
-
-          {/* Sections */}
-          <div>
-            <label className="flex items-center gap-[6px] text-[10px] font-medium text-[#6E7680] mb-[8px]">
-              <LayoutGrid className="w-4 h-4" />
-              صفحات المجموعات
-            </label>
-            <div className="flex flex-wrap gap-[7px]">
-              {[
-                { key: "curated", label: "منتجات مختارة بعناية" },
-                { key: "new_season", label: "جديد الموسم" },
-                { key: "best_sellers", label: "الأكثر مبيعاً" },
-              ].map((collection) => (
-                <button
-                  type="button"
-                  key={collection.key}
-                  aria-pressed={formData.home_collections.includes(collection.key)}
-                  onClick={() => toggleHomeCollection(collection.key)}
-                  className={`flex items-center gap-[6px] cursor-pointer rounded-[9px] border px-[9px] py-[7px] text-right transition-all ${
-                    formData.home_collections.includes(collection.key)
-                      ? 'border-[#D8D3EE] bg-[#F3F1FB] text-[#675CBA]'
-                      : 'border-[#E4E8ED] bg-white text-[#68717B] hover:border-[#CDC7E8] hover:bg-[#FAF9FF]'
-                  }`}
-                >
-                  <span className={`flex h-4 w-4 items-center justify-center rounded border ${formData.home_collections.includes(collection.key) ? 'border-[#675CBA] bg-[#675CBA] text-white' : 'border-[#C9CED6]'}`}>
-                    {formData.home_collections.includes(collection.key) && '✓'}
-                  </span>
-                  <span className="text-[9px]">{collection.label}</span>
-                </button>
-              ))}
-            </div>
-            <p className="text-[8px] text-[#626E63] mt-[5px]">
-              اختياري — يحدد ظهور المنتج في صفحات: /curated و /new-season و /top-selling
-            </p>
           </div>
 
           {sections.length > 0 && (

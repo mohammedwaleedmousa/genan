@@ -20,7 +20,6 @@ const ORDER_REALTIME_PATHS = [
   "/checkout",
   "/order-confirmation",
   "/my-orders",
-  "/my-shipments",
   "/order-tracking",
 ] as const;
 

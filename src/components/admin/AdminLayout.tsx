@@ -44,7 +44,7 @@ const permissionForLocation = (pathname: string, search: string): RoutePermissio
   if (pathname === "/admin/team") return "admin.permissions.manage";
   if (pathname === "/admin/order-preparation") return "orders.manage";
   if (pathname === "/admin/products") return "products.view";
-  if (pathname.startsWith("/admin/products/") || pathname.startsWith("/admin/categories") || pathname.startsWith("/admin/brands") || pathname.startsWith("/admin/brand-category-map") || pathname.startsWith("/admin/catalog-") || pathname.startsWith("/admin/size-price-rules")) return "products.edit";
+  if (pathname.startsWith("/admin/products/") || pathname.startsWith("/admin/categories") || pathname.startsWith("/admin/brands") || pathname.startsWith("/admin/brand-category-map") || pathname.startsWith("/admin/catalog-")) return "products.edit";
   if (pathname.startsWith("/admin/inventory-adjustments")) return "inventory.adjust";
   if (pathname.startsWith("/admin/orders")) return "orders.view";
   if (pathname.startsWith("/admin/delivery") || pathname.startsWith("/admin/reviews") || pathname.startsWith("/admin/product-questions")) return "orders.manage";
@@ -56,7 +56,6 @@ const permissionForLocation = (pathname: string, search: string): RoutePermissio
     pathname.startsWith("/admin/content") ||
     pathname.startsWith("/admin/brand-pages") ||
     pathname.startsWith("/admin/brand-sections") ||
-    pathname.startsWith("/admin/brand-filters") ||
     pathname.startsWith("/admin/customer-experience") ||
     pathname.startsWith("/admin/campaigns") ||
     pathname.startsWith("/admin/offers") ||
@@ -72,7 +71,6 @@ const permissionForLocation = (pathname: string, search: string): RoutePermissio
     pathname.startsWith("/admin/ledger") ||
     pathname.startsWith("/admin/refunds") ||
     pathname.startsWith("/admin/currencies") ||
-    pathname.startsWith("/admin/countries") ||
     pathname.startsWith("/admin/cod-regions")
   ) return "finance.manage";
 

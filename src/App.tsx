@@ -53,27 +53,20 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
 const BrandPage = lazy(() => import("./pages/BrandPage"));
-const BrandProductsPage = lazy(() => import("./pages/BrandProductsPage"));
 const AllBrandsPage = lazy(() => import("./pages/AllBrandsPage"));
 const BrandSectionPage = lazy(() => import("./pages/BrandSectionPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const OrderConfirmationPage = lazy(() => import("./pages/OrderConfirmationPage"));
-const ReviewsPage = lazy(() => import("./pages/ReviewsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const QRCodePage = lazy(() => import("./pages/QRCodePage"));
 const CategoriesPage = lazy(() => import("./pages/CategoriesPage"));
 const BestSellersPage = lazy(() => import("./pages/BestSellersPage"));
 const NewArrivalsPage = lazy(() => import("./pages/NewArrivalsPage"));
-const NewSeasonPage = lazy(() => import("./pages/NewSeasonPage"));
-const TopSellingPage = lazy(() => import("./pages/TopSellingPage"));
-const SearchPage = lazy(() => import("./pages/SearchPage"));
 const SeasonalOffersPage = lazy(() => import("./pages/SeasonalOffersPage"));
 const CampaignPage = lazy(() => import("./pages/CampaignPage"));
 const CartPage = lazy(() => import("./pages/CartPage"));
 const AccountPage = lazy(() => import("./pages/AccountPage"));
 const MyOrdersPage = lazy(() => import("./pages/MyOrdersPage"));
-const MyShipmentsPage = lazy(() => import("./pages/MyShipmentsPage"));
-const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const StoreInfoPage = lazy(() => import("./pages/StoreInfoPage"));
 const BannerPage = lazy(() => import("./pages/bannerPage"));
 const NotificationsPage = lazy(() => import("./pages/NotificationsPage"));
@@ -89,7 +82,6 @@ const AdminOrderPreparationPage = lazy(() => import("./pages/admin/AdminOrderPre
 const AdminProductsPage = lazy(() => import("./pages/admin/AdminProductsPage"));
 const AdminCatalogHealthPage = lazy(() => import("./pages/admin/AdminCatalogHealthPage"));
 const AdminProductFormPage = lazy(() => import("./pages/admin/AdminProductFormPage"));
-const AdminSizePriceRulesPage = lazy(() => import("./pages/admin/AdminSizePriceRulesPage"));
 const AdminOrdersPage = lazy(() => import("./pages/admin/AdminOrdersWithNotesPage"));
 const AdminCustomersPage = lazy(() => import("./pages/admin/AdminCustomersPage"));
 const AdminPasswordRecoveryPage = lazy(() => import("./pages/admin/AdminPasswordRecoveryPage"));
@@ -98,7 +90,6 @@ const AdminSettingsPage = lazy(() => import("./pages/admin/AdminSettingsPage"));
 const AdminCustomerExperiencePage = lazy(() => import("./pages/admin/AdminCustomerExperiencePage"));
 const AdminBrandsPage = lazy(() => import("./pages/admin/AdminBrandsPage"));
 const AdminBrandCategoryMapPage = lazy(() => import("./pages/admin/AdminBrandCategoryMapPage"));
-const AdminCatalogWorkflowPage = lazy(() => import("./pages/admin/AdminCatalogWorkflowPage"));
 const AdminCategoriesPage = lazy(() => import("./pages/admin/AdminCategoriesPage"));
 const AdminDeliveryPage = lazy(() => import("./pages/admin/AdminDeliveryPage"));
 const AdminReviewsPage = lazy(() => import("./pages/admin/AdminReviewsPage"));
@@ -109,7 +100,6 @@ const AdminInvoicesPage = lazy(() => import("./pages/admin/AdminInvoicesPage"));
 const AdminCODRegionsPage = lazy(() => import("./pages/admin/AdminCODRegionsPage"));
 const AdminOffersPage = lazy(() => import("./pages/admin/AdminOffersPage"));
 const AdminCouponsPage = lazy(() => import("./pages/admin/AdminCouponsPage"));
-const AdminSalesAgentsPage = lazy(() => import("./pages/admin/AdminSalesAgentsPage"));
 const AdminAuditLogPage = lazy(() => import("./pages/admin/AdminAuditLogPage"));
 const AdminLedgerPage = lazy(() => import("./pages/admin/AdminLedgerPage"));
 const AdminRefundsPage = lazy(() => import("./pages/admin/AdminRefundsPage"));
@@ -123,12 +113,10 @@ const AdminBrandPagesPage = lazy(() => import("./pages/admin/AdminBrandPagesPage
 const AdminBrandSectionsPage = lazy(() => import("./pages/admin/AdminBrandSectionsPage"));
 const AdminBrandSectionProductsPage = lazy(() => import("./pages/admin/AdminBrandSectionProductsPage"));
 const AdminBrandPageEditor = lazy(() => import("./pages/admin/AdminBrandPageEditor"));
-const AdminBrandFiltersPage = lazy(() => import("./pages/admin/AdminBrandFiltersPage"));
 const AdminCustomerNotificationsPage = lazy(() => import("./pages/admin/AdminCustomerNotificationsPage"));
 const AdminCustomerDetailPage = lazy(() => import("./pages/admin/AdminCustomerDetailWithNotesPage"));
 const AdminNotificationDeliveriesPage = lazy(() => import("./pages/admin/AdminNotificationDeliveriesPage"));
 const AdminCurrenciesPage = lazy(() => import("./pages/admin/AdminCurrenciesPage"));
-const AdminCountriesPage = lazy(() => import("./pages/admin/AdminCountriesPage"));
 const AdminCampaignsPage = lazy(() => import("./pages/admin/AdminCampaignsPage"));
 
 const queryClient = new QueryClient({
@@ -265,29 +253,22 @@ const App = () => {
             <Route path="/signup" element={<CustomerAuthPage />} />
             <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
             <Route path="/products" element={<ProtectedRoute><ProductsPage /></ProtectedRoute>} />
-            <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
             <Route path="/seasonal-offers" element={<ProtectedRoute><SeasonalOffersPage /></ProtectedRoute>} />
             <Route path="/campaign/:slug" element={<ProtectedRoute><CampaignPage /></ProtectedRoute>} />
             <Route path="/categories" element={<ProtectedRoute><CategoriesPage /></ProtectedRoute>} />
             <Route path="/best-sellers" element={<ProtectedRoute><BestSellersPage /></ProtectedRoute>} />
             <Route path="/new-arrivals" element={<ProtectedRoute><NewArrivalsPage /></ProtectedRoute>} />
-            <Route path="/new-season" element={<ProtectedRoute><NewSeasonPage /></ProtectedRoute>} />
-            <Route path="/top-selling" element={<ProtectedRoute><TopSellingPage /></ProtectedRoute>} />
             <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
             <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
             <Route path="/my-orders" element={<ProtectedRoute><MyOrdersPage /></ProtectedRoute>} />
-            <Route path="/my-shipments" element={<ProtectedRoute><MyShipmentsPage /></ProtectedRoute>} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/product/:slug" element={<ProtectedRoute><ProductDetailPage /></ProtectedRoute>} />
             <Route path="/brand/:slug" element={<ProtectedRoute><BrandPage /></ProtectedRoute>} />
             <Route path="/brands" element={<ProtectedRoute><AllBrandsPage /></ProtectedRoute>} />
             <Route path="/brands/:slug" element={<ProtectedRoute><BrandPage /></ProtectedRoute>} />
-            <Route path="/brands/:slug/products" element={<ProtectedRoute><BrandProductsPage /></ProtectedRoute>} />
             <Route path="/brands/:slug/sections/:sectionSlug" element={<ProtectedRoute><BrandSectionPage /></ProtectedRoute>} />
             <Route path="/brand/:slug/sections/:sectionSlug" element={<ProtectedRoute><BrandSectionPage /></ProtectedRoute>} />
             <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
             <Route path="/order-confirmation" element={<ProtectedRoute><OrderConfirmationPage /></ProtectedRoute>} />
-            <Route path="/reviews" element={<ProtectedRoute><ReviewsPage /></ProtectedRoute>} />
             <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
             <Route path="/qr-code" element={<QRCodePage />} />
             <Route path="/store-info" element={<ProtectedRoute><StoreInfoPage /></ProtectedRoute>} />
@@ -306,7 +287,6 @@ const App = () => {
               <Route path="catalog-health" element={<AdminCatalogHealthPage />} />
               <Route path="products/new" element={<AdminProductFormPage />} />
               <Route path="products/:id" element={<AdminProductFormPage />} />
-              <Route path="size-price-rules" element={<AdminSizePriceRulesPage />} />
               <Route path="orders" element={<AdminOrdersPage />} />
               <Route path="order-preparation" element={<AdminOrderPreparationPage />} />
               <Route path="customers" element={<AdminCustomersPage />} />
@@ -315,7 +295,6 @@ const App = () => {
               <Route path="campaigns" element={<AdminCampaignsPage />} />
               <Route path="brands" element={<AdminBrandsPage />} />
               <Route path="brand-category-map" element={<AdminBrandCategoryMapPage />} />
-              <Route path="catalog-workflow" element={<AdminCatalogWorkflowPage />} />
               <Route path="categories" element={<AdminCategoriesPage />} />
               <Route path="delivery" element={<AdminDeliveryPage />} />
               <Route path="cod-regions" element={<AdminCODRegionsPage />} />
@@ -334,7 +313,6 @@ const App = () => {
               <Route path="customer-intelligence" element={<Navigate to={adminPath("reports/customers")} replace />} />
               <Route path="offers" element={<AdminOffersPage />} />
               <Route path="coupons" element={<AdminCouponsPage />} />
-              <Route path="sales-agents" element={<AdminSalesAgentsPage />} />
               <Route path="audit-log" element={<AdminAuditLogPage />} />
               <Route path="ledger" element={<AdminLedgerPage />} />
               <Route path="refunds" element={<AdminRefundsPage />} />
@@ -349,16 +327,12 @@ const App = () => {
               <Route path="brand-pages" element={<AdminBrandPagesPage />} />
               <Route path="brand-pages/new" element={<AdminBrandPageEditor />} />
               <Route path="brand-pages/:id" element={<AdminBrandPageEditor />} />
-              <Route path="brand-section-products/:id" element={<AdminBrandSectionProductsPage />} />
-              <Route path="brand-filters/:id" element={<AdminBrandFiltersPage />} />
               <Route path="brand-sections" element={<AdminBrandSectionsPage />} />
               <Route path="brand-sections/:id" element={<AdminBrandSectionsPage />} />
-              <Route path="brand-filters" element={<AdminBrandFiltersPage />} />
               <Route path="customer-notifications" element={<AdminCustomerNotificationsPage />} />
               <Route path="notification-deliveries" element={<AdminNotificationDeliveriesPage />} />
               <Route path="customers/:id" element={<AdminCustomerDetailPage />} />
               <Route path="currencies" element={<AdminCurrenciesPage />} />
-              <Route path="countries" element={<AdminCountriesPage />} />
               <Route path="brand-sections/:id/products" element={<AdminBrandSectionProductsPage />} />
             </Route>
 

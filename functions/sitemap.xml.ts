@@ -19,7 +19,6 @@ const STATIC_PATHS = [
   "/new-arrivals",
   "/best-sellers",
   "/seasonal-offers",
-  "/reviews",
   "/store-info",
 ];
 
