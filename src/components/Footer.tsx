@@ -120,14 +120,24 @@ const Footer = () => (
         <span className="text-[#D8C29A]">© GENAN 2026</span>
         <span> — جميع الحقوق محفوظة.</span>
       </p>
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[12px] leading-6 text-[#CCC7BF] sm:text-[13px]">
-        <p>تصميم وتطوير الموقع</p>
+      <div className="mt-3">
         <a
           href="https://linetech.company/"
-          className="inline-flex min-h-[44px] items-center gap-1.5 font-medium text-[#D8C29A] underline underline-offset-4 transition-colors hover:text-white focus-visible:rounded-sm"
+          className="inline-flex min-h-[48px] max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-xl border border-[#3A3630] bg-[#171615] px-3 py-2 text-[#CEC7BC] transition-colors hover:border-[#D8C29A] hover:bg-[#211E19] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D8C29A] sm:px-4"
         >
-          <bdi lang="en" dir="ltr">LINETECH</bdi>
-          <ArrowUpLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.7} />
+          <span className="text-[12px] leading-5">طُوّر بواسطة شركة</span>
+          <span className="inline-flex shrink-0 items-center gap-2">
+            <img
+              src="/brand/linetech-logo.svg"
+              alt="LINETECH"
+              width={116}
+              height={24}
+              loading="lazy"
+              decoding="async"
+              className="h-5 w-auto sm:h-6"
+            />
+            <ArrowUpLeft aria-hidden="true" className="h-3.5 w-3.5 text-[#D8C29A]" strokeWidth={1.7} />
+          </span>
         </a>
       </div>
       <button
