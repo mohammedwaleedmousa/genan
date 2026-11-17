@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import HomeDemoProductCard, { HOME_DEMO_PRODUCTS } from "@/components/HomeDemoProductCard";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 
@@ -40,8 +39,6 @@ const BEST_SELLER_LIMIT = 40;
 const DEFAULT_SECTION_FETCH_LIMIT = 48;
 const MAX_SECTION_FETCH_LIMIT = 64;
 const HOME_CACHE_MS = 5 * 60 * 1000;
-// Preview samples can be disabled for launch with VITE_GENAN_HOME_PREVIEW=false.
-const HOME_PREVIEW_ENABLED = import.meta.env.VITE_GENAN_HOME_PREVIEW !== "false";
 
 const getSectionFetchLimit = (section: ManagedSection) => {
   const configured = Number(section.max_products || 0);
@@ -128,30 +125,19 @@ const HomeManagedSections = ({ betweenSections, brandsSection }: HomeManagedSect
     refetchOnReconnect: false,
   });
 
-  // Keep the storefront shoppable before the merchandiser publishes homepage_sections.
-  // Genan demo items are view-only; ProductCard retains their purchase guard.
-  const { data: fallbackProducts = [] } = useQuery({
+  const { data: latestProducts = [] } = useQuery({
     queryKey: ["genan-home-latest-products", "editorial-v1"],
-    enabled: true,
     queryFn: async () => {
-      const { data: live, error: liveError } = await supabase
+      const { data, error } = await supabase
         .from("products")
         .select(PRODUCT_CARD_SELECT)
         .eq("is_active", true)
         .eq("in_stock", true)
         .order("created_at", { ascending: false })
         .limit(16);
-      if (liveError) throw liveError;
-      if (live?.length) return live.map(mapProductCard);
-      const { data: demo, error: demoError } = await supabase
-        .from("products")
-        .select(PRODUCT_CARD_SELECT)
-        .eq("is_active", true)
-        .like("slug", "genan-demo-20261022-%")
-        .order("sort_order", { ascending: true })
-        .limit(12);
-      if (demoError) throw demoError;
-      return (demo || []).map(mapProductCard);
+
+      if (error) throw error;
+      return (data || []).map(mapProductCard);
     },
     staleTime: HOME_CACHE_MS,
     refetchOnWindowFocus: false,
@@ -283,26 +269,23 @@ const HomeManagedSections = ({ betweenSections, brandsSection }: HomeManagedSect
     [rows, sections, bestSellerStats, soldRows],
   );
 
-  // Always show the three editorial rows so layout can be reviewed before launch.
-  // Real featured/best-seller products still come from the admin-managed sections.
   const featuredSection = rendered.find((entry) => entry.section.filter_type === "featured");
   const bestSection = rendered.find((entry) => entry.section.filter_type === "best_seller");
   const extras = rendered.filter((entry) => entry.section.id !== featuredSection?.section.id && entry.section.id !== bestSection?.section.id);
   const shelves = [
-    { key: "new-arrivals", title: "وصل حديثاً", eyebrow: "JUST LANDED", subtitle: "قطع جديدة تستحق الاكتشاف", url: "/new-arrivals", products: fallbackProducts.slice(0, 4), sample: 0 },
-    { key: "best-sellers", title: "الأكثر مبيعاً", eyebrow: "MOST LOVED", subtitle: "تشكيلات لاقت إعجاب عملائنا", url: "/best-sellers", products: bestSection?.products || [], sample: 4 },
-    { key: "genan-edit", title: "مختارات جنان", eyebrow: "GENAN EDIT", subtitle: "تفاصيل منتقاة لأسلوب مختلف", url: "/products", products: featuredSection?.products.length ? featuredSection.products : fallbackProducts.slice(4, 8), sample: 2 },
-    ...extras.map((entry, i) => ({
+    { key: "new-arrivals", title: "وصل حديثاً", eyebrow: "JUST LANDED", subtitle: "قطع جديدة تستحق الاكتشاف", url: "/new-arrivals", products: latestProducts.slice(0, 4) },
+    { key: "best-sellers", title: "الأكثر مبيعاً", eyebrow: "MOST LOVED", subtitle: "تشكيلات لاقت إعجاب عملائنا", url: "/best-sellers", products: bestSection?.products || [] },
+    { key: "genan-edit", title: "مختارات جنان", eyebrow: "GENAN EDIT", subtitle: "تفاصيل منتقاة لأسلوب مختلف", url: "/products", products: featuredSection?.products.length ? featuredSection.products : latestProducts.slice(4, 8) },
+    ...extras.map((entry) => ({
       key: "managed-" + entry.section.id, title: entry.section.title_ar, eyebrow: entry.section.title || "COLLECTION",
       subtitle: "تشكيلات أخرى تستحق الاكتشاف", url: /عروض|خصومات|offers|sale/i.test(`${entry.section.title_ar || ""} ${entry.section.title || ""}`) ? "/seasonal-offers" : entry.section.view_all_link || "/products",
-      products: entry.products, sample: i,
+      products: entry.products,
     })),
   ];
 
   const renderShelf = (shelf: (typeof shelves)[number], index: number) => {
-    // Include one clearly labeled non-purchasable sample in each core row.
-    const real = shelf.products.slice(0, HOME_PREVIEW_ENABLED && index < 3 ? 3 : 4);
-    const missing = HOME_PREVIEW_ENABLED ? Math.max(0, 4 - real.length) : 0;
+    if (shelf.products.length === 0) return null;
+
     return (
       <section key={shelf.key} id={"home-section-" + shelf.key} aria-label={shelf.title}
         className={"scroll-mt-24 py-8 sm:py-10 md:py-14 " + (index % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]")}>
@@ -318,10 +301,7 @@ const HomeManagedSections = ({ betweenSections, brandsSection }: HomeManagedSect
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-4 sm:gap-4 lg:gap-6">
-            {real.map((product, i) => <ProductCard key={product.id} product={product} index={index * 4 + i} />)}
-            {Array.from({ length: missing }, (_, i) => (
-              <HomeDemoProductCard key={shelf.key + "-sample-" + i} product={HOME_DEMO_PRODUCTS[(shelf.sample + i) % HOME_DEMO_PRODUCTS.length]} />
-            ))}
+            {shelf.products.slice(0, 4).map((product, i) => <ProductCard key={product.id} product={product} index={index * 4 + i} />)}
           </div>
         </div>
       </section>
