@@ -158,9 +158,12 @@ const AdminProductFormPage = () => {
     },
   });
 
+  const onlyCategory = !isEditing && categories.length === 1 && !categories[0].parent_id
+    ? categories[0]
+    : null;
   const selectedCategory = categories.find((c) => c.id === selectedCategoryId)
     || categories.find((c) => c.slug === formData.category)
-    || null;
+    || onlyCategory;
 
   const selectedCategoryScopeIds = useMemo(() => {
     const ids: string[] = [];
@@ -375,7 +378,8 @@ const AdminProductFormPage = () => {
     
     const resolvedName = formData.name.trim() || formData.name_ar.trim();
     const resolvedSlug = formData.slug.trim() || generateSlug(resolvedName);
-    const resolvedCategory = formData.category || selectedParentCategory?.slug || '';
+    const selectedCat = selectedCategory || selectedParentCategory;
+    const resolvedCategory = selectedCat?.slug || formData.category;
     const price = parseLocalizedNumber(formData.price);
     const missingFields = [
       !resolvedName && 'الاسم',
@@ -407,9 +411,6 @@ const AdminProductFormPage = () => {
       : standaloneSizes.length > 0
         ? standaloneSizes.reduce((total, item) => total + Math.max(0, Number(item.stock || 0)), 0)
         : Math.max(0, parseInt(formData.stock_quantity || '0') || 0);
-    const selectedCat = categories.find((c) => c.id === selectedCategoryId)
-      || categories.find((c) => c.slug === resolvedCategory)
-      || null;
     const selectedBrand = (brands as any[]).find((brand: any) => brand.id === formData.brand_id) || null;
     const brandName = selectedBrand?.name?.trim() || formData.brand.trim();
     const inferredAudience = getCategoryAudience(selectedCat);
@@ -441,7 +442,7 @@ const AdminProductFormPage = () => {
       discount: parseLocalizedNumber(formData.discount) || 0,
       description: formData.description,
       description_ar: formData.description_ar,
-      category: selectedCat?.slug || resolvedCategory || null,
+      category: resolvedCategory,
       brand: brandName || null,
       category_id: selectedCat?.id ?? null,
       audience: resolvedAudience,
@@ -654,7 +655,7 @@ const AdminProductFormPage = () => {
 
           <div className="grid grid-cols-1 gap-[10px] md:grid-cols-3">
             <div>
-              <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">قسم ظهور المنتج (اختياري)</label>
+              <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">الجمهور (اختياري)</label>
               <Select value={formData.audience || 'none'} onValueChange={(value) => setFormData((current) => ({ ...current, audience: value === 'none' ? '' : value as 'men' | 'women' | 'kids' | 'unisex' }))}>
                 <SelectTrigger><SelectValue placeholder="اختر أين يظهر المنتج" /></SelectTrigger>
                 <SelectContent>
@@ -669,8 +670,10 @@ const AdminProductFormPage = () => {
             </div>
 
             <div>
-              <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">القسم الرئيسي *</label>
-              <Select
+              <label htmlFor="product-main-category" className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">القسم الرئيسي *</label>
+              {onlyCategory ? (
+                <Input id="product-main-category" value={onlyCategory.name_ar || onlyCategory.name} readOnly />
+              ) : <Select
                 value={selectedParentCategoryId}
                 onValueChange={(value) => {
                   const category = parentCategories.find((item) => item.id === value) || null;
@@ -685,7 +688,7 @@ const AdminProductFormPage = () => {
                   }));
                 }}
               >
-                <SelectTrigger>
+                <SelectTrigger id="product-main-category">
                   <SelectValue placeholder="اختر القسم الرئيسي" />
                 </SelectTrigger>
                 <SelectContent>
@@ -695,10 +698,10 @@ const AdminProductFormPage = () => {
                     </SelectItem>
                   ))}
                 </SelectContent>
-              </Select>
+              </Select>}
             </div>
 
-            <div>
+            {!onlyCategory && <div>
               <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">القسم الفرعي</label>
               <Select
                 value={subCategoriesForSelectedParent.some((category) => category.id === selectedCategoryId) ? selectedCategoryId || '' : ''}
@@ -729,7 +732,7 @@ const AdminProductFormPage = () => {
               <p className="text-[8px] text-[#626E63] mt-[4px]">
                 إذا لم توجد أقسام فرعية سيتم حفظ المنتج مباشرة داخل القسم الرئيسي.
               </p>
-            </div>
+            </div>}
 
             <div>
               <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">الماركة (اختياري)</label>

@@ -19,7 +19,6 @@ import { optimizeImage } from "@/lib/imageUrl";
 
 type FeaturedCategoryItem = {
   title: string;
-  subtitle: string;
   image: string;
   link: string;
 };
@@ -107,28 +106,15 @@ const HomePage = () => {
     refetchOnReconnect: false,
   });
 
-  const featuredCategories = useMemo<FeaturedCategoryItem[]>(() => {
-    const primaryCategories = categories.filter((category: any) => !category.parent_id && !isLingerieCategory(category));
-    const requested = [
-      { title: "أحذية", slug: "shoes", pattern: /shoes?|footwear|sneakers?|heels?|احذيه|احذية|حذاء|جزم/ },
-      { title: "شنط", slug: "bags", pattern: /bags?|handbags?|purses?|شنط|شنطة|شنطه|حقائب|حقيبة/ },
-      { title: "إكسسوارات", slug: "accessories", pattern: /accessor|اكسسوار|إكسسوار|اكسسوارات|إكسسوارات/ },
-      { title: "هوم", slug: "home", pattern: /home|homedecor|homeware|منزل|منزلي|ديكور|هوم/ },
-    ];
-    return requested.map(({ title, slug, pattern }) => {
-      const match = primaryCategories.find((category: any) => {
-        const searchable = `${category.slug || ""} ${category.name || ""} ${category.name_ar || ""}`
-          .toLowerCase().replace(/[أإآ]/g, "ا");
-        return pattern.test(searchable);
-      });
-      return {
-        title,
-        subtitle: match?.name || title,
-        image: match?.image_url || "/placeholder.svg",
-        link: `/categories?parent=${encodeURIComponent(match?.slug || slug)}`,
-      };
-    });
-  }, [categories]);
+  const primaryCategories = useMemo(
+    () => categories.filter((category) => !category.parent_id && !isLingerieCategory(category)),
+    [categories],
+  );
+  const featuredCategories: FeaturedCategoryItem[] = primaryCategories.map((category) => ({
+    title: category.name_ar || category.name,
+    image: category.image_url || "/placeholder.svg",
+    link: `/products?category=${encodeURIComponent(category.slug)}`,
+  }));
 
   const brandsViewport = useNearViewport<HTMLDivElement>("120px");
   const imageBanner = showHomeSection("services") ? <GenanServices /> : null;
@@ -142,7 +128,11 @@ const HomePage = () => {
       <main id="main-content" className="overflow-hidden bg-background">
         {showHomeSection("hero") && <HeroSlider />}
         {showHomeSection("categories") && <CategoryCarousel items={featuredCategories} loading={categoriesLoading} />}
-        <HomeManagedSections betweenSections={imageBanner} brandsSection={brandsSection} />
+        <HomeManagedSections
+          betweenSections={imageBanner}
+          brandsSection={brandsSection}
+          activeCategorySlugs={primaryCategories.map((category) => category.slug)}
+        />
       </main>
       <Footer />
       <FloatingSocialLinks />

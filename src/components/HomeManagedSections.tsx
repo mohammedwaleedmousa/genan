@@ -32,6 +32,7 @@ type BestSellerStat = {
 type HomeManagedSectionsProps = {
   betweenSections?: ReactNode;
   brandsSection?: ReactNode;
+  activeCategorySlugs: string[];
 };
 
 const INITIAL_VISIBLE = 8;
@@ -46,7 +47,7 @@ const getSectionFetchLimit = (section: ManagedSection) => {
   return Math.min(Math.max(configured, INITIAL_VISIBLE), MAX_SECTION_FETCH_LIMIT);
 };
 
-const SpecialCollections = () => {
+const SpecialCollections = ({ activeCategorySlugs }: Pick<HomeManagedSectionsProps, "activeCategorySlugs">) => {
   const promotions = [
     {
       eyebrow: "GENAN PICKS",
@@ -60,7 +61,8 @@ const SpecialCollections = () => {
       eyebrow: "SHOE EDIT",
       title: "خطوة جديدة للأناقة",
       action: "تسوقي الآن",
-      url: "/categories?parent=shoes",
+      url: "/products?category=shoes",
+      categorySlug: "shoes",
       image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&q=80",
       background: "#DCECE7",
     },
@@ -68,11 +70,17 @@ const SpecialCollections = () => {
       eyebrow: "THE DETAILS",
       title: "إكسسواراتك المفضلة",
       action: "تسوقي الآن",
-      url: "/categories?parent=accessories",
+      url: "/products?category=accessories",
+      categorySlug: "accessories",
       image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80",
       background: "#EEE6DF",
     },
-  ];
+  ].filter((item) => !item.categorySlug || activeCategorySlugs.includes(item.categorySlug));
+  const gridColumns = [
+    "grid-cols-1",
+    "grid-cols-2",
+    "grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]",
+  ][promotions.length - 1];
 
   return (
     <section aria-label="عروض ومجموعات خاصة" className="bg-[#FAFAFA] py-8 sm:py-10 md:py-14" dir="rtl">
@@ -82,10 +90,10 @@ const SpecialCollections = () => {
           <h2 className="text-[21px] font-semibold tracking-[-0.025em] text-[#0E0E0E] sm:text-[26px] lg:text-[31px]">عروض ومجموعات خاصة</h2>
           <p className="mt-1 text-[10px] text-[#777777] sm:text-[12px]">اكتشفي ما يميز جنان هذا الأسبوع</p>
         </div>
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-[1.2fr_1fr_1fr]">
+        <div className={`grid gap-2.5 sm:gap-3 ${gridColumns}`}>
           {promotions.map((item, index) => (
             <Link key={item.eyebrow} to={item.url}
-              className={`group relative flex min-h-[155px] flex-col justify-between overflow-hidden rounded-xl p-4 text-[#171717] transition-shadow hover:shadow-md sm:min-h-[190px] sm:p-5 lg:min-h-[205px] ${index === 0 ? "col-span-2 lg:col-span-1" : ""}`}
+              className={`group relative flex min-h-[155px] flex-col justify-between overflow-hidden rounded-xl p-4 text-[#171717] transition-shadow hover:shadow-md sm:min-h-[190px] sm:p-5 lg:min-h-[205px] ${index === 0 && promotions.length === 3 ? "col-span-2 lg:col-span-1" : ""}`}
               style={{ backgroundColor: item.background }}>
               <img src={item.image} alt="" loading="lazy" decoding="async"
                 className="pointer-events-none absolute inset-y-0 left-0 h-full w-[55%] object-cover [mask-image:linear-gradient(to_right,black_45%,transparent)] transition-transform duration-500 group-hover:scale-105" />
@@ -104,7 +112,7 @@ const SpecialCollections = () => {
   );
 };
 
-const HomeManagedSections = ({ betweenSections, brandsSection }: HomeManagedSectionsProps) => {
+const HomeManagedSections = ({ betweenSections, brandsSection, activeCategorySlugs }: HomeManagedSectionsProps) => {
 
   const { data: sections = [] } = useQuery({
     queryKey: ["home-managed-sections"],
@@ -311,7 +319,7 @@ const HomeManagedSections = ({ betweenSections, brandsSection }: HomeManagedSect
   return (
     <>
       {renderShelf(shelves[0], 0)}
-      <SpecialCollections />
+      <SpecialCollections activeCategorySlugs={activeCategorySlugs} />
       {renderShelf(shelves[2], 1)}
       {betweenSections}
       {renderShelf(shelves[1], 2)}
