@@ -53,4 +53,20 @@ warmUpSupabaseConnection();
 startRuntimeMonitoring();
 registerServiceWorker();
 
-createRoot(document.getElementById("root")!).render(<AppErrorBoundary><><ProductRatingSync /><CustomerCartSync /><App /></></AppErrorBoundary>);
+const mountApp = () => {
+  createRoot(document.getElementById("root")!).render(
+    <AppErrorBoundary>
+      <ProductRatingSync />
+      <CustomerCartSync />
+      <App />
+    </AppErrorBoundary>,
+  );
+};
+
+const appStyles = document.querySelector<HTMLLinkElement>("link[data-genan-app-styles]");
+if (appStyles?.media === "print") {
+  appStyles.addEventListener("load", mountApp, { once: true });
+  appStyles.addEventListener("error", mountApp, { once: true });
+} else {
+  mountApp();
+}

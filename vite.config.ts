@@ -18,8 +18,6 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks: {
           react: ["react", "react-dom", "react-router-dom"],
-          charts: ["recharts"],
-          pdf: ["jspdf", "html2canvas"],
           motion: ["framer-motion"],
           commerce: ["@tanstack/react-query", "@supabase/supabase-js", "zustand"],
         },
@@ -30,6 +28,17 @@ export default defineConfig(({ mode }) => ({
 
   plugins: [
     react(),
+    {
+      name: "genan-defer-app-styles",
+      apply: "build",
+      transformIndexHtml: {
+        order: "post",
+        handler: (html) => html.replace(
+          /(<link rel="stylesheet"[^>]+href="\/assets\/index-[\w-]+\.css")>/,
+          "$1 data-genan-app-styles media=\"print\" onload=\"this.media='all'\" onerror=\"this.media='all'\">",
+        ),
+      },
+    },
     mode === "development" && componentTagger(),
   ].filter(Boolean),
 

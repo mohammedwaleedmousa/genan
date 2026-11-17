@@ -50,6 +50,10 @@ const buildOptimizedImageUrl = (url: string | null | undefined, width: number, q
     const baseUrl = typeof window !== "undefined" ? window.location.origin : FLAMINGO_IMAGE_ZONE;
     const u = new URL(url, baseUrl);
     const optimizedWidth = viewportAware ? getViewportAwareWidth(width) : width;
+    if (u.hostname === "images.pexels.com") {
+      u.searchParams.set("w", String(optimizedWidth));
+      return u.toString();
+    }
     if (u.hostname.endsWith("unsplash.com")) {
       u.searchParams.set("w", String(optimizedWidth));
       u.searchParams.set("q", String(quality));
