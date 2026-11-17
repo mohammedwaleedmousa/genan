@@ -7,7 +7,7 @@ import { useStore } from "@/store/useStore";
 
 const SITE_URL = typeof window !== "undefined" ? window.location.origin : "";
 const DEFAULT_TITLE = "Genan | جنان";
-const DEFAULT_DESCRIPTION = "Genan - متجر إلكتروني فاخر للأزياء والإكسسوارات والماركات العالمية.";
+const DEFAULT_DESCRIPTION = "بوتيك جنان يجمع مختارات من الأحذية والملابس والحقائب والإكسسوارات من ماركات عالمية، لإطلالات يومية ومناسبات خاصة.";
 const DEFAULT_IMAGE = `${SITE_URL}/`;
 const PURCHASE_SESSION_PREFIX = "genan-purchase-tracked:";
 
@@ -297,13 +297,13 @@ const AnalyticsTracker = () => {
 
       const pageMeta: Record<string, { title: string; description: string }> = {
         "/home": { title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION },
-        "/products": { title: "جميع المنتجات | Genan", description: "تصفح أحدث منتجات Genan من الأزياء والحقائب والأحذية والساعات والإكسسوارات." },
+        "/products": { title: "جميع المنتجات | Genan", description: "تصفّحي مختارات بوتيك جنان من الماركات العالمية." },
         "/brands": { title: "الماركات | Genan", description: "اكتشف الماركات العالمية المتوفرة في Genan وتسوق المنتجات حسب الماركة." },
-        "/categories": { title: "الأقسام | Genan", description: "تصفح أقسام Genan من الحقائب والأحذية والساعات والإكسسوارات والملابس." },
+        "/categories": { title: "الأقسام | Genan", description: "استكشفي الأقسام والتشكيلات المتاحة في بوتيك جنان." },
         "/new-arrivals": { title: "وصل حديثاً | Genan", description: "اكتشف أحدث المنتجات التي وصلت إلى Genan." },
         "/best-sellers": { title: "الأكثر مبيعاً | Genan", description: "تسوق المنتجات الأكثر مبيعاً واختياراً لدى عملاء Genan." },
         "/seasonal-offers": { title: "العروض | Genan", description: "اكتشف أحدث عروض Genan والمنتجات المختارة بأسعار مميزة." },
-        "/store-info": { title: "عن المتجر والتواصل | Genan", description: "تعرف على Genan ووسائل التواصل وخدمة العملاء ومعلومات الشحن والإرجاع." },
+        "/store-info": { title: "عن المتجر والتواصل | Genan", description: "بوتيك جنان يجمع مختارات من الأحذية والملابس والحقائب والإكسسوارات من ماركات عالمية، لإطلالات يومية ومناسبات خاصة." },
         "/order-tracking": { title: "تتبع الطلب | Genan", description: "تابع حالة طلبك في Genan بأمان باستخدام رقم الطلب ورمز التتبع." },
         "/shipping-policy": { title: "سياسة الشحن والتوصيل | JINAN BOUTIQUE", description: "نطاق التوصيل ورسومه ومدته التقديرية في بوتيك جنان." },
         "/returns-policy": { title: "سياسة الاستبدال والاسترجاع | JINAN BOUTIQUE", description: "شروط وإجراءات الاستبدال والاسترجاع في بوتيك جنان." },

@@ -69,20 +69,20 @@ const StoreInfoPage = () => {
     {
       icon: Sparkles,
       number: "01",
-      title: getSiteText(content, "store_info_pillar_1_title", "انتقاء عالمي"),
-      desc: getSiteText(content, "store_info_pillar_1_desc", "قطع مختارة من دور أزياء ومصادر موثوقة حول العالم."),
+      title: getSiteText(content, "store_info_pillar_1_title", "ماركات عالمية، بذوق جنان"),
+      desc: getSiteText(content, "store_info_pillar_1_desc", "ننتقي من الماركات العالمية قطعًا يسهل تنسيقها وتضفي على كل إطلالة طابعها الخاص."),
     },
     {
       icon: Shield,
       number: "02",
-      title: getSiteText(content, "store_info_pillar_2_title", "جودة مفحوصة"),
-      desc: getSiteText(content, "store_info_pillar_2_desc", "نراجع حالة كل منتج وتفاصيله قبل تجهيزه للتوصيل."),
+      title: getSiteText(content, "store_info_pillar_2_title", "تفاصيل واضحة لكل قطعة"),
+      desc: getSiteText(content, "store_info_pillar_2_desc", "نحرص على توضيح تفاصيل القطعة بالصور والوصف لتختاريها بثقة."),
     },
     {
       icon: Truck,
       number: "03",
-      title: getSiteText(content, "store_info_pillar_3_title", "شحن موثوق"),
-      desc: getSiteText(content, "store_info_pillar_3_desc", "توصيل سريع ومتتبَّع إلى المناطق التي نخدمها."),
+      title: getSiteText(content, "store_info_pillar_3_title", "توصيل داخل اليمن"),
+      desc: getSiteText(content, "store_info_pillar_3_desc", "تتحدد خيارات التوصيل بحسب منطقة الاستلام ونطاق تغطية شركات التوصيل."),
     },
   ];
 
@@ -112,7 +112,7 @@ const StoreInfoPage = () => {
     },
     {
       label: getSiteText(content, "store_info_shipping_label", "الشحن"),
-      value: getSiteText(content, "store_info_shipping_value", "اختر شركة التوصيل أثناء إتمام الطلب"),
+      value: getSiteText(content, "store_info_shipping_value", "بحسب منطقة الاستلام"),
       icon: MapPin,
       href: "",
     },
@@ -144,12 +144,12 @@ const StoreInfoPage = () => {
             <div className="max-w-[720px]">
               <div className="mb-3 flex items-center gap-2">
                 <span className="h-[2px] w-5 rounded-full bg-[#173A2D]" />
-                <span className="font-serif text-[7px] tracking-[0.27em] text-[#9D7B40] md:text-[8px]">GENAN · MAISON</span>
+                <span className="font-serif text-[7px] tracking-[0.27em] text-[#9D7B40] md:text-[8px]">JINAN BOUTIQUE</span>
               </div>
 
-              <h1 className="max-w-[580px] whitespace-pre-line text-[29px] font-semibold leading-[1.28] tracking-[-0.045em] text-[#403130] md:text-[48px] md:leading-[1.2]">{getSiteText(content, "store_info_hero_title", "متجر يصنع الأناقة\nبلغة عالمية.")}</h1>
+              <h1 className="max-w-[580px] whitespace-pre-line text-[29px] font-semibold leading-[1.28] tracking-[-0.045em] text-[#403130] md:text-[48px] md:leading-[1.2]">{getSiteText(content, "store_info_hero_title", "اختيارات من عالم الموضة")}</h1>
 
-              <p className="mt-4 max-w-[540px] text-[9px] leading-6 text-[#788178] md:mt-5 md:text-[12px] md:leading-7">{getSiteText(content, "store_info_hero_description", "جنان وجهة للأزياء والإكسسوارات المنتقاة بعناية. نؤمن أن التفصيل الصغير هو ما يصنع الفرق، ولذلك نختار كل قطعة كما لو كانت لنا.")}</p>
+              <p className="mt-4 max-w-[540px] text-[9px] leading-6 text-[#788178] md:mt-5 md:text-[12px] md:leading-7">{getSiteText(content, "store_info_hero_description", "نجمع في بوتيك جنان مختارات من الأحذية والملابس والحقائب والإكسسوارات من ماركات عالمية. ننتقي قطعًا تنسجم مع أسلوبكِ، من إطلالاتكِ اليومية إلى مناسباتكِ الخاصة.")}</p>
 
               <div className="mt-5 flex items-center gap-2 md:mt-7">
                 <span className="h-px w-8 bg-[#DCD5C6]" />
@@ -270,8 +270,8 @@ const StoreInfoPage = () => {
               </span>
               <div>
                 <span className="font-serif text-[6px] tracking-[0.2em] text-[#9D7B40]">GENAN PROMISE</span>
-                <h3 className="mt-1.5 text-[14px] font-semibold text-[#20392E] md:text-[17px]">تجربة تسوق تستحق ثقتك</h3>
-                <p className="mt-1.5 max-w-[650px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">من اختيار المنتج وحتى وصوله إليك، نهتم بالتفاصيل التي تجعل تجربتك مع جنان أكثر وضوحًا وراحة.</p>
+                <h3 className="mt-1.5 text-[14px] font-semibold text-[#20392E] md:text-[17px]">تفاصيل واضحة من الاختيار إلى الاستلام</h3>
+                <p className="mt-1.5 max-w-[650px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">نوضّح تفاصيل القطعة وخيارات الطلب قبل الشراء، ونبقى على تواصل معكِ إذا احتجتِ إلى المساعدة بعده.</p>
               </div>
             </div>
           </div>
@@ -283,8 +283,8 @@ const StoreInfoPage = () => {
               <MessageCircle className="h-4 w-4 stroke-[1.5] text-[#9D7B40]" />
             </div>
             <span className="mt-4 block font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">PERSONAL SERVICE</span>
-            <h2 className="mt-2 text-[18px] font-semibold tracking-[-0.025em] text-[#20392E] md:text-[25px]">{getSiteText(content, "store_info_cta_title", "هل تحتاج مساعدة في الاختيار؟")}</h2>
-            <p className="mx-auto mt-2 max-w-[480px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">{getSiteText(content, "store_info_cta_description", "فريق خدمة العملاء متاح للإجابة على استفساراتك حول المقاسات، التوفر، أو الشحن.")}</p>
+            <h2 className="mt-2 text-[18px] font-semibold tracking-[-0.025em] text-[#20392E] md:text-[25px]">{getSiteText(content, "store_info_cta_title", "هل تحتاجين مساعدة في الاختيار؟")}</h2>
+            <p className="mx-auto mt-2 max-w-[480px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">{getSiteText(content, "store_info_cta_description", "نساعدكِ في معرفة تفاصيل القطعة والمقاسات المتوفرة وخيارات التوصيل قبل الطلب.")}</p>
 
             <div className="mx-auto mt-5 flex max-w-[430px] flex-col gap-2 sm:flex-row sm:justify-center">
               {whatsappDigits && (
@@ -295,7 +295,7 @@ const StoreInfoPage = () => {
               )}
 
               <Link to="/products" className="flex h-[44px] flex-1 items-center justify-center gap-2 rounded-[13px] border border-[#DDD1CC] bg-white px-5 text-[9px] font-semibold text-[#655651] active:bg-[#F6F3EA]">
-                {getSiteText(content, "store_info_cta_products", "تصفح المجموعة")}
+                {getSiteText(content, "store_info_cta_products", "تصفّحي التشكيلة")}
                 <ArrowLeft className="h-3.5 w-3.5 stroke-[1.5]" />
               </Link>
             </div>

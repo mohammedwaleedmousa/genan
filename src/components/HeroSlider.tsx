@@ -16,8 +16,8 @@ type HeroSlide = { image: string; title: string; desc: string; cta: string; link
 
 // Genan photography is used until merchandising banners are published.
 const genanFallbackSlides: HeroSlide[] = [
-  { image: "https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=1800", title: "الأناقة تبدأ من هنا", desc: "حقائب وأزياء وإكسسوارات من ماركات عالمية مختارة", cta: "اكتشفي المجموعة", link: "/products", imageZoom: 1, imagePositionX: 50, imagePositionY: 50 },
-  { image: "https://images.pexels.com/photos/8989866/pexels-photo-8989866.jpeg?auto=compress&cs=tinysrgb&w=1800", title: "اختيارات تعكس ذوقك", desc: "تشكيلة مميزة لكل إطلالة", cta: "تصفحي الماركات", link: "/brands", imageZoom: 1, imagePositionX: 50, imagePositionY: 50 },
+  { image: "https://images.pexels.com/photos/9142805/pexels-photo-9142805.jpeg?auto=compress&cs=tinysrgb&w=1800", title: "الأناقة تبدأ من اختيارك", desc: "مختارات من الماركات العالمية في الأحذية والملابس والحقائب والإكسسوارات.", cta: "اكتشفي المجموعة", link: "/products", imageZoom: 1, imagePositionX: 50, imagePositionY: 50 },
+  { image: "https://images.pexels.com/photos/8989866/pexels-photo-8989866.jpeg?auto=compress&cs=tinysrgb&w=1800", title: "لكل إطلالة تفصيلها", desc: "من القطع اليومية إلى تفاصيل المناسبات، اختاري ما يعبّر عنكِ.", cta: "تصفحي الماركات", link: "/brands", imageZoom: 1, imagePositionX: 50, imagePositionY: 50 },
 ];
 
 const HeroSlider = () => {

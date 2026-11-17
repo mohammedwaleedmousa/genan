@@ -32,8 +32,8 @@ const GenanServices = () => {
   // Preserve Genan's curated fallback while banners are being configured.
   const displayBanner = banner?.image_url ? banner : {
     image_url: "https://images.pexels.com/photos/8989866/pexels-photo-8989866.jpeg?auto=compress&cs=tinysrgb&w=1800",
-    title_ar: "أناقة هادئة. حضور لا ينسى.",
-    subtitle_ar: "مختارات جنان من الماركات العالمية.",
+    title_ar: "تفاصيل تكمل إطلالتكِ",
+    subtitle_ar: "اكتشفي مختارات جنان من الماركات العالمية.",
     cta_text_ar: "تصفحي التشكيلة",
     cta_link: "/products",
     image_position_x: 50,

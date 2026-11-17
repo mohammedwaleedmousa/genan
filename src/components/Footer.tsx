@@ -70,7 +70,7 @@ const Footer = () => (
       </div>
       <div aria-hidden="true" className="mr-0 ml-auto mt-6 h-[2px] w-[49px] rounded-full bg-[#D8C29A] sm:w-[58px]" />
       <p className="mt-7 text-right text-[14px] leading-[2.05] text-[#6D6D6D] sm:mt-9 sm:text-[16px]">
-        بوتيك يجمع الأناقة والتفاصيل المميزة. اكتشفي تشكيلتنا المختارة من الحقائب والملابس والأحذية والإكسسوارات.
+        مختارات من ماركات عالمية تجمع الأحذية والملابس والحقائب والإكسسوارات في بوتيك جنان.
       </p>
 
       <div className="mt-8 rounded-[20px] border border-[#D1E7E4] bg-[#F7FBFA] px-4 pb-6 pt-5 sm:mt-10 sm:px-7 sm:pb-8 sm:pt-7">

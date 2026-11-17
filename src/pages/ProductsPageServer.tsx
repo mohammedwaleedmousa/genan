@@ -503,7 +503,7 @@ const ProductsPageServer = () => {
 
             <div className="md:text-left">
               <p className="text-[11px] leading-6 text-[#707070] sm:text-[12px] md:leading-7">
-                اكتشف تشكيلتنا من الأزياء والإكسسوارات المختارة بعناية، واعثر على القطعة التي تكمل أسلوبك.
+                تصفّحي مختارات جنان واختاري القطعة التي تنسجم مع أسلوبكِ.
               </p>
               <p className="mt-2 text-[11px] font-semibold text-[#8C6B32]">{filtered.length} منتج متاح للتصفح</p>
             </div>

@@ -51,7 +51,7 @@ const SpecialCollections = ({ activeCategorySlugs }: Pick<HomeManagedSectionsPro
   const promotions = [
     {
       eyebrow: "GENAN PICKS",
-      title: "تشكيلات تستحق الاكتشاف",
+      title: "حقائب بطابعكِ الخاص",
       action: "اكتشفي الآن",
       url: "/products",
       image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700&q=80",
@@ -83,12 +83,12 @@ const SpecialCollections = ({ activeCategorySlugs }: Pick<HomeManagedSectionsPro
   ][promotions.length - 1];
 
   return (
-    <section aria-label="عروض ومجموعات خاصة" className="bg-[#FAFAFA] py-8 sm:py-10 md:py-14" dir="rtl">
+    <section aria-label="تشكيلات جنان" className="bg-[#FAFAFA] py-8 sm:py-10 md:py-14" dir="rtl">
       <div className="mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-8">
         <div className="mb-4 sm:mb-6">
           <span className="mb-1.5 block font-serif text-[9px] font-medium uppercase tracking-[0.2em] text-[#8C6B32]">GENAN COLLECTIONS</span>
-          <h2 className="text-[21px] font-semibold tracking-[-0.025em] text-[#0E0E0E] sm:text-[26px] lg:text-[31px]">عروض ومجموعات خاصة</h2>
-          <p className="mt-1 text-[10px] text-[#777777] sm:text-[12px]">اكتشفي ما يميز جنان هذا الأسبوع</p>
+          <h2 className="text-[21px] font-semibold tracking-[-0.025em] text-[#0E0E0E] sm:text-[26px] lg:text-[31px]">تشكيلات جنان</h2>
+          <p className="mt-1 text-[10px] text-[#777777] sm:text-[12px]">مختارات لكل يوم ولكل مناسبة.</p>
         </div>
         <div className={`grid gap-2.5 sm:gap-3 ${gridColumns}`}>
           {promotions.map((item, index) => (
