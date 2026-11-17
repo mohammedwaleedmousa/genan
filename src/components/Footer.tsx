@@ -10,7 +10,7 @@ const customerService: FooterColumn = {
     { label: "تتبع الطلب", href: "/order-tracking" },
     { label: "تواصل معنا", href: "/store-info#contact" },
     { label: "الشحن والتوصيل", href: "/shipping-policy" },
-    { label: "الإرجاع والاستبدال", href: "/returns-policy" },
+    { label: "الاستبدال والاسترجاع", href: "/returns-policy" },
     { label: "الأسئلة الشائعة", href: "/store-info#faq" },
   ],
 };
@@ -21,7 +21,7 @@ const aboutGenan: FooterColumn = {
     { label: "عن جنان", href: "/store-info#about" },
     { label: "الماركات", href: "/brands" },
     { label: "سياسة الخصوصية", href: "/privacy-policy" },
-    { label: "الشروط والأحكام", href: "/terms" },
+    { label: "السياسات والشروط والأحكام", href: "/terms" },
     { label: "باركود المتجر", href: "/qr-code" },
   ],
 };

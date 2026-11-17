@@ -593,7 +593,7 @@ const CheckoutPage = () => {
                   <p className="text-[11px] text-[#8C7E79]">المحافظة: <span className="font-semibold text-[#0E0E0E]">{selectedRegion}</span></p>
                   <label className="mt-3 flex cursor-pointer items-start gap-2.5">
                     <input type="checkbox" checked={termsAccepted} onChange={(event) => setTermsAccepted(event.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-[#0E0E0E]" />
-                    <span className="text-[11px] leading-6 text-[#666666]">قرأت وأوافق على <Link to="/terms" target="_blank" className="font-semibold text-[#D8C29A] underline underline-offset-2">الشروط والأحكام</Link> و<Link to="/privacy-policy" target="_blank" className="font-semibold text-[#D8C29A] underline underline-offset-2">سياسة الخصوصية</Link> و<Link to="/returns-policy" target="_blank" className="font-semibold text-[#D8C29A] underline underline-offset-2">سياسة الإرجاع</Link>.</span>
+                    <span className="text-[11px] leading-6 text-[#666666]">قرأت وأوافق على <Link to="/terms" target="_blank" className="font-semibold text-[#D8C29A] underline underline-offset-2">السياسات والشروط والأحكام</Link> و<Link to="/privacy-policy" target="_blank" className="font-semibold text-[#D8C29A] underline underline-offset-2">سياسة الخصوصية</Link> و<Link to="/returns-policy" target="_blank" className="font-semibold text-[#D8C29A] underline underline-offset-2">سياسة الاستبدال والاسترجاع</Link>.</span>
                   </label>
                 </div>
               </div>

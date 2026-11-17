@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
@@ -1230,7 +1230,7 @@ const ProductDetailPage = () => {
                       <div className="flex items-center gap-2">
                         <RotateCcw className="h-3.5 w-3.5 text-[#D8C29A]" strokeWidth={1.4} />
 
-                        <span className="text-[10px] font-semibold text-[#0E0E0E]">الإرجاع والاستبدال</span>
+                        <span className="text-[10px] font-semibold text-[#0E0E0E]">الاستبدال والاسترجاع</span>
                       </div>
 
                       <ChevronDown className={`h-3.5 w-3.5 text-[#0E0E0E] transition-transform ${openSection === "return" ? "rotate-180" : ""}`} strokeWidth={1.5} />
@@ -1240,6 +1240,9 @@ const ProductDetailPage = () => {
                       <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="overflow-hidden">
                         <div className="px-3.5 pb-4 sm:px-5 lg:px-0">
                           <p className="whitespace-pre-line text-[9px] leading-6 text-[#6F6F6F]">{effectiveReturnPolicy}</p>
+                          <Link to="/returns-policy" className="mt-2 inline-block text-[11px] font-semibold text-[#173A2D] underline underline-offset-2">
+                            سياسة الاستبدال والاسترجاع
+                          </Link>
                         </div>
                       </motion.div>
                     )}

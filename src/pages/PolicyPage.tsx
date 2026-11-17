@@ -1,235 +1,178 @@
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowLeft, FileCheck2, LockKeyhole, RefreshCcw, ShieldCheck, Truck } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 
-type PolicyKey = "privacy" | "terms" | "returns" | "shipping";
-
 interface PolicySection {
+  id: string;
+  path?: string;
   title: string;
-  paragraphs?: string[];
-  items?: string[];
+  items: string[];
 }
 
-interface PolicyDefinition {
-  eyebrow: string;
-  title: string;
-  summary: string;
-  icon: typeof ShieldCheck;
-  sections: PolicySection[];
-}
+const documentTitle = "السياسات والشروط والأحكام";
+const sections: PolicySection[] = [
+  {
+    id: "orders",
+    title: "أولاً: سياسة الطلبات والشراء",
+    items: [
+      "يستقبل بوتيك جنان الطلبات عبر الموقع الإلكتروني وحسابات التواصل الاجتماعي المعتمدة، بما في ذلك واتساب وإنستغرام.",
+      "يجب على العميل التأكد من صحة بيانات التواصل ورقم الهاتف وعنوان التوصيل قبل تأكيد الطلب.",
+      "يعتبر الطلب مؤكداً بعد مراجعة تفاصيله واعتماده من قبل المتجر.",
+      "تخضع الطلبات لتوفر المنتجات في المخزون.",
+      "في حال عدم توفر منتج تم طلبه، يحق للمتجر إبلاغ العميل واقتراح البدائل أو إلغاء المنتج غير المتوفر.",
+      "يلتزم المتجر بتوضيح تفاصيل الطلب والسعر الإجمالي ورسوم التوصيل قبل التأكيد النهائي.",
+    ],
+  },
+  {
+    id: "payment",
+    title: "ثانياً: سياسة الدفع",
+    items: [
+      "يتم توضيح أسعار المنتجات وطرق الدفع المتاحة للعميل قبل إتمام الطلب.",
+      "يجب الالتزام بطرق الدفع المعتمدة والمعلنة من قبل البوتيك.",
+      "لا يعتبر الطلب مدفوعاً إلا بعد التحقق من استلام المبلغ.",
+      "في حال وجود خطأ في عملية الدفع، يرجى التواصل مع خدمة العملاء وتقديم ما يثبت العملية.",
+    ],
+  },
+  {
+    id: "shipping",
+    path: "/shipping-policy",
+    title: "ثالثاً: سياسة الشحن والتوصيل",
+    items: [
+      "يوفر بوتيك جنان خدمة التوصيل إلى مختلف محافظات الجمهورية اليمنية، وفقاً لنطاق تغطية شركات التوصيل المتاحة.",
+      "يتم تحديد رسوم التوصيل وفقاً للمدينة أو المنطقة وموقع العميل.",
+      "يتم إبلاغ العميل برسوم التوصيل والمدة التقديرية قبل تأكيد الطلب.",
+      "يتحمل العميل مسؤولية تقديم عنوان صحيح ورقم هاتف فعال.",
+      "في حال تعذر استلام الطلب بسبب عدم صحة بيانات العميل أو عدم تجاوبه مع مندوب التوصيل، يتم التنسيق معه بشأن إعادة التوصيل وأي رسوم إضافية مترتبة عليها.",
+      "قد تتأثر مواعيد التوصيل بالظروف اللوجستية أو الظروف الخارجة عن إرادة المتجر.",
+    ],
+  },
+  {
+    id: "returns",
+    path: "/returns-policy",
+    title: "رابعاً: سياسة الاستبدال والاسترجاع",
+    items: [
+      "يحق للعميل تقديم طلب الاستبدال أو الاسترجاع خلال مدة لا تتجاوز 3 أيام من تاريخ استلام المنتج.",
+      "يشترط لقبول الطلب أن يكون المنتج بحالته الأصلية، غير مستخدم أو متضرر، مع الاحتفاظ بالتغليف والملحقات الأصلية إن وجدت.",
+      "تخضع المنتجات للفحص والتحقق من حالتها قبل الموافقة على الاستبدال أو الاسترجاع.",
+      "تتم دراسة طلبات الاسترجاع والموافقة عليها وفقاً لطبيعة الحالة وسبب الطلب.",
+      "في حال الموافقة على الاسترجاع، يتم تحديد آلية إعادة المبلغ بالتنسيق بين العميل وإدارة البوتيك.",
+      "يتحمل العميل رسوم التوصيل الخاصة بعملية الاستبدال أو الاسترجاع، ما لم يكن السبب ناتجاً عن خطأ من المتجر أو عيب في المنتج، حيث يتحمل المتجر التكاليف المتعلقة بذلك.",
+      "لا تشمل هذه السياسة أي تنازل عن الحقوق القانونية الإلزامية للعميل بموجب القوانين المعمول بها.",
+    ],
+  },
+  {
+    id: "products",
+    title: "خامساً: سياسة المنتجات والصور",
+    items: [
+      "يحرص بوتيك جنان على تقديم صور وأوصاف دقيقة للمنتجات.",
+      "قد تظهر اختلافات طفيفة في درجات الألوان نتيجة اختلاف الإضاءة أو إعدادات الشاشات.",
+      "يتحمل العميل مسؤولية مراجعة تفاصيل المنتج والمقاسات والمواصفات قبل إتمام الطلب.",
+      "في حال وجود اختلاف جوهري بين المنتج المستلم والوصف المعروض، يرجى التواصل مع خدمة العملاء.",
+    ],
+  },
+  {
+    id: "privacy",
+    path: "/privacy-policy",
+    title: "سادساً: سياسة الخصوصية وحماية البيانات",
+    items: [
+      "يحترم بوتيك جنان خصوصية العملاء ويلتزم بالحفاظ على سرية بياناتهم.",
+      "يتم جمع البيانات الضرورية لإتمام الطلبات والتواصل مع العملاء وتنظيم عمليات التوصيل وخدمة ما بعد البيع.",
+      "لا تتم مشاركة بيانات العملاء إلا مع الجهات اللازمة لتنفيذ الخدمات، مثل شركات التوصيل، أو عند وجود التزام قانوني.",
+      "لا يتم استخدام بيانات العملاء لأغراض تسويقية غير مرتبطة بالخدمات إلا وفق الأسس والموافقات اللازمة.",
+      "يحرص البوتيك على اتخاذ التدابير المناسبة لحماية بيانات العملاء من الوصول أو الاستخدام غير المصرح به.",
+    ],
+  },
+  {
+    id: "support",
+    title: "سابعاً: خدمة العملاء والشكاوى",
+    items: [
+      "يمكن للعملاء التواصل مع بوتيك جنان عبر قنوات التواصل الرسمية المعلنة.",
+      "يستقبل المتجر الاستفسارات والشكاوى المتعلقة بالطلبات والمنتجات والتوصيل.",
+      "تتم مراجعة الشكاوى والعمل على معالجتها خلال فترة زمنية مناسبة وفقاً لطبيعة كل حالة.",
+      "يرجى إرفاق رقم الطلب وصور المنتج عند تقديم شكوى تتعلق بالمنتج المستلم.",
+    ],
+  },
+  {
+    id: "terms",
+    title: "ثامناً: الشروط والأحكام العامة",
+    items: [
+      "يحق لبوتيك جنان تحديث الأسعار والعروض وتوفر المنتجات وفقاً لمتطلبات العمل.",
+      "تخضع الطلبات للسياسات المعمول بها وقت تأكيد الشراء.",
+      "يحق للمتجر تحديث هذه الوثيقة عند الحاجة، مع نشر النسخة المحدثة عبر الموقع الإلكتروني.",
+      "لا يجوز استخدام الموقع أو قنوات المتجر بطريقة تنتهك القوانين أو تضر بحقوق المتجر أو العملاء الآخرين.",
+      "تخضع هذه الشروط للقوانين والأنظمة المعمول بها في الجمهورية اليمنية، مع مراعاة حقوق المستهلك الإلزامية.",
+    ],
+  },
+];
 
-const policies: Record<PolicyKey, PolicyDefinition> = {
-  privacy: {
-    eyebrow: "PRIVACY",
-    title: "سياسة الخصوصية",
-    summary: "نوضح هنا ما نجمعه لإتمام طلبك، ولماذا نحتاجه، وكيف نحافظ عليه.",
-    icon: LockKeyhole,
-    sections: [
-      {
-        title: "البيانات التي نعالجها",
-        items: [
-          "الاسم ورقم الهاتف وعنوان التوصيل والمحافظة والمدينة.",
-          "تفاصيل السلة والطلب والدفع المختار وحالة التوصيل.",
-          "بيانات الحساب الأساسية عند تسجيل الدخول، والرسائل التي ترسلها لخدمة العملاء.",
-          "بيانات تقنية محدودة تساعدنا على حماية المتجر وقياس أداء الصفحات ومنع إساءة الاستخدام.",
-        ],
-      },
-      {
-        title: "كيف نستخدم البيانات",
-        items: [
-          "إنشاء الطلب والتحقق من توفر المنتجات وحساب السعر ورسوم التوصيل.",
-          "التواصل بشأن التأكيد أو الشحن أو الإرجاع وتقديم الدعم.",
-          "حماية الحسابات والطلبات، وتحسين تجربة المتجر وموثوقيته.",
-        ],
-      },
-      {
-        title: "المشاركة والدفع",
-        paragraphs: [
-          "نشارك الحد الأدنى اللازم من بيانات الطلب مع شركة التوصيل ومزودي البنية التقنية الذين يساعدوننا على تشغيل المتجر. لا نبيع بياناتك الشخصية.",
-          "طرق الدفع الحالية هي التحويل البنكي أو الدفع عند الاستلام عند توفره. لا يطلب الموقع رقم بطاقتك أو رمزها السري ولا يخزنهما.",
-        ],
-      },
-      {
-        title: "الحفظ وحقوقك",
-        paragraphs: [
-          "نحتفظ ببيانات الطلب للمدة اللازمة للتنفيذ وخدمة ما بعد البيع والالتزامات التشغيلية والنظامية. يمكنك طلب تصحيح بياناتك أو الاستفسار عن استخدامها عبر صفحة التواصل، وقد نطلب ما يثبت ملكيتك للطلب لحمايتك.",
-        ],
-      },
-    ],
-  },
-  terms: {
-    eyebrow: "TERMS",
-    title: "الشروط والأحكام",
-    summary: "قواعد واضحة تنظم استخدام المتجر وإنشاء الطلب والدفع والتوصيل.",
-    icon: FileCheck2,
-    sections: [
-      {
-        title: "المنتجات والأسعار",
-        items: [
-          "نبذل عناية معقولة لعرض الصور والوصف والمقاسات بدقة، وقد تختلف الألوان قليلًا باختلاف الشاشة والإضاءة.",
-          "السعر والمخزون والخصم النهائي يعاد التحقق منها عند إنشاء الطلب، ولا يُعتمد أي سعر ناتج عن خطأ تقني واضح.",
-          "وجود المنتج في السلة لا يحجزه؛ يتم حجز المخزون عند نجاح إنشاء الطلب.",
-        ],
-      },
-      {
-        title: "تأكيد الطلب والدفع",
-        paragraphs: [
-          "يُعد الطلب مستلمًا بعد ظهور رقم الطلب وصفحة التأكيد. قد نتواصل معك للتحقق من البيانات قبل التجهيز. تتوفر طرق الدفع بحسب المحافظة وإعدادات المتجر الظاهرة في خطوة الدفع.",
-        ],
-      },
-      {
-        title: "التوصيل والإلغاء",
-        items: [
-          "يجب تقديم عنوان ورقم هاتف صحيحين ومتاحين للتواصل.",
-          "يمكن طلب الإلغاء قبل تسليم الشحنة لشركة التوصيل؛ بعد ذلك يخضع الطلب لسياسة الإرجاع وتكاليف الشحن المطبقة.",
-          "قد يُلغى الطلب عند نفاد المخزون أو تعذر التحقق من البيانات أو وجود محاولة إساءة استخدام، مع إبلاغ العميل متى أمكن.",
-        ],
-      },
-      {
-        title: "الاستخدام المقبول",
-        paragraphs: [
-          "لا يجوز محاولة تعطيل الموقع أو التحايل على الأسعار أو المخزون أو الوصول إلى بيانات لا تخصك. لا تحد هذه الشروط من أي حقوق لا يجوز استبعادها بموجب الأنظمة السارية.",
-        ],
-      },
-    ],
-  },
-  returns: {
-    eyebrow: "RETURNS",
-    title: "سياسة الإرجاع والاستبدال",
-    summary: "يمكن بدء طلب الإرجاع أو الاستبدال خلال 7 أيام من استلام الطلب وفق الشروط أدناه.",
-    icon: RefreshCcw,
-    sections: [
-      {
-        title: "شروط القبول",
-        items: [
-          "التواصل معنا خلال 7 أيام من تاريخ الاستلام مع رقم الطلب وسبب الطلب.",
-          "أن يكون المنتج غير مستخدم أو مغسول أو متضرر، وبحالته وتغليفه وبطاقاته الأصلية.",
-          "تخضع القطعة للفحص قبل اعتماد الاستبدال أو رد المبلغ.",
-        ],
-      },
-      {
-        title: "الاستثناءات",
-        paragraphs: [
-          "لا تُقبل المنتجات الشخصية أو الصحية بعد فتح تغليفها، ولا المنتجات المعدلة بطلب العميل، إلا إذا وصل المنتج معيبًا أو مختلفًا عن الطلب. لا تُقبل القطع التي تعرضت للاستخدام أو فقدت ملحقاتها أو بطاقاتها.",
-        ],
-      },
-      {
-        title: "المنتج الخاطئ أو المعيب",
-        paragraphs: [
-          "إذا وصل منتج خاطئ أو بعيب ظاهر، أرسل صورًا واضحة خلال مدة الإرجاع ولا تستخدمه. بعد التحقق، يتحمل المتجر تكاليف الإرجاع أو الاستبدال المرتبطة بالخطأ. في حال تغيير الرأي أو المقاس يتحمل العميل رسوم الشحن ما لم نتفق على غير ذلك.",
-        ],
-      },
-      {
-        title: "رد المبلغ",
-        paragraphs: [
-          "يبدأ رد المبلغ بعد استلام المنتج وفحصه والموافقة على الطلب. تتم الإعادة بالطريقة المتاحة والمتفق عليها، وقد تختلف مدة وصول المبلغ بحسب جهة التحويل. رسوم التوصيل الأصلية لا تُرد في حالات تغيير الرأي.",
-        ],
-      },
-    ],
-  },
-  shipping: {
-    eyebrow: "SHIPPING",
-    title: "سياسة الشحن والتوصيل",
-    summary: "تتحدد شركة التوصيل ورسومها ومدتها حسب المحافظة، وتظهر التفاصيل قبل تأكيد الطلب.",
-    icon: Truck,
-    sections: [
-      {
-        title: "نطاق التوصيل",
-        paragraphs: [
-          "تظهر خيارات التوصيل المتاحة لعدن وللمحافظات الأخرى بحسب منطقة الاستلام. إذا لم يظهر خيار مناسب لمحافظتك فتواصل معنا قبل إنشاء الطلب.",
-        ],
-      },
-      {
-        title: "الرسوم والمدة",
-        items: [
-          "تعرض صفحة الدفع رسوم كل شركة والمدة التقديرية المتاحة قبل التأكيد.",
-          "المدة تقديرية وتبدأ بعد تأكيد الطلب، وقد تتأثر بأيام العطل أو الأحوال الجوية أو ظروف الطريق وشركة النقل.",
-          "لا تُضاف رسوم توصيل مخفية بعد إنشاء الطلب؛ أي خدمة إضافية تحتاج موافقة العميل.",
-        ],
-      },
-      {
-        title: "العنوان والاستلام",
-        paragraphs: [
-          "يتحمل العميل مسؤولية صحة المحافظة والمدينة والعنوان ورقم الهاتف. قد تؤدي البيانات الناقصة أو تعذر التواصل إلى التأخير أو إعادة الشحنة، وقد تستحق رسوم إعادة التوصيل.",
-        ],
-      },
-      {
-        title: "التتبع والمساعدة",
-        paragraphs: [
-          "بعد إنشاء الطلب احتفظ برابط التتبع ورقم الطلب. تتحدث حالة الطلب تلقائيًا عند تسجيل مراحل التجهيز والتوصيل، ويمكنك التواصل معنا إذا تأخرت الشحنة عن المدة المعروضة.",
-        ],
-      },
-    ],
-  },
-};
-
-const policyKeyForPath = (pathname: string): PolicyKey => {
-  if (pathname === "/privacy-policy") return "privacy";
-  if (pathname === "/returns-policy") return "returns";
-  if (pathname === "/shipping-policy") return "shipping";
-  return "terms";
-};
+const PolicyBrand = () => (
+  <span>بوتيك جنان <span aria-hidden="true">|</span> <bdi lang="en">JINAN BOUTIQUE</bdi></span>
+);
 
 const PolicyPage = () => {
-  const { pathname } = useLocation();
-  const policy = policies[policyKeyForPath(pathname)];
-  const Icon = policy.icon;
+  const { pathname, hash } = useLocation();
+  const path = pathname.replace(/\/+$/, "").toLowerCase();
+  const selectedSection = sections.find((section) => section.path === path);
+  const visibleSections = selectedSection ? [selectedSection] : sections;
+
+  useEffect(() => {
+    if (!hash) return;
+    document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+  }, [hash, path]);
 
   return (
     <div className="min-h-screen bg-[#FFFDFC] text-[#302725]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main className="pb-16 pt-5 md:pb-20 md:pt-8">
-        <div className="mx-auto w-full max-w-[880px] px-3 md:px-6">
-          <header className="overflow-hidden rounded-[20px] border border-[#E9DFDB] bg-[#FFF7F5] px-4 py-6 md:px-7 md:py-9">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[#9D7B40] shadow-[0_8px_24px_rgba(80,45,40,0.05)]">
-              <Icon className="h-5 w-5" strokeWidth={1.4} />
-            </span>
-            <p className="mt-5 font-serif text-[7px] tracking-[0.24em] text-[#9D7B40]">{policy.eyebrow}</p>
-            <h1 className="mt-1.5 text-[23px] font-semibold tracking-[-0.035em] text-[#403130] md:text-[34px]">{policy.title}</h1>
-            <p className="mt-2 max-w-[620px] text-[9px] leading-6 text-[#8F7E79] md:text-[11px] md:leading-7">{policy.summary}</p>
-            <p className="mt-4 text-[7px] text-[#778179]">آخر تحديث: 3 سبتمبر 2026</p>
-          </header>
-
-          <div className="mt-4 overflow-hidden rounded-[18px] border border-[#EAE0DC] bg-white md:mt-5">
-            {policy.sections.map((section, index) => (
-              <section key={section.title} className={`px-4 py-5 md:px-7 md:py-6 ${index !== policy.sections.length - 1 ? "border-b border-[#F0E8E5]" : ""}`}>
-                <div className="flex items-center gap-2">
-                  <span className="h-[2px] w-4 rounded-full bg-[#173A2D]" />
-                  <h2 className="text-[12px] font-semibold text-[#493B38] md:text-[14px]">{section.title}</h2>
-                </div>
-
-                {section.paragraphs?.map((paragraph) => <p key={paragraph} className="mt-3 text-[9px] leading-7 text-[#81736E] md:text-[10px]">{paragraph}</p>)}
-
-                {section.items && (
-                  <ul className="mt-3 space-y-2.5">
-                    {section.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-[9px] leading-7 text-[#81736E] md:text-[10px]">
-                        <span className="mt-[11px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#173A2D]" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </section>
-            ))}
-          </div>
-
-          <section className="mt-4 flex flex-col gap-3 rounded-[16px] border border-[#E8D8D3] bg-white px-4 py-5 sm:flex-row sm:items-center sm:justify-between md:px-6">
-            <div>
-              <p className="text-[10px] font-semibold text-[#493B38]">هل تحتاج توضيحًا؟</p>
-              <p className="mt-1 text-[7px] leading-5 text-[#94857F]">تواصل معنا واذكر رقم الطلب إن كان استفسارك متعلقًا بطلب قائم.</p>
-            </div>
-            <Link to="/store-info#contact" className="inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-[10px] bg-[#173A2D] px-4 text-[8px] font-semibold text-white">
-              تواصل معنا
-              <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
+      <main id="main-content" className="mx-auto w-full max-w-[880px] px-4 pb-16 pt-5 md:px-6 md:pb-20 md:pt-8">
+        <header className="rounded-[20px] border border-[#E9DFDB] bg-[#F6F3EA] px-5 py-7 md:px-8 md:py-10">
+          <p className="text-sm font-semibold text-[#6F5730]"><PolicyBrand /></p>
+          <h1 className="mt-3 text-2xl font-semibold leading-relaxed md:text-4xl">{selectedSection?.title ?? documentTitle}</h1>
+          <p className="mt-2 text-sm leading-7 text-[#62564C]">النسخة المعتمدة للنشر على الموقع الإلكتروني</p>
+          {selectedSection ? (
+            <Link to="/terms" className="mt-5 inline-block font-semibold text-[#173A2D] underline underline-offset-4">
+              {documentTitle}
             </Link>
-          </section>
-        </div>
+          ) : (
+            <div className="mt-5 space-y-2 text-[15px] leading-8 text-[#514640]">
+              <p>مرحباً بكم في بوتيك جنان.</p>
+              <p>نحرص في بوتيك جنان على تقديم تجربة تسوق تجمع بين الأناقة والجودة والموثوقية. توضح هذه الوثيقة السياسات المنظمة لعمليات الشراء والدفع والتوصيل والاستبدال والاسترجاع والخصوصية، بهدف ضمان حقوق العملاء والمتجر وتوفير تجربة تسوق واضحة ومريحة.</p>
+            </div>
+          )}
+        </header>
+
+        {!selectedSection && (
+          <nav aria-label="فهرس السياسات" className="mt-5 rounded-[18px] border border-[#EAE0DC] bg-white px-5 py-4 md:px-8">
+            <ul className="grid gap-x-6 gap-y-1 sm:grid-cols-2">
+              {sections.map((section) => (
+                <li key={section.id}>
+                  <a href={"#" + section.id} className="inline-block py-1.5 text-sm text-[#173A2D] underline underline-offset-4">
+                    {section.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        <article className="mt-5 divide-y divide-[#F0E8E5] rounded-[18px] border border-[#EAE0DC] bg-white">
+          {visibleSections.map((section) => (
+            <section key={section.id} id={section.id} className="scroll-mt-24 px-5 py-6 md:px-8 md:py-8">
+              {!selectedSection && <h2 className="mb-4 text-lg font-semibold leading-relaxed md:text-xl">{section.title}</h2>}
+              <ol className="list-decimal space-y-3 ps-6 text-[15px] leading-8 text-[#514640] marker:font-semibold marker:text-[#6F5730]">
+                {section.items.map((item) => <li key={item} className="ps-1">{item}</li>)}
+              </ol>
+            </section>
+          ))}
+          <div className="px-5 py-6 text-sm leading-7 md:px-8">
+            <p className="font-semibold"><PolicyBrand /></p>
+            <p>الأناقة تبدأ من اختيارك.</p>
+          </div>
+        </article>
       </main>
 
       <Footer />

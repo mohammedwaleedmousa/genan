@@ -305,10 +305,10 @@ const AnalyticsTracker = () => {
         "/seasonal-offers": { title: "العروض | Genan", description: "اكتشف أحدث عروض Genan والمنتجات المختارة بأسعار مميزة." },
         "/store-info": { title: "عن المتجر والتواصل | Genan", description: "تعرف على Genan ووسائل التواصل وخدمة العملاء ومعلومات الشحن والإرجاع." },
         "/order-tracking": { title: "تتبع الطلب | Genan", description: "تابع حالة طلبك في Genan بأمان باستخدام رقم الطلب ورمز التتبع." },
-        "/shipping-policy": { title: "سياسة الشحن والتوصيل | Genan", description: "تفاصيل نطاق التوصيل والرسوم والمدة التقديرية وتتبع طلبات Genan." },
-        "/returns-policy": { title: "سياسة الإرجاع والاستبدال | Genan", description: "شروط ومدة وإجراءات الإرجاع والاستبدال لدى Genan." },
-        "/privacy-policy": { title: "سياسة الخصوصية | Genan", description: "تعرف على كيفية معالجة Genan لبيانات الطلب والحساب وحمايتها." },
-        "/terms": { title: "الشروط والأحكام | Genan", description: "شروط استخدام متجر Genan والطلب والدفع والتوصيل." },
+        "/shipping-policy": { title: "سياسة الشحن والتوصيل | JINAN BOUTIQUE", description: "نطاق التوصيل ورسومه ومدته التقديرية في بوتيك جنان." },
+        "/returns-policy": { title: "سياسة الاستبدال والاسترجاع | JINAN BOUTIQUE", description: "شروط وإجراءات الاستبدال والاسترجاع في بوتيك جنان." },
+        "/privacy-policy": { title: "سياسة الخصوصية وحماية البيانات | JINAN BOUTIQUE", description: "سياسة بوتيك جنان لحماية بيانات العملاء واستخدامها." },
+        "/terms": { title: "السياسات والشروط والأحكام | JINAN BOUTIQUE", description: "النسخة المعتمدة من سياسات الطلب والدفع والتوصيل والاسترجاع والخصوصية لدى بوتيك جنان." },
       };
 
       const meta = pageMeta[pathname] || { title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION };
