@@ -1450,6 +1450,29 @@ export type Database = {
         }
         Relationships: []
       }
+      delivery_company_contacts: {
+        Row: {
+          delivery_company_id: string
+          phone: string
+        }
+        Insert: {
+          delivery_company_id: string
+          phone: string
+        }
+        Update: {
+          delivery_company_id?: string
+          phone?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_company_contacts_delivery_company_id_fkey"
+            columns: ["delivery_company_id"]
+            isOneToOne: true
+            referencedRelation: "delivery_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       expense_categories: {
         Row: {
           account_id: string | null
@@ -3070,6 +3093,19 @@ export type Database = {
       admin_quick_update_product: {
         Args: { p_patch: Json; p_product_id: string }
         Returns: Json
+      }
+      admin_save_delivery_company: {
+        Args: {
+          p_company_id: string | null
+          p_name: string
+          p_country: string
+          p_base_fee: number
+          p_delivery_days: string | null
+          p_service_scope: string
+          p_is_active: boolean
+          p_phone: string | null
+        }
+        Returns: string
       }
       admin_undo_product_revision: {
         Args: { p_revision_id: string }

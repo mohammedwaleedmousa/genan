@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 interface DeliveryCompany {
   id: string;
   name: string;
+  phone: string | null;
   country: string;
   base_fee: number;
   delivery_days: string | null;
@@ -26,6 +27,7 @@ interface DeliveryCompany {
 
 type DeliveryForm = {
   name: string;
+  phone: string;
   country: string;
   base_fee: number;
   delivery_days: string;
@@ -41,6 +43,7 @@ const SINGLE_COUNTRY = "YE";
 
 const emptyForm = (): DeliveryForm => ({
   name: "",
+  phone: "",
   country: SINGLE_COUNTRY,
   base_fee: 0,
   delivery_days: "",
@@ -66,11 +69,18 @@ const AdminDeliveryPage = () => {
   const { data: companies = [], isLoading, isFetching } = useQuery({
     queryKey: ["admin-delivery-companies"],
     queryFn: async () => {
-      const { data, error } = await supabase.from("delivery_companies").select("id,name,country,base_fee,delivery_days,service_scope,is_active,created_at").order("name", { ascending: true });
+      const { data, error } = await supabase
+        .from("delivery_companies")
+        .select("id,name,country,base_fee,delivery_days,service_scope,is_active,created_at,delivery_company_contacts(phone)")
+        .order("name", { ascending: true });
 
       if (error) throw error;
 
-      return (data || []) as DeliveryCompany[];
+      return (data || []).map(({ delivery_company_contacts, ...company }): DeliveryCompany => ({
+        ...company,
+        phone: delivery_company_contacts?.phone ?? null,
+        service_scope: company.service_scope as DeliveryScope,
+      }));
     },
     staleTime: 30_000,
   });
@@ -123,7 +133,10 @@ const AdminDeliveryPage = () => {
     const query = search.trim().toLowerCase();
 
     const rows = companies.filter((company) => {
-      const matchesSearch = !query || company.name.toLowerCase().includes(query) || String(company.delivery_days || "").toLowerCase().includes(query);
+      const matchesSearch = !query
+        || company.name.toLowerCase().includes(query)
+        || company.phone?.includes(query.replace(/\s/g, ""))
+        || company.delivery_days?.toLowerCase().includes(query);
       const ordersCount = orderCounts[company.id] || 0;
 
       const matchesStatus =
@@ -165,6 +178,7 @@ const AdminDeliveryPage = () => {
     setEditingCompany(company);
     setFormData({
       name: company.name || "",
+      phone: company.phone || "",
       country: company.country || SINGLE_COUNTRY,
       base_fee: Number(company.base_fee || 0),
       delivery_days: company.delivery_days || "",
@@ -186,11 +200,15 @@ const AdminDeliveryPage = () => {
   const saveMutation = useMutation({
     mutationFn: async (data: DeliveryForm & { id?: string }) => {
       const name = data.name.trim();
+      const phone = data.phone.replace(/[\s()-]/g, "");
       const deliveryDays = data.delivery_days.trim();
       const baseFee = Number(data.base_fee || 0);
 
       if (!name) throw new Error("اسم شركة التوصيل مطلوب.");
       if (!Number.isFinite(baseFee) || baseFee < 0) throw new Error("رسوم التوصيل يجب أن تكون صفرًا أو أكثر.");
+      if (phone && !/^\+[1-9]\d{6,14}$/.test(phone)) {
+        throw new Error("أدخل رقم التواصل بصيغة دولية، مثل ‎+967XXXXXXXXX.");
+      }
 
       let duplicateQuery = supabase.from("delivery_companies").select("id").ilike("name", name).limit(1);
 
@@ -204,26 +222,20 @@ const AdminDeliveryPage = () => {
         throw new Error(`شركة التوصيل "${name}" موجودة مسبقًا.`);
       }
 
-      const payload = {
-        name,
-        country: data.country === "SA" ? "SA" : SINGLE_COUNTRY,
-        base_fee: baseFee,
-        delivery_days: deliveryDays || null,
-        service_scope: data.service_scope,
-        is_active: data.is_active,
-      };
-
-      if (data.id) {
-        const { error } = await supabase.from("delivery_companies").update(payload).eq("id", data.id);
-        if (error) throw error;
-        return;
-      }
-
-      const { error } = await supabase.from("delivery_companies").insert(payload);
+      const { error } = await supabase.rpc("admin_save_delivery_company", {
+        p_company_id: data.id ?? null,
+        p_name: name,
+        p_country: data.country === "SA" ? "SA" : SINGLE_COUNTRY,
+        p_base_fee: baseFee,
+        p_delivery_days: deliveryDays || null,
+        p_service_scope: data.service_scope,
+        p_is_active: data.is_active,
+        p_phone: phone || null,
+      });
       if (error) throw error;
     },
 
-    onSuccess: async () => {
+    onSuccess: async (_, savedCompany) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["admin-delivery-companies"] }),
         queryClient.invalidateQueries({ queryKey: ["delivery-companies"] }),
@@ -232,7 +244,7 @@ const AdminDeliveryPage = () => {
 
       toast({
         title: editingCompany ? "تم تحديث شركة التوصيل" : "تم إضافة شركة التوصيل",
-        description: editingCompany ? "تم حفظ الرسوم والمدة وحالة الظهور." : "أصبحت الشركة جاهزة للاستخدام في صفحة إتمام الطلب.",
+        description: savedCompany.is_active ? "تظهر الشركة في صفحة إتمام الطلب." : "حُفظت بيانات الشركة في لوحة الإدارة.",
       });
 
       resetForm();
@@ -397,7 +409,7 @@ const AdminDeliveryPage = () => {
         <div className="grid grid-cols-1 gap-[7px] p-[11px] lg:grid-cols-[minmax(0,1fr)_175px_195px]">
           <div className="relative">
             <Search className="pointer-events-none absolute right-[12px] top-1/2 h-[13px] w-[13px] -translate-y-1/2 text-[#969EA8]" />
-            <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="اسم الشركة أو مدة التوصيل..." className="h-[40px] rounded-[9px] border-[#E3E7EC] bg-[#F8FAFC] pr-[35px] text-[10px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
+            <Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="اسم الشركة أو رقم التواصل أو مدة التوصيل..." className="h-[40px] rounded-[9px] border-[#E3E7EC] bg-[#F8FAFC] pr-[35px] text-[10px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
           </div>
 
           <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as StatusFilter)}>
@@ -476,7 +488,7 @@ const AdminDeliveryPage = () => {
 
                           <div className="min-w-0">
                             <p className="max-w-[240px] truncate text-[10.5px] font-semibold text-[#414953]">{company.name}</p>
-                            <p className="mt-[3px] text-[7px] text-[#9AA2AC]">المتجر الموحد</p>
+                            <DeliveryContact phone={company.phone} />
                           </div>
                         </div>
                       </td>
@@ -548,6 +560,7 @@ const AdminDeliveryPage = () => {
 
                       <div className="min-w-0">
                         <h3 className="truncate text-[11px] font-semibold text-[#3B424C]">{company.name}</h3>
+                        <DeliveryContact phone={company.phone} />
                         <p className="mt-[3px] text-[7px] text-[#626E63]">{company.delivery_days || "مدة التوصيل غير محددة"}</p>
                         <p className="mt-[3px] text-[7px] font-medium text-[#675CBA]">{deliveryScopeLabel(company.service_scope)}</p>
                       </div>
@@ -600,6 +613,10 @@ const AdminDeliveryPage = () => {
               <FormSection title="بيانات الخدمة" icon={Truck}>
                 <Field label="اسم شركة التوصيل" required>
                   <Input value={formData.name} onChange={(event) => setFormData((current) => ({ ...current, name: event.target.value }))} placeholder="مثال: أرامكس" className="h-[40px] rounded-[9px] border-[#E2E6EB] bg-[#F8FAFC] text-[9.5px] shadow-none focus-visible:bg-white focus-visible:ring-0" />
+                </Field>
+
+                <Field label="رقم التواصل">
+                  <Input type="tel" dir="ltr" value={formData.phone} onChange={(event) => setFormData((current) => ({ ...current, phone: event.target.value }))} placeholder="+967XXXXXXXXX" />
                 </Field>
 
                 <div className="grid grid-cols-1 gap-[8px] sm:grid-cols-2">
@@ -683,6 +700,12 @@ const deliveryScopeLabel = (scope: DeliveryScope) => {
   if (scope === "all") return "كل المحافظات";
   return "خارج عدن فقط";
 };
+
+const DeliveryContact = ({ phone }: { phone: string | null }) => phone ? (
+  <a href={`tel:${phone}`} dir="ltr" className="mt-[3px] inline-block text-[9px] text-[#675CBA] hover:underline">
+    {phone}
+  </a>
+) : null;
 
 const DeliveryStatCard = ({ title, value, helper, icon: Icon, tone }: { title: string; value: string; helper: string; icon: LucideIcon; tone: "indigo" | "green" | "blue" | "coral" }) => {
   const style = {
