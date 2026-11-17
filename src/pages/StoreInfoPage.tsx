@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ArrowLeft, Clock, Mail, MapPin, MessageCircle, Phone, Shield, Truck } from "lucide-react";
+import { ArrowLeft, ChevronDown, Clock, Mail, MapPin, MessageCircle, Phone, Shield, Truck } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -57,13 +57,12 @@ const StoreInfoPage = () => {
       document.getElementById(targetId)?.scrollIntoView({ block: "start", behavior: "auto" });
     }, 0);
     return () => window.clearTimeout(timer);
-  }, [location.hash]);
+  }, [location.hash, location.key]);
 
   const whatsappNumber = storeInfo?.whatsapp || storeInfo?.whatsapp_ye || storeInfo?.whatsapp_sa;
   const phone = String(storeInfo?.phone_sa || storeInfo?.phone_ye || storeInfo?.phone || "");
   const email = String(storeInfo?.email || "").trim();
-  const placeholderEmails = new Set(["info@genan.com", "info@genan.com"]);
-  const showEmail = Boolean(email && !placeholderEmails.has(email.toLowerCase()));
+  const showEmail = Boolean(email && email.toLowerCase() !== "info@genan.com");
   const whatsappDigits = String(whatsappNumber || phone).replace(/\D/g, "");
 
   const facts = [
@@ -78,11 +77,6 @@ const StoreInfoPage = () => {
       value: email,
       icon: Mail,
       href: `mailto:${email}`,
-    }] : whatsappDigits ? [{
-      label: "واتساب",
-      value: `+${whatsappDigits}`,
-      icon: MessageCircle,
-      href: `https://wa.me/${whatsappDigits}`,
     }] : []),
     {
       label: getSiteText(content, "store_info_hours_label", "ساعات العمل"),
@@ -114,129 +108,77 @@ const StoreInfoPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FFFDFC] text-[#302725]" dir="rtl">
+    <div className="min-h-screen bg-[#FAF6F0] text-[#30241E]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main id="main-content" className="pb-20 md:pt-24">
+      <main id="main-content">
         <StoreStory content={content} />
 
-        <section id="contact" className="mx-auto w-full max-w-[1200px] scroll-mt-24 px-3 pt-8 md:px-6 md:pt-12">
-          <div className="mb-4 flex items-end justify-between md:mb-6">
+        <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-10 sm:py-16 lg:px-14">
+          <section id="contact" className="scroll-mt-32 border-b border-[#D5C4B6] pb-9 lg:grid lg:grid-cols-[1fr_1.4fr] lg:items-start lg:gap-12">
             <div>
-              <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">CONTACT</span>
-              <h2 className="mt-1 text-[17px] font-semibold text-[#173A2D] md:text-[22px]">معلومات المتجر</h2>
-            </div>
-            <span className="hidden text-[7px] text-[#A49792] sm:block">نحن هنا لمساعدتك</span>
-          </div>
-
-          <div className="overflow-hidden rounded-[17px] border border-[#EAE0DC] bg-white">
-            {facts.map((fact, index) => {
-              const row = (
-                <div className="flex min-h-[62px] items-center gap-3 px-3.5 py-3 md:min-h-[70px] md:px-5">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F8F3F1]">
-                    <fact.icon className="h-4 w-4 stroke-[1.4] text-[#9D7B40]" />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <span className="block text-[7px] text-[#A49792] md:text-[8px]">{fact.label}</span>
-                    <span className="mt-1 block truncate text-[9px] font-medium text-[#51433F] md:text-[11px]">{fact.value}</span>
-                  </div>
-                  {fact.href && <ChevronIndicator />}
-                </div>
-              );
-
-              return (
-                <div key={fact.label} className={index !== facts.length - 1 ? "border-b border-[#F0E8E5]" : ""}>
-                  {fact.href ? <a href={fact.href} className="block transition-colors active:bg-[#F6F3EA]">{row}</a> : row}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="mx-auto grid w-full max-w-[1200px] grid-cols-1 gap-3 px-3 pt-8 md:grid-cols-2 md:px-6 md:pt-12">
-          <article id="shipping" className="scroll-mt-24 rounded-[17px] border border-[#EAE0DC] bg-white p-4 md:p-6">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAE5D7]">
-              <Truck className="h-4 w-4 stroke-[1.4] text-[#9D7B40]" />
-            </span>
-            <span className="mt-4 block font-serif text-[6px] tracking-[0.2em] text-[#9D7B40]">SHIPPING</span>
-            <h2 className="mt-1.5 text-[15px] font-semibold text-[#493B38] md:text-[18px]">{getSiteText(content, "store_info_shipping_details_title", "الشحن والتوصيل")}</h2>
-            <p className="mt-2 text-[8px] leading-6 text-[#94857F] md:text-[10px]">{getSiteText(content, "store_info_shipping_details_desc", "اختر شركة التوصيل أثناء إتمام الطلب. تظهر الرسوم والمعلومات المتاحة عن التوصيل قبل تأكيد الطلب، وبعد الإنشاء يمكنك متابعة حالة الطلب من صفحة التتبع.")}</p>
-            <Link to="/shipping-policy" className="mt-4 inline-flex items-center gap-1.5 text-[8px] font-semibold text-[#9D7B40]">
-              اقرأ سياسة الشحن
-              <ArrowLeft className="h-3 w-3" strokeWidth={1.5} />
-            </Link>
-          </article>
-
-          <article id="returns" className="scroll-mt-24 rounded-[17px] border border-[#EAE0DC] bg-white p-4 md:p-6">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#F4F7F1]">
-              <Shield className="h-4 w-4 stroke-[1.4] text-[#6E876E]" />
-            </span>
-            <span className="mt-4 block font-serif text-[6px] tracking-[0.2em] text-[#6E876E]">RETURNS</span>
-            <h2 className="mt-1.5 text-[15px] font-semibold text-[#493B38] md:text-[18px]">{getSiteText(content, "store_info_returns_title", "الإرجاع والاستبدال")}</h2>
-            <p className="mt-2 text-[8px] leading-6 text-[#94857F] md:text-[10px]">{getSiteText(content, "store_info_returns_desc", "إذا احتجت إرجاعاً أو استبدالاً، تواصل مع خدمة العملاء وشارك رقم الطلب وتفاصيل المنتج. يتم التحقق من الطلب وحالة المنتج قبل تنفيذ الإجراء المناسب.")}</p>
-            {whatsappDigits ? (
-              <a href={`https://wa.me/${whatsappDigits}`} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1.5 text-[8px] font-semibold text-[#9D7B40]">
-                تواصل عبر واتساب
-                <ArrowLeft className="h-3 w-3" strokeWidth={1.5} />
-              </a>
-            ) : (
-              <Link to="/store-info#contact" className="mt-4 inline-flex items-center gap-1.5 text-[8px] font-semibold text-[#9D7B40]">تواصل معنا<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
-            )}
-            <Link to="/returns-policy" className="mr-4 mt-4 inline-flex items-center gap-1.5 text-[8px] font-semibold text-[#6E876E]">شروط الإرجاع<ArrowLeft className="h-3 w-3" strokeWidth={1.5} /></Link>
-          </article>
-        </section>
-
-        <section id="faq" className="mx-auto w-full max-w-[1200px] scroll-mt-24 px-3 pt-8 md:px-6 md:pt-12">
-          <div className="mb-4 md:mb-6">
-            <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">FAQ</span>
-            <h2 className="mt-1 text-[17px] font-semibold text-[#173A2D] md:text-[22px]">الأسئلة الشائعة</h2>
-          </div>
-          <div className="overflow-hidden rounded-[17px] border border-[#EAE0DC] bg-white">
-            {faq.map((item, index) => (
-              <details key={item.q} className={index !== faq.length - 1 ? "border-b border-[#F0E8E5]" : ""}>
-                <summary className="cursor-pointer list-none px-4 py-4 text-[9px] font-semibold text-[#51433F] md:px-5 md:text-[11px]">{item.q}</summary>
-                <p className="px-4 pb-4 text-[8px] leading-6 text-[#94857F] md:px-5 md:text-[10px]">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-[1200px] px-3 py-8 md:px-6 md:py-12">
-          <div className="rounded-[20px] border border-[#E8D8D3] bg-white px-5 py-7 text-center md:px-8 md:py-10">
-            <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#EAE5D7]">
-              <MessageCircle className="h-4 w-4 stroke-[1.5] text-[#9D7B40]" />
-            </div>
-            <span className="mt-4 block font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">PERSONAL SERVICE</span>
-            <h2 className="mt-2 text-[18px] font-semibold tracking-[-0.025em] text-[#20392E] md:text-[25px]">{getSiteText(content, "store_info_cta_title", "هل تحتاجين مساعدة في الاختيار؟")}</h2>
-            <p className="mx-auto mt-2 max-w-[480px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">{getSiteText(content, "store_info_cta_description", "نساعدكِ في معرفة تفاصيل القطعة والمقاسات المتوفرة وخيارات التوصيل قبل الطلب.")}</p>
-
-            <div className="mx-auto mt-5 flex max-w-[430px] flex-col gap-2 sm:flex-row sm:justify-center">
+              <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">معلومات المتجر</h2>
+              <p className="mt-3 max-w-[27rem] text-sm leading-7 text-[#655247] sm:text-base">
+                {getSiteText(content, "store_info_cta_description", "نساعدكِ في معرفة تفاصيل القطعة والمقاسات المتوفرة وخيارات التوصيل قبل الطلب.")}
+              </p>
               {whatsappDigits && (
-                <a href={`https://wa.me/${whatsappDigits}`} target="_blank" rel="noopener noreferrer" className="flex h-[44px] flex-1 items-center justify-center gap-2 rounded-[13px] bg-[#173A2D] px-5 text-[9px] font-semibold text-white active:bg-[#214C3B]">
-                  <MessageCircle className="h-3.5 w-3.5 stroke-[1.6]" />
-                  {getSiteText(content, "store_info_cta_whatsapp", "تواصل عبر واتساب")}
+                <a href={`https://wa.me/${whatsappDigits}`} className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-[#AB907C] px-4 text-sm font-semibold hover:bg-[#EFE4D8]">
+                  <MessageCircle size={17} aria-hidden="true" />
+                  {getSiteText(content, "store_info_cta_whatsapp", "تواصلي عبر واتساب")}
                 </a>
               )}
-
-              <Link to="/products" className="flex h-[44px] flex-1 items-center justify-center gap-2 rounded-[13px] border border-[#DDD1CC] bg-white px-5 text-[9px] font-semibold text-[#655651] active:bg-[#F6F3EA]">
-                {getSiteText(content, "store_info_cta_products", "تصفّحي التشكيلة")}
-                <ArrowLeft className="h-3.5 w-3.5 stroke-[1.5]" />
-              </Link>
             </div>
+            <dl className="mt-7 grid grid-cols-2 gap-5 lg:mt-0">
+              {facts.filter(({ value }) => value).map(({ label, value, icon: Icon, href }) => (
+                <div key={label} className="min-w-0 border-t border-[#D5C4B6] pt-3 lg:pt-4">
+                  <dt className="flex items-center gap-2 text-sm text-[#745E51]">
+                    <Icon size={16} aria-hidden="true" className="shrink-0 text-[#8E6246]" /> {label}
+                  </dt>
+                  <dd className="mt-2 break-words text-sm font-semibold leading-6">
+                    {href ? <a href={href} className="underline decoration-[#BCA28F] underline-offset-4"><bdi>{value}</bdi></a> : value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <div className="grid gap-6 border-b border-[#D5C4B6] py-7 sm:grid-cols-2 sm:gap-10 sm:py-9">
+            <section id="shipping" className="scroll-mt-32">
+              <h2 className="flex items-center gap-2.5 text-xl font-semibold"><Truck size={20} aria-hidden="true" className="text-[#8E6246]" /> {getSiteText(content, "store_info_shipping_details_title", "الشحن والتوصيل")}</h2>
+              <p className="mt-3 text-sm leading-7 text-[#655247]">{getSiteText(content, "store_info_shipping_details_desc", "اختاري شركة التوصيل أثناء إتمام الطلب. تظهر الرسوم والمعلومات المتاحة عن التوصيل قبل تأكيد الطلب.")}</p>
+              <Link to="/shipping-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#BCA28F] underline-offset-4">
+                سياسة الشحن <ArrowLeft size={14} aria-hidden="true" />
+              </Link>
+            </section>
+            <section id="returns" className="scroll-mt-32">
+              <h2 className="flex items-center gap-2.5 text-xl font-semibold"><Shield size={20} aria-hidden="true" className="text-[#8E6246]" /> {getSiteText(content, "store_info_returns_title", "الإرجاع والاستبدال")}</h2>
+              <p className="mt-3 text-sm leading-7 text-[#655247]">{getSiteText(content, "store_info_returns_desc", "إذا احتجتِ إلى إرجاع أو استبدال، تواصلي مع خدمة العملاء وشاركي رقم الطلب وتفاصيل المنتج.")}</p>
+              <Link to="/returns-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#BCA28F] underline-offset-4">
+                شروط الإرجاع <ArrowLeft size={14} aria-hidden="true" />
+              </Link>
+            </section>
           </div>
-        </section>
+
+          <section id="faq" className="mt-8 scroll-mt-32 lg:grid lg:grid-cols-[1fr_1.4fr] lg:gap-12">
+            <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">الأسئلة الشائعة</h2>
+            <div className="divide-y divide-[#D5C4B6] border-y border-[#D5C4B6]">
+              {faq.map(({ q, a }) => (
+                <details key={q} className="group">
+                  <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold sm:text-base">
+                    {q} <ChevronDown size={16} aria-hidden="true" className="shrink-0 group-open:rotate-180" />
+                  </summary>
+                  <p className="pb-4 text-sm leading-7 text-[#655247]">{a}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
 
       <Footer />
     </div>
   );
 };
-
-const ChevronIndicator = () => (
-  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#DED8C9] text-[#9D7B40]">
-    <ArrowLeft className="h-3 w-3 stroke-[1.5]" />
-  </span>
-);
 
 export default StoreInfoPage;

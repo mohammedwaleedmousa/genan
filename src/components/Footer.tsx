@@ -1,154 +1,55 @@
 import { Link } from "react-router-dom";
-import { ArrowUp, ArrowUpLeft, Headphones } from "lucide-react";
+import { ArrowUp, ArrowUpLeft } from "lucide-react";
 
-type FooterLink = { label: string; href: string };
-type FooterColumn = { title: string; links: FooterLink[] };
-
-const customerService: FooterColumn = {
-  title: "خدمة العملاء",
-  links: [
-    { label: "تتبع الطلب", href: "/order-tracking" },
-    { label: "تواصل معنا", href: "/store-info#contact" },
-    { label: "الشحن والتوصيل", href: "/shipping-policy" },
-    { label: "الاستبدال والاسترجاع", href: "/returns-policy" },
-    { label: "الأسئلة الشائعة", href: "/store-info#faq" },
-  ],
-};
-
-const aboutGenan: FooterColumn = {
-  title: "جنان",
-  links: [
-    { label: "عن جنان", href: "/store-info#about" },
-    { label: "الماركات", href: "/brands" },
-    { label: "سياسة الخصوصية", href: "/privacy-policy" },
-    { label: "السياسات والشروط والأحكام", href: "/terms" },
-    { label: "باركود المتجر", href: "/qr-code" },
-  ],
-};
-
-const discover: FooterColumn = {
-  title: "اكتشفي",
-  links: [
-    { label: "جميع المنتجات", href: "/products" },
-    { label: "الأقسام", href: "/categories" },
-    { label: "وصل حديثاً", href: "/new-arrivals" },
-    { label: "العروض", href: "/seasonal-offers" },
-  ],
-};
-
-const FooterLinkColumn = ({ title, links }: FooterColumn) => (
-  <nav aria-label={title} className="min-w-0">
-    <h3 className="mb-8 flex items-center gap-3 text-[16px] font-bold leading-7 text-[#0E0E0E] sm:text-[17px]">
-      <span aria-hidden="true" className="h-[19px] w-[3px] shrink-0 rounded-full bg-[#C6A86E]" />
-      {title}
-    </h3>
-    <ul className="space-y-7">
-      {links.map(({ label, href }) => (
-        <li key={href}>
-          <Link
-            to={href}
-            className="inline-block text-[14px] leading-7 text-[#6D6D6D] transition-colors hover:text-[#8C6B32] focus-visible:rounded-sm sm:text-[15px]"
-          >
-            {label}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </nav>
-);
+const footerLinks = [
+  { label: "عن جنان", href: "/store-info#about" },
+  { label: "تتبع الطلب", href: "/order-tracking" },
+  { label: "تواصل معنا", href: "/store-info#contact" },
+  { label: "السياسات والشروط", href: "/terms" },
+  { label: "سياسة الخصوصية", href: "/privacy-policy" },
+];
 
 const Footer = () => (
-  <footer dir="rtl" aria-label="تذييل متجر جنان" className="w-full bg-white text-[#0E0E0E]">
-    <div aria-hidden="true" className="h-[3px] w-full bg-[linear-gradient(90deg,#A9D8D3_0%,#D8C29A_64%,#0E0E0E_100%)]" />
-    {/* Wordmark, boutique description and contact card mirror the second photo. */}
-    <section aria-label="عن جنان" className="mx-auto w-full max-w-[1080px] px-5 pb-12 pt-11 sm:px-8 sm:pb-14 sm:pt-16">
-      <div className="flex items-baseline justify-end gap-3" dir="ltr">
-        <span dir="rtl" className="text-[12px] leading-none text-[#8A8A8A] sm:text-sm">جنان</span>
-        <span className="font-serif text-[46px] font-medium leading-none tracking-[0.10em] text-[#0E0E0E] sm:text-[64px] md:text-[74px]">
-          GENAN
-        </span>
+  <footer dir="rtl" aria-label="تذييل متجر جنان" className="w-full bg-[#211915] text-[#F8ECDF]">
+    <div className="mx-auto max-w-[1360px] px-5 sm:px-10 lg:px-16">
+      <div className="flex flex-col gap-6 py-9 sm:py-11 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+        <div>
+          <p dir="ltr" className="w-fit font-serif text-4xl leading-none tracking-[0.15em] sm:text-[3.1rem]">GENAN</p>
+          <p className="mt-3 max-w-[25rem] text-sm leading-7 text-[#D8C4B4]">مختارات من الأزياء والحقائب والأحذية والإكسسوارات.</p>
+        </div>
+        <nav aria-label="روابط التذييل">
+          <ul className="flex flex-wrap gap-x-5 gap-y-1 sm:gap-x-7">
+            {footerLinks.map(({ label, href }) => (
+              <li key={href}>
+                <Link to={href} className="inline-flex min-h-11 items-center text-sm text-[#E8D5C6] underline-offset-4 hover:underline focus-visible:rounded-sm">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-      <div aria-hidden="true" className="mr-0 ml-auto mt-6 h-[2px] w-[49px] rounded-full bg-[#D8C29A] sm:w-[58px]" />
-      <p className="mt-7 text-right text-[14px] leading-[2.05] text-[#6D6D6D] sm:mt-9 sm:text-[16px]">
-        مختارات من ماركات عالمية تجمع الأحذية والملابس والحقائب والإكسسوارات في بوتيك جنان.
-      </p>
 
-      <div className="mt-8 rounded-[20px] border border-[#D1E7E4] bg-[#F7FBFA] px-4 pb-6 pt-5 sm:mt-10 sm:px-7 sm:pb-8 sm:pt-7">
-        <div className="flex items-start gap-3 sm:gap-5">
-          <span
-            aria-hidden="true"
-            className="flex h-[49px] w-[49px] shrink-0 items-center justify-center rounded-[14px] border border-[#CEE6E2] bg-[#E6F3F1] text-[#39726C] sm:h-[56px] sm:w-[56px]"
-          >
-            <Headphones className="h-[25px] w-[25px] sm:h-[28px] sm:w-[28px]" strokeWidth={1.65} />
-          </span>
-          <div className="min-w-0 flex-1 text-right">
-            <h3 className="text-[17px] font-bold leading-8 text-[#0E0E0E] sm:text-xl">نحن هنا لمساعدتك</h3>
-            <p className="mt-1 text-[13px] leading-7 text-[#727272] sm:text-[15px]">
-              لديك استفسار عن منتج أو طلب؟ تواصلي معنا.
-            </p>
-            <Link
-              to="/store-info#contact"
-              className="mt-6 inline-flex min-h-[32px] items-center gap-3 border-b-[2px] border-[#D8C29A] pb-1 text-[15px] font-bold leading-7 text-[#0E0E0E] transition-colors hover:text-[#8C6B32] sm:text-[17px]"
-            >
-              تواصلي مع جنان
-              <ArrowUpLeft aria-hidden="true" className="h-[17px] w-[17px]" strokeWidth={1.7} />
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* On mobile: service and Genan side by side; Discover below service on the right. */}
-    <section aria-label="روابط المتجر" className="mx-auto w-full max-w-[1080px] px-5 pb-24 sm:px-8 sm:pb-28">
-      <div className="mb-9 h-px w-full bg-[#E8E6E3]" aria-hidden="true" />
-      <div className="grid grid-cols-2 gap-x-5 gap-y-16 sm:gap-x-14 md:grid-cols-3 md:gap-x-20">
-        <div className="col-start-1 row-start-1">
-          <FooterLinkColumn {...customerService} />
-        </div>
-        <div className="col-start-2 row-start-1">
-          <FooterLinkColumn {...aboutGenan} />
-        </div>
-        <div className="col-start-1 row-start-2 md:col-start-3 md:row-start-1">
-          <FooterLinkColumn {...discover} />
-        </div>
-      </div>
-    </section>
-
-    {/* Copyright, company credit and return-to-top control. */}
-    <div className="w-full bg-[#0E0E0E] px-4 pb-5 pt-6 text-center text-white sm:py-8">
-      <p className="text-[12px] leading-7 text-[#F1F1F1] sm:text-[13px]">
-        <span className="text-[#D8C29A]">© GENAN 2026</span>
-        <span> — جميع الحقوق محفوظة.</span>
-      </p>
-      <div className="mt-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-2 border-t border-[#E8D5C6]/25 pb-5 pt-4 text-[#D8C4B4] sm:py-6">
+        <p className="text-xs leading-6">
+          <bdi dir="ltr">© GENAN 2026</bdi> <span className="ms-1">جميع الحقوق محفوظة.</span>
+        </p>
         <a
           href="https://linetech.company/"
-          className="inline-flex min-h-[48px] max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-xl border border-[#3A3630] bg-[#171615] px-3 py-2 text-[#CEC7BC] transition-colors hover:border-[#D8C29A] hover:bg-[#211E19] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D8C29A] sm:px-4"
+          className="inline-flex min-h-11 flex-wrap items-center gap-x-2.5 gap-y-1 text-xs transition-colors hover:text-white focus-visible:rounded-sm"
         >
-          <span className="text-[12px] leading-5">طُوّر بواسطة شركة</span>
-          <span className="inline-flex shrink-0 items-center gap-2">
-            <img
-              src="/brand/linetech-logo.svg"
-              alt="LINETECH"
-              width={116}
-              height={24}
-              loading="lazy"
-              decoding="async"
-              className="h-5 w-auto sm:h-6"
-            />
-            <ArrowUpLeft aria-hidden="true" className="h-3.5 w-3.5 text-[#D8C29A]" strokeWidth={1.7} />
-          </span>
+          <span>طُوّر بواسطة شركة</span>
+          <img src="/brand/linetech-logo.svg" alt="LINETECH" width={104} height={22} loading="lazy" decoding="async" className="h-5 w-auto" />
+          <ArrowUpLeft aria-hidden="true" size={14} className="text-[#D7B68F]" />
         </a>
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}
+          className="inline-flex min-h-11 items-center gap-2 text-xs transition-colors hover:text-white"
+        >
+          العودة للأعلى <ArrowUp aria-hidden="true" size={15} />
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="mt-4 inline-flex min-h-[43px] items-center justify-center gap-4 rounded-[14px] border border-[#55524C] bg-[#1C1C1C] px-5 text-[13px] font-medium text-white transition-colors hover:border-[#D8C29A] hover:bg-[#272727]"
-        aria-label="العودة للأعلى"
-      >
-        <span>العودة للأعلى</span>
-        <ArrowUp aria-hidden="true" className="h-4 w-4" strokeWidth={1.65} />
-      </button>
     </div>
   </footer>
 );
