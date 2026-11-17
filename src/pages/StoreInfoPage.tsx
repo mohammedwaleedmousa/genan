@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { ArrowLeft, Clock, Mail, MapPin, MessageCircle, Phone, Shield, Sparkles, Truck } from "lucide-react";
+import { ArrowLeft, Clock, Mail, MapPin, MessageCircle, Phone, Shield, Truck } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import StoreStory from "@/components/StoreStory";
 
 import { supabase } from "@/integrations/supabase/client";
 import { getSiteText, useSiteContent } from "@/hooks/useSiteContent";
@@ -65,27 +66,6 @@ const StoreInfoPage = () => {
   const showEmail = Boolean(email && !placeholderEmails.has(email.toLowerCase()));
   const whatsappDigits = String(whatsappNumber || phone).replace(/\D/g, "");
 
-  const pillars = [
-    {
-      icon: Sparkles,
-      number: "01",
-      title: getSiteText(content, "store_info_pillar_1_title", "ماركات عالمية، بذوق جنان"),
-      desc: getSiteText(content, "store_info_pillar_1_desc", "ننتقي من الماركات العالمية قطعًا يسهل تنسيقها وتضفي على كل إطلالة طابعها الخاص."),
-    },
-    {
-      icon: Shield,
-      number: "02",
-      title: getSiteText(content, "store_info_pillar_2_title", "تفاصيل واضحة لكل قطعة"),
-      desc: getSiteText(content, "store_info_pillar_2_desc", "نحرص على توضيح تفاصيل القطعة بالصور والوصف لتختاريها بثقة."),
-    },
-    {
-      icon: Truck,
-      number: "03",
-      title: getSiteText(content, "store_info_pillar_3_title", "توصيل داخل اليمن"),
-      desc: getSiteText(content, "store_info_pillar_3_desc", "تتحدد خيارات التوصيل بحسب منطقة الاستلام ونطاق تغطية شركات التوصيل."),
-    },
-  ];
-
   const facts = [
     {
       label: getSiteText(content, "store_info_phone_label", "الهاتف"),
@@ -138,48 +118,8 @@ const StoreInfoPage = () => {
       <Navbar />
       <CartDrawer />
 
-      <main className="pb-20 md:pt-24">
-        <section id="about" className="scroll-mt-24 border-b border-[#F0E6E2] bg-[#F6F3EA]">
-          <div className="mx-auto w-full max-w-[1200px] px-4 pb-7 pt-6 md:px-6 md:pb-12 md:pt-10">
-            <div className="max-w-[720px]">
-              <div className="mb-3 flex items-center gap-2">
-                <span className="h-[2px] w-5 rounded-full bg-[#173A2D]" />
-                <span className="font-serif text-[7px] tracking-[0.27em] text-[#9D7B40] md:text-[8px]">JINAN BOUTIQUE</span>
-              </div>
-
-              <h1 className="max-w-[580px] whitespace-pre-line text-[29px] font-semibold leading-[1.28] tracking-[-0.045em] text-[#403130] md:text-[48px] md:leading-[1.2]">{getSiteText(content, "store_info_hero_title", "اختيارات من عالم الموضة")}</h1>
-
-              <p className="mt-4 max-w-[540px] text-[9px] leading-6 text-[#788178] md:mt-5 md:text-[12px] md:leading-7">{getSiteText(content, "store_info_hero_description", "نجمع في بوتيك جنان مختارات من الأحذية والملابس والحقائب والإكسسوارات من ماركات عالمية. ننتقي قطعًا تنسجم مع أسلوبكِ، من إطلالاتكِ اليومية إلى مناسباتكِ الخاصة.")}</p>
-
-              <div className="mt-5 flex items-center gap-2 md:mt-7">
-                <span className="h-px w-8 bg-[#DCD5C6]" />
-                <span className="text-[6px] tracking-[0.16em] text-[#778179]">CURATED WITH CARE</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-[1200px] px-3 pt-6 md:px-6 md:pt-10">
-          <div className="mb-4 md:mb-6">
-            <span className="font-serif text-[6px] tracking-[0.22em] text-[#9D7B40]">OUR STANDARD</span>
-            <h2 className="mt-1 text-[17px] font-semibold text-[#173A2D] md:text-[22px]">ما الذي يميز جنان؟</h2>
-          </div>
-
-          <div className="overflow-hidden rounded-[17px] border border-[#EAE0DC] bg-white md:grid md:grid-cols-3">
-            {pillars.map((pillar, index) => (
-              <div key={pillar.title} className={`relative px-4 py-5 md:px-6 md:py-7 ${index !== pillars.length - 1 ? "border-b border-[#F0E8E5] md:border-b-0 md:border-l" : ""}`}>
-                <div className="flex items-start justify-between">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EAE5D7]">
-                    <pillar.icon className="h-4 w-4 stroke-[1.4] text-[#9D7B40]" />
-                  </span>
-                  <span className="font-serif text-[7px] tracking-[0.12em] text-[#B9B2A4]">{pillar.number}</span>
-                </div>
-                <h3 className="mt-4 text-[13px] font-semibold text-[#493B38] md:text-[15px]">{pillar.title}</h3>
-                <p className="mt-1.5 max-w-[310px] text-[8px] leading-5 text-[#94857F] md:text-[9px] md:leading-6">{pillar.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+      <main id="main-content" className="pb-20 md:pt-24">
+        <StoreStory content={content} />
 
         <section id="contact" className="mx-auto w-full max-w-[1200px] scroll-mt-24 px-3 pt-8 md:px-6 md:pt-12">
           <div className="mb-4 flex items-end justify-between md:mb-6">
@@ -259,21 +199,6 @@ const StoreInfoPage = () => {
                 <p className="px-4 pb-4 text-[8px] leading-6 text-[#94857F] md:px-5 md:text-[10px]">{item.a}</p>
               </details>
             ))}
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-[1200px] px-3 pt-8 md:px-6 md:pt-12">
-          <div className="border-y border-[#DDD4C3] bg-[#F3F0E6] px-4 py-6 md:px-8 md:py-8">
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
-                <Shield className="h-4 w-4 stroke-[1.4] text-[#9D7B40]" />
-              </span>
-              <div>
-                <span className="font-serif text-[6px] tracking-[0.2em] text-[#9D7B40]">GENAN PROMISE</span>
-                <h3 className="mt-1.5 text-[14px] font-semibold text-[#20392E] md:text-[17px]">تفاصيل واضحة من الاختيار إلى الاستلام</h3>
-                <p className="mt-1.5 max-w-[650px] text-[8px] leading-5 text-[#858E86] md:text-[10px] md:leading-6">نوضّح تفاصيل القطعة وخيارات الطلب قبل الشراء، ونبقى على تواصل معكِ إذا احتجتِ إلى المساعدة بعده.</p>
-              </div>
-            </div>
           </div>
         </section>
 
