@@ -63,13 +63,13 @@
   }
 
   /* ===== TYPOGRAPHY ===== */
-  body[data-storefront="genan"] main h1 {
+  body[data-storefront="genan"] main h1:not(:where(.store-story h1)) {
     font-size: clamp(30px, 2.35vw, 44px) !important;
     line-height: 1.35 !important;
     letter-spacing: -0.025em;
   }
 
-  body[data-storefront="genan"] main h2 {
+  body[data-storefront="genan"] main h2:not(:where(.store-story h2)) {
     line-height: 1.45 !important;
   }
 

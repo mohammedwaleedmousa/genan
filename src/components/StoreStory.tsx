@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,97 +6,68 @@ import { Link } from "react-router-dom";
 import { getSiteText } from "@/hooks/useSiteContent";
 import "./StoreStory.css";
 
-const StoreStory = ({ content }: { content?: Record<string, string> }) => {
-  const opening = useRef<HTMLElement>(null);
-  const sequence = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress: openingProgress } = useScroll({ target: opening, offset: ["start start", "end start"] });
-  const { scrollYProgress: sceneProgress } = useScroll({ target: sequence, offset: ["start start", "end end"] });
+type StoryFrameProps = {
+  id?: string;
+  photo: "opening" | "selection" | "details";
+  alt: string;
+  children: ReactNode;
+};
 
-  const openingScale = useTransform(openingProgress, [0, 1], [1, 1.16]);
-  const openingText = useTransform(openingProgress, [0.1, 0.84], [1, 0]);
-  const openingLift = useTransform(openingProgress, [0.1, 0.9], [0, 66]);
-  const selectionOpacity = useTransform(sceneProgress, [0.35, 0.53], [1, 0]);
-  const selectionScale = useTransform(sceneProgress, [0, 0.56], [1, 1.19]);
-  const selectionLift = useTransform(sceneProgress, [0.31, 0.55], [0, -42]);
-  const detailOpacity = useTransform(sceneProgress, [0.42, 0.61], [0, 1]);
-  const detailScale = useTransform(sceneProgress, [0.42, 1], [1.23, 1]);
-  const detailLift = useTransform(sceneProgress, [0.44, 0.68], [48, 0]);
-  const detailWipe = useTransform(sceneProgress, [0.38, 0.63], ["inset(0 0 100% 0)", "inset(0 0 0% 0)"]);
+const StoryFrame = ({ id, photo, alt, children }: StoryFrameProps) => {
+  const section = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+  const isOpening = photo === "opening";
+  const { scrollYProgress } = useScroll({ target: section, offset: ["start end", "end start"] });
+
+  // Keep the shot and its copy driven by the same frame progress in both scroll directions.
+  const photoY = useTransform(() => `${(scrollYProgress.get() - 0.5) * (isOpening ? 7 : 13)}%`);
+  const photoScale = useTransform(() => (isOpening ? 1.075 : 1.135) + scrollYProgress.get() * 0.105);
+  const copyY = useTransform(() => isOpening ? 0 : Math.max(0, 1 - scrollYProgress.get() / 0.42) * 46);
+  const copyOpacity = useTransform(() => isOpening ? 1 : Math.min(1, 0.5 + scrollYProgress.get() / 0.72));
+  const edge = useTransform(() => `inset(${Math.max(0, 1 - scrollYProgress.get() / 0.42) * 12}% 0 0)`);
+  const asset = `/story/${photo}`;
 
   return (
-    <article className="store-story" aria-labelledby="genan-story-title">
-      <section ref={opening} id="about" className="store-story__opening">
-        <motion.div className="store-story__opening-shot" style={reduceMotion ? undefined : { scale: openingScale }}>
-          <picture>
-            <source media="(max-width: 639px)" srcSet="/story/cinema-opening-mobile.webp" />
-            <img src="/story/cinema-opening.webp" alt="حقيبة جلدية على حجر داكن تحت ضوء دافئ" width={1440} height={960} decoding="async" />
-          </picture>
-        </motion.div>
-        <div className="store-story__opening-shade" aria-hidden="true" />
-        <div className="store-story__frame" aria-hidden="true" />
-        <motion.div className="store-story__intro" style={reduceMotion ? undefined : { opacity: openingText, y: openingLift }}>
-          <p className="store-story__eyebrow">حكاية بوتيك جنان</p>
-          <h1 id="genan-story-title">لكل إطلالة<br /><em>حكايتها.</em></h1>
-          <p>تبدأ بقطعة تلفت نظركِ، وتكتمل بالطريقة التي تختارين ارتداءها بها.</p>
-          <a className="store-story__start" href="#our-selection">
-            تابعي الحكاية <ArrowDown aria-hidden="true" size={16} />
-          </a>
-        </motion.div>
-      </section>
-
-      <section ref={sequence} id="our-selection" className="store-story__sequence" aria-label="من اختيار القطعة إلى اكتمال الإطلالة">
-        <div className="store-story__stage">
-          <section className="store-story__scene store-story__scene--selection">
-            <div className="store-story__scene-image">
-              <motion.img
-                src="/story/selection-960.webp"
-                srcSet="/story/selection-480.webp 480w, /story/selection-960.webp 960w"
-                sizes="(min-width: 760px) 60vw, 100vw"
-                width={960} height={720} loading="lazy" decoding="async"
-                alt="تشكيلة أزياء بدرجات حيادية على رف"
-                style={reduceMotion ? undefined : { scale: selectionScale }}
-              />
-            </div>
-            <motion.div className="store-story__scene-copy" style={reduceMotion ? undefined : { opacity: selectionOpacity, y: selectionLift }}>
-              <h2>{getSiteText(content, "store_info_hero_title", "اختيارات من عالم الموضة")}</h2>
-              <p>{getSiteText(content, "store_info_hero_description", "نجمع في بوتيك جنان مختارات من الأحذية والملابس والحقائب والإكسسوارات من ماركات عالمية. ننتقي قطعًا تنسجم مع أسلوبكِ، من إطلالاتكِ اليومية إلى مناسباتكِ الخاصة.")}</p>
-            </motion.div>
-          </section>
-
-          <motion.section className="store-story__scene store-story__scene--details" style={reduceMotion ? undefined : { clipPath: detailWipe }}>
-            <div className="store-story__scene-image">
-              <motion.img
-                src="/story/details-960.webp"
-                srcSet="/story/details-480.webp 480w, /story/details-960.webp 960w"
-                sizes="(min-width: 760px) 60vw, 100vw"
-                width={960} height={720} loading="lazy" decoding="async"
-                alt="تفاصيل حقيبة داكنة بإكسسوارات معدنية"
-                style={reduceMotion ? undefined : { scale: detailScale }}
-              />
-            </div>
-            <motion.div className="store-story__scene-copy" style={reduceMotion ? undefined : { opacity: detailOpacity, y: detailLift }}>
-              <h2>التفاصيل التي تكمل الإطلالة.</h2>
-              <p>{getSiteText(content, "store_info_pillar_2_desc", "من شكل الحقيبة إلى ملمس القماش، نوضّح تفاصيل القطعة بالصور والوصف لتختاريها بثقة.")}</p>
-            </motion.div>
-          </motion.section>
-          <div className="store-story__progress" aria-hidden="true">
-            <motion.span style={reduceMotion ? undefined : { scaleX: sceneProgress }} />
-          </div>
-        </div>
-      </section>
-
-      <section className="store-story__close">
-        <div>
-          <h2>اختاري ما يشبهكِ.</h2>
-          <p>من القطع اليومية إلى ما تحتفظين به لمناسبة خاصة.</p>
-        </div>
-        <Link to="/products" className="store-story__shop">
-          تصفّحي التشكيلة <ArrowLeft aria-hidden="true" size={17} />
-        </Link>
-      </section>
-    </article>
+    <section ref={section} id={id} className={`store-story__frame store-story__frame--${photo}`}>
+      <motion.div className="store-story__copy" style={reducedMotion ? undefined : { y: copyY, opacity: copyOpacity }}>
+        {children}
+      </motion.div>
+      <motion.figure className="store-story__photo" style={reducedMotion || isOpening ? undefined : { clipPath: edge }}>
+        <motion.img
+          src={`${asset}-960.webp`}
+          srcSet={`${asset}-480.webp 480w, ${asset}-960.webp 960w`}
+          sizes="(min-width: 1280px) 680px, (min-width: 768px) 55vw, 94vw"
+          width={960} height={isOpening ? 960 : 720}
+          loading={isOpening ? "eager" : "lazy"} decoding="async" alt={alt}
+          style={reducedMotion ? undefined : { y: photoY, scale: photoScale }}
+        />
+      </motion.figure>
+    </section>
   );
 };
+
+const StoreStory = ({ content }: { content?: Record<string, string> }) => (
+  <section className="store-story" aria-labelledby="genan-story-title">
+    <div className="store-story__cover">
+      <StoryFrame id="about" photo="opening" alt="إطلالة بألوان حيادية مع حقيبة">
+        <p className="store-story__label">عن جنان</p>
+        <h1 id="genan-story-title">لكل إطلالة<br /><em>حكايتها.</em></h1>
+        <p>تبدأ بقطعة تلفت نظركِ، وتكتمل بالطريقة التي تختارين ارتداءها بها.</p>
+        <a className="store-story__button" href="#our-selection">تابعي الحكاية <ArrowDown size={15} aria-hidden="true" /></a>
+      </StoryFrame>
+    </div>
+
+    <StoryFrame id="our-selection" photo="selection" alt="تشكيلة أزياء بدرجات حيادية على رف">
+      <h2>{getSiteText(content, "store_info_hero_title", "اختيارات من عالم الموضة")}</h2>
+      <p>{getSiteText(content, "store_info_hero_description", "نجمع في بوتيك جنان مختارات من الأحذية والملابس والحقائب والإكسسوارات من ماركات عالمية. ننتقي قطعًا تنسجم مع أسلوبكِ، من إطلالاتكِ اليومية إلى مناسباتكِ الخاصة.")}</p>
+    </StoryFrame>
+
+    <StoryFrame photo="details" alt="حقيبة داكنة بتفاصيل معدنية على قماش فاتح">
+      <h2>التفاصيل التي تكمل الإطلالة.</h2>
+      <p>{getSiteText(content, "store_info_pillar_2_desc", "نحرص على توضيح تفاصيل القطعة بالصور والوصف لتختاريها بثقة.")}</p>
+      <Link to="/products" className="store-story__button">تصفّحي التشكيلة <ArrowLeft size={16} aria-hidden="true" /></Link>
+    </StoryFrame>
+  </section>
+);
 
 export default StoreStory;

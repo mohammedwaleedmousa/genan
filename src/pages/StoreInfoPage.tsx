@@ -108,22 +108,22 @@ const StoreInfoPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF6F0] text-[#30241E]" dir="rtl">
+    <div className="min-h-screen bg-white text-[#0E0E0E]" dir="rtl">
       <Navbar />
       <CartDrawer />
 
-      <main id="main-content">
+      <main id="main-content" className="!pb-0">
         <StoreStory content={content} />
 
-        <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-10 sm:py-16 lg:px-14">
-          <section id="contact" className="scroll-mt-32 border-b border-[#D5C4B6] pb-9 lg:grid lg:grid-cols-[1fr_1.4fr] lg:items-start lg:gap-12">
+        <div className="mx-auto max-w-[1240px] px-5 py-10 sm:px-10 sm:py-12 lg:px-14">
+          <section id="contact" className="scroll-mt-32 border-b border-[#E8E6E3] pb-9 lg:grid lg:grid-cols-[1fr_1.4fr] lg:items-start lg:gap-12">
             <div>
               <h2 className="text-3xl font-semibold leading-tight sm:text-4xl">معلومات المتجر</h2>
-              <p className="mt-3 max-w-[27rem] text-sm leading-7 text-[#655247] sm:text-base">
+              <p className="mt-3 max-w-[27rem] text-sm leading-7 text-[#62605C] sm:text-base">
                 {getSiteText(content, "store_info_cta_description", "نساعدكِ في معرفة تفاصيل القطعة والمقاسات المتوفرة وخيارات التوصيل قبل الطلب.")}
               </p>
               {whatsappDigits && (
-                <a href={`https://wa.me/${whatsappDigits}`} className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-[#AB907C] px-4 text-sm font-semibold hover:bg-[#EFE4D8]">
+                <a href={`https://wa.me/${whatsappDigits}`} className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-[#D8C29A] px-4 text-sm font-semibold hover:bg-[#F6F3EA]">
                   <MessageCircle size={17} aria-hidden="true" />
                   {getSiteText(content, "store_info_cta_whatsapp", "تواصلي عبر واتساب")}
                 </a>
@@ -131,30 +131,30 @@ const StoreInfoPage = () => {
             </div>
             <dl className="mt-7 grid grid-cols-2 gap-5 lg:mt-0">
               {facts.filter(({ value }) => value).map(({ label, value, icon: Icon, href }) => (
-                <div key={label} className="min-w-0 border-t border-[#D5C4B6] pt-3 lg:pt-4">
-                  <dt className="flex items-center gap-2 text-sm text-[#745E51]">
-                    <Icon size={16} aria-hidden="true" className="shrink-0 text-[#8E6246]" /> {label}
+                <div key={label} className="min-w-0 border-t border-[#E8E6E3] pt-3 lg:pt-4">
+                  <dt className="flex items-center gap-2 text-sm text-[#6C6459]">
+                    <Icon size={16} aria-hidden="true" className="shrink-0 text-[#8C6B32]" /> {label}
                   </dt>
                   <dd className="mt-2 break-words text-sm font-semibold leading-6">
-                    {href ? <a href={href} className="underline decoration-[#BCA28F] underline-offset-4"><bdi>{value}</bdi></a> : value}
+                    {href ? <a href={href} className="underline decoration-[#D8C29A] underline-offset-4"><bdi>{value}</bdi></a> : value}
                   </dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          <div className="grid gap-6 border-b border-[#D5C4B6] py-7 sm:grid-cols-2 sm:gap-10 sm:py-9">
+          <div className="grid gap-6 border-b border-[#E8E6E3] py-7 sm:grid-cols-2 sm:gap-10 sm:py-9">
             <section id="shipping" className="scroll-mt-32">
-              <h2 className="flex items-center gap-2.5 text-xl font-semibold"><Truck size={20} aria-hidden="true" className="text-[#8E6246]" /> {getSiteText(content, "store_info_shipping_details_title", "الشحن والتوصيل")}</h2>
-              <p className="mt-3 text-sm leading-7 text-[#655247]">{getSiteText(content, "store_info_shipping_details_desc", "اختاري شركة التوصيل أثناء إتمام الطلب. تظهر الرسوم والمعلومات المتاحة عن التوصيل قبل تأكيد الطلب.")}</p>
-              <Link to="/shipping-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#BCA28F] underline-offset-4">
+              <h2 className="flex items-center gap-2.5 text-xl font-semibold"><Truck size={20} aria-hidden="true" className="text-[#8C6B32]" /> {getSiteText(content, "store_info_shipping_details_title", "الشحن والتوصيل")}</h2>
+              <p className="mt-3 text-sm leading-7 text-[#62605C]">{getSiteText(content, "store_info_shipping_details_desc", "اختاري شركة التوصيل أثناء إتمام الطلب. تظهر الرسوم والمعلومات المتاحة عن التوصيل قبل تأكيد الطلب.")}</p>
+              <Link to="/shipping-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#D8C29A] underline-offset-4">
                 سياسة الشحن <ArrowLeft size={14} aria-hidden="true" />
               </Link>
             </section>
             <section id="returns" className="scroll-mt-32">
-              <h2 className="flex items-center gap-2.5 text-xl font-semibold"><Shield size={20} aria-hidden="true" className="text-[#8E6246]" /> {getSiteText(content, "store_info_returns_title", "الإرجاع والاستبدال")}</h2>
-              <p className="mt-3 text-sm leading-7 text-[#655247]">{getSiteText(content, "store_info_returns_desc", "إذا احتجتِ إلى إرجاع أو استبدال، تواصلي مع خدمة العملاء وشاركي رقم الطلب وتفاصيل المنتج.")}</p>
-              <Link to="/returns-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#BCA28F] underline-offset-4">
+              <h2 className="flex items-center gap-2.5 text-xl font-semibold"><Shield size={20} aria-hidden="true" className="text-[#8C6B32]" /> {getSiteText(content, "store_info_returns_title", "الإرجاع والاستبدال")}</h2>
+              <p className="mt-3 text-sm leading-7 text-[#62605C]">{getSiteText(content, "store_info_returns_desc", "إذا احتجتِ إلى إرجاع أو استبدال، تواصلي مع خدمة العملاء وشاركي رقم الطلب وتفاصيل المنتج.")}</p>
+              <Link to="/returns-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#D8C29A] underline-offset-4">
                 شروط الإرجاع <ArrowLeft size={14} aria-hidden="true" />
               </Link>
             </section>
@@ -162,13 +162,13 @@ const StoreInfoPage = () => {
 
           <section id="faq" className="mt-8 scroll-mt-32 lg:grid lg:grid-cols-[1fr_1.4fr] lg:gap-12">
             <h2 className="mb-4 text-2xl font-semibold sm:text-3xl">الأسئلة الشائعة</h2>
-            <div className="divide-y divide-[#D5C4B6] border-y border-[#D5C4B6]">
+            <div className="divide-y divide-[#E8E6E3] border-y border-[#E8E6E3]">
               {faq.map(({ q, a }) => (
                 <details key={q} className="group">
                   <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-semibold sm:text-base">
                     {q} <ChevronDown size={16} aria-hidden="true" className="shrink-0 group-open:rotate-180" />
                   </summary>
-                  <p className="pb-4 text-sm leading-7 text-[#655247]">{a}</p>
+                  <p className="pb-4 text-sm leading-7 text-[#62605C]">{a}</p>
                 </details>
               ))}
             </div>
