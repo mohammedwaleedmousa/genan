@@ -114,19 +114,19 @@ const Footer = () => (
       </div>
     </section>
 
-    {/* Copyright, developer contact and return-to-top control. */}
+    {/* Copyright, company credit and return-to-top control. */}
     <div className="w-full bg-[#0E0E0E] px-4 pb-5 pt-6 text-center text-white sm:py-8">
       <p className="text-[12px] leading-7 text-[#F1F1F1] sm:text-[13px]">
         <span className="text-[#D8C29A]">© GENAN 2026</span>
         <span> — جميع الحقوق محفوظة.</span>
       </p>
       <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[12px] leading-6 text-[#CCC7BF] sm:text-[13px]">
-        <p>تصميم وتطوير الموقع <bdi lang="en" dir="ltr" className="mr-1 font-semibold text-white">Mohammed Waleed</bdi></p>
+        <p>تصميم وتطوير الموقع</p>
         <a
-          href={`mailto:info@linetech.company?subject=${encodeURIComponent("استفسار عن تصميم موقع")}`}
+          href="https://linetech.company/"
           className="inline-flex min-h-[44px] items-center gap-1.5 font-medium text-[#D8C29A] underline underline-offset-4 transition-colors hover:text-white focus-visible:rounded-sm"
         >
-          تواصل بشأن تصميم موقعك
+          <bdi lang="en" dir="ltr">LINETECH</bdi>
           <ArrowUpLeft aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={1.7} />
         </a>
       </div>
