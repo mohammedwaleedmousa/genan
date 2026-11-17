@@ -139,7 +139,8 @@ const RouteFallback = () => {
   return (
     <main className="genan-entry">
       <h1>بوتيك جنان</h1>
-      <a href="/products?category=bags">تصفّحي الشنط</a>
+      <p>أحذية وملابس وحقائب وإكسسوارات من ماركات عالمية.</p>
+      <a href="/products">اكتشفي تشكيلة جنان</a>
     </main>
   );
 };
