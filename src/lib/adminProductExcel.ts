@@ -35,7 +35,7 @@ const productCreateSchema = z.object({
   discount: z.number().int().min(0).max(100).optional(),
   brand_id: z.string().uuid().nullable().optional(),
   category_id: z.string().uuid().nullable().optional(),
-  audience: z.enum(["men", "women", "kids", "unisex"]).nullable().optional(),
+  audience: z.literal("women", { errorMap: () => ({ message: "جنان بوتيك نسائي. استخدم women في خانة الجمهور." }) }),
 }).refine((row) => Boolean(row.name || row.name_ar), "يلزم الاسم العربي أو الإنجليزي");
 
 export type ProductExcelPreviewRow = {
@@ -146,7 +146,7 @@ export const previewProductWorkbook = async (file: File): Promise<ProductExcelPr
         discount: discountRaw ? asNumber(row.discount) : 0,
         brand_id: brandId,
         category_id: categoryId,
-        audience: audienceRaw || null,
+        audience: audienceRaw?.toLowerCase() || "women",
       });
       if (!parsed.success) errors.push(...parsed.error.issues.map((issue) => issue.message));
       return {

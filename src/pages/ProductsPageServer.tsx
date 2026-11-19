@@ -14,8 +14,6 @@ import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 import { restoreCatalogScroll, catalogScrollKey } from "@/lib/catalogScroll";
 import { getCategoryTreeIds } from "@/lib/categoryTree";
 
-type ProductAudience = "men" | "women" | "kids" | "unisex";
-
 type Category = {
   id: string;
   slug: string;
@@ -31,7 +29,6 @@ type ProductColor = {
 };
 
 type RawProduct = Record<string, any> & {
-  audience?: ProductAudience | null;
   created_at?: string | null;
   sort_order?: number | null;
   color_variants?: unknown;
@@ -41,7 +38,6 @@ type RawProduct = Record<string, any> & {
 type FilterDraft = {
   category: string;
   brand: string;
-  audience: ProductAudience | "all";
   color: string;
   size: string;
   minPrice: string;
@@ -51,13 +47,6 @@ type FilterDraft = {
 };
 
 const PAGE_SIZE = 12;
-
-const AUDIENCE_OPTIONS: Array<{ value: ProductAudience; label: string }> = [
-  { value: "women", label: "نسائي" },
-  { value: "men", label: "رجالي" },
-  { value: "kids", label: "أطفال" },
-  { value: "unisex", label: "للجنسين" },
-];
 
 const normalize = (value: unknown) => String(value || "").trim().toLowerCase();
 
@@ -118,7 +107,6 @@ const ProductsPageServer = () => {
   const categorySlug = searchParams.get("category") || "";
   const searchQuery = (searchParams.get("search") || "").trim().toLowerCase();
   const brandFilter = searchParams.get("brand") || "all";
-  const audienceFilter = (searchParams.get("audience") || "all") as ProductAudience | "all";
   const colorFilter = searchParams.get("color") || "all";
   const sizeFilter = searchParams.get("size") || "all";
   const minPrice = searchParams.get("min") || "";
@@ -130,7 +118,6 @@ const ProductsPageServer = () => {
   const [draft, setDraft] = useState<FilterDraft>({
     category: categorySlug,
     brand: brandFilter,
-    audience: audienceFilter,
     color: colorFilter,
     size: sizeFilter,
     minPrice,
@@ -139,7 +126,7 @@ const ProductsPageServer = () => {
     inStockOnly,
   });
 
-  const { data: categories = [] } = useQuery({
+  const { data: categories = [], isSuccess: categoriesLoaded } = useQuery({
     queryKey: ["genan-products-categories-v2"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -159,7 +146,7 @@ const ProductsPageServer = () => {
     queryFn: async () => {
       const { data, error } = await (supabase as any)
         .from("products")
-        .select(`${PRODUCT_CARD_SELECT},audience,created_at,sort_order`)
+        .select(`${PRODUCT_CARD_SELECT},created_at,sort_order`)
         .eq("is_active", true)
         .order("sort_order", { ascending: true })
         .limit(500);
@@ -177,6 +164,17 @@ const ProductsPageServer = () => {
   );
 
   const currentCategory = categories.find((category) => category.slug === categorySlug) || null;
+
+  useEffect(() => {
+    const hasUnknownCategory = categoriesLoaded && categorySlug && !currentCategory;
+    if (!searchParams.has("audience") && !hasUnknownCategory) return;
+
+    const next = new URLSearchParams(searchParams);
+    next.delete("audience");
+    if (hasUnknownCategory) next.delete("category");
+    setSearchParams(next, { replace: true });
+  }, [categoriesLoaded, categorySlug, currentCategory, searchParams, setSearchParams]);
+
   const categoryOptions = rootCategories.map((category) => ({ slug: category.slug, label: category.name_ar }));
   if (currentCategory?.parent_id) {
     categoryOptions.unshift({ slug: currentCategory.slug, label: currentCategory.name_ar });
@@ -230,7 +228,6 @@ const ProductsPageServer = () => {
     filters: {
       category: string;
       brand: string;
-      audience: ProductAudience | "all";
       color: string;
       size: string;
       minPrice: string;
@@ -246,7 +243,6 @@ const ProductsPageServer = () => {
     return rows.filter((row) => {
       if (scopedCategoryIds.length && !scopedCategoryIds.includes(String(row.category_id || ""))) return false;
       if (filters.brand !== "all" && String(row.brand || "") !== filters.brand) return false;
-      if (filters.audience !== "all" && row.audience !== filters.audience) return false;
 
       if (filters.color !== "all") {
         const productColors = getProductColors(row).map((color) => normalize(color.name));
@@ -282,7 +278,6 @@ const ProductsPageServer = () => {
     const rows = filterRows(rawRows, {
       category: categorySlug,
       brand: brandFilter,
-      audience: audienceFilter,
       color: colorFilter,
       size: sizeFilter,
       minPrice,
@@ -313,7 +308,6 @@ const ProductsPageServer = () => {
     categories,
     categorySlug,
     brandFilter,
-    audienceFilter,
     colorFilter,
     sizeFilter,
     minPrice,
@@ -368,7 +362,6 @@ const ProductsPageServer = () => {
   const activeFilterCount =
     (categorySlug ? 1 : 0) +
     (brandFilter !== "all" ? 1 : 0) +
-    (audienceFilter !== "all" ? 1 : 0) +
     (colorFilter !== "all" ? 1 : 0) +
     (sizeFilter !== "all" ? 1 : 0) +
     (minPrice || maxPrice ? 1 : 0) +
@@ -378,7 +371,6 @@ const ProductsPageServer = () => {
   const draftFilterCount =
     (draft.category ? 1 : 0) +
     (draft.brand !== "all" ? 1 : 0) +
-    (draft.audience !== "all" ? 1 : 0) +
     (draft.color !== "all" ? 1 : 0) +
     (draft.size !== "all" ? 1 : 0) +
     (draft.minPrice || draft.maxPrice ? 1 : 0) +
@@ -405,7 +397,6 @@ const ProductsPageServer = () => {
     setDraft({
       category: categorySlug,
       brand: brandFilter,
-      audience: audienceFilter,
       color: colorFilter,
       size: sizeFilter,
       minPrice,
@@ -420,7 +411,6 @@ const ProductsPageServer = () => {
     setDraft({
       category: "",
       brand: "all",
-      audience: "all",
       color: "all",
       size: "all",
       minPrice: "",
@@ -440,7 +430,6 @@ const ProductsPageServer = () => {
 
     setOrDelete("category", draft.category);
     setOrDelete("brand", draft.brand);
-    setOrDelete("audience", draft.audience);
     setOrDelete("color", draft.color);
     setOrDelete("size", draft.size);
     setOrDelete("min", draft.minPrice);
@@ -665,35 +654,6 @@ const ProductsPageServer = () => {
                     ))}
                   </select>
                   <ChevronDown className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#8A847C]" />
-                </div>
-              </div>
-
-              <div className="rounded-3xl bg-white p-4 shadow-sm">
-                <p className="mb-3 text-[13px] font-bold text-[#2A2723]">لمن</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {AUDIENCE_OPTIONS.map((option) => {
-                    const active = draft.audience === option.value;
-
-                    return (
-                      <button
-                        type="button"
-                        key={option.value}
-                        onClick={() =>
-                          setDraft((value) => ({
-                            ...value,
-                            audience: active ? "all" : option.value,
-                          }))
-                        }
-                        className={`h-12 rounded-2xl border text-[12px] font-semibold ${
-                          active
-                            ? "border-burgundy bg-burgundy text-white"
-                            : "border-[#E5E0D8] bg-white text-[#5F5A53]"
-                        }`}
-                      >
-                        {option.label}
-                      </button>
-                    );
-                  })}
                 </div>
               </div>
 

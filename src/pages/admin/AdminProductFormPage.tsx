@@ -86,7 +86,6 @@ const AdminProductFormPage = () => {
     description: '',
     description_ar: '',
     category: '',
-    audience: '' as '' | 'men' | 'women' | 'kids' | 'unisex',
     brand: '',
     brand_id: '',
     in_stock: true,
@@ -201,20 +200,6 @@ const AdminProductFormPage = () => {
     return brands.filter((b: any) => mappedBrandIds.has(b.id));
   }, [brands, mappedBrandIds]);
 
-  const getCategoryAudience = (category: Category | null) => {
-    let current = category;
-
-    while (current) {
-      if (current.slug === 'men') return 'men' as const;
-      if (current.slug === 'women') return 'women' as const;
-      if (current.slug === 'kids' || current.slug === 'babes') return 'kids' as const;
-      const parentId = current.parent_id;
-      current = parentId ? categories.find((item) => item.id === parentId) || null : null;
-    }
-
-    return '' as const;
-  };
-
   useEffect(() => {
     if (!formData.brand_id || filteredBrands.some((brand: any) => brand.id === formData.brand_id)) return;
     setFormData((current) => ({ ...current, brand: '', brand_id: '' }));
@@ -275,7 +260,7 @@ const AdminProductFormPage = () => {
     setIsLoading(true);
     const { data, error } = await supabase
       .from('products')
-      .select('id,name,name_ar,slug,price,original_price,discount,description,description_ar,images,category,brand,in_stock,countries,is_featured,is_best_seller,is_active,created_at,updated_at,section_ids,has_sizes,sizes,accessories,features,sort_order,color_variants,stock_quantity,return_policy,specs,has_quality_variants,quality_variants,category_id,brand_id,home_collections,audience,size_price_rule_id')
+      .select('id,name,name_ar,slug,price,original_price,discount,description,description_ar,images,category,brand,in_stock,countries,is_featured,is_best_seller,is_active,created_at,updated_at,section_ids,has_sizes,sizes,accessories,features,sort_order,color_variants,stock_quantity,return_policy,specs,has_quality_variants,quality_variants,category_id,brand_id,home_collections,size_price_rule_id')
       .eq('id', id)
       .single();
 
@@ -309,7 +294,6 @@ const AdminProductFormPage = () => {
         description: data.description || '',
         description_ar: data.description_ar || '',
         category: data.category || '',
-        audience: (((data as any).audience || '') as '' | 'men' | 'women' | 'kids' | 'unisex'),
         brand: brandName,
         brand_id: data.brand_id || '',
         in_stock: data.in_stock ?? true,
@@ -413,8 +397,6 @@ const AdminProductFormPage = () => {
         : Math.max(0, parseInt(formData.stock_quantity || '0') || 0);
     const selectedBrand = (brands as any[]).find((brand: any) => brand.id === formData.brand_id) || null;
     const brandName = selectedBrand?.name?.trim() || formData.brand.trim();
-    const inferredAudience = getCategoryAudience(selectedCat);
-    const resolvedAudience = formData.audience || inferredAudience || null;
 
     if (formData.brand_id && !selectedBrand) {
       toast({ title: 'الماركة غير صالحة', description: 'اختر ماركة مسجلة من القائمة ثم أعد الحفظ.', variant: 'destructive' });
@@ -428,11 +410,6 @@ const AdminProductFormPage = () => {
       return;
     }
 
-    if (inferredAudience && resolvedAudience !== inferredAudience && resolvedAudience !== 'unisex') {
-      toast({ title: 'الجمهور لا يطابق القسم', description: 'عدّل الجمهور ليتوافق مع القسم المختار.', variant: 'destructive' });
-      setIsSaving(false);
-      return;
-    }
     const productData = {
       name: resolvedName,
       name_ar: formData.name_ar,
@@ -445,7 +422,7 @@ const AdminProductFormPage = () => {
       category: resolvedCategory,
       brand: brandName || null,
       category_id: selectedCat?.id ?? null,
-      audience: resolvedAudience,
+      audience: 'women',
       brand_id: selectedBrand?.id ?? null,
       in_stock: stockQty > 0 ? formData.in_stock : false,
       stock_quantity: stockQty,
@@ -655,21 +632,6 @@ const AdminProductFormPage = () => {
 
           <div className="grid grid-cols-1 gap-[10px] md:grid-cols-3">
             <div>
-              <label className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">الجمهور (اختياري)</label>
-              <Select value={formData.audience || 'none'} onValueChange={(value) => setFormData((current) => ({ ...current, audience: value === 'none' ? '' : value as 'men' | 'women' | 'kids' | 'unisex' }))}>
-                <SelectTrigger><SelectValue placeholder="اختر أين يظهر المنتج" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">غير محدد</SelectItem>
-                  <SelectItem value="men">رجالي</SelectItem>
-                  <SelectItem value="women">نسائي</SelectItem>
-                  <SelectItem value="kids">أطفال</SelectItem>
-                  <SelectItem value="unisex">للجنسين</SelectItem>
-                </SelectContent>
-              </Select>
-              <p className="text-[8px] text-[#626E63] mt-[4px]">يمكن تركه غير محدد للمنتجات القديمة؛ اختيارك هنا لا يغيّر الفئة.</p>
-            </div>
-
-            <div>
               <label htmlFor="product-main-category" className="block text-[10px] font-medium text-[#6E7680] mb-[6px]">القسم الرئيسي *</label>
               {onlyCategory ? (
                 <Input id="product-main-category" value={onlyCategory.name_ar || onlyCategory.name} readOnly />
@@ -682,7 +644,6 @@ const AdminProductFormPage = () => {
                   setFormData((current) => ({
                     ...current,
                     category: category?.slug || '',
-                    audience: getCategoryAudience(category),
                     brand: '',
                     brand_id: '',
                   }));
@@ -711,7 +672,6 @@ const AdminProductFormPage = () => {
                   setFormData((current) => ({
                     ...current,
                     category: category?.slug || '',
-                    audience: getCategoryAudience(category),
                     brand: '',
                     brand_id: '',
                   }));

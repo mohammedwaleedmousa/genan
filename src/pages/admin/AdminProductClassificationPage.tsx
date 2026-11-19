@@ -95,7 +95,7 @@ const AdminProductClassificationPage = () => {
         ? { brand_id: suggestion.value }
         : field === "category"
           ? { category_id: suggestion.value }
-          : { audience: suggestion.value as "men" | "women" | "kids" | "unisex" };
+          : { audience: "women" as const };
 
       await applyProductClassification(row.id, patch);
       toast({ title: "تم اعتماد الاقتراح", description: `${row.name_ar || row.name} • ${suggestion.label}` });
@@ -245,12 +245,8 @@ const AdminProductClassificationPage = () => {
   );
 };
 
-const audienceLabel = (value: string | null | undefined) => ({
-  men: "رجالي",
-  women: "نسائي",
-  kids: "أطفال",
-  unisex: "للجميع",
-}[String(value || "")] || "بدون جمهور");
+const audienceLabel = (value: string | null | undefined) =>
+  value === "women" ? "نسائي" : value ? "تصنيف سابق" : "بدون جمهور";
 
 const MetaPill = ({ value, muted = false }: { value: string; muted?: boolean }) => (
   <span className={cn(

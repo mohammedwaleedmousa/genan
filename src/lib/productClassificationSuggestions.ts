@@ -1,8 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import { requireAdminPermission } from "@/lib/adminPermissionActions";
 
-export type ProductAudience = "men" | "women" | "kids" | "unisex";
-
 export type ClassificationSuggestion = {
   value: string;
   label: string;
@@ -81,7 +79,7 @@ const BRAND_ALIASES: Record<string, string[]> = {
 };
 
 const CATEGORY_KEYWORDS: Record<string, string[]> = {
-  handbags: ["handbag", "top handle", "شنطه يد", "شنطة يد", "حقيبه يد", "حقيبة يد", "شنط رجالي"],
+  handbags: ["handbag", "top handle", "شنطه يد", "شنطة يد", "حقيبه يد", "حقيبة يد"],
   shoulderhandbag: ["shoulder", "كتف"],
   crossbody: ["crossbody", "cross body", "كروس"],
   belts: ["belt", "belts", "حزام", "احزمه", "أحزمة"],
@@ -91,9 +89,7 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
   necklaces: ["necklace", "necklaces", "chain", "سلسال", "قلاده", "قلادة"],
   earring: ["earring", "earrings", "حلق", "اقراط", "أقراط"],
   watchs: ["watch", "watches", "ساعه", "ساعة", "ساعات"],
-  "mens-watches": ["mens watch", "men watch", "ساعه رجالي", "ساعة رجالي", "ساعة رجالية"],
   "other-watches": ["womens watch", "women watch", "ساعه نسائي", "ساعة نسائي", "ساعة نسائية"],
-  "mens-shoes": ["mens shoes", "men shoes", "حذاء رجالي", "احذيه رجالي", "أحذية رجالية"],
   sports: ["sneaker", "sneakers", "sport", "sports", "رياضي", "سبورت"],
   sandals: ["sandal", "sandals", "صندل"],
   boot: ["boot", "boots", "بوت", "جزمة برقبة"],
@@ -101,29 +97,15 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
   flat: ["flat", "flats", "فلات"],
   dresses: ["dress", "dresses", "فستان", "فساتين"],
   "womens-sets": ["womens set", "women set", "طقم نسائي", "طقم رسمي", "طقم رياضي"],
-  "mens-pants": ["mens pants", "men pants", "سروال قماش رجالي", "بنطلون رجالي"],
-  "kids-clothing": ["kids clothing", "child clothing", "ملابس اطفال", "ملابس أطفال", "جرم ولادي"],
-  pants: ["سروال اطفال", "سروال أطفال", "سروال ولادي", "سروال بناتي"],
   cap: ["cap", "hat", "كاب", "قبعه", "قبعة"],
 };
 
 const audienceFromText = (text: string): ClassificationSuggestion | null => {
   const normalized = normalize(text);
-  const groups: Array<{ value: ProductAudience; label: string; terms: string[] }> = [
-    { value: "kids", label: "أطفال", terms: ["kids", "kid", "children", "child", "baby", "اطفال", "أطفال", "طفل", "ولادي", "بناتي"] },
-    { value: "women", label: "نسائي", terms: ["women", "womens", "female", "lady", "نسائي", "نسائيه", "نسائية", "حريمي"] },
-    { value: "men", label: "رجالي", terms: ["men", "mens", "male", "man", "رجالي", "رجاليه", "رجالية", "رجال"] },
-    { value: "unisex", label: "للجميع", terms: ["unisex", "للجميع"] },
-  ];
-
-  for (const group of groups) {
-    const hit = group.terms.find((term) => {
-      const termTokens = tokens(term);
-      return termTokens.length === 1 ? hasToken(normalized, termTokens[0]) : hasPhrase(normalized, term);
-    });
-    if (hit) return { value: group.value, label: group.label, confidence: 0.94, reasons: [`الكلمة «${hit}» موجودة في بيانات المنتج`] };
-  }
-  return null;
+  const terms = ["women", "womens", "female", "lady", "نسائي", "نسائية", "حريمي"];
+  const hit = terms.find((term) => hasToken(normalized, normalize(term)));
+  if (!hit) return null;
+  return { value: "women", label: "نسائي", confidence: 0.94, reasons: [`الكلمة «${hit}» موجودة في بيانات المنتج`] };
 };
 
 const brandSuggestion = (product: Product, brands: Brand[]): ClassificationSuggestion | null => {
@@ -211,7 +193,7 @@ export const loadProductClassificationSuggestions = async (): Promise<ProductCla
     .filter((product) => !product.category_id || !product.audience || Boolean(product.brandSuggestion));
 };
 
-export const applyProductClassification = async (productId: string, patch: { brand_id?: string; category_id?: string; audience?: ProductAudience }) => {
+export const applyProductClassification = async (productId: string, patch: { brand_id?: string; category_id?: string; audience?: "women" }) => {
   await requireAdminPermission("products.edit");
   const { data, error } = await (supabase as any).rpc("admin_apply_product_classification", { p_product_id: productId, p_patch: patch });
   if (error) throw error;
