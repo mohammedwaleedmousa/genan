@@ -15,7 +15,8 @@ const isCatalogPage = (url) => {
 
 const isHtml = (response) => (response.headers.get("content-type") || "").includes("text/html");
 
-const isCacheableResponse = (response) => response && (response.ok || response.type === "opaque");
+const isCacheableImage = (response) => response.type === "opaque" ||
+  (response.ok && (response.headers.get("content-type") || "").startsWith("image/"));
 
 const isSupabaseImage = (url) =>
   url.hostname.endsWith("supabase.co") &&
@@ -31,7 +32,7 @@ const staleWhileRevalidateImage = async (request, event) => {
 
   const networkPromise = fetch(request)
     .then((response) => {
-      if (isCacheableResponse(response)) {
+      if (isCacheableImage(response)) {
         const copy = response.clone();
         event.waitUntil(cache.put(request, copy).catch(() => {}));
       }
@@ -112,6 +113,11 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || request.headers.has("authorization")) return;
 
   const url = new URL(request.url);
+
+  // Content-addressed catalog thumbnails are served by the native HTTP cache.
+  // An intercepted image must never inherit an old cached SPA fallback.
+  if (request.destination === "image" && url.origin === self.location.origin &&
+      url.pathname.startsWith("/assets/catalog-thumbnails/")) return;
 
   if (isStorefrontImageRequest(request, url)) {
     event.respondWith(staleWhileRevalidateImage(request, event));

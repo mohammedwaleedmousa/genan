@@ -13,7 +13,7 @@ export const getCatalogThumbnail = (original?: string | null): string | undefine
     if (url.protocol !== "https:" || !url.hostname.endsWith(".supabase.co")) return undefined;
 
     const filename = url.hostname === backfilledHost ? catalogFiles[url.pathname] : undefined;
-    if (filename) return `/assets/catalog-thumbnails/${filename}`;
+    if (filename) return `/assets/catalog-thumbnails/${filename}?preview=1`;
 
     if (pairedUploadPath.test(url.pathname)) {
       return url.origin + url.pathname.replace(/\.[^.]+$/, ".thumb.webp");
