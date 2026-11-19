@@ -4,6 +4,8 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import ProductCard from "@/components/ProductCard";
+import ProductCardSkeleton from "@/components/ProductCardSkeleton";
+import ProductCategoryTabs from "@/components/ProductCategoryTabs";
 import { supabase } from "@/integrations/supabase/client";
 import { getCategoryTreeIds, type CatalogCategory } from "@/lib/categoryTree";
 import { mapProductCard, PRODUCT_CARD_SELECT } from "@/lib/productCardData";
@@ -47,8 +49,6 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
 
   const { data: products = [], isLoading, isError, refetch } = selectedSlug ? categoryProducts : allProducts;
   const allProductsLink = selectedSlug ? `/products?category=${encodeURIComponent(selectedSlug)}` : "/products";
-  const options = [{ slug: "", label: "الكل" }, ...tabs];
-  const gridClass = "grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 md:grid-cols-4 md:gap-x-4 md:gap-y-9 xl:gap-x-5";
 
   return (
     <section aria-labelledby="home-collection-title" className="bg-white py-6 sm:py-8 lg:py-10" dir="rtl">
@@ -59,37 +59,17 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
           <span aria-hidden="true" className="h-px w-10 bg-[#D8C29A] sm:w-20" />
         </div>
 
-        <div role="group" aria-label="فلترة التشكيلة حسب القسم" className="-mx-4 mb-4 mt-3 overflow-x-auto px-4 py-1 sm:mb-5 sm:mt-4">
-          <div className="mx-auto flex w-max items-center gap-1.5 sm:gap-2.5">
-            {options.map(({ slug, label }) => (
-              <button
-                key={slug}
-                type="button"
-                aria-pressed={selectedSlug === slug}
-                onClick={() => setSelection(slug)}
-                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-3.5 text-xs font-medium transition-colors sm:px-5 sm:text-sm ${selectedSlug === slug ? "bg-burgundy text-white" : "text-[#282020] hover:bg-burgundy-soft"}`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+        <div className="mb-4 mt-3 sm:mb-5 sm:mt-4">
+          <ProductCategoryTabs categories={tabs} selectedSlug={selectedSlug} onSelect={setSelection} />
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-[1600px] px-3 md:px-8 lg:px-12">
+      <div className="product-grid-container">
         <div aria-busy={isLoading} aria-live="polite">
           {isLoading ? (
-            <div className={gridClass} aria-label="جاري تحميل المنتجات">
+            <div className="product-card-grid" aria-label="جاري تحميل المنتجات">
               {Array.from({ length: visibleProductCount }, (_, index) => (
-                <div key={index} aria-hidden="true" className="animate-pulse overflow-hidden rounded-[15px] border border-[#EAEAEA] bg-white">
-                  <div className="aspect-[4/5] bg-[#F5EFE8]" />
-                  <div className="relative h-[86px] px-2.5 pt-3">
-                    <div className="h-2.5 w-3/4 rounded-full bg-[#F5EFE8]" />
-                    <div className="mt-2 h-2 w-1/2 rounded-full bg-[#F5EFE8]" />
-                    <div className="mt-4 h-2.5 w-2/5 rounded-full bg-[#F5EFE8]" />
-                    <div className="absolute bottom-[9px] left-[9px] h-[33px] w-[33px] rounded-[9px] bg-[#F5EFE8]" />
-                  </div>
-                </div>
+                <ProductCardSkeleton key={index} />
               ))}
             </div>
           ) : isError && products.length === 0 ? (
@@ -98,9 +78,9 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
               <button type="button" onClick={() => void refetch()} className="mt-3 rounded-full border border-burgundy px-4 py-1.5 text-burgundy">إعادة المحاولة</button>
             </div>
           ) : products.length > 0 ? (
-            <div className={gridClass}>
+            <div className="product-card-grid">
               {products.slice(0, visibleProductCount).map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index + 2} variant="collection" />
+                <ProductCard key={product.id} product={product} index={index + 2} />
               ))}
             </div>
           ) : (

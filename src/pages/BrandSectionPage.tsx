@@ -124,7 +124,7 @@ const BrandSectionPage = () => {
         <Navbar /><CartDrawer />
         <main className="mx-auto w-full max-w-[1400px] flex-1 px-4 py-8 md:px-6">
           <div className="mb-7 h-8 w-40 animate-pulse rounded bg-muted" />
-          <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="product-card-grid">
             {Array.from({ length: 6 }).map((_, index) => <ProductCardSkeleton key={index} />)}
           </div>
         </main>
@@ -181,14 +181,14 @@ const BrandSectionPage = () => {
 
         <section className="mx-auto mt-5 w-full max-w-[1400px] px-4 md:mt-7 md:px-6">
           {productsLoading && products.length === 0 ? (
-            <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">{Array.from({ length: 6 }).map((_, index) => <ProductCardSkeleton key={index} />)}</div>
+            <div className="product-card-grid">{Array.from({ length: 6 }).map((_, index) => <ProductCardSkeleton key={index} />)}</div>
           ) : productsError && products.length === 0 ? (
             <div className="flex min-h-[250px] items-center justify-center border-y border-border/60 text-center"><div><Package className="mx-auto h-5 w-5 text-muted-foreground" /><h2 className="mt-3 text-[12px] font-semibold">تعذر تحميل المنتجات</h2><p className="mt-1.5 text-[9px] text-muted-foreground">أعد تحميل الصفحة للمحاولة مرة أخرى.</p></div></div>
           ) : visibleProducts.length === 0 ? (
             <div className="flex min-h-[250px] items-center justify-center border-y border-border/60 text-center"><div><Package className="mx-auto h-5 w-5 text-muted-foreground" /><h2 className="mt-3 text-[12px] font-semibold">لا توجد منتجات مطابقة</h2></div></div>
           ) : (
             <>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-4">
+              <div className="product-card-grid">
                 {visibleProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} />)}
               </div>
               {hasMore && <div className="flex justify-center pt-9"><button type="button" disabled={productsLoading} onClick={() => setLoadedPage((page) => page + 1)} className="h-11 rounded-full border border-burgundy bg-background px-7 text-[10px] font-medium text-burgundy hover:bg-burgundy-soft disabled:opacity-50">{productsLoading ? "جاري التحميل..." : "عرض المزيد"}</button></div>}

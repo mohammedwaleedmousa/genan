@@ -1,12 +1,11 @@
-import { Skeleton } from "@/components/ui/skeleton";
-
 const ProductCardSkeleton = () => (
-  <div className="block" dir="rtl">
-    <Skeleton className="aspect-[3/4] w-full rounded-none" />
-    <div className="mt-4 px-1 flex flex-col items-center gap-2">
-      <Skeleton className="h-2 w-16 rounded-none" />
-      <Skeleton className="h-4 w-3/4 rounded-none" />
-      <Skeleton className="h-3 w-1/3 mt-1 rounded-none" />
+  <div className="product-card-frame motion-safe:animate-pulse" dir="rtl" aria-hidden="true">
+    <div className="product-card-media" />
+    <div className="product-card-details pt-3">
+      <div className="h-2.5 w-3/4 rounded-full bg-[#F5EFE8]" />
+      <div className="mt-2 h-2 w-1/2 rounded-full bg-[#F5EFE8]" />
+      <div className="mt-4 h-2.5 w-2/5 rounded-full bg-[#F5EFE8]" />
+      <div className="absolute bottom-[9px] left-[9px] h-[33px] w-[33px] rounded-[9px] bg-[#F5EFE8]" />
     </div>
   </div>
 );

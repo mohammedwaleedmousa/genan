@@ -301,7 +301,7 @@ const HomeManagedSections = ({ betweenSections, brandsSection, categories, colle
     return (
       <section key={shelf.key} id={"home-section-" + shelf.key} aria-label={shelf.title}
         className={"scroll-mt-24 py-8 sm:py-10 md:py-14 " + (index % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]")}>
-        <div className="mx-auto w-full max-w-[1500px] px-4 sm:px-6 lg:px-8">
+        <div className="product-grid-container">
           <div className="mb-5 flex items-end justify-between gap-3 sm:mb-7">
             <div className="min-w-0">
               <span className="mb-1.5 block font-serif text-[9px] font-medium uppercase tracking-[0.2em] text-[#8C6B32]">{shelf.eyebrow}</span>
@@ -312,7 +312,7 @@ const HomeManagedSections = ({ betweenSections, brandsSection, categories, colle
               عرض الكل <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:grid-cols-4 sm:gap-4 lg:gap-6">
+          <div className="product-card-grid">
             {shelf.products.slice(0, 4).map((product, i) => <ProductCard key={product.id} product={product} index={index * 4 + i} />)}
           </div>
         </div>

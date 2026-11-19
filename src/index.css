@@ -218,6 +218,26 @@
 }
 
 @layer components {
+  .product-grid-container {
+    @apply mx-auto w-full max-w-[1600px] px-3 md:px-8 lg:px-12;
+  }
+
+  .product-card-grid {
+    @apply grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 md:grid-cols-4 md:gap-x-4 md:gap-y-9 xl:gap-x-5;
+  }
+
+  .product-card-frame {
+    @apply relative w-full min-w-0 overflow-hidden rounded-[15px] border border-[#EAEAEA] bg-white;
+  }
+
+  .product-card-media {
+    @apply relative aspect-[4/5] w-full overflow-hidden bg-[#F5EFE8];
+  }
+
+  .product-card-details {
+    @apply relative h-[86px] bg-white px-2.5 pb-[9px] pt-2;
+  }
+
   .btn-unified {
     @apply inline-flex items-center justify-center gap-2 rounded-xl font-medium tracking-wide transition-all duration-300;
     color: hsl(var(--genan-btn-text));

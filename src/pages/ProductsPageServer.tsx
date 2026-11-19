@@ -7,6 +7,8 @@ import CartDrawer from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
+import ProductCardSkeleton from "@/components/ProductCardSkeleton";
+import ProductCategoryTabs from "@/components/ProductCategoryTabs";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 import { restoreCatalogScroll, catalogScrollKey } from "@/lib/catalogScroll";
@@ -175,6 +177,11 @@ const ProductsPageServer = () => {
   );
 
   const currentCategory = categories.find((category) => category.slug === categorySlug) || null;
+  const categoryOptions = rootCategories.map((category) => ({ slug: category.slug, label: category.name_ar }));
+  if (currentCategory?.parent_id) {
+    categoryOptions.unshift({ slug: currentCategory.slug, label: currentCategory.name_ar });
+  }
+
 
   const brands = useMemo(
     () => Array.from(new Set(rawRows.map((row) => String(row.brand || "").trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b)),
@@ -461,95 +468,43 @@ const ProductsPageServer = () => {
   };
 
   return (
-    <div dir="rtl" className="min-h-screen bg-[#FAF9F7] text-[#0E0E0E]">
+    <div dir="rtl" className="min-h-screen bg-white text-[#0E0E0E]">
       <Navbar />
       <CartDrawer />
 
-      <main id="main-content" className="px-3 pb-20 sm:px-5 lg:px-7">
-        <section className="mx-auto mt-4 max-w-[1120px] rounded-3xl bg-white px-5 pb-6 pt-6 shadow-sm sm:mt-7 sm:px-7 sm:pb-8 lg:px-8">
-          <div className="mx-auto grid max-w-[1120px] gap-3 md:grid-cols-[1.2fr_.8fr] md:items-end md:gap-8">
-            <div>
-              <div className="mb-2 flex items-center gap-2">
-                <span className="h-px w-7 bg-[#D8C29A]" />
-                <span className="text-[8px] font-semibold tracking-[.34em] text-[#9A825B]">GENAN / CATALOG</span>
-              </div>
-
-              <h1 className="text-[25px] font-bold leading-[1.3] tracking-[-.025em] sm:text-[31px] lg:text-[36px]">
-                {currentCategory?.name_ar || (searchQuery ? `نتائج “${searchParams.get("search")}”` : "كل المنتجات")}
-              </h1>
-            </div>
-
-            <div className="md:text-left">
-              <p className="text-[11px] leading-6 text-[#707070] sm:text-[12px] md:leading-7">
-                تصفّحي مختارات جنان واختاري القطعة التي تنسجم مع أسلوبكِ.
-              </p>
-              <p className="mt-2 text-[11px] font-semibold text-[#8C6B32]">{filtered.length} منتج متاح للتصفح</p>
-            </div>
+      <main id="main-content" className="pb-20">
+        <header className="mx-auto max-w-[1280px] px-4 pb-3 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pt-10">
+          <div className="flex items-center justify-center gap-3 sm:gap-5">
+            <span aria-hidden="true" className="h-px w-10 shrink-0 bg-[#D8C29A] sm:w-20" />
+            <h1 className="min-w-0 break-words text-center text-2xl font-medium text-[#231C1C] sm:text-3xl md:text-4xl">
+              {currentCategory?.name_ar || (searchQuery ? `نتائج “${searchParams.get("search")}”` : "جميع المنتجات")}
+            </h1>
+            <span aria-hidden="true" className="h-px w-10 shrink-0 bg-[#D8C29A] sm:w-20" />
           </div>
-        </section>
 
-        <section className="mx-auto mt-4 max-w-[1120px] rounded-3xl bg-white px-4 py-5 shadow-sm sm:px-6">
-          <div className="mx-auto max-w-[1120px]">
-            <div className="mb-2.5 flex items-center justify-between gap-4">
-              <span className="text-[11px] font-semibold text-[#39342F]">تسوقي حسب القسم</span>
+          <div className="mt-3 sm:mt-4">
+            <ProductCategoryTabs
+              categories={categoryOptions}
+              selectedSlug={categorySlug}
+              onSelect={(slug) => setParam("category", slug)}
+            />
+          </div>
+        </header>
 
-              {categorySlug && (
-                <button
-                  type="button"
-                  onClick={() => setParam("category", null)}
-                  className="text-[8px] font-medium text-[#8F7548] underline decoration-[#CDB98F] underline-offset-4"
-                >
-                  عرض جميع المنتجات
-                </button>
-              )}
-            </div>
+        <div className="sticky top-[56px] z-40 border-y border-[#F0E8E5] bg-white md:top-[120px]">
+          <div className="product-grid-container flex flex-wrap items-center justify-between gap-2 py-2.5 sm:gap-4">
+            <p aria-live="polite" className="basis-full text-center text-xs text-[#6B655D] sm:basis-auto sm:text-start">
+              {isLoading ? "جاري تحميل المنتجات…" : isError ? "تعذّر تحميل المنتجات" : `${filtered.length} منتج`}
+            </p>
 
-            <div className="flex gap-2 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="grid w-full grid-cols-2 gap-2 sm:w-auto">
               <button
                 type="button"
-                onClick={() => setParam("category", null)}
-                className={`min-h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-medium transition-colors md:px-5 ${
-                  !categorySlug
-                    ? "border-burgundy bg-burgundy text-white"
-                    : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
-                }`}
-              >
-                جميع المنتجات
-              </button>
-
-              {rootCategories.map((category) => (
-                <button
-                  type="button"
-                  key={category.id}
-                  onClick={() => setParam("category", category.slug)}
-                  className={`h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-semibold transition-colors md:h-10 md:px-5 md:text-[10px] ${
-                    categorySlug === category.slug
-                      ? "border-burgundy bg-burgundy text-white"
-                      : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
-                  }`}
-                >
-                  {category.name_ar}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="sticky top-[64px] z-40 isolate mx-auto mt-4 max-w-[1120px] rounded-3xl border border-[#EAE5DA] bg-white px-3 py-3 shadow-[0_8px_24px_rgba(20,20,20,0.10)] sm:px-5 md:top-[128px]">
-          <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-3">
-            <p className="hidden text-[11px] text-[#77716A] sm:block">النتائج: {filtered.length} منتج</p>
-
-            <div className="grid w-full grid-cols-2 gap-2 sm:mr-auto sm:w-auto sm:min-w-[320px]">
-              <button
-                type="button"
+                aria-expanded={filtersOpen}
                 onClick={openFilters}
-                className={`flex h-12 items-center justify-center gap-2 rounded-2xl border px-4 text-[12px] font-semibold transition-colors ${
-                  activeFilterCount > 0
-                    ? "border-[#CDB98F] bg-[#F7F3EA] text-[#27231F]"
-                    : "border-[#E5E0D8] bg-white text-[#39342F] hover:border-[#CDB98F]"
-                }`}
+                className={`flex min-h-10 items-center justify-center gap-1.5 rounded-full border px-3 text-xs font-semibold transition-colors sm:px-5 ${activeFilterCount > 0 ? "border-burgundy bg-burgundy-soft text-burgundy" : "border-[#E8E0DA] bg-white text-[#39342F] hover:border-burgundy hover:text-burgundy"}`}
               >
-                <SlidersHorizontal className="h-4 w-4" strokeWidth={1.6} />
+                <SlidersHorizontal aria-hidden="true" className="h-4 w-4 shrink-0" strokeWidth={1.6} />
                 فلترة متقدمة
                 {activeFilterCount > 0 && (
                   <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-burgundy px-1 text-[8px] font-bold text-white">
@@ -560,22 +515,22 @@ const ProductsPageServer = () => {
 
               <button
                 type="button"
+                aria-label={`ترتيب المنتجات: ${sortLabel}`}
+                aria-expanded={sortOpen}
                 onClick={() => setSortOpen(true)}
-                className="flex h-12 items-center justify-center gap-2 rounded-2xl border border-[#E5E0D8] bg-[#FAF9F7] px-4 text-[12px] font-semibold text-[#39342F] transition-colors hover:border-[#CDB98F]"
+                className="flex min-h-10 items-center justify-center gap-2 rounded-full border border-[#E8E0DA] bg-white px-3 text-xs font-semibold text-[#39342F] transition-colors hover:border-burgundy hover:text-burgundy sm:px-5"
               >
                 {sortLabel}
-                <ChevronDown className="h-3.5 w-3.5" strokeWidth={1.6} />
+                <ChevronDown aria-hidden="true" className="h-3.5 w-3.5 shrink-0" strokeWidth={1.6} />
               </button>
             </div>
           </div>
-        </section>
+        </div>
 
-        <section id="products-grid" className="relative z-0 mx-auto max-w-[1120px] pt-6 sm:pt-7">
+        <section id="products-grid" aria-label="نتائج المنتجات" aria-busy={isLoading} className="product-grid-container relative z-0 pt-5 sm:pt-7">
           {isLoading ? (
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-              {Array.from({ length: 8 }).map((_, index) => (
-                <div key={index} className="aspect-[3/4] animate-pulse bg-[#F1F1F1]" />
-              ))}
+            <div className="product-card-grid">
+              {Array.from({ length: 8 }, (_, index) => <ProductCardSkeleton key={index} />)}
             </div>
           ) : isError ? (
             <div role="alert" className="mx-auto flex min-h-[52vh] max-w-lg flex-col items-center justify-center text-center" dir="rtl">
@@ -601,14 +556,14 @@ const ProductsPageServer = () => {
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="mt-6 min-h-11 rounded-xl border border-burgundy text-burgundy px-6 py-3 text-sm font-semibold transition-colors hover:bg-burgundy hover:text-white"
+                  className="mt-6 min-h-11 rounded-full border border-burgundy px-6 py-3 text-burgundy text-sm font-semibold transition-colors hover:bg-burgundy hover:text-white"
                 >
                   مسح الفلاتر
                 </button>
               )}
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 sm:gap-x-4 sm:gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+            <div className="product-card-grid">
               {visibleProducts.map((product, index) => (
                 <ProductCard key={product.id} product={product} index={index} />
               ))}
@@ -620,7 +575,7 @@ const ProductsPageServer = () => {
               <button
                 type="button"
                 onClick={() => setVisibleCount((value) => value + PAGE_SIZE)}
-                className="rounded-xl border border-burgundy text-burgundy px-8 py-3 text-[10px] font-semibold transition-colors hover:bg-burgundy hover:text-white"
+                className="min-h-10 rounded-full border border-burgundy px-8 py-2 text-burgundy text-[10px] font-semibold transition-colors hover:bg-burgundy hover:text-white"
               >
                 عرض المزيد
               </button>

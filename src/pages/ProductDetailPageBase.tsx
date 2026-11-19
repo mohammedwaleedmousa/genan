@@ -1351,7 +1351,7 @@ const ProductDetailPage = () => {
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-x-2.5 gap-y-6 sm:grid-cols-3 md:gap-x-4 md:gap-y-8 lg:grid-cols-4">
+              <div className="product-card-grid">
                 {relatedProducts.map((item, index) => (
                   <ProductCard key={item.id} product={item} index={index} />
                 ))}
@@ -1374,7 +1374,7 @@ const ProductDetailPage = () => {
                 <h2 className="text-[15px] font-semibold text-[#0E0E0E] md:text-[19px]">شاهدت مؤخراً</h2>
               </div>
 
-              <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:grid-cols-3 md:gap-x-4 md:gap-y-7 lg:grid-cols-4">
+              <div className="product-card-grid">
                 {recentItems
                   .filter((item) => item.id !== product.id)
                   .slice(0, 4)

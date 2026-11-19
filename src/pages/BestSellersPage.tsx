@@ -79,7 +79,7 @@ const BestSellersPage = () => {
 
         <section className="mx-auto w-full max-w-[1500px] rounded-3xl bg-white px-3 py-5 shadow-sm sm:px-5 md:px-6 md:py-7">
           {isLoading ? (
-            <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="product-card-grid">
               {Array.from({ length: 10 }).map((_, index) => <ProductCardSkeleton key={index} />)}
             </div>
           ) : products.length === 0 ? (
@@ -91,7 +91,7 @@ const BestSellersPage = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 sm:gap-y-6 md:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
+              <div className="product-card-grid">
                 {products.map((product, index) => (
                   <div key={product.id} className="min-w-0"><ProductCard product={product} index={index} badge="BEST SELLER" /></div>
                 ))}
