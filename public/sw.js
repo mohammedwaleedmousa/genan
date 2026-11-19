@@ -1,6 +1,6 @@
-const SHELL_CACHE = "genan-shell-v4";
+const SHELL_CACHE = "genan-shell-v5";
 const LEGACY_SHELL_CACHE = "genan-shell-v3";
-const IMAGE_CACHE = "genan-images-v2";
+const IMAGE_CACHE = "genan-images-v3";
 const SHELL_PATH = "/index.html";
 const APP_SHELL = [SHELL_PATH, "/manifest.json"];
 const CATALOG_PATHS = new Set([
@@ -15,16 +15,15 @@ const isCatalogPage = (url) => {
 
 const isHtml = (response) => (response.headers.get("content-type") || "").includes("text/html");
 
-const isCacheableImage = (response) => response.type === "opaque" ||
-  (response.ok && (response.headers.get("content-type") || "").startsWith("image/"));
+const isCacheableImage = (response) =>
+  response.ok && (response.headers.get("content-type") || "").startsWith("image/");
 
 const isSupabaseImage = (url) =>
   url.hostname.endsWith("supabase.co") &&
   (url.pathname.includes("/storage/v1/object/public/") || url.pathname.includes("/storage/v1/render/image/public/"));
 
 const isStorefrontImageRequest = (request, url) =>
-  request.destination === "image" &&
-  (url.origin === self.location.origin || isSupabaseImage(url));
+  request.destination === "image" && url.origin === self.location.origin;
 
 const staleWhileRevalidateImage = async (request, event) => {
   const cache = await caches.open(IMAGE_CACHE);
@@ -64,7 +63,7 @@ self.addEventListener("activate", (event) => {
     (async () => {
       const keys = await caches.keys();
       await Promise.all(
-        keys.filter((key) => key.startsWith("genan-shell-") && key !== SHELL_CACHE)
+        keys.filter((key) => (key.startsWith("genan-shell-") && key !== SHELL_CACHE) || key === "genan-images-v2")
           .map((key) => caches.delete(key)),
       );
       await self.clients.claim();
@@ -114,10 +113,10 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
 
-  // Content-addressed catalog thumbnails are served by the native HTTP cache.
-  // An intercepted image must never inherit an old cached SPA fallback.
-  if (request.destination === "image" && url.origin === self.location.origin &&
-      url.pathname.startsWith("/assets/catalog-thumbnails/")) return;
+  // Catalog media already has immutable HTTP caching. Let the browser fetch
+  // it directly, independently of the cached app shell and opaque responses.
+  if (isSupabaseImage(url) || (url.origin === self.location.origin &&
+      url.pathname.startsWith("/assets/catalog-thumbnails/"))) return;
 
   if (isStorefrontImageRequest(request, url)) {
     event.respondWith(staleWhileRevalidateImage(request, event));

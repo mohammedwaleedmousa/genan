@@ -3,13 +3,12 @@ export const registerServiceWorker = () => {
 
   const update = async () => {
     try {
-      const registration = await navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" });
-      await registration.update();
+      await navigator.serviceWorker.register("/sw.js?v=5", { updateViaCache: "none" });
     } catch (error) {
       console.error("[pwa] service worker registration failed", error);
     }
   };
 
-  if (document.readyState === "complete") void update();
-  else window.addEventListener("load", update, { once: true });
+  // Start revision checks while route modules load, including on image-heavy pages.
+  void update();
 };

@@ -884,7 +884,16 @@ const ProductDetailPage = () => {
   <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y", backgroundImage: galleryPreview ? `url("${galleryPreview}")` : undefined }} className="h-full w-full cursor-grab bg-contain bg-center bg-no-repeat active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
       <TransformComponent wrapperClass="!h-full !w-full !overflow-hidden" contentClass="!h-full !w-full">
-        <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 55vw" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={handleImageError} draggable={false} className="h-full w-full select-none object-contain object-center" />
+        <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 55vw" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={(event) => {
+          const image = event.currentTarget;
+          if (galleryPreview && image.getAttribute("src") !== galleryPreview && image.dataset.previewTried !== "1") {
+            image.dataset.previewTried = "1";
+            image.removeAttribute("srcset");
+            image.src = galleryPreview;
+          } else {
+            handleImageError(event);
+          }
+        }} draggable={false} className="h-full w-full select-none object-contain object-center" />
       </TransformComponent>
     </TransformWrapper>
   </motion.div>
