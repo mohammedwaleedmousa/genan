@@ -48,7 +48,7 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
   const { data: products = [], isLoading, isError, refetch } = selectedSlug ? categoryProducts : allProducts;
   const allProductsLink = selectedSlug ? `/products?category=${encodeURIComponent(selectedSlug)}` : "/products";
   const options = [{ slug: "", label: "الكل" }, ...tabs];
-  const gridClass = "grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:gap-5";
+  const gridClass = "grid grid-cols-2 gap-x-2.5 gap-y-5 sm:gap-x-3 md:grid-cols-4 md:gap-x-4 md:gap-y-9 xl:gap-x-5";
 
   return (
     <section aria-labelledby="home-collection-title" className="bg-white py-6 sm:py-8 lg:py-10" dir="rtl">
@@ -74,12 +74,22 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
             ))}
           </div>
         </div>
+      </div>
 
+      <div className="mx-auto w-full max-w-[1600px] px-3 md:px-8 lg:px-12">
         <div aria-busy={isLoading} aria-live="polite">
           {isLoading ? (
             <div className={gridClass} aria-label="جاري تحميل المنتجات">
               {Array.from({ length: visibleProductCount }, (_, index) => (
-                <div key={index} aria-hidden="true" className="h-52 animate-pulse rounded-2xl bg-[#F6F0EB] sm:h-64" />
+                <div key={index} aria-hidden="true" className="animate-pulse overflow-hidden rounded-[15px] border border-[#EAEAEA] bg-white">
+                  <div className="aspect-[4/5] bg-[#F5EFE8]" />
+                  <div className="relative h-[86px] px-2.5 pt-3">
+                    <div className="h-2.5 w-3/4 rounded-full bg-[#F5EFE8]" />
+                    <div className="mt-2 h-2 w-1/2 rounded-full bg-[#F5EFE8]" />
+                    <div className="mt-4 h-2.5 w-2/5 rounded-full bg-[#F5EFE8]" />
+                    <div className="absolute bottom-[9px] left-[9px] h-[33px] w-[33px] rounded-[9px] bg-[#F5EFE8]" />
+                  </div>
+                </div>
               ))}
             </div>
           ) : isError && products.length === 0 ? (

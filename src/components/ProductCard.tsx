@@ -183,12 +183,26 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
 
   return (
     <Link to={`/product/${product.slug}`} state={{ productPreview: product }} dir="rtl" data-catalog-product-id={product.id} onPointerEnter={() => void prefetchProductDetailPage()} onPointerDown={() => void prefetchProductDetailPage()} onFocus={() => void prefetchProductDetailPage()} onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)} className="block w-full min-w-0">
-      <article className="relative w-full min-w-0 overflow-hidden rounded-[15px] border border-[#EAEAEA] bg-white transition-transform duration-150 active:scale-[0.985]">
-        <div className={`relative w-full overflow-hidden ${isCollection ? "aspect-[3/2] bg-[#F5EFE8]" : "aspect-[4/5] bg-[#F4F4F4]"}`}>
+      <article className={`relative w-full min-w-0 overflow-hidden rounded-[15px] border border-[#EAEAEA] bg-white duration-150 active:scale-[0.985] ${isCollection ? "transition-[border-color,transform] hover:border-[#D8C29A]" : "transition-transform"}`}>
+        <div className={`relative aspect-[4/5] w-full overflow-hidden ${isCollection ? "bg-[#F5EFE8]" : "bg-[#F4F4F4]"}`}>
           {!allImagesFailed && optimizedMainImage ? (
             <>
               {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#EFEFEF]" />}
-              <img key={`${product.id}-${imageIndex}-${mainImage}`} src={optimizedMainImage} srcSet={optimizedMainImageSrcSet} alt={product.nameAr || product.name || "منتج جنان"} loading={shouldEagerLoad ? "eager" : "lazy"} decoding="async" fetchPriority={shouldPrioritize ? "high" : "auto"} onLoad={handleMainImageLoad} onError={handleMainImageError} width={480} height={600} sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className={`absolute inset-0 h-full w-full select-none transition-opacity duration-150 ${imageLoaded ? "opacity-100" : "opacity-0"} ${isCollection ? "object-contain object-center" : imageFit === "cover" ? "object-cover object-center" : "scale-[1.035] object-contain object-center"}`} />
+              <img
+                key={`${product.id}-${imageIndex}-${mainImage}`}
+                src={optimizedMainImage}
+                srcSet={optimizedMainImageSrcSet}
+                alt={product.nameAr || product.name || "منتج جنان"}
+                loading={shouldEagerLoad ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={shouldPrioritize ? "high" : "auto"}
+                onLoad={handleMainImageLoad}
+                onError={handleMainImageError}
+                width={480}
+                height={600}
+                sizes={isCollection ? "(max-width: 767px) 50vw, (min-width: 1600px) 361px, 25vw" : "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"}
+                className={`absolute inset-0 h-full w-full select-none transition-opacity duration-150 ${imageLoaded ? "opacity-100" : "opacity-0"} ${imageFit === "cover" ? "object-cover object-center" : "scale-[1.035] object-contain object-center"}`}
+              />
             </>
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F4F4F4]">
@@ -213,29 +227,25 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
           )}
         </div>
 
-        <div className={isCollection ? "bg-white px-2.5 pb-3 pt-2.5 text-center" : "relative h-[86px] bg-white px-[10px] pb-[9px] pt-[8px]"}>
-          <h3 className={`overflow-hidden whitespace-nowrap text-ellipsis font-semibold text-[#0E0E0E] ${isCollection ? "text-xs leading-5 sm:text-sm" : "pl-[36px] text-[10.5px] leading-[17px]"}`}>{product.nameAr || product.name}</h3>
-          {!isCollection && (
-            <p className="mt-[1px] overflow-hidden whitespace-nowrap pl-[36px] text-ellipsis text-[7.5px] leading-[14px] text-[#777777]">
-              {product.brand || "GENAN"}
-              {firstColorName && <><span className="mx-[4px] text-[#B0B0B0]">•</span>{firstColorName}</>}
-            </p>
-          )}
+        <div className="relative h-[86px] bg-white px-[10px] pb-[9px] pt-[8px]">
+          <h3 className={`truncate font-semibold leading-[17px] text-[#0E0E0E] ${isCollection ? "text-xs sm:text-sm" : "pl-[36px] text-[10.5px]"}`}>{product.nameAr || product.name}</h3>
+          <p className={`mt-px truncate leading-[14px] text-[#777777] ${isCollection ? "text-[9px] sm:text-[10px]" : "pl-[36px] text-[7.5px]"}`}>
+            {product.brand || "GENAN"}
+            {firstColorName && <><span className="mx-[4px] text-[#B0B0B0]">•</span>{firstColorName}</>}
+          </p>
 
-          <div className={isCollection ? "mt-0.5 min-w-0" : "absolute bottom-[13px] left-[46px] right-[10px] flex min-w-0 items-center"}>
-            <span className={`block max-w-full overflow-hidden text-ellipsis whitespace-nowrap font-bold ${isCollection ? "text-xs leading-5 text-[#74162D] sm:text-sm" : "text-[11px] leading-none text-[#8C6B32]"}`}>{getDisplayedPrice()}</span>
+          <div className={isCollection ? "absolute inset-x-2.5 bottom-[9px] flex min-h-[33px] items-center justify-between gap-2" : "contents"}>
+            <span className={`block min-w-0 truncate font-bold ${isCollection ? "text-xs leading-4 text-[#74162D] sm:text-sm" : "absolute bottom-[13px] left-[46px] right-[10px] text-[11px] leading-none text-[#8C6B32]"}`}>{getDisplayedPrice()}</span>
+
+            {product.inStock && !isDemo ? (
+              <button type="button" aria-label="إضافة إلى السلة" onClick={handleAdd}
+                className={`flex h-[33px] w-[33px] shrink-0 items-center justify-center rounded-[9px] transition-all duration-200 ${isCollection ? "bg-[#74162D] text-white hover:bg-[#591123]" : "absolute bottom-[9px] left-[9px] border border-[#D8C29A] bg-[#F5FAF9] text-[#8C6B32] active:bg-[#EAF6F4]"} ${bagPop ? "scale-110" : "scale-100"}`}>
+                {isCollection ? <ShoppingCart aria-hidden="true" className="h-[15px] w-[15px]" strokeWidth={1.7} /> : <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.7} />}
+              </button>
+            ) : (
+              <span className={`font-medium text-[#777777] ${isCollection ? "shrink-0 text-[9px]" : "absolute bottom-[14px] left-[9px] text-[7px]"}`}>{isDemo ? "غير متاح للشراء" : "نفدت الكمية"}</span>
+            )}
           </div>
-
-          {product.inStock && !isDemo ? (
-            <button type="button" aria-label="إضافة إلى السلة" onClick={handleAdd}
-              className={`${isCollection ? "mx-auto mt-2 flex min-h-9 w-full max-w-[12rem] items-center justify-center gap-1.5 rounded-full bg-[#74162D] px-1.5 text-[11px] font-semibold text-white hover:bg-[#591123] sm:min-h-10 sm:px-3 sm:text-xs" : "absolute bottom-[9px] left-[9px] flex h-[33px] w-[33px] items-center justify-center rounded-[9px] border border-[#D8C29A] bg-[#F5FAF9] text-[#8C6B32] active:bg-[#EAF6F4]"} transition-all duration-200 ${bagPop ? "scale-110" : "scale-100"}`}>
-              {isCollection ? (
-                <><ShoppingCart aria-hidden="true" className="h-3.5 w-3.5 shrink-0" strokeWidth={1.7} />أضيفي للسلة</>
-              ) : <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.7} />}
-            </button>
-          ) : (
-            <span className={`font-medium text-[#777777] ${isCollection ? "mt-2 block text-[10px]" : "absolute bottom-[14px] left-[9px] text-[7px]"}`}>{isDemo ? "غير متاح للشراء" : "نفدت الكمية"}</span>
-          )}
         </div>
       </article>
     </Link>
