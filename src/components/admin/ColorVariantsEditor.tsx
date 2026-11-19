@@ -3,7 +3,7 @@ import { toast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2, Plus, Trash2, Upload, X } from 'lucide-react';
-import { uploadOptimizedImage } from '@/lib/prepareImageUpload';
+import { uploadProductColorImage } from '@/lib/prepareImageUpload';
 
 export interface VariantSize {
   size: string;
@@ -192,10 +192,7 @@ const ColorVariantsEditor = ({ value, onChange }: Props) => {
           throw new Error(`${file.name} أكبر من 15MB`);
         }
 
-        const url = await uploadOptimizedImage(file, 'color-variants', {
-          maxSizeMB: 0.65,
-          maxWidthOrHeight: 1800,
-        });
+        const url = await uploadProductColorImage(file);
 
         uploadedSlots[fileIdx] = url;
 

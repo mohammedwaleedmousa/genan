@@ -9,6 +9,7 @@ import { useCurrency } from "@/lib/currency";
 import { useFavorites } from "@/hooks/useFavorites";
 import { isSameTabClick, saveCatalogScroll, type CatalogListState } from "@/lib/catalogScroll";
 import { createImageSrcSet, optimizeCatalogImage } from "@/lib/imageUrl";
+import { getCatalogThumbnail } from "@/lib/catalogThumbnail";
 import { prefetchProductDetailPage } from "@/lib/prefetchRoutes";
 
 type ColorVariant = {
@@ -63,6 +64,7 @@ const ProductCard = ({ product, index = 2, badge, catalogList, onQuickView }: Pr
   const [bagPop, setBagPop] = useState(false);
   const [heartBeat, setHeartBeat] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
+  const [useOriginal, setUseOriginal] = useState(false);
   const [allImagesFailed, setAllImagesFailed] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageFit, setImageFit] = useState<ImageFit>("cover");
@@ -81,24 +83,21 @@ const ProductCard = ({ product, index = 2, badge, catalogList, onQuickView }: Pr
   const primaryColor = useMemo(() => colors.find((color) => Array.isArray(color.images) && color.images.some((image) => typeof image === "string" && image.trim().length > 0)) || colors[0], [colors]);
   const firstColorName = primaryColor?.name;
   const mainImage = imageCandidates[imageIndex];
-
-  const optimizedMainImage = useMemo(() => (mainImage ? optimizeCatalogImage(mainImage, 480, 78) : ""), [mainImage]);
+  const thumbnail = useMemo(() => getCatalogThumbnail(mainImage), [mainImage]);
+  const showingThumbnail = Boolean(thumbnail && !useOriginal);
+  const optimizedMainImage = showingThumbnail ? thumbnail : mainImage ? optimizeCatalogImage(mainImage, 480, 78) : "";
   const optimizedMainImageSrcSet = useMemo(
-    () => (mainImage && !optimizedMainImage.includes("/cdn-cgi/image/") ? createImageSrcSet(mainImage, [240, 360, 480], 78) : undefined),
-    [mainImage, optimizedMainImage],
+    () => (mainImage && !showingThumbnail && !optimizedMainImage.includes("/cdn-cgi/image/") ? createImageSrcSet(mainImage, [240, 360, 480], 78) : undefined),
+    [mainImage, showingThumbnail, optimizedMainImage],
   );
 
   useEffect(() => {
     setImageIndex(0);
+    setUseOriginal(false);
     setAllImagesFailed(false);
     setImageLoaded(false);
     setImageFit("cover");
   }, [product.id]);
-
-  useEffect(() => {
-    setImageLoaded(false);
-    setImageFit("cover");
-  }, [imageIndex]);
 
   const handleMainImageLoad = (event: SyntheticEvent<HTMLImageElement>) => {
     const image = event.currentTarget;
@@ -119,6 +118,11 @@ const ProductCard = ({ product, index = 2, badge, catalogList, onQuickView }: Pr
   const handleMainImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     const image = event.currentTarget;
 
+    if (showingThumbnail) {
+      setUseOriginal(true);
+      return;
+    }
+
     if (mainImage && isCloudflareCatalogTransform(image.currentSrc || image.src) && image.dataset.originalTried !== "1") {
       image.dataset.originalTried = "1";
       image.removeAttribute("srcset");
@@ -127,6 +131,9 @@ const ProductCard = ({ product, index = 2, badge, catalogList, onQuickView }: Pr
     }
 
     if (imageIndex < imageCandidates.length - 1) {
+      setImageLoaded(false);
+      setImageFit("cover");
+      setUseOriginal(false);
       setImageIndex((current) => current + 1);
       return;
     }
@@ -187,7 +194,7 @@ const ProductCard = ({ product, index = 2, badge, catalogList, onQuickView }: Pr
   const isMobileViewport = typeof window !== "undefined" && window.innerWidth <= 767;
   const eagerImageLimit = isMobileViewport ? 2 : 4;
   const shouldEagerLoad = index < eagerImageLimit;
-  const shouldPrioritize = index < 2;
+  const shouldPrioritize = index === 0;
 
   return (
     <div dir="rtl" data-catalog-product-id={product.id} className="w-full min-w-0">
@@ -205,7 +212,7 @@ const ProductCard = ({ product, index = 2, badge, catalogList, onQuickView }: Pr
         <div className="product-card-media">
           {!allImagesFailed && optimizedMainImage ? (
             <>
-              {!imageLoaded && <div className="absolute inset-0 z-[2] animate-pulse bg-[#EFEFEF]" />}
+              {!imageLoaded && <div className="absolute inset-0 z-[2] bg-[#EFEFEF]" />}
               <img
                 key={`${product.id}-${imageIndex}-${mainImage}`}
                 src={optimizedMainImage}

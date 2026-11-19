@@ -8,12 +8,9 @@ import CartDrawer from "@/components/CartDrawer";
 import ProductCard from "@/components/ProductCard";
 import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 
-import { supabase } from "@/integrations/supabase/client";
-import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import { productShelfQuery, PRODUCT_SHELF_PAGE_SIZE as PAGE_SIZE } from "@/lib/storefrontCatalogQueries";
 import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 import { useSiteContent, getSiteText } from "@/hooks/useSiteContent";
-
-const PAGE_SIZE = 20;
 
 const NewArrivalsPage = () => {
   const { data: content } = useSiteContent("new_arrivals_");
@@ -21,29 +18,7 @@ const NewArrivalsPage = () => {
   const [visibleCount, setVisibleCount] = useState(previousList?.count ?? PAGE_SIZE);
   const catalogList = useMemo(() => ({ count: visibleCount }), [visibleCount]);
 
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["new-arrivals", visibleCount],
-    queryFn: async () => {
-      const { data: rows, error, count } = await supabase
-        .from("products")
-        .select(PRODUCT_CARD_SELECT, { count: "exact" })
-        .eq("is_active", true)
-        .order("created_at", { ascending: false })
-        .limit(visibleCount);
-
-      if (error) throw error;
-
-      return {
-        products: (rows || []).map(mapProductCard),
-        total: count || 0,
-      };
-    },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 20 * 60 * 1000,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    placeholderData: (previous) => previous,
-  });
+  const { data, isLoading, isFetching } = useQuery(productShelfQuery("new-arrivals", visibleCount));
 
   const products = data?.products || [];
   const total = data?.total || 0;

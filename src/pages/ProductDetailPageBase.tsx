@@ -24,6 +24,7 @@ import { getCatalogSource } from "@/lib/catalogScroll";
 import { toast } from "@/hooks/use-toast";
 import { useCurrency } from "@/lib/currency";
 import { createImageSrcSet, optimizeImage, handleImageError } from "@/lib/imageUrl";
+import { getCatalogThumbnail, handleCatalogThumbnailError } from "@/lib/catalogThumbnail";
 
 type ProductAccessory = {
   name: string;
@@ -324,7 +325,7 @@ const ProductDetailPage = () => {
       if (cancelled) return;
       const image = new Image();
       image.decoding = "async";
-      image.src = optimizeImage(alternateImage, 640, 76);
+      image.src = getCatalogThumbnail(alternateImage) || optimizeImage(alternateImage, 640, 76);
     };
 
     const requestIdle = (window as Window & {
@@ -513,6 +514,7 @@ const ProductDetailPage = () => {
 
   const safeSelectedImage = Math.min(selectedImage, Math.max(displayImages.length - 1, 0));
   const currentImage = displayImages[safeSelectedImage] || displayImages[0] || "/placeholder.svg";
+  const galleryPreview = getCatalogThumbnail(currentImage);
 
   const activeColorName = activeColorVariant?.name || null;
   const normalizedActiveColor = normalizeInventoryValue(activeColorName);
@@ -879,7 +881,7 @@ const ProductDetailPage = () => {
     </button>
   </div>
   {/* MAIN PRODUCT */}
-  <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y" }} className="h-full w-full cursor-grab active:cursor-grabbing">
+  <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y", backgroundImage: galleryPreview ? `url("${galleryPreview}")` : undefined }} className="h-full w-full cursor-grab bg-contain bg-center bg-no-repeat active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
       <TransformComponent wrapperClass="!h-full !w-full !overflow-hidden" contentClass="!h-full !w-full">
         <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 55vw" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={handleImageError} draggable={false} className="h-full w-full select-none object-contain object-center" />
@@ -932,7 +934,7 @@ const ProductDetailPage = () => {
                     <div className="flex gap-2 overflow-x-auto px-2.5 py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-4 md:py-3">
                       {displayImages.map((image, index) => (
                         <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} className={`relative h-[58px] w-[58px] shrink-0 overflow-hidden rounded-lg bg-[#F3F0E9] transition md:h-[68px] md:w-[68px] ${safeSelectedImage === index ? "ring-1 ring-[#D8C29A] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
-                          <img src={optimizeImage(image, 220, 78)} alt="" loading="lazy" decoding="async" onError={handleImageError} className="h-full w-full object-cover object-center" />
+                          <img src={getCatalogThumbnail(image) || optimizeImage(image, 220, 78)} alt="" loading="lazy" decoding="async" onError={(event) => handleCatalogThumbnailError(event.currentTarget, image)} className="h-full w-full object-cover object-center" />
                         </button>
                       ))}
                     </div>
@@ -1060,7 +1062,7 @@ const ProductDetailPage = () => {
                       return (
                         <button type="button" key={variant.id || index} aria-pressed={active} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-burgundy bg-burgundy-soft" : "border-[#E2DDD3] bg-[#FFFFFF]"}`}>
                           {variant.images?.[0] ? (
-                            <img src={optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={handleImageError} className="h-10 w-10 shrink-0 bg-[#F1EEE7] object-cover object-center" />
+                            <img src={getCatalogThumbnail(variant.images[0]) || optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={(event) => handleCatalogThumbnailError(event.currentTarget, variant.images[0])} className="h-10 w-10 shrink-0 bg-[#F1EEE7] object-cover object-center" />
                           ) : (
                             <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#F1EEE7]">
                               <Package className="h-4 w-4 stroke-[1.4] text-[#9A825B]" />

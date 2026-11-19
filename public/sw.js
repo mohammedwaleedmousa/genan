@@ -30,9 +30,10 @@ const staleWhileRevalidateImage = async (request, event) => {
   const cached = await cache.match(request);
 
   const networkPromise = fetch(request)
-    .then(async (response) => {
+    .then((response) => {
       if (isCacheableResponse(response)) {
-        await cache.put(request, response.clone());
+        const copy = response.clone();
+        event.waitUntil(cache.put(request, copy).catch(() => {}));
       }
       return response;
     })

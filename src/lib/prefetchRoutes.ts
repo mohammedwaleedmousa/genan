@@ -1,5 +1,6 @@
 // Keep speculative route requests off constrained or unknown connections.
 const routeModules: Record<string, () => Promise<unknown>> = {
+  "/home": () => import("@/pages/HomePage"),
   "/cart": () => import("@/pages/CartPage"),
   "/checkout": () => import("@/pages/CheckoutPage"),
   "/products": () => import("@/pages/ProductsPage"),
@@ -14,6 +15,8 @@ const routeModules: Record<string, () => Promise<unknown>> = {
   "/brands": () => import("@/pages/AllBrandsPage"),
   "/my-orders": () => import("@/pages/MyOrdersPage"),
   "/store-info": () => import("@/pages/StoreInfoPage"),
+  "/qr-code": () => import("@/pages/QRCodePage"),
+  "/notifications": () => import("@/pages/NotificationsPage"),
 };
 const routePromises = new Map<string, Promise<unknown>>();
 
@@ -24,11 +27,15 @@ const getRouteKey = (path: string) => {
   return pathname;
 };
 
-export const prefetchStorefrontRoute = (path: string): Promise<unknown> => {
-  const connection = (navigator as Navigator & {
-    connection?: { saveData?: boolean; effectiveType?: string };
-  }).connection;
-  if (connection?.saveData || connection?.effectiveType !== "4g") return Promise.resolve();
+const getConnection = () => (navigator as Navigator & {
+  connection?: { saveData?: boolean; effectiveType?: string };
+}).connection;
+
+export const prefetchStorefrontRoute = (path: string, userInitiated = false): Promise<unknown> => {
+  const connection = getConnection();
+  if (!userInitiated && (connection?.saveData || connection?.effectiveType !== "4g")) {
+    return Promise.resolve();
+  }
 
   const key = getRouteKey(path);
   const loader = routeModules[key];
@@ -47,3 +54,24 @@ export const prefetchStorefrontRoute = (path: string): Promise<unknown> => {
 };
 
 export const prefetchProductDetailPage = () => prefetchStorefrontRoute("/product/_");
+
+export const warmStorefrontMenu = (currentPath: string) => {
+  const connection = getConnection();
+  if (connection?.saveData || (connection?.effectiveType && connection.effectiveType !== "4g")) return;
+
+  // Safari doesn't expose connection speed. Warm just one small route there.
+  const routes = ["/products", "/categories"].filter((route) => route !== getRouteKey(currentPath));
+  const routeCount = connection?.effectiveType === "4g" ? routes.length : 1;
+  let stopped = false;
+  const timer = window.setTimeout(async () => {
+    for (const route of routes.slice(0, routeCount)) {
+      if (stopped) return;
+      await prefetchStorefrontRoute(route, true);
+    }
+  }, 180);
+
+  return () => {
+    stopped = true;
+    window.clearTimeout(timer);
+  };
+};

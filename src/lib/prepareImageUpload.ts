@@ -349,10 +349,7 @@ function getUploadExtension(file: File) {
   return "jpg";
 }
 
-export async function uploadPreparedImage(prepared: File, pathPrefix: string): Promise<string> {
-  const prefix = sanitizeUploadPrefix(pathPrefix) || "images";
-  const extension = getUploadExtension(prepared);
-  const path = `${prefix}/${createUploadId()}.${extension}`;
+async function uploadImageAtPath(prepared: File, path: string): Promise<string> {
   const startedAt = typeof performance !== "undefined" ? performance.now() : Date.now();
 
   const { error: uploadError } = await supabase.storage.from("uploads").upload(path, prepared, {
@@ -384,6 +381,37 @@ export async function uploadPreparedImage(prepared: File, pathPrefix: string): P
   if (!data.publicUrl) throw new Error("تم رفع الصورة ولكن تعذر إنشاء رابطها العام");
 
   return data.publicUrl;
+}
+
+export async function uploadPreparedImage(prepared: File, pathPrefix: string): Promise<string> {
+  const prefix = sanitizeUploadPrefix(pathPrefix) || "images";
+  return uploadImageAtPath(prepared, `${prefix}/${createUploadId()}.${getUploadExtension(prepared)}`);
+}
+
+export async function uploadProductColorImage(file: File): Promise<string> {
+  const original = await prepareImageUpload(file, { maxSizeMB: 0.65, maxWidthOrHeight: 1800 });
+  const stem = `color-variants/previews/${createUploadId()}`;
+  const thumbnailPath = `${stem}.thumb.webp`;
+
+  try {
+    const thumbnail = await compressStandardImage(original, 690, 52 * 1024);
+    if (thumbnail.size >= original.size || thumbnail.type !== "image/webp") {
+      return uploadPreparedImage(original, "color-variants");
+    }
+    await uploadImageAtPath(thumbnail, thumbnailPath);
+  } catch (error) {
+    // Keep the existing upload flow available if the optional preview fails.
+    console.warn("Unable to upload catalog thumbnail:", error);
+    return uploadPreparedImage(original, "color-variants");
+  }
+
+  try {
+    return await uploadImageAtPath(original, `${stem}.${getUploadExtension(original)}`);
+  } catch (error) {
+    // No product references this preview until its matching original is uploaded.
+    await supabase.storage.from("uploads").remove([thumbnailPath]).catch(() => {});
+    throw error;
+  }
 }
 
 export async function uploadOptimizedImage(

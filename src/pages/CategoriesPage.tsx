@@ -5,34 +5,11 @@ import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
-import { supabase } from "@/integrations/supabase/client";
+import { storefrontCategoriesQuery } from "@/lib/storefrontCatalogQueries";
 import { optimizeImage } from "@/lib/imageUrl";
 
-type Category = {
-  id: string;
-  name: string;
-  name_ar: string;
-  slug: string;
-  image_url: string | null;
-  description_ar: string | null;
-  parent_id: string | null;
-};
-
 const CategoriesPage = () => {
-  const { data: categories = [], isLoading } = useQuery({
-    queryKey: ["genan-categories-page-v1"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("categories")
-        .select("id,name,name_ar,slug,image_url,description_ar,parent_id")
-        .eq("is_active", true)
-        .is("parent_id", null)
-        .order("sort_order", { ascending: true });
-      if (error) throw error;
-      return (data || []) as Category[];
-    },
-    staleTime: 10 * 60 * 1000,
-  });
+  const { data: categories = [], isLoading } = useQuery(storefrontCategoriesQuery);
 
   return (
     <div dir="rtl" className="min-h-screen bg-[#FAF9F7] text-[#0E0E0E]">

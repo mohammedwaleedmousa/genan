@@ -9,18 +9,10 @@ import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard";
 import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 import ProductCategoryTabs from "@/components/ProductCategoryTabs";
-import { supabase } from "@/integrations/supabase/client";
-import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import { mapProductCard } from "@/lib/productCardData";
+import { catalogFilterCategoriesQuery, catalogProductsQuery } from "@/lib/storefrontCatalogQueries";
 import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 import { getCategoryTreeIds } from "@/lib/categoryTree";
-
-type Category = {
-  id: string;
-  slug: string;
-  name_ar: string;
-  parent_id: string | null;
-  sort_order: number;
-};
 
 type ProductColor = {
   name: string;
@@ -125,37 +117,8 @@ const ProductsPageServer = () => {
     inStockOnly,
   });
 
-  const { data: categories = [], isSuccess: categoriesLoaded } = useQuery({
-    queryKey: ["genan-products-categories-v2"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("categories")
-        .select("id,slug,name_ar,parent_id,sort_order")
-        .eq("is_active", true)
-        .order("sort_order", { ascending: true });
-
-      if (error) throw error;
-      return (data || []) as Category[];
-    },
-    staleTime: 30 * 60 * 1000,
-  });
-
-  const { data: rawRows = [], isLoading, isError, refetch } = useQuery({
-    queryKey: ["genan-products-direct-v3"],
-    queryFn: async () => {
-      const { data, error } = await (supabase as any)
-        .from("products")
-        .select(`${PRODUCT_CARD_SELECT},created_at,sort_order`)
-        .eq("is_active", true)
-        .order("sort_order", { ascending: true })
-        .limit(500);
-
-      if (error) throw error;
-      return (data || []) as RawProduct[];
-    },
-    staleTime: 2 * 60 * 1000,
-    refetchOnWindowFocus: false,
-  });
+  const { data: categories = [], isSuccess: categoriesLoaded } = useQuery(catalogFilterCategoriesQuery);
+  const { data: rawRows = [], isLoading, isError, refetch } = useQuery(catalogProductsQuery);
 
   const rootCategories = useMemo(
     () => categories.filter((category) => !category.parent_id),

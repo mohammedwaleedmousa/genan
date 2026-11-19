@@ -12,16 +12,18 @@ import {
 } from "phosphor-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useStore } from "@/store/useStore";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuthActions } from "@/hooks/useAuthActions";
 import { useCustomerNotifications } from "@/hooks/useCustomerNotifications";
 import { supabase } from "@/integrations/supabase/client";
-import { prefetchStorefrontRoute } from "@/lib/prefetchRoutes";
+import { prefetchStorefrontRoute, warmStorefrontMenu } from "@/lib/prefetchRoutes";
+import { catalogFilterCategoriesQuery, catalogProductsQuery, productShelfQuery, storefrontCategoriesQuery } from "@/lib/storefrontCatalogQueries";
 import { getCatalogSource, isSameTabClick } from "@/lib/catalogScroll";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 type SearchSuggestion = {
   value: string;
@@ -98,6 +100,7 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
   const searchResultsRef = useRef<HTMLDivElement | null>(null);
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const location = useLocation();
   const catalogSource = variant === "product" ? getCatalogSource(location.state) : undefined;
   const productsSource = catalogSource && /^\/products\/?(?:[?#]|$)/.test(catalogSource)
@@ -112,11 +115,26 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
   const { unreadCount } = useCustomerNotifications({ enabled: menuOpen, enableToasts: false });
   const searchPanelOpen = searchFocused && searchTerm.trim().length > 0;
 
+  useEffect(() => {
+    if (menuOpen) return warmStorefrontMenu(location.pathname);
+  }, [location.pathname, menuOpen]);
+
   const goFromMenu = (to: string) => {
-    void prefetchStorefrontRoute(to);
+    setMenuOpen(false);
+    if (location.pathname + location.search === to) return;
+
+    void prefetchStorefrontRoute(to, true);
+    if (to === "/products") {
+      void queryClient.prefetchQuery(catalogProductsQuery);
+      void queryClient.prefetchQuery(catalogFilterCategoriesQuery);
+    } else if (to === "/categories") {
+      void queryClient.prefetchQuery(storefrontCategoriesQuery);
+    } else if (to === "/new-arrivals" || to === "/best-sellers") {
+      void queryClient.prefetchQuery(productShelfQuery(to === "/new-arrivals" ? "new-arrivals" : "best-sellers"));
+    }
+
     if (to === "/products" && productsSource) navigate(-1);
-    else if (location.pathname + location.search !== to) navigate(to);
-    window.requestAnimationFrame(() => setMenuOpen(false));
+    else navigate(to);
   };
 
   const desktopLinks = [
@@ -227,8 +245,8 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
   const handleLogout = async () => {
     await logout();
     setCustomer(null);
+    setMenuOpen(false);
     navigate("/home");
-    window.requestAnimationFrame(() => setMenuOpen(false));
   };
 
 
@@ -246,7 +264,8 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" dir="rtl" className="flex h-full w-[80vw] max-w-[390px] flex-col overflow-hidden border-0 bg-[#AB9878] p-0 text-white [&>button]:hidden">
+                <SheetContent side="right" dir="rtl" aria-describedby={undefined} hideCloseButton className="flex h-full w-[80vw] max-w-[390px] flex-col overflow-hidden border-0 bg-[#AB9878] p-0 text-white data-[state=open]:duration-200 data-[state=closed]:duration-150">
+                  <SheetTitle className="sr-only">قائمة جنان</SheetTitle>
                   <div
                     aria-hidden="true"
                     className="pointer-events-none absolute inset-0 opacity-[0.16]"
