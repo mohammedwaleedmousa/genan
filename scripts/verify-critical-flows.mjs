@@ -82,9 +82,9 @@ const checks = [
     message: "Navigation must use the Genan wordmark component.",
   },
   {
-    file: "src/components/HeroSlider.tsx",
-    needles: ["genanFallbackSlides", "managedSlides.length > 0 ? managedSlides : genanFallbackSlides", "اكتشفي المجموعة"],
-    message: "Home hero must keep the Genan fallback experience.",
+    file: "src/components/HomeHero.tsx",
+    needles: ["/brand/genan-home-banner.jpg", "banner?.cta_text_ar || fallbackCta", "اكتشفي المجموعة"],
+    message: "Home hero must use the Genan banner photo and keep the fallback call to action.",
   },
 ];
 
