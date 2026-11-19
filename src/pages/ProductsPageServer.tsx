@@ -10,6 +10,7 @@ import ProductCard from "@/components/ProductCard";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 import { restoreCatalogScroll, catalogScrollKey } from "@/lib/catalogScroll";
+import { getCategoryTreeIds } from "@/lib/categoryTree";
 
 type ProductAudience = "men" | "women" | "kids" | "unisex";
 
@@ -173,30 +174,7 @@ const ProductsPageServer = () => {
     [categories],
   );
 
-  const getCategoryIds = (slug: string) => {
-    if (!slug) return [];
-
-    const current = categories.find((category) => category.slug === slug);
-    if (!current) return [];
-
-    const ids = new Set<string>([current.id]);
-    let changed = true;
-
-    while (changed) {
-      changed = false;
-      categories.forEach((category) => {
-        if (category.parent_id && ids.has(category.parent_id) && !ids.has(category.id)) {
-          ids.add(category.id);
-          changed = true;
-        }
-      });
-    }
-
-    return Array.from(ids);
-  };
-
   const currentCategory = categories.find((category) => category.slug === categorySlug) || null;
-  const categoryIds = useMemo(() => getCategoryIds(categorySlug), [categories, categorySlug]);
 
   const brands = useMemo(
     () => Array.from(new Set(rawRows.map((row) => String(row.brand || "").trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b)),
@@ -254,7 +232,7 @@ const ProductsPageServer = () => {
       inStockOnly: boolean;
     },
   ) => {
-    const scopedCategoryIds = getCategoryIds(filters.category);
+    const scopedCategoryIds = getCategoryTreeIds(categories, filters.category);
     const minimum = filters.minPrice ? Number(filters.minPrice) : null;
     const maximum = filters.maxPrice ? Number(filters.maxPrice) : null;
 

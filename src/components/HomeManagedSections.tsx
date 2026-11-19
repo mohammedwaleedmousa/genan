@@ -2,9 +2,11 @@ import { useMemo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
+import HomeCollection from "@/components/HomeCollection";
 import ProductCard from "@/components/ProductCard";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import type { CatalogCategory } from "@/lib/categoryTree";
 
 type ManagedSection = {
   id: string;
@@ -32,7 +34,8 @@ type BestSellerStat = {
 type HomeManagedSectionsProps = {
   betweenSections?: ReactNode;
   brandsSection?: ReactNode;
-  activeCategorySlugs: string[];
+  categories: CatalogCategory[];
+  collectionTabs: { slug: string; label: string }[];
 };
 
 const INITIAL_VISIBLE = 8;
@@ -47,7 +50,7 @@ const getSectionFetchLimit = (section: ManagedSection) => {
   return Math.min(Math.max(configured, INITIAL_VISIBLE), MAX_SECTION_FETCH_LIMIT);
 };
 
-const SpecialCollections = ({ activeCategorySlugs }: Pick<HomeManagedSectionsProps, "activeCategorySlugs">) => {
+const SpecialCollections = ({ activeCategorySlugs }: { activeCategorySlugs: string[] }) => {
   const promotions = [
     {
       eyebrow: "GENAN PICKS",
@@ -112,7 +115,7 @@ const SpecialCollections = ({ activeCategorySlugs }: Pick<HomeManagedSectionsPro
   );
 };
 
-const HomeManagedSections = ({ betweenSections, brandsSection, activeCategorySlugs }: HomeManagedSectionsProps) => {
+const HomeManagedSections = ({ betweenSections, brandsSection, categories, collectionTabs }: HomeManagedSectionsProps) => {
 
   const { data: sections = [] } = useQuery({
     queryKey: ["home-managed-sections"],
@@ -133,7 +136,7 @@ const HomeManagedSections = ({ betweenSections, brandsSection, activeCategorySlu
     refetchOnReconnect: false,
   });
 
-  const { data: latestProducts = [] } = useQuery({
+  const latestProductsQuery = useQuery({
     queryKey: ["genan-home-latest-products", "editorial-v1"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -150,6 +153,8 @@ const HomeManagedSections = ({ betweenSections, brandsSection, activeCategorySlu
     staleTime: HOME_CACHE_MS,
     refetchOnWindowFocus: false,
   });
+
+  const latestProducts = latestProductsQuery.data || [];
 
   const sectionSignature = useMemo(
     () => sections.map((section) => `${section.id}:${getSectionFetchLimit(section)}`).join(","),
@@ -281,7 +286,6 @@ const HomeManagedSections = ({ betweenSections, brandsSection, activeCategorySlu
   const bestSection = rendered.find((entry) => entry.section.filter_type === "best_seller");
   const extras = rendered.filter((entry) => entry.section.id !== featuredSection?.section.id && entry.section.id !== bestSection?.section.id);
   const shelves = [
-    { key: "new-arrivals", title: "وصل حديثاً", eyebrow: "JUST LANDED", subtitle: "قطع جديدة تستحق الاكتشاف", url: "/new-arrivals", products: latestProducts.slice(0, 4) },
     { key: "best-sellers", title: "الأكثر مبيعاً", eyebrow: "MOST LOVED", subtitle: "تشكيلات لاقت إعجاب عملائنا", url: "/best-sellers", products: bestSection?.products || [] },
     { key: "genan-edit", title: "مختارات جنان", eyebrow: "GENAN EDIT", subtitle: "تفاصيل منتقاة لأسلوب مختلف", url: "/products", products: featuredSection?.products.length ? featuredSection.products : latestProducts.slice(4, 8) },
     ...extras.map((entry) => ({
@@ -318,13 +322,13 @@ const HomeManagedSections = ({ betweenSections, brandsSection, activeCategorySlu
 
   return (
     <>
-      {renderShelf(shelves[0], 0)}
-      <SpecialCollections activeCategorySlugs={activeCategorySlugs} />
-      {renderShelf(shelves[2], 1)}
+      <HomeCollection categories={categories} tabs={collectionTabs} allProducts={latestProductsQuery} />
+      <SpecialCollections activeCategorySlugs={collectionTabs.map((category) => category.slug)} />
+      {renderShelf(shelves[1], 1)}
       {betweenSections}
-      {renderShelf(shelves[1], 2)}
+      {renderShelf(shelves[0], 2)}
       {brandsSection}
-      {shelves.slice(3).map((shelf, index) => renderShelf(shelf, index + 3))}
+      {shelves.slice(2).map((shelf, index) => renderShelf(shelf, index + 3))}
     </>
   );
 };

@@ -133,7 +133,8 @@ const HomePage = () => {
         <HomeManagedSections
           betweenSections={imageBanner}
           brandsSection={brandsSection}
-          activeCategorySlugs={primaryCategories.map((category) => category.slug)}
+          categories={categories}
+          collectionTabs={primaryCategories.map((category) => ({ slug: category.slug, label: category.name_ar || category.name }))}
         />
       </main>
       <Footer />
