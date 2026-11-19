@@ -1,4 +1,4 @@
-import { useEffect, lazy as reactLazy, Suspense, useState, type ComponentType } from "react";
+import { useEffect, useLayoutEffect, lazy as reactLazy, Suspense, useState, type ComponentType } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +10,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { DateRangeProvider } from "@/lib/analytics/dateRange";
 import { hydrateCurrencies } from "@/lib/currency";
+import { getCatalogScroll, restoreCatalogScroll } from "@/lib/catalogScroll";
 import { ADMIN_BASE_PATH, ADMIN_ROUTE_UNLOCK_KEY, adminPath, legacyAdminPathToCurrent } from "@/lib/adminRoutes";
 import { MotionConfig } from "framer-motion";
 import CustomerSessionSync from "@/components/CustomerSessionSync";
@@ -214,8 +215,14 @@ const LegacyAdminRouteBridge = () => {
 };
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, key, state } = useLocation();
   const navType = useNavigationType();
+
+  useLayoutEffect(() => {
+    const snapshot = navType === "POP" ? getCatalogScroll(state) : undefined;
+    window.history.scrollRestoration = snapshot ? "manual" : "auto";
+    if (snapshot) return restoreCatalogScroll(snapshot);
+  }, [key, state, navType]);
 
   useEffect(() => {
     if (navType === "POP") return;

@@ -7,7 +7,7 @@ import { Product, useStore } from "@/store/useStore";
 import { toast } from "@/hooks/use-toast";
 import { useCurrency } from "@/lib/currency";
 import { useFavorites } from "@/hooks/useFavorites";
-import { saveCatalogScroll } from "@/lib/catalogScroll";
+import { isSameTabClick, saveCatalogScroll, type CatalogListState } from "@/lib/catalogScroll";
 import { createImageSrcSet, optimizeCatalogImage } from "@/lib/imageUrl";
 import { prefetchProductDetailPage } from "@/lib/prefetchRoutes";
 
@@ -28,6 +28,7 @@ interface ProductCardProps {
   product: DisplayProduct;
   index?: number;
   badge?: string;
+  catalogList?: CatalogListState;
   onQuickView?: (product: DisplayProduct) => void;
 }
 
@@ -40,9 +41,18 @@ const isHeicImage = (url: string) => {
 
 const isCloudflareCatalogTransform = (url: string) => url.includes("/cdn-cgi/image/");
 
-const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProps) => {
+const ProductCard = ({ product, index = 2, badge, catalogList, onQuickView }: ProductCardProps) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const catalogSource = location.pathname.startsWith("/product/")
+    ? undefined
+    : location.pathname + location.search + location.hash;
+  const productPath = `/product/${product.slug}`;
+  const productState = { productPreview: product, catalogSource };
+
+  const saveBrowsingPosition = (target: HTMLElement) => {
+    if (catalogSource) saveCatalogScroll(target, catalogList);
+  };
 
   const isLiked = useFavorites((state) => state.favorites.some((favorite) => favorite.id === product.id));
   const toggleFavorite = useFavorites((state) => state.toggleFavorite);
@@ -148,7 +158,8 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
       if (onQuickView) {
         onQuickView(product);
       } else {
-        navigate(`/product/${product.slug}`, { state: { productPreview: product } });
+        saveBrowsingPosition(event.currentTarget);
+        navigate(productPath, { state: productState });
       }
       return;
     }
@@ -182,13 +193,13 @@ const ProductCard = ({ product, index = 2, badge, onQuickView }: ProductCardProp
     <div dir="rtl" data-catalog-product-id={product.id} className="w-full min-w-0">
       <article className="product-card-frame isolate transition-[border-color,transform] duration-150 hover:border-[#D8C29A] active:scale-[0.985]">
         <Link
-          to={`/product/${product.slug}`}
-          state={{ productPreview: product }}
+          to={productPath}
+          state={productState}
           aria-label={product.nameAr || product.name || "عرض المنتج"}
           onPointerEnter={() => void prefetchProductDetailPage()}
           onPointerDown={() => void prefetchProductDetailPage()}
           onFocus={() => void prefetchProductDetailPage()}
-          onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)}
+          onClick={(event) => { if (isSameTabClick(event)) saveBrowsingPosition(event.currentTarget); }}
           className="absolute inset-0 z-10 rounded-[inherit] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-burgundy"
         />
         <div className="product-card-media">

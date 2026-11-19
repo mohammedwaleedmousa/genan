@@ -19,6 +19,7 @@ import { useAuthActions } from "@/hooks/useAuthActions";
 import { useCustomerNotifications } from "@/hooks/useCustomerNotifications";
 import { supabase } from "@/integrations/supabase/client";
 import { prefetchStorefrontRoute } from "@/lib/prefetchRoutes";
+import { getCatalogSource, isSameTabClick } from "@/lib/catalogScroll";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -62,7 +63,7 @@ const loadSearchIndex = async () => {
 
 type NavbarProps = { variant?: "default" | "product" | "editorial"; overlayHero?: boolean };
 
-const Navbar = ({ overlayHero = false }: NavbarProps) => {
+const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
   // Scope shared storefront treatments to Genan, not the admin dashboard.
   useEffect(() => {
     const previous = document.body.dataset.storefront;
@@ -98,6 +99,10 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const catalogSource = variant === "product" ? getCatalogSource(location.state) : undefined;
+  const productsSource = catalogSource && /^\/products\/?(?:[?#]|$)/.test(catalogSource)
+    ? catalogSource
+    : undefined;
 
   const { openCart, getCartCount, customer, setCustomer } = useStore();
   const { favorites } = useFavorites();
@@ -109,7 +114,8 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
   const goFromMenu = (to: string) => {
     void prefetchStorefrontRoute(to);
-    if (location.pathname + location.search !== to) navigate(to);
+    if (to === "/products" && productsSource) navigate(-1);
+    else if (location.pathname + location.search !== to) navigate(to);
     window.requestAnimationFrame(() => setMenuOpen(false));
   };
 
@@ -411,11 +417,17 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
 
           <nav className={`hidden h-[48px] items-center justify-center gap-1 border-t md:flex lg:gap-2 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-transparent" : "border-white/45"}`}>
             {desktopLinks.map((item) => {
+              const returnToProducts = item.to === "/products" ? productsSource : undefined;
               const active = location.pathname === item.to || (item.to === "/products" && location.pathname.startsWith("/product/"));
               return (
                 <Link
                   key={item.to}
-                  to={item.to}
+                  to={returnToProducts || item.to}
+                  onClick={returnToProducts ? (event) => {
+                    if (!isSameTabClick(event)) return;
+                    event.preventDefault();
+                    navigate(-1);
+                  } : undefined}
                   aria-current={active ? "page" : undefined}
                   onPointerEnter={() => void prefetchStorefrontRoute(item.to)}
                   onFocus={() => void prefetchStorefrontRoute(item.to)}

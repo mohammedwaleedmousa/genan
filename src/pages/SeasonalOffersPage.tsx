@@ -10,6 +10,7 @@ import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 
 type Offer = {
   id: string;
@@ -33,7 +34,9 @@ type Offer = {
 const PAGE_SIZE = 20;
 
 const SeasonalOffersPage = () => {
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const previousList = useCatalogListSnapshot();
+  const [visibleCount, setVisibleCount] = useState(previousList?.count ?? PAGE_SIZE);
+  const catalogList = useMemo(() => ({ count: visibleCount }), [visibleCount]);
 
   const { data: offers = [], isLoading } = useQuery({
     queryKey: ["managed-offers"],
@@ -141,7 +144,7 @@ const SeasonalOffersPage = () => {
               <div className="product-card-grid">
                 {visibleProducts.map((product, index) => (
                   <div key={product.id} className="min-w-0">
-                    <ProductCard product={product} index={index} badge="OFFER" />
+                    <ProductCard product={product} index={index} catalogList={catalogList} badge="OFFER" />
                   </div>
                 ))}
               </div>

@@ -1,129 +1,103 @@
+import type { MouseEvent } from "react";
+import { useLocation } from "react-router-dom";
+
+export type CatalogListState = {
+  count?: number;
+  sort?: string;
+  inStockOnly?: boolean;
+};
+
 type CatalogScrollSnapshot = {
-  top: number;
-  productId?: string;
+  productId: string;
+  occurrence: number;
+  viewportTop: number;
+  list?: CatalogListState;
 };
 
-export const catalogScrollKey = (path: string) => `flamingopark:catalog-scroll:${path}`;
-
-const parseCatalogScroll = (saved: string): CatalogScrollSnapshot | null => {
-  try {
-    const parsed = JSON.parse(saved) as Partial<CatalogScrollSnapshot>;
-    const top = Number(parsed?.top);
-
-    if (Number.isFinite(top)) {
-      return {
-        top: Math.max(0, top),
-        productId: typeof parsed.productId === "string" && parsed.productId ? parsed.productId : undefined,
-      };
-    }
-  } catch {
-    // Backwards compatibility with the old numeric session value.
-  }
-
-  const legacyTop = Number(saved);
-
-  return Number.isFinite(legacyTop)
-    ? { top: Math.max(0, legacyTop) }
-    : null;
+type CatalogHistoryState = {
+  catalogScroll?: CatalogScrollSnapshot;
+  catalogSource?: string;
 };
 
-export const saveCatalogScroll = (path: string, productId?: string) => {
+export const isSameTabClick = (event: MouseEvent) =>
+  !event.defaultPrevented && event.button === 0 && !event.metaKey &&
+  !event.ctrlKey && !event.shiftKey && !event.altKey;
+
+export const getCatalogScroll = (state: unknown) =>
+  (state as CatalogHistoryState | null)?.catalogScroll;
+
+export const getCatalogSource = (state: unknown) =>
+  (state as CatalogHistoryState | null)?.catalogSource;
+
+export const useCatalogListSnapshot = () => getCatalogScroll(useLocation().state)?.list;
+
+const findProductCards = (productId: string) =>
+  Array.from(document.querySelectorAll<HTMLElement>(
+    `[data-catalog-product-id="${CSS.escape(productId)}"]`,
+  )).filter((card) => card.getClientRects().length > 0);
+
+export const saveCatalogScroll = (target: HTMLElement, list?: CatalogListState) => {
+  const card = target.closest<HTMLElement>("[data-catalog-product-id]");
+  const productId = card?.dataset.catalogProductId;
+  if (!card || !productId) return;
+
   const snapshot: CatalogScrollSnapshot = {
-    top: window.scrollY,
     productId,
+    occurrence: findProductCards(productId).indexOf(card),
+    viewportTop: card.getBoundingClientRect().top,
+    list,
   };
 
   try {
-    sessionStorage.setItem(catalogScrollKey(path), JSON.stringify(snapshot));
+    // Add the snapshot to this BrowserRouter entry, keeping its key, index and user state.
+    const entry = window.history.state;
+    window.history.replaceState({ ...entry, usr: { ...entry?.usr, catalogScroll: snapshot } }, "");
+    window.history.scrollRestoration = "manual";
   } catch {
-    // Navigation should still work when the browser blocks session storage.
+    // Opening the product still works if the browser blocks history writes.
   }
 };
 
-export const clearCatalogScroll = (path: string) => {
-  sessionStorage.removeItem(catalogScrollKey(path));
-};
+export const restoreCatalogScroll = (snapshot: CatalogScrollSnapshot) => {
+  let frame = 0;
+  let settleTimer: number | undefined;
+  const root = document.getElementById("root") || document.body;
+  const observer = new MutationObserver(schedule);
+  const resize = new ResizeObserver(schedule);
+  const timeout = window.setTimeout(stop, 8000);
+  const interruptEvents = ["pointerdown", "touchstart", "wheel", "keydown"] as const;
 
-const findLoadMoreButton = () => {
-  const grid = document.getElementById("products-grid");
-
-  if (!grid) return null;
-
-  return (
-    Array.from(grid.querySelectorAll<HTMLButtonElement>("button")).find((button) => {
-      const text = button.textContent || "";
-      return text.includes("عرض المزيد") || text.includes("جاري التحميل");
-    }) || null
-  );
-};
-
-export const restoreCatalogScroll = (path: string) => {
-  const key = catalogScrollKey(path);
-  const saved = sessionStorage.getItem(key);
-
-  if (!saved) return;
-
-  const snapshot = parseCatalogScroll(saved);
-
-  if (!snapshot) {
-    sessionStorage.removeItem(key);
-    return;
+  function stop() {
+    observer.disconnect();
+    resize.disconnect();
+    window.cancelAnimationFrame(frame);
+    window.clearTimeout(timeout);
+    window.clearTimeout(settleTimer);
+    interruptEvents.forEach((event) => window.removeEventListener(event, stop, true));
   }
 
-  let attempts = 0;
-  let missingLoadMoreAttempts = 0;
+  function restore() {
+    const cards = findProductCards(snapshot.productId);
+    const card = cards[snapshot.occurrence] || cards[0];
+    if (!card) return false;
 
-  const finishRestore = () => {
-    sessionStorage.removeItem(key);
+    const delta = card.getBoundingClientRect().top - snapshot.viewportTop;
+    if (Math.abs(delta) > 1) window.scrollBy({ top: delta, behavior: "instant" });
 
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: snapshot.top, left: 0, behavior: "auto" });
+    // Allow lazy sections above the card to settle without overriding customer input.
+    settleTimer ??= window.setTimeout(stop, 600);
+    return true;
+  }
 
-      // Images/cards can settle a frame later; apply the saved position once more.
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: snapshot.top, left: 0, behavior: "auto" });
-      });
-    });
-  };
+  function schedule() {
+    window.cancelAnimationFrame(frame);
+    frame = window.requestAnimationFrame(restore);
+  }
 
-  const attemptRestore = () => {
-    attempts += 1;
+  if (!restore()) window.scrollTo({ top: 0, behavior: "instant" });
+  observer.observe(root, { childList: true, subtree: true });
+  resize.observe(root);
+  interruptEvents.forEach((event) => window.addEventListener(event, stop, { capture: true, passive: true }));
 
-    const productAnchor = snapshot.productId
-      ? document.querySelector<HTMLElement>(`[data-catalog-product-id="${snapshot.productId}"]`)
-      : null;
-
-    const maxScrollTop = Math.max(
-      0,
-      document.documentElement.scrollHeight - window.innerHeight,
-    );
-
-    // Restore only after the original product (preferred) or enough page height exists.
-    if (productAnchor || maxScrollTop >= snapshot.top - 24) {
-      finishRestore();
-      return;
-    }
-
-    const loadMoreButton = findLoadMoreButton();
-
-    if (loadMoreButton) {
-      missingLoadMoreAttempts = 0;
-
-      if (!loadMoreButton.disabled && loadMoreButton.textContent?.includes("عرض المزيد")) {
-        loadMoreButton.click();
-      }
-    } else {
-      missingLoadMoreAttempts += 1;
-    }
-
-    // Avoid an endless loop if the catalog changed or there is nothing else to load.
-    if (attempts >= 180 || missingLoadMoreAttempts >= 12) {
-      finishRestore();
-      return;
-    }
-
-    window.setTimeout(attemptRestore, 140);
-  };
-
-  requestAnimationFrame(attemptRestore);
+  return stop;
 };

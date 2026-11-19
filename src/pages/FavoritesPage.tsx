@@ -11,6 +11,7 @@ import { useFavorites } from "@/hooks/useFavorites";
 import { useStore } from "@/store/useStore";
 import { useSiteContent, getSiteText, formatSiteText } from "@/hooks/useSiteContent";
 import { toast } from "@/hooks/use-toast";
+import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 
 type SortOption = "newest" | "priceLow" | "priceHigh" | "name";
 
@@ -26,7 +27,11 @@ const FavoritesPage = () => {
   const { addToCart } = useStore();
   const { data: content } = useSiteContent("favorites_");
 
-  const [sortBy, setSortBy] = useState<SortOption>("newest");
+  const previousList = useCatalogListSnapshot();
+  const [sortBy, setSortBy] = useState<SortOption>(
+    () => sortOptions.find((option) => option.value === previousList?.sort)?.value ?? "newest",
+  );
+  const catalogList = useMemo(() => ({ sort: sortBy }), [sortBy]);
   const [sortOpen, setSortOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement | null>(null);
 
@@ -223,7 +228,7 @@ const FavoritesPage = () => {
               <div className="product-card-grid">
                 {sortedFavorites.map((product, index) => (
                   <div key={product.id} className="min-w-0">
-                    <ProductCard product={product} index={index} />
+                    <ProductCard product={product} index={index} catalogList={catalogList} />
                   </div>
                 ))}
               </div>

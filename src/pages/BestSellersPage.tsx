@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Heart, Loader2, Sparkles } from "lucide-react";
 
@@ -10,13 +10,16 @@ import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 import { useSiteContent, getSiteText } from "@/hooks/useSiteContent";
 
 const PAGE_SIZE = 20;
 
 const BestSellersPage = () => {
   const { data: content } = useSiteContent("best_sellers_");
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const previousList = useCatalogListSnapshot();
+  const [visibleCount, setVisibleCount] = useState(previousList?.count ?? PAGE_SIZE);
+  const catalogList = useMemo(() => ({ count: visibleCount }), [visibleCount]);
 
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["best-sellers", visibleCount],
@@ -93,7 +96,7 @@ const BestSellersPage = () => {
             <>
               <div className="product-card-grid">
                 {products.map((product, index) => (
-                  <div key={product.id} className="min-w-0"><ProductCard product={product} index={index} badge="BEST SELLER" /></div>
+                  <div key={product.id} className="min-w-0"><ProductCard product={product} index={index} catalogList={catalogList} badge="BEST SELLER" /></div>
                 ))}
               </div>
 

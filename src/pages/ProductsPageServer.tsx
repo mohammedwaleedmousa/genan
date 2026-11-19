@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Check, ChevronDown, SlidersHorizontal, X } from "lucide-react";
-import { useLocation, useNavigationType, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import CartDrawer from "@/components/CartDrawer";
 import Footer from "@/components/Footer";
@@ -11,7 +11,7 @@ import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 import ProductCategoryTabs from "@/components/ProductCategoryTabs";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
-import { restoreCatalogScroll, catalogScrollKey } from "@/lib/catalogScroll";
+import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 import { getCategoryTreeIds } from "@/lib/categoryTree";
 
 type Category = {
@@ -97,12 +97,11 @@ const getFinalPrice = (row: RawProduct) => {
 
 const ProductsPageServer = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  const navigationType = useNavigationType();
-  const restoredPath = useRef<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [sortOpen, setSortOpen] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const previousList = useCatalogListSnapshot();
+  const [visibleCount, setVisibleCount] = useState(previousList?.count ?? PAGE_SIZE);
+  const catalogList = useMemo(() => ({ count: visibleCount }), [visibleCount]);
 
   const categorySlug = searchParams.get("category") || "";
   const searchQuery = (searchParams.get("search") || "").trim().toLowerCase();
@@ -325,15 +324,6 @@ const ProductsPageServer = () => {
 
   const visibleProducts = filtered.slice(0, visibleCount);
 
-  // Preserve the browsing position when returning from a product detail page.
-  useEffect(() => {
-    if (isLoading || isError || navigationType !== "POP") return;
-    const path = `${location.pathname}${location.search}`;
-    if (restoredPath.current === path || !sessionStorage.getItem(catalogScrollKey(path))) return;
-    restoredPath.current = path;
-    restoreCatalogScroll(path);
-  }, [isLoading, isError, navigationType, location.pathname, location.search]);
-
   // Prevent the background catalog from moving while the mobile drawers are open.
   useEffect(() => {
     if (!filtersOpen && !sortOpen) return;
@@ -554,7 +544,7 @@ const ProductsPageServer = () => {
           ) : (
             <div className="product-card-grid">
               {visibleProducts.map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index} />
+                <ProductCard key={product.id} product={product} index={index} catalogList={catalogList} />
               ))}
             </div>
           )}

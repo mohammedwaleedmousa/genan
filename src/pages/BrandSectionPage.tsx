@@ -12,6 +12,7 @@ import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
 import type { Product } from "@/store/useStore";
+import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 
 interface BrandSectionRow {
   id: string;
@@ -35,9 +36,11 @@ const PAGE_SIZE = 16;
 
 const BrandSectionPage = () => {
   const { slug, sectionSlug } = useParams<{ slug: string; sectionSlug: string }>();
-  const [sort, setSort] = useState<SortType>("new");
-  const [inStockOnly, setInStockOnly] = useState(false);
-  const [loadedPage, setLoadedPage] = useState(1);
+  const previousList = useCatalogListSnapshot();
+  const [sort, setSort] = useState<SortType>((previousList?.sort as SortType) ?? "new");
+  const [inStockOnly, setInStockOnly] = useState(previousList?.inStockOnly ?? false);
+  const [loadedPage, setLoadedPage] = useState(previousList?.count ?? 1);
+  const catalogList = useMemo(() => ({ count: loadedPage, sort, inStockOnly }), [loadedPage, sort, inStockOnly]);
 
   // Same cache key as BrandPage: when the customer opens a brand first,
   // this page reuses that result immediately instead of requesting the brand again.
@@ -189,7 +192,7 @@ const BrandSectionPage = () => {
           ) : (
             <>
               <div className="product-card-grid">
-                {visibleProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} />)}
+                {visibleProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} catalogList={catalogList} />)}
               </div>
               {hasMore && <div className="flex justify-center pt-9"><button type="button" disabled={productsLoading} onClick={() => setLoadedPage((page) => page + 1)} className="h-11 rounded-full border border-burgundy bg-background px-7 text-[10px] font-medium text-burgundy hover:bg-burgundy-soft disabled:opacity-50">{productsLoading ? "جاري التحميل..." : "عرض المزيد"}</button></div>}
             </>

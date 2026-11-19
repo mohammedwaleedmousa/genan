@@ -20,6 +20,7 @@ import { useStore, Product } from "@/store/useStore";
 import { useFavorites } from "@/hooks/useFavorites";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import { getCatalogSource } from "@/lib/catalogScroll";
 import { toast } from "@/hooks/use-toast";
 import { useCurrency } from "@/lib/currency";
 import { createImageSrcSet, optimizeImage, handleImageError } from "@/lib/imageUrl";
@@ -88,6 +89,11 @@ const ProductDetailPage = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const catalogSource = getCatalogSource(location.state);
+  const returnToCatalog = () => {
+    if (catalogSource) navigate(-1);
+    else navigate("/products");
+  };
 
   const { addToCart } = useStore();
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -465,7 +471,7 @@ const ProductDetailPage = () => {
 
           <p className="mt-2 text-[9px] text-[#777777]">قد يكون المنتج قد نفد أو لم يعد متاحًا.</p>
 
-          <button type="button" onClick={() => navigate("/products")} className="mt-5 h-11 rounded-[12px] bg-burgundy px-7 text-[9px] font-semibold text-white">
+          <button type="button" onClick={returnToCatalog} className="mt-5 h-11 rounded-[12px] bg-burgundy px-7 text-[9px] font-semibold text-white">
             تصفح المنتجات
           </button>
         </div>
@@ -814,20 +820,22 @@ const ProductDetailPage = () => {
               BREADCRUMB
           ================================================= */}
 
-          <nav className="mb-6 hidden items-center gap-2 pt-7 text-[8px] tracking-[0.04em] text-[#888888] md:flex" aria-label="مسار التنقل">
-            <button type="button" onClick={() => navigate("/home")} className="transition-colors hover:text-[#D8C29A]">
+          <nav className="mb-2 flex items-center gap-2 text-[10px] text-[#888888] md:mb-6 md:pt-7 md:text-[8px] md:tracking-[0.04em]" aria-label="مسار التنقل">
+            <button type="button" onClick={() => navigate("/home")} className="hidden transition-colors hover:text-[#D8C29A] md:inline">
               الرئيسية
             </button>
 
-            <ChevronLeft className="h-3 w-3" strokeWidth={1.4} />
+            <ChevronLeft aria-hidden="true" className="hidden h-3 w-3 md:block" strokeWidth={1.4} />
 
-            <button type="button" onClick={() => navigate("/products")} className="transition-colors hover:text-[#D8C29A]">
-              المنتجات
+            <button type="button" onClick={returnToCatalog} className="inline-flex min-h-10 items-center gap-1 text-burgundy transition-colors hover:text-[#D8C29A] md:min-h-0 md:text-inherit">
+              <ChevronRight aria-hidden="true" className="h-4 w-4 md:hidden" strokeWidth={1.4} />
+              <span className="md:hidden">{catalogSource ? "العودة للتصفح" : "جميع المنتجات"}</span>
+              <span className="hidden md:inline">{catalogSource && !/^\/products\/?(?:[?#]|$)/.test(catalogSource) ? "العودة للتصفح" : "المنتجات"}</span>
             </button>
 
-            <ChevronLeft className="h-3 w-3" strokeWidth={1.4} />
+            <ChevronLeft aria-hidden="true" className="hidden h-3 w-3 md:block" strokeWidth={1.4} />
 
-            <span className="max-w-[300px] truncate text-[#5F5F5F]">{product.nameAr || product.name}</span>
+            <span className="hidden max-w-[300px] truncate text-[#5F5F5F] md:inline">{product.nameAr || product.name}</span>
           </nav>
 
           {/* =================================================
