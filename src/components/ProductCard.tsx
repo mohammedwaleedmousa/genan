@@ -182,8 +182,18 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
   const shouldPrioritize = index < 2;
 
   return (
-    <Link to={`/product/${product.slug}`} state={{ productPreview: product }} dir="rtl" data-catalog-product-id={product.id} onPointerEnter={() => void prefetchProductDetailPage()} onPointerDown={() => void prefetchProductDetailPage()} onFocus={() => void prefetchProductDetailPage()} onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)} className="block w-full min-w-0">
-      <article className={`relative w-full min-w-0 overflow-hidden rounded-[15px] border border-[#EAEAEA] bg-white duration-150 active:scale-[0.985] ${isCollection ? "transition-[border-color,transform] hover:border-[#D8C29A]" : "transition-transform"}`}>
+    <div dir="rtl" data-catalog-product-id={product.id} className="w-full min-w-0">
+      <article className={`relative isolate w-full min-w-0 overflow-hidden rounded-[15px] border border-[#EAEAEA] bg-white duration-150 active:scale-[0.985] ${isCollection ? "transition-[border-color,transform] hover:border-[#D8C29A]" : "transition-transform"}`}>
+        <Link
+          to={`/product/${product.slug}`}
+          state={{ productPreview: product }}
+          aria-label={product.nameAr || product.name || "عرض المنتج"}
+          onPointerEnter={() => void prefetchProductDetailPage()}
+          onPointerDown={() => void prefetchProductDetailPage()}
+          onFocus={() => void prefetchProductDetailPage()}
+          onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)}
+          className="absolute inset-0 z-10 rounded-[inherit] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8C6B32]"
+        />
         <div className={`relative aspect-[4/5] w-full overflow-hidden ${isCollection ? "bg-[#F5EFE8]" : "bg-[#F4F4F4]"}`}>
           {!allImagesFailed && optimizedMainImage ? (
             <>
@@ -215,10 +225,10 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
             <Heart className={`h-[15px] w-[15px] transition-colors ${isLiked ? "fill-[#0E0E0E] text-[#0E0E0E]" : "fill-transparent text-[#666666]"}`} strokeWidth={1.6} />
           </button>
 
-          {cardBadge && <span className="absolute right-2 top-2 z-20 flex h-[23px] min-w-[39px] items-center justify-center rounded-[7px] bg-[#0E0E0E] px-2 text-[8px] font-semibold leading-none text-white">{cardBadge}</span>}
+          {cardBadge && <span className="pointer-events-none absolute right-2 top-2 z-20 flex h-[23px] min-w-[39px] items-center justify-center rounded-[7px] bg-[#0E0E0E] px-2 text-[8px] font-semibold leading-none text-white">{cardBadge}</span>}
 
           {colors.length > 0 && (
-            <div className="absolute bottom-2 right-2 z-20 flex items-center gap-[4px] rounded-full bg-white/90 px-1.5 py-1 shadow-[0_2px_8px_rgba(14,14,14,0.06)]">
+            <div className="pointer-events-none absolute bottom-2 right-2 z-20 flex items-center gap-[4px] rounded-full bg-white/90 px-1.5 py-1 shadow-[0_2px_8px_rgba(14,14,14,0.06)]">
               {colors.slice(0, 4).map((color, colorIndex) => (
                 <span key={`${color.name || "color"}-${colorIndex}`} title={color.name} className={`${colorIndex === 0 ? "h-[13px] w-[13px]" : "h-[11px] w-[11px]"} block shrink-0 rounded-full border border-white shadow-[0_0_0_1px_rgba(14,14,14,0.10)]`} style={color.hex2 ? { background: `linear-gradient(135deg, ${color.hex || "#E2E2E2"} 0%, ${color.hex || "#E2E2E2"} 50%, ${color.hex2} 50%, ${color.hex2} 100%)` } : { backgroundColor: color.hex || "#E2E2E2" }} />
               ))}
@@ -239,7 +249,7 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
 
             {product.inStock && !isDemo ? (
               <button type="button" aria-label="إضافة إلى السلة" onClick={handleAdd}
-                className={`flex h-[33px] w-[33px] shrink-0 items-center justify-center rounded-[9px] transition-all duration-200 ${isCollection ? "bg-[#74162D] text-white hover:bg-[#591123]" : "absolute bottom-[9px] left-[9px] border border-[#D8C29A] bg-[#F5FAF9] text-[#8C6B32] active:bg-[#EAF6F4]"} ${bagPop ? "scale-110" : "scale-100"}`}>
+                className={`z-20 flex h-[33px] w-[33px] shrink-0 items-center justify-center rounded-[9px] transition-all duration-200 ${isCollection ? "relative bg-[#74162D] text-white hover:bg-[#591123]" : "absolute bottom-[9px] left-[9px] border border-[#D8C29A] bg-[#F5FAF9] text-[#8C6B32] active:bg-[#EAF6F4]"} ${bagPop ? "scale-110" : "scale-100"}`}>
                 {isCollection ? <ShoppingCart aria-hidden="true" className="h-[15px] w-[15px]" strokeWidth={1.7} /> : <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.7} />}
               </button>
             ) : (
@@ -248,7 +258,7 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
           </div>
         </div>
       </article>
-    </Link>
+    </div>
   );
 };
 

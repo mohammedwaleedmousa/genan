@@ -33,7 +33,11 @@ export const saveCatalogScroll = (path: string, productId?: string) => {
     productId,
   };
 
-  sessionStorage.setItem(catalogScrollKey(path), JSON.stringify(snapshot));
+  try {
+    sessionStorage.setItem(catalogScrollKey(path), JSON.stringify(snapshot));
+  } catch {
+    // Navigation should still work when the browser blocks session storage.
+  }
 };
 
 export const clearCatalogScroll = (path: string) => {

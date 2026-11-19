@@ -22,24 +22,38 @@ const isLazyImportError = (error: unknown) => {
   return /dynamic(?:ally)? imported module|module script|ChunkLoadError|Loading chunk|failed to fetch|Load failed|error loading/i.test(message);
 };
 
+const clearLazyRetry = (key: string) => {
+  try {
+    window.sessionStorage.removeItem(key);
+  } catch {
+    // Loading the page should not depend on session storage.
+  }
+};
+
 const lazy = <T extends ComponentType<any>>(factory: () => Promise<{ default: T }>) =>
   reactLazy(async () => {
     const retryKey = typeof window !== "undefined" ? `genan-lazy-retry:${window.location.pathname}` : "genan-lazy-retry";
     try {
       const module = await factory();
-      if (typeof window !== "undefined") window.sessionStorage.removeItem(retryKey);
+      clearLazyRetry(retryKey);
       return module;
     } catch {
       await new Promise((resolve) => window.setTimeout(resolve, 300));
       try {
         const module = await factory();
-        if (typeof window !== "undefined") window.sessionStorage.removeItem(retryKey);
+        clearLazyRetry(retryKey);
         return module;
       } catch (error) {
-        if (typeof window !== "undefined" && isLazyImportError(error) && !window.sessionStorage.getItem(retryKey)) {
-          window.sessionStorage.setItem(retryKey, "1");
-          window.location.reload();
-          return await new Promise<never>(() => undefined);
+        if (typeof window !== "undefined" && isLazyImportError(error)) {
+          try {
+            if (!window.sessionStorage.getItem(retryKey)) {
+              window.sessionStorage.setItem(retryKey, "1");
+              window.location.reload();
+              return await new Promise<never>(() => undefined);
+            }
+          } catch {
+            // Skip the reload if the retry cannot be recorded.
+          }
         }
         throw error;
       }
@@ -258,7 +272,13 @@ const App = () => {
             <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
             <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
             <Route path="/my-orders" element={<ProtectedRoute><MyOrdersPage /></ProtectedRoute>} />
-            <Route path="/product/:slug" element={<ProtectedRoute><ProductDetailPage /></ProtectedRoute>} />
+            <Route path="/product/:slug" element={
+              <ProtectedRoute>
+                <Suspense fallback={<LoadingScreen message="جاري فتح المنتج…" />}>
+                  <ProductDetailPage />
+                </Suspense>
+              </ProtectedRoute>
+            } />
             <Route path="/brand/:slug" element={<ProtectedRoute><BrandPage /></ProtectedRoute>} />
             <Route path="/brands" element={<ProtectedRoute><AllBrandsPage /></ProtectedRoute>} />
             <Route path="/brands/:slug" element={<ProtectedRoute><BrandPage /></ProtectedRoute>} />
