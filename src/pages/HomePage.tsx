@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingSocialLinks from "@/components/FloatingSocialLinks";
 import CartDrawer from "@/components/CartDrawer";
-import HomeHero from "@/components/HomeHero";
+import HeroSlider from "@/components/HeroSlider";
 import BrandsStrip from "@/components/BrandsStrip";
 import GenanServices from "@/components/GenanServices";
 import HomeManagedSections from "@/components/HomeManagedSections";
@@ -124,9 +124,9 @@ const HomePage = () => {
 
   return (
     <div className="relative min-h-screen bg-background" dir="rtl">
-      <Navbar /><CartDrawer />
+      <Navbar overlayHero={showHomeSection("hero")} /><CartDrawer />
       <main id="main-content" className="overflow-hidden bg-background">
-        {showHomeSection("hero") && <HomeHero />}
+        {showHomeSection("hero") && <HeroSlider />}
         {showHomeSection("categories") && <CategoryCarousel items={featuredCategories} loading={categoriesLoading} />}
         <HomeManagedSections
           betweenSections={imageBanner}

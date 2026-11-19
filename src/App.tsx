@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigationType 
 import { useStore } from "@/store/useStore";
 import { useCustomerExperience } from "@/hooks/useCustomerExperience";
 import LoadingScreen from "@/components/LoadingScreen";
-import { HomeHeroPhoto } from "@/components/HomeHero";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { DateRangeProvider } from "@/lib/analytics/dateRange";
 import { hydrateCurrencies } from "@/lib/currency";
@@ -139,12 +138,9 @@ const RouteFallback = () => {
 
   return (
     <main className="genan-entry">
-      <HomeHeroPhoto />
-      <div className="genan-entry-copy">
-        <h1>بوتيك جنان</h1>
-        <p>أحذية وملابس وحقائب وإكسسوارات من ماركات عالمية.</p>
-        <a href="/products">اكتشفي تشكيلة جنان</a>
-      </div>
+      <h1>بوتيك جنان</h1>
+      <p>أحذية وملابس وحقائب وإكسسوارات من ماركات عالمية.</p>
+      <a href="/products">اكتشفي تشكيلة جنان</a>
     </main>
   );
 };

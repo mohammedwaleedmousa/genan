@@ -52,22 +52,19 @@
     </style>
 
     <style>
-      .genan-hero-photo {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
       .genan-entry {
+        box-sizing: border-box;
+        min-height: 100vh;
+        min-height: 100svh;
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        gap: 1.25rem;
+        padding: 1.5rem;
         text-align: center;
         color: #171717;
-        background: #fff;
+        background: #f8f6f1;
         font: 1rem system-ui, sans-serif;
-      }
-      .genan-entry-copy {
-        display: grid;
-        justify-items: center;
-        gap: .75rem;
-        padding: 1.25rem;
       }
       .genan-entry[hidden] { display: none; }
       .genan-entry h1 { margin: 0; font-size: clamp(1.75rem, 5vw, 3rem); font-weight: 600; }
@@ -223,12 +220,9 @@
   <body>
     <div id="root">
       <main id="genan-entry" class="genan-entry" hidden>
-        <img data-src="/brand/genan-home-banner.jpg" alt="حقيبة وحذاء أسودان على طاولة" width="4028" height="2186" fetchpriority="high" class="genan-hero-photo" />
-        <div class="genan-entry-copy">
-          <h1>بوتيك جنان</h1>
-          <p>أحذية وملابس وحقائب وإكسسوارات من ماركات عالمية.</p>
-          <a href="/products">اكتشفي تشكيلة جنان</a>
-        </div>
+        <h1>بوتيك جنان</h1>
+        <p>أحذية وملابس وحقائب وإكسسوارات من ماركات عالمية.</p>
+        <a href="/products">اكتشفي تشكيلة جنان</a>
       </main>
     </div>
     <script>
@@ -237,10 +231,7 @@
         const isFrontDoor = ["", "/index", "/index.html"].includes(path);
         const hasReferral = new URLSearchParams(location.search).get("ref");
         if (path === "/home" || (isFrontDoor && !hasReferral)) {
-          const entry = document.getElementById("genan-entry");
-          const photo = entry.querySelector(".genan-hero-photo");
-          photo.src = photo.dataset.src;
-          entry.hidden = false;
+          document.getElementById("genan-entry").hidden = false;
         }
       })();
     </script>
