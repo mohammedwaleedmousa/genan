@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, lazy as reactLazy, Suspense, useState, type ComponentType } from "react";
+import { useEffect, useLayoutEffect, lazy as reactLazy, Suspense, useRef, useState, type ComponentType } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -217,8 +217,15 @@ const LegacyAdminRouteBridge = () => {
 const ScrollToTop = () => {
   const { pathname, key, state } = useLocation();
   const navType = useNavigationType();
+  const hasMounted = useRef(false);
 
   useLayoutEffect(() => {
+    const isInitialRoute = !hasMounted.current;
+    hasMounted.current = true;
+    const navigation = window.performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    // The document's reload handler restores the latest scroll position on refresh.
+    if (isInitialRoute && navigation?.type === "reload") return;
+
     const snapshot = navType === "POP" ? getCatalogScroll(state) : undefined;
     window.history.scrollRestoration = snapshot ? "manual" : "auto";
     if (snapshot) return restoreCatalogScroll(snapshot);
