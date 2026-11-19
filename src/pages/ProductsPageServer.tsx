@@ -510,7 +510,7 @@ const ProductsPageServer = () => {
                 onClick={() => setParam("category", null)}
                 className={`min-h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-medium transition-colors md:px-5 ${
                   !categorySlug
-                    ? "border-[#171717] bg-[#171717] text-white"
+                    ? "border-burgundy bg-burgundy text-white"
                     : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
                 }`}
               >
@@ -524,7 +524,7 @@ const ProductsPageServer = () => {
                   onClick={() => setParam("category", category.slug)}
                   className={`h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-semibold transition-colors md:h-10 md:px-5 md:text-[10px] ${
                     categorySlug === category.slug
-                      ? "border-[#171717] bg-[#171717] text-white"
+                      ? "border-burgundy bg-burgundy text-white"
                       : "border-[#E5E0D8] bg-white text-[#5F5A53] hover:border-[#CDB98F] hover:text-[#171717]"
                   }`}
                 >
@@ -552,7 +552,7 @@ const ProductsPageServer = () => {
                 <SlidersHorizontal className="h-4 w-4" strokeWidth={1.6} />
                 فلترة متقدمة
                 {activeFilterCount > 0 && (
-                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#171717] px-1 text-[8px] font-bold text-white">
+                  <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-burgundy px-1 text-[8px] font-bold text-white">
                     {activeFilterCount}
                   </span>
                 )}
@@ -582,7 +582,7 @@ const ProductsPageServer = () => {
               <span className="text-[9px] font-semibold tracking-[.2em] text-[#9A825B]">GENAN / CONNECTION</span>
               <h3 className="mt-3 text-[24px] font-semibold text-[#171717]">تعذر تحميل المنتجات</h3>
               <p className="mt-3 text-sm leading-7 text-[#6B655D]">حدث خطأ أثناء الاتصال بالمتجر. يرجى المحاولة مجددًا.</p>
-              <button type="button" onClick={() => { void refetch(); }} className="mt-6 min-h-11 rounded-xl bg-[#171717] px-8 py-3 text-sm font-semibold text-white hover:bg-[#353535]">
+              <button type="button" onClick={() => { void refetch(); }} className="mt-6 min-h-11 rounded-xl bg-burgundy px-8 py-3 text-sm font-semibold text-white hover:bg-burgundy-hover">
                 إعادة المحاولة
               </button>
             </div>
@@ -601,7 +601,7 @@ const ProductsPageServer = () => {
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="mt-6 min-h-11 rounded-xl border border-[#0E0E0E] px-6 py-3 text-sm font-semibold transition-colors hover:bg-[#0E0E0E] hover:text-white"
+                  className="mt-6 min-h-11 rounded-xl border border-burgundy text-burgundy px-6 py-3 text-sm font-semibold transition-colors hover:bg-burgundy hover:text-white"
                 >
                   مسح الفلاتر
                 </button>
@@ -620,7 +620,7 @@ const ProductsPageServer = () => {
               <button
                 type="button"
                 onClick={() => setVisibleCount((value) => value + PAGE_SIZE)}
-                className="rounded-xl border border-[#0E0E0E] px-8 py-3 text-[10px] font-semibold transition-colors hover:bg-[#0E0E0E] hover:text-white"
+                className="rounded-xl border border-burgundy text-burgundy px-8 py-3 text-[10px] font-semibold transition-colors hover:bg-burgundy hover:text-white"
               >
                 عرض المزيد
               </button>
@@ -645,7 +645,7 @@ const ProductsPageServer = () => {
                 <div className="flex items-center gap-2">
                   <h2 className="text-[22px] font-bold text-[#171717]">فلترة المنتجات</h2>
                   {draftFilterCount > 0 && (
-                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#171717] px-1 text-[8px] font-bold text-white">
+                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-burgundy px-1 text-[8px] font-bold text-white">
                       {draftFilterCount}
                     </span>
                   )}
@@ -672,7 +672,7 @@ const ProductsPageServer = () => {
                     onClick={() => setDraft((value) => ({ ...value, category: "" }))}
                     className={`h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-semibold ${
                       !draft.category
-                        ? "border-[#171717] bg-[#171717] text-white"
+                        ? "border-burgundy bg-burgundy text-white"
                         : "border-[#E5E0D8] bg-white text-[#5F5A53]"
                     }`}
                   >
@@ -686,7 +686,7 @@ const ProductsPageServer = () => {
                       onClick={() => setDraft((value) => ({ ...value, category: category.slug }))}
                       className={`h-11 shrink-0 rounded-2xl border px-4 text-[11px] font-semibold ${
                         draft.category === category.slug
-                          ? "border-[#171717] bg-[#171717] text-white"
+                          ? "border-burgundy bg-burgundy text-white"
                           : "border-[#E5E0D8] bg-white text-[#5F5A53]"
                       }`}
                     >
@@ -731,7 +731,7 @@ const ProductsPageServer = () => {
                         }
                         className={`h-12 rounded-2xl border text-[12px] font-semibold ${
                           active
-                            ? "border-[#171717] bg-[#171717] text-white"
+                            ? "border-burgundy bg-burgundy text-white"
                             : "border-[#E5E0D8] bg-white text-[#5F5A53]"
                         }`}
                       >
@@ -818,7 +818,7 @@ const ProductsPageServer = () => {
                           }
                           className={`min-w-12 rounded-2xl border px-4 py-3 text-[12px] font-semibold ${
                             active
-                              ? "border-[#171717] bg-[#171717] text-white"
+                              ? "border-burgundy bg-burgundy text-white"
                               : "border-[#E5E0D8] bg-white text-[#5F5A53]"
                           }`}
                         >
@@ -896,7 +896,7 @@ const ProductsPageServer = () => {
                       <span>{item.label}</span>
                       <span
                         className={`flex h-5 w-5 items-center justify-center rounded-full border ${
-                          item.active ? "border-[#171717] bg-[#171717]" : "border-[#D8D2C9] bg-white"
+                          item.active ? "border-burgundy bg-burgundy" : "border-[#D8D2C9] bg-white"
                         }`}
                       >
                         {item.active && <Check className="h-3 w-3 text-white" strokeWidth={2} />}
@@ -919,7 +919,7 @@ const ProductsPageServer = () => {
               <button
                 type="button"
                 onClick={applyFilters}
-                className="h-12 rounded-2xl bg-[#171717] text-[12px] font-semibold text-white"
+                className="h-12 rounded-2xl bg-burgundy text-[12px] font-semibold text-white"
               >
                 عرض {draftResultCount} منتج
               </button>
@@ -963,7 +963,7 @@ const ProductsPageServer = () => {
                   setSortOpen(false);
                 }}
                 className={`mb-2 w-full rounded-2xl border border-[#EAEAEA] p-4 text-right text-[12px] font-semibold ${
-                  sortBy === value ? "bg-[#0E0E0E] text-white" : "bg-white"
+                  sortBy === value ? "bg-burgundy text-white" : "bg-white"
                 }`}
               >
                 {label}

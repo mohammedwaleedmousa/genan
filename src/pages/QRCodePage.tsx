@@ -135,7 +135,7 @@ const QRCodePage = () => {
         {/* ACTIONS */}
 
         <div className="mt-4 grid grid-cols-2 gap-2.5">
-          <button type="button" onClick={handleDownload} className="flex h-[46px] w-full items-center justify-center gap-2 rounded-[11px] bg-[#173A2D] px-3 text-[11px] font-semibold text-white transition-colors hover:bg-[#214C3B] active:bg-[#9D7B40]">
+          <button type="button" onClick={handleDownload} className="flex h-[46px] w-full items-center justify-center gap-2 rounded-[11px] bg-burgundy px-3 text-[11px] font-semibold text-white transition-colors hover:bg-burgundy-hover active:bg-burgundy-hover">
             <Download className="h-4 w-4" strokeWidth={1.6} />
             <span>تحميل الباركود</span>
           </button>

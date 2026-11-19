@@ -154,7 +154,7 @@ const AccessoryCard = ({ accessory, quantity, currency, onQuantityChange }: Acce
                       if (quantity === 0) onQuantityChange(1);
                       setShowPopup(false);
                     }}
-                    className="h-10 bg-[#0E0E0E] px-6 text-[9px] font-semibold text-white"
+                    className="h-10 bg-burgundy px-6 text-[9px] font-semibold text-white hover:bg-burgundy-hover"
                   >
                     {quantity > 0 ? "تم" : "أضف إلى الطلب"}
                   </button>

@@ -193,7 +193,7 @@ const ProductQA = ({ productId }: { productId: string }) => {
           className={`flex h-9 shrink-0 items-center gap-1.5 border px-3 text-[8px] font-semibold transition-colors ${
             showAskForm
               ? "border-[#D8C29A] bg-white text-[#0E0E0E]"
-              : "border-[#0E0E0E] bg-[#0E0E0E] text-white"
+              : "border-burgundy bg-burgundy text-white hover:bg-burgundy-hover"
           }`}
         >
           {showAskForm ? <X className="h-3 w-3" /> : <MessageCircleQuestion className="h-3 w-3" />}
@@ -214,7 +214,7 @@ const ProductQA = ({ productId }: { productId: string }) => {
                 <p className="mt-1 text-[8px] leading-5 text-[#777]">يمكنك بعدها متابعة سؤالك والعودة إليه بسهولة.</p>
               </div>
 
-              <Link to="/auth" className="flex h-9 shrink-0 items-center gap-1.5 bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white">
+              <Link to="/auth" className="flex h-9 shrink-0 items-center gap-1.5 bg-burgundy px-4 hover:bg-burgundy-hover text-[8px] font-semibold text-white">
                 <LogIn className="h-3 w-3" />
                 تسجيل الدخول
               </Link>
@@ -240,7 +240,7 @@ const ProductQA = ({ productId }: { productId: string }) => {
                   type="button"
                   onClick={handleAskQuestion}
                   disabled={loading || newQuestion.trim().length < 5}
-                  className="flex h-9 shrink-0 items-center gap-1.5 bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white disabled:opacity-40"
+                  className="flex h-9 shrink-0 items-center gap-1.5 bg-burgundy px-4 hover:bg-burgundy-hover text-[8px] font-semibold text-white disabled:opacity-40"
                 >
                   {loading ? (
                     <span className="h-3 w-3 animate-spin rounded-full border-2 border-white/35 border-t-white" />

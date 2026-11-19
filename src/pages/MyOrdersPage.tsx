@@ -340,7 +340,7 @@ const MyOrdersPage = () => {
 
                 <p className="mt-1.5 max-w-[270px] text-[7px] leading-5 text-[#899289]">عندما تقوم بإتمام أول طلب سيظهر هنا ويمكنك متابعة حالته وفاتورته.</p>
 
-                <button type="button" onClick={() => navigate("/products")} className="mt-4 h-[38px] rounded-[9px] bg-[#173A2D] px-5 text-[8px] font-semibold text-white active:bg-[#214C3B]">
+                <button type="button" onClick={() => navigate("/products")} className="mt-4 h-[38px] rounded-[9px] bg-burgundy px-5 text-[8px] font-semibold text-white hover:bg-burgundy-hover active:bg-burgundy-hover">
                   تصفح المنتجات
                 </button>
               </div>
@@ -385,7 +385,7 @@ const MyOrdersPage = () => {
                       {/* ACTIONS */}
 
                       <div className="mt-3 flex gap-2">
-                        <button type="button" onClick={() => trackOrder(order)} disabled={!order.tracking_token} className="flex h-[36px] flex-1 items-center justify-center gap-1.5 rounded-[9px] bg-[#173A2D] px-3 text-[7px] font-semibold text-white active:bg-[#214C3B] disabled:cursor-not-allowed disabled:bg-[#E6D9D6] disabled:text-[#949C94]">
+                        <button type="button" onClick={() => trackOrder(order)} disabled={!order.tracking_token} className="flex h-[36px] flex-1 items-center justify-center gap-1.5 rounded-[9px] bg-burgundy px-3 text-[7px] font-semibold text-white hover:bg-burgundy-hover active:bg-burgundy-hover disabled:cursor-not-allowed disabled:bg-[#E6D9D6] disabled:text-[#949C94]">
                           <Truck className="h-3.5 w-3.5" strokeWidth={1.5} />
                           تتبع الطلب
                         </button>

@@ -46,7 +46,7 @@ const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryI
             <span className="mb-0.5 block font-serif text-[8px] uppercase tracking-[0.2em] text-[#9B7A46]">GENAN / CATEGORIES</span>
             <h2 className="text-[16px] font-semibold leading-6 text-[#0E0E0E] sm:text-[19px]">تسوقي حسب القسم</h2>
           </div>
-          <Link to="/categories" className="inline-flex shrink-0 items-center gap-1 text-[10px] font-medium text-[#8C6B32] transition-opacity hover:opacity-70">
+          <Link to="/categories" className="inline-flex shrink-0 items-center gap-1 text-[10px] font-medium text-burgundy transition-colors hover:text-burgundy-hover">
             جميع الأقسام
             <ArrowLeft aria-hidden="true" className="h-3 w-3" strokeWidth={1.6} />
           </Link>

@@ -82,7 +82,7 @@ const Footer = () => (
             </p>
             <Link
               to="/store-info#contact"
-              className="mt-6 inline-flex min-h-[32px] items-center gap-3 border-b-[2px] border-[#D8C29A] pb-1 text-[15px] font-bold leading-7 text-[#0E0E0E] transition-colors hover:text-[#8C6B32] sm:text-[17px]"
+              className="mt-6 inline-flex min-h-[32px] items-center gap-3 border-b-[2px] border-burgundy pb-1 text-[15px] font-bold leading-7 text-burgundy transition-colors hover:text-burgundy-hover sm:text-[17px]"
             >
               تواصلي مع جنان
               <ArrowUpLeft aria-hidden="true" className="h-[17px] w-[17px]" strokeWidth={1.7} />

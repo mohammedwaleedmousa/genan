@@ -317,7 +317,7 @@ const OrderTrackingPage = () => {
 
               <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-[6px] leading-5 text-[#8A938B]">إذا كنت مسجّل الدخول، يكفي رقم الطلب الخاص بحسابك.</p>
-                <button type="submit" className="flex h-10 items-center justify-center gap-2 rounded-[10px] bg-[#173A2D] px-5 text-[8px] font-semibold text-white active:bg-[#214C3B]">
+                <button type="submit" className="flex h-10 items-center justify-center gap-2 rounded-[10px] bg-burgundy px-5 text-[8px] font-semibold text-white hover:bg-burgundy-hover active:bg-burgundy-hover">
                   <Truck className="h-3.5 w-3.5" strokeWidth={1.5} />
                   تتبع الطلب
                 </button>

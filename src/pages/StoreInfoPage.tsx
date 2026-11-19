@@ -128,7 +128,7 @@ const StoreInfoPage = () => {
                         <Icon size={16} aria-hidden="true" className="shrink-0 text-[#8C6B32]" /> {label}
                       </dt>
                       <dd className="break-words text-sm font-medium leading-6">
-                        {href ? <a href={href} className="underline decoration-[#D8C29A] underline-offset-4"><bdi>{value}</bdi></a> : value}
+                        {href ? <a href={href} className="underline text-burgundy decoration-burgundy underline-offset-4"><bdi>{value}</bdi></a> : value}
                       </dd>
                     </div>
                   ))}
@@ -160,14 +160,14 @@ const StoreInfoPage = () => {
               <section id="shipping" className="scroll-mt-32 border-t border-[#E3DAC9] px-1 pt-4">
                 <h3 className="flex items-center gap-2 text-base font-semibold"><Truck size={18} aria-hidden="true" className="text-[#8C6B32]" /> {getSiteText(content, "store_info_shipping_details_title", "الشحن والتوصيل")}</h3>
                 <p className="mt-2 text-sm leading-7 text-[#62605C]">{getSiteText(content, "store_info_shipping_details_desc", "اختاري شركة التوصيل أثناء إتمام الطلب. تظهر الرسوم والمعلومات المتاحة عن التوصيل قبل تأكيد الطلب.")}</p>
-                <Link to="/shipping-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#D8C29A] underline-offset-4">
+                <Link to="/shipping-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline text-burgundy decoration-burgundy underline-offset-4">
                   سياسة الشحن <ArrowLeft size={14} aria-hidden="true" />
                 </Link>
               </section>
               <section id="returns" className="scroll-mt-32 border-t border-[#E3DAC9] px-1 pt-4">
                 <h3 className="flex items-center gap-2 text-base font-semibold"><Shield size={18} aria-hidden="true" className="text-[#8C6B32]" /> {getSiteText(content, "store_info_returns_title", "الإرجاع والاستبدال")}</h3>
                 <p className="mt-2 text-sm leading-7 text-[#62605C]">{getSiteText(content, "store_info_returns_desc", "إذا احتجتِ إلى إرجاع أو استبدال، تواصلي مع خدمة العملاء وشاركي رقم الطلب وتفاصيل المنتج.")}</p>
-                <Link to="/returns-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline decoration-[#D8C29A] underline-offset-4">
+                <Link to="/returns-policy" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold underline text-burgundy decoration-burgundy underline-offset-4">
                   شروط الإرجاع <ArrowLeft size={14} aria-hidden="true" />
                 </Link>
               </section>

@@ -4,7 +4,10 @@
 
 @layer base {
   :root {
-    /* Genan — White / Black / Light Gold / Soft Turquoise */
+    /* Genan storefront palette */
+    --genan-burgundy: #74162D;
+    --genan-burgundy-hover: #591123;
+    --genan-burgundy-soft: #F7ECEF;
     --background: 0 0% 100%;
     --foreground: 0 0% 5.5%;
 

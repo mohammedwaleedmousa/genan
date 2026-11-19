@@ -168,7 +168,7 @@ const BrandSectionPage = () => {
         {products.length > 0 && (
           <section className="border-y border-border/60">
             <div className="mx-auto flex h-[54px] w-full max-w-[1400px] items-center justify-between gap-3 px-4 md:px-6">
-              <button type="button" onClick={() => setInStockOnly((value) => !value)} className={`rounded-full border px-3 py-1.5 text-[10px] ${inStockOnly ? "border-[#C6B17F] bg-[#F5F1E7] text-[#173A2D]" : "border-border text-muted-foreground"}`}>المتوفر فقط</button>
+              <button type="button" aria-pressed={inStockOnly} onClick={() => setInStockOnly((value) => !value)} className={`rounded-full border px-3 py-1.5 text-[10px] ${inStockOnly ? "border-burgundy bg-burgundy-soft text-burgundy" : "border-border text-muted-foreground"}`}>المتوفر فقط</button>
               <label className="relative flex items-center">
                 <select value={sort} onChange={(event) => setSort(event.target.value as SortType)} className="appearance-none bg-transparent py-2 pl-6 pr-2 text-[10px] font-medium outline-none">
                   <option value="new">الأحدث</option><option value="asc">السعر: الأقل أولاً</option><option value="desc">السعر: الأعلى أولاً</option><option value="name">الاسم</option>
@@ -191,7 +191,7 @@ const BrandSectionPage = () => {
               <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-4">
                 {visibleProducts.map((product, index) => <ProductCard key={product.id} product={product} index={index} />)}
               </div>
-              {hasMore && <div className="flex justify-center pt-9"><button type="button" disabled={productsLoading} onClick={() => setLoadedPage((page) => page + 1)} className="h-11 rounded-full border border-border bg-background px-7 text-[10px] font-medium text-foreground disabled:opacity-50">{productsLoading ? "جاري التحميل..." : "عرض المزيد"}</button></div>}
+              {hasMore && <div className="flex justify-center pt-9"><button type="button" disabled={productsLoading} onClick={() => setLoadedPage((page) => page + 1)} className="h-11 rounded-full border border-burgundy bg-background px-7 text-[10px] font-medium text-burgundy hover:bg-burgundy-soft disabled:opacity-50">{productsLoading ? "جاري التحميل..." : "عرض المزيد"}</button></div>}
             </>
           )}
         </section>

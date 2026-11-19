@@ -269,7 +269,7 @@ const ProductReviews = ({ productId, productName }: ProductReviewsProps) => {
           className={`flex h-9 shrink-0 items-center gap-1.5 border px-3 text-[8px] font-semibold transition-colors ${
             showForm
               ? "border-[#D8C29A] bg-white text-[#0E0E0E]"
-              : "border-[#0E0E0E] bg-[#0E0E0E] text-white"
+              : "border-burgundy bg-burgundy text-white hover:bg-burgundy-hover"
           }`}
         >
           {showForm ? <X className="h-3 w-3" /> : <Star className="h-3 w-3" />}
@@ -289,7 +289,7 @@ const ProductReviews = ({ productId, productName }: ProductReviewsProps) => {
                 <p className="text-[10px] font-semibold text-[#0E0E0E]">سجّل دخولك لإضافة تقييم</p>
                 <p className="mt-1 text-[8px] leading-5 text-[#777]">شارك تجربتك وساعد الآخرين في اختيارهم.</p>
               </div>
-              <Link to="/auth" className="flex h-9 shrink-0 items-center gap-1.5 bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white">
+              <Link to="/auth" className="flex h-9 shrink-0 items-center gap-1.5 bg-burgundy px-4 hover:bg-burgundy-hover text-[8px] font-semibold text-white">
                 <LogIn className="h-3 w-3" />
                 تسجيل الدخول
               </Link>
@@ -405,7 +405,7 @@ const ProductReviews = ({ productId, productName }: ProductReviewsProps) => {
                   type="button"
                   onClick={() => submitReview.mutate()}
                   disabled={rating === 0 || uploading || submitReview.isPending}
-                  className="flex h-9 items-center gap-1.5 bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white disabled:opacity-40"
+                  className="flex h-9 items-center gap-1.5 bg-burgundy px-4 hover:bg-burgundy-hover text-[8px] font-semibold text-white disabled:opacity-40"
                 >
                   {submitReview.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3 w-3" />}
                   {submitReview.isPending ? "جارٍ الإرسال" : "إرسال التقييم"}

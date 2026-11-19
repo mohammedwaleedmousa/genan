@@ -77,7 +77,7 @@ const BannerPage = () => {
               )}
 
               {banner.cta_link && (
-                <Link to={banner.cta_link} className="mt-10 inline-flex border-b border-foreground pb-2 text-sm hover:text-primary">
+                <Link to={banner.cta_link} className="mt-10 inline-flex border-b border-burgundy pb-2 text-sm text-burgundy hover:text-burgundy-hover">
                   {banner.cta_text_ar || "تسوق الآن"}
                 </Link>
               )}

@@ -270,7 +270,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                       ].map((link) => (
                         <button key={link.path} type="button" onClick={() => goFromMenu(link.path)}
                           aria-current={location.pathname === link.path ? "page" : undefined}
-                          className={`flex min-h-[48px] w-full items-center rounded-xl px-3 text-right text-[18px] font-semibold transition-colors ${location.pathname === link.path ? "bg-white/15 text-white" : "text-white/95 hover:bg-white/10"}`}>
+                          className={`flex min-h-[48px] w-full items-center rounded-xl px-3 text-right text-[18px] font-semibold transition-colors ${location.pathname === link.path ? "bg-burgundy text-white" : "text-white/95 hover:bg-white/10"}`}>
                           {link.label}
                         </button>
                       ))}
@@ -311,7 +311,7 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
               {/* Cart icon opens the full cart page. */}
               <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="فتح سلة التسوق" title="سلة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                 <ShoppingBag size={22} weight="regular" aria-hidden="true" />
-                {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
+                {cartCount > 0 && <span className="absolute -left-1 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-burgundy px-1 text-[9px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
               <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-[#0E0E0E] transition-colors hover:text-[#8C6B32]">
                 <ShoppingCart size={21} weight="regular" />
@@ -359,11 +359,11 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
             <div className="flex shrink-0 items-center gap-1.5">
               <Link to="/cart" onPointerEnter={() => void prefetchStorefrontRoute("/cart")} onTouchStart={() => void prefetchStorefrontRoute("/cart")} onFocus={() => void prefetchStorefrontRoute("/cart")} aria-label="فتح سلة التسوق" title="سلة التسوق" className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
                 <ShoppingBag size={20} weight="regular" aria-hidden="true" />
-                {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
+                {cartCount > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-burgundy px-1 text-[8px] font-bold text-white">{cartCount > 99 ? "99+" : cartCount}</span>}
               </Link>
               <Link to="/favorites" aria-label="المفضلة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-[#F7F7F7] hover:text-[#8C6B32]">
                 <Heart size={20} weight="regular" />
-                {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#0E0E0E] px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
+                {favorites.length > 0 && <span className="absolute -left-1 -top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-burgundy px-1 text-[8px] font-bold text-white">{favorites.length > 99 ? "99+" : favorites.length}</span>}
               </Link>
               <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-white/65 hover:text-[#8C6B32]">
                 <ShoppingCart size={20} weight="regular" />
@@ -416,12 +416,13 @@ const Navbar = ({ overlayHero = false }: NavbarProps) => {
                 <Link
                   key={item.to}
                   to={item.to}
+                  aria-current={active ? "page" : undefined}
                   onPointerEnter={() => void prefetchStorefrontRoute(item.to)}
                   onFocus={() => void prefetchStorefrontRoute(item.to)}
-                  className={`relative flex h-full items-center px-3 text-[10px] font-medium transition-colors lg:px-4 lg:text-[11px] ${active ? "text-[#8C6B32]" : "text-[#0E0E0E] hover:text-[#8C6B32]"}`}
+                  className={`relative flex h-full items-center px-3 text-[10px] font-medium transition-colors lg:px-4 lg:text-[11px] ${active ? "text-burgundy" : "text-[#0E0E0E] hover:text-burgundy"}`}
                 >
                   {item.label}
-                  {active && <span className="absolute inset-x-3 bottom-0 h-[2px] rounded-full bg-[#0E0E0E] lg:inset-x-4" />}
+                  {active && <span className="absolute inset-x-3 bottom-0 h-[2px] rounded-full bg-burgundy lg:inset-x-4" />}
                 </Link>
               );
             })}

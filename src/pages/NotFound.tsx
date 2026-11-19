@@ -37,12 +37,12 @@ const NotFound = () => {
         {/* ACTIONS */}
 
         <div className="mt-7 grid grid-cols-2 gap-2.5">
-          <Link to="/home" className="flex h-[46px] items-center justify-center gap-2 rounded-[11px] bg-[#D4777D] px-4 text-[12px] font-semibold text-white transition-colors hover:bg-[#C96B72] active:bg-[#B86168]">
+          <Link to="/home" className="flex h-[46px] items-center justify-center gap-2 rounded-[11px] bg-burgundy px-4 text-[12px] font-semibold text-white transition-colors hover:bg-burgundy-hover active:bg-burgundy-hover">
             <Home className="h-4 w-4" strokeWidth={1.6} />
             الرئيسية
           </Link>
 
-          <Link to="/products" className="flex h-[46px] items-center justify-center gap-2 rounded-[11px] border border-[#DED3CE] bg-background px-4 text-[12px] font-semibold text-[#655752] transition-colors hover:border-[#D8AAA7] hover:text-[#B86168]">
+          <Link to="/products" className="flex h-[46px] items-center justify-center gap-2 rounded-[11px] border border-[#DED3CE] bg-background px-4 text-[12px] font-semibold text-[#655752] transition-colors hover:border-[#D8AAA7] hover:text-burgundy">
             <ShoppingBag className="h-4 w-4" strokeWidth={1.6} />
             تسوق الآن
           </Link>
@@ -50,7 +50,7 @@ const NotFound = () => {
 
         {/* BACK */}
 
-        <button type="button" onClick={() => window.history.back()} className="mx-auto mt-5 inline-flex items-center gap-1.5 text-[11px] text-[#958781] transition-colors hover:text-[#B86168]">
+        <button type="button" onClick={() => window.history.back()} className="mx-auto mt-5 inline-flex items-center gap-1.5 text-[11px] text-[#958781] transition-colors hover:text-burgundy">
           العودة للصفحة السابقة
           <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.5} />
         </button>

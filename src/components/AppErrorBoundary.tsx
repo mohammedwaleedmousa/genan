@@ -47,7 +47,7 @@ class AppErrorBoundary extends Component<Props, State> {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="mt-6 h-11 w-full bg-[#0E0E0E] text-[10px] font-semibold text-white"
+            className="mt-6 h-11 w-full bg-burgundy text-[10px] font-semibold text-white hover:bg-burgundy-hover"
           >
             إعادة المحاولة
           </button>

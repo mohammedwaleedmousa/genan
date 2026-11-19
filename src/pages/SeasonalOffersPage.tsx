@@ -151,7 +151,7 @@ const SeasonalOffersPage = () => {
                   <button
                     type="button"
                     onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}
-                    className="flex h-11 min-w-[150px] items-center justify-center rounded-full border border-[#D4C9B3] bg-white px-6 text-[9px] font-semibold text-[#0E0E0E]"
+                    className="flex h-11 min-w-[150px] items-center justify-center rounded-full border border-burgundy bg-white px-6 text-[9px] font-semibold text-burgundy hover:bg-burgundy-soft"
                   >
                     عرض المزيد
                   </button>

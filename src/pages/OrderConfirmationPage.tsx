@@ -387,7 +387,7 @@ const OrderConfirmationPage = () => {
 
           <div className="mt-4 print:hidden">
             {!isConfirmed ? (
-              <button type="button" onClick={handleConfirmOrder} className="flex h-[50px] w-full items-center justify-center gap-2.5 rounded-[12px] bg-[#173A2D] px-4 text-[9px] font-semibold text-white active:bg-[#214C3B]">
+              <button type="button" onClick={handleConfirmOrder} className="flex h-[50px] w-full items-center justify-center gap-2.5 rounded-[12px] bg-burgundy px-4 text-[9px] font-semibold text-white hover:bg-burgundy-hover active:bg-burgundy-hover">
                 <Check className="h-4 w-4" strokeWidth={2} />
                 تأكيد الطلب وإرساله عبر واتساب
               </button>
@@ -404,7 +404,7 @@ const OrderConfirmationPage = () => {
             </button>
 
             <div className="mt-2 grid grid-cols-2 gap-2">
-              <Link to={trackingUrl} className="flex h-[42px] items-center justify-center gap-1.5 rounded-[10px] border border-[#C6B17F] bg-white text-[8px] font-semibold text-[#173A2D] active:bg-[#F5F1E7]">
+              <Link to={trackingUrl} className="flex h-[42px] items-center justify-center gap-1.5 rounded-[10px] border border-burgundy bg-white text-[8px] font-semibold text-burgundy hover:bg-burgundy-soft active:bg-burgundy-soft">
                 <Truck className="h-3.5 w-3.5" strokeWidth={1.5} />
                 تتبع الطلب
               </Link>

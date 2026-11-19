@@ -117,7 +117,7 @@ const BrandPage = () => {
             </div>
             <h1 className="text-[22px] font-semibold text-foreground">الماركة غير موجودة</h1>
             <p className="mt-2 text-[12px] text-muted-foreground">قد تكون الماركة غير متاحة أو تم تغيير الرابط.</p>
-            <Link to="/brands" className="mt-5 inline-flex h-11 items-center gap-2 rounded-[10px] border border-border bg-background px-5 text-[12px] font-semibold text-[#0E0E0E]">
+            <Link to="/brands" className="mt-5 inline-flex h-11 items-center gap-2 rounded-[10px] border border-burgundy bg-background px-5 text-[12px] font-semibold text-burgundy hover:bg-burgundy-soft">
               العودة للماركات
               <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
             </Link>
@@ -137,7 +137,7 @@ const BrandPage = () => {
       <main className="flex-1 pb-12 md:pb-16">
         <section className="bg-background py-7 md:py-11">
           <div className="mx-auto w-full max-w-[1400px] px-3 md:px-6">
-            <Link to="/home" className="inline-flex items-center gap-1 text-[10px] text-muted-foreground transition-colors hover:text-[#0E0E0E] md:text-[11px]"><ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />الرئيسية</Link>
+            <Link to="/home" className="inline-flex items-center gap-1 text-[10px] text-muted-foreground transition-colors hover:text-burgundy md:text-[11px]"><ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />الرئيسية</Link>
             <div className="mb-4 mt-4 flex items-end justify-between gap-3 md:mb-6">
               <div>
                 <div className="mb-1.5 flex items-center gap-2">

@@ -115,7 +115,7 @@ const AllBrandsPage = () => {
               <button
                 type="button"
                 onClick={() => setQuery("")}
-                className="mt-4 text-[10px] font-medium text-[#8F7548] underline decoration-[#CDB98F] underline-offset-4"
+                className="mt-4 text-[10px] font-medium text-burgundy underline decoration-burgundy underline-offset-4"
               >
                 عرض جميع الماركات
               </button>
@@ -126,7 +126,7 @@ const AllBrandsPage = () => {
                 <Link
                   key={brand.id}
                   to={`/brands/${brand.slug || brand.name.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="group relative flex aspect-square min-w-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-[#E8E3DB] bg-white p-4 text-center transition-all duration-200 hover:border-[#CDB98F] hover:bg-[#FCFAF6]"
+                  className="group relative flex aspect-square min-w-0 flex-col items-center justify-center overflow-hidden rounded-xl border border-[#E8E3DB] bg-white p-4 text-center transition-all duration-200 hover:border-burgundy hover:bg-burgundy-soft"
                 >
                   <span className="absolute right-3 top-3 text-[7px] font-medium text-[#B09A70]">
                     {brand.name.trim().charAt(0).toUpperCase()}
@@ -144,7 +144,7 @@ const AllBrandsPage = () => {
                     )}
                   </div>
 
-                  <span className="absolute bottom-3 left-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#F5F2EC] text-[#8F7548] transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
+                  <span className="absolute bottom-3 left-3 flex h-8 w-8 items-center justify-center rounded-full bg-burgundy-soft text-burgundy transition-transform group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
                     <ArrowUpLeft className="h-3.5 w-3.5" />
                   </span>
                 </Link>

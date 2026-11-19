@@ -52,7 +52,7 @@ const ProductDetailSkeleton = () => (
 
             <div className="hidden gap-2 border-t border-[#E7E2D9] pt-5 lg:flex">
               <Skeleton className="h-12 flex-1 rounded-none bg-[#F1EEE8]" />
-              <Skeleton className="h-12 flex-1 rounded-none bg-[#111111]" />
+              <Skeleton className="h-12 flex-1 rounded-none bg-burgundy" />
             </div>
           </section>
         </div>
@@ -89,7 +89,7 @@ const ProductDetailSkeleton = () => (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E7E2D9] bg-white px-2.5 pt-2 lg:hidden" style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}>
       <div className="flex h-[49px] gap-2">
         <Skeleton className="h-full flex-1 rounded-none bg-[#F1EEE8]" />
-        <Skeleton className="h-full flex-1 rounded-none bg-[#111111]" />
+        <Skeleton className="h-full flex-1 rounded-none bg-burgundy" />
       </div>
     </div>
   </div>

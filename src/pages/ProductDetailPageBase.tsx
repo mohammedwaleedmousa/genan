@@ -465,7 +465,7 @@ const ProductDetailPage = () => {
 
           <p className="mt-2 text-[9px] text-[#777777]">قد يكون المنتج قد نفد أو لم يعد متاحًا.</p>
 
-          <button type="button" onClick={() => navigate("/products")} className="mt-5 h-11 rounded-[12px] bg-[#0E0E0E] px-7 text-[9px] font-semibold text-white">
+          <button type="button" onClick={() => navigate("/products")} className="mt-5 h-11 rounded-[12px] bg-burgundy px-7 text-[9px] font-semibold text-white">
             تصفح المنتجات
           </button>
         </div>
@@ -909,7 +909,7 @@ const ProductDetailPage = () => {
   {displayImages.length > 1 && (
     <div className="pointer-events-none absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 md:hidden">
       {displayImages.slice(0, 8).map((_, index) => (
-        <span key={index} className={`h-1 rounded-none transition-all duration-150 ${safeSelectedImage === index ? "w-4 bg-[#0E0E0E]" : "w-1 bg-[#FFFFFF]/80"}`} />
+        <span key={index} className={`h-1 rounded-none transition-all duration-150 ${safeSelectedImage === index ? "w-4 bg-burgundy" : "w-1 bg-[#FFFFFF]/80"}`} />
       ))}
     </div>
   )}
@@ -1050,7 +1050,7 @@ const ProductDetailPage = () => {
                       const active = selectedQualityIdx === index;
 
                       return (
-                        <button type="button" key={variant.id || index} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-[#D8C29A] bg-[#FAFAFA]" : "border-[#E2DDD3] bg-[#FFFFFF]"}`}>
+                        <button type="button" key={variant.id || index} aria-pressed={active} onClick={() => { setSelectedQualityIdx(active ? null : index); setSelectedImage(0); setQuantity(1); }} className={`flex min-w-[145px] items-center gap-2 border p-2 text-right ${active ? "border-burgundy bg-burgundy-soft" : "border-[#E2DDD3] bg-[#FFFFFF]"}`}>
                           {variant.images?.[0] ? (
                             <img src={optimizeImage(variant.images[0], 160, 78)} alt={variant.name} loading="lazy" decoding="async" onError={handleImageError} className="h-10 w-10 shrink-0 bg-[#F1EEE7] object-cover object-center" />
                           ) : (
@@ -1064,7 +1064,7 @@ const ProductDetailPage = () => {
                             <p className="mt-1 text-[9px] font-semibold text-[#D8C29A]">{formatCurrency(Number(variant.price))}</p>
                           </div>
 
-                          {active && <Check className="h-3.5 w-3.5 shrink-0 text-[#D8C29A]" strokeWidth={2} />}
+                          {active && <Check className="h-3.5 w-3.5 shrink-0 text-burgundy" strokeWidth={2} />}
                         </button>
                       );
                     })}
@@ -1088,7 +1088,7 @@ const ProductDetailPage = () => {
                       const active = selectedColorIdx === index;
 
                       return (
-                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-10 w-10 items-center justify-center rounded-full ${active ? "ring-2 ring-[#0E0E0E] ring-offset-[3px]" : "ring-1 ring-[#D8D2C7]"}`}>
+                        <button type="button" key={`${variant.name}-${index}`} title={variant.name} aria-label={variant.name} aria-pressed={active} onClick={() => { const colorStock = getColorStock(variant); if (typeof colorStock === "number" && colorStock <= 0) { toast({ title: "اللون غير متوفر", description: `نفد مخزون اللون ${variant.name}.`, variant: "destructive" }); return; } setSelectedColorIdx(index); setSelectedImage(0); setSelectedSize(null); setQuantity(1); }} className={`relative flex h-10 w-10 items-center justify-center rounded-full ${active ? "ring-2 ring-burgundy ring-offset-[3px]" : "ring-1 ring-[#D8D2C7]"}`}>
                           <span className="h-full w-full rounded-full border border-black/[0.08]" style={variant.hex2 ? { background: `linear-gradient(135deg, ${variant.hex} 0%, ${variant.hex} 50%, ${variant.hex2} 50%, ${variant.hex2} 100%)` } : { backgroundColor: variant.hex }} />
 
                           {active && <Check className="absolute h-3 w-3 text-white drop-shadow-[0_1px_2px_rgba(0,0,0,.75)]" strokeWidth={3} />}
@@ -1115,7 +1115,7 @@ const ProductDetailPage = () => {
                     {sizesToShow.map((size: string) => {
                       const adjustment = getSizePriceAdjustment(size);
                       return (
-                        <button type="button" key={size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] min-h-10 rounded-lg border px-3 py-2 text-[11px] font-semibold ${selectedSize === size ? "border-[#0E0E0E] bg-[#F3F0E9] text-[#0E0E0E]" : "border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#5F5F5F]"}`}>
+                        <button type="button" key={size} aria-pressed={selectedSize === size} onClick={() => { const sizeStock = getSizeStock(size); if (typeof sizeStock === "number" && sizeStock <= 0) { toast({ title: "المقاس غير متوفر", description: `المقاس ${size} نفد من المخزون.`, variant: "destructive" }); return; } setSelectedSize(size); setQuantity(1); }} className={`min-w-[58px] min-h-10 rounded-lg border px-3 py-2 text-[11px] font-semibold ${selectedSize === size ? "border-burgundy bg-burgundy-soft text-burgundy" : "border-[#0E0E0E]/16 bg-[#FFFFFF] text-[#5F5F5F]"}`}>
                           {size}{adjustment > 0 ? ` +${formatCurrency(adjustment)}` : ""}
                         </button>
                       );
@@ -1279,12 +1279,12 @@ const ProductDetailPage = () => {
 
               <div className="hidden border-t border-[#0E0E0E]/12 pt-5 lg:block">
                 <div className="flex gap-2">
-                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 rounded-lg border border-[#0E0E0E] bg-transparent px-5 text-[12px] font-semibold text-[#0E0E0E] transition-colors hover:bg-[#F7F5F0] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-[48px] flex-1 items-center justify-center gap-2 rounded-lg border border-burgundy bg-transparent px-5 text-[12px] font-semibold text-burgundy transition-colors hover:bg-burgundy-soft disabled:cursor-not-allowed disabled:opacity-40">
                     <ShoppingBag className="h-4 w-4" strokeWidth={1.5} />
                     أضف إلى السلة
                   </button>
 
-                  <button type="button" onClick={handleBuyNow} disabled={!available} className="h-[48px] flex-1 rounded-lg bg-[#0E0E0E] px-5 text-[12px] font-semibold text-white transition-colors hover:bg-[#1A1A1A] disabled:cursor-not-allowed disabled:opacity-40">
+                  <button type="button" onClick={handleBuyNow} disabled={!available} className="h-[48px] flex-1 rounded-lg bg-burgundy px-5 text-[12px] font-semibold text-white transition-colors hover:bg-burgundy-hover disabled:cursor-not-allowed disabled:opacity-40">
                     اشتري الآن
                   </button>
 
@@ -1399,12 +1399,12 @@ const ProductDetailPage = () => {
             </a>
           )}
 
-          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 rounded-lg border border-[#0E0E0E] bg-white px-2 text-[12px] font-semibold text-[#0E0E0E] active:bg-[#F3F0E9] disabled:opacity-40">
+          <button type="button" onClick={handleAddToCart} disabled={!available} className="flex h-full flex-1 items-center justify-center gap-1.5 rounded-lg border border-burgundy bg-white px-2 text-[12px] font-semibold text-burgundy active:bg-burgundy-soft disabled:opacity-40">
             <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.6} />
             <span>{available ? "أضف للسلة" : "غير متوفر"}</span>
           </button>
 
-          <button type="button" onClick={handleBuyNow} disabled={!available} className="h-full flex-1 rounded-lg bg-[#0E0E0E] px-2 text-[12px] font-semibold text-white active:bg-[#1A1A1A] disabled:opacity-40">
+          <button type="button" onClick={handleBuyNow} disabled={!available} className="h-full flex-1 rounded-lg bg-burgundy px-2 text-[12px] font-semibold text-white active:bg-burgundy-hover disabled:opacity-40">
             اشتري الآن
           </button>
         </div>

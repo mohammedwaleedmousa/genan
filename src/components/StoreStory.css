@@ -73,7 +73,7 @@
   gap: .75rem;
   padding-inline: 1.15rem;
   border-radius: 999px;
-  background: #171512;
+  background: var(--genan-burgundy);
   color: #fff;
   font-size: .875rem;
   font-weight: 600;
@@ -81,7 +81,7 @@
 }
 
 .store-story__cover-content .store-story__primary { margin-top: 1.2rem; }
-.store-story__primary:hover { background: #41392d; }
+.store-story__primary:hover { background: var(--genan-burgundy-hover); }
 .store-story__primary:focus-visible { outline: 2px solid var(--story-gold); outline-offset: 4px; }
 
 .store-story__selection {

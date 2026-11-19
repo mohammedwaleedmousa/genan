@@ -134,7 +134,7 @@ const PolicyPage = () => {
           <h1 className="mt-3 text-2xl font-semibold leading-relaxed md:text-4xl">{selectedSection?.title ?? documentTitle}</h1>
           <p className="mt-2 text-sm leading-7 text-[#62564C]">النسخة المعتمدة للنشر على الموقع الإلكتروني</p>
           {selectedSection ? (
-            <Link to="/terms" className="mt-5 inline-block font-semibold text-[#173A2D] underline underline-offset-4">
+            <Link to="/terms" className="mt-5 inline-block font-semibold text-burgundy underline underline-offset-4">
               {documentTitle}
             </Link>
           ) : (
@@ -150,7 +150,7 @@ const PolicyPage = () => {
             <ul className="grid gap-x-6 gap-y-1 sm:grid-cols-2">
               {sections.map((section) => (
                 <li key={section.id}>
-                  <a href={"#" + section.id} className="inline-block py-1.5 text-sm text-[#173A2D] underline underline-offset-4">
+                  <a href={"#" + section.id} className="inline-block py-1.5 text-sm text-burgundy underline underline-offset-4">
                     {section.title}
                   </a>
                 </li>

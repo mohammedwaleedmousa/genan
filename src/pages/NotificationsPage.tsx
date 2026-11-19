@@ -201,11 +201,11 @@ const NotificationsPage = () => {
                               {actionUrl && (
                                 <>
                                   {isInternalAction ? (
-                                    <Link to={actionUrl} className="flex h-8 items-center justify-center rounded-[8px] bg-[#173A2D] px-3 text-[10px] font-semibold text-white transition-colors hover:bg-[#9D7B40]">
+                                    <Link to={actionUrl} className="flex h-8 items-center justify-center rounded-[8px] bg-burgundy px-3 text-[10px] font-semibold text-white transition-colors hover:bg-burgundy-hover">
                                       عرض التفاصيل
                                     </Link>
                                   ) : (
-                                    <a href={actionUrl} target="_blank" rel="noopener noreferrer" className="flex h-8 items-center justify-center rounded-[8px] bg-[#173A2D] px-3 text-[10px] font-semibold text-white transition-colors hover:bg-[#9D7B40]">
+                                    <a href={actionUrl} target="_blank" rel="noopener noreferrer" className="flex h-8 items-center justify-center rounded-[8px] bg-burgundy px-3 text-[10px] font-semibold text-white transition-colors hover:bg-burgundy-hover">
                                       عرض التفاصيل
                                     </a>
                                   )}

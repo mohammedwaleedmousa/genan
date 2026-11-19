@@ -891,7 +891,7 @@ const AccountPage = () => {
                   )}
                 </div>
 
-                <button type="button" onClick={handleSettingsClick} className="absolute -bottom-0.5 -left-0.5 flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#FFF8F6] bg-[#0E0E0E] text-white" aria-label="تعديل الملف الشخصي">
+                <button type="button" onClick={handleSettingsClick} className="absolute -bottom-0.5 -left-0.5 flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#FFF8F6] bg-burgundy text-white" aria-label="تعديل الملف الشخصي">
                   <Pencil className="h-3 w-3 stroke-[1.8]" />
                 </button>
               </div>
@@ -1160,7 +1160,7 @@ const AccountPage = () => {
 
               <textarea value={addressForm.notes} onChange={(event) => setAddressForm((current) => ({ ...current, notes: event.target.value }))} placeholder="ملاحظات إضافية" rows={2} className="mt-2 w-full resize-none rounded-[11px] border border-[#E8DEDA] bg-[#FFFFFF] px-3 py-3 text-[9px] text-[#554744] outline-none placeholder:text-[#AFA39E] focus:border-[#EAEAEA]" />
 
-              <button type="button" onClick={saveAddress} className="mt-2.5 h-[42px] w-full rounded-[11px] bg-[#0E0E0E] text-[9px] font-semibold text-white active:bg-[#D8C29A]">
+              <button type="button" onClick={saveAddress} className="mt-2.5 h-[42px] w-full rounded-[11px] bg-burgundy text-[9px] font-semibold text-white active:bg-burgundy-hover">
                 {editingAddressId ? "تحديث العنوان" : "حفظ عنوان جديد"}
               </button>
             </div>
@@ -1350,7 +1350,7 @@ const AccountPage = () => {
                   {/* ACTIONS */}
 
                   <div className="grid grid-cols-[1.4fr_.8fr] gap-2 pt-1">
-                    <button type="submit" disabled={formLoading} className="flex h-[46px] items-center justify-center gap-2 rounded-[13px] bg-[#0E0E0E] text-[9px] font-semibold text-white disabled:opacity-50">
+                    <button type="submit" disabled={formLoading} className="flex h-[46px] items-center justify-center gap-2 rounded-[13px] bg-burgundy text-[9px] font-semibold text-white disabled:opacity-50">
                       {formLoading ? (
                         <>
                           <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
@@ -1448,7 +1448,7 @@ const AccountPage = () => {
                             </div>
 
                             {active && (
-                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0E0E0E]">
+                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-burgundy">
                                 <Check className="h-2.5 w-2.5 stroke-[2.2] text-white" />
                               </span>
                             )}
@@ -1467,7 +1467,7 @@ const AccountPage = () => {
                       إلغاء
                     </button>
 
-                    <button type="button" onClick={() => setRegionPickerOpen(false)} disabled={!region} className="flex h-[44px] items-center justify-center gap-2 rounded-[12px] bg-[#0E0E0E] text-[9px] font-semibold text-white disabled:opacity-45">
+                    <button type="button" onClick={() => setRegionPickerOpen(false)} disabled={!region} className="flex h-[44px] items-center justify-center gap-2 rounded-[12px] bg-burgundy text-[9px] font-semibold text-white disabled:opacity-45">
                       <Check className="h-3.5 w-3.5" />
                       تأكيد المحافظة
                     </button>

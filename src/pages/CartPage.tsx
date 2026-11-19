@@ -59,7 +59,7 @@ const CartPage = () => {
 
             <Link
               to="/products"
-              className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#171717] px-7 text-[13px] font-semibold text-white transition-colors hover:bg-[#333333]"
+              className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-burgundy px-7 text-[13px] font-semibold text-white transition-colors hover:bg-burgundy-hover"
             >
               {getSiteText(content, "cart_start_shopping", "ابدأ التسوق")}
               <ArrowLeft className="h-3.5 w-3.5 stroke-[1.6]" />
@@ -269,7 +269,7 @@ const CartPage = () => {
                 <button
                   type="button"
                   onClick={() => navigate("/checkout")}
-                  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white shadow-[0_8px_20px_rgba(14,14,14,0.12)] transition-colors hover:bg-[#303030]"
+                  className="flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-burgundy text-[13px] font-semibold text-white shadow-[0_8px_20px_rgba(14,14,14,0.12)] transition-colors hover:bg-burgundy-hover"
                 >
                   <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
                   {getSiteText(content, "cart_checkout_cta", "إتمام الطلب")}

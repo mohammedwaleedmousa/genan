@@ -192,7 +192,7 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
           onPointerDown={() => void prefetchProductDetailPage()}
           onFocus={() => void prefetchProductDetailPage()}
           onClick={() => saveCatalogScroll(`${location.pathname}${location.search}`, product.id)}
-          className="absolute inset-0 z-10 rounded-[inherit] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8C6B32]"
+          className="absolute inset-0 z-10 rounded-[inherit] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-burgundy"
         />
         <div className={`relative aspect-[4/5] w-full overflow-hidden ${isCollection ? "bg-[#F5EFE8]" : "bg-[#F4F4F4]"}`}>
           {!allImagesFailed && optimizedMainImage ? (
@@ -245,11 +245,11 @@ const ProductCard = ({ product, index = 2, badge, variant, onQuickView }: Produc
           </p>
 
           <div className={isCollection ? "absolute inset-x-2.5 bottom-[9px] flex min-h-[33px] items-center justify-between gap-2" : "contents"}>
-            <span className={`block min-w-0 truncate font-bold ${isCollection ? "text-xs leading-4 text-[#74162D] sm:text-sm" : "absolute bottom-[13px] left-[46px] right-[10px] text-[11px] leading-none text-[#8C6B32]"}`}>{getDisplayedPrice()}</span>
+            <span className={`block min-w-0 truncate font-bold ${isCollection ? "text-xs leading-4 text-burgundy sm:text-sm" : "absolute bottom-[13px] left-[46px] right-[10px] text-[11px] leading-none text-[#8C6B32]"}`}>{getDisplayedPrice()}</span>
 
             {product.inStock && !isDemo ? (
               <button type="button" aria-label="إضافة إلى السلة" onClick={handleAdd}
-                className={`z-20 flex h-[33px] w-[33px] shrink-0 items-center justify-center rounded-[9px] transition-all duration-200 ${isCollection ? "relative bg-[#74162D] text-white hover:bg-[#591123]" : "absolute bottom-[9px] left-[9px] border border-[#D8C29A] bg-[#F5FAF9] text-[#8C6B32] active:bg-[#EAF6F4]"} ${bagPop ? "scale-110" : "scale-100"}`}>
+                className={`z-20 flex h-[33px] w-[33px] shrink-0 items-center justify-center rounded-[9px] bg-burgundy text-white transition-all duration-200 hover:bg-burgundy-hover active:bg-burgundy-hover ${isCollection ? "relative" : "absolute bottom-[9px] left-[9px]"} ${bagPop ? "scale-110" : "scale-100"}`}>
                 {isCollection ? <ShoppingCart aria-hidden="true" className="h-[15px] w-[15px]" strokeWidth={1.7} /> : <ShoppingBag className="h-[15px] w-[15px]" strokeWidth={1.7} />}
               </button>
             ) : (

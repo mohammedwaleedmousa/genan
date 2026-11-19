@@ -102,7 +102,7 @@ const CategoriesPage = () => {
             <div className="mt-10 flex justify-center">
               <Link
                 to="/products"
-                className="inline-flex h-11 items-center gap-2.5 rounded-xl bg-[#171717] px-6 text-[10px] font-semibold text-white transition-colors hover:bg-[#2A2A2A]"
+                className="inline-flex h-11 items-center gap-2.5 rounded-xl bg-burgundy px-6 text-[10px] font-semibold text-white transition-colors hover:bg-burgundy-hover"
               >
                 جميع المنتجات
                 <ArrowLeft className="h-4 w-4" />

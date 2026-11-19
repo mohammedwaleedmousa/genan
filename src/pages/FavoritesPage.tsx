@@ -163,7 +163,7 @@ const FavoritesPage = () => {
                 <button
                   type="button"
                   onClick={handleAddAllToCart}
-                  className="flex h-11 items-center gap-2 rounded-2xl bg-[#171717] px-4 text-[11px] font-semibold text-white"
+                  className="flex h-11 items-center gap-2 rounded-2xl bg-burgundy px-4 text-[11px] font-semibold text-white"
                 >
                   <Plus className="h-3 w-3" />
                   إضافة المتاح للسلة
@@ -246,7 +246,7 @@ const FavoritesPage = () => {
 
               <Link
                 to="/products"
-                className="mt-6 inline-flex h-12 items-center gap-2 rounded-2xl bg-[#0E0E0E] px-6 text-[12px] font-semibold text-white"
+                className="mt-6 inline-flex h-12 items-center gap-2 rounded-2xl bg-burgundy px-6 text-[12px] font-semibold text-white"
               >
                 <ShoppingBag className="h-3.5 w-3.5" />
                 {getSiteText(content, "favorites_browse_cta", "تصفح المنتجات")}

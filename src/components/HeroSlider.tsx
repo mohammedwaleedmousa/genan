@@ -73,7 +73,7 @@ const HeroSlider = () => {
               </p>
             )}
             <div className="mt-4 flex items-center gap-3 md:mt-8 md:gap-5">
-              <Link to={banner.link} className="inline-flex h-[36px] items-center justify-center gap-1.5 rounded-[9px] bg-[#0E0E0E] px-4 text-[8px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#282828] hover:shadow-[0_12px_30px_rgba(14,14,14,.28)] sm:h-[40px] md:h-[50px] md:rounded-full md:px-8 md:text-[11px]">
+              <Link to={banner.link} className="inline-flex h-[36px] items-center justify-center gap-1.5 rounded-[9px] bg-burgundy px-4 text-[8px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-burgundy-hover hover:shadow-[0_12px_30px_rgba(14,14,14,.28)] sm:h-[40px] md:h-[50px] md:rounded-full md:px-8 md:text-[11px]">
                 {banner.cta}<ArrowLeft size={14} weight="bold" />
               </Link>
               <Link to="/products" className="hidden h-[48px] items-center border-b border-[#D8C29A] px-1 text-[11px] font-medium text-[#0E0E0E] transition-colors hover:text-[#8C6B32] md:inline-flex">

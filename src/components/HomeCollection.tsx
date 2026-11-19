@@ -67,7 +67,7 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
                 type="button"
                 aria-pressed={selectedSlug === slug}
                 onClick={() => setSelection(slug)}
-                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-3.5 text-xs font-medium transition-colors sm:px-5 sm:text-sm ${selectedSlug === slug ? "bg-[#74162D] text-white" : "text-[#282020] hover:bg-[#F7F0ED]"}`}
+                className={`min-h-10 shrink-0 whitespace-nowrap rounded-full px-3.5 text-xs font-medium transition-colors sm:px-5 sm:text-sm ${selectedSlug === slug ? "bg-burgundy text-white" : "text-[#282020] hover:bg-burgundy-soft"}`}
               >
                 {label}
               </button>
@@ -95,7 +95,7 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
           ) : isError && products.length === 0 ? (
             <div className="rounded-2xl bg-[#FAF6F2] px-4 py-8 text-center text-sm text-[#5E4B47]">
               <p>تعذّر تحميل المنتجات.</p>
-              <button type="button" onClick={() => void refetch()} className="mt-3 rounded-full border border-[#74162D] px-4 py-1.5 text-[#74162D]">إعادة المحاولة</button>
+              <button type="button" onClick={() => void refetch()} className="mt-3 rounded-full border border-burgundy px-4 py-1.5 text-burgundy">إعادة المحاولة</button>
             </div>
           ) : products.length > 0 ? (
             <div className={gridClass}>
@@ -112,7 +112,7 @@ const HomeCollection = ({ categories, tabs, allProducts }: HomeCollectionProps) 
 
         {products.length > visibleProductCount && (
           <div className="mt-5 flex justify-center">
-            <Link to={allProductsLink} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#74162D] px-5 text-xs font-semibold text-[#74162D] transition-colors hover:bg-[#F7F0ED]">
+            <Link to={allProductsLink} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-burgundy px-5 text-xs font-semibold text-burgundy transition-colors hover:bg-burgundy-soft">
               {selectedCategory ? "عرض كل منتجات القسم" : "عرض كل المنتجات"}
               <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
             </Link>

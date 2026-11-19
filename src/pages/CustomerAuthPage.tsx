@@ -315,10 +315,10 @@ const CustomerAuthPage = () => {
           </div>
 
           <div className="mt-6 grid grid-cols-2 rounded-xl border border-[#E8DEC9] bg-[#F6F3EA] p-1">
-            <button type="button" onClick={() => changeMode("login")} className={`h-[44px] rounded-xl text-[12px] font-semibold ${mode === "login" ? "bg-white text-[#443936] shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
+            <button type="button" onClick={() => changeMode("login")} className={`h-[44px] rounded-xl text-[12px] font-semibold ${mode === "login" ? "bg-burgundy text-white shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
               تسجيل الدخول
             </button>
-            <button type="button" onClick={() => changeMode("register")} className={`h-[44px] rounded-xl text-[12px] font-semibold ${mode === "register" ? "bg-white text-[#443936] shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
+            <button type="button" onClick={() => changeMode("register")} className={`h-[44px] rounded-xl text-[12px] font-semibold ${mode === "register" ? "bg-burgundy text-white shadow-[0_1px_4px_rgba(49,39,35,0.06)]" : "text-[#9F928D]"}`}>
               حساب جديد
             </button>
           </div>
@@ -336,7 +336,7 @@ const CustomerAuthPage = () => {
                   </div>
                   <button type="button" disabled={recoveryPending} onClick={async()=>{
                     try { const phone=buildPhone();setRecoveryPending(true);const {data,error}=await supabase.functions.invoke("genan-password-recovery",{body:{action:"request",phone}});if(error||data?.error) throw new Error(data?.error||"تعذر إرسال الطلب");toast({title:"تم استلام الطلب",description:"إذا كان الرقم مرتبطًا بحساب، ستراجعه الإدارة وتتواصل معك."});}catch(e:any){toast({title:"تعذر إرسال الطلب",description:e?.message,variant:"destructive"});}finally{setRecoveryPending(false);}
-                  }} className="h-12 w-full rounded-2xl bg-[#171717] text-[12px] font-semibold text-white disabled:opacity-50">إرسال طلب استعادة الحساب</button>
+                  }} className="h-12 w-full rounded-2xl bg-burgundy text-[12px] font-semibold text-white hover:bg-burgundy-hover disabled:opacity-50">إرسال طلب استعادة الحساب</button>
                   <button type="button" onClick={()=>changeMode("reset")} className="h-11 w-full rounded-2xl border border-[#D8C29A] text-[12px]">معي رمز إعادة التعيين</button>
                 </>
               ) : (
@@ -346,7 +346,7 @@ const CustomerAuthPage = () => {
                   <input type="password" autoComplete="new-password" aria-label="كلمة المرور الجديدة" value={recoveryPassword} onChange={e=>setRecoveryPassword(e.target.value)} placeholder="كلمة المرور الجديدة (8 أحرف على الأقل)" className="h-12 w-full rounded-xl border border-[#E8DEDA] px-3" />
                   <button type="button" disabled={recoveryPending} onClick={async()=>{
                     try {setRecoveryPending(true);const {data,error}=await supabase.functions.invoke("genan-password-recovery",{body:{action:"redeem",code:recoveryCode,password:recoveryPassword}});if(error||data?.error)throw new Error(data?.error||"تعذر التحديث");setRecoveryCode("");setRecoveryPassword("");changeMode("login");toast({title:"تم تحديث كلمة المرور",description:"يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة."});}catch(e:any){toast({title:"تعذر تحديث كلمة المرور",description:e?.message,variant:"destructive"});}finally{setRecoveryPending(false);}
-                  }} className="h-12 w-full rounded-2xl bg-[#171717] text-[12px] font-semibold text-white disabled:opacity-50">تعيين كلمة المرور الجديدة</button>
+                  }} className="h-12 w-full rounded-2xl bg-burgundy text-[12px] font-semibold text-white hover:bg-burgundy-hover disabled:opacity-50">تعيين كلمة المرور الجديدة</button>
                 </>
               )}
               <button type="button" onClick={()=>changeMode("login")} className="h-11 w-full text-[12px] text-[#8C6B32]">العودة لتسجيل الدخول</button>
@@ -357,7 +357,7 @@ const CustomerAuthPage = () => {
                 <label htmlFor="auth-name" className="mb-2 block text-[12px] font-semibold text-[#39342F]">الاسم الكامل</label>
                 <div className="relative">
                   <UserRound className="pointer-events-none absolute right-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#AA8B59]" strokeWidth={1.5} />
-                  <input id="auth-name" value={formData.name} onChange={(event) => updateField("name", event.target.value)} autoComplete="name" placeholder="أدخل اسمك الكامل" className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] pr-12 pl-4 text-[14px] text-[#171717] outline-none transition-colors placeholder:text-[#9B9387] focus:border-[#A88955] focus:bg-[#F3EBDD]" />
+                  <input id="auth-name" value={formData.name} onChange={(event) => updateField("name", event.target.value)} autoComplete="name" placeholder="أدخل اسمك الكامل" className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] pr-12 pl-4 text-[14px] text-[#171717] outline-none transition-colors placeholder:text-[#9B9387] focus:border-burgundy focus:bg-[#F3EBDD]" />
                 </div>
               </div>
             )}
@@ -367,7 +367,7 @@ const CustomerAuthPage = () => {
                 <label htmlFor="auth-region" className="mb-2 block text-[12px] font-semibold text-[#39342F]">المدينة / المنطقة</label>
                 <div className="relative">
                   <MapPin className="pointer-events-none absolute right-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#AA8B59]" strokeWidth={1.5} />
-                  <input id="auth-region" value={formData.region} onChange={(event) => updateField("region", event.target.value)} autoComplete="address-level2" placeholder="مثال: عدن، الرياض" className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] pr-12 pl-4 text-[14px] text-[#171717] outline-none transition-colors placeholder:text-[#9B9387] focus:border-[#A88955] focus:bg-[#F3EBDD]" />
+                  <input id="auth-region" value={formData.region} onChange={(event) => updateField("region", event.target.value)} autoComplete="address-level2" placeholder="مثال: عدن، الرياض" className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] pr-12 pl-4 text-[14px] text-[#171717] outline-none transition-colors placeholder:text-[#9B9387] focus:border-burgundy focus:bg-[#F3EBDD]" />
                 </div>
               </div>
             )}
@@ -391,7 +391,7 @@ const CustomerAuthPage = () => {
                           : previous.region,
                     }));
                   }}
-                  className="h-[56px] min-w-0 rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-3 text-[12px] text-[#39342F] outline-none focus:border-[#A88955]"
+                  className="h-[56px] min-w-0 rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-3 text-[12px] text-[#39342F] outline-none focus:border-burgundy"
                   dir="rtl"
                 >
                   {PHONE_COUNTRIES.map((country) => (
@@ -410,7 +410,7 @@ const CustomerAuthPage = () => {
                     onChange={(event) => updateField("phone", arabicDigitsToLatin(event.target.value).replace(/\D/g, "").slice(0, 15))}
                     placeholder={selectedPhoneCountry.placeholder}
                     dir="ltr"
-                    className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-4 text-left text-[14px] text-[#171717] outline-none focus:border-[#A88955] focus:bg-[#F3EBDD]"
+                    className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-4 text-left text-[14px] text-[#171717] outline-none focus:border-burgundy focus:bg-[#F3EBDD]"
                   />
                 </div>
               </div>
@@ -431,7 +431,7 @@ const CustomerAuthPage = () => {
                   onChange={(event) => updateField("password", event.target.value)}
                   placeholder={mode === "register" ? "8 أحرف على الأقل" : "كلمة المرور"}
                   dir="ltr"
-                  className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-12 text-left text-[14px] text-[#171717] outline-none focus:border-[#A88955] focus:bg-[#F3EBDD]"
+                  className="h-[56px] w-full rounded-xl border-0 border-b-2 border-[#E5DAC7] bg-[#F8F5EE] px-12 text-left text-[14px] text-[#171717] outline-none focus:border-burgundy focus:bg-[#F3EBDD]"
                 />
                 <button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"} className="absolute left-2.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-[#A99D98]">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -439,7 +439,7 @@ const CustomerAuthPage = () => {
               </div>
             </div>
 
-            <button type="submit" disabled={isLoading} className="mt-2 flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[13px] font-semibold text-white disabled:opacity-60">
+            <button type="submit" disabled={isLoading} className="mt-2 flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-burgundy text-[13px] font-semibold text-white hover:bg-burgundy-hover disabled:opacity-60">
               {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               {mode === "login" ? "تسجيل الدخول" : "إنشاء الحساب"}
             </button>

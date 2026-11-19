@@ -172,7 +172,7 @@ const CustomerPageUnavailable = () => (
     <div className="max-w-md space-y-4">
       <h1 className="font-heading text-3xl text-foreground">هذه الصفحة غير متاحة حالياً</h1>
       <p className="text-muted-foreground">تم إخفاء هذه الواجهة مؤقتاً من إدارة المتجر.</p>
-      <a href="/home" className="inline-flex bg-primary px-5 py-3 text-primary-foreground">العودة للرئيسية</a>
+      <a href="/home" className="inline-flex bg-burgundy px-5 py-3 text-white hover:bg-burgundy-hover">العودة للرئيسية</a>
     </div>
   </main>
 );

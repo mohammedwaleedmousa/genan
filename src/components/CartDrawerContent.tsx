@@ -114,7 +114,7 @@ const CartDrawerContent = () => {
               <button
                 type="button"
                 onClick={handleBrowseProducts}
-                className="mt-6 h-[50px] rounded-2xl bg-[#171717] px-8 text-[13px] font-semibold text-white transition-colors hover:bg-[#38302A]"
+                className="mt-6 h-[50px] rounded-2xl bg-burgundy px-8 text-[13px] font-semibold text-white transition-colors hover:bg-burgundy-hover"
               >
                 تصفح المنتجات
               </button>
@@ -305,7 +305,7 @@ const CartDrawerContent = () => {
             <button
               type="button"
               onClick={handleCheckout}
-              className="flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-[#171717] text-[14px] font-semibold text-white shadow-[0_8px_20px_rgba(14,14,14,0.12)] transition-colors hover:bg-[#303030]"
+              className="flex h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-burgundy text-[14px] font-semibold text-white shadow-[0_8px_20px_rgba(14,14,14,0.12)] transition-colors hover:bg-burgundy-hover"
             >
               <ShoppingBag className="h-4 w-4 stroke-[1.45]" />
               إتمام الشراء
