@@ -31,10 +31,12 @@ const isLingerieCategory = (category: { slug?: string | null; name?: string | nu
   return /lingerie|لانجري|لانجيري|لانجيرى|ملابس داخليه|ملابس داخلية/.test(value);
 };
 
+const featuredCategoryLimit = 7;
+
 const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryItem[]; loading?: boolean }) => {
   if (!loading && items.length === 0) return null;
 
-  const featured = items.slice(0, 4);
+  const featured = items.slice(0, featuredCategoryLimit);
 
   return (
     <section className="w-full overflow-hidden bg-white py-4 sm:py-5 lg:py-6" dir="rtl" aria-label="الأقسام">
@@ -53,7 +55,7 @@ const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryI
         <div className="-mx-4 overflow-x-auto overscroll-x-contain px-4 pb-1 [scrollbar-width:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:px-0">
           <div className="flex w-max flex-nowrap items-start gap-2.5 snap-x snap-proximity sm:gap-3 lg:w-full lg:justify-between lg:gap-4 lg:snap-none">
             {loading
-              ? Array.from({ length: 4 }).map((_, index) => (
+              ? Array.from({ length: featuredCategoryLimit }).map((_, index) => (
                   <div key={index} aria-hidden="true" className="w-[68px] shrink-0 snap-start sm:w-[78px] md:w-[86px] lg:w-[94px] xl:w-[100px]">
                     <div className="aspect-square w-full animate-pulse rounded-[9px] bg-[#F0F0F0]" />
                     <div className="mx-auto mt-1.5 h-2 w-4/5 animate-pulse rounded-full bg-[#EFEFEF]" />
