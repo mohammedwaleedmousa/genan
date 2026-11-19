@@ -1,8 +1,8 @@
-const CROPPED_NAME = "flamingo-avatar-cropped.webp";
+const CROPPED_NAME = "genan-avatar-cropped.webp";
 
 const installAvatarUploadEnhancer = () => {
-  if (typeof document === "undefined" || (window as any).__flamingoAvatarEnhancer) return;
-  (window as any).__flamingoAvatarEnhancer = true;
+  if (typeof document === "undefined" || (window as any).__genanAvatarEnhancer) return;
+  (window as any).__genanAvatarEnhancer = true;
 
   document.addEventListener("change", (event) => {
     const input = event.target as HTMLInputElement | null;

@@ -1,7 +1,7 @@
 if (typeof window !== "undefined" && typeof Element !== "undefined" && window.location.pathname.startsWith("/admin")) {
-  const prototype = Element.prototype as Element & { __flamingoAdminClosestPatched?: boolean };
+  const prototype = Element.prototype as Element & { __genanAdminClosestPatched?: boolean };
 
-  if (!prototype.__flamingoAdminClosestPatched) {
+  if (!prototype.__genanAdminClosestPatched) {
     const nativeClosest = Element.prototype.closest;
 
     Element.prototype.closest = function closest(selector: string) {
@@ -18,7 +18,7 @@ if (typeof window !== "undefined" && typeof Element !== "undefined" && window.lo
       return nativeClosest.call(this, selector);
     };
 
-    Object.defineProperty(Element.prototype, "__flamingoAdminClosestPatched", {
+    Object.defineProperty(Element.prototype, "__genanAdminClosestPatched", {
       value: true,
       configurable: false,
       enumerable: false,

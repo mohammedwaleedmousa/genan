@@ -90,7 +90,7 @@ export const exportProductUpdateWorkbook = async () => {
     .select("id,name_ar,name,price,is_active,brand_id,brand,category_id,category,audience,original_price,discount")
     .order("updated_at", { ascending: false });
   if (error) throw error;
-  exportXlsx({ filename: `flamingo-products-${new Date().toISOString().slice(0, 10)}`, sheetName: "Products", columns: [...productColumns], rows: data ?? [] });
+  exportXlsx({ filename: `genan-products-${new Date().toISOString().slice(0, 10)}`, sheetName: "Products", columns: [...productColumns], rows: data ?? [] });
 };
 
 export const exportInventoryWorkbook = async () => {
@@ -110,7 +110,7 @@ export const exportInventoryWorkbook = async () => {
     size: row.size,
     stock_quantity: row.stock_quantity,
   }));
-  exportXlsx({ filename: `flamingo-inventory-skus-${new Date().toISOString().slice(0, 10)}`, sheetName: "Inventory", columns: [...inventoryColumns], rows });
+  exportXlsx({ filename: `genan-inventory-skus-${new Date().toISOString().slice(0, 10)}`, sheetName: "Inventory", columns: [...inventoryColumns], rows });
 };
 
 export const previewProductWorkbook = async (file: File): Promise<ProductExcelPreviewRow[]> => {

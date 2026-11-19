@@ -1,6 +1,8 @@
-const SHELL_CACHE = "genan-shell-v5";
+const SHELL_CACHE = "genan-shell-v6";
+const PREVIOUS_SHELL_CACHE = "genan-shell-v5";
 const LEGACY_SHELL_CACHE = "genan-shell-v3";
-const IMAGE_CACHE = "genan-images-v3";
+const IMAGE_CACHE = "genan-images-v4";
+const LEGACY_IMAGE_CACHES = new Set(["genan-images-v2", "genan-images-v3"]);
 const SHELL_PATH = "/index.html";
 const APP_SHELL = [SHELL_PATH, "/manifest.json"];
 const CATALOG_PATHS = new Set([
@@ -63,15 +65,20 @@ self.addEventListener("activate", (event) => {
     (async () => {
       const keys = await caches.keys();
       await Promise.all(
-        keys.filter((key) => (key.startsWith("genan-shell-") && key !== SHELL_CACHE) || key === "genan-images-v2")
+        keys.filter((key) => (key.startsWith("genan-shell-") && key !== SHELL_CACHE) || LEGACY_IMAGE_CACHES.has(key))
           .map((key) => caches.delete(key)),
       );
       await self.clients.claim();
 
-      if (keys.includes(LEGACY_SHELL_CACHE)) {
+      const refreshCatalog = keys.includes(LEGACY_SHELL_CACHE);
+      const refreshQr = keys.includes(PREVIOUS_SHELL_CACHE);
+      if (refreshCatalog || refreshQr) {
         const windows = await self.clients.matchAll({ type: "window" });
         for (const client of windows) {
-          if (client.frameType === "top-level" && isCatalogPage(new URL(client.url)) && client.navigate) {
+          const url = new URL(client.url);
+          const needsRefresh = (refreshCatalog && isCatalogPage(url)) ||
+            (refreshQr && url.pathname.replace(/\/+$/, "") === "/qr-code");
+          if (client.frameType === "top-level" && needsRefresh && client.navigate) {
             // Let activation finish before the browser waits for the navigation response.
             void client.navigate(client.url).catch(() => {});
           }

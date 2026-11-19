@@ -4,8 +4,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { ArrowRight, Download, Link2, Share2 } from "lucide-react";
 
 import { toast } from "@/hooks/use-toast";
-
-const genanLogo = "/icons/app-icon-1024.png";
+import Logo from "@/components/Logo";
 
 const websiteUrl = typeof window !== "undefined" ? `${window.location.origin}/` : "";
 
@@ -93,7 +92,7 @@ const QRCodePage = () => {
         {/* HEADER */}
 
         <div className="mb-6 text-center">
-          <img src={genanLogo} alt="Genan" className="mx-auto h-[64px] w-auto object-contain" />
+          <div className="flex h-16 items-center justify-center"><Logo size="xl" /></div>
 
           <h1 className="mt-4 text-[22px] font-semibold tracking-[-0.03em] text-[#173A2D]">جنان</h1>
 

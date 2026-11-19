@@ -22,10 +22,10 @@ const installBodyOverflowGuard = () => {
   if (typeof CSSStyleDeclaration === "undefined") return;
 
   const prototype = CSSStyleDeclaration.prototype as CSSStyleDeclaration & {
-    __flamingoAccountOverflowGuard?: boolean;
+    __genanAccountOverflowGuard?: boolean;
   };
 
-  if (prototype.__flamingoAccountOverflowGuard) return;
+  if (prototype.__genanAccountOverflowGuard) return;
 
   const descriptor = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, "overflow");
   if (!descriptor?.get || !descriptor?.set || descriptor.configurable === false) return;
@@ -55,7 +55,7 @@ const installBodyOverflowGuard = () => {
       },
     });
 
-    Object.defineProperty(prototype, "__flamingoAccountOverflowGuard", {
+    Object.defineProperty(prototype, "__genanAccountOverflowGuard", {
       configurable: true,
       value: true,
     });
@@ -66,10 +66,10 @@ const installBodyOverflowGuard = () => {
 };
 
 const installStyle = () => {
-  if (document.getElementById("flamingo-account-no-jitter")) return;
+  if (document.getElementById("genan-account-no-jitter")) return;
 
   const style = document.createElement("style");
-  style.id = "flamingo-account-no-jitter";
+  style.id = "genan-account-no-jitter";
   style.textContent = `
     @media (max-width: 767px) {
       html, body {

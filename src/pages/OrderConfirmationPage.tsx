@@ -67,7 +67,7 @@ const OrderConfirmationPage = () => {
   const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const genanLogo = "/icons/app-icon-1024.png";
+  const genanLogo = "/icons/genan-1024.png";
 
   const currencyMode = orderData?.currencyMode || "SAR";
   const currencyConfig = CURRENCY_RATES[currencyMode as keyof typeof CURRENCY_RATES];

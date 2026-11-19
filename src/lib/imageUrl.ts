@@ -1,4 +1,4 @@
-const FLAMINGO_IMAGE_ZONE = "https://genanboutiquee.com";
+const GENAN_IMAGE_ZONE = "https://genanboutiquee.com";
 
 const getViewportAwareWidth = (requestedWidth: number) => {
   if (typeof window === "undefined") return requestedWidth;
@@ -29,12 +29,12 @@ const getCloudflareOptions = (width: number, quality: number) => {
 };
 
 const buildCloudflareImageUrl = (source: string, width: number, quality: number) =>
-  `${FLAMINGO_IMAGE_ZONE}/cdn-cgi/image/${getCloudflareOptions(width, quality)}/${source}`;
+  `${GENAN_IMAGE_ZONE}/cdn-cgi/image/${getCloudflareOptions(width, quality)}/${source}`;
 
 const canTransformImage = (rawUrl: string | null | undefined) => {
   if (!rawUrl?.trim()) return false;
   try {
-    const baseUrl = typeof window !== "undefined" ? window.location.origin : FLAMINGO_IMAGE_ZONE;
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : GENAN_IMAGE_ZONE;
     const url = new URL(rawUrl, baseUrl);
     // Supabase Storage URLs are deliberately excluded. Direct public URLs are
     // more reliable for the catalog than Cloudflare's remote image transform.
@@ -47,7 +47,7 @@ const canTransformImage = (rawUrl: string | null | undefined) => {
 const buildOptimizedImageUrl = (url: string | null | undefined, width: number, quality: number, viewportAware: boolean): string => {
   if (!url || !url.trim()) return "/placeholder.svg";
   try {
-    const baseUrl = typeof window !== "undefined" ? window.location.origin : FLAMINGO_IMAGE_ZONE;
+    const baseUrl = typeof window !== "undefined" ? window.location.origin : GENAN_IMAGE_ZONE;
     const u = new URL(url, baseUrl);
     const optimizedWidth = viewportAware ? getViewportAwareWidth(width) : width;
     if (u.hostname === "images.pexels.com") {
@@ -73,7 +73,7 @@ const buildOptimizedImageUrl = (url: string | null | undefined, width: number, q
 export const optimizeCatalogImage = (url?: string | null, width = 480, quality = 78): string => {
   if (!url?.trim()) return "/placeholder.svg";
   try {
-    const parsed = new URL(url, FLAMINGO_IMAGE_ZONE);
+    const parsed = new URL(url, GENAN_IMAGE_ZONE);
     if (isSupabasePublicStorageUrl(parsed)) return parsed.toString();
     return optimizeImage(url, width, quality);
   } catch {

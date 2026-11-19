@@ -90,7 +90,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const title = `${productName} | Genan`;
     const description = buildDescription(product);
     const siteUrl = new URL(context.request.url).origin;
-    const image = firstImage(product) || `${siteUrl}/icons/app-icon-1024.png`;
+    const image = firstImage(product) || `${siteUrl}/icons/genan-1024.png`;
     const productUrl = `${siteUrl}/product/${encodeURIComponent(product.slug || slug)}`;
 
     const transformer = new HTMLRewriter()

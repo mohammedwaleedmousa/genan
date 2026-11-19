@@ -1,6 +1,6 @@
 # GENAN Design System
 
-Genan is intentionally **not** a Flamingo derivative. The storefront follows an editorial fashion-house / gallery language.
+The Genan storefront follows an editorial fashion-house and gallery style.
 
 ## Core direction
 
@@ -20,7 +20,7 @@ Genan is intentionally **not** a Flamingo derivative. The storefront follows an 
 - Divider: `#DCD5C6`
 - Muted text: `#778179`
 
-Do not reintroduce Flamingo rose/pink as a brand accent.
+Use Genan burgundy as the brand accent.
 
 ## Geometry
 

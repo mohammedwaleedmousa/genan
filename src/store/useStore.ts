@@ -153,8 +153,8 @@ export const useStore = create<StoreState>()(
           if (existingQty + quantity > stock) {
             const remaining = Math.max(0, stock - existingQty);
             const win: any = typeof window !== "undefined" ? window : {};
-            if (win.__flamingoStockToast) {
-              win.__flamingoStockToast(remaining);
+            if (win.__genanStockToast) {
+              win.__genanStockToast(remaining);
             }
             return;
           }
@@ -289,7 +289,7 @@ export const useStore = create<StoreState>()(
       logout: () => set({ customer: null, cart: [] }),
     }),
     {
-      name: "flamingo-store",
+      name: "genan-store",
       partialize: (state) => ({
         customer: state.customer,
         cart: state.cart,

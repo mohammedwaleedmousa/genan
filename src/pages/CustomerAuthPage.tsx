@@ -291,7 +291,7 @@ const CustomerAuthPage = () => {
       <div className="mx-auto flex min-h-[100svh] w-full max-w-[560px] flex-col px-3 pb-7 pt-7 sm:px-6 md:justify-center md:py-10">
         <div className="flex justify-center">
           <button type="button" onClick={() => navigate("/home")} aria-label="العودة إلى المتجر" className="flex h-[72px] w-[72px] items-center justify-center">
-            <img src="/icons/app-icon-1024.png" alt="Genan" width={78} height={78} fetchPriority="high" className="h-[78px] w-[78px] object-contain" />
+            <img src="/icons/genan-1024.png" alt="Genan" width={78} height={78} fetchPriority="high" className="h-[78px] w-[78px] object-contain" />
           </button>
         </div>
 

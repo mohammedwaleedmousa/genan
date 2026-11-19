@@ -18,7 +18,7 @@ interface AdminPageHeaderProps {
   }>;
 }
 
-/** Genan Studio title treatment. No shared Flamingo dashboard card shell. */
+/** Genan Studio page heading. */
 const AdminPageHeader: FC<AdminPageHeaderProps> = ({ title, description, category, actions = [] }) => (
   <header dir="rtl" data-genan-page-heading className="genan-studio-heading relative mb-7 overflow-hidden border border-[#E8E1D8] bg-[#FFFEFB] px-5 py-6 sm:px-7 sm:py-7">
     <div className="flex min-w-0 flex-col justify-between gap-6 lg:flex-row lg:items-end">

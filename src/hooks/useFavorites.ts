@@ -3,8 +3,8 @@ import { persist } from 'zustand/middleware';
 import { Product } from '@/store/useStore';
 import { supabase } from '@/integrations/supabase/client';
 
-const syncedKey = (userId: string) => `flamingopark-favorites-db-synced:${userId}`;
-const OWNER_KEY = 'flamingopark-favorites-owner';
+const syncedKey = (userId: string) => `genan-favorites-db-synced:${userId}`;
+const OWNER_KEY = 'genan-favorites-owner';
 const toProduct = (p: any): Product => ({ id: p.id, name: p.name, nameAr: p.name_ar, slug: p.slug, price: Number(p.price), originalPrice: p.original_price ? Number(p.original_price) : undefined, discount: p.discount || undefined, description: p.description || '', descriptionAr: p.description_ar || '', images: p.images || [], category: p.category || '', brand: p.brand || '', inStock: p.in_stock ?? true, stockQuantity: typeof p.stock_quantity === 'number' ? p.stock_quantity : undefined, countries: p.countries || ['GLOBAL'], isFeatured: p.is_featured, isBestSeller: p.is_best_seller });
 
 interface FavoritesState { favorites: Product[]; addFavorite: (product: Product) => void; removeFavorite: (productId: string) => void; isFavorite: (productId: string) => boolean; toggleFavorite: (product: Product) => boolean; clearFavorites: () => void; syncWithDatabase: (userId?: string, customerId?: string | null) => Promise<void> }
@@ -47,4 +47,4 @@ export const useFavorites = create<FavoritesState>()(persist((set, get) => ({
     const { data, error } = await (supabase as any).from('customer_favorites').select('products(*)').eq('user_id', authUserId).order('created_at', { ascending: false });
     if (!error) set({ favorites: (data || []).map((row: any) => row.products).filter(Boolean).map(toProduct) });
   },
-}), { name: 'flamingopark-favorites' }));
+}), { name: 'genan-favorites' }));

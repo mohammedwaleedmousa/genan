@@ -3,7 +3,7 @@ export const registerServiceWorker = () => {
 
   const update = async () => {
     try {
-      await navigator.serviceWorker.register("/sw.js?v=5", { updateViaCache: "none" });
+      await navigator.serviceWorker.register("/sw.js?v=6", { updateViaCache: "none" });
     } catch (error) {
       console.error("[pwa] service worker registration failed", error);
     }

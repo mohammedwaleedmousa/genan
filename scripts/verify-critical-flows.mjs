@@ -63,7 +63,7 @@ const checks = [
   },
   {
     file: "functions/product/[slug].ts",
-    needles: ["new URL(context.request.url).origin", "| Genan", "icons/app-icon-1024.png"],
+    needles: ["new URL(context.request.url).origin", "| Genan", "icons/genan-1024.png"],
     message: "Product social metadata must use the active Genan deployment origin.",
   },
   {
@@ -93,11 +93,13 @@ const forbiddenInRuntime = [
   "967778579777",
   "/icons/flamingo.jpeg",
   "Flamingo Park",
-  "FLAMINGO PARK",
+  "flamingo admin",
+  "فلامنجو",
+  "فلمنجو",
 ];
 
-const runtimeRoots = ["src", "functions"];
-const runtimeExtensions = new Set([".ts", ".tsx", ".js", ".mjs", ".html", ".css"]);
+const runtimeRoots = ["src", "functions", "public"];
+const runtimeExtensions = new Set([".ts", ".tsx", ".js", ".mjs", ".html", ".css", ".xml", ".json"]);
 
 const walk = (dir) => {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -163,8 +165,8 @@ for (const relativeRoot of runtimeRoots) {
   for (const file of walk(absoluteRoot)) {
     const source = fs.readFileSync(file, "utf8");
     for (const forbidden of forbiddenInRuntime) {
-      if (source.includes(forbidden)) {
-        console.error(`FAIL ${path.relative(root, file)}: legacy Flamingo runtime reference found: ${forbidden}`);
+      if (source.toLowerCase().includes(forbidden.toLowerCase())) {
+        console.error(`FAIL ${path.relative(root, file)}: legacy brand runtime reference found: ${forbidden}`);
         failures += 1;
       }
     }

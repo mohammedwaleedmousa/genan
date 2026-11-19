@@ -1,5 +1,5 @@
 /*
- * Genan boutique palette over Flamingo's responsive storefront geometry.
+ * Genan boutique palette and responsive storefront geometry.
  * UI-only: keeps Genan catalogue, auth, checkout, inventory and admin logic.
  * Unlike the previous square-corner layer, this preserves rounded cards,
  * search controls, sheet dialogs and image treatment from the reference UI.

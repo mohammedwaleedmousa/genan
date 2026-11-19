@@ -172,13 +172,13 @@ const mountView = (key: string, body: string) => {
 
 const loadingMarkup = (title: string, subtitle: string) => `
   <div class="dd-head">
-    <div><div class="dd-kicker"><span class="dd-dot"></span>FLAMINGO ADMIN</div><h1>${escapeHtml(title)}</h1><p class="dd-sub">${escapeHtml(subtitle)}</p></div>
+    <div><div class="dd-kicker"><span class="dd-dot"></span>GENAN ADMIN</div><h1>${escapeHtml(title)}</h1><p class="dd-sub">${escapeHtml(subtitle)}</p></div>
     <div class="dd-actions"><a class="dd-btn" href="/admin">العودة للوحة التحكم</a></div>
   </div>
   <div class="dd-card"><div class="dd-loading"><span class="dd-spinner"></span><span class="dd-sub">جاري تحميل البيانات...</span></div></div>`;
 
 const errorMarkup = (title: string, message: string) => `
-  <div class="dd-head"><div><div class="dd-kicker"><span class="dd-dot"></span>FLAMINGO ADMIN</div><h1>${escapeHtml(title)}</h1><p class="dd-sub">تعذر تحميل البيانات المطلوبة.</p></div><div class="dd-actions"><a class="dd-btn" href="/admin">العودة للوحة التحكم</a></div></div>
+  <div class="dd-head"><div><div class="dd-kicker"><span class="dd-dot"></span>GENAN ADMIN</div><h1>${escapeHtml(title)}</h1><p class="dd-sub">تعذر تحميل البيانات المطلوبة.</p></div><div class="dd-actions"><a class="dd-btn" href="/admin">العودة للوحة التحكم</a></div></div>
   <div class="dd-card"><div class="dd-empty">${escapeHtml(message)}</div></div>`;
 
 const normalizeEventType = (value: unknown) => String(value || "").trim().toLowerCase();

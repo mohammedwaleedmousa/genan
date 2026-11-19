@@ -11,7 +11,7 @@ export type AdditionalExportDefinition = {
 };
 
 const questionsDefinition = (): AdditionalExportDefinition => ({
-  filename: `flamingo-product-questions-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-product-questions-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "أسئلة العملاء",
   columns: [
     { key: "customer", header: "العميل", width: 24 },

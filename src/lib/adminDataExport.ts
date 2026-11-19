@@ -126,7 +126,7 @@ const mapOrder = (order: Record<string, any>) => ({
 });
 
 const customersDefinition = (): ExportDefinition => ({
-  filename: `flamingo-customers-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-customers-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "العملاء",
   columns: [
     { key: "name", header: "اسم العميل", width: 24 },
@@ -155,14 +155,14 @@ const customersDefinition = (): ExportDefinition => ({
 });
 
 const ordersDefinition = (): ExportDefinition => ({
-  filename: `flamingo-orders-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-orders-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "الطلبات",
   columns: orderColumns,
   loadRows: async () => (await fetchAll("orders")).map(mapOrder),
 });
 
 const customerDetailDefinition = (id: string): ExportDefinition => ({
-  filename: `flamingo-customer-${id.slice(0, 8)}-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-customer-${id.slice(0, 8)}-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "سجل العميل",
   columns: orderColumns,
   loadRows: async () => {
@@ -195,7 +195,7 @@ const customerDetailDefinition = (id: string): ExportDefinition => ({
 });
 
 const invoiceDefinition = (): ExportDefinition => ({
-  filename: `flamingo-invoices-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-invoices-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "الفواتير",
   columns: [
     { key: "invoice", header: "رقم الفاتورة", width: 20 },
@@ -233,7 +233,7 @@ const invoiceDefinition = (): ExportDefinition => ({
 });
 
 const refundsDefinition = (): ExportDefinition => ({
-  filename: `flamingo-refunds-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-refunds-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "المرتجعات",
   columns: [
     { key: "order", header: "رقم الطلب", width: 18 },
@@ -267,7 +267,7 @@ const refundsDefinition = (): ExportDefinition => ({
 });
 
 const reviewsDefinition = (): ExportDefinition => ({
-  filename: `flamingo-reviews-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-reviews-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "تقييمات العملاء",
   columns: [
     { key: "customer", header: "اسم العميل", width: 24 },
@@ -296,7 +296,7 @@ const reviewsDefinition = (): ExportDefinition => ({
 });
 
 const notificationsDefinition = (): ExportDefinition => ({
-  filename: `flamingo-customer-notifications-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-customer-notifications-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "إشعارات العملاء",
   columns: [
     { key: "customer", header: "العميل", width: 24 },
@@ -324,7 +324,7 @@ const notificationsDefinition = (): ExportDefinition => ({
 });
 
 const deliveriesDefinition = (): ExportDefinition => ({
-  filename: `flamingo-notification-deliveries-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-notification-deliveries-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "سجل الإرسال",
   columns: [
     { key: "recipient", header: "المستلم", width: 24 },
@@ -347,7 +347,7 @@ const deliveriesDefinition = (): ExportDefinition => ({
 });
 
 const customerAnalysisDefinition = (): ExportDefinition => ({
-  filename: `flamingo-customer-analysis-${new Date().toISOString().slice(0, 10)}`,
+  filename: `genan-customer-analysis-${new Date().toISOString().slice(0, 10)}`,
   sheetName: "تحليل العملاء",
   columns: [
     { key: "name", header: "اسم العميل", width: 24 },

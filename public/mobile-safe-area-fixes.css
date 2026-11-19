@@ -57,7 +57,7 @@
 
   /* OTP recovery is intentionally disabled for now. Login remains phone + password only. */
   form + button + * {
-    --flamingo-auth-otp-disabled: 1;
+    --genan-auth-otp-disabled: 1;
   }
 
   button.shrink-0.text-\[9px\].font-medium.text-\[\#C1646C\] {

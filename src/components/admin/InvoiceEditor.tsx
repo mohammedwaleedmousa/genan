@@ -9,7 +9,7 @@ import { CURRENCY_RATES, getRateSnapshot } from "@/lib/currency";
 import { CheckCircle2, CircleOff, Download, FileClock, FileText, Loader2, Package, Pencil, Plus, Printer, ReceiptText, RotateCcw, Save, Trash2, UserRound, X, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const genanLogo = "/icons/app-icon-1024.png";
+const genanLogo = "/icons/genan-1024.png";
 
 interface SelectedAccessory {
   name: string;

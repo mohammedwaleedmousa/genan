@@ -376,7 +376,7 @@ const ProductDetailPage = () => {
     const productUrl = `${siteUrl}/product/${encodeURIComponent(product.slug)}`;
     const title = `${product.nameAr || product.name} | Genan`;
     const description = product.descriptionAr || product.description || `تسوّق ${product.nameAr || product.name} من Genan.`;
-    const image = product.images?.[0] || `${siteUrl}/icons/app-icon-1024.png`;
+    const image = product.images?.[0] || `${siteUrl}/icons/genan-1024.png`;
     const previousTitle = document.title;
 
     const setMeta = (selector: string, content: string) => {

@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { clearCustomerSession, setCustomerSession } from "@/lib/customerSession";
 import { useStore } from "@/store/useStore";
 
-const POST_AUTH_REDIRECT_KEY = "flamingo-post-auth-redirect";
+const POST_AUTH_REDIRECT_KEY = "genan-post-auth-redirect";
 
 const safePostAuthPath = (value: string | null) => {
   if (!value) return null;

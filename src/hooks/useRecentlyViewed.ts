@@ -21,6 +21,6 @@ export const useRecentlyViewed = create<RecentlyViewedState>()(
       },
       clear: () => set({ items: [] }),
     }),
-    { name: "flamingo-recently-viewed" }
+    { name: "genan-recently-viewed" }
   )
 );

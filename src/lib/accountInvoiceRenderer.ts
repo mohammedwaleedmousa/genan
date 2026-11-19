@@ -194,7 +194,7 @@ const invoiceStyles = `
 const buildInvoiceMarkup = (order: AccountInvoiceOrder, deliveryCompany: string) => {
   const symbol = currencySymbol(order);
   const items = Array.isArray(order.items) ? order.items : [];
-  const logo = `${window.location.origin}/icons/app-icon-1024.png`;
+  const logo = `${window.location.origin}/icons/genan-1024.png`;
   const address = [order.customer_region, order.customer_city, order.customer_address].filter(Boolean).map(escapeHtml).join(" - ") || "—";
 
   const itemRows = items.length

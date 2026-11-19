@@ -1,7 +1,7 @@
 export const ADMIN_BASE_PATH = "/mohammedadmin77";
 export const ADMIN_LOGIN_PATH = `${ADMIN_BASE_PATH}/login`;
 export const LEGACY_ADMIN_BASE_PATH = "/admin";
-export const ADMIN_ROUTE_UNLOCK_KEY = "flamingo-admin-route-unlocked";
+export const ADMIN_ROUTE_UNLOCK_KEY = "genan-admin-route-unlocked";
 
 export const adminPath = (suffix = "") => {
   if (!suffix) return ADMIN_BASE_PATH;

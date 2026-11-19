@@ -1,3 +1,4 @@
+import "./lib/migrateStorefrontStorage";
 import "./lib/cryptoCompat";
 import "./lib/accountInvoiceEnhancements";
 import "./lib/accountInvoiceRenderer";
