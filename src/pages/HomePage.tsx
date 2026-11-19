@@ -57,7 +57,7 @@ const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryI
             {loading
               ? Array.from({ length: featuredCategoryLimit }).map((_, index) => (
                   <div key={index} aria-hidden="true" className="w-[68px] shrink-0 snap-start sm:w-[78px] md:w-[86px] lg:w-[94px] xl:w-[100px]">
-                    <div className="aspect-square w-full animate-pulse rounded-[9px] bg-[#F0F0F0]" />
+                    <div className="aspect-square w-full animate-pulse rounded-full bg-[#F0F0F0]" />
                     <div className="mx-auto mt-1.5 h-2 w-4/5 animate-pulse rounded-full bg-[#EFEFEF]" />
                   </div>
                 ))
@@ -67,7 +67,7 @@ const CategoryCarousel = ({ items, loading = false }: { items: FeaturedCategoryI
                     to={item.link}
                     className="group block w-[68px] shrink-0 snap-start select-none sm:w-[78px] md:w-[86px] lg:w-[94px] xl:w-[100px]"
                   >
-                    <div className="relative aspect-square w-full overflow-hidden rounded-[9px] bg-[#F5F3F0] ring-1 ring-[#EEEAE4] ring-inset">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-full bg-[#F5F3F0] ring-1 ring-[#EEEAE4] ring-inset">
                       <img
                         src={optimizeImage(item.image, 240, 77)}
                         alt={item.title}
