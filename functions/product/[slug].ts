@@ -54,10 +54,13 @@ const setMeta = (selector: string, content: string) => ({
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const slug = String(context.params.slug || "").trim();
-  const response = await context.next();
-  const contentType = response.headers.get("content-type") || "";
+  const staticResponse = await context.next();
+  const contentType = staticResponse.headers.get("content-type") || "";
+  if (!contentType.includes("text/html")) return staticResponse;
 
-  if (!slug || !contentType.includes("text/html")) return response;
+  const response = new Response(staticResponse.body, staticResponse);
+  response.headers.set("cache-control", "no-cache, no-store, must-revalidate");
+  if (!slug) return response;
 
   const config = getConfig(context.env);
   if (!config) return response;
@@ -113,15 +116,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         },
       });
 
-    const transformed = transformer.transform(response);
-    const headers = new Headers(transformed.headers);
-    headers.set("cache-control", "public, max-age=60, s-maxage=300, stale-while-revalidate=3600");
-
-    return new Response(transformed.body, {
-      status: transformed.status,
-      statusText: transformed.statusText,
-      headers,
-    });
+    return transformer.transform(response);
   } catch (error) {
     console.error("[product-og] failed to build product preview", error);
     return response;

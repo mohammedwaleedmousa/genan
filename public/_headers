@@ -1,4 +1,40 @@
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+
 /index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/home
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/products
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/categories
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/new-arrivals
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/best-sellers
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/seasonal-offers
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/brands
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/brand/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/brands/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/campaign/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/manifest.json
   Cache-Control: no-cache, no-store, must-revalidate
 
 /sw.js

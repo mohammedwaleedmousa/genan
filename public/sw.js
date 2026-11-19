@@ -1,6 +1,19 @@
-const SHELL_CACHE = "genan-shell-v3";
+const SHELL_CACHE = "genan-shell-v4";
+const LEGACY_SHELL_CACHE = "genan-shell-v3";
 const IMAGE_CACHE = "genan-images-v2";
-const APP_SHELL = ["/index.html", "/manifest.json"];
+const SHELL_PATH = "/index.html";
+const APP_SHELL = [SHELL_PATH, "/manifest.json"];
+const CATALOG_PATHS = new Set([
+  "/", "/index", SHELL_PATH, "/home", "/products", "/categories",
+  "/new-arrivals", "/best-sellers", "/seasonal-offers", "/brands",
+]);
+
+const isCatalogPage = (url) => {
+  const path = url.pathname.replace(/\/+$/, "") || "/";
+  return CATALOG_PATHS.has(path) || /^\/(?:brands?|campaign)\/[^/]/.test(path);
+};
+
+const isHtml = (response) => (response.headers.get("content-type") || "").includes("text/html");
 
 const isCacheableResponse = (response) => response && (response.ok || response.type === "opaque");
 
@@ -37,20 +50,61 @@ const staleWhileRevalidateImage = async (request, event) => {
 };
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL)));
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(SHELL_CACHE)
+      .then((cache) => cache.addAll(APP_SHELL.map((path) => new Request(path, { cache: "reload" }))))
+      .then(() => self.skipWaiting()),
+  );
 });
 
 self.addEventListener("activate", (event) => {
-  const allowedCaches = new Set([SHELL_CACHE, IMAGE_CACHE]);
-
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) => Promise.all(keys.filter((key) => !allowedCaches.has(key)).map((key) => caches.delete(key))))
-      .then(() => self.clients.claim()),
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys.filter((key) => key.startsWith("genan-shell-") && key !== SHELL_CACHE)
+          .map((key) => caches.delete(key)),
+      );
+      await self.clients.claim();
+
+      if (keys.includes(LEGACY_SHELL_CACHE)) {
+        const windows = await self.clients.matchAll({ type: "window" });
+        for (const client of windows) {
+          if (client.frameType === "top-level" && isCatalogPage(new URL(client.url)) && client.navigate) {
+            // Let activation finish before the browser waits for the navigation response.
+            void client.navigate(client.url).catch(() => {});
+          }
+        }
+      }
+    })(),
   );
 });
+
+const navigateFromNetwork = async (request, url, event) => {
+  try {
+    const response = await fetch(request, { cache: "no-store" });
+    if (response.ok && !response.redirected && isHtml(response) && isCatalogPage(url)) {
+      const copy = response.clone();
+      event.waitUntil(caches.open(SHELL_CACHE).then((cache) => cache.put(SHELL_PATH, copy)).catch(() => {}));
+    }
+    return response;
+  } catch {
+    return (await caches.match(SHELL_PATH, { cacheName: SHELL_CACHE }).catch(() => null)) || Response.error();
+  }
+};
+
+const serveAsset = async (request, event) => {
+  const cached = await caches.match(request, { cacheName: SHELL_CACHE }).catch(() => null);
+  if (cached) return cached;
+
+  const response = await fetch(request);
+  // A missing hashed asset can be served the SPA document by the hosting fallback.
+  if (response.ok && !isHtml(response)) {
+    const copy = response.clone();
+    event.waitUntil(caches.open(SHELL_CACHE).then((cache) => cache.put(request, copy)).catch(() => {}));
+  }
+  return response;
+};
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
@@ -66,26 +120,11 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin || url.pathname.startsWith("/api/") || url.pathname.startsWith("/media/")) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((response) => response)
-        .catch(() => caches.match("/index.html")),
-    );
+    event.respondWith(navigateFromNetwork(request, url, event));
     return;
   }
 
   if (url.pathname.startsWith("/assets/") || url.pathname.startsWith("/icons/") || url.pathname.startsWith("/images/")) {
-    event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) return cached;
-        return fetch(request).then((response) => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(SHELL_CACHE).then((cache) => cache.put(request, copy));
-          }
-          return response;
-        });
-      }),
-    );
+    event.respondWith(serveAsset(request, event));
   }
 });
