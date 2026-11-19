@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Check, ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
@@ -13,6 +13,7 @@ import { mapProductCard } from "@/lib/productCardData";
 import { catalogFilterCategoriesQuery, catalogProductsQuery } from "@/lib/storefrontCatalogQueries";
 import { useCatalogListSnapshot } from "@/lib/catalogScroll";
 import { getCategoryTreeIds } from "@/lib/categoryTree";
+import { getCatalogBrandFilter, getCatalogBrandOptions, getProductBrand, matchesCatalogBrand, type ProductBrandRow } from "@/lib/catalogBrands";
 
 type ProductColor = {
   name: string;
@@ -20,7 +21,7 @@ type ProductColor = {
   hex2?: string;
 };
 
-type RawProduct = Record<string, any> & {
+type RawProduct = ProductBrandRow & Record<string, any> & {
   created_at?: string | null;
   sort_order?: number | null;
   color_variants?: unknown;
@@ -143,10 +144,17 @@ const ProductsPageServer = () => {
   }
 
 
-  const brands = useMemo(
-    () => Array.from(new Set(rawRows.map((row) => String(row.brand || "").trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b)),
-    [rawRows],
-  );
+  const allBrands = useMemo(() => getCatalogBrandOptions(rawRows), [rawRows]);
+  const draftBrands = useMemo(() => {
+    const categoryIds = getCategoryTreeIds(categories, draft.category);
+    const brands = categoryIds.length
+      ? getCatalogBrandOptions(rawRows.filter((row) => categoryIds.includes(row.category_id)))
+      : allBrands;
+    const selected = getCatalogBrandFilter(allBrands, draft.brand);
+
+    // Keep a saved selection visible if its products are outside the current category.
+    return selected && !brands.some((brand) => brand.value === selected.value) ? [...brands, selected] : brands;
+  }, [allBrands, categories, draft.brand, draft.category, rawRows]);
 
   const colors = useMemo(() => {
     const map = new Map<string, ProductColor>();
@@ -185,26 +193,15 @@ const ProductsPageServer = () => {
     };
   }, [rawRows]);
 
-  const filterRows = (
-    rows: RawProduct[],
-    filters: {
-      category: string;
-      brand: string;
-      color: string;
-      size: string;
-      minPrice: string;
-      maxPrice: string;
-      saleOnly: boolean;
-      inStockOnly: boolean;
-    },
-  ) => {
+  const filterRows = useCallback((rows: RawProduct[], filters: FilterDraft) => {
     const scopedCategoryIds = getCategoryTreeIds(categories, filters.category);
+    const selectedBrand = getCatalogBrandFilter(allBrands, filters.brand);
     const minimum = filters.minPrice ? Number(filters.minPrice) : null;
     const maximum = filters.maxPrice ? Number(filters.maxPrice) : null;
 
     return rows.filter((row) => {
       if (scopedCategoryIds.length && !scopedCategoryIds.includes(String(row.category_id || ""))) return false;
-      if (filters.brand !== "all" && String(row.brand || "") !== filters.brand) return false;
+      if (!matchesCatalogBrand(row, filters.brand, selectedBrand)) return false;
 
       if (filters.color !== "all") {
         const productColors = getProductColors(row).map((color) => normalize(color.name));
@@ -224,7 +221,8 @@ const ProductsPageServer = () => {
       if (filters.inStockOnly && !row.in_stock) return false;
 
       if (searchQuery) {
-        const haystack = [row.name, row.name_ar, row.brand, row.category, row.description, row.description_ar]
+        const brand = getProductBrand(row);
+        const haystack = [row.name, row.name_ar, brand.name, brand.slug?.replace(/-/g, " "), row.category, row.description, row.description_ar]
           .filter(Boolean)
           .join(" ")
           .toLowerCase();
@@ -234,7 +232,7 @@ const ProductsPageServer = () => {
 
       return true;
     });
-  };
+  }, [allBrands, categories, searchQuery]);
 
   const filtered = useMemo(() => {
     const rows = filterRows(rawRows, {
@@ -267,7 +265,7 @@ const ProductsPageServer = () => {
     return rows.map((row) => mapProductCard(row as any));
   }, [
     rawRows,
-    categories,
+    filterRows,
     categorySlug,
     brandFilter,
     colorFilter,
@@ -276,13 +274,12 @@ const ProductsPageServer = () => {
     maxPrice,
     saleOnly,
     inStockOnly,
-    searchQuery,
     sortBy,
   ]);
 
   const draftResultCount = useMemo(
     () => filterRows(rawRows, draft).length,
-    [rawRows, categories, draft, searchQuery],
+    [rawRows, filterRows, draft],
   );
 
   const visibleProducts = filtered.slice(0, visibleCount);
@@ -349,7 +346,7 @@ const ProductsPageServer = () => {
   const openFilters = () => {
     setDraft({
       category: categorySlug,
-      brand: brandFilter,
+      brand: getCatalogBrandFilter(allBrands, brandFilter)?.value ?? brandFilter,
       color: colorFilter,
       size: sizeFilter,
       minPrice,
@@ -594,16 +591,20 @@ const ProductsPageServer = () => {
               </div>
 
               <div className="rounded-3xl bg-white p-4 shadow-sm">
-                <p className="mb-3 text-[13px] font-bold text-[#2A2723]">الماركة</p>
+                <label htmlFor="catalog-brand-filter" className="mb-3 block text-[13px] font-bold text-[#2A2723]">الماركة</label>
                 <div className="relative">
                   <select
+                    id="catalog-brand-filter"
                     value={draft.brand}
                     onChange={(event) => setDraft((value) => ({ ...value, brand: event.target.value }))}
                     className="h-12 w-full appearance-none rounded-2xl border border-[#E5E0D8] bg-[#FAF9F7] px-4 text-[12px] text-[#44403A] outline-none focus:border-[#CDB98F]"
                   >
                     <option value="all">كل الماركات</option>
-                    {brands.map((brand) => (
-                      <option key={brand} value={brand}>{brand}</option>
+                    {draft.brand !== "all" && !draftBrands.some((brand) => brand.value === draft.brand) && (
+                      <option value={draft.brand}>ماركة غير متاحة</option>
+                    )}
+                    {draftBrands.map((brand) => (
+                      <option key={brand.value} value={brand.value}>{brand.label}</option>
                     ))}
                   </select>
                   <ChevronDown className="pointer-events-none absolute left-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#8A847C]" />

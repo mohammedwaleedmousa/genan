@@ -1,8 +1,9 @@
 import type { Product } from "@/store/useStore";
+import { CATALOG_BRAND_SELECT, getProductBrand } from "@/lib/catalogBrands";
 
 // Fields required by product cards, list filters, and Quick View. Detail-only payloads
 // (accessories, specs, policies, inventory metadata) stay on the product detail route.
-export const PRODUCT_CARD_SELECT = "id,name,name_ar,slug,price,original_price,discount,description,description_ar,images,category,category_id,brand,brand_id,in_stock,countries,is_featured,is_best_seller,color_variants,sizes";
+export const PRODUCT_CARD_SELECT = `id,name,name_ar,slug,price,original_price,discount,description,description_ar,images,category,category_id,brand,brand_id,in_stock,countries,is_featured,is_best_seller,color_variants,sizes,${CATALOG_BRAND_SELECT}` as const;
 
 type ProductCardRow = {
   id: string;
@@ -19,6 +20,7 @@ type ProductCardRow = {
   category_id: string | null;
   brand: string | null;
   brand_id: string | null;
+  catalog_brand?: { name: string; slug: string | null } | null;
   in_stock: boolean | null;
   countries: string[] | null;
   is_featured: boolean | null;
@@ -28,6 +30,7 @@ type ProductCardRow = {
 };
 
 export const mapProductCard = (row: ProductCardRow): Product => {
+  const brand = getProductBrand(row);
   const colorVariants = Array.isArray(row.color_variants) ? row.color_variants : [];
   return {
     id: row.id,
@@ -42,7 +45,8 @@ export const mapProductCard = (row: ProductCardRow): Product => {
     images: row.images?.length ? row.images : ((colorVariants[0] as { images?: string[] } | undefined)?.images || []),
     category: row.category || "",
     categoryId: row.category_id || undefined,
-    brand: row.brand || "",
+    brand: brand.name,
+    brandSlug: brand.slug,
     brandId: row.brand_id || undefined,
     inStock: row.in_stock ?? true,
     countries: (row.countries || ["GLOBAL"]) as Product["countries"],

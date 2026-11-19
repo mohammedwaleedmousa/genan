@@ -9,6 +9,7 @@ import CartDrawer from "@/components/CartDrawer";
 
 import { supabase } from "@/integrations/supabase/client";
 import { createImageSrcSet, optimizeImage, handleImageError } from "@/lib/imageUrl";
+import { catalogBrandHref } from "@/lib/catalogBrands";
 
 interface BrandPageRow {
   id: string;
@@ -129,6 +130,7 @@ const BrandPage = () => {
   }
 
   const brandSlug = brand.slug || slug;
+  if (!sections.length) return <Navigate to={catalogBrandHref(brandSlug)} replace />;
 
   return (
     <div className="flex min-h-screen flex-col bg-background" dir="rtl">
@@ -146,45 +148,39 @@ const BrandPage = () => {
                 </div>
                 <h1 className="text-[20px] font-semibold tracking-[-0.025em] text-foreground md:text-[26px]">أقسام {brand.name}</h1>
               </div>
+              <Link to={catalogBrandHref(brandSlug)} className="text-[10px] font-semibold text-burgundy md:text-xs">
+                عرض منتجات الماركة
+              </Link>
             </div>
 
-            {sections.length === 0 ? (
-              <div className="flex min-h-[180px] items-center justify-center rounded-[15px] border border-border/60 bg-background text-center">
-                <div>
-                  <p className="text-[12px] font-semibold text-foreground">لا توجد أقسام متاحة حاليًا</p>
-                  <p className="mt-1.5 text-[10px] text-muted-foreground">لا تتوفر مجموعات لهذه الماركة حاليًا. اكتشف بقية اختيارات جنان.</p>
-                </div>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
-                {sections.map((section, index) => (
-                  <Link key={section.id} to={`/brands/${brandSlug}/sections/${encodeURIComponent(section.slug)}`} className="group block min-w-0">
-                    <div className="relative aspect-[4/4.6] overflow-hidden rounded-[15px] border border-border/60 bg-muted/40 md:rounded-[18px]">
-                      {section.image_url ? (
-                        <img
-                          src={optimizeImage(section.image_url, 480, 74)}
-                          srcSet={createImageSrcSet(section.image_url, [220, 320, 480], 74)}
-                          alt={section.name}
-                          loading={index < 4 ? "eager" : "lazy"}
-                          decoding="async"
-                          fetchPriority={index < 2 ? "high" : "auto"}
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          onError={handleImageError}
-                          className="absolute inset-0 h-full w-full object-cover object-center md:transition-transform md:duration-200 md:group-hover:scale-[1.02]"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 bg-[#F3F0ED]" />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-3 md:p-4">
-                        <h2 className="truncate text-[13px] font-semibold text-white md:text-[15px]">{section.name}</h2>
-                        <p className="mt-1 text-[9px] text-white/75 md:text-[10px]">عرض المنتجات</p>
-                      </div>
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
+              {sections.map((section, index) => (
+                <Link key={section.id} to={`/brands/${brandSlug}/sections/${encodeURIComponent(section.slug)}`} className="group block min-w-0">
+                  <div className="relative aspect-[4/4.6] overflow-hidden rounded-[15px] border border-border/60 bg-muted/40 md:rounded-[18px]">
+                    {section.image_url ? (
+                      <img
+                        src={optimizeImage(section.image_url, 480, 74)}
+                        srcSet={createImageSrcSet(section.image_url, [220, 320, 480], 74)}
+                        alt={section.name}
+                        loading={index < 4 ? "eager" : "lazy"}
+                        decoding="async"
+                        fetchPriority={index < 2 ? "high" : "auto"}
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        onError={handleImageError}
+                        className="absolute inset-0 h-full w-full object-cover object-center md:transition-transform md:duration-200 md:group-hover:scale-[1.02]"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-[#F3F0ED]" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-3 md:p-4">
+                      <h2 className="truncate text-[13px] font-semibold text-white md:text-[15px]">{section.name}</h2>
+                      <p className="mt-1 text-[9px] text-white/75 md:text-[10px]">عرض المنتجات</p>
                     </div>
-                  </Link>
-                ))}
-              </div>
-            )}
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       </main>

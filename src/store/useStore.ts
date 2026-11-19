@@ -40,6 +40,7 @@ export interface Product {
   sizes?: string[];
   categoryId?: string;
   brandId?: string;
+  brandSlug?: string;
 }
 
 export interface VariantSize {

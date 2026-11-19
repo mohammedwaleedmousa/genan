@@ -20,6 +20,7 @@ import { useStore, Product } from "@/store/useStore";
 import { useFavorites } from "@/hooks/useFavorites";
 import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_CARD_SELECT, mapProductCard } from "@/lib/productCardData";
+import { CATALOG_BRAND_SELECT, catalogBrandHref, getProductBrand } from "@/lib/catalogBrands";
 import { getCatalogSource } from "@/lib/catalogScroll";
 import { toast } from "@/hooks/use-toast";
 import { useCurrency } from "@/lib/currency";
@@ -120,11 +121,12 @@ const ProductDetailPage = () => {
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", slug],
     queryFn: async () => {
-      const { data, error } = await (supabase as any).from("products").select("id,name,name_ar,slug,price,original_price,discount,description,description_ar,images,category,category_id,brand,in_stock,stock_quantity,countries,is_featured,is_best_seller,accessories,has_sizes,sizes,features,color_variants,specs,return_policy,has_quality_variants,quality_variants,size_price_rule_id").eq("slug", slug).eq("is_active", true).maybeSingle();
+      const { data, error } = await (supabase as any).from("products").select(`id,name,name_ar,slug,price,original_price,discount,description,description_ar,images,category,category_id,brand,in_stock,stock_quantity,countries,is_featured,is_best_seller,accessories,has_sizes,sizes,features,color_variants,specs,return_policy,has_quality_variants,quality_variants,size_price_rule_id,${CATALOG_BRAND_SELECT}`).eq("slug", slug).eq("is_active", true).maybeSingle();
 
       if (error) throw error;
       if (!data) return null;
 
+      const brand = getProductBrand(data);
       const accessories = (data as any).accessories || [];
       const colorVariants = ((data as any).color_variants || []) as ProductColorVariant[];
       const baseImages = data.images?.length ? data.images : colorVariants?.[0]?.images || [];
@@ -142,7 +144,8 @@ const ProductDetailPage = () => {
         images: baseImages,
         category: data.category,
         categoryId: (data as any).category_id || undefined,
-        brand: data.brand,
+        brand: brand.name,
+        brandSlug: brand.slug,
         inStock: data.in_stock ?? true,
         stockQuantity: typeof (data as any).stock_quantity === "number" ? (data as any).stock_quantity : undefined,
         countries: (data.countries || ["GLOBAL"]) as Product["countries"],
@@ -191,6 +194,7 @@ const ProductDetailPage = () => {
         category: productPreview.category || "",
         categoryId: productPreview.categoryId || productPreview.category_id || undefined,
         brand: productPreview.brand || "",
+        brandSlug: productPreview.brandSlug,
         inStock: productPreview.inStock ?? productPreview.in_stock ?? true,
         stockQuantity: productPreview.stockQuantity ?? productPreview.stock_quantity,
         countries: productPreview.countries || ["GLOBAL"],
@@ -966,7 +970,11 @@ const ProductDetailPage = () => {
                   <div className="min-w-0 flex-1">
                     {product.brand && (
                       <p className="text-[10px] font-medium text-[#8A847C] md:text-[11px]">
-                        {product.brand}
+                        {product.brandSlug ? (
+                          <Link to={catalogBrandHref(product.brandSlug)} className="transition-colors hover:text-burgundy hover:underline">
+                            {product.brand}
+                          </Link>
+                        ) : product.brand}
                       </p>
                     )}
 
