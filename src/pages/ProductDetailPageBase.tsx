@@ -826,7 +826,7 @@ const ProductDetailPage = () => {
               BREADCRUMB
           ================================================= */}
 
-          <nav className="mb-2 flex items-center gap-2 text-[10px] text-[#888888] md:mb-6 md:pt-7 md:text-[8px] md:tracking-[0.04em]" aria-label="مسار التنقل">
+          <nav className="genan-product-overview mb-2 flex items-center gap-2 text-[10px] text-[#888888] md:mb-6 md:pt-7 md:text-[8px] md:tracking-[0.04em]" aria-label="مسار التنقل">
             <button type="button" onClick={() => navigate("/home")} className="hidden transition-colors hover:text-[#D8C29A] md:inline">
               الرئيسية
             </button>
@@ -848,7 +848,7 @@ const ProductDetailPage = () => {
               MAIN PRODUCT
           ================================================= */}
 
-          <div className="genan-product-stage grid grid-cols-1 items-start gap-5 bg-transparent lg:grid-cols-[minmax(0,1.24fr)_minmax(360px,0.76fr)] lg:gap-8 xl:gap-12">
+          <div className="genan-product-overview genan-product-stage">
             {/* ===============================================
                 GALLERY
             =============================================== */}
@@ -861,7 +861,7 @@ const ProductDetailPage = () => {
                     الخلفية تملأ الفراغ الجانبي
                 =========================================== */}
 
-                <div className="relative h-[56svh] min-h-[380px] max-h-[560px] w-full overflow-hidden bg-[#F7F7F7] sm:h-[60svh] md:h-auto md:min-h-0 md:max-h-none md:aspect-[4/5]">
+                <div className="genan-product-image-frame relative w-full overflow-hidden bg-[#F7F7F7]">
   <div className="absolute left-3 top-3 z-30 flex items-center gap-2 md:hidden">
     <button
       type="button"
@@ -888,7 +888,7 @@ const ProductDetailPage = () => {
   <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y", backgroundImage: galleryPreview ? `url("${galleryPreview}")` : undefined }} className="h-full w-full cursor-grab bg-contain bg-center bg-no-repeat active:cursor-grabbing">
     <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
       <TransformComponent wrapperClass="!h-full !w-full !overflow-hidden" contentClass="!h-full !w-full">
-        <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 55vw" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={(event) => {
+        <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(min-width: 1240px) 610px, (min-width: 1024px) 50vw, (min-width: 768px) 660px, calc(100vw - 26px)" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={(event) => {
           const image = event.currentTarget;
           if (galleryPreview && image.getAttribute("src") !== galleryPreview && image.dataset.previewTried !== "1") {
             image.dataset.previewTried = "1";
@@ -946,7 +946,7 @@ const ProductDetailPage = () => {
                   <div className="border-b border-[#0E0E0E]/12 bg-[#FFFFFF]">
                     <div className="flex gap-2 overflow-x-auto px-2.5 py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-4 md:py-3">
                       {displayImages.map((image, index) => (
-                        <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} className={`relative h-[58px] w-[58px] shrink-0 overflow-hidden rounded-lg bg-[#F3F0E9] transition md:h-[68px] md:w-[68px] ${safeSelectedImage === index ? "ring-1 ring-[#D8C29A] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
+                        <button type="button" key={`${image}-${index}`} onClick={() => goToImage(index)} aria-label={`عرض الصورة ${index + 1}`} aria-pressed={safeSelectedImage === index} className={`relative size-12 shrink-0 overflow-hidden rounded-lg bg-[#F3F0E9] transition md:size-14 ${safeSelectedImage === index ? "ring-1 ring-[#D8C29A] ring-offset-2" : "opacity-70 active:opacity-100"}`}>
                           <img src={getCatalogThumbnail(image) || optimizeImage(image, 220, 78)} alt="" loading="lazy" decoding="async" onError={(event) => handleCatalogThumbnailError(event.currentTarget, image)} className="h-full w-full object-cover object-center" />
                         </button>
                       ))}

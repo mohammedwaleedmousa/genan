@@ -465,6 +465,43 @@
     margin-inline: auto;
   }
 
+  .genan-product-overview {
+    margin-inline: auto;
+  }
+
+  .genan-product-stage {
+    @apply grid grid-cols-1 items-start gap-5;
+  }
+
+  .genan-product-image-frame {
+    height: clamp(260px, min(104vw, 54svh), 420px);
+  }
+
+  @screen md {
+    .genan-product-overview {
+      max-width: 660px;
+    }
+
+    .genan-product-image-frame {
+      height: clamp(320px, 56svh, 480px);
+    }
+  }
+
+  @screen lg {
+    .genan-product-overview {
+      max-width: 1160px;
+    }
+
+    .genan-product-stage {
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 2rem;
+    }
+
+    .genan-product-image-frame {
+      height: clamp(300px, 100svh - 270px, 540px);
+    }
+  }
+
   .genan-rule {
     border-color: rgba(14, 14, 14, 0.12);
   }

@@ -18,13 +18,16 @@ const ProductDetailSkeleton = () => (
     </header>
 
     <main className="pb-[82px] md:pb-16">
-      <div className="mx-auto w-full max-w-[1600px] md:px-7 lg:px-10">
-        <div className="grid grid-cols-1 bg-white lg:grid-cols-[minmax(0,1.12fr)_minmax(390px,.88fr)] lg:gap-8">
-          <section className="bg-[#F7F7F7]">
-            <Skeleton className="h-[56svh] min-h-[380px] w-full rounded-none bg-[#EFEDE8] md:aspect-[4/5] md:h-auto md:min-h-0" />
-            <div className="flex gap-2 border-b border-[#E7E2D9] bg-white px-3 py-3">
+      <div className="mx-auto w-full max-w-[1450px] px-3 pt-3 md:px-7 md:pt-4 lg:px-10">
+        <div className="genan-product-overview mb-2 flex h-10 items-center md:mb-6 md:h-10 md:items-end" aria-hidden="true">
+          <Skeleton className="h-2 w-28 bg-[#EFEDE8]" />
+        </div>
+        <div className="genan-product-overview genan-product-stage">
+          <section className="min-w-0 overflow-hidden rounded-2xl border border-[#E7E2D9] bg-[#F7F7F7]">
+            <Skeleton className="genan-product-image-frame w-full rounded-none bg-[#EFEDE8]" />
+            <div className="flex gap-2 overflow-hidden border-b border-[#E7E2D9] bg-white px-2.5 py-2.5 md:px-4 md:py-3">
               {Array.from({ length: 5 }).map((_, index) => (
-                <Skeleton key={index} className="h-14 w-14 shrink-0 rounded-none bg-[#F1EEE8]" />
+                <Skeleton key={index} className="size-12 shrink-0 rounded-lg bg-[#F1EEE8] md:size-14" />
               ))}
             </div>
           </section>
