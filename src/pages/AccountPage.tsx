@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import type { User as AuthUser } from "@supabase/supabase-js";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertCircle,
@@ -32,11 +33,14 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { supabase } from "@/integrations/supabase/client";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuthActions } from "@/hooks/useAuthActions";
+import { customerSignInPath, loadCustomerProfile, setCustomerSession } from "@/lib/customerSession";
+import { useStore } from "@/store/useStore";
 
 import {
   SavedAddress,
   getSavedAddresses,
-  migrateLegacyCheckoutInfo,
+  listCustomerAddresses,
+  toSavedAddress,
   removeSavedAddress,
   upsertSavedAddress,
 } from "@/lib/savedAddresses";
@@ -93,9 +97,10 @@ type Invoice = {
 
 const escapeInvoiceHtml = (value: unknown) => String(value ?? "").replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character] || character);
 
-const AccountPage = () => {
+const AccountPage = ({ authUser }: { authUser: AuthUser }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const setStoreCustomer = useStore((state) => state.setCustomer);
 
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -146,44 +151,13 @@ const AccountPage = () => {
 
     const loadCustomer = async () => {
       try {
-        const { data: sessionData } = await supabase.auth.getSession();
-        const session = sessionData.session;
+        const fresh = await loadCustomerProfile(authUser.id);
         if (!active) return;
-        if (!session?.user) {
-          navigate("/auth", { replace: true });
-          return;
-        }
-
-        const authUser = session.user;
-        let fresh: any = null;
-        const { data: directCustomer, error: directError } = await (supabase as any)
-          .from("customers")
-          .select("id,user_id,name,phone,country,region,avatar_url,created_at")
-          .eq("user_id", authUser.id)
-          .maybeSingle();
-        if (!directError) fresh = directCustomer;
-
-        // An RLS or temporarily stale profile read must not block the entire account page.
-        if (!fresh) {
-          const { data: profileResult, error: profileError } = await supabase.functions.invoke(
-            "genan-password-register",
-            { body: { action: "profile" } },
-          );
-          if (!profileError && profileResult?.customer?.user_id === authUser.id) {
-            fresh = profileResult.customer;
-          }
-        }
-        if (!fresh) {
-          setNotification({ type: "error", message: "تعذر تحميل ملف حسابك. حاول تحديث الصفحة أو سجل الدخول مجددًا." });
-          return;
-        }
 
         const customerData = { ...fresh, region: fresh.region || fresh.country || "عدن" };
-        if (!active) return;
         setCustomer(customerData);
-        setUser({ id: customerData.id, auth_user_id: authUser.id, user_metadata: { full_name: customerData.name, phone_number: customerData.phone, region: customerData.region, avatar_url: customerData.avatar_url }, created_at: customerData.created_at || authUser.created_at });
-        localStorage.setItem("customer", JSON.stringify(customerData));
-        localStorage.setItem("customer_phone", customerData.phone || "");
+        setUser({ id: customerData.id, user_metadata: { full_name: customerData.name, phone_number: customerData.phone, region: customerData.region, avatar_url: customerData.avatar_url }, created_at: customerData.created_at || authUser.created_at });
+        setCustomerSession({ ...customerData, user_id: authUser.id, country: customerData.country || undefined });
       } catch (error) {
         console.error(error);
         if (active) setNotification({ type: "error", message: "تعذر تحميل بيانات الحساب" });
@@ -194,7 +168,7 @@ const AccountPage = () => {
 
     void loadCustomer();
     return () => { active = false; };
-  }, [navigate]);
+  }, [authUser.id, authUser.created_at]);
 
   /* =========================================================
      FETCH CUSTOMER
@@ -240,78 +214,48 @@ const AccountPage = () => {
   ========================================================= */
 
   useEffect(() => {
-    if (!user?.id) return;
+    const customerId = user?.id;
+    if (!customerId) return;
 
     let active = true;
 
     const syncAddresses = async () => {
-      const { data: existing, error } = await (supabase as any).from("customer_addresses").select("*").eq("user_id", user.id).order("updated_at", { ascending: false });
+      try {
+        let addresses = await listCustomerAddresses(customerId);
+        if (!active) return;
 
-      if (error) {
-        if (active) {
-          const localAddresses = getSavedAddresses(user.id);
-
-          if (localAddresses.length > 0) {
-            setSavedAddresses(localAddresses);
-          } else {
-            setSavedAddresses(migrateLegacyCheckoutInfo(user.id));
+        const migrationKey = `genan-addresses-db-synced:${customerId}`;
+        if (addresses.length === 0 && !localStorage.getItem(migrationKey)) {
+          const legacy = getSavedAddresses(customerId).filter((address) => address.city.trim() && address.address.trim());
+          if (legacy.length > 0) {
+            const defaultIndex = legacy.findIndex((address) => address.isDefault);
+            const { data, error } = await supabase.from("customer_addresses").insert(
+              legacy.map((address, index) => ({
+                user_id: customerId,
+                label: address.label,
+                recipient_name: address.name || "",
+                phone: address.phone || "",
+                city: address.city,
+                address_line1: address.address,
+                notes: address.notes || null,
+                is_default: index === defaultIndex,
+              })),
+            ).select();
+            if (error) throw error;
+            addresses = data.map(toSavedAddress);
           }
-        }
-
-        return;
-      }
-
-      const migrationKey = `genan-addresses-db-synced:${user.id}`;
-
-      let rows = existing || [];
-
-      if (!localStorage.getItem(migrationKey) && rows.length === 0) {
-        const legacy = migrateLegacyCheckoutInfo(user.id);
-
-        if (legacy.length) {
-          const { data: inserted, error: insertError } = await (supabase as any).from("customer_addresses").insert(
-            legacy.map((address) => ({
-              id: address.id,
-              user_id: user.id,
-              label: address.label,
-              recipient_name: address.name || "",
-              phone: address.phone || "",
-              city: address.city,
-              address_line1: address.address,
-              notes: address.notes || null,
-              is_default: !!address.isDefault,
-            })),
-          ).select();
-
-          if (!insertError) {
-            rows = inserted || [];
-
-            localStorage.setItem(migrationKey, "1");
-          }
-        } else {
           localStorage.setItem(migrationKey, "1");
         }
-      }
-
-      if (active) {
-        setSavedAddresses(
-          rows.map((address: any) => ({
-            id: address.id,
-            label: address.label,
-            name: address.recipient_name,
-            phone: address.phone,
-            city: address.city,
-            address: address.address_line1,
-            notes: address.notes || "",
-            isDefault: address.is_default,
-            updatedAt: address.updated_at,
-          })),
-        );
+        if (active) setSavedAddresses(addresses);
+      } catch {
+        if (active) {
+          setNotification({ type: "error", message: "تعذر تحميل عناوينك المحفوظة. حدّث الصفحة وحاول مجددًا." });
+        }
       }
     };
 
     void syncAddresses();
-    void syncWithDatabase(user.id);
+    void syncWithDatabase(customerId);
 
     return () => {
       active = false;
@@ -438,11 +382,7 @@ const AccountPage = () => {
 
     const isDefault = savedAddresses.length === 0 || currentAddress?.isDefault === true;
 
-    if (isDefault) {
-      await (supabase as any).from("customer_addresses").update({ is_default: false }).eq("user_id", user.id);
-    }
-
-    const { data, error } = await (supabase as any).from("customer_addresses").upsert({
+    const { data, error } = await supabase.from("customer_addresses").upsert({
       id,
       user_id: user.id,
       label: addressForm.label.trim() || `عنوان ${savedAddresses.length + 1}`,
@@ -463,18 +403,12 @@ const AccountPage = () => {
       return;
     }
 
-    const next = upsertSavedAddress(user.id, {
-      id: data.id,
-      label: data.label,
-      name: data.recipient_name,
-      phone: data.phone,
-      city: data.city,
-      address: data.address_line1,
-      notes: data.notes || "",
-      isDefault: data.is_default,
-    });
-
-    setSavedAddresses(next);
+    const address = toSavedAddress(data);
+    upsertSavedAddress(user.id, address);
+    setSavedAddresses((current) => editingAddressId
+      ? current.map((item) => item.id === address.id ? address : item)
+      : [...current, address]);
+    localStorage.setItem(`genan-addresses-db-synced:${user.id}`, "1");
 
     resetAddressForm();
 
@@ -516,9 +450,9 @@ const AccountPage = () => {
       return;
     }
 
-    const next = removeSavedAddress(user.id, id);
-
-    setSavedAddresses(next);
+    removeSavedAddress(user.id, id);
+    setSavedAddresses((current) => current.filter((address) => address.id !== id));
+    localStorage.setItem(`genan-addresses-db-synced:${user.id}`, "1");
 
     if (editingAddressId === id) {
       resetAddressForm();
@@ -652,6 +586,7 @@ const AccountPage = () => {
         };
 
         setCustomer(updatedCustomer);
+        setStoreCustomer({ id: updatedCustomer.id, name: updatedCustomer.name, phone: updatedCustomer.phone, region: updatedCustomer.region });
 
         setUser((current: any) => ({
           ...current,
@@ -779,6 +714,17 @@ const AccountPage = () => {
 
   if (loading) {
     return <LoadingScreen />;
+  }
+
+  if (!customer) {
+    return (
+      <main className="grid min-h-screen place-items-center bg-background px-6 text-center" dir="rtl">
+        <div className="space-y-4">
+          <p>{notification?.message || "تعذر تحميل بيانات الحساب."}</p>
+          <Link to={customerSignInPath("/account")} className="font-medium text-burgundy underline">العودة إلى تسجيل الدخول</Link>
+        </div>
+      </main>
+    );
   }
 
   /* =========================================================

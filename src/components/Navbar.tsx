@@ -108,6 +108,8 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
     : undefined;
 
   const { openCart, getCartCount, customer, setCustomer } = useStore();
+  const hasCustomerAccount = Boolean(customer && customer.id !== "guest");
+  const accountLabel = hasCustomerAccount ? "حسابي" : "تسجيل الدخول";
   const { favorites } = useFavorites();
   const { logout } = useAuthActions();
   const cartCount = getCartCount();
@@ -273,9 +275,9 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
                   />
                   <div className="relative z-10 flex shrink-0 items-start justify-between px-7 pb-5 pt-9">
                     <div className="flex flex-col items-end gap-1">
-                      <button type="button" onClick={() => goFromMenu(customer ? "/account" : "/auth")} className="flex flex-col items-center gap-2 text-[#353636]" aria-label={customer ? "حسابي" : "تسجيل الدخول"}>
+                      <button type="button" onClick={() => goFromMenu("/account")} className="flex flex-col items-center gap-2 text-[#353636]" aria-label={accountLabel}>
                         <User size={42} weight="thin" />
-                        <span className="text-[14px] font-semibold">{customer ? "حسابي" : "تسجيل الدخول"}</span>
+                        <span className="text-[14px] font-semibold">{accountLabel}</span>
                       </button>
                     </div>
                     <button type="button" aria-label="إغلاق القائمة" onClick={() => setMenuOpen(false)} className="flex h-9 w-9 items-center justify-center text-white/90">
@@ -393,9 +395,9 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
               <button type="button" onClick={openCart} aria-label="فتح السلة السريعة" className="relative flex h-10 w-10 items-center justify-center rounded-full border border-transparent text-[#0E0E0E] transition-colors hover:border-white/65 hover:text-[#8C6B32]">
                 <ShoppingCart size={20} weight="regular" />
               </button>
-              <Link to={customer ? "/account" : "/auth"} className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
+              <Link to="/account" className="flex h-10 items-center gap-2 rounded-full border border-[#D8C29A] bg-white px-3 text-[10px] font-medium text-[#0E0E0E] transition-colors hover:border-[#D8C29A] hover:text-[#8C6B32]">
                 <User size={17} />
-                <span className="hidden lg:inline">{customer ? "حسابي" : "تسجيل الدخول"}</span>
+                <span className="hidden lg:inline">{accountLabel}</span>
               </Link>
             </div>
           </div>

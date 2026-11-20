@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
@@ -7,11 +7,13 @@ import { AlertCircle, Banknote, Check, ChevronDown, ChevronLeft, ChevronRight, C
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import LoadingScreen from "@/components/LoadingScreen";
 
 import { useStore } from "@/store/useStore";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
-import { SavedAddress, migrateLegacyCheckoutInfo, upsertSavedAddress } from "@/lib/savedAddresses";
+import { getGuestAddresses, listCustomerAddresses, upsertSavedAddress, type SavedAddress } from "@/lib/savedAddresses";
+import { CustomerAuthContext, customerSignInPath, loadCustomerProfile, type CustomerProfile } from "@/lib/customerSession";
 import { optimizeImage, handleImageError } from "@/lib/imageUrl";
 import { useCurrency } from "@/lib/currency";
 
@@ -124,6 +126,9 @@ const YEMEN_GOVERNORATES = [
 const normalizeGovernorate = (value?: string | null) => {
   const normalized = String(value || "").trim().toLowerCase();
   if (!normalized) return "";
+  const prefix = normalized.split(/\s*[-–—،,]\s*/, 1)[0];
+  const exact = YEMEN_GOVERNORATES.find((governorate) => governorate === prefix);
+  if (exact) return exact;
   if (normalized.includes("عدن") || normalized.includes("aden")) return "عدن";
   return YEMEN_GOVERNORATES.find((governorate) => normalized.includes(governorate.toLowerCase())) || "";
 };
@@ -131,7 +136,8 @@ const normalizeGovernorate = (value?: string | null) => {
 const cityWithoutGovernorate = (value: string, governorate: string) => {
   const city = value.trim();
   if (!governorate || !city.startsWith(governorate)) return city;
-  return city.slice(governorate.length).replace(/^[\s\-–—،,]+/, "").trim();
+  const suffix = city.slice(governorate.length);
+  return /^\s*[-–—،,]\s*/.test(suffix) ? suffix.replace(/^\s*[-–—،,]\s*/, "").trim() : city;
 };
 
 const composeOrderCity = (governorate: string, city: string) => [governorate.trim(), city.trim()].filter(Boolean).join(" - ");
@@ -146,28 +152,67 @@ const STEPS = [
 ] as const;
 
 const CheckoutPage = () => {
-  const navigate = useNavigate();
-  const { customer, cart, getCartTotal, clearCart, currencyMode } = useStore();
+  const user = useContext(CustomerAuthContext);
+  const profile = useQuery({
+    queryKey: ["checkout-customer-profile", user?.id],
+    queryFn: () => loadCustomerProfile(user!.id),
+    enabled: Boolean(user),
+    refetchOnMount: "always",
+    refetchOnReconnect: false,
+  });
+  const addresses = useQuery({
+    queryKey: ["checkout-customer-addresses", profile.data?.id],
+    queryFn: () => listCustomerAddresses(profile.data!.id),
+    enabled: Boolean(profile.data),
+    refetchOnMount: "always",
+    refetchOnReconnect: false,
+  });
 
-  const isGuestLike = !customer || customer.id === "guest";
+  if (user === undefined || (user && (profile.isFetching || addresses.isFetching))) return <LoadingScreen />;
+  if (user && !profile.data) {
+    return (
+      <main className="grid min-h-screen place-items-center bg-background px-6 text-center" dir="rtl">
+        <div className="space-y-4">
+          <p>تعذر تحميل بيانات حسابك لإتمام الطلب.</p>
+          <button type="button" onClick={() => void profile.refetch()} className="font-medium text-burgundy underline">إعادة المحاولة</button>
+        </div>
+      </main>
+    );
+  }
+
+  return <CheckoutForm key={user?.id || "guest"} customer={profile.data} addresses={addresses.data} addressesUnavailable={addresses.isError} />;
+};
+
+const CheckoutForm = ({ customer, addresses, addressesUnavailable }: {
+  customer?: CustomerProfile;
+  addresses?: SavedAddress[];
+  addressesUnavailable: boolean;
+}) => {
+  const navigate = useNavigate();
+  const { cart, getCartTotal, clearCart, currencyMode } = useStore();
+  const isGuestLike = !customer;
   const subtotal = getCartTotal();
   const { format: formatCurrency } = useCurrency();
+
+  const [savedAddresses] = useState(() => customer ? addresses || [] : getGuestAddresses());
+  const defaultAddress = savedAddresses.find((address) => address.isDefault) || savedAddresses[0];
+  const accountGovernorate = normalizeGovernorate(customer?.region);
+  const addressGovernorate = normalizeGovernorate(defaultAddress?.city);
+  const initialGovernorate = addressGovernorate || accountGovernorate;
 
   const [currentStep, setCurrentStep] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
   const [selectedDelivery, setSelectedDelivery] = useState("");
-  const initialGovernorate = normalizeGovernorate(customer?.region);
-  const [deliveryScope, setDeliveryScope] = useState<"aden" | "outside">(initialGovernorate === "عدن" ? "aden" : "outside");
   const [selectedRegion, setSelectedRegion] = useState(initialGovernorate);
+  const deliveryScope = selectedRegion === "عدن" ? "aden" : "outside";
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: customer?.name || "",
-    phone: customer?.phone || "",
-    email: "",
-    address: "",
-    city: "",
-    notes: "",
+    name: customer?.name || defaultAddress?.name || "",
+    phone: customer?.phone || defaultAddress?.phone || "",
+    address: defaultAddress?.address || "",
+    city: defaultAddress ? cityWithoutGovernorate(defaultAddress.city, addressGovernorate) : "",
+    notes: defaultAddress?.notes || "",
   });
 
   const [couponCode, setCouponCode] = useState("");
@@ -175,69 +220,13 @@ const CheckoutPage = () => {
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   const [launchDiscountEligible, setLaunchDiscountEligible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [addressOwnerKey, setAddressOwnerKey] = useState("guest");
-  const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
-  const [selectedAddressId, setSelectedAddressId] = useState("");
+  const [selectedAddressId, setSelectedAddressId] = useState(defaultAddress?.id || "");
   const [addressPickerOpen, setAddressPickerOpen] = useState(false);
-
-  useEffect(() => {
-    const governorate = normalizeGovernorate(customer?.region);
-    if (governorate) {
-      setSelectedRegion(governorate);
-      setDeliveryScope(governorate === "عدن" ? "aden" : "outside");
-    }
-  }, [customer?.region]);
-
-  useEffect(() => {
-    if (deliveryScope === "aden" && selectedRegion !== "عدن") {
-      setSelectedRegion("عدن");
-    } else if (deliveryScope === "outside" && selectedRegion === "عدن") {
-      setSelectedRegion("");
-    }
-  }, [deliveryScope, selectedRegion]);
 
   const selectGovernorate = (governorate: string) => {
     setSelectedAddressId("");
     setSelectedRegion(governorate);
-    setDeliveryScope(governorate === "عدن" ? "aden" : "outside");
   };
-
-  useEffect(() => {
-    setAddressOwnerKey(customer?.id && customer.id !== "guest" ? customer.id : "guest");
-  }, [customer?.id]);
-
-  useEffect(() => {
-    let active = true;
-
-    const loadAddresses = async () => {
-      let list: SavedAddress[] = [];
-
-      if (!isGuestLike && customer?.id) {
-        const { data, error } = await (supabase as any).from("customer_addresses").select("*").order("is_default", { ascending: false }).order("updated_at", { ascending: false });
-        if (!error) {
-          list = (data || []).map((address: any) => ({ id: address.id, label: address.label, name: address.recipient_name, phone: address.phone, city: address.city, address: address.address_line1, notes: address.notes || "", isDefault: Boolean(address.is_default), updatedAt: address.updated_at }));
-        }
-      } else {
-        list = migrateLegacyCheckoutInfo(addressOwnerKey);
-      }
-
-      if (!active) return;
-      setSavedAddresses(list);
-      const defaultAddress = list.find((address) => address.isDefault) || list[0];
-      if (!defaultAddress) return;
-      const savedGovernorate = normalizeGovernorate(defaultAddress.city);
-      if (savedGovernorate) {
-        setSelectedRegion(savedGovernorate);
-        setDeliveryScope(savedGovernorate === "عدن" ? "aden" : "outside");
-      }
-      setSelectedAddressId(defaultAddress.id);
-      setFormData((current) => ({ ...current, name: isGuestLike ? String(defaultAddress.name || current.name || "") : current.name, phone: isGuestLike ? String(defaultAddress.phone || current.phone || "") : current.phone, city: cityWithoutGovernorate(defaultAddress.city, savedGovernorate), address: defaultAddress.address, notes: defaultAddress.notes || "" }));
-    };
-
-    void loadAddresses();
-    return () => { active = false; };
-  }, [addressOwnerKey, isGuestLike, customer?.id]);
 
   const { data: deliveryCompanies = [] } = useQuery({
     queryKey: ["delivery-companies"],
@@ -380,16 +369,19 @@ const CheckoutPage = () => {
   const selectedSavedAddress = savedAddresses.find((address) => address.id === selectedAddressId);
 
   const selectSavedAddress = (id: string) => {
-    setSelectedAddressId(id); setAddressPickerOpen(false);
-    if (!id) { setFormData((current) => ({ ...current, city: "", address: "", notes: "" })); return; }
     const address = savedAddresses.find((item) => item.id === id);
-    if (!address) return;
-    const savedGovernorate = normalizeGovernorate(address.city);
-    if (savedGovernorate) {
-      setSelectedRegion(savedGovernorate);
-      setDeliveryScope(savedGovernorate === "عدن" ? "aden" : "outside");
-    }
-    setFormData((current) => ({ ...current, name: isGuestLike ? String(address.name || current.name || "") : current.name, phone: isGuestLike ? String(address.phone || current.phone || "") : current.phone, city: cityWithoutGovernorate(address.city, savedGovernorate), address: address.address, notes: address.notes || "" }));
+    const governorate = normalizeGovernorate(address?.city);
+    setSelectedAddressId(id);
+    setAddressPickerOpen(false);
+    setSelectedRegion(governorate || accountGovernorate);
+    setFormData((current) => ({
+      ...current,
+      name: customer?.name || address?.name || current.name,
+      phone: customer?.phone || address?.phone || current.phone,
+      city: address ? cityWithoutGovernorate(address.city, governorate) : "",
+      address: address?.address || "",
+      notes: address?.notes || "",
+    }));
   };
 
   const createSecureOrder = async (items: unknown[], requestId: string) => {
@@ -419,7 +411,7 @@ const CheckoutPage = () => {
     if (step === 0) {
       const name = String(customer?.name || formData.name || "").trim();
       const phone = String(customer?.phone || formData.phone || "").trim();
-      if (isGuestLike && (!name || !phone)) { toast({ title: "الاسم ورقم الهاتف مطلوبان", variant: "destructive" }); return false; }
+      if (!name || !phone) { toast({ title: "الاسم ورقم الهاتف مطلوبان", variant: "destructive" }); return false; }
       try { normalizeCheckoutPhone(phone); } catch { toast({ title: "رقم الهاتف غير صحيح", description: "لرقم يمني أدخل 9 أرقام تبدأ بـ7، وللأرقام الدولية استخدم رمز الدولة مثل +966.", variant: "destructive" }); return false; }
     }
     if (step === 1 && (!selectedRegion || !formData.city.trim() || !formData.address.trim())) { toast({ title: "المحافظة والمدينة والعنوان مطلوبة", variant: "destructive" }); return false; }
@@ -435,11 +427,54 @@ const CheckoutPage = () => {
   const nextStep = () => { if (!validateStep(currentStep)) return; setCurrentStep((current) => Math.min(current + 1, STEPS.length - 1)); window.scrollTo({ top: 0, behavior: "smooth" }); };
   const prevStep = () => { setCurrentStep((current) => Math.max(current - 1, 0)); window.scrollTo({ top: 0, behavior: "smooth" }); };
 
-  const saveAddressForCheckout = async () => {
-    const draft = { id: selectedAddressId || crypto.randomUUID(), label: selectedSavedAddress?.label || `عنوان ${savedAddresses.length + 1}`, name: String(customer?.name || formData.name || "").trim(), phone: String(customer?.phone || formData.phone || "").trim(), city: composeOrderCity(selectedRegion, formData.city), address: formData.address.trim(), notes: formData.notes.trim(), isDefault: selectedSavedAddress?.isDefault ?? savedAddresses.length === 0 };
-    if (isGuestLike || !customer?.id) { upsertSavedAddress(addressOwnerKey, draft); return; }
-    const { error } = await (supabase as any).from("customer_addresses").upsert({ id: draft.id, user_id: customer.id, label: draft.label, recipient_name: draft.name, phone: draft.phone, city: draft.city, address_line1: draft.address, notes: draft.notes || null, is_default: draft.isDefault }).select("id").single();
-    if (error) console.warn("ADDRESS SAVE ERROR:", error);
+  const saveAddressForCheckout = async (requestId: string, name: string, phone: string) => {
+    const city = composeOrderCity(selectedRegion, formData.city);
+    const address = formData.address.trim();
+    const notes = formData.notes.trim();
+    const existing = selectedSavedAddress || savedAddresses.find((saved) => {
+      const governorate = normalizeGovernorate(saved.city);
+      return composeOrderCity(governorate || accountGovernorate, cityWithoutGovernorate(saved.city, governorate)) === city
+        && saved.address.trim() === address;
+    });
+    const draft = {
+      id: existing?.id || requestId,
+      label: existing?.label || (savedAddresses.length === 0 ? "العنوان الافتراضي" : `عنوان ${savedAddresses.length + 1}`),
+      name,
+      phone,
+      city,
+      address,
+      notes,
+      isDefault: existing?.isDefault ?? savedAddresses.length === 0,
+    };
+
+    if (!customer) {
+      upsertSavedAddress("guest", draft);
+      return;
+    }
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session || session.user.id !== customer.user_id) throw new Error("customer_session_changed");
+
+    const values = {
+      id: draft.id,
+      user_id: customer.id,
+      customer_id: customer.id,
+      label: draft.label,
+      recipient_name: draft.name,
+      phone: draft.phone,
+      city: draft.city,
+      address_line1: draft.address,
+      notes: draft.notes || null,
+      is_default: draft.isDefault,
+    };
+    const { error } = await supabase.from("customer_addresses").upsert(values);
+    if (!error) return;
+    if (!existing && values.is_default && error.code === "23505" && error.message.includes("idx_customer_addresses_one_default")) {
+      const { error: retryError } = await supabase.from("customer_addresses").upsert({ ...values, is_default: false });
+      if (retryError) throw retryError;
+      return;
+    }
+    throw error;
   };
 
   const handleSubmit = async () => {
@@ -487,8 +522,12 @@ const CheckoutPage = () => {
     try {
       const customerName = String(customer?.name || formData.name || "").trim();
       const customerPhone = normalizeCheckoutPhone(String(customer?.phone || formData.phone || "").trim());
-      await saveAddressForCheckout();
       const createdOrder = await createSecureOrder(validation.data, checkoutRequestId);
+      try {
+        await saveAddressForCheckout(checkoutRequestId, customerName, customerPhone);
+      } catch {
+        if (customer) toast({ title: "تم الطلب وتعذر حفظ العنوان", description: "يمكنك إضافة عنوان التوصيل من صفحة حسابي." });
+      }
       const regionData = codRegions.find((region) => region.id === selectedRegion || region.region_name === selectedRegion || region.region_name_ar === selectedRegion);
       const amountsAreNative = createdOrder.total_base !== null && createdOrder.total_base !== undefined && Number(createdOrder.exchange_rate_snapshot) > 0;
       const orderData = { orderId: createdOrder.order_id, orderNumber: createdOrder.order_number, trackingToken: createdOrder.tracking_token, customerName: customerName || "عميل", customerPhone, customerAddress: formData.address || "-", customerCity: composeOrderCity(selectedRegion, formData.city), customerNotes: formData.notes || "", items: Array.isArray(createdOrder.items) ? createdOrder.items : validation.data, subtotal: Number(createdOrder.subtotal), deliveryFee: Number(createdOrder.delivery_fee), discountAmount: Number(createdOrder.discount_amount), couponCode: Number(createdOrder.discount_amount) > 0 ? (appliedCoupon || null) : null, referralCode: createdOrder.referral_code || null, referralExpiresAt: createdOrder.referral_expires_at || null, discountSource: createdOrder.discount_source || null, total: Number(createdOrder.total), totalBase: Number(createdOrder.total_base ?? createdOrder.total), amountsAreNative, paymentMethod, paymentMethodName: selectedPaymentMethod?.name_ar || selectedPaymentMethod?.name || paymentMethod, deliveryCompany: createdOrder.delivery_company || selectedCompany?.name || "", selectedRegion: regionData?.region_name_ar || selectedRegion || null, country: orderCountryFromPhone(customerPhone), currencyMode: createdOrder.currency_mode || currencyMode, createdAt: createdOrder.created_at || new Date().toISOString() };
@@ -598,9 +637,9 @@ const CheckoutPage = () => {
                 </div>
               </div>
             )}
-            {currentStep === 0 && <div className="p-5 sm:p-7 md:p-8"><div className="mb-7 flex items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4EEE4]"><User className="h-5 w-5 text-[#98733D]" strokeWidth={1.5} /></span><div><h2 className="text-[15px] font-semibold text-[#0E0E0E]">معلوماتك الشخصية</h2><p className="mt-0.5 text-[7px] text-[#777777]">بيانات التواصل الخاصة بالطلب.</p></div></div><div className="mb-5 rounded-3xl bg-[#F6F3EA] p-4 sm:p-5"><p className="mb-3 text-[11px] font-semibold text-[#8C6B32]">01 / التواصل معك</p><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">رقم الهاتف *</label><input value={isGuestLike ? formData.phone : customer?.phone || ""} onChange={(event) => { if (isGuestLike) setFormData((current) => ({ ...current, phone: event.target.value })); }} disabled={!isGuestLike} placeholder="رقم الهاتف" dir="ltr" inputMode="tel" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-left text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F] disabled:bg-[#F7F4F2] disabled:text-[#777777]" /></div></div><div className="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">الاسم الكامل *</label><input value={isGuestLike ? formData.name : customer?.name || ""} onChange={(event) => { if (isGuestLike) setFormData((current) => ({ ...current, name: event.target.value })); }} disabled={!isGuestLike} placeholder="أدخل اسمك" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F] disabled:bg-[#F7F4F2] disabled:text-[#777777]" /></div><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">البريد الإلكتروني <span className="font-normal text-[#999999]">اختياري</span></label><input value={formData.email} onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))} placeholder="you@example.com" dir="ltr" inputMode="email" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-left text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /></div></div></div>}
-            {currentStep === 1 && <div className="p-5 sm:p-7 md:p-8"><div className="mb-7 flex items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4EEE4]"><MapPin className="h-5 w-5 text-[#98733D]" strokeWidth={1.5} /></span><div><h2 className="text-[16px] font-semibold text-[#0E0E0E]">عنوان التوصيل</h2><p className="mt-0.5 text-[7px] text-[#777777]">أدخل المكان الذي تريد استلام الطلب فيه.</p></div></div>{savedAddresses.length > 0 && <div className="relative mb-4"><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">عنوان محفوظ</label><button type="button" onClick={() => setAddressPickerOpen((current) => !current)} className={`flex h-14 w-full items-center justify-between rounded-2xl border bg-[#FAF9F7] px-4 text-right text-[9px] ${addressPickerOpen ? "border-[#C6B17F]" : "border-[#DED8CF]"}`}><div className="min-w-0">{selectedSavedAddress ? <><p className="truncate font-medium text-[#0E0E0E]">{selectedSavedAddress.label}</p><p className="mt-0.5 truncate text-[7px] text-[#777777]">{selectedSavedAddress.city} — {selectedSavedAddress.address}</p></> : <span className="text-[#777777]">إضافة عنوان جديد</span>}</div><ChevronDown className={`h-3.5 w-3.5 shrink-0 text-[#777777] transition-transform ${addressPickerOpen ? "rotate-180" : ""}`} strokeWidth={1.5} /></button>{addressPickerOpen && <><button type="button" onClick={() => setAddressPickerOpen(false)} aria-label="إغلاق قائمة العناوين" className="fixed inset-0 z-[60] cursor-default" /><div className="absolute inset-x-0 top-[68px] z-[70] overflow-hidden rounded-lg border border-[#EAEAEA] bg-white p-1.5 shadow-[0_12px_32px_rgba(50,35,30,0.10)]"><button type="button" onClick={() => selectSavedAddress("")} className={`flex min-h-[48px] w-full items-center justify-between rounded-xl px-3 text-right text-[12px] ${!selectedAddressId ? "bg-burgundy-soft text-burgundy" : "text-[#555555]"}`}><span>عنوان جديد</span>{!selectedAddressId && <Check className="h-3.5 w-3.5" />}</button>{savedAddresses.map((address) => { const active = selectedAddressId === address.id; return <button key={address.id} type="button" onClick={() => selectSavedAddress(address.id)} className={`flex min-h-[56px] w-full items-center justify-between gap-3 rounded-xl px-3 text-right ${active ? "bg-burgundy-soft" : "active:bg-[#FAF9F6]"}`}><div className="min-w-0"><p className={`truncate text-[8px] font-medium ${active ? "text-[#0E0E0E]" : "text-[#0E0E0E]"}`}>{address.label}</p><p className="mt-1 truncate text-[6px] text-[#777777]">{address.city} — {address.address}</p></div>{active && <Check className="h-3.5 w-3.5 shrink-0 text-burgundy" />}</button>; })}</div></>}</div>}<div className="grid grid-cols-1 gap-5 md:grid-cols-2"><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">المدينة *</label><input value={formData.city} onChange={(event) => { setSelectedAddressId(""); setFormData((current) => ({ ...current, city: event.target.value })); }} placeholder="مثال: المنصورة أو المعلا" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /></div><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">العنوان بالتفصيل *</label><input value={formData.address} onChange={(event) => { setSelectedAddressId(""); setFormData((current) => ({ ...current, address: event.target.value })); }} placeholder="الحي، الشارع، رقم المبنى" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /></div></div><div className="mt-5"><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">ملاحظات إضافية <span className="font-normal text-[#999999]">اختياري</span></label><textarea value={formData.notes} onChange={(event) => setFormData((current) => ({ ...current, notes: event.target.value }))} rows={3} placeholder="وقت التسليم المفضل، معلم قريب..." className="w-full resize-none rounded-2xl border border-[#DED8CF] bg-[#FCFAF7] px-4 py-3 text-[12px] leading-6 text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /></div></div>}
-            {currentStep === 2 && <div className="p-5 sm:p-7 md:p-8"><div className="mb-7 flex items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4EEE4]"><CreditCard className="h-5 w-5 text-[#98733D]" strokeWidth={1.5} /></span><div><h2 className="text-[11px] font-semibold text-[#0E0E0E]">الشحن والدفع</h2><p className="mt-0.5 text-[7px] text-[#777777]">اختر نطاق التوصيل ثم شركة التوصيل وطريقة الدفع.</p></div></div><div><div className="mb-3 grid grid-cols-2 gap-2"><button type="button" onClick={() => { setDeliveryScope("aden"); setSelectedDelivery(adenDeliveryCompany?.id || ""); }} className={`min-h-[52px] rounded-2xl border px-4 text-[12px] font-semibold transition-all active:scale-[0.98] ${deliveryScope === "aden" ? "border-burgundy bg-burgundy-soft text-burgundy" : "border-[#DED8CF] bg-white text-[#555555]"}`}>توصيل في عدن</button><button type="button" onClick={() => { setDeliveryScope("outside"); setSelectedDelivery(""); setPaymentMethod((current) => current === "cod" || current === "cash" ? "" : current); }} className={`min-h-[52px] rounded-2xl border px-4 text-[12px] font-semibold transition-all active:scale-[0.98] ${deliveryScope === "outside" ? "border-burgundy bg-burgundy-soft text-burgundy" : "border-[#DED8CF] bg-white text-[#555555]"}`}>توصيل خارج عدن</button></div><div className="mb-2.5 flex items-center gap-1.5"><Truck className="h-3.5 w-3.5 text-[#9A825B]" strokeWidth={1.5} /><span className="text-[8px] font-semibold text-[#0E0E0E]">شركة التوصيل *</span></div>{visibleDeliveryCompanies.length > 0 ? <div className="grid grid-cols-1 gap-2 md:grid-cols-2">{visibleDeliveryCompanies.map((company) => { const active = selectedDelivery === company.id; return <button key={company.id} type="button" onClick={() => setSelectedDelivery(company.id)} className={`relative flex min-h-[82px] items-center justify-between rounded-2xl border p-4 text-right shadow-sm transition-all active:scale-[0.99] ${active ? "border-burgundy bg-burgundy-soft" : "border-[#DED8CF] bg-white active:bg-[#FAF9F6]"}`}><div><p className={`text-[9px] font-semibold ${active ? "text-[#0E0E0E]" : "text-[#0E0E0E]"}`}>{company.name}</p><p className="mt-1 text-[7px] text-[#777777]">{formatCurrency(company.base_fee)}{company.delivery_days ? ` • ${company.delivery_days}` : ""}</p></div><span className={`flex h-5 w-5 items-center justify-center rounded-2xl border ${active ? "border-burgundy bg-burgundy" : "border-[#D4CCBC]"}`}>{active && <Check className="h-2.5 w-2.5 text-white" strokeWidth={2.2} />}</span></button>; })}</div> : <div className="flex items-center gap-2 rounded-2xl bg-[#FFFFFF] px-3 py-3"><AlertCircle className="h-3.5 w-3.5 text-[#777777]" /><span className="text-[7px] text-[#777777]">لا توجد شركات توصيل متاحة لهذا الخيار حالياً.</span></div>}</div><div className="mt-5"><p className="mb-2.5 text-[8px] font-semibold text-[#0E0E0E]">طريقة الدفع *</p>{visiblePaymentMethods.length > 0 ? <div className="grid grid-cols-2 gap-2">{visiblePaymentMethods.map((method) => { const active = paymentMethod === method.code; const Icon = method.type === "cash" ? Banknote : CreditCard; return <button key={method.id} type="button" onClick={() => setPaymentMethod(method.code)} className={`relative flex min-h-[86px] flex-col items-start justify-center rounded-2xl border p-4 text-right shadow-sm transition-all active:scale-[0.99] ${active ? "border-burgundy bg-burgundy-soft" : "border-[#DED8CF] bg-white"}`}><Icon className={`h-4 w-4 ${active ? "text-burgundy" : "text-[#777777]"}`} strokeWidth={1.5} /><p className="mt-2 text-[8px] font-semibold text-[#0E0E0E]">{method.name_ar || method.name}</p><p className="mt-0.5 text-[6px] text-[#777777]">{method.name}</p>{active && <span className="absolute left-2.5 top-2.5 flex h-4 w-4 items-center justify-center rounded-2xl bg-burgundy"><Check className="h-2.5 w-2.5 text-white" /></span>}</button>; })}</div> : <div className="rounded-2xl bg-[#FFFFFF] px-3 py-3 text-[7px] text-[#777777]">لا توجد طرق دفع مفعلة من لوحة الإدارة.</div>}</div>{isBankPayment && bankAccounts.length > 0 && <div className="mt-5 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] p-4"><p className="mb-2.5 text-[7px] text-[#777777]">حول المبلغ إلى أحد الحسابات التالية:</p><div className="space-y-2">{bankAccounts.map((account, index) => <div key={`${account.account}-${index}`} className="flex items-center justify-between gap-3 rounded-2xl border border-[#E7E2D9] bg-white p-4"><div className="min-w-0"><p className="truncate text-[8px] font-semibold text-[#0E0E0E]">{account.bank}</p>{account.name && <p className="mt-0.5 truncate text-[6px] text-[#777777]">{account.name}</p>}<p dir="ltr" className="mt-1 truncate text-left font-mono text-[7px] text-[#666666]">{account.account}</p></div><button type="button" onClick={() => { navigator.clipboard.writeText(account.account); toast({ title: "تم نسخ رقم الحساب" }); }} aria-label="نسخ رقم الحساب" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#EAEAEA] bg-white text-[#9A825B] active:bg-[#FAF9F6]"><Copy className="h-3.5 w-3.5" strokeWidth={1.5} /></button></div>)}</div></div>}<div className="mt-5 border-t border-[#E7E2D9] pt-4"><div className="mb-2 flex items-center gap-1.5"><Ticket className="h-3.5 w-3.5 text-[#9A825B]" strokeWidth={1.5} /><span className="text-[8px] font-semibold text-[#0E0E0E]">كود الخصم</span><span className="text-[6px] text-[#777777]">اختياري</span></div>{appliedCoupon ? <div className="flex min-h-[46px] items-center justify-between gap-3 rounded-2xl border border-[#CFE1D2] bg-[#F5FAF6] px-3"><div className="flex min-w-0 items-center gap-2"><span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-2xl bg-[#6F9576]"><Check className="h-3 w-3 text-white" /></span><div className="min-w-0"><p className="truncate text-[8px] font-semibold text-[#54745A]">{appliedCoupon}</p><p className="mt-0.5 text-[6px] text-[#77907B]">خصم {formatCurrency(discountAmount)}</p></div></div><button type="button" onClick={removeCoupon} className="flex h-9 items-center gap-1 rounded-xl px-3 text-[11px] font-medium text-[#A45D5D] active:bg-white"><X className="h-3 w-3" />إزالة</button></div> : <div className="flex gap-2"><input value={couponCode} onChange={(event) => setCouponCode(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") void applyCoupon(); }} placeholder="أدخل الكود" dir="ltr" className="h-12 min-w-0 flex-1 rounded-2xl border border-[#DED8CF] bg-white px-3 text-left text-[8px] uppercase text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /><button type="button" onClick={applyCoupon} className="h-12 shrink-0 rounded-2xl border border-[#D8C29A] bg-[#F3ECDD] px-5 text-[12px] font-semibold text-[#0E0E0E] active:bg-[#FAFAFA]">تطبيق</button></div>}</div></div>}
+            {currentStep === 0 && <div className="p-5 sm:p-7 md:p-8"><div className="mb-7 flex items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4EEE4]"><User className="h-5 w-5 text-[#98733D]" strokeWidth={1.5} /></span><div><h2 className="text-[15px] font-semibold text-[#0E0E0E]">معلوماتك الشخصية</h2><p className="mt-0.5 text-[7px] text-[#777777]">بيانات التواصل الخاصة بالطلب.</p></div></div><div className="mb-5 rounded-3xl bg-[#F6F3EA] p-4 sm:p-5"><p className="mb-3 text-[11px] font-semibold text-[#8C6B32]">01 / التواصل معك</p><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">رقم الهاتف *</label><input value={isGuestLike ? formData.phone : customer?.phone || ""} onChange={(event) => { if (isGuestLike) setFormData((current) => ({ ...current, phone: event.target.value })); }} disabled={!isGuestLike} placeholder="رقم الهاتف" dir="ltr" inputMode="tel" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-left text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F] disabled:bg-[#F7F4F2] disabled:text-[#777777]" /></div></div><div className="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">الاسم الكامل *</label><input value={isGuestLike ? formData.name : customer?.name || ""} onChange={(event) => { if (isGuestLike) setFormData((current) => ({ ...current, name: event.target.value })); }} disabled={!isGuestLike} placeholder="أدخل اسمك" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F] disabled:bg-[#F7F4F2] disabled:text-[#777777]" /></div></div>{isGuestLike && <Link to={customerSignInPath("/checkout")} className="mt-4 inline-block text-[12px] font-medium text-burgundy underline underline-offset-2">سجّلي الدخول لاستخدام عنوانك المحفوظ</Link>}</div>}
+            {currentStep === 1 && <div className="p-5 sm:p-7 md:p-8"><div className="mb-7 flex items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4EEE4]"><MapPin className="h-5 w-5 text-[#98733D]" strokeWidth={1.5} /></span><div><h2 className="text-[16px] font-semibold text-[#0E0E0E]">عنوان التوصيل</h2><p className="mt-0.5 text-[7px] text-[#777777]">أدخل المكان الذي تريد استلام الطلب فيه.</p></div></div>{addressesUnavailable && <p role="status" className="mb-4 text-[12px] text-[#8C6B32]">تعذر تحميل العناوين المحفوظة. يمكنك إدخال عنوانك للمتابعة.</p>}{savedAddresses.length > 0 && <div className="relative mb-4"><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">عنوان محفوظ</label><button type="button" onClick={() => setAddressPickerOpen((current) => !current)} className={`flex h-14 w-full items-center justify-between rounded-2xl border bg-[#FAF9F7] px-4 text-right text-[9px] ${addressPickerOpen ? "border-[#C6B17F]" : "border-[#DED8CF]"}`}><div className="min-w-0">{selectedSavedAddress ? <><p className="truncate font-medium text-[#0E0E0E]">{selectedSavedAddress.label}</p><p className="mt-0.5 truncate text-[7px] text-[#777777]">{selectedSavedAddress.city} — {selectedSavedAddress.address}</p></> : <span className="text-[#777777]">إضافة عنوان جديد</span>}</div><ChevronDown className={`h-3.5 w-3.5 shrink-0 text-[#777777] transition-transform ${addressPickerOpen ? "rotate-180" : ""}`} strokeWidth={1.5} /></button>{addressPickerOpen && <><button type="button" onClick={() => setAddressPickerOpen(false)} aria-label="إغلاق قائمة العناوين" className="fixed inset-0 z-[60] cursor-default" /><div className="absolute inset-x-0 top-[68px] z-[70] overflow-hidden rounded-lg border border-[#EAEAEA] bg-white p-1.5 shadow-[0_12px_32px_rgba(50,35,30,0.10)]"><button type="button" onClick={() => selectSavedAddress("")} className={`flex min-h-[48px] w-full items-center justify-between rounded-xl px-3 text-right text-[12px] ${!selectedAddressId ? "bg-burgundy-soft text-burgundy" : "text-[#555555]"}`}><span>عنوان جديد</span>{!selectedAddressId && <Check className="h-3.5 w-3.5" />}</button>{savedAddresses.map((address) => { const active = selectedAddressId === address.id; return <button key={address.id} type="button" onClick={() => selectSavedAddress(address.id)} className={`flex min-h-[56px] w-full items-center justify-between gap-3 rounded-xl px-3 text-right ${active ? "bg-burgundy-soft" : "active:bg-[#FAF9F6]"}`}><div className="min-w-0"><p className={`truncate text-[8px] font-medium ${active ? "text-[#0E0E0E]" : "text-[#0E0E0E]"}`}>{address.label}</p><p className="mt-1 truncate text-[6px] text-[#777777]">{address.city} — {address.address}</p></div>{active && <Check className="h-3.5 w-3.5 shrink-0 text-burgundy" />}</button>; })}</div></>}</div>}<div className="grid grid-cols-1 gap-5 md:grid-cols-2"><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">المدينة *</label><input value={formData.city} onChange={(event) => { setSelectedAddressId(""); setFormData((current) => ({ ...current, city: event.target.value })); }} placeholder="مثال: المنصورة أو المعلا" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /></div><div><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">العنوان بالتفصيل *</label><input value={formData.address} onChange={(event) => { setSelectedAddressId(""); setFormData((current) => ({ ...current, address: event.target.value })); }} placeholder="الحي، الشارع، رقم المبنى" className="h-14 w-full rounded-2xl border border-[#E6DCCB] bg-[#FCFAF7] px-4 text-[13px] text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /></div></div><div className="mt-5"><label className="mb-2 block text-[12px] font-semibold text-[#3F3C37]">ملاحظات إضافية <span className="font-normal text-[#999999]">اختياري</span></label><textarea value={formData.notes} onChange={(event) => setFormData((current) => ({ ...current, notes: event.target.value }))} rows={3} placeholder="وقت التسليم المفضل، معلم قريب..." className="w-full resize-none rounded-2xl border border-[#DED8CF] bg-[#FCFAF7] px-4 py-3 text-[12px] leading-6 text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /></div></div>}
+            {currentStep === 2 && <div className="p-5 sm:p-7 md:p-8"><div className="mb-7 flex items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4EEE4]"><CreditCard className="h-5 w-5 text-[#98733D]" strokeWidth={1.5} /></span><div><h2 className="text-[11px] font-semibold text-[#0E0E0E]">الشحن والدفع</h2><p className="mt-0.5 text-[7px] text-[#777777]">اختر نطاق التوصيل ثم شركة التوصيل وطريقة الدفع.</p></div></div><div><div className="mb-3 grid grid-cols-2 gap-2"><button type="button" onClick={() => { if (selectedRegion !== "عدن") selectGovernorate("عدن"); setSelectedDelivery(adenDeliveryCompany?.id || ""); }} className={`min-h-[52px] rounded-2xl border px-4 text-[12px] font-semibold transition-all active:scale-[0.98] ${deliveryScope === "aden" ? "border-burgundy bg-burgundy-soft text-burgundy" : "border-[#DED8CF] bg-white text-[#555555]"}`}>توصيل في عدن</button><button type="button" onClick={() => { if (selectedRegion === "عدن") selectGovernorate(""); setSelectedDelivery(""); setPaymentMethod((current) => current === "cod" || current === "cash" ? "" : current); }} className={`min-h-[52px] rounded-2xl border px-4 text-[12px] font-semibold transition-all active:scale-[0.98] ${deliveryScope === "outside" ? "border-burgundy bg-burgundy-soft text-burgundy" : "border-[#DED8CF] bg-white text-[#555555]"}`}>توصيل خارج عدن</button></div><div className="mb-2.5 flex items-center gap-1.5"><Truck className="h-3.5 w-3.5 text-[#9A825B]" strokeWidth={1.5} /><span className="text-[8px] font-semibold text-[#0E0E0E]">شركة التوصيل *</span></div>{visibleDeliveryCompanies.length > 0 ? <div className="grid grid-cols-1 gap-2 md:grid-cols-2">{visibleDeliveryCompanies.map((company) => { const active = selectedDelivery === company.id; return <button key={company.id} type="button" onClick={() => setSelectedDelivery(company.id)} className={`relative flex min-h-[82px] items-center justify-between rounded-2xl border p-4 text-right shadow-sm transition-all active:scale-[0.99] ${active ? "border-burgundy bg-burgundy-soft" : "border-[#DED8CF] bg-white active:bg-[#FAF9F6]"}`}><div><p className={`text-[9px] font-semibold ${active ? "text-[#0E0E0E]" : "text-[#0E0E0E]"}`}>{company.name}</p><p className="mt-1 text-[7px] text-[#777777]">{formatCurrency(company.base_fee)}{company.delivery_days ? ` • ${company.delivery_days}` : ""}</p></div><span className={`flex h-5 w-5 items-center justify-center rounded-2xl border ${active ? "border-burgundy bg-burgundy" : "border-[#D4CCBC]"}`}>{active && <Check className="h-2.5 w-2.5 text-white" strokeWidth={2.2} />}</span></button>; })}</div> : <div className="flex items-center gap-2 rounded-2xl bg-[#FFFFFF] px-3 py-3"><AlertCircle className="h-3.5 w-3.5 text-[#777777]" /><span className="text-[7px] text-[#777777]">لا توجد شركات توصيل متاحة لهذا الخيار حالياً.</span></div>}</div><div className="mt-5"><p className="mb-2.5 text-[8px] font-semibold text-[#0E0E0E]">طريقة الدفع *</p>{visiblePaymentMethods.length > 0 ? <div className="grid grid-cols-2 gap-2">{visiblePaymentMethods.map((method) => { const active = paymentMethod === method.code; const Icon = method.type === "cash" ? Banknote : CreditCard; return <button key={method.id} type="button" onClick={() => setPaymentMethod(method.code)} className={`relative flex min-h-[86px] flex-col items-start justify-center rounded-2xl border p-4 text-right shadow-sm transition-all active:scale-[0.99] ${active ? "border-burgundy bg-burgundy-soft" : "border-[#DED8CF] bg-white"}`}><Icon className={`h-4 w-4 ${active ? "text-burgundy" : "text-[#777777]"}`} strokeWidth={1.5} /><p className="mt-2 text-[8px] font-semibold text-[#0E0E0E]">{method.name_ar || method.name}</p><p className="mt-0.5 text-[6px] text-[#777777]">{method.name}</p>{active && <span className="absolute left-2.5 top-2.5 flex h-4 w-4 items-center justify-center rounded-2xl bg-burgundy"><Check className="h-2.5 w-2.5 text-white" /></span>}</button>; })}</div> : <div className="rounded-2xl bg-[#FFFFFF] px-3 py-3 text-[7px] text-[#777777]">لا توجد طرق دفع مفعلة من لوحة الإدارة.</div>}</div>{isBankPayment && bankAccounts.length > 0 && <div className="mt-5 rounded-2xl border border-[#EAEAEA] bg-[#FAF9F7] p-4"><p className="mb-2.5 text-[7px] text-[#777777]">حول المبلغ إلى أحد الحسابات التالية:</p><div className="space-y-2">{bankAccounts.map((account, index) => <div key={`${account.account}-${index}`} className="flex items-center justify-between gap-3 rounded-2xl border border-[#E7E2D9] bg-white p-4"><div className="min-w-0"><p className="truncate text-[8px] font-semibold text-[#0E0E0E]">{account.bank}</p>{account.name && <p className="mt-0.5 truncate text-[6px] text-[#777777]">{account.name}</p>}<p dir="ltr" className="mt-1 truncate text-left font-mono text-[7px] text-[#666666]">{account.account}</p></div><button type="button" onClick={() => { navigator.clipboard.writeText(account.account); toast({ title: "تم نسخ رقم الحساب" }); }} aria-label="نسخ رقم الحساب" className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#EAEAEA] bg-white text-[#9A825B] active:bg-[#FAF9F6]"><Copy className="h-3.5 w-3.5" strokeWidth={1.5} /></button></div>)}</div></div>}<div className="mt-5 border-t border-[#E7E2D9] pt-4"><div className="mb-2 flex items-center gap-1.5"><Ticket className="h-3.5 w-3.5 text-[#9A825B]" strokeWidth={1.5} /><span className="text-[8px] font-semibold text-[#0E0E0E]">كود الخصم</span><span className="text-[6px] text-[#777777]">اختياري</span></div>{appliedCoupon ? <div className="flex min-h-[46px] items-center justify-between gap-3 rounded-2xl border border-[#CFE1D2] bg-[#F5FAF6] px-3"><div className="flex min-w-0 items-center gap-2"><span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-2xl bg-[#6F9576]"><Check className="h-3 w-3 text-white" /></span><div className="min-w-0"><p className="truncate text-[8px] font-semibold text-[#54745A]">{appliedCoupon}</p><p className="mt-0.5 text-[6px] text-[#77907B]">خصم {formatCurrency(discountAmount)}</p></div></div><button type="button" onClick={removeCoupon} className="flex h-9 items-center gap-1 rounded-xl px-3 text-[11px] font-medium text-[#A45D5D] active:bg-white"><X className="h-3 w-3" />إزالة</button></div> : <div className="flex gap-2"><input value={couponCode} onChange={(event) => setCouponCode(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter") void applyCoupon(); }} placeholder="أدخل الكود" dir="ltr" className="h-12 min-w-0 flex-1 rounded-2xl border border-[#DED8CF] bg-white px-3 text-left text-[8px] uppercase text-[#0E0E0E] outline-none placeholder:text-[#999999] focus:border-[#C6B17F]" /><button type="button" onClick={applyCoupon} className="h-12 shrink-0 rounded-2xl border border-[#D8C29A] bg-[#F3ECDD] px-5 text-[12px] font-semibold text-[#0E0E0E] active:bg-[#FAFAFA]">تطبيق</button></div>}</div></div>}
             {currentStep === 3 && <div className="p-5 sm:p-7 md:p-8"><div className="mb-7 flex items-center gap-3"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#F4EEE4]"><Check className="h-5 w-5 text-[#98733D]" strokeWidth={1.7} /></span><div><h2 className="text-[11px] font-semibold text-[#0E0E0E]">مراجعة الطلب</h2><p className="mt-0.5 text-[7px] text-[#777777]">راجع معلوماتك قبل التأكيد النهائي.</p></div></div><div className="border-b border-[#E7E2D9] py-3 first:pt-0"><p className="text-[7px] font-medium text-[#777777]">معلومات التواصل</p><p className="mt-1.5 text-[9px] font-medium text-[#0E0E0E]">{customer?.name || formData.name}</p><p dir="ltr" className="mt-1 text-right text-[7px] text-[#777777]">{customer?.phone || formData.phone}</p></div><div className="border-b border-[#E7E2D9] py-3"><p className="text-[7px] font-medium text-[#777777]">عنوان التوصيل</p><p className="mt-1.5 text-[9px] leading-5 text-[#0E0E0E]">{formData.city} — {formData.address}</p>{formData.notes && <p className="mt-1 text-[7px] leading-5 text-[#777777]">ملاحظات: {formData.notes}</p>}</div><div className="border-b border-[#E7E2D9] py-3"><p className="text-[7px] font-medium text-[#777777]">الشحن والدفع</p><p className="mt-1.5 text-[9px] text-[#0E0E0E]">{selectedCompany?.name || "—"} <span className="mx-1 text-[#C9BDB8]">•</span> {selectedPaymentMethod?.name_ar || selectedPaymentMethod?.name || "—"}</p>{appliedCoupon && <p className="mt-1.5 text-[7px] font-medium text-[#5C8063]">كوبون {appliedCoupon} — خصم {formatCurrency(discountAmount)}</p>}</div><div className="pt-3"><p className="mb-3 text-[7px] font-medium text-[#777777]">المنتجات</p><div className="space-y-3">{cart.map((item, index) => { const price = item.product.discount ? item.product.price * (1 - item.product.discount / 100) : item.product.price; const accessoriesTotal = item.selectedAccessories?.reduce((sum, accessory) => sum + accessory.price * accessory.quantity, 0) || 0; const color = item.selectedColor || item.variantColor; return <div key={`${item.product.id}-${index}`} className="flex items-center gap-3"><div className="flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-xl border border-[#E7E1D5] bg-[#FFFFFF] p-1"><img src={optimizeImage(item.product.images?.[0] || "/placeholder.svg", 200, 80)} alt={item.product.nameAr || ""} loading="lazy" decoding="async" onError={handleImageError} className="h-full w-full object-contain object-center" /></div><div className="min-w-0 flex-1"><p className="truncate text-[8px] font-medium text-[#0E0E0E]">{item.product.nameAr}</p><div className="mt-1 flex flex-wrap gap-x-2 gap-y-1 text-[6px] text-[#777777]"><span>الكمية: {item.quantity}</span>{item.selectedSize && <span>المقاس: {item.selectedSize}</span>}{color && <span>اللون: {color}</span>}</div></div><span className="shrink-0 text-[8px] font-semibold text-[#0E0E0E]">{formatCurrency((price + accessoriesTotal) * item.quantity)}</span></div>; })}</div></div></div>}
           </section><div className="mt-4 flex items-center justify-between gap-2 rounded-3xl bg-white p-3 shadow-sm sm:p-4"><button type="button" onClick={prevStep} disabled={currentStep === 0} className="flex h-12 min-w-[108px] items-center justify-center gap-1.5 rounded-2xl border border-[#E4DCCD] bg-white px-4 text-[12px] font-semibold text-[#555555] disabled:cursor-not-allowed disabled:opacity-35"><ChevronRight className="h-3.5 w-3.5" strokeWidth={1.5} />السابق</button>{currentStep < STEPS.length - 1 ? <button type="button" onClick={nextStep} className="flex h-12 min-w-[108px] items-center justify-center gap-1.5 rounded-2xl bg-burgundy shadow-[0_8px_20px_rgba(14,14,14,0.15)] px-5 text-[12px] font-semibold text-white hover:bg-burgundy-hover active:bg-burgundy-hover">التالي<ChevronLeft className="h-3.5 w-3.5" strokeWidth={1.5} /></button> : <button type="button" onClick={handleSubmit} disabled={isSubmitting} className="flex h-[52px] min-w-[175px] items-center justify-center gap-2 rounded-2xl bg-burgundy shadow-[0_8px_20px_rgba(14,14,14,0.15)] px-5 text-[12px] font-semibold text-white hover:bg-burgundy-hover active:bg-burgundy-hover disabled:cursor-not-allowed disabled:opacity-50">{isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}{isSubmitting ? "جارٍ إنشاء الطلب" : "تأكيد الطلب النهائي"}</button>}</div></div>
           <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start"><div className="overflow-hidden rounded-3xl border border-[#E8DFD2] bg-white shadow-[0_14px_36px_rgba(28,22,12,0.055)]"><div className="border-b border-[#E7E2D9] px-4 py-3.5"><div className="flex items-center justify-between"><h2 className="text-[10px] font-semibold text-[#0E0E0E]">ملخص الطلب</h2><span className="text-[6px] text-[#777777]">{cart.length} {cart.length === 1 ? "منتج" : "منتجات"}</span></div></div><div className="max-h-[280px] overflow-y-auto px-4 [scrollbar-width:thin]">{cart.map((item, index) => { const price = item.product.discount ? item.product.price * (1 - item.product.discount / 100) : item.product.price; const accessoriesTotal = item.selectedAccessories?.reduce((sum, accessory) => sum + accessory.price * accessory.quantity, 0) || 0; const color = item.selectedColor || item.variantColor; return <div key={`${item.product.id}-${index}`} className={`flex items-center gap-3 py-3 ${index !== cart.length - 1 ? "border-b border-[#E7E2D9]" : ""}`}><div className="flex h-[60px] w-[60px] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#E7E1D5] bg-[#FFFFFF] p-1"><img src={optimizeImage(item.product.images?.[0] || "/placeholder.svg", 200, 80)} alt={item.product.nameAr || ""} loading="lazy" decoding="async" onError={handleImageError} className="h-full w-full object-contain object-center" /></div><div className="min-w-0 flex-1"><p className="truncate text-[7.5px] font-medium leading-5 text-[#0E0E0E]">{item.product.nameAr}</p><div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[6px] text-[#777777]"><span>الكمية {item.quantity}</span>{item.selectedSize && <><span className="text-[#DADADA]">•</span><span>{item.selectedSize}</span></>}{color && <><span className="text-[#DADADA]">•</span><span className="max-w-[60px] truncate">{color}</span></>}</div></div><span className="shrink-0 text-[7px] font-semibold text-[#0E0E0E]">{formatCurrency((price + accessoriesTotal) * item.quantity)}</span></div>; })}</div><div className="border-t border-[#E7E2D9] px-4 py-4"><div className="space-y-2.5"><div className="flex items-center justify-between text-[7px] text-[#666666]"><span>المجموع الفرعي</span><span>{formatCurrency(subtotal)}</span></div><div className="flex items-center justify-between text-[7px] text-[#666666]"><span>رسوم التوصيل</span><span>{deliveryFee > 0 ? formatCurrency(deliveryFee) : "—"}</span></div>{discountAmount > 0 && <div className="flex items-center justify-between text-[7px] font-medium text-[#63806A]"><span>{appliedCoupon ? "خصم الكود" : "خصم إطلاق جنان 10%"}</span><span>-{formatCurrency(discountAmount)}</span></div>}</div><div className="mt-4 flex items-end justify-between border-t border-[#E7E2D9] pt-3"><div><span className="block text-[7px] text-[#777777]">الإجمالي</span><span className="mt-0.5 block text-[6px] text-[#999999]">شامل رسوم التوصيل</span></div><span className="text-[15px] font-bold text-[#D8C29A]">{formatCurrency(total)}</span></div></div></div><div className="mt-2 flex items-center justify-center gap-2 py-2 text-[6px] text-[#777777]"><Check className="h-3 w-3 text-[#6F9275]" strokeWidth={1.7} />بيانات طلبك تُرسل بشكل آمن</div></aside></div>

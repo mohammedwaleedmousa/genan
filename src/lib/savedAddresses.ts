@@ -1,3 +1,6 @@
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
+
 export type SavedAddress = {
   id: string;
   label: string;
@@ -9,6 +12,30 @@ export type SavedAddress = {
   isDefault?: boolean;
   updatedAt: string;
 };
+
+export function toSavedAddress(row: Tables<"customer_addresses">): SavedAddress {
+  return {
+    id: row.id,
+    label: row.label,
+    name: row.recipient_name,
+    phone: row.phone,
+    city: row.city,
+    address: row.address_line1,
+    notes: row.notes || "",
+    isDefault: row.is_default,
+    updatedAt: row.updated_at,
+  };
+}
+
+export async function listCustomerAddresses(customerId: string) {
+  const { data, error } = await supabase.from("customer_addresses")
+    .select("*")
+    .eq("user_id", customerId)
+    .order("is_default", { ascending: false })
+    .order("updated_at", { ascending: false });
+  if (error) throw error;
+  return data.map(toSavedAddress);
+}
 
 const STORAGE_PREFIX = "saved_addresses_v1";
 const LEGACY_CHECKOUT_KEY = "checkout_saved_info_v1";
@@ -62,7 +89,8 @@ export function removeSavedAddress(ownerKey: string, id: string): SavedAddress[]
   return filtered;
 }
 
-export function migrateLegacyCheckoutInfo(ownerKey: string): SavedAddress[] {
+export function getGuestAddresses(): SavedAddress[] {
+  const ownerKey = "guest";
   const existing = getSavedAddresses(ownerKey);
   if (existing.length > 0) return existing;
 

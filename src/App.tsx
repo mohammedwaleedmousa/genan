@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, lazy as reactLazy, Suspense, useRef, useState, type ComponentType } from "react";
+import { useContext, useEffect, useLayoutEffect, lazy as reactLazy, Suspense, useRef, useState, type ComponentType } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +14,7 @@ import { getCatalogScroll, restoreCatalogScroll } from "@/lib/catalogScroll";
 import { ADMIN_BASE_PATH, ADMIN_ROUTE_UNLOCK_KEY, adminPath, legacyAdminPathToCurrent } from "@/lib/adminRoutes";
 import { MotionConfig } from "framer-motion";
 import CustomerSessionSync from "@/components/CustomerSessionSync";
+import { CustomerAuthContext, customerSignInPath } from "@/lib/customerSession";
 import StorefrontRealtimeSync from "@/components/StorefrontRealtimeSync";
 import { ThemeProvider } from "next-themes";
 import GoldNumbers from "@/components/GoldNumbers";
@@ -187,6 +188,15 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+const CustomerAccountRoute = () => {
+  const user = useContext(CustomerAuthContext);
+  const { pathname, search, hash } = useLocation();
+
+  if (user === undefined) return <LoadingScreen />;
+  if (!user) return <Navigate to={customerSignInPath(`${pathname}${search}${hash}`)} replace />;
+  return <AccountPage key={user.id} authUser={user} />;
+};
+
 const AuthRedirect = () => {
   const searchParams = new URLSearchParams(window.location.search);
   const refCode = searchParams.get("ref");
@@ -261,7 +271,7 @@ const App = () => {
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <CustomerSessionSync />
+      <CustomerSessionSync>
       <DateRangeProvider>
         <BrowserRouter>
           <StorefrontRealtimeSync />
@@ -284,7 +294,7 @@ const App = () => {
             <Route path="/best-sellers" element={<ProtectedRoute><BestSellersPage /></ProtectedRoute>} />
             <Route path="/new-arrivals" element={<ProtectedRoute><NewArrivalsPage /></ProtectedRoute>} />
             <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
-            <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+            <Route path="/account" element={<ProtectedRoute><CustomerAccountRoute /></ProtectedRoute>} />
             <Route path="/my-orders" element={<ProtectedRoute><MyOrdersPage /></ProtectedRoute>} />
             <Route path="/product/:slug" element={
               <ProtectedRoute>
@@ -373,6 +383,7 @@ const App = () => {
           </Suspense>
         </BrowserRouter>
       </DateRangeProvider>
+      </CustomerSessionSync>
     </TooltipProvider>
     </MotionConfig>
     </ThemeProvider>

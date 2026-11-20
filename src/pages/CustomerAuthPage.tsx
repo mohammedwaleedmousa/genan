@@ -1,24 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Eye, EyeOff, Loader2, LockKeyhole, MapPin, Phone, UserRound } from "lucide-react";
 
 import { useStore } from "@/store/useStore";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
-import { clearCustomerSession, setCustomerSession } from "@/lib/customerSession";
+import { clearCustomerSession, customerSignInDestination, loadCustomerProfile, setCustomerSession, type CustomerProfile } from "@/lib/customerSession";
 
 type AuthMode = "login" | "register" | "recovery" | "reset";
-
-type CustomerRow = {
-  id: string;
-  user_id?: string | null;
-  name: string;
-  phone: string;
-  country?: string | null;
-  region?: string | null;
-  avatar_url?: string | null;
-  created_at?: string;
-};
 
 const PHONE_COUNTRIES = [
   { iso: "YE", name: "اليمن", dial: "+967", flag: "🇾🇪", placeholder: "77xxxxxxx" },
@@ -53,6 +42,8 @@ const defaultRegionForCountry = (country: string) => (country === "YE" ? "عدن
 
 const CustomerAuthPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const destination = customerSignInDestination(searchParams.get("returnTo"));
   const { setCustomer, setRegion } = useStore();
 
   const [mode, setMode] = useState<AuthMode>("login");
@@ -98,7 +89,7 @@ const CustomerAuthPage = () => {
     return fullPhone;
   };
 
-  const persistCustomer = (raw: CustomerRow) => {
+  const persistCustomer = (raw: CustomerProfile) => {
     const country = raw.country || phoneCountry;
     const region = raw.region || defaultRegionForCountry(country);
 
@@ -117,27 +108,6 @@ const CustomerAuthPage = () => {
     return { ...raw, country, region };
   };
 
-  const getOwnCustomer = async (userId: string) => {
-    const { data, error } = await (supabase as any)
-      .from("customers")
-      .select("id,user_id,name,phone,country,region,avatar_url,created_at")
-      .eq("user_id", userId)
-      .maybeSingle();
-
-    if (error) throw error;
-    return data as CustomerRow | null;
-  };
-
-  const loadCustomerSecurely = async (userId: string): Promise<CustomerRow> => {
-    const own = await getOwnCustomer(userId).catch(() => null);
-    if (own) return own;
-    const { data, error } = await supabase.functions.invoke("genan-password-register", { body: { action: "profile" } });
-    if (error || !data?.customer || data.customer.user_id !== userId) {
-      throw new Error("تعذر تحميل بيانات حسابك، حاول تسجيل الدخول مجددًا.");
-    }
-    return data.customer as CustomerRow;
-  };
-
   useEffect(() => {
     let active = true;
 
@@ -146,10 +116,10 @@ const CustomerAuthPage = () => {
       if (!active || !session?.user) return;
 
       try {
-        const customer = await loadCustomerSecurely(session.user.id);
+        const customer = await loadCustomerProfile(session.user.id);
         if (!active || !customer) return;
         persistCustomer(customer);
-        navigate("/home", { replace: true });
+        navigate(destination, { replace: true });
       } catch {
         // نبقي صفحة الدخول مفتوحة إذا كانت الجلسة ناقصة.
       }
@@ -157,7 +127,7 @@ const CustomerAuthPage = () => {
 
     void restore();
     return () => { active = false; };
-  }, [navigate]);
+  }, [destination, navigate]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -213,20 +183,20 @@ const CustomerAuthPage = () => {
           if (existing.error || !existing.data.user) {
             throw new Error(registration?.error || "تعذر إنشاء الحساب. إذا سبق إنشاء الحساب، جرّب تسجيل الدخول.");
           }
-          const previousCustomer = await loadCustomerSecurely(existing.data.user.id);
+          const previousCustomer = await loadCustomerProfile(existing.data.user.id);
           persistCustomer(previousCustomer);
           toast({ title: "حسابك موجود بالفعل", description: "تم تسجيل الدخول بنجاح." });
-          navigate("/home", { replace: true });
+          navigate(destination, { replace: true });
           return;
         }
         const { data: loginResult, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
         if (loginError || !loginResult.user) throw new Error("تم إنشاء الحساب بنجاح. اختر تسجيل الدخول واستخدم نفس الرقم وكلمة المرور.");
         const customer = registration.customer?.user_id === loginResult.user.id
-          ? registration.customer as CustomerRow
-          : await loadCustomerSecurely(loginResult.user.id);
+          ? registration.customer as CustomerProfile
+          : await loadCustomerProfile(loginResult.user.id);
         persistCustomer(customer);
         toast({ title: "تم إنشاء الحساب", description: `أهلاً ${customer.name}` });
-        navigate("/home", { replace: true });
+        navigate(destination, { replace: true });
         return;
       }
 
@@ -242,11 +212,11 @@ const CustomerAuthPage = () => {
         throw new Error("رقم الهاتف أو كلمة المرور غير صحيحة");
       }
 
-      const customer = await loadCustomerSecurely(loginData.user.id);
+      const customer = await loadCustomerProfile(loginData.user.id);
 
       persistCustomer(customer);
       toast({ title: "مرحباً بعودتك", description: `أهلاً ${customer.name}` });
-      navigate("/home", { replace: true });
+      navigate(destination, { replace: true });
     } catch (error: any) {
       await supabase.auth.signOut({ scope: "local" }).catch(() => undefined);
 

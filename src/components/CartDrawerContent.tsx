@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "@/store/useStore";
 import { useCurrency } from "@/lib/currency";
 
-const POST_AUTH_REDIRECT_KEY = "genan-post-auth-redirect";
+import { customerSignInPath } from "@/lib/customerSession";
 
 const CartDrawerContent = () => {
   const { customer, cart, isCartOpen, closeCart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useStore();
@@ -41,12 +41,10 @@ const CartDrawerContent = () => {
     closeCart();
 
     if (!customer || customer.id === "guest") {
-      window.sessionStorage.setItem(POST_AUTH_REDIRECT_KEY, "/checkout");
-      navigate("/auth?returnTo=%2Fcheckout");
+      navigate(customerSignInPath("/checkout"));
       return;
     }
 
-    window.sessionStorage.removeItem(POST_AUTH_REDIRECT_KEY);
     navigate("/checkout");
   };
 
