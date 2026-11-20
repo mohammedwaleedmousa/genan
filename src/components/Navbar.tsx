@@ -188,6 +188,8 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
     const previousHtml = { overflow: html.style.overflow, overscrollBehavior: html.style.overscrollBehavior };
 
     const preventBackgroundScroll = (event: Event) => {
+      if (event.type === "touchmove" && (event as TouchEvent).touches.length > 1) return;
+      if (event.type === "wheel" && ((event as WheelEvent).ctrlKey || (event as WheelEvent).metaKey)) return;
       const target = event.target as Node | null;
       if (target && searchResultsRef.current?.contains(target)) return;
       event.preventDefault();
@@ -255,7 +257,7 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
   return (
     <>
       <header dir="rtl" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 ${overlayHero && !headerScrolled && !mobileSearchOpen ? "border-b border-transparent bg-transparent shadow-none backdrop-blur-none" : "border-b border-white/60 bg-white/65 shadow-[0_6px_28px_rgba(14,14,14,0.09)] backdrop-blur-2xl backdrop-saturate-150"}`}>
-        {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[56px] z-[55] touch-none bg-white/96 md:top-[120px]" />}
+        {searchFocused && <div aria-hidden="true" className="fixed inset-x-0 bottom-0 top-[56px] z-[55] bg-white/96 md:top-[120px]" />}
         <div className="mx-auto max-w-[1500px] px-4 md:px-6 lg:px-8">
           <div className="relative flex h-14 items-center justify-between md:hidden">
             <div className="flex items-center">
@@ -424,7 +426,7 @@ const Navbar = ({ variant, overlayHero = false }: NavbarProps) => {
             )}
 
             {searchPanelOpen && suggestions.length > 0 && (
-              <div ref={searchResultsRef} role="listbox" className="absolute inset-x-0 top-[calc(100%-8px)] z-[75] max-h-[calc(100dvh-135px)] touch-pan-y overflow-y-auto overscroll-contain rounded-2xl border border-[#D8C29A] bg-white shadow-[0_14px_35px_rgba(14,14,14,0.12)] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div ref={searchResultsRef} role="listbox" className="absolute inset-x-0 top-[calc(100%-8px)] z-[75] max-h-[calc(100dvh-135px)] overflow-y-auto overscroll-contain rounded-2xl border border-[#D8C29A] bg-white shadow-[0_14px_35px_rgba(14,14,14,0.12)] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {suggestions.map((suggestion, index) => (
                   <button key={`${suggestion.type}-${suggestion.value}-${index}`} type="button" role="option" onMouseDown={(e) => e.preventDefault()} onClick={() => runSearch(suggestion.value)} className="flex w-full items-center gap-3 border-b border-[#FAFAFA] px-4 py-3 text-right transition-colors last:border-b-0 hover:bg-[#FAFAFA] active:bg-[#F7F7F7]">
                     <MagnifyingGlass size={15} className="shrink-0 text-[#8C6B32]" />

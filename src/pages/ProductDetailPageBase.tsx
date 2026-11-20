@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import ProductImageZoom from "@/components/ProductImageZoom";
+import ProductGallerySwipe from "@/components/ProductGallerySwipe";
 import { Check, ClipboardList, ChevronDown, ChevronLeft, ChevronRight, Heart, Minus, Package, Plus, RotateCcw, Share2, Shield, ShoppingBag, Star, Truck } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -893,7 +893,7 @@ const ProductDetailPage = () => {
     style={{ backgroundImage: galleryPreview ? `url("${galleryPreview}")` : undefined }}
     className="relative h-full w-full bg-contain bg-center bg-no-repeat"
   >
-    <ProductImageZoom onSwipe={displayImages.length > 1 ? (direction) => direction === "left" ? prevImage() : nextImage() : undefined}>
+    <ProductGallerySwipe onSwipe={displayImages.length > 1 ? (direction) => direction === "left" ? prevImage() : nextImage() : undefined}>
         <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(min-width: 1240px) 610px, (min-width: 1024px) 50vw, (min-width: 768px) 660px, calc(100vw - 26px)" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={(event) => {
           const image = event.currentTarget;
           if (galleryPreview && image.getAttribute("src") !== galleryPreview && image.dataset.previewTried !== "1") {
@@ -904,7 +904,7 @@ const ProductDetailPage = () => {
             handleImageError(event);
           }
         }} draggable={false} className="h-full w-full select-none object-contain object-center" />
-    </ProductImageZoom>
+    </ProductGallerySwipe>
   </motion.div>
 
   {/* DISCOUNT */}

@@ -123,7 +123,7 @@ const installStyle = () => {
 };
 
 const preventBackgroundGesture = (event: TouchEvent) => {
-  if (!hasEditSheet()) return;
+  if (event.touches.length > 1 || !hasEditSheet()) return;
 
   const target = event.target as HTMLElement | null;
   if (target?.closest("[data-stage], input[type='range'], input, textarea, button, [data-avatar-actions-menu]")) return;
