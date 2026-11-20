@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { ArrowUp, ArrowUpLeft, Headphones } from "lucide-react";
+import { ArrowUp, ArrowUpLeft, ChevronUp, Globe, Headphones } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 type FooterLink = { label: string; href: string };
 type FooterColumn = { title: string; links: FooterLink[] };
@@ -29,6 +31,11 @@ const discover: FooterColumn = {
     { label: "الأقسام", href: "/categories" },
   ],
 };
+
+const lineTechLinks = [
+  { label: "زيارة الموقع", href: "https://linetech.company/", icon: Globe },
+  { label: "التواصل عبر واتساب", href: "https://wa.me/967773335065", icon: FaWhatsapp },
+];
 
 const FooterLinkColumn = ({ title, links }: FooterColumn) => (
   <nav aria-label={title} className="min-w-0">
@@ -115,24 +122,46 @@ const Footer = () => (
         <span> — جميع الحقوق محفوظة.</span>
       </p>
       <div className="mt-3">
-        <a
-          href="https://linetech.company/"
-          className="inline-flex min-h-[48px] max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-xl border border-[#E4DED3] bg-white px-3 py-2 text-[#4D4943] transition-colors hover:border-[#D8C29A] hover:bg-[#FAF7F1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D8C29A] sm:px-4"
-        >
-          <span className="text-[12px] leading-5">طُوّر بواسطة شركة</span>
-          <span className="inline-flex shrink-0 items-center gap-2">
-            <img
-              src="/brand/linetech-logo.svg"
-              alt="LINETECH"
-              width={116}
-              height={24}
-              loading="lazy"
-              decoding="async"
-              className="h-5 w-auto brightness-0 sm:h-6"
-            />
-            <ArrowUpLeft aria-hidden="true" className="h-3.5 w-3.5 text-[#806537]" strokeWidth={1.7} />
-          </span>
-        </a>
+        <Popover>
+          <PopoverTrigger
+            type="button"
+            className="inline-flex min-h-[48px] max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-xl border border-[#E4DED3] bg-white px-3 py-2 text-[#4D4943] transition-colors hover:border-[#D8C29A] hover:bg-[#FAF7F1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D8C29A] data-[state=open]:border-[#D8C29A] data-[state=open]:bg-[#FAF7F1] sm:px-4"
+          >
+            <span className="text-[12px] leading-5">طُوّر بواسطة شركة</span>
+            <span className="inline-flex shrink-0 items-center gap-2">
+              <img
+                src="/brand/linetech-logo.svg"
+                alt="لاين تك"
+                width={116}
+                height={24}
+                loading="lazy"
+                decoding="async"
+                className="h-5 w-auto brightness-0 sm:h-6"
+              />
+              <ChevronUp aria-hidden="true" className="h-3.5 w-3.5 text-[#806537]" strokeWidth={1.7} />
+            </span>
+          </PopoverTrigger>
+          <PopoverContent
+            aria-label="خيارات التواصل مع لاين تك"
+            dir="rtl"
+            side="top"
+            sideOffset={8}
+            collisionPadding={12}
+            className="w-60 max-w-[calc(100vw-24px)] space-y-1 rounded-xl border-[#E4DED3] bg-white p-1.5"
+          >
+            {lineTechLinks.map(({ label, href, icon: Icon }) => (
+              <a
+                key={href}
+                href={href}
+                className="flex min-h-[48px] items-center gap-3 rounded-lg px-3 py-2 text-right text-sm font-medium text-[#4D4943] transition-colors hover:bg-[#FAF7F1] focus-visible:bg-[#FAF7F1] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#D8C29A]"
+              >
+                <Icon aria-hidden="true" className="h-4 w-4 shrink-0 text-[#806537]" />
+                {label}
+                <ArrowUpLeft aria-hidden="true" className="ms-auto h-3.5 w-3.5 shrink-0 text-[#806537]" />
+              </a>
+            ))}
+          </PopoverContent>
+        </Popover>
       </div>
       <button
         type="button"
