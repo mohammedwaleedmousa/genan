@@ -93,7 +93,7 @@
   }
 
   /* ===== PRODUCT GRIDS — all customer catalog surfaces ===== */
-  body[data-storefront="genan"] main .grid:has(a[href^="/product/"]) {
+  body[data-storefront="genan"] main .grid:has(> a[href^="/product/"], > [data-catalog-product-id]) {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     column-gap: clamp(18px, 2vw, 28px) !important;
     row-gap: clamp(28px, 3vw, 42px) !important;

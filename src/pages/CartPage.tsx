@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { useStore } from "@/store/useStore";
 import { useSiteContent, getSiteText } from "@/hooks/useSiteContent";
 import { useCurrency } from "@/lib/currency";
+import { getCatalogThumbnail, handleCatalogThumbnailError } from "@/lib/catalogThumbnail";
 
 const CartPage = () => {
   const { cart, updateQuantity, removeFromCart, getCartTotal } = useStore();
@@ -66,9 +67,9 @@ const CartPage = () => {
             </Link>
           </section>
         ) : (
-          <section className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-start gap-5 py-1 md:py-2 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-7">
-            <div>
-              <div className="overflow-hidden rounded-3xl bg-white shadow-sm">
+          <section className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-start gap-5 py-1 md:py-2 lg:grid-cols-[minmax(0,1fr)_minmax(290px,32%)] lg:gap-6 xl:gap-7">
+            <div className="min-w-0">
+              <div className="overflow-hidden rounded-3xl border border-[#E8DFD2] bg-white shadow-sm">
                 {cart.map((item, index) => {
                   const variant =
                     item.variantId && item.product.variants
@@ -90,27 +91,29 @@ const CartPage = () => {
                   const itemTotal = unitTotal * item.quantity;
 
                   const image = variant?.images?.[0] || item.product.images?.[0];
+                  const title = item.product.nameAr || item.product.name;
 
                   const stock = item.product.stockQuantity;
                   const maxQuantityReached = typeof stock === "number" && item.quantity >= stock;
 
                   return (
                     <article
-                        key={`${item.product.id}-${item.variantId || "base"}-${item.selectedSize || ""}-${index}`}
+                      key={`${item.product.id}-${item.variantId || "base"}-${item.selectedSize || ""}-${index}`}
                       className="border-b border-[#E7E2D9] bg-white p-4 last:border-b-0 sm:p-6"
                     >
                       <div className="flex gap-3.5 md:gap-5">
                         <Link
                           to={`/product/${item.product.slug}`}
-                          className="relative h-[132px] w-[98px] shrink-0 overflow-hidden rounded-2xl bg-[#F5F3EF] sm:h-[168px] sm:w-[126px]"
+                          className="relative h-[132px] w-[98px] shrink-0 overflow-hidden rounded-2xl bg-[#F5F3EF] sm:h-[152px] sm:w-[120px]"
                         >
                           {image ? (
                             <img
-                              src={image}
-                              alt={item.product.nameAr}
+                              src={getCatalogThumbnail(image) || image}
+                              alt={title}
                               loading="lazy"
                               decoding="async"
-                              className="h-full w-full object-cover"
+                              onError={(event) => handleCatalogThumbnailError(event.currentTarget, image)}
+                              className="h-full w-full object-contain"
                             />
                           ) : (
                             <div className="flex h-full w-full items-center justify-center">
@@ -135,8 +138,8 @@ const CartPage = () => {
                                 </p>
                               )}
 
-                              <h3 className="line-clamp-2 text-[14px] font-semibold leading-[1.6] text-[#171717] md:text-[15px]">
-                                {item.product.nameAr}
+                              <h3 className="line-clamp-2 text-[14px] font-semibold leading-[1.6] text-[#171717] md:text-[16px]">
+                                {title}
                               </h3>
                             </Link>
 
@@ -191,10 +194,11 @@ const CartPage = () => {
                             )}
                           </div>
 
-                          <div className="mt-4 flex items-end justify-between gap-3 md:mt-6">
-                            <div className="flex h-10 items-center overflow-hidden rounded-2xl border border-[#E8DFD2] bg-[#F7F4EE]">
+                          <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+                            <div className="flex h-10 shrink-0 items-center overflow-hidden rounded-2xl border border-[#E8DFD2] bg-[#F7F4EE]">
                               <button
                                 type="button"
+                                aria-label="تقليل الكمية"
                                 onClick={() => {
                                   if (item.quantity <= 1) return;
                                   updateQuantity(item.product.id, item.quantity - 1, item.variantId);
@@ -211,6 +215,7 @@ const CartPage = () => {
 
                               <button
                                 type="button"
+                                aria-label="زيادة الكمية"
                                 onClick={() => {
                                   if (maxQuantityReached) return;
                                   updateQuantity(item.product.id, item.quantity + 1, item.variantId);
@@ -222,12 +227,9 @@ const CartPage = () => {
                               </button>
                             </div>
 
-                            <div className="text-left">
-                              
-                              <span className="mt-1 block text-[11px] font-semibold leading-none text-[#8C6B32] md:text-[13px]">
-                                {formatCurrency(itemTotal)}
-                              </span>
-                            </div>
+                            <span className="whitespace-nowrap text-[11px] font-semibold text-[#8C6B32] md:text-[13px]">
+                              {formatCurrency(itemTotal)}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -237,8 +239,8 @@ const CartPage = () => {
               </div>
             </div>
 
-            <aside className="lg:relative">
-              <div className="overflow-hidden rounded-3xl border border-[#E8DFD2] bg-white p-5 shadow-[0_14px_36px_rgba(28,22,12,0.055)] lg:sticky lg:top-24 lg:p-6">
+            <aside className="min-w-0 rounded-3xl border border-[#E8DFD2] bg-white shadow-[0_14px_36px_rgba(28,22,12,0.055)] lg:sticky lg:top-[158px]">
+              <div className="p-5 lg:p-6">
                 <h2 className="mb-5 text-[18px] font-semibold text-[#171717]">{getSiteText(content, "cart_summary_title", "ملخص الطلب")}</h2>
                 <div className="border-b border-[#E7E2D9] pb-4">
                   <div className="flex items-center justify-between">
