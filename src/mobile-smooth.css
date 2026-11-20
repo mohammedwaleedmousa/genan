@@ -33,26 +33,6 @@
   main.overflow-hidden.bg-background > div > section {
     background-color: #ffffff !important;
   }
-
-  /*
-   * ProductDetailPage uses react-zoom-pan-pinch around the hero image.
-   * Keep the wrapper sized to the product gallery on phones, but do not
-   * override the transform applied by the zoom library. Overriding it with
-   * `transform: none` prevents pinch zoom from ever becoming visible.
-   */
-  .react-transform-wrapper,
-  .react-transform-component {
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  .react-transform-component img[fetchpriority="high"],
-  .react-transform-component img[fetchPriority="high"] {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    content-visibility: visible !important;
-  }
 }
 
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {

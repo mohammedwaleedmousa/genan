@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import ProductImageZoom from "@/components/ProductImageZoom";
 import { Check, ClipboardList, ChevronDown, ChevronLeft, ChevronRight, Heart, Minus, Package, Plus, RotateCcw, Share2, Shield, ShoppingBag, Star, Truck } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -885,9 +885,15 @@ const ProductDetailPage = () => {
     </button>
   </div>
   {/* MAIN PRODUCT */}
-  <motion.div key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}`} initial={{ opacity: 0.65 }} animate={{ opacity: 1 }} transition={{ duration: 0.14 }} drag={displayImages.length > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.1} dragMomentum={false} onDragEnd={(_, info) => { if (displayImages.length <= 1) return; if (info.offset.x < -55 || info.velocity.x < -450) { prevImage(); return; } if (info.offset.x > 55 || info.velocity.x > 450) { nextImage(); } }} style={{ touchAction: "pan-y", backgroundImage: galleryPreview ? `url("${galleryPreview}")` : undefined }} className="h-full w-full cursor-grab bg-contain bg-center bg-no-repeat active:cursor-grabbing">
-    <TransformWrapper minScale={1} maxScale={4} centerOnInit centerZoomedOut limitToBounds panning={{ disabled: true }} wheel={{ disabled: true }} doubleClick={{ disabled: true }}>
-      <TransformComponent wrapperClass="!h-full !w-full !overflow-hidden" contentClass="!h-full !w-full">
+  <motion.div
+    key={`${activeColorVariant?.name || "default"}-${selectedQualityIdx ?? "default"}-${safeSelectedImage}-${currentImage}`}
+    initial={{ opacity: 0.65 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.14 }}
+    style={{ backgroundImage: galleryPreview ? `url("${galleryPreview}")` : undefined }}
+    className="relative h-full w-full bg-contain bg-center bg-no-repeat"
+  >
+    <ProductImageZoom onSwipe={displayImages.length > 1 ? (direction) => direction === "left" ? prevImage() : nextImage() : undefined}>
         <img src={optimizeImage(currentImage, 1400, 84)} srcSet={createImageSrcSet(currentImage, [480, 720, 960, 1200, 1400], 82)} sizes="(min-width: 1240px) 610px, (min-width: 1024px) 50vw, (min-width: 768px) 660px, calc(100vw - 26px)" alt={product.nameAr || product.name} loading="eager" fetchPriority="high" decoding="async" width={1400} height={1750} onError={(event) => {
           const image = event.currentTarget;
           if (galleryPreview && image.getAttribute("src") !== galleryPreview && image.dataset.previewTried !== "1") {
@@ -898,8 +904,7 @@ const ProductDetailPage = () => {
             handleImageError(event);
           }
         }} draggable={false} className="h-full w-full select-none object-contain object-center" />
-      </TransformComponent>
-    </TransformWrapper>
+    </ProductImageZoom>
   </motion.div>
 
   {/* DISCOUNT */}

@@ -64,25 +64,3 @@
     display: none !important;
   }
 }
-
-/* Product detail hero: fill the frame while keeping the product's top visible. */
-.react-transform-wrapper,
-.react-transform-component {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.react-transform-component {
-  display: flex !important;
-  align-items: flex-start !important;
-  justify-content: center !important;
-}
-
-.react-transform-component > img {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: cover !important;
-  object-position: center top !important;
-}
